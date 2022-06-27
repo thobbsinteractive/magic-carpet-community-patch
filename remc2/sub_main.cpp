@@ -6159,6 +6159,7 @@ __int16 x_WORD_F4960[0x340]; // fix it -  weak
 type_F4FE0 str_F4FE0[70];
 //__int16 x_WORD_F4FE0[0x1a8]; // fix it -  weak
 uint8_t x_BYTE_F5538[504]; // idb
+type_particle_str** str_DWORD_F66F0x[504]; // idb//2c76f0 //type_particle_str?
 uint8_t x_BYTE_F6EE0_tablesx[0x14600];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
 uint8_t* x_BYTE_F6EE0_tablesx_pre = (uint8_t*)x_BYTE_F6EE0_tablesx;
 uint8_t* x_BYTE_FAEE0_tablesx_pre = (uint8_t*)&x_BYTE_F6EE0_tablesx[0x4000];
