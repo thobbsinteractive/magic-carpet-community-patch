@@ -47,6 +47,7 @@ int test_regression_level = 0;
 	#define FIX_FLYASISTANT
 	#define LOAD_EDITED_LEVEL
 	int debugafterload = 0;
+	bool hideGraphics = false;
 #elif defined(PLAYING_GAME) //this is setting for autosavegame
 	#define DETECT_DWORD_A
 	#define AUTO_CHANGE_RES

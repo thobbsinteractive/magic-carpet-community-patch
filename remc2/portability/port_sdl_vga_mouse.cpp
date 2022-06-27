@@ -137,7 +137,6 @@ Uint8* VGA_Get_pallette() {
 uint16_t lastResHeight=0;
 
 void SetPallette(SDL_Color* colours) {
-	
 	memcpy(m_currentPalletColours, colours, sizeof(SDL_Color) * 256);
 	if (m_gamePalletisedSurface)
 	{
@@ -246,7 +245,7 @@ void Draw_debug_matrix0() {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
 };
 
 void Draw_debug_matrix1() {
@@ -271,7 +270,7 @@ void Draw_debug_matrix1() {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
 };
 
 uint8_t fontbuffer[256 * 256];
@@ -744,6 +743,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
+if (hideGraphics)return;
 	events();
 
 	if (height != m_gamePalletisedSurface->h)
