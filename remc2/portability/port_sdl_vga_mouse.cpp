@@ -105,10 +105,10 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			m_gameRGBASurface =
 				SDL_ConvertSurfaceFormat(
-					m_gameRGBASurface, SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/, 0);
+					m_gameRGBASurface, SDL_PIXELFORMAT_RGB888, 0);
 
 			m_texture = SDL_CreateTexture(m_renderer,
-				SDL_PIXELFORMAT_RGB888/*SDL_PIXELFORMAT_ARGB8888*/,
+				SDL_PIXELFORMAT_RGB888,
 				SDL_TEXTUREACCESS_STREAMING,
 				m_gameRGBASurface->w, m_gameRGBASurface->h);
 
@@ -141,7 +141,7 @@ void SetPallette(SDL_Color* colours) {
 	if (m_gamePalletisedSurface)
 	{
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
-		SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
+		SubBlit(m_iOrigw, m_iOrigh);
 	}
 }
 
@@ -245,7 +245,7 @@ void Draw_debug_matrix0() {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
+	SubBlit(m_iOrigw, m_iOrigh);
 };
 
 void Draw_debug_matrix1() {
@@ -270,7 +270,7 @@ void Draw_debug_matrix1() {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
+	SubBlit(m_iOrigw, m_iOrigh);
 };
 
 uint8_t fontbuffer[256 * 256];
@@ -383,7 +383,7 @@ void VGA_Draw_string(char* wrstring) {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
+	SubBlit(m_iOrigw, m_iOrigh);
 	mydelay(10);
 }
 
@@ -466,6 +466,30 @@ void VGA_Set_pallette2(Uint8* pallettebuffer) {
 
 void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
+}
+
+void VGA_test() {
+	int x = m_gamePalletisedSurface->w / 2;
+	int y = m_gamePalletisedSurface->h / 2;
+
+	/* Lock the screen for direct access to the pixels */
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for (int i = 0; i < 600; i++)
+		for (int j = 0; j < 400; j++)
+			putpixel(m_gamePalletisedSurface, i, j, 127);
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	/* Update just the part of the display that we've changed */
+
+	SubBlit(m_iOrigw, m_iOrigh);
 }
 
 /*
@@ -831,6 +855,51 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
+}
+
+void VGA_Init_test() {//only for debug
+	/* Create a display surface with a grayscale palette */
+	SDL_Color colors[256];
+	//neco
+			/* Fill colors with color information */
+	for (int i = 0; i < 256; i++) {
+		colors[i].r = i;
+		colors[i].g = i;
+		colors[i].b = i;
+	}
+
+	/* Create display */
+
+	if (!m_gamePalletisedSurface) {
+		printf("Couldn't set video mode: %s\n", SDL_GetError());
+		exit(-1);
+	}
+
+	/* Set palette */
+
+	SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, colors, 0, 256);
+
+	int x = m_gamePalletisedSurface->w / 2;
+	int y = m_gamePalletisedSurface->h / 2;
+
+	/* Lock the screen for direct access to the pixels */
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		if (SDL_LockSurface(m_gamePalletisedSurface) < 0) {
+			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
+			return;
+		}
+	}
+
+	for (int i = 0; i < 600; i++)
+		for (int j = 0; j < 400; j++)
+			putpixel(m_gamePalletisedSurface, i, j, 127);
+
+	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
+		SDL_UnlockSurface(m_gamePalletisedSurface);
+	}
+	/* Update just the part of the display that we've changed */
+
+	SDL_UpdateWindowSurface(m_window);
 }
 
 void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
