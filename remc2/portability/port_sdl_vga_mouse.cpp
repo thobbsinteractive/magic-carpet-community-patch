@@ -766,18 +766,18 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 	SDL_WarpMouseInWindow(m_window, x, y);
 };
 
-void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
+void VGA_Blit(Uint8* srcBuffer) {
 if (hideGraphics)return;
 	events();
 
-	if (height != m_gamePalletisedSurface->h)
+	if (m_iOrigh != m_gamePalletisedSurface->h)
 	{
 		SDL_RenderClear(m_renderer);
 		SDL_FreeSurface(m_gamePalletisedSurface);
 
 		m_gamePalletisedSurface =
 			SDL_CreateRGBSurface(
-				SDL_SWSURFACE, width, height, 24,
+				SDL_SWSURFACE, m_iOrigw, m_iOrigh, 24,
 				redMask, greenMask, blueMask, alphaMask);
 
 		m_gamePalletisedSurface =
@@ -786,7 +786,7 @@ if (hideGraphics)return;
 
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
 
-		lastResHeight = height;
+		lastResHeight = m_iOrigh;
 	}
 
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -801,7 +801,7 @@ if (hideGraphics)return;
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(width, height);
+	SubBlit(m_iOrigw, m_iOrigh);
 	SOUND_UPDATE();
 }
 
@@ -903,7 +903,7 @@ void VGA_Init_test() {//only for debug
 }
 
 void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
-	VGA_Blit(width, height, buffer);
+	VGA_Blit(buffer);
 }
 
 void VGA_close()
