@@ -1443,7 +1443,7 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_417A0_install_pal_and_mouse_minmax()//2227a0
 {
 	//sub_90810();
-	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.var28_begin_buffer);
+	sub_41A90_VGA_pallette_install((TColor*)*xadatapald0dat2.colorPallette_var28);
 	sub_6EF10_set_mouse_minmax(0, 640, 0, 400);
 }
 // EA3D8: using guessed type int *xadatapald0dat2.var28_begin_buffer;
