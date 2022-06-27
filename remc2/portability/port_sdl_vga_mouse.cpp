@@ -767,7 +767,7 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
-if (hideGraphics)return;
+	if (hideGraphics)return;
 	events();
 
 	if (m_iOrigh != m_gamePalletisedSurface->h)
