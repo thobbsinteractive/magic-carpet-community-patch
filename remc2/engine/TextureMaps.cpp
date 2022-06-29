@@ -8,6 +8,7 @@ FILE* x_DWORD_DB740_tmaps00file;
 FILE* x_DWORD_DB744_tmaps10file;
 FILE* x_DWORD_DB748_tmaps20file;
 
+type_particle_str** str_DWORD_F66F0x[504];
 char m_LevelSpriteList_F5340[504];
 int32_t x_DWORD_F5730[504];
 subtype_x_DWORD_E9C28_str* str_F5F10[504];
