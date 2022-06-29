@@ -426,6 +426,9 @@
     <ClInclude Include="engine\Type_SecretMapScreenPortals_E2970.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\GameRenderInterface.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

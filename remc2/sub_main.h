@@ -9,6 +9,7 @@
 //#include <vld.h>//only for debug
 
 #include <array>
+#include <typeinfo>
 
 #include "utilities/DataFileIO.h"
 #include "utilities/BitmapIO.h"
@@ -23,6 +24,7 @@
 #include "engine/Sound.h"
 #include "engine/Type_Animations.h"
 #include "engine/Animation.h"
+#include "engine/GameRenderInterface.h"
 #include "engine/GameRender.h"
 
 //#define __CFSHL__(x, y) (x<<y)
