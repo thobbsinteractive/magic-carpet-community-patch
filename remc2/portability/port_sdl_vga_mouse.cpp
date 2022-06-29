@@ -141,7 +141,7 @@ void SetPallette(SDL_Color* colours) {
 	if (m_gamePalletisedSurface)
 	{
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
-		SubBlit(m_iOrigw, m_iOrigh);
+		SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
 	}
 }
 
@@ -383,7 +383,7 @@ void VGA_Draw_string(char* wrstring) {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(m_gamePalletisedSurface->w, m_gamePalletisedSurface->h);
 	mydelay(10);
 }
 
@@ -767,17 +767,21 @@ void VGA_Set_mouse(int16_t x, int16_t y) {
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
+	VGA_Blit(m_iOrigw, m_iOrigh, srcBuffer);
+}
+
+void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer) {
 	if (hideGraphics)return;
 	events();
 
-	if (m_iOrigh != m_gamePalletisedSurface->h)
+	if (height != m_gamePalletisedSurface->h)
 	{
 		SDL_RenderClear(m_renderer);
 		SDL_FreeSurface(m_gamePalletisedSurface);
 
 		m_gamePalletisedSurface =
 			SDL_CreateRGBSurface(
-				SDL_SWSURFACE, m_iOrigw, m_iOrigh, 24,
+				SDL_SWSURFACE, width, height, 24,
 				redMask, greenMask, blueMask, alphaMask);
 
 		m_gamePalletisedSurface =
@@ -786,7 +790,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 
 		SDL_SetPaletteColors(m_gamePalletisedSurface->format->palette, m_currentPalletColours, 0, 256);
 
-		lastResHeight = m_iOrigh;
+		lastResHeight = height;
 	}
 
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
@@ -801,7 +805,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
-	SubBlit(m_iOrigw, m_iOrigh);
+	SubBlit(width, height);
 	SOUND_UPDATE();
 }
 
@@ -903,7 +907,7 @@ void VGA_Init_test() {//only for debug
 }
 
 void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
-	VGA_Blit(buffer);
+	VGA_Blit(width, height, buffer);
 }
 
 void VGA_close()

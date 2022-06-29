@@ -30,6 +30,7 @@ bool VGA_LoadFont();
 void VGA_close();
 void VGA_Resize(int width, int height);
 void VGA_Blit(Uint8* srcBuffer);
+void VGA_Blit(uint16_t width, uint16_t height, Uint8* srcBuffer);
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight);
 void VGA_Debug_Blit(int width, int height, Uint8* srcBuffer);
 void VGA_Set_pallette(Uint8* pallettebuffer);
