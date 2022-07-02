@@ -57,6 +57,8 @@ set(SOURCE_FILES_ENGINE
     "engine/XUnk_D4350.h"
     "engine/RenderThread.cpp"
     "engine/RenderThread.h"
+    "engine/GLGameRender.cpp"
+    "engine/GLGameRender.h"
     "utilities/BitmapIO.cpp"
     "utilities/BitmapIO.h"
     "utilities/DataFileIO.cpp"
