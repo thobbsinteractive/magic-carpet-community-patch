@@ -26,6 +26,7 @@
 #include "engine/Animation.h"
 #include "engine/GameRenderInterface.h"
 #include "engine/GameRender.h"
+#include "engine/GLGameRender.h"
 
 //#define __CFSHL__(x, y) (x<<y)
 //#define __CFSHL__(x, y) 1

@@ -27473,7 +27473,14 @@ void DrawGameFrame_2BE30(uint8_t* ptrScreenBuffer, uint16_t screenWidth, uint16_
 
 	if (m_ptrGameRender == nullptr)
 	{
-		m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.colorPallette_var28, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		if (openGLRender)
+		{
+			m_ptrGameRender = new GLGameRender(screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_BYTE_F6EE0_tablesx);
+		}
+		else
+		{
+			m_ptrGameRender = new GameRender(ptrScreenBuffer, *xadatapald0dat2.colorPallette_var28, screenWidth, screenHeight, 0, 0, screenWidth, screenHeight, x_DWORD_DDF50_texture_adresses, x_BYTE_F6EE0_tablesx, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+		}
 	}
 
 	int16_t spellLeftPosX = screenWidth - 130;
