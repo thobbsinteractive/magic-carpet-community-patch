@@ -128,9 +128,11 @@ void SOUND_set_sequence_volume(int32_t volume) {
 void SOUND_init_MIDI_sequence(uint8_t*  /*datax*/, type_E3808_music_header* headerx, int32_t track_number)
 {
 	//uint8_t* acttrack = &header[32 + track_number * 32];
-	uint8_t* acttrack = headerx->str_8.track_10[track_number].dword_0;
+	uint8_t* acttrack = headerx->str_8.track_10[track_number].wav_data;
 	//int testsize = *(uint32_t*)(&header[32 + (track_number + 1) * 32] + 18) - *(uint32_t*)(acttrack + 18);
-	int testsize2 = *(uint32_t*)(acttrack + 26);
+	// FIXME: runtime error: load of misaligned address 0xcf01881a for type 'uint32_t', which requires 4 byte alignment
+	//int testsize2 = *(uint32_t*)(acttrack + 26);
+	int testsize2 = headerx->str_8.track_10[track_number].wav_size;
 
 	//we can translate datax from xmi to mid and play(with bad quality or slow midi emulators), at now but we use ogg samples
 	//unsigned char* TranscodeXmiToMid(const unsigned char* pXmiData,	size_t iXmiLength, size_t* pMidLength);
