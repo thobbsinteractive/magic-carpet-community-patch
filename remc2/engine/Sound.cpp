@@ -9163,20 +9163,20 @@ LABEL_24:
 //----- (0008EC90) --------------------------------------------------------
 void GetMusicSequenceCount()//26fc90 // set index
 {
-	//uint8_t* v1; // [esp+0h] [ebp-4h]
 	int v1x;
 
 	if (str_E3808_music_header && array_E3810_music_data)
 	{
-		//v1 = (uint8_t*)x_DWORD_E3808_music_header + 32;
 		v1x = 0;
-		//for (m_iNumberOfTracks = 0; str_E3808_music_header->str_8.track_10[v1x].filename_14 < x_DWORD_E380C; m_iNumberOfTracks++)
 		for (m_iNumberOfTracks = 0; v1x < index_E380C_CountOfMusic; m_iNumberOfTracks++)
 		{
-			//str_E3808_music_header->str_8.track_10[v1x].dword_0+= (int)str_E3810_music_data;
-			str_E3808_music_header->str_8.track_10[v1x].wav_data = &array_E3810_music_data[(int)str_E3808_music_header->str_8.track_10[v1x].wav_data];
-			//*(x_DWORD*)(v1 + 18) += (int)x_DWORD_E3810_music_data;
-			//v1 += 32;
+#ifdef x32_BIT_ENVIRONMENT
+			uint32_t music_data_offset = reinterpret_cast<uint32_t>(str_E3808_music_header->str_8.track_10[v1x].wav_data);
+#endif //x32_BIT_ENVIRONMENT
+#ifdef x64_BIT_ENVIRONMENT
+			uint64_t music_data_offset = reinterpret_cast<uint64_t>(str_E3808_music_header->str_8.track_10[v1x].wav_data);
+#endif //x64_BIT_ENVIRONMENT
+			str_E3808_music_header->str_8.track_10[v1x].wav_data = &array_E3810_music_data[music_data_offset];
 			v1x++;
 		}
 	}
