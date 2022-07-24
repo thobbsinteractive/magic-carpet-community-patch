@@ -4427,6 +4427,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								v132--;
 							}
 							v165 = (x_DWORD*)(&x_DWORD_E9C38_smalltit[45920]);
+
+							//Draw to buffer
 							for (i = v159; i; i--)
 							{
 								v133 = v165[1];
@@ -4471,6 +4473,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 												v54x = &v169x[-2];
 												goto LABEL_200;
 											}
+											//Draw individual Sprite Line
 											while (1)
 											{
 												v59 = v51x[0];
