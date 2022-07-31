@@ -2029,7 +2029,7 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x
 						str_F2C20ar.dword0x01_rotIdx = v39;
 						str_F2C20ar.dword0x09_realWidth++;
 						str_F2C20ar.dword0x0c_realHeight++;
-						DrawSprite_41BD3(2u);
+						DrawSprite_41BD3_TH(2u);
 						break;
 					default:
 						goto LABEL_70;
@@ -3464,7 +3464,7 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 									else
 										str_F2C20ar.dword0x00 = v47 + 0x2000;
 									str_F2C20ar.dword0x01_rotIdx = 8;
-									DrawSprite_41BD3(0);
+									DrawSprite_41BD3_TH(0);
 								}
 								break;
 							default:
@@ -3830,7 +3830,7 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 					}
 					str_F2C20ar.dword0x09_realWidth++;
 					str_F2C20ar.dword0x0c_realHeight++;
-					DrawSprite_41BD3(1u);
+					DrawSprite_41BD3_TH(1u);
 					break;
 				default:
 					goto LABEL_164;
@@ -3842,8 +3842,38 @@ void GameRenderHD::DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F6
 	} while (result);
 }
 
-void GameRenderHD::DrawSprite_41BD3(uint32 a1)
+void GameRenderHD::DrawSprite_41BD3_TH(uint32 a1)
 {
+	//if (m_renderThreads.size() > 0)
+	//{
+	//	uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
+	//	uint8_t i = 0;
+
+	//	for (i = 0; i < m_renderThreads.size(); i++)
+	//	{
+	//		m_renderThreads[i]->Run([this, a1, i, drawEveryNthLine] {
+	//			this->DrawSprite_41BD3(a1, i, drawEveryNthLine);
+	//			});
+	//	}
+
+	//	this->DrawSprite_41BD3(a1, i, drawEveryNthLine);
+
+	//	WaitForRenderFinish();
+
+	//}
+	//else
+	//{
+		DrawSprite_41BD3(a1, 0, 2);
+	//}
+}
+
+void GameRenderHD::DrawSprite_41BD3(uint32 a1, uint8_t startLine, uint8_t drawEveryNthLine)
+{
+	if (drawEveryNthLine < 1)
+	{
+		drawEveryNthLine = 1;
+	}
+
 	int8_t* v2x; // ebx
 	x_DWORD* v3; // esi
 	uint8_t* v4; // edi

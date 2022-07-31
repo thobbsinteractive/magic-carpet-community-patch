@@ -77,7 +77,8 @@ private:
 	void DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEveryNthLine);
 	void DrawSky_40950_TH(int16_t roll);
 	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
-	void DrawSprite_41BD3(uint32 a1);
+	void DrawSprite_41BD3(uint32 a1, uint8_t startLine, uint8_t drawEveryNthLine);
+	void DrawSprite_41BD3_TH(uint32 a1);
 	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index);
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture);
