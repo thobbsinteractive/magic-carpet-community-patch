@@ -30,6 +30,7 @@
 **/remc2_without_xcopy.exe
 **/remc2_without_xcopy.exp
 **/remc2_without_xcopy.lib
+**/remc2.exe.recipe
 /packages
 **/Netherw
 /debug.txt
