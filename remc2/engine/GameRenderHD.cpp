@@ -406,6 +406,9 @@ void GameRenderHD::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEv
 	}
 }
 
+/*
+* Draws Terrain, Sprites and Particals using a Painter's algorithm.
+*/
 void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int v9; // eax
@@ -424,7 +427,6 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char v22; // ch
 	int v23; // eax
 	uint8_t* v25x; // edi
-	int v25z;
 	unsigned __int16 v26; // dx
 	int v27; // ebx
 	int v28; // eax
@@ -456,54 +458,6 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	signed int v54; // esi
 	signed int v55; // esi
 	int v56x;
-	int v57x;
-	char v58; // ah
-	int jx;
-	char v60; // dl
-	char v61; // dh
-	char v62; // ch
-	char v63; // ah
-	char v64; // dl
-	char v65; // dh
-	char v66; // ch
-	char v67; // dl
-	int v68x;
-	int v69; // eax
-	char v71; // dl
-	char v72; // dh
-	char v73; // ch
-	char v74; // ah
-	char v75; // dl
-	char v76; // dh
-	char v77; // ch
-	char v78; // dl
-	char v79; // dh
-	int v80x;
-	int v82x;
-	int v83x;
-	char v84; // dl
-	char v85; // cl
-	char v86; // dh
-	char v87; // al
-	char v88; // dl
-	char v89; // dh
-	int v90; // eax
-	int v91x; // ebx
-	char v92; // cl
-	char v93; // dl
-	int v94x;
-	//char v96; // al
-	char v97; // dl
-	char v98; // dh
-	char v99; // ah
-	char v100; // dl
-	char v101; // dh
-	char v102; // ch
-	int v103; // eax
-	int v104x;
-	char v105; // dl
-	char v106; // dh
-	int v107x;
 	signed int v109; // esi
 	int v110; // ebx
 	unsigned __int16 v111; // dx
@@ -528,62 +482,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v130; // edx
 	signed int v131; // esi
 	signed int v132; // esi
-	int v133x;
-	int v134x;
-	int v135; // eax
-	char v136; // dl
-	char v137; // ch
-	char v138; // dl
-	int v139; // eax
-	int v140x;
-	//int v141; // eax
-	char v142; // ch
-	int v143x;
-	char v144; // dl
-	int v145; // eax
-	int v147x;
-	char v148; // dl
-	char v149; // dl
-	int v150; // eax
-	int v151x;
-	int v152; // eax
-	char v153; // cl
-	int v154; // eax
-	int v155x;
-	char v156; // dl
-	int v157; // eax
 	//int v159; // eax
-	int v160;
-	int v161;
-	int v162; // eax
-	char v163; // dl
-	char v164; // dh
-	char v165; // ah
-	char v166; // dl
-	char v167; // dh
-	int v168; // eax
-	int v169x;
-	char v170; // ch
-	int v171; // eax
-	int v172x;
-	char v173; // dl
-	char v174; // dh
-	int v177x;
-	int v178x;
-	char v179; // dl
-	char v180; // ch
-	char v181; // dh
-	char v182; // ah
-	char v183; // dl
-	char v184; // dh
-	int v185; // eax
-	int v186x;
-	int v187; // eax
-	int v188; // eax
-	char v189; // ch
-	int v190x;
-	char v191; // dl
-	char v192; // dh
 	//char v194; // ch
 	//char v196; // ch
 	int v197; // ecx
@@ -632,13 +531,12 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v243x;
 	char v244; // dl
 	char v245; // dh
-	std::vector<int> v248x(33);  //[33]; // [esp+0h] [ebp-62h]//v248x[0]
+	std::vector<int> projectedVertexBuffer(33);  //[33]; // [esp+0h] [ebp-62h]//v248x[0]
 	uint8_t* v277; // [esp+84h] [ebp+22h]
 	//uint8_t* v278;
 	int v278x;
 	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
 	char l; // [esp+90h] [ebp+2Eh]
-	char v281; // [esp+94h] [ebp+32h]
 	char v282; // [esp+98h] [ebp+36h]
 	char v283; // [esp+9Ch] [ebp+3Ah]
 	char k; // [esp+A0h] [ebp+3Eh]
@@ -650,7 +548,6 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char n; // [esp+B8h] [ebp+56h]
 	char ii; // [esp+BCh] [ebp+5Ah]
 	char kk; // [esp+C0h] [ebp+5Eh]
-	char v293; // [esp+C4h] [ebp+62h]
 
 	int a1;
 	int a2;
@@ -668,8 +565,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	str_F2C20ar.dword0x0f = v10;
 	v11 = Maths::x_DWORD_DB750[v9 - 0x100];
 	v12 = ((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF;
-	v248x[32] = (v9 >> 9) & 3;
-	v248x[30] = Maths::x_DWORD_DB750[0x200 + v12];
+	projectedVertexBuffer[32] = (v9 >> 9) & 3;
+	projectedVertexBuffer[30] = Maths::x_DWORD_DB750[0x200 + v12];
 	str_F2C20ar.dword0x17 = v11;
 	v13 = Maths::x_DWORD_DB750[v12];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
@@ -678,8 +575,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
 			+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
 		* fov >> 11;
-	v277 = unk_D4328x + 10 * v248x[32];
-	switch ((unsigned __int8)v248x[32])//fixed? //rotations
+	v277 = unk_D4328x + 10 * projectedVertexBuffer[32];
+	switch ((unsigned __int8)projectedVertexBuffer[32])//fixed? //rotations
 	{
 	case 0u:
 		a2 = (unsigned __int8)posY - 256;
@@ -704,13 +601,13 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	v15x = 0;
 	do//filling first pointer of x_DWORD_E9C38_smalltit(3f52a4)//prepare billboards
 	{
-		v248x[29] = a1 * v13 >> 16;
+		projectedVertexBuffer[29] = a1 * v13 >> 16;
 		v16 = 21;
-		v248x[28] = a1 * (signed int)v248x[30] >> 16;
+		projectedVertexBuffer[28] = a1 * (signed int)projectedVertexBuffer[30] >> 16;
 		while (v16)
 		{
-			Str_E9C38_smalltit[v15x].dword0_rot = v248x[28];
-			Str_E9C38_smalltit[v15x].dword12 = v248x[29];
+			Str_E9C38_smalltit[v15x].dword0_rot = projectedVertexBuffer[28];
+			Str_E9C38_smalltit[v15x].dword12 = projectedVertexBuffer[29];
 			if (a1 < 0)
 				Str_E9C38_smalltit[v15x].word38 = 0;
 			else
@@ -727,12 +624,12 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	v18x = 0;
 	while (v17)
 	{
-		v248x[27] = a2 * v13 >> 16;
+		projectedVertexBuffer[27] = a2 * v13 >> 16;
 		v19 = 40;
-		v20 = a2 * (signed int)v248x[30] >> 16;
+		v20 = a2 * (signed int)projectedVertexBuffer[30] >> 16;
 		while (v19)
 		{
-			Str_E9C38_smalltit[v18x].dword0_rot -= v248x[27];
+			Str_E9C38_smalltit[v18x].dword0_rot -= projectedVertexBuffer[27];
 			Str_E9C38_smalltit[v18x].dword12 += v20;// +v21;
 			v18x++;
 			v19--;
@@ -783,9 +680,9 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			DrawSky_40950(roll, 0, 1);
 		}
 	}
+	//Cave Level Render
 	if (isCaveLevel_D41B6)//21d3e3 cleaned screen
 	{
-		//Cave Level Render
 		for (i = 21; ; i--)
 		{
 			if (!i)
@@ -795,17 +692,17 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				while (v46)
 				{
 					v48 = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword20) >> 16) + str_F2C20ar.dword0x24;
-					v248x[25] = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword28) >> 16) + str_F2C20ar.dword0x24;
+					projectedVertexBuffer[25] = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword28) >> 16) + str_F2C20ar.dword0x24;
 					v49 = Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x0d;
-					v248x[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword20) >> 16);
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword20) >> 16);
 					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword28) >> 16);
 					Str_E9C38_smalltit[v47x].dword16 = v48;
 					v51 = v50;
-					v52 = v248x[24];
+					v52 = projectedVertexBuffer[24];
 					Str_E9C38_smalltit[v47x].dword28 = v51;
 					Str_E9C38_smalltit[v47x].dword20 = v52;
 					v53 = Str_E9C38_smalltit[v47x].dword16;
-					Str_E9C38_smalltit[v47x].dword24 = v248x[25];
+					Str_E9C38_smalltit[v47x].dword24 = projectedVertexBuffer[25];
 					if (v53 >= 0)
 					{
 						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].dword16)
@@ -847,200 +744,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					v47x++;
 					v46--;
 				}
-				v57x = 800;
-				v281 = 20;
-				do
-				{
-					v58 = 39;
-					for (jx = v57x; ; jx = (v80x + 1))
-					{
-						v293 = v58;
-						if (!v58)
-							break;
-						v248x[18] = Str_E9C38_smalltit[jx].dword24;
-						v248x[19] = Str_E9C38_smalltit[jx].dword28;
-						v248x[22] = Str_E9C38_smalltit[jx].dword32;
-						jx++;
-						v60 = Str_E9C38_smalltit[jx - 1].word38;
-						v61 = Str_E9C38_smalltit[jx - 1].word38;
-						if (Str_E9C38_smalltit[jx].word38 & 4)
-							break;
-						v248x[12] = Str_E9C38_smalltit[jx].dword24;
-						v248x[13] = Str_E9C38_smalltit[jx].dword28;
-						v248x[16] = Str_E9C38_smalltit[jx].dword32;
-						v62 = Str_E9C38_smalltit[jx].word38;
-						v248x[6] = Str_E9C38_smalltit[jx - 40].dword24;
-						v248x[7] = Str_E9C38_smalltit[jx - 40].dword28;
-						v248x[10] = Str_E9C38_smalltit[jx - 40].dword32;
-
-						v63 = Str_E9C38_smalltit[jx - 40].word38;
-						v64 = v63 | v62 | v60;
-						v65 = v63 & v62 & v61;
-						v248x[0] = Str_E9C38_smalltit[jx - 41].dword24;
-						v248x[1] = Str_E9C38_smalltit[jx - 41].dword28;
-						v248x[4] = Str_E9C38_smalltit[jx - 41].dword32;
-						v66 = Str_E9C38_smalltit[jx - 41].word38;
-						v67 = v66 | v64;
-						v68x = jx - 1;
-						if ((v66 & v65 & 0x80u) == 0)
-						{
-							if (Str_E9C38_smalltit[v68x].word38 & 0x1000)
-							{
-								x_BYTE_E126D = 7;
-								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-							}
-							else
-							{
-								x_BYTE_E126D = 5;
-							}
-							if (!(v67 & 2))
-							{
-								v69 = 0;
-								if (!(v69 & 0xF00))
-								{
-									DrawInverseSquareInProjectionSpace(&v248x[0], v68x, x_DWORD_DDF50_texture_adresses.at(1));
-								}
-							}
-						}
-						v248x[18] = Str_E9C38_smalltit[v68x].dword16;
-						v248x[19] = Str_E9C38_smalltit[v68x].dword20;
-						v248x[22] = Str_E9C38_smalltit[v68x].dword32;
-						jx = v68x + 1;
-						v71 = Str_E9C38_smalltit[jx - 1].word38;
-						v72 = Str_E9C38_smalltit[jx - 1].word38;
-						if (Str_E9C38_smalltit[jx].word38 & 4)
-							break;
-						v248x[12] = Str_E9C38_smalltit[jx].dword16;
-						v248x[13] = Str_E9C38_smalltit[jx].dword20;
-						v248x[16] = Str_E9C38_smalltit[jx].dword32;
-						v73 = Str_E9C38_smalltit[jx].word38;
-						v248x[6] = Str_E9C38_smalltit[jx - 40].dword16;
-						v248x[7] = Str_E9C38_smalltit[jx - 40].dword20;
-						v248x[10] = Str_E9C38_smalltit[jx - 40].dword32;
-						v74 = Str_E9C38_smalltit[jx - 40].word38;
-						v75 = v74 | v73 | v71;
-						v76 = v74 & v73 & v72;
-						v248x[0] = Str_E9C38_smalltit[jx - 41].dword16;
-						v248x[1] = Str_E9C38_smalltit[jx - 41].dword20;
-						v248x[4] = Str_E9C38_smalltit[jx - 41].dword32;
-						v77 = Str_E9C38_smalltit[jx - 41].word38;
-						v78 = v77 | v75;
-						v79 = v77 & v76;
-						v80x = jx - 1;
-						if (v79 >= 0)
-						{
-							if (Str_E9C38_smalltit[v80x].word38 & 0x1000)
-							{
-								x_BYTE_E126D = 7;
-								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-							}
-							else
-							{
-								x_BYTE_E126D = 5;
-							}
-							if (!(v78 & 2) && !(v79 & 0x78))
-							{
-								DrawSquareInProjectionSpace(v248x, v80x);
-							}
-							if (Str_E9C38_smalltit[v80x].word36)
-								DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-						}
-						v58 = v293 - 1;
-					}
-					if (v293)
-					{
-						v82x = jx - 1;
-						v83x = v57x + 38;
-						do
-						{
-							v248x[18] = Str_E9C38_smalltit[v83x].dword24;
-							v248x[19] = Str_E9C38_smalltit[v83x].dword28;
-							v248x[22] = Str_E9C38_smalltit[v83x].dword32;
-							v84 = Str_E9C38_smalltit[v83x].word38;
-							v248x[12] = Str_E9C38_smalltit[v83x + 1].dword24;
-							v248x[13] = Str_E9C38_smalltit[v83x + 1].dword28;
-							v248x[16] = Str_E9C38_smalltit[v83x + 1].dword32;
-							v85 = Str_E9C38_smalltit[v83x + 1].word38;
-							v248x[6] = Str_E9C38_smalltit[v83x - 39].dword24;
-							v248x[7] = Str_E9C38_smalltit[v83x - 39].dword28;
-							v86 = v84;
-							v248x[10] = Str_E9C38_smalltit[v83x - 39].dword32;
-							v87 = Str_E9C38_smalltit[v83x - 39].word38;
-							v88 = v87 | v85 | v84;
-							v89 = v87 & v85 & v86;
-							v248x[0] = Str_E9C38_smalltit[v83x - 40].dword24;
-							v248x[1] = Str_E9C38_smalltit[v83x - 40].dword28;
-							v90 = Str_E9C38_smalltit[v83x - 40].dword32;
-							v91x = v83x + 1;
-							v248x[4] = v90;
-							v92 = Str_E9C38_smalltit[v83x - 41].word38;
-							v93 = v92 | v88;
-							v94x = v91x - 1;
-							if ((v92 & v89 & 0x80u) == 0)
-							{
-								if (Str_E9C38_smalltit[v94x].word38 & 0x1000)
-								{
-									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-								}
-								else
-								{
-									x_BYTE_E126D = 5;
-								}
-								if (!(v93 & 2))
-								{
-
-									DrawInverseSquareInProjectionSpace(&v248x[0], v94x, x_DWORD_DDF50_texture_adresses.at(1));
-								}
-							}
-							v248x[18] = Str_E9C38_smalltit[v94x].dword16;
-							v248x[19] = Str_E9C38_smalltit[v94x].dword20;
-							v248x[22] = Str_E9C38_smalltit[v94x].dword32;
-							v97 = Str_E9C38_smalltit[v94x].word38;
-							v248x[12] = Str_E9C38_smalltit[v94x + 1].dword16;
-							v248x[13] = Str_E9C38_smalltit[v94x + 1].dword20;
-							v248x[16] = Str_E9C38_smalltit[v94x + 1].dword32;
-							v98 = v97;
-							v99 = Str_E9C38_smalltit[v94x + 1].word38;
-							v100 = v99 | v97;
-							v101 = v99 & v98;
-							v248x[6] = Str_E9C38_smalltit[v94x - 39].dword16;
-							v248x[7] = Str_E9C38_smalltit[v94x - 39].dword20;
-							v248x[10] = Str_E9C38_smalltit[v94x - 39].dword32;
-							v102 = Str_E9C38_smalltit[v94x - 39].word38;
-
-							v248x[0] = Str_E9C38_smalltit[v94x - 40].dword16;
-							v103 = Str_E9C38_smalltit[v94x - 40].dword20;
-							v104x = v94x + 1;
-							v248x[1] = v103;
-							v248x[4] = Str_E9C38_smalltit[v104x - 41].dword32;
-							v105 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) | v102 | v100;
-							v106 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) & v102 & v101;
-							v107x = v104x - 1;
-							if (v106 >= 0)
-							{
-								if (Str_E9C38_smalltit[v107x].word38 & 0x1000)
-								{
-									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-								}
-								else
-								{
-									x_BYTE_E126D = 5;
-								}
-								if (!(v105 & 2) && !(v106 & 0x78))
-								{
-									DrawSquareInProjectionSpace(v248x, v107x);
-								}
-								if (Str_E9C38_smalltit[v107x].word36)
-									DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-							}
-							v83x = v107x - 1;
-						} while (v83x >= v82x);
-					}
-					v57x -= 40;
-					v281--;
-				} while (v281);
+				SubDrawCaveTerrainAndParticles(projectedVertexBuffer, pitch);
 				return;
 			}
 			for (k = 40; k; k--)
@@ -1095,7 +799,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
 					Str_E9C38_smalltit[v43x].word38 |= 0x1000u;
 				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v278x].byte42_std = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
 				LOBYTE(v42) = v277[4] + v42;
 				HIBYTE(v42) += v277[5];
 				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v42];
@@ -1111,6 +815,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 			LOBYTE(v279) = v45;
 		}
 	}
+	//Draw Terrain with Reflections
 	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)
 	{
 		for (l = 21; ; l--)
@@ -1122,17 +827,17 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				while (v123)
 				{
 					v125 = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword20) >> 16) + str_F2C20ar.dword0x24;
-					v248x[25] = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword28) >> 16) + str_F2C20ar.dword0x24;
+					projectedVertexBuffer[25] = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword28) >> 16) + str_F2C20ar.dword0x24;
 					v126 = Str_E9C38_smalltit[v124x].dword16 * str_F2C20ar.dword0x0d;
-					v248x[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword20) >> 16);
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword20) >> 16);
 					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword28) >> 16);
 					Str_E9C38_smalltit[v124x].dword16 = v125;
 					v128 = v127;
-					v129 = v248x[24];
+					v129 = projectedVertexBuffer[24];
 					Str_E9C38_smalltit[v124x].dword28 = v128;
 					Str_E9C38_smalltit[v124x].dword20 = v129;
 					v130 = Str_E9C38_smalltit[v124x].dword16;
-					Str_E9C38_smalltit[v124x].dword24 = v248x[25];
+					Str_E9C38_smalltit[v124x].dword24 = projectedVertexBuffer[25];
 					if (v130 >= 0)
 					{
 						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].dword16)
@@ -1176,255 +881,16 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				}
 				if (posZ < 4096)
 				{
-					v133x = 800;
-					for (m = 20; m; --m)
-					{
-						v134x = v133x;
-						for (n = 39; n; --n)
-						{
-							v248x[18] = Str_E9C38_smalltit[v134x].dword24;
-							v248x[19] = Str_E9C38_smalltit[v134x].dword28;
-							v135 = Str_E9C38_smalltit[v134x].dword32;
-							v134x++;
-							v248x[22] = v135;
-							v136 = Str_E9C38_smalltit[v134x - 1].word38;
-							if (Str_E9C38_smalltit[v134x].word38 & 4)
-								break;
-							v248x[12] = Str_E9C38_smalltit[v134x].dword24;
-							v248x[13] = Str_E9C38_smalltit[v134x].dword28;
-							v248x[16] = Str_E9C38_smalltit[v134x].dword32;
-							v137 = Str_E9C38_smalltit[v134x].word38;
-							v248x[6] = Str_E9C38_smalltit[v134x - 40].dword24;
-							v248x[7] = Str_E9C38_smalltit[v134x - 40].dword28;
-							v248x[10] = Str_E9C38_smalltit[v134x - 40].dword32;
-							v138 = Str_E9C38_smalltit[v134x - 40].word38 | v137 | v136;
-							v248x[0] = Str_E9C38_smalltit[v134x - 41].dword24;
-							v139 = Str_E9C38_smalltit[v134x - 41].dword28;
-							v140x = v134x - 40;
-							v140x--;
-							v248x[1] = v139;
-							v248x[4] = Str_E9C38_smalltit[v140x].dword32;
-							v142 = Str_E9C38_smalltit[v140x].word38;
-							v143x = v140x + 40;
-							v144 = v142 | v138;
-							if (Str_E9C38_smalltit[v143x].byte41)
-							{
-								if (Str_E9C38_smalltit[v143x].word38 & 0x1000)
-								{
-									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-								}
-								else
-								{
-									x_BYTE_E126D = 5;
-								}
-								if (!(v144 & 2))
-								{
-									v145 = 0;
-									if (!(v145 & 0xF00))
-									{
-										DrawInverseSquareInProjectionSpace(&v248x[0], v143x);
-									}
-								}
-							}
-							if (Str_E9C38_smalltit[v143x].word36)
-								sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
-							v134x = v143x + 1;
-						}
-						if (n)
-						{
-							v25z = v134x - 1;
-							v147x = v133x + 38;
-							do
-							{
-								v248x[18] = Str_E9C38_smalltit[v147x].dword24;
-								v248x[19] = Str_E9C38_smalltit[v147x].dword28;
-								v248x[22] = Str_E9C38_smalltit[v147x].dword32;
-								v148 = Str_E9C38_smalltit[v147x].word38;
-								v248x[12] = Str_E9C38_smalltit[v147x + 1].dword24;
-								v248x[13] = Str_E9C38_smalltit[v147x + 1].dword28;
-								v248x[16] = Str_E9C38_smalltit[v147x + 1].dword32;
-								v149 = Str_E9C38_smalltit[v147x + 1].word38 | v148;
-								v248x[6] = Str_E9C38_smalltit[v147x - 39].dword24;
-								v150 = Str_E9C38_smalltit[v147x - 39].dword28;
-								v151x = v147x + 1;
-								v248x[7] = v150;
-								v152 = Str_E9C38_smalltit[v151x - 40].dword32;
-								v151x -= 40;
-								v248x[10] = v152;
-								v153 = Str_E9C38_smalltit[v151x].word38;
-								v248x[0] = Str_E9C38_smalltit[v151x - 1].dword24;
-								v154 = Str_E9C38_smalltit[v151x - 1].dword28;
-								v151x--;
-								v248x[1] = v154;
-								v248x[4] = Str_E9C38_smalltit[v151x].dword32;
-								LOBYTE(v154) = Str_E9C38_smalltit[v151x].word38;
-								v155x = v151x + 40;
-								v156 = v154 | v153 | v149;
-								if (Str_E9C38_smalltit[v155x].byte41)
-								{
-									if (Str_E9C38_smalltit[v155x].word38 & 0x1000)
-									{
-										x_BYTE_E126D = 7;
-										x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-									}
-									else
-									{
-										x_BYTE_E126D = 5;
-									}
-									if (!(v156 & 2))
-									{
-										v157 = 0;
-										if (!(v157 & 0xF00))
-										{
-											DrawInverseSquareInProjectionSpace(&v248x[0], v155x);
-										}
-									}
-								}
-								if (Str_E9C38_smalltit[v155x].word36)
-									sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
-								v147x = v155x - 1;
-							} while (v147x >= v25z);
-						}
-						v133x -= 40;
-					}
+					SubDrawInverseTerrainAndParticles(projectedVertexBuffer, pitch);
 				}
-				v160 = 800;
-				v282 = 20;
-				do
-				{
-					v161 = v160;
-					for (ii = 39; ii; --ii)
-					{
-						v248x[18] = Str_E9C38_smalltit[v161].dword16;
-						v248x[19] = Str_E9C38_smalltit[v161].dword20;
-						v162 = Str_E9C38_smalltit[v161].dword32;
-						v161++;
-						v248x[22] = v162;
-						v163 = Str_E9C38_smalltit[v161 - 1].word38;
-						v164 = Str_E9C38_smalltit[v161 - 1].word38;
-						if (Str_E9C38_smalltit[v161].word38 & 4)
-							break;
-						v248x[12] = Str_E9C38_smalltit[v161].dword16;
-						v248x[13] = Str_E9C38_smalltit[v161].dword20;
-						v248x[16] = Str_E9C38_smalltit[v161].dword32;
-						v165 = Str_E9C38_smalltit[v161].word38;
-						v166 = v165 | v163;
-						v167 = v165 & v164;
-						v248x[6] = Str_E9C38_smalltit[v161 - 40].dword16;
-						v248x[7] = Str_E9C38_smalltit[v161 - 40].dword20;
-						v168 = Str_E9C38_smalltit[v161 - 40].dword32;
-						v169x = v161 - 40;
-						v248x[10] = v168;
-						v170 = Str_E9C38_smalltit[v169x].word38;
-						v248x[0] = Str_E9C38_smalltit[v169x - 1].dword16;
-						v171 = Str_E9C38_smalltit[v169x - 1].dword20;
-						v169x--;
-						v248x[1] = v171;
-						v248x[4] = Str_E9C38_smalltit[v169x].dword32;
-						BYTE1(v171) = Str_E9C38_smalltit[v169x].word38;
-						v172x = v169x + 40;
-						v173 = BYTE1(v171) | v170 | v166;
-						v174 = BYTE1(v171) & v170 & v167;
-						if ((int8_t)(Str_E9C38_smalltit[v172x].word38 & 0xff) >= 0)
-						{
-							if (Str_E9C38_smalltit[v172x].word38 & 0x1000)
-							{
-								x_BYTE_E126D = 7;
-								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-							}
-							else
-							{
-								x_BYTE_E126D = 5;
-							}
-							if (!(v173 & 2) && !(v174 & 0x78))
-							{
-								DrawSquareInProjectionSpace(v248x, v172x);
-							}
-						}
-						else
-						{
-							x_BYTE_E126D = 26;
-							if (!(v173 & 2) && !(v174 & 0x78))
-							{
-								DrawSquareInProjectionSpace(v248x, v172x);
-							}
-						}
-						if (Str_E9C38_smalltit[v172x].word36)
-							DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-						v161 = v172x + 1;
-					}
-					if (ii)
-					{
-						v177x = v161 - 1;
-						v178x = v160 + 38;
-						do
-						{
-							v248x[18] = Str_E9C38_smalltit[v178x].dword16;
-							v248x[19] = Str_E9C38_smalltit[v178x].dword20;
-							v248x[22] = Str_E9C38_smalltit[v178x].dword32;
-							v179 = Str_E9C38_smalltit[v178x].word38;
-							v248x[12] = Str_E9C38_smalltit[v178x + 1].dword16;
-							v248x[13] = Str_E9C38_smalltit[v178x + 1].dword20;
-							v248x[16] = Str_E9C38_smalltit[v178x + 1].dword32;
-							v180 = Str_E9C38_smalltit[v178x + 1].word38;
-							v248x[6] = Str_E9C38_smalltit[v178x - 39].dword16;
-							v248x[7] = Str_E9C38_smalltit[v178x - 39].dword20;
-							v181 = v179;
-							v248x[10] = Str_E9C38_smalltit[v178x - 39].dword32;
-							v182 = Str_E9C38_smalltit[v178x - 39].word38;
-							v183 = v182 | v180 | v179;
-							v184 = v182 & v180 & v181;
-							v185 = Str_E9C38_smalltit[v178x - 40].dword16;
-							v186x = v178x + 1;
-							v248x[0] = v185;
-							v187 = Str_E9C38_smalltit[v186x - 41].dword20;
-							v186x -= 40;
-							v248x[1] = v187;
-							v188 = Str_E9C38_smalltit[v186x - 1].dword32;
-							v186x--;
-							v248x[4] = v188;
-							v189 = Str_E9C38_smalltit[v186x].word38;
-							v190x = v186x + 40;
-							v191 = v189 | v183;
-							v192 = v189 & v184;
-							if ((int8_t)(Str_E9C38_smalltit[v190x].word38 & 0xff) >= 0)
-							{
-								if (Str_E9C38_smalltit[v190x].word38 & 0x1000)
-								{
-									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-								}
-								else
-								{
-									x_BYTE_E126D = 5;
-								}
-								if (!(v191 & 2) && !(v192 & 0x78))
-								{
-									DrawSquareInProjectionSpace(v248x, v190x);
-								}
-							}
-							else
-							{
-								x_BYTE_E126D = 26;
-								if (!(v191 & 2) && !(v192 & 0x78))
-								{
-									DrawSquareInProjectionSpace(v248x, v190x);
-								}
-							}
-							if (Str_E9C38_smalltit[v190x].word36)
-								DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-							v178x = v190x - 1;
-						} while (v178x >= v177x);
-					}
-					v160 -= 40;
-					v282--;
-				} while (v282);
+				SubDrawTerrainAndParticles(projectedVertexBuffer, pitch);
 				return;
 			}
+
+			//Populate vertexes?
 			for (jj = 40; jj; --jj)
 			{
-				v248x[31] = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
+				projectedVertexBuffer[31] = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
 				v109 = Str_E9C38_smalltit[v278x].dword12;
 				v110 = v109 * v109 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
 				Str_E9C38_smalltit[v278x].word36 = 0;
@@ -1439,15 +905,15 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v111 = v279;
 				Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v279] - posZ;
 				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-				v248x[26] = Maths::x_DWORD_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
-				v113 = v248x[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
-				v248x[26] = mapHeightmap_11B4E0[v111];
-				Str_E9C38_smalltit[v278x].dword8 = -(v248x[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
-				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v113 >> 10, v248x[31] >= 14464))
+				projectedVertexBuffer[26] = Maths::x_DWORD_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
+				v113 = projectedVertexBuffer[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
+				projectedVertexBuffer[26] = mapHeightmap_11B4E0[v111];
+				Str_E9C38_smalltit[v278x].dword8 = -(projectedVertexBuffer[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
+				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v113 >> 10, projectedVertexBuffer[31] >= 14464))
 				{
 					v113 = 0;
 				}
-				v116 = (v248x[31] << 8) + 8 * v113;
+				v116 = (projectedVertexBuffer[31] << 8) + 8 * v113;
 				if (v110 <= str_F2C20ar.dword0x13)
 					goto LABEL_133;
 				if (v110 < str_F2C20ar.dword0x16)
@@ -1472,7 +938,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
 				v120x = v278x;
 				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v120x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v120x].byte42_std = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
 				LOBYTE(v118) = v277[4] + v118;
 				HIBYTE(v118) += v277[5];
 				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v118];
@@ -1524,8 +990,8 @@ LABEL_259:
 		Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v198;
 		Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v200] - posZ;
 		v201 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-		v248x[26] = Maths::x_DWORD_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
-		v202 = v248x[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
+		projectedVertexBuffer[26] = Maths::x_DWORD_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
+		v202 = projectedVertexBuffer[26] * (Maths::x_DWORD_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
 		if (!(mapAngle_13B4E0[v200] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v202 >> 10, v197 >= 14464))
 			v202 = 0;
 		v203 = (v197 << 8) + 8 * v202;
@@ -1541,7 +1007,7 @@ LABEL_259:
 				v205x = v278x;
 				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v204];
 				Str_E9C38_smalltit[v205x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v205x].byte41];
-				Str_E9C38_smalltit[v205x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
+				Str_E9C38_smalltit[v205x].byte42_std = projectedVertexBuffer[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
 				LOBYTE(v204) = v277[4] + v204;
 				HIBYTE(v204) += v277[5];
 				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v204];
@@ -1591,111 +1057,572 @@ LABEL_259:
 		v209--;
 	}
 	//adress 3de7d
-	v217x = 800;
-	v289 = 20;
+	//Draw Terrain with no reflection
+	SubDrawTerrainAndParticles(projectedVertexBuffer, pitch);
+}
+
+void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch)
+{
+	int v57x = 800;
+	char v58; // ah
+	int jx;
+	char v60; // dl
+	char v61; // dh
+	char v62; // ch
+	char v63; // ah
+	char v64; // dl
+	char v65; // dh
+	char v66; // ch
+	char v67; // dl
+	int v68x;
+	int v69; // eax
+	char v71; // dl
+	char v72; // dh
+	char v73; // ch
+	char v74; // ah
+	char v75; // dl
+	char v76; // dh
+	char v77; // ch
+	char v78; // dl
+	char v79; // dh
+	int v80x;
+	int v82x;
+	int v83x;
+	char v84; // dl
+	char v85; // cl
+	char v86; // dh
+	char v87; // al
+	char v88; // dl
+	char v89; // dh
+	int v90; // eax
+	int v91x; // ebx
+	char v92; // cl
+	char v93; // dl
+	int v94x;
+	char v97; // dl
+	char v98; // dh
+	char v99; // ah
+	char v100; // dl
+	char v101; // dh
+	char v102; // ch
+	int v103; // eax
+	int v104x;
+	char v105; // dl
+	char v106; // dh
+	int v107x;
+	char v281 = 20; // [esp+94h] [ebp+32h]
+	char v293; // [esp+C4h] [ebp+62h]
+
 	do
 	{
-		v218x = v217x;
-		for (kk = 39; kk; kk--)
+		v58 = 39;
+		//Draw Left Side of Cave
+		for (jx = v57x; ; jx = (v80x + 1))
 		{
-			v248x[18] = Str_E9C38_smalltit[v218x].dword16;
-			v248x[19] = Str_E9C38_smalltit[v218x].dword20;
-			v248x[22] = Str_E9C38_smalltit[v218x].dword32;
-			v218x++;
-			v219 = Str_E9C38_smalltit[v218x - 1].word38;
-			v220 = Str_E9C38_smalltit[v218x - 1].word38;
-			if (Str_E9C38_smalltit[v218x].word38 & 4)
+			v293 = v58;
+			if (!v58)
 				break;
-			v248x[12] = Str_E9C38_smalltit[v218x].dword16;
-			v248x[13] = Str_E9C38_smalltit[v218x].dword20;
-			v248x[16] = Str_E9C38_smalltit[v218x].dword32;
-			v221 = Str_E9C38_smalltit[v218x].word38;
-			v222 = v221 | v219;
-			v223 = v221 & v220;
-			v248x[6] = Str_E9C38_smalltit[v218x - 40].dword16;
-			v248x[7] = Str_E9C38_smalltit[v218x - 40].dword20;
-			v224 = Str_E9C38_smalltit[v218x - 40].dword32;
-			v225x = v218x - 40;
-			v248x[10] = v224;
-			v226 = Str_E9C38_smalltit[v225x].word38;
-			v248x[0] = Str_E9C38_smalltit[v225x - 1].dword16;
-			v248x[1] = Str_E9C38_smalltit[v225x - 1].dword20;
-			v225x--;
-			v248x[4] = Str_E9C38_smalltit[v225x].dword32;
-			v227x = v225x + 40;
-			v228 = (Str_E9C38_smalltit[v225x].word38 & 0xff) | v226 | v222;
-			v229 = (Str_E9C38_smalltit[v225x].word38 & 0xff) & v226 & v223;
-			if (Str_E9C38_smalltit[v227x].word38 & 0x1000)
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[jx].dword24;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[jx].dword28;
+			projectedVertexBuffer[22] = Str_E9C38_smalltit[jx].dword32;
+			jx++;
+			v60 = Str_E9C38_smalltit[jx - 1].word38;
+			v61 = Str_E9C38_smalltit[jx - 1].word38;
+			if (Str_E9C38_smalltit[jx].word38 & 4)
+				break;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[jx].dword24;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[jx].dword28;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[jx].dword32;
+			v62 = Str_E9C38_smalltit[jx].word38;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[jx - 40].dword24;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[jx - 40].dword28;
+			projectedVertexBuffer[10] = Str_E9C38_smalltit[jx - 40].dword32;
+
+			v63 = Str_E9C38_smalltit[jx - 40].word38;
+			v64 = v63 | v62 | v60;
+			v65 = v63 & v62 & v61;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[jx - 41].dword24;
+			projectedVertexBuffer[1] = Str_E9C38_smalltit[jx - 41].dword28;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[jx - 41].dword32;
+			v66 = Str_E9C38_smalltit[jx - 41].word38;
+			v67 = v66 | v64;
+			v68x = jx - 1;
+			if ((v66 & v65 & 0x80u) == 0)
 			{
-				x_BYTE_E126D = 7;
-				x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
-			}
-			else
-			{
-				x_BYTE_E126D = 5;
-			}
-			if (!(v228 & 2) && !(v229 & 0x78))
-			{
-				DrawSquareInProjectionSpace(v248x, v227x);
-			}
-			if (Str_E9C38_smalltit[v227x].word36)
-				DrawParticles_3E360(v227x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);//21f01b
-			v218x = v227x + 1;
-		}
-		if (kk)
-		{
-			v231x = v218x - 1;
-			v232x = v217x + 38;
-			do
-			{
-				v248x[18] = Str_E9C38_smalltit[v232x].dword16;
-				v248x[19] = Str_E9C38_smalltit[v232x].dword20;
-				v248x[22] = Str_E9C38_smalltit[v232x].dword32;
-				v233 = Str_E9C38_smalltit[v232x].word38;
-				v248x[12] = Str_E9C38_smalltit[v232x + 1].dword16;
-				v248x[13] = Str_E9C38_smalltit[v232x + 1].dword20;
-				v248x[16] = Str_E9C38_smalltit[v232x + 1].dword32;
-				v234 = Str_E9C38_smalltit[v232x + 1].word38;
-				v248x[6] = Str_E9C38_smalltit[v232x - 39].dword16;
-				v248x[7] = Str_E9C38_smalltit[v232x - 39].dword20;
-				v235 = v233;
-				v248x[10] = Str_E9C38_smalltit[v232x - 39].dword32;
-				v236 = Str_E9C38_smalltit[v232x - 39].word38;
-				v237 = v236 | v234 | v233;
-				v238 = v236 & v234 & v235;
-				v239 = Str_E9C38_smalltit[v232x - 40].dword16;
-				v240x = v232x + 1;
-				v248x[0] = v239;
-				v241 = Str_E9C38_smalltit[v240x - 41].dword20;
-				v240x -= 40;
-				v248x[1] = v241;
-				v248x[4] = Str_E9C38_smalltit[v240x - 1].dword32;
-				v240x -= 1;
-				v242 = Str_E9C38_smalltit[v240x].word38;
-				v243x = v240x + 40;
-				v244 = v242 | v237;
-				v245 = v242 & v238;
-				if (Str_E9C38_smalltit[v240x].word38 & 0x1000)
+				if (Str_E9C38_smalltit[v68x].word38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
-					x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
 				}
 				else
 				{
 					x_BYTE_E126D = 5;
 				}
-				if (!(v244 & 2) && !(v245 & 0x78))
+				if (!(v67 & 2))
 				{
-					DrawSquareInProjectionSpace(v248x, v243x);
+					v69 = 0;
+					if (!(v69 & 0xF00))
+					{
+						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v68x, x_DWORD_DDF50_texture_adresses.at(1));
+					}
 				}
-				if (Str_E9C38_smalltit[v243x].word36)//address 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
-					DrawParticles_3E360(v243x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
-				v232x = v243x - 1;
-			} while (v232x >= v231x);
+			}
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[v68x].dword16;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[v68x].dword20;
+			projectedVertexBuffer[22] = Str_E9C38_smalltit[v68x].dword32;
+			jx = v68x + 1;
+			v71 = Str_E9C38_smalltit[jx - 1].word38;
+			v72 = Str_E9C38_smalltit[jx - 1].word38;
+			if (Str_E9C38_smalltit[jx].word38 & 4)
+				break;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[jx].dword16;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[jx].dword20;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[jx].dword32;
+			v73 = Str_E9C38_smalltit[jx].word38;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[jx - 40].dword16;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[jx - 40].dword20;
+			projectedVertexBuffer[10] = Str_E9C38_smalltit[jx - 40].dword32;
+			v74 = Str_E9C38_smalltit[jx - 40].word38;
+			v75 = v74 | v73 | v71;
+			v76 = v74 & v73 & v72;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[jx - 41].dword16;
+			projectedVertexBuffer[1] = Str_E9C38_smalltit[jx - 41].dword20;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[jx - 41].dword32;
+			v77 = Str_E9C38_smalltit[jx - 41].word38;
+			v78 = v77 | v75;
+			v79 = v77 & v76;
+			v80x = jx - 1;
+			if (v79 >= 0)
+			{
+				if (Str_E9C38_smalltit[v80x].word38 & 0x1000)
+				{
+					x_BYTE_E126D = 7;
+					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+				}
+				else
+				{
+					x_BYTE_E126D = 5;
+				}
+				if (!(v78 & 2) && !(v79 & 0x78))
+				{
+					DrawSquareInProjectionSpace(projectedVertexBuffer, v80x);
+				}
+				if (Str_E9C38_smalltit[v80x].word36)
+					DrawParticles_3E360(v80x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
+			}
+			v58 = v293 - 1;
 		}
-		v217x -= 40;
-		v289--;
-	} while (v289);
+		//Draw Right Side of Cave
+		if (v293)
+		{
+			v82x = jx - 1;
+			v83x = v57x + 38;
+			do
+			{
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v83x].dword24;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v83x].dword28;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v83x].dword32;
+				v84 = Str_E9C38_smalltit[v83x].word38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v83x + 1].dword24;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v83x + 1].dword28;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v83x + 1].dword32;
+				v85 = Str_E9C38_smalltit[v83x + 1].word38;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v83x - 39].dword24;
+				projectedVertexBuffer[7] = Str_E9C38_smalltit[v83x - 39].dword28;
+				v86 = v84;
+				projectedVertexBuffer[10] = Str_E9C38_smalltit[v83x - 39].dword32;
+				v87 = Str_E9C38_smalltit[v83x - 39].word38;
+				v88 = v87 | v85 | v84;
+				v89 = v87 & v85 & v86;
+				projectedVertexBuffer[0] = Str_E9C38_smalltit[v83x - 40].dword24;
+				projectedVertexBuffer[1] = Str_E9C38_smalltit[v83x - 40].dword28;
+				v90 = Str_E9C38_smalltit[v83x - 40].dword32;
+				v91x = v83x + 1;
+				projectedVertexBuffer[4] = v90;
+				v92 = Str_E9C38_smalltit[v83x - 41].word38;
+				v93 = v92 | v88;
+				v94x = v91x - 1;
+				if ((v92 & v89 & 0x80u) == 0)
+				{
+					if (Str_E9C38_smalltit[v94x].word38 & 0x1000)
+					{
+						x_BYTE_E126D = 7;
+						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+					}
+					else
+					{
+						x_BYTE_E126D = 5;
+					}
+					if (!(v93 & 2))
+					{
+						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v94x, x_DWORD_DDF50_texture_adresses.at(1));
+					}
+				}
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v94x].dword16;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v94x].dword20;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v94x].dword32;
+				v97 = Str_E9C38_smalltit[v94x].word38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v94x + 1].dword16;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v94x + 1].dword20;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v94x + 1].dword32;
+				v98 = v97;
+				v99 = Str_E9C38_smalltit[v94x + 1].word38;
+				v100 = v99 | v97;
+				v101 = v99 & v98;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v94x - 39].dword16;
+				projectedVertexBuffer[7] = Str_E9C38_smalltit[v94x - 39].dword20;
+				projectedVertexBuffer[10] = Str_E9C38_smalltit[v94x - 39].dword32;
+				v102 = Str_E9C38_smalltit[v94x - 39].word38;
+
+				projectedVertexBuffer[0] = Str_E9C38_smalltit[v94x - 40].dword16;
+				v103 = Str_E9C38_smalltit[v94x - 40].dword20;
+				v104x = v94x + 1;
+				projectedVertexBuffer[1] = v103;
+				projectedVertexBuffer[4] = Str_E9C38_smalltit[v104x - 41].dword32;
+				v105 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) | v102 | v100;
+				v106 = (Str_E9C38_smalltit[v104x - 41].word38 & 0xff) & v102 & v101;
+				v107x = v104x - 1;
+				if (v106 >= 0)
+				{
+					if (Str_E9C38_smalltit[v107x].word38 & 0x1000)
+					{
+						x_BYTE_E126D = 7;
+						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+					}
+					else
+					{
+						x_BYTE_E126D = 5;
+					}
+					if (!(v105 & 2) && !(v106 & 0x78))
+					{
+						DrawSquareInProjectionSpace(projectedVertexBuffer, v107x);
+					}
+					if (Str_E9C38_smalltit[v107x].word36)
+						DrawParticles_3E360(v107x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
+				}
+				v83x = v107x - 1;
+			} while (v83x >= v82x);
+		}
+		v57x -= 40;
+		v281--;
+	} while (v281);
+}
+
+void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch)
+{
+	int v25z;
+	int v133x = 800;
+	int v134x;
+	int v135; // eax
+	char v136; // dl
+	char v137; // ch
+	char v138; // dl
+	int v139; // eax
+	int v140x;
+	//int v141; // eax
+	char v142; // ch
+	int v143x;
+	char v144; // dl
+	int v145; // eax
+	int v147x;
+	char v148; // dl
+	char v149; // dl
+	int v150; // eax
+	int v151x;
+	int v152; // eax
+	char v153; // cl
+	int v154; // eax
+	int v155x;
+	char v156; // dl
+	int v157; // eax
+	char m; // [esp+B0h] [ebp+4Eh]
+	char v289; // [esp+B4h] [ebp+52h]
+	char n; // [esp+B8h] [ebp+56h]
+
+	for (m = 20; m; --m)
+	{
+		//Draw Left Side of Reflection
+		v134x = v133x;
+		for (n = 39; n; --n)
+		{
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[v134x].dword24;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[v134x].dword28;
+			v135 = Str_E9C38_smalltit[v134x].dword32;
+			v134x++;
+			projectedVertexBuffer[22] = v135;
+			v136 = Str_E9C38_smalltit[v134x - 1].word38;
+			if (Str_E9C38_smalltit[v134x].word38 & 4)
+				break;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[v134x].dword24;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[v134x].dword28;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[v134x].dword32;
+			v137 = Str_E9C38_smalltit[v134x].word38;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[v134x - 40].dword24;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[v134x - 40].dword28;
+			projectedVertexBuffer[10] = Str_E9C38_smalltit[v134x - 40].dword32;
+			v138 = Str_E9C38_smalltit[v134x - 40].word38 | v137 | v136;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[v134x - 41].dword24;
+			v139 = Str_E9C38_smalltit[v134x - 41].dword28;
+			v140x = v134x - 40;
+			v140x--;
+			projectedVertexBuffer[1] = v139;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[v140x].dword32;
+			v142 = Str_E9C38_smalltit[v140x].word38;
+			v143x = v140x + 40;
+			v144 = v142 | v138;
+			if (Str_E9C38_smalltit[v143x].byte41)
+			{
+				if (Str_E9C38_smalltit[v143x].word38 & 0x1000)
+				{
+					x_BYTE_E126D = 7;
+					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+				}
+				else
+				{
+					x_BYTE_E126D = 5;
+				}
+				if (!(v144 & 2))
+				{
+					v145 = 0;
+					if (!(v145 & 0xF00))
+					{
+						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v143x);
+					}
+				}
+			}
+			if (Str_E9C38_smalltit[v143x].word36)
+				sub_3FD60(v143x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
+			v134x = v143x + 1;
+		}
+		//Draw Right Side of Reflection
+		if (n)
+		{
+			v25z = v134x - 1;
+			v147x = v133x + 38;
+			do
+			{
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v147x].dword24;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v147x].dword28;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v147x].dword32;
+				v148 = Str_E9C38_smalltit[v147x].word38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v147x + 1].dword24;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v147x + 1].dword28;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v147x + 1].dword32;
+				v149 = Str_E9C38_smalltit[v147x + 1].word38 | v148;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v147x - 39].dword24;
+				v150 = Str_E9C38_smalltit[v147x - 39].dword28;
+				v151x = v147x + 1;
+				projectedVertexBuffer[7] = v150;
+				v152 = Str_E9C38_smalltit[v151x - 40].dword32;
+				v151x -= 40;
+				projectedVertexBuffer[10] = v152;
+				v153 = Str_E9C38_smalltit[v151x].word38;
+				projectedVertexBuffer[0] = Str_E9C38_smalltit[v151x - 1].dword24;
+				v154 = Str_E9C38_smalltit[v151x - 1].dword28;
+				v151x--;
+				projectedVertexBuffer[1] = v154;
+				projectedVertexBuffer[4] = Str_E9C38_smalltit[v151x].dword32;
+				LOBYTE(v154) = Str_E9C38_smalltit[v151x].word38;
+				v155x = v151x + 40;
+				v156 = v154 | v153 | v149;
+				if (Str_E9C38_smalltit[v155x].byte41)
+				{
+					if (Str_E9C38_smalltit[v155x].word38 & 0x1000)
+					{
+						x_BYTE_E126D = 7;
+						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+					}
+					else
+					{
+						x_BYTE_E126D = 5;
+					}
+					if (!(v156 & 2))
+					{
+						v157 = 0;
+						if (!(v157 & 0xF00))
+						{
+							DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v155x);
+						}
+					}
+				}
+				if (Str_E9C38_smalltit[v155x].word36)
+					sub_3FD60(v155x, x_BYTE_E88E0x, x_DWORD_EA3E4, str_unk_1804B0ar, str_DWORD_F66F0x, x_DWORD_F5730, viewPort, pitch);
+				v147x = v155x - 1;
+			} while (v147x >= v25z);
+		}
+		v133x -= 40;
+	}
+}
+
+void GameRenderHD::SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch)
+{
+	int v160 = 800;
+
+	int v161;
+	int v162; // eax
+	char v163; // dl
+	char v164; // dh
+	char v165; // ah
+	char v166; // dl
+	char v167; // dh
+	int v168; // eax
+	int v169x;
+	char v170; // ch
+	int v171; // eax
+	int v172x;
+	char v173; // dl
+	char v174; // dh
+	int v177x;
+	int v178x;
+	char v179; // dl
+	char v180; // ch
+	char v181; // dh
+	char v182; // ah
+	char v183; // dl
+	char v184; // dh
+	int v185; // eax
+	int v186x;
+	int v187; // eax
+	int v188; // eax
+	char v189; // ch
+	int v190x;
+	char v191; // dl
+	char v192; // dh
+
+	char v282 = 20;
+	
+	char ii;
+	do
+	{
+		v161 = v160;
+		//Draw Left Side of Terrain
+		for (ii = 39; ii; --ii)
+		{
+			projectedVertexBuffer[18] = Str_E9C38_smalltit[v161].dword16;
+			projectedVertexBuffer[19] = Str_E9C38_smalltit[v161].dword20;
+			v162 = Str_E9C38_smalltit[v161].dword32;
+			v161++;
+			projectedVertexBuffer[22] = v162;
+			v163 = Str_E9C38_smalltit[v161 - 1].word38;
+			v164 = Str_E9C38_smalltit[v161 - 1].word38;
+			if (Str_E9C38_smalltit[v161].word38 & 4)
+				break;
+			projectedVertexBuffer[12] = Str_E9C38_smalltit[v161].dword16;
+			projectedVertexBuffer[13] = Str_E9C38_smalltit[v161].dword20;
+			projectedVertexBuffer[16] = Str_E9C38_smalltit[v161].dword32;
+			v165 = Str_E9C38_smalltit[v161].word38;
+			v166 = v165 | v163;
+			v167 = v165 & v164;
+			projectedVertexBuffer[6] = Str_E9C38_smalltit[v161 - 40].dword16;
+			projectedVertexBuffer[7] = Str_E9C38_smalltit[v161 - 40].dword20;
+			v168 = Str_E9C38_smalltit[v161 - 40].dword32;
+			v169x = v161 - 40;
+			projectedVertexBuffer[10] = v168;
+			v170 = Str_E9C38_smalltit[v169x].word38;
+			projectedVertexBuffer[0] = Str_E9C38_smalltit[v169x - 1].dword16;
+			v171 = Str_E9C38_smalltit[v169x - 1].dword20;
+			v169x--;
+			projectedVertexBuffer[1] = v171;
+			projectedVertexBuffer[4] = Str_E9C38_smalltit[v169x].dword32;
+			BYTE1(v171) = Str_E9C38_smalltit[v169x].word38;
+			v172x = v169x + 40;
+			v173 = BYTE1(v171) | v170 | v166;
+			v174 = BYTE1(v171) & v170 & v167;
+			if ((int8_t)(Str_E9C38_smalltit[v172x].word38 & 0xff) >= 0)
+			{
+				if (Str_E9C38_smalltit[v172x].word38 & 0x1000)
+				{
+					x_BYTE_E126D = 7;
+					x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+				}
+				else
+				{
+					x_BYTE_E126D = 5;
+				}
+				if (!(v173 & 2) && !(v174 & 0x78))
+				{
+					DrawSquareInProjectionSpace(projectedVertexBuffer, v172x);
+				}
+			}
+			else
+			{
+				x_BYTE_E126D = 26;
+				if (!(v173 & 2) && !(v174 & 0x78))
+				{
+					DrawSquareInProjectionSpace(projectedVertexBuffer, v172x);
+				}
+			}
+			if (Str_E9C38_smalltit[v172x].word36)
+				DrawParticles_3E360(v172x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
+			v161 = v172x + 1;
+		}
+		//Draw Right Side of Terrain
+		if (ii)
+		{
+			v177x = v161 - 1;
+			v178x = v160 + 38;
+			do
+			{
+				projectedVertexBuffer[18] = Str_E9C38_smalltit[v178x].dword16;
+				projectedVertexBuffer[19] = Str_E9C38_smalltit[v178x].dword20;
+				projectedVertexBuffer[22] = Str_E9C38_smalltit[v178x].dword32;
+				v179 = Str_E9C38_smalltit[v178x].word38;
+				projectedVertexBuffer[12] = Str_E9C38_smalltit[v178x + 1].dword16;
+				projectedVertexBuffer[13] = Str_E9C38_smalltit[v178x + 1].dword20;
+				projectedVertexBuffer[16] = Str_E9C38_smalltit[v178x + 1].dword32;
+				v180 = Str_E9C38_smalltit[v178x + 1].word38;
+				projectedVertexBuffer[6] = Str_E9C38_smalltit[v178x - 39].dword16;
+				projectedVertexBuffer[7] = Str_E9C38_smalltit[v178x - 39].dword20;
+				v181 = v179;
+				projectedVertexBuffer[10] = Str_E9C38_smalltit[v178x - 39].dword32;
+				v182 = Str_E9C38_smalltit[v178x - 39].word38;
+				v183 = v182 | v180 | v179;
+				v184 = v182 & v180 & v181;
+				v185 = Str_E9C38_smalltit[v178x - 40].dword16;
+				v186x = v178x + 1;
+				projectedVertexBuffer[0] = v185;
+				v187 = Str_E9C38_smalltit[v186x - 41].dword20;
+				v186x -= 40;
+				projectedVertexBuffer[1] = v187;
+				v188 = Str_E9C38_smalltit[v186x - 1].dword32;
+				v186x--;
+				projectedVertexBuffer[4] = v188;
+				v189 = Str_E9C38_smalltit[v186x].word38;
+				v190x = v186x + 40;
+				v191 = v189 | v183;
+				v192 = v189 & v184;
+				if ((int8_t)(Str_E9C38_smalltit[v190x].word38 & 0xff) >= 0)
+				{
+					if (Str_E9C38_smalltit[v190x].word38 & 0x1000)
+					{
+						x_BYTE_E126D = 7;
+						x_BYTE_E126C = ((signed int)projectedVertexBuffer[10] + projectedVertexBuffer[16] + projectedVertexBuffer[22] + projectedVertexBuffer[4]) >> 18;
+					}
+					else
+					{
+						x_BYTE_E126D = 5;
+					}
+					if (!(v191 & 2) && !(v192 & 0x78))
+					{
+						DrawSquareInProjectionSpace(projectedVertexBuffer, v190x);
+					}
+				}
+				else
+				{
+					x_BYTE_E126D = 26;
+					if (!(v191 & 2) && !(v192 & 0x78))
+					{
+						DrawSquareInProjectionSpace(projectedVertexBuffer, v190x);
+					}
+				}
+				if (Str_E9C38_smalltit[v190x].word36)
+					DrawParticles_3E360(v190x, str_DWORD_F66F0x, x_BYTE_E88E0x, x_DWORD_F5730, x_DWORD_EA3E4, str_unk_1804B0ar, viewPort, pitch);
+				v178x = v190x - 1;
+			} while (v178x >= v177x);
+		}
+		v160 -= 40;
+		v282--;
+	} while (v282);
 }
 
 uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth)
@@ -2951,50 +2878,109 @@ void GameRenderHD::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int in
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t i = 0;
+			if ((m_renderThreads.size() + 1) % 2 == 0)
+			{ 
+				uint8_t i = 0;
+				uint8_t startLine = 0;
+				drawEveryNthLine = drawEveryNthLine / 2;
 
-			for (i = 0; i < m_renderThreads.size(); i++)
-			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
-				});
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					if (i % 2 == 0)
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+					}
+					else
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+						startLine++;
+					}
+				}
+				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
 			}
+			else
+			{
+				uint8_t i = 0;
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine);
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						});
+				}
 
-			WaitForRenderFinish();
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
+			}
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex0, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex12, &vertex6, 0, 1, m_unk_DE56Cx[0]);
 		}
 	}
 	else
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t i = 0;
 
-			for (i = 0; i < m_renderThreads.size(); i++)
+			if ((m_renderThreads.size() + 1) % 2 == 0)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
-				});
+				uint8_t i = 0;
+				uint8_t startLine = 0;
+				drawEveryNthLine = drawEveryNthLine / 2;
+
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					if (i % 2 == 0)
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+					}
+					else
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+						startLine++;
+					}
+				}
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
 			}
+			else
+			{
+				uint8_t i = 0;
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine);
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						});
+				}
 
-			WaitForRenderFinish();
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
+			}
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex12, &vertex6, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex0, 0, 1, m_unk_DE56Cx[0]);
 		}
 	}
 }
@@ -3032,25 +3018,54 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t i = 0;
-
-			for (i = 0; i < m_renderThreads.size(); i++)
+			if ((m_renderThreads.size() + 1) % 2 == 0)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
-					});
+				uint8_t i = 0;
+				uint8_t startLine = 0;
+				drawEveryNthLine = drawEveryNthLine / 2;
+
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					if (i % 2 == 0)
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+					}
+					else
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+						startLine++;
+					}
+				}
+				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
 			}
+			else
+			{
+				uint8_t i = 0;
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine);
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						});
+				}
 
-			WaitForRenderFinish();
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+				this->DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
+			}
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex12, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex0, &vertex6, &vertex12, 0, 1, m_unk_DE56Cx[0]);
 		}
 
 	}
@@ -3058,25 +3073,54 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	{
 		if (m_renderThreads.size() > 0)
 		{
-			uint8_t i = 0;
-
-			for (i = 0; i < m_renderThreads.size(); i++)
+			if ((m_renderThreads.size() + 1) % 2 == 0)
 			{
-				m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
-					this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
-				});
+				uint8_t i = 0;
+				uint8_t startLine = 0;
+				drawEveryNthLine = drawEveryNthLine / 2;
+
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					if (i % 2 == 0)
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+					}
+					else
+					{
+						m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, startLine, drawEveryNthLine] {
+							this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+							});
+						startLine++;
+					}
+				}
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, startLine, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
 			}
+			else
+			{
+				uint8_t i = 0;
 
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine);
-			this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine);
+				for (i = 0; i < m_renderThreads.size(); i++)
+				{
+					m_renderThreads[i]->Run([this, vertex0, vertex6, vertex12, vertex18, i, drawEveryNthLine] {
+						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+						});
+				}
 
-			WaitForRenderFinish();
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+				this->DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, i, drawEveryNthLine, m_unk_DE56Cx[i]);
+
+				WaitForRenderFinish();
+			}
 		}
 		else
 		{
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 1);
-			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex6, &vertex12, 0, 1, m_unk_DE56Cx[0]);
+			DrawTriangleInProjectionSpace_B6253(&vertex18, &vertex0, &vertex6, 0, 1, m_unk_DE56Cx[0]);
 		}
 	}
 }
@@ -5328,8 +5372,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	}
 }
 
-void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
+void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine, uint8_t* unk_DE56Cx)
 {
+	//uint8_t new unk_DE56Cx[4194304]; //number of polygons (2048 * 2048)
 	uint8_t line1 = startLine;
 	uint8_t line2 = startLine;
 	uint8_t line3 = startLine;
@@ -6781,7 +6826,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v62 = (x_DWORD*)unk_DE56Cx[startLine];
+								v62 = (x_DWORD*)unk_DE56Cx;
 								goto LABEL_124;
 							}
 							v1117 += v1190;
@@ -6801,7 +6846,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								}
 							}
 						LABEL_121:
-							v62 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v58, &v59, v1103, v1107, &v1117);
+							v62 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v58, &v59, v1103, v1107, &v1117);
 							v61 = v1121;
 						LABEL_124:
 							if (v1296)
@@ -6856,7 +6901,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v55 = (x_DWORD*)unk_DE56Cx[startLine];
+								v55 = (x_DWORD*)unk_DE56Cx;
 							LABEL_102:
 								if (v1296)
 								{
@@ -6903,7 +6948,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								v1119 = v57;
 							}
 						}
-						v55 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v50, &v51, &v52, v1103, v1107, v1148, &v1117);
+						v55 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v50, &v51, &v52, v1103, v1107, v1148, &v1117);
 						v54 = v1121;
 						goto LABEL_102;
 					case 2:
@@ -6963,7 +7008,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v43 = (x_DWORD*)unk_DE56Cx[startLine];
+								v43 = (x_DWORD*)unk_DE56Cx;
 							LABEL_77:
 								if (v1296)
 								{
@@ -7011,7 +7056,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								v1119 = v45;
 							}
 						}
-						v43 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v37, &v38, &v39, &v40, v1103, v1107, v1126, v1137, &v1117);
+						v43 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v37, &v38, &v39, &v40, v1103, v1107, v1126, v1137, &v1117);
 						v42 = v1121;
 						goto LABEL_77;
 					case 5:
@@ -7070,7 +7115,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568;
 									triLn_v1123 = viewPort.Height_DE568;
 								}
-								v28 = (x_DWORD*)unk_DE56Cx[startLine];
+								v28 = (x_DWORD*)unk_DE56Cx;
 							LABEL_51:
 								if (v1296)
 								{
@@ -7119,7 +7164,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								v1119 = v30;
 							}
 						}
-						v28 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v21, &v22, &v23, &v24, &v25, v1103, v1107, v1125, v1136, v1147, &v1117);
+						v28 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v21, &v22, &v23, &v24, &v25, v1103, v1107, v1125, v1136, v1147, &v1117);
 						v27 = v1121;
 						goto LABEL_51;
 					}
@@ -7185,7 +7230,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v139, &v140, v1105, v1109, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx, &v139, &v140, v1105, v1109, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 1:
@@ -7221,7 +7266,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx, &v134, &v135, &v136, v1105, v1109, v1152, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 2:
@@ -7271,7 +7316,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx, &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 5:
@@ -7319,7 +7364,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					triLn_v1123 = viewPort.Height_DE568 - v1192;
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
-				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
+				LoadPolygon((x_DWORD*)unk_DE56Cx, &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
 				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			}
@@ -7380,7 +7425,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, v1106, v1110, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx, &v165, &v166, v1106, v1110, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 1:
@@ -7416,7 +7461,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx, &v160, &v161, &v162, v1106, v1110, v1154, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 2:
@@ -7466,7 +7511,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx, &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 5:
@@ -7514,7 +7559,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				triLn_v1123 = viewPort.Height_DE568 - v1193;
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
+			LoadPolygon((x_DWORD*)unk_DE56Cx, &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
 			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		}
@@ -7611,7 +7656,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v114 = (int*)unk_DE56Cx[startLine];
+					v114 = (int*)unk_DE56Cx;
 					goto LABEL_228;
 				}
 				v1114 += v1191;
@@ -7647,7 +7692,7 @@ LABEL_129:
 					v1120 = v116;
 				}
 			}
-			v114 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v110, &v111, v1104, v1108, &v1114);
+			v114 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v110, &v111, v1104, v1108, &v1114);
 			v113 = v1122;
 		LABEL_228:
 			if (v1297)
@@ -7701,7 +7746,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v107 = (int*)unk_DE56Cx[startLine];
+					v107 = (int*)unk_DE56Cx;
 				LABEL_206:
 					if (v1297)
 					{
@@ -7748,7 +7793,7 @@ LABEL_129:
 					v1120 = v109;
 				}
 			}
-			v107 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v102, &v103, &v104, v1104, v1108, v1150, &v1114);
+			v107 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v102, &v103, &v104, v1104, v1108, v1150, &v1114);
 			v106 = v1122;
 			goto LABEL_206;
 		case 2:
@@ -7810,7 +7855,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v95 = (int*)unk_DE56Cx[startLine];
+					v95 = (int*)unk_DE56Cx;
 				LABEL_181:
 					if (v1297)
 					{
@@ -7858,7 +7903,7 @@ LABEL_129:
 					v1120 = v97;
 				}
 			}
-			v95 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
+			v95 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
 			v94 = v1122;
 			goto LABEL_181;
 		case 5:
@@ -7920,7 +7965,7 @@ LABEL_129:
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
-					v81 = (x_DWORD*)unk_DE56Cx[startLine];
+					v81 = (x_DWORD*)unk_DE56Cx;
 				LABEL_156:
 					if (v1297)
 					{
@@ -7935,7 +7980,7 @@ LABEL_129:
 					switch (x_BYTE_E126D)
 					{
 					case 0:
-						v169 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v169 = (unsigned __int16*)unk_DE56Cx;
 						v170 = (char*)v1102;
 						v171 = x_BYTE_E126C;
 						HIWORD(v172) = 0;
@@ -7973,7 +8018,7 @@ LABEL_129:
 						v174 = &v170[v172];
 						goto LABEL_328;
 					case 1:
-						v175 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v175 = (unsigned __int16*)unk_DE56Cx;
 						while (1)
 						{
 							LOWORD(v31) = v175[1];
@@ -8133,7 +8178,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v175 + 18);
 						goto LABEL_341;
 					case 2:
-						v227 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v227 = (unsigned __int16*)unk_DE56Cx;
 						v1165 = v1135 << 16;
 						HIWORD(v228) = 0;
 						HIWORD(v229) = 0;
@@ -8365,7 +8410,7 @@ LABEL_129:
 						LOBYTE(v229) = *((x_BYTE*)v227 + 10);
 						goto LABEL_370;
 					case 3:
-						v283 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v283 = (unsigned __int16*)unk_DE56Cx;
 						v1166 = v1135 << 16;
 						HIWORD(v284) = 0;
 						HIWORD(v285) = 0;
@@ -8613,7 +8658,7 @@ LABEL_129:
 						LOBYTE(v285) = *((x_BYTE*)v283 + 10);
 						goto LABEL_401;
 					case 4:
-						v339 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v339 = (unsigned __int16*)unk_DE56Cx;
 						while (1)
 						{
 							LOWORD(v31) = v339[1];
@@ -8774,7 +8819,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v339 + 18);
 						goto LABEL_464;
 					case 5:
-						v1276 = (char*)unk_DE56Cx[startLine];
+						v1276 = (char*)unk_DE56Cx;
 						v1167 = v1135 << 16;
 						v1183 = v1146 << 16;
 						HIWORD(v375) = 0;
@@ -9070,7 +9115,7 @@ LABEL_129:
 						LOWORD(v384) = v386;
 						goto LABEL_493;
 					case 6:
-						v1277 = (char*)unk_DE56Cx[startLine];
+						v1277 = (char*)unk_DE56Cx;
 						v1168 = v1135 << 16;
 						v1184 = v1146 << 16;
 						HIWORD(v390) = 0;
@@ -9383,7 +9428,7 @@ LABEL_129:
 						goto LABEL_522;
 					case 7:
 					case 0xB:
-						v405 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v405 = (unsigned __int16*)unk_DE56Cx;
 						v1169 = v1135 << 16;
 						HIWORD(v406) = 0;
 						HIWORD(v407) = 0;
@@ -9616,7 +9661,7 @@ LABEL_129:
 						LOBYTE(v407) = *((x_BYTE*)v405 + 10);
 						goto LABEL_583;
 					case 8:
-						v445 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v445 = (unsigned __int16*)unk_DE56Cx;
 						v1170 = v1135 << 16;
 						HIWORD(v446) = 0;
 						HIWORD(v447) = 0;
@@ -9866,7 +9911,7 @@ LABEL_129:
 						goto LABEL_614;
 					case 9:
 					case 0xA:
-						v485 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v485 = (unsigned __int16*)unk_DE56Cx;
 						v1171 = v1135 << 16;
 						HIWORD(v486) = 0;
 						HIWORD(v487) = 0;
@@ -10162,7 +10207,7 @@ LABEL_129:
 						LOBYTE(v487) = *((x_BYTE*)v485 + 10);
 						goto LABEL_677;
 					case 0xC:
-						v525 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v525 = (unsigned __int16*)unk_DE56Cx;
 						v1172 = v1135 << 16;
 						HIWORD(v526) = 0;
 						HIWORD(v527) = 0;
@@ -10395,7 +10440,7 @@ LABEL_129:
 						LOBYTE(v527) = *((x_BYTE*)v525 + 10);
 						goto LABEL_740;
 					case 0xD:
-						v565 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v565 = (unsigned __int16*)unk_DE56Cx;
 						v1173 = v1135 << 16;
 						HIWORD(v566) = 0;
 						HIWORD(v567) = 0;
@@ -10628,7 +10673,7 @@ LABEL_129:
 						LOBYTE(v567) = *((x_BYTE*)v565 + 10);
 						goto LABEL_771;
 					case 0xE:
-						v605 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v605 = (unsigned __int16*)unk_DE56Cx;
 						v606 = (x_BYTE*)v1102;
 						HIWORD(v607) = 0;
 						BYTE1(v607) = x_BYTE_E126C;
@@ -10748,7 +10793,7 @@ LABEL_129:
 						i = &v606[v608];
 						goto LABEL_802;
 					case 0xF:
-						v626 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v626 = (unsigned __int16*)unk_DE56Cx;
 						v627 = (x_BYTE*)v1102;
 						v628 = (unsigned __int8)x_BYTE_E126C;
 						HIWORD(v629) = 0;
@@ -10867,7 +10912,7 @@ LABEL_129:
 						j = &v627[v629];
 						goto LABEL_831;
 					case 0x10:
-						v647 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v647 = (unsigned __int16*)unk_DE56Cx;
 						HIWORD(v648) = 0;
 						while (1)
 						{
@@ -11061,7 +11106,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v647 + 18);
 						goto LABEL_860;
 					case 0x11:
-						v684 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v684 = (unsigned __int16*)unk_DE56Cx;
 						HIWORD(v685) = 0;
 						while (1)
 						{
@@ -11255,7 +11300,7 @@ LABEL_129:
 						BYTE1(v31) = *((x_BYTE*)v684 + 18);
 						goto LABEL_889;
 					case 0x12:
-						v721 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v721 = (unsigned __int16*)unk_DE56Cx;
 						v1174 = v1135 << 16;
 						HIWORD(v722) = 0;
 						HIWORD(v723) = 0;
@@ -11503,7 +11548,7 @@ LABEL_129:
 						LOBYTE(v723) = *((x_BYTE*)v721 + 10);
 						goto LABEL_918;
 					case 0x13:
-						v761 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v761 = (unsigned __int16*)unk_DE56Cx;
 						v1175 = v1135 << 16;
 						HIWORD(v762) = 0;
 						HIWORD(v763) = 0;
@@ -11751,7 +11796,7 @@ LABEL_129:
 						LOBYTE(v763) = *((x_BYTE*)v761 + 10);
 						goto LABEL_949;
 					case 0x14:
-						v801 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v801 = (unsigned __int16*)unk_DE56Cx;
 						v1176 = v1135 << 16;
 						v1185 = v1146 << 16;
 						HIWORD(v802) = 0;
@@ -12085,7 +12130,7 @@ LABEL_129:
 						v810 = __ROL4_16__(*((x_DWORD*)v801 + 4));
 						goto LABEL_980;
 					case 0x15:
-						v842 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v842 = (unsigned __int16*)unk_DE56Cx;
 						v1177 = v1135 << 16;
 						v1186 = v1146 << 16;
 						HIWORD(v843) = 0;
@@ -12419,7 +12464,7 @@ LABEL_129:
 						v851 = __ROL4_16__(*((x_DWORD*)v842 + 4));
 						goto LABEL_1011;
 					case 0x16:
-						v883 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v883 = (unsigned __int16*)unk_DE56Cx;
 						v1178 = v1135 << 16;
 						HIWORD(v884) = 0;
 						HIWORD(v885) = 0;
@@ -12715,7 +12760,7 @@ LABEL_129:
 						LOBYTE(v885) = *((x_BYTE*)v883 + 10);
 						goto LABEL_1042;
 					case 0x17:
-						v923 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v923 = (unsigned __int16*)unk_DE56Cx;
 						v1179 = v1135 << 16;
 						HIWORD(v924) = 0;
 						HIWORD(v925) = 0;
@@ -13011,7 +13056,7 @@ LABEL_129:
 						LOBYTE(v925) = *((x_BYTE*)v923 + 10);
 						goto LABEL_1105;
 					case 0x18:
-						v963 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v963 = (unsigned __int16*)unk_DE56Cx;
 						v1180 = v1135 << 16;
 						v1187 = v1146 << 16;
 						HIWORD(v964) = 0;
@@ -13393,7 +13438,7 @@ LABEL_129:
 						v972 = __ROL4_16__(*((x_DWORD*)v963 + 4));
 						goto LABEL_1168;
 					case 0x19:
-						v1004 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v1004 = (unsigned __int16*)unk_DE56Cx;
 						v1181 = v1135 << 16;
 						v1188 = v1146 << 16;
 						HIWORD(v1005) = 0;
@@ -13775,7 +13820,7 @@ LABEL_129:
 						v1013 = __ROL4_16__(*((x_DWORD*)v1004 + 4));
 						goto LABEL_1231;
 					case 0x1A:
-						v1045 = (unsigned __int16*)unk_DE56Cx[startLine];
+						v1045 = (unsigned __int16*)unk_DE56Cx;
 						v1182 = v1135 << 16;
 						v1189 = v1146 << 16;
 						HIWORD(v1046) = 0;
@@ -14275,7 +14320,7 @@ LABEL_129:
 				v1120 = v83;
 			}
 			}
-			v81 = LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
+			v81 = LoadPolygon((x_DWORD*)unk_DE56Cx, &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
 			v80 = v1122;
 			goto LABEL_156;
 		}
