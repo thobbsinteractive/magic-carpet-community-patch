@@ -25,6 +25,12 @@ bool fixspeedsound = false;
 
 int32_t last_sequence_num = 0;
 
+int lastMusicVolume = -1;
+int lastMusicNonFadeVolume = 127;
+int num_IO_configurations = 3;
+int service_rate = -1;
+int master_volume = -1;
+
 //The music that will be played
 #ifdef SOUND_SDLMIXER
 Mix_Music* GAME_music[20] = { NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL };
@@ -80,8 +86,6 @@ void test_midi_play(uint8_t*  /*data*/, uint8_t* header, int32_t track_number)
 	playmusic2(track_number);
 }
 
-int lastMusicVolume = -1;
-int lastMusicNonFadeVolume = 127;
 void SOUND_start_sequence(int32_t sequence_num) {
 	//3 - menu
 	//4 - intro
@@ -398,10 +402,6 @@ struct {
 	int a;
 } environment_string;
 
-int num_IO_configurations = 3;
-int service_rate = -1;
-//HSAMPLE last_sample;
-
 int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VDI_CALL* out)/*AIL_DRIVER *drvr,S32 fn, VDI_CALL*in,VDI_CALL *out)*/ {
 	switch (fn) {
 	case 0x300: {//AIL_API_install_driver
@@ -472,15 +472,13 @@ int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL*  /*in*/, VD
 	return 1;
 };
 
-float master_volume = -1;
-
 void SOUND_set_master_volume(int32_t volume) {
 	//gamechunk[S->index_sample].volume = volume;
 #ifdef SOUND_SDLMIXER
 	master_volume = volume;
 	
 	for (int i = 0; i < 32; i++)
-		Mix_Volume(i, gamechunk[i].volume * master_volume / 127);
+		Mix_Volume(i, (int)((gamechunk[i].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
 	
 	//may be can fix - must analyze
@@ -492,7 +490,7 @@ void SOUND_set_sample_volume(HSAMPLE S, int32_t volume) {
 	if (master_volume == -1)
 		master_volume = 127;
 	gamechunk[S->index_sample].volume = volume;
-	Mix_Volume(S->index_sample, gamechunk[S->index_sample].volume * master_volume / 127);
+	Mix_Volume(S->index_sample, (int)((gamechunk[S->index_sample].volume * master_volume) / 127));
 #endif//SOUND_SDLMIXER
 }
 
