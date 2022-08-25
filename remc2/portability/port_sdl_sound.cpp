@@ -132,6 +132,7 @@ void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
 
 void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 #ifdef SOUND_SDLMIXER
+#ifndef __linux__
 	if ((milliseconds>0)&&(volume == 0))
 	{
 		if (GAME_music[last_sequence_num])
@@ -156,6 +157,7 @@ void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 		}
 	}
 	else
+#endif //__linux__
 		Mix_VolumeMusic(volume);
 	lastMusicVolume = volume;
 	if (milliseconds == 0)
