@@ -1026,7 +1026,7 @@ void sub_8E160_sound_proc15_startsequence(__int16 track, unsigned __int8 volume)
 		  sub_98360_AIL_send_channel_voice_message(x_DWORD_180C7C, x_DWORD_180C78, i | 0xB0, 0x5Du, 0);
 		}*/
 		if (volume < 0x7Fu)
-			SetAilSequenceVolume(m_hSequence, volume, 0);
+			SetAilSequenceVolume(m_hSequence, volume, -1);
 
 		sub_95D50_AIL_start_sequence(m_hSequence, track);
 		x_WORD_E3800 = 100;

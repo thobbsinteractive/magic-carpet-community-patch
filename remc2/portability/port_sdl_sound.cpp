@@ -26,7 +26,7 @@ bool fixspeedsound = false;
 int32_t last_sequence_num = 0;
 
 int lastMusicVolume = -1;
-int lastMusicNonFadeVolume = 127;
+int settingsMusicVolume = 127;
 int num_IO_configurations = 3;
 int service_rate = -1;
 int master_volume = -1;
@@ -96,9 +96,9 @@ void SOUND_start_sequence(int32_t sequence_num) {
 	{
 		SOUND_set_sequence_volume(0x64, 0);
 	}
-	if (lastMusicVolume != lastMusicNonFadeVolume)
+	if (lastMusicVolume != settingsMusicVolume)
 	{
-		SOUND_set_sequence_volume(lastMusicNonFadeVolume, 0);
+		SOUND_set_sequence_volume(settingsMusicVolume, 0);
 	}
 	//volume fix
 
@@ -137,7 +137,7 @@ void SOUND_resume_sequence(int32_t  /*sequence_num*/) {
 void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 #ifdef SOUND_SDLMIXER
 #ifndef __linux__
-	if ((milliseconds>0)&&(volume == 0))
+	if ((milliseconds > 0) && (volume == 0))
 	{
 		if (GAME_music[last_sequence_num])
 		{
@@ -165,7 +165,7 @@ void SOUND_set_sequence_volume(int32_t volume, int32_t  milliseconds) {
 		Mix_VolumeMusic(volume);
 	lastMusicVolume = volume;
 	if (milliseconds == 0)
-		lastMusicNonFadeVolume = volume;
+		settingsMusicVolume = volume;
 #endif//SOUND_SDLMIXER
 }
 
