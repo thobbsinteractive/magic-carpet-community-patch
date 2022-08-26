@@ -13322,11 +13322,11 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 	{
 		case 1:
 			volume = 127;
-			posYbyType = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
 			break;
 		case 2:
 			volume = 127;
-			posYbyType = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+			posYbyType = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
 			break;
 	}
 	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
@@ -13507,15 +13507,15 @@ LABEL_12:
 					D41A0_0.LevelIndex_0xc,
 					8);
 				sub_6E150();
-				if (x_D41A0_BYTEARRAY_4_struct.soundVolume_6 != v9)
+				if (x_D41A0_BYTEARRAY_4_struct.wordindex_6 != v9)
 				{
-					x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = v9;
+					x_D41A0_BYTEARRAY_4_struct.wordindex_6 = v9;
 					sub_8E470_sound_proc17_volume((signed __int16)v9);
 				}
 			}
-			else if (v10 == 2 && x_D41A0_BYTEARRAY_4_struct.musicVolume_8 != v9)
+			else if (v10 == 2 && x_D41A0_BYTEARRAY_4_struct.wordindex_8 != v9)
 			{
-				x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = v9;
+				x_D41A0_BYTEARRAY_4_struct.wordindex_8 = v9;
 				sub_8E410_sound_proc16_xmidivolume(v9);
 			}
 		}
@@ -29785,11 +29785,11 @@ void DrawVolumeSettings_303D0()//2113d0
 	{
 	case 1:
 		volume = 127;
-		index = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+		index = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
 		break;
 	case 2:
 		volume = 127;
-		index = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+		index = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
 		break;
 	}
 	width -= 2;
@@ -57742,11 +57742,11 @@ int sub_59A50_sound_proc8()//23aa50
 		//sub_92DC0_AIL_release_timer_handle(x_DWORD_F4940);
 		x_BYTE_D4B7A = 0;
 	}
-	sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3);
-	x_BYTE_D4B78 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3;
-	sub_8E410_sound_proc16_xmidivolume((x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3));
-	result = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
-	x_BYTE_D4B79 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
+	sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.wordindex_6 / 3);
+	x_BYTE_D4B78 = x_D41A0_BYTEARRAY_4_struct.wordindex_6 / 3;
+	sub_8E410_sound_proc16_xmidivolume((x_D41A0_BYTEARRAY_4_struct.wordindex_8 / 3));
+	result = x_D41A0_BYTEARRAY_4_struct.wordindex_8 / 3;
+	x_BYTE_D4B79 = x_D41A0_BYTEARRAY_4_struct.wordindex_8 / 3;
 	x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x40u;
 	return result;
 }
@@ -57781,13 +57781,13 @@ void sub_59B50_sound_proc10(HMDIDRIVER  /*user*/)//23ab50
 	__int16 v0; // bx
 	__int16 v1; // dx
 
-	v0 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+	v0 = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
 	if ((unsigned __int8)x_BYTE_D4B78 != v0
-		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = x_BYTE_D4B79, v1 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8))
+		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = x_BYTE_D4B79, v1 != x_D41A0_BYTEARRAY_4_struct.wordindex_8))
 	{
-		if ((signed __int16)(unsigned __int8)x_BYTE_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
+		if ((signed __int16)(unsigned __int8)x_BYTE_D4B78 < x_D41A0_BYTEARRAY_4_struct.wordindex_6)
 			sub_8E470_sound_proc17_volume((unsigned __int8)++x_BYTE_D4B78);
-		if ((signed __int16)(unsigned __int8)x_BYTE_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
+		if ((signed __int16)(unsigned __int8)x_BYTE_D4B79 < x_D41A0_BYTEARRAY_4_struct.wordindex_8)
 			sub_8E410_sound_proc16_xmidivolume(++x_BYTE_D4B79);
 	}
 	else
@@ -57810,8 +57810,8 @@ void sub_59BF0_sound_proc11_volume()//23abf0
 		//sub_92DC0_AIL_release_timer_handle(x_DWORD_F4940);
 		x_BYTE_D4B7A = 0;
 	}
-	sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
-	sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
+	sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.wordindex_6);
+	sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.wordindex_8);
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
 // D4B7A: using guessed type char x_BYTE_D4B7A;
@@ -59745,8 +59745,8 @@ void sub_5BCC0_set_any_variables1()//23ccc0
 	//result = x_D41A0_BYTEARRAY_4;//2a51a4
 	x_BYTE_EB39E_keys[5] = 0x1D;//2bc3A3//CTRL
 	x_D41A0_BYTEARRAY_4_struct.wordindex_4 = 0;//dword 38cf54
-	x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = 127;//dword 38cf56
-	x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = 127;//dword 38cf58
+	x_D41A0_BYTEARRAY_4_struct.wordindex_6 = 127;//dword 38cf56
+	x_D41A0_BYTEARRAY_4_struct.wordindex_8 = 127;//dword 38cf58
 	x_BYTE_EB39E_keys[2] = 0x4B;//2BC3A0//LEFT
 	x_D41A0_BYTEARRAY_4_struct.byteindex_10 = 1;//byte 38cf5a
 	x_BYTE_EB39E_keys[4] = 0x1C;//2BC3A2//ENTER
@@ -77008,8 +77008,8 @@ void sub_76A40_lang_setting()//257A40
 
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_0 = *(uint32_t*)&v10[0];
 			x_D41A0_BYTEARRAY_4_struct.wordindex_4 = *(uint16_t*)&v10[4];
-			x_D41A0_BYTEARRAY_4_struct.soundVolume_6 = *(uint16_t*)&v10[6];
-			x_D41A0_BYTEARRAY_4_struct.musicVolume_8 = *(uint16_t*)&v10[8];
+			x_D41A0_BYTEARRAY_4_struct.wordindex_6 = *(uint16_t*)&v10[6];
+			x_D41A0_BYTEARRAY_4_struct.wordindex_8 = *(uint16_t*)&v10[8];
 			x_D41A0_BYTEARRAY_4_struct.byteindex_10 = *(uint8_t*)&v10[10];
 			x_D41A0_BYTEARRAY_4_struct.byte_brightness_11 = *(uint8_t*)&v10[11];
 			x_D41A0_BYTEARRAY_4_struct.byte_brightness_12 = *(uint8_t*)&v10[12];
@@ -77030,8 +77030,8 @@ void sub_76A40_lang_setting()//257A40
 			x_BYTE_EB39E_keys[9] = *(uint8_t*)&v10[31];
 
 			DataFileIO::Close(configdatfile);
-			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6);
-			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.musicVolume_8);
+			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.wordindex_6);
+			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.wordindex_8);
 
 			sprintf(printbuffer, "%s/%s/L%d.TXT", cdDataPath.c_str(), "LANGUAGE", x_D41A0_BYTEARRAY_4_struct.wordindex_4);
 			for (int16_t i = 0; i < 2; i++)
@@ -77906,9 +77906,9 @@ char sub_779E0_lang_setting_dialog(type_WORD_E1F84* a1y)//2589E0
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//2
 		twobyte = x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//4
-		twobyte = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+		twobyte = x_D41A0_BYTEARRAY_4_struct.wordindex_6;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//6
-		twobyte = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+		twobyte = x_D41A0_BYTEARRAY_4_struct.wordindex_8;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//8
 		twobyte = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
 		sub_98CAA_write(configfile, (uint8_t*)&twobyte, 2);//10
@@ -83856,8 +83856,8 @@ void sub_81DB0_read_config()//262db0
 			//qmemcpy(&v5, (void *)x_D41A0_BYTEARRAY_4[20], 2u);
 			qmemcpy(&readbuffer[0], (void*)&x_D41A0_BYTEARRAY_4_struct.dwordindex_0, 4);//fixed
 			qmemcpy(&readbuffer[4], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_4, 2);//fixed
-			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.soundVolume_6, 2);//fixed
-			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.musicVolume_8, 2);//fixed
+			qmemcpy(&readbuffer[6], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_6, 2);//fixed
+			qmemcpy(&readbuffer[8], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_8, 2);//fixed
 			qmemcpy(&readbuffer[10], (void*)&x_D41A0_BYTEARRAY_4_struct.byteindex_10, 1);//fixed
 			qmemcpy(&readbuffer[11], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_11, 1);//fixed
 			qmemcpy(&readbuffer[12], (void*)&x_D41A0_BYTEARRAY_4_struct.byte_brightness_12, 1);//fixed
