@@ -29571,7 +29571,7 @@ LABEL_8:
 					v10 = Maths::sub_58490_radix_3d_2(&a1x->axis_0x4C_76, &v28x);
 					if (v10 < v35 && v10 >= v43)
 					{
-						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v10 << 10) / v35]) >> 1) >> 16)
+						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v10 * 1024) / v35]) >> 1) >> 16)
 							* (0x10000 - Maths::x_DWORD_DB750[0x200 + v7]);
 						v12 = v11 >> 16;
 						v45 = (v11 >> 18) + v42;
@@ -29936,7 +29936,7 @@ void sub_31940(type_event_0x6E8E* a1x)//212940
 				if (v11 < v6)
 				{
 					v12 = (a1x->word_0x2C_44
-						* ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v11 << 10) / v6]) >> 1) >> 16)
+						* ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v11 * 1024) / v6]) >> 1) >> 16)
 						+ a1x->axis_0x4C_76.z;
 					v43 = v12;
 					v42 = mapHeightmap_11B4E0[v9x.word];
@@ -32165,7 +32165,7 @@ void sub_34C40(type_event_0x6E8E* a1x)//215c40
 					{
 						v22 = mapHeightmap_11B4E0[i];
 						v25 = x_BYTE_14B4E0_second_heightmap[i];
-						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v8 << 10) / v7]) >> 1) >> 16;
+						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v8 * 1024) / v7]) >> 1) >> 16;
 						v9 = v18 + v23;
 						if (v18 + v23 > 254)
 							v9 = 254;
@@ -32332,7 +32332,7 @@ void sub_34EE0(/*signed int a1, int a2, */type_event_0x6E8E* a3x)//215ee0
 					v31 = v15;
 					if (v15 < v35)
 					{
-						v16 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v15 << 10) / v35]) >> 1);
+						v16 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v15 * 1024) / v35]) >> 1);
 						v17 = a3x->model_0x40_64;
 						v18 = v16 >> 16;
 						if (v17 >= 0x54u)
@@ -35337,7 +35337,7 @@ void sub_39040(type_event_0x6E8E* a1x)//21a040
 									if (a1x->word_0x2C_44 < v11)
 										a1x->word_0x2C_44 = v11;
 									v50 = v11
-										- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + ((v48 - 2304) << 10) / 1536]) >> 1)
+										- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + ((v48 - 2304) * 1024) / 1536]) >> 1)
 											* (v11 - (a1x->axis_0x4C_76.z + 64)) >> 16);
 								}
 								else
@@ -35690,7 +35690,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 						MovePlayer_57FA0(&v28x, v11, 0, 3840);
 						v12 = getTerrainAlt_10C40(&v28x);
 						v13 = (v12 >> 5)
-							- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v36 << 10) / 3840]) >> 1)
+							- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v36 * 1024) / 3840]) >> 1)
 								* ((v12 >> 5) - a1x->axis_0x4C_76.z) >> 16);
 						a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 						v14 = (a1x->rand_0x14_20 & 3) + v13 - 2;
@@ -60292,7 +60292,7 @@ void sub_5D530(type_event_0x6E8E* a1x)//*(x_DWORD *)(a1 + 160)//23e530
 			LOWORD(v8) = 1;
 	}
 	a1x->actSpeed_0x82_130 += v8 * x_DWORD_D4B84;
-	v9 = ((x_WORD_EB398ar.z - (signed __int16)getTerrainAlt_10C40(&x_WORD_EB398ar) - a1x->dword_0xA0_160x->word_160_0xa_10) << 10)
+	v9 = ((x_WORD_EB398ar.z - (signed __int16)getTerrainAlt_10C40(&x_WORD_EB398ar) - a1x->dword_0xA0_160x->word_160_0xa_10) * 1024)
 		/ a1x->dword_0xA0_160x->word_160_0xa_10;
 	if (v9 < -256)
 		v9 = -256;
@@ -72452,7 +72452,7 @@ void PrepareEventSound_6E450(__int16 a1, __int16 a2, __int16 a3)//24f450
 		v7 = sub_582B0(v26x->word_0x1C_28, v6);
 		v27 = v7;
 		v8 = 12288 * (512 - v7 / 2 + 512);
-		v9 = (v8 - (__CFSHL__(v8 >> 31, 10) + (v8 >> 31 << 10))) >> 10;
+		v9 = (v8 - (__CFSHL__(v8 >> 31, 10) + (v8 >> 31 * 1024))) >> 10;
 		v10 = v9 ? (signed int)(0x7FFF * (v9 - v25)) / v9 : 0x7FFF;
 		v11 = (signed __int16)sub_582F0(v26x->word_0x1C_28, v28);
 		if (v10 < 512)
