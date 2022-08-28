@@ -9247,9 +9247,9 @@ type_event_0x6E8E* sub_15170(type_event_0x6E8E* a1x, unsigned __int8 a2)//1f6170
 				- a1x->dword_0xA4_164x->word_0x244_580
 				- (__CFSHL__((255 - a1x->dword_0xA4_164x->word_0x244_580) >> 31, 2)
 					+ 4 * ((255 - a1x->dword_0xA4_164x->word_0x244_580) >> 31))) >> 2)
-				+ 20) << 11)
+				+ 20) * 2048)
 				/ 360;*/
-			v25 = (((((255 - a1x->dword_0xA4_164x->word_0x244_580) - (my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580) << 2) + my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580)) >> 2) + 20) << 11) / 360;
+			v25 = (((((255 - a1x->dword_0xA4_164x->word_0x244_580) - (my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580) << 2) + my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580)) >> 2) + 20) * 2048) / 360;
 
 			if ((unsigned __int16)sub_582B0(a1x->word_0x1C_28, a1x->word_0x20_32) >= v25)
 				return 0;
@@ -9282,9 +9282,9 @@ type_event_0x6E8E* sub_15170(type_event_0x6E8E* a1x, unsigned __int8 a2)//1f6170
 				- a1x->dword_0xA4_164x->word_0x244_580
 				- (__CFSHL__((255 - a1x->dword_0xA4_164x->word_0x244_580) >> 31, 2)
 					+ 4 * ((255 - a1x->dword_0xA4_164x->word_0x244_580) >> 31))) >> 2)
-				+ 20) << 11)
+				+ 20) * 2048)
 				/ 360;*/
-			v14 = (((((255 - a1x->dword_0xA4_164x->word_0x244_580) - (my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580) << 2) + my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580)) >> 2) + 20) << 11) / 360;
+			v14 = (((((255 - a1x->dword_0xA4_164x->word_0x244_580) - (my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580) << 2) + my_sign32(255 - a1x->dword_0xA4_164x->word_0x244_580)) >> 2) + 20) * 2048) / 360;
 
 			if ((unsigned __int16)sub_582B0(a1x->word_0x1C_28, a1x->word_0x20_32) >= v14)
 				return 0;
@@ -9314,7 +9314,7 @@ type_event_0x6E8E* sub_15170(type_event_0x6E8E* a1x, unsigned __int8 a2)//1f6170
 						{
 							v20 = 255 - a1x->dword_0xA4_164x->word_0x244_580;
 							if ((unsigned __int16)sub_582B0(a1x->word_0x1C_28, a1x->word_0x20_32) < ((((signed int)(v20 - (__CFSHL__(HIDWORD(v20), 2) + 4 * HIDWORD(v20))) >> 2)
-								+ 20) << 11)
+								+ 20) * 2048)
 								/ 360)
 								return v16x;
 						}
@@ -9396,7 +9396,7 @@ signed int sub_155E0(type_event_0x6E8E* a1x)//1f65e0
 					{
 						v4 = 255 - a1x->dword_0xA4_164x->word_0x244_580;
 						if ((unsigned __int16)sub_582B0(a1x->word_0x1C_28, a1x->word_0x20_32) < ((((signed int)(v4 - (__CFSHL__(HIDWORD(v4), 2) + 4 * HIDWORD(v4))) >> 2)
-							+ 20) << 11)
+							+ 20) * 2048)
 							/ 360)
 							return 1;
 					}
@@ -21385,7 +21385,7 @@ void sub_254E0(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x, unsigned __int8 a
 	v3x = a1x;
 	a1x->word_0x20_32 = Maths::sub_581E0_maybe_tan2(&a1x->axis_0x4C_76, &a2x->axis_0x4C_76);
 	//result = sub_58350(v3x->word_0x1C_28, v3x->word_0x20_32, 5, (a3 << 11) / 360);
-	v3x->word_0x1C_28 += sub_58350(v3x->word_0x1C_28, v3x->word_0x20_32, 5, (a3 << 11) / 360);
+	v3x->word_0x1C_28 += sub_58350(v3x->word_0x1C_28, v3x->word_0x20_32, 5, (a3 * 2048) / 360);
 	//BYTE1(result) = *(x_BYTE *)(a1 + 29) & 7;
 	a1x->word_0x1C_28 &= 0x7ff;// BYTE1(result);
 	//return result;
@@ -21527,7 +21527,7 @@ void HitFirebug_25610(type_event_0x6E8E* a1x)//206610
 					a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 					MovePlayer_57FA0(
 						&x_WORD_EB398ar,
-						(v34x->word_0x1C_28 - 256 + (signed int)(a1x->rand_0x14_20 % 0x5Au << 11) / 360) & 0x7FF,
+						(v34x->word_0x1C_28 - 256 + (signed int)(a1x->rand_0x14_20 % 0x5Au * 2048) / 360) & 0x7FF,
 						0,
 						2048);
 					if (sub_583F0_distance_3d(&a1x->axis_0x4C_76, &x_WORD_EB398ar) <= 0x500)
@@ -81221,7 +81221,7 @@ int ReadGameUserInputs_89D10()//26ad10
 				unk_18058Cstr.x_DWORD_18059C |= 0x10;
 		}
 		unk_18058Cstr.x_DWORD_180594 *= 4;
-		unk_18058Cstr.x_DWORD_180590 = (unk_18058Cstr.x_DWORD_180590 << 11) / 360;
+		unk_18058Cstr.x_DWORD_180590 = (unk_18058Cstr.x_DWORD_180590 * 2048) / 360;
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8)
 			goto LABEL_53;
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 12)
