@@ -513,8 +513,9 @@ void support_begin() {
 	//pre_pdwScreenBuffer_351628 = (uint8_t*)malloc(2228224);// 640x480
 	//pdwScreenBuffer_351628 = &pre_pdwScreenBuffer_351628[1114112];// 640x480
 
-	pre_pdwScreenBuffer_351628 = (uint8_t*)malloc(16588800); // (1920x1080 * 4) * 2
-	pdwScreenBuffer_351628 = &pre_pdwScreenBuffer_351628[8294400]; // 1920x1080 * 4
+	//This buffers pdwScreenBuffer_351628 by 4MB
+	pre_pdwScreenBuffer_351628 = (uint8_t*)malloc(((1920 * 1080) * 4) * 3);
+	pdwScreenBuffer_351628 = &pre_pdwScreenBuffer_351628[((1920 * 1080) * 4)];
 
 	//x_DWORD_E9C38_smalltit= (uint8_t*)malloc(64000);
 	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (uint8_t*)malloc(64000);
