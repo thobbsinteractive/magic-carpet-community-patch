@@ -1,16 +1,10 @@
 ﻿// DecompressTMAPS.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
 //
-
-#include <iostream>
+#include "DecompressTMAPS.h"
 
 //#define level1 //night
 //#define level2 //day
 //#define level4 //cave
-char palfilename[512];
-char tmapsdatfilename[512];
-char tmapstabfilename[512];
-char tmapsstr[512];
-int transparent_color = 0;
 /*
 #ifdef level1
 char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal";
@@ -34,67 +28,6 @@ char tmapsstr[] = "TMAPS2-2-";
 int transparent_color = 0;
 #endif
 */
-#include "png.h"
-#pragma comment(lib, "zlib.lib") // must be before libpng!
-#ifndef _WIN64
-#pragma comment(lib, "libpng15.lib") // must be after zlib!
-#else
-#endif
-
-#define x_BYTE int8
-#define x_WORD int16
-#define x_DWORD int32
-#define x_LONG int32
-
-#define SIZEOF_UNSIGNED_INT 4
-
-#define SIZEOF_UNSIGNED_CHAR 1
-
-#define SIZEOF_UNSIGNED_SHORT 2
-
-#if SIZEOF_UNSIGNED_SHORT != 2
-#  error "sizeof (unsigned short) != 2"
-#else
-typedef unsigned short Bit16u;
-typedef   signed short Bit16s;
-#endif
-
-#if SIZEOF_UNSIGNED_INT == 4
-typedef unsigned int Bit32u;
-typedef   signed int Bit32s;
-#elif SIZEOF_UNSIGNED_LONG == 4
-typedef unsigned long Bit32u;
-typedef   signed long Bit32s;
-#else
-//#  error "can't find sizeof(type) of 4 bytes!"
-#endif
-
-#if SIZEOF_UNSIGNED_CHAR != 1
-#  error "sizeof (unsigned char) != 1"
-#else
-typedef unsigned char Bit8u;
-typedef   signed char Bit8s;
-#endif
-
-typedef          char   int8;
-typedef   signed char   sint8;
-typedef unsigned char   uint8;
-typedef          short  int16;
-typedef   signed short  sint16;
-typedef unsigned short  uint16;
-typedef          int    int32;
-typedef   signed int    sint32;
-typedef unsigned int    uint32;
-
-#define _BYTE  uint8
-#define _WORD  uint16
-#define _DWORD uint32
-#define _QWORD uint64
-
-#define LOWORD(x)   (*((_WORD*)&(x)))   // low word
-#define HIWORD(x)   (*((_WORD*)&(x)+1))
-#define LOBYTE(x)   (*((_BYTE*)&(x)))   // low byte
-#define HIBYTE(x)   (*((_BYTE*)&(x)+1))
 
 typedef struct huftable_s {
 	uint32 l1; // +0
@@ -1055,11 +988,11 @@ buffer2[(y * width + x) * 4 + 3] = 255;
 }
 
 */
-void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filename, char* filenamealpha, char* title,bool alpha, int frame) {
+void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width, int height, char* filename, char* filenamealpha, char* title,bool alpha, int frame) {
 	Bit8u pallettebuffer[768];
 	FILE* palfile;
 	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
-	fopen_s(&palfile, palfilename, "rb");
+	fopen_s(&palfile,  palfilename, "rb");
 	fread(pallettebuffer, 768, 1, palfile);
 	fclose(palfile);
 	char textbuffer[512];
@@ -1313,7 +1246,7 @@ void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filenam
 	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
 }
 
-void write_posistruct_to_bmp(Bit8u* buffer, int width, int height, char* filename) {
+void write_posistruct_to_bmp(char const palfilename[], Bit8u* buffer, int width, int height, char* filename) {
 	Bit8u pallettebuffer[768];
 	FILE* palfile;
 	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
@@ -2039,18 +1972,6 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int* a2, __int16 a3)//2531
 #define write_png
 //#define write_alphapng
 
-int other_folder0[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-	51, 52, 53, 54, 57, 59, 76, 77, 82, 85, 88, 89, 90,
-	91, 92, 93, 94, 95, 144, 260, 261, 425 -1};
-
-int other_folder1[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47 ,48, 49, 50,
-	51, 52, 53, 54, 77, 82, 261, -1};
-
-int other_folder2[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
-	51, 52, 53, 54, 66, 77, 82, 261, -1};
-
-int* other_folder;
-
 bool isOther(int* other_folder,int index) {
 	for (int i = 0; other_folder[i] != -1; i++)
 		if (index == other_folder[i])
@@ -2058,38 +1979,27 @@ bool isOther(int* other_folder,int index) {
 	return false;
 }
 
-int sub_main();
-int max_images = 504;
 int main() {
-	strcpy_s(palfilename, "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal");
-	strcpy_s(tmapsdatfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.dat");
-	strcpy_s(tmapstabfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.tab");
-	strcpy_s(tmapsstr,"TMAPS2-1-");
-	transparent_color = 0;
+
+	char palfilename[512];
+	char tmapsdatfilename[512];
+	char tmapstabfilename[512];
+	char tmapsstr[512];
+
 	other_folder = other_folder1;
 	max_images = 504;
-	sub_main();
+	return sub_main("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.dat", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.tab", "TMAPS2-1-");
 
-	strcpy_s(palfilename,"c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal");
-	strcpy_s(tmapsdatfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.dat");
-	strcpy_s(tmapstabfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.tab");
-	strcpy_s(tmapsstr,"TMAPS2-0-");
-	transparent_color = 0;
 	other_folder = other_folder0;
 	max_images = 504;
-	sub_main();
+	sub_main("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.dat", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.tab", "TMAPS2-0-");
 
-	strcpy_s(palfilename,"c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal");
-	strcpy_s(tmapsdatfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.dat");
-	strcpy_s(tmapstabfilename,"c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.tab");
-	strcpy_s(tmapsstr,"TMAPS2-2-");
-	transparent_color = 0;
 	other_folder = other_folder2;
 	max_images = 464;
-	sub_main();
+	sub_main("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.dat", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.tab", "TMAPS2-2-");
 }
 
-int sub_main()
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[])
 {
 	FILE* fptrTMAPSdata;
 	fopen_s(&fptrTMAPSdata, tmapsdatfilename, "rb");
@@ -2190,8 +2100,7 @@ int sub_main()
 		write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
 #endif
 
-#ifdef write_png
-		
+#ifdef write_png	
 		if(isOther(other_folder, index))
 			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00-other.png", tmapsstr, index);
 		else
@@ -2201,7 +2110,7 @@ int sub_main()
 
 		sprintf_s(outnameAlpha, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00APLH.png", tmapsstr, index);
 
-		write_posistruct_to_png(buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
+		write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
 #endif
 #ifdef write_alphapng
 		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-00.png", tmapsstr, index);
@@ -2330,7 +2239,7 @@ int sub_main()
 			//sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
 			sprintf_s(outnameAlpha, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02iAlpha.png", tmapsstr, index, mainindex + 1);
 			sprintf_s(title, "%s%03i", tmapsstr, index);
-			write_posistruct_to_png(buffer + 6, width, height, outname, outnameAlpha,title, 0, 30);//test write
+			write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha,title, 0, 30);//test write
 	#endif
 	#ifdef write_alphapng
 			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-%02i.png", tmapsstr, index, mainindex + 1);
