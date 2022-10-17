@@ -988,6 +988,26 @@ buffer2[(y * width + x) * 4 + 3] = 255;
 }
 
 */
+
+void writeUsedColor(char* filename, std::vector<uint8_t> usedColors) {
+	FILE* colfile;
+	fopen_s(&colfile, filename, "wt");
+	int oldColor = -1;
+	int j = 0;
+	for (int i = 0;i< usedColors.size();i++)
+	{
+		if (oldColor != usedColors[i])
+		{
+			oldColor = usedColors[i];
+			fprintf(colfile, "0x%02X,", usedColors[i]);
+			if (j % 16 == 15)
+				fprintf(colfile, "\n");
+			j++;
+		}
+	}
+	fclose(colfile);
+};
+
 void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width, int height, char* filename, char* filenamealpha, char* title,bool alpha, int frame) {
 	Bit8u pallettebuffer[768];
 	FILE* palfile;
@@ -1015,11 +1035,14 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			buffer2[i * 4 + 3] = 255;
 		}
 	}*/
+	std::vector<uint8_t> usedColors;
+
 	for (int y = 0; y < height + 2 * frame; y++)
 		for (int x = 0; x < width + 2 * frame; x++)
 		{
 			int x2 = x - frame;
 			int y2 = y - frame;
+			usedColors.push_back(buffer[y2 * width + x2]);
 			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 255;
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
@@ -1041,6 +1064,10 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 				}
 			}
 	}
+	sort(usedColors.begin(), usedColors.end());
+	sprintf_s(textbuffer, "%s-col.txt", filename);
+	writeUsedColor(textbuffer, usedColors);
+
 	sprintf_s(textbuffer,"%sR.png", filename);
 	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2,title);
 	for (int y = 0; y < height + 2 * frame; y++)
@@ -2100,7 +2127,8 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
 #endif
 
-#ifdef write_png	
+#ifdef write_png
+		
 		if(isOther(other_folder, index))
 			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00-other.png", tmapsstr, index);
 		else

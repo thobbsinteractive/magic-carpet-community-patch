@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <stdint.h>
+#include <vector>
+#include <algorithm>    // std::sort
 #include "mctypes.h"
 #include "png.h"
 #pragma comment(lib, "zlib.lib") // must be before libpng!
