@@ -2006,24 +2006,83 @@ bool isOther(int* other_folder,int index) {
 	return false;
 }
 
-int main() {
+int main(int argc, char** argv) {
 
-	char palfilename[512];
-	char tmapsdatfilename[512];
-	char tmapstabfilename[512];
-	char tmapsstr[512];
+	std::string palletPath;
+	std::string tmapsDat;
+	std::string tmapsTab;
+	std::string folderPath;
+	bool showHelp = false;
 
-	other_folder = other_folder1;
-	max_images = 504;
-	return sub_main("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.dat", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.tab", "TMAPS2-1-");
+	std::vector<std::string> params;
+	params.clear();
+	for (int i = 1; i < argc; ++i) {
+		params.emplace_back(argv[i]);
+	}
 
-	other_folder = other_folder0;
-	max_images = 504;
-	sub_main("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.dat", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.tab", "TMAPS2-0-");
+	for (auto p = params.cbegin(); p != params.cend(); ++p) {
+		const auto param = *p;
+		if ((param == "-p") || (param == "--pallet")) 
+		{
+			palletPath = *(++p);
+		}
+		else if ((param == "-d") || (param == "--tmaps-dat")) 
+		{
+			tmapsDat = *(++p);
+		}
+		else if ((param == "-t") || (param == "--tmaps-tab")) 
+		{
+			tmapsTab = *(++p);
+		}
+		else if ((param == "-f") || (param == "--folder-pattern")) 
+		{
+			folderPath = *(++p);
 
-	other_folder = other_folder2;
-	max_images = 464;
-	sub_main("c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.dat", "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.tab", "TMAPS2-2-");
+			if (strcmp(folderPath.c_str(), "0") == 0)
+			{
+				other_folder = other_folder0;
+				max_images = 504;
+			}
+			if (strcmp(folderPath.c_str(), "1") == 0)
+			{
+				other_folder = other_folder1;
+				max_images = 504;
+			}
+			if (strcmp(folderPath.c_str(), "2") == 0)
+			{
+				other_folder = other_folder2;
+				max_images = 464;
+			}
+
+			folderPath = "TMAPS2-" + folderPath + "-";
+		}
+		else if ((param == "-h") || (param == "--help")) {
+			showHelp = true;
+		}
+	}
+
+	if (palletPath.length() == 0 || tmapsDat.length() == 0 || tmapsTab.length() == 0 || folderPath.length() == 0)
+	{
+		printf("Missing required parameters!\n");
+		showHelp = true;
+	}
+
+	if (showHelp)
+	{
+		printf("-p --pallet: Pallet file path\n");
+		printf("-d --tmaps-dat: Tmap .dat file path\n");
+		printf("-t --tmaps-tab: Tmap .tab file path\n");
+		printf("-f --folder-pattern: Folder pattern to use 0, 1 or 2\n\n");
+		printf("For night levels:\n");
+		printf("-p c:\\remc2\\tools\\out-n.pal -d c:\\remc2\\tools\\tmaps1-0.dat -t c:\\remc2\\tools\\tmaps1-0.tab -f 1\n");
+		printf("For day levels:\n");
+		printf("-p c:\\remc2\\tools\\out-block.pal -d c:\\remc2\\tools\\tmaps0-0.dat -t c:\\remc2\\tools\\tmaps0-0.tab -f 0\n");
+		printf("For cave levels:\n");
+		printf("-p c:\\remc2\\tools\\out-c.pal -d c:\\remc2\\tools\\tmaps2-0.dat -t c:\\remc2\\tools\\tmaps2-0.tab -f 2\n");
+		return -1;
+	}
+
+	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str());
 }
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[])
