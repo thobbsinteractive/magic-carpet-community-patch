@@ -13301,7 +13301,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		sub_417D0_install_pal_and_mouse_minmax2();
 		return;
 	case 19:
-		if (m_ptrGameRender != nullptr && typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+		if (m_ptrGameRender != nullptr && (typeid(*m_ptrGameRender) == typeid(GameRenderHD) || typeid(*m_ptrGameRender) == typeid(GameRenderLookingGlass)))
 		{
 			uint8_t numRenderThreads = ((GameRenderHD*)m_ptrGameRender)->GetRenderThreads();
 			if (numRenderThreads >= 7)
@@ -26359,7 +26359,7 @@ void DrawGameFrame_2BE30()//20CE30
 		if (CommandLineParams.DoTestRenderers()) {
 			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD) || typeid(*m_ptrGameRender) == typeid(GameRenderLookingGlass))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -26385,7 +26385,7 @@ void DrawGameFrame_2BE30()//20CE30
 				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
 					allert_error();
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD) || typeid(*m_ptrGameRender) == typeid(GameRenderLookingGlass))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -26617,7 +26617,7 @@ void DrawGameFrame_2BE30()//20CE30
 		if (CommandLineParams.DoTestRenderers()) {
 			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD) || typeid(*m_ptrGameRender) == typeid(GameRenderLookingGlass))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -26644,7 +26644,7 @@ void DrawGameFrame_2BE30()//20CE30
 				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
 					allert_error();
 
-			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
+			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD) || typeid(*m_ptrGameRender) == typeid(GameRenderLookingGlass))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
@@ -37862,6 +37862,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				{
 					if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+					}
+					else if ((gameResWidth == 3360) && (gameResHeight == 3360)) {
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderLookingGlass(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)gameResWidth, (uint16_t)gameResHeight, 8, 6, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 					}
 					else {
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624,(multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);

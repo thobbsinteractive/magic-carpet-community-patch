@@ -32,8 +32,6 @@ void GameRenderLookingGlass::DrawWorld_411A0(int posX, int posY, int16_t yaw, in
 	int v20; // edx
 	int vYaw; // esi
 	int v22; // edx
-	int v23; // ebx
-	uint32_t v24; // edx
 	int v25; // ebx
 	int v26; // edi
 	int v28; // ebx
@@ -109,32 +107,42 @@ void GameRenderLookingGlass::DrawWorld_411A0(int posX, int posY, int16_t yaw, in
 	vPosX = x_DWORD_D4794 + posX;
 	vPosY = x_DWORD_D4798 + posY;
 
-	uint16_t viewPortWidth = m_uiScreenWidth_18062C / m_uiCols;
-	uint16_t viewPortHeight = m_uiScreenHeight_180624 / m_uiRows;
+	if (m_uiScreenWidth_18062C > 320 && m_uiScreenHeight_180624 > 200) {
+		uint16_t viewPortWidth = m_uiScreenWidth_18062C / m_uiCols;
+		uint16_t viewPortHeight = m_uiScreenHeight_180624 / m_uiRows;
 
-	for (int x = 0; x < m_uiCols; x++)
-	{
-		for (int y = m_uiRows; y > 0; y--)
+		int count = -((m_uiCols * m_uiRows) / 2);
+		for (int y = (m_uiRows - 1); y >= 0; y--)
 		{
-			DrawTerrainAndParticles_3C080(vPosX, vPosY, vYaw, posZ, pitch, roll, fov);
-			viewPort.SetRenderViewPortSize_BCD45(x * viewPortWidth, y * viewPortHeight, viewPortWidth, viewPortHeight, m_uiScreenWidth_18062C, m_uiScreenHeight_180624);
+			for (int x = 0; x < m_uiCols; x++)
+			{
+				int v23 = 5  * Maths::x_DWORD_DB750[vYaw];
+				int v24 = Maths::x_DWORD_DB750[512 + vYaw];
+				int transY = (4 * count) * v23 >> 16;
+				int transX = (20 * count) * v24 >> 16;
+
+				DrawTerrainAndParticles_3C080(vPosX + transX, vPosY + transY, vYaw, posZ, pitch, roll, fov);
+				viewPort.SetRenderViewPortSize_BCD45(x * viewPortWidth, y * viewPortHeight, viewPortWidth, viewPortHeight, m_uiScreenWidth_18062C, m_uiScreenHeight_180624);
+				count++;
+			}
 		}
 	}
+	//WriteWorldToBMP();
 }
 
 void GameRenderLookingGlass::WriteWorldToBMP()
 {
-	char path[MAX_PATH];
-	GetSubDirectoryPath(path, "BufferOut");
-	if (myaccess(path, 0) < 0)
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
 	{
-		mymkdir(path);
+		path = get_exe_path() + "/BufferOut";
+		mymkdir(path.c_str());
 	}
 
-	GetSubDirectoryPath(path, "BufferOut/PaletteOut.bmp");
-	BitmapIO::WritePaletteAsImageBMP(path, 256, m_ptrColorPalette);
-	GetSubDirectoryPath(path, "BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path, m_uiScreenWidth_18062C, m_uiScreenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
+	path = GetSubDirectoryFilePath("BufferOut","PaletteOut.bmp");
+	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_ptrColorPalette);
+	path = GetSubDirectoryFilePath("BufferOut","BufferOut.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), m_uiScreenWidth_18062C, m_uiScreenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
 }
 
 void GameRenderLookingGlass::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -2624,8 +2632,6 @@ void GameRenderLookingGlass::StopWorkerThreads()
 		m_renderThreads.clear();
 	}
 }
-
-int DrawSquareInProjectionSpace_index = 0;
 
 //Coordinates Already transformed into "Screen Space" (x & y, top left 0,0)
 void GameRenderLookingGlass::DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index)
