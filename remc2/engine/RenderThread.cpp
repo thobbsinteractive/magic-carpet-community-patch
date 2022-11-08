@@ -55,7 +55,7 @@ void RenderThread::StartWorkerThread(int8_t core)
 #endif
 			if (m_task) {
 				m_task();
-				m_task = 0;
+				m_task = nullptr;
 				m_isTaskRunning = false;
 			}
 #ifndef _MSC_VER

@@ -25,6 +25,7 @@
 #include "defs.h"
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
+#include "RenderViewPort.h"
 
 class GameRenderLookingGlass : public GameRenderInterface
 {
@@ -37,7 +38,8 @@ private:
 		0x00,0xFF,0xFF,0x00,0xFF,0x28,0x00,0xFF
 	};
 
-	uint8_t unk_DE56Cx[8][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
+	uint8_t m_unk_DE56Cx[48][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
+	type_E9C38_smalltit m_str_E9C38_smalltit[48][21 * 40];
 
 	int offsets_B8845[16] = {
 		  0, -15, -14, -13,
@@ -81,25 +83,25 @@ private:
 
 	uint8_t* x_DWORD_DE55C_ActTexture = 0;
 
-	void DrawSky_40950(int16_t roll);
-	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov);
-	void SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
-	void SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
-	void SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch);
-	void DrawSprite_41BD3(uint32 a1);
-	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index);
-	void DrawInverseSquareInProjectionSpace(int* vertexs, int index);
-	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture);
-	void DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth);
-	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine);
+	void DrawSky_40950(int16_t roll, RenderViewPort viewPort, type_F2C20ar str_F2C20ar);
+	void DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[]);
+	void SubDrawTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[], type_F2C20ar str_F2C20ar);
+	void SubDrawInverseTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[], type_F2C20ar str_F2C20ar);
+	void SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[], type_F2C20ar str_F2C20ar);
+	void DrawSprite_41BD3(uint32 a1, RenderViewPort viewPort, type_F2C20ar str_F2C20ar);
+	void DrawSquareInProjectionSpace(std::vector<int>& vertexs, int index, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[]);
+	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[]);
+	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture, RenderViewPort viewPort, uint8_t unk_DE56Cx[], type_E9C38_smalltit str_E9C38_smalltit[]);
+	void DrawParticles_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_E9C38_smalltit str_E9C38_smalltit[], type_str_unk_1804B0ar str_unk_1804B0ar, uint16_t screenWidth, RenderViewPort viewPort, type_F2C20ar str_F2C20ar);
+	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine, RenderViewPort viewPort, uint8_t unk_DE56Cx[]);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);
 	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line);
-	uint16_t sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth);
+	uint16_t sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], type_E9C38_smalltit str_E9C38_smalltit[], RenderViewPort viewPort, uint16_t screenWidth, type_F2C20ar str_F2C20ar);
 	void sub_88740(type_event_0x6E8E* a1, int a2, int a3);
-	void SetBillboards_3B560(int16_t roll);
-	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, __int16 a2, int a3, __int16 a4);
+	void SetBillboards_3B560(int16_t roll, RenderViewPort viewPort, type_F2C20ar str_F2C20ar);
+	void DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1, __int16 a2, int a3, __int16 a4, RenderViewPort viewPort);
 	void StartWorkerThreads(uint8_t numOfThreads, bool assignToSpecificCores);
 	void StartWorkerThread();
 	void StartWorkerThread(int core);

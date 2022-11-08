@@ -474,6 +474,9 @@
     <ClInclude Include="engine\GameRenderLookingGlass.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\RenderViewPort.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -795,6 +798,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\GameRenderLookingGlass.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\RenderViewPort.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
