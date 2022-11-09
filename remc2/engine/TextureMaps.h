@@ -6,6 +6,7 @@
 #include "Type_Animations.h"
 #include "Type_BigSpritesBuffer.h"
 #include "Basic.h"
+#include <mutex>
 
 const int max_sprites = 600;
 
@@ -27,6 +28,7 @@ extern type_E9C08* x_DWORD_E9C08x; // weak
 extern bool big_sprites_inited;
 
 extern uint8_t* m_pColorPalette;
+extern std::mutex m_tmapsMutex;
 
 bool MainInitTmaps_71520(unsigned __int16 a1);
 int sub_70EF0(unsigned __int16 a1);
