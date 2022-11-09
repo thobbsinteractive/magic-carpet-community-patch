@@ -19,6 +19,8 @@ type_E9C08* x_DWORD_E9C08x; // weak
 bool big_sprites_inited = false;
 uint8_t* m_pColorPalette = NULL;
 
+std::mutex m_tmapsMutex;
+
 bool MainInitTmaps_71520(unsigned __int16 a1)
 {
 	int v1; // esi
@@ -641,28 +643,32 @@ void sub_70BF0_close_tmaps()//251bf0
 
 int sub_70C60_decompress_tmap(uint16_t texture_index, uint8_t* texture_buffer)//251c60
 {
-	int result; // eax
-
-	if (x_DWORD_DB73C_tmapsfile == NULL) {
-		return 0; //(int)x_DWORD_DB73C_tmapsfile;
-	}
-
-	DataFileIO::Seek(x_DWORD_DB73C_tmapsfile, str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_4, 0);//lseek
-	int v3 = str_TMAPS00TAB_BEGIN_BUFFER[texture_index + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_4;
-	if (DataFileIO::Read(x_DWORD_DB73C_tmapsfile, texture_buffer, v3) != v3)
-		return -1;
-	result = DataFileIO::Decompress(texture_buffer, texture_buffer);
-	if (result >= 0)
 	{
-		if (!result)
-			result = v3;
+		std::lock_guard<std::mutex> guard(m_tmapsMutex);
+
+		int result; // eax
+
+		if (x_DWORD_DB73C_tmapsfile == NULL) {
+			return 0; //(int)x_DWORD_DB73C_tmapsfile;
+		}
+
+		DataFileIO::Seek(x_DWORD_DB73C_tmapsfile, str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_4, 0);//lseek
+		int v3 = str_TMAPS00TAB_BEGIN_BUFFER[texture_index + 1].dword_4 - str_TMAPS00TAB_BEGIN_BUFFER[texture_index].dword_4;
+		if (DataFileIO::Read(x_DWORD_DB73C_tmapsfile, texture_buffer, v3) != v3)
+			return -1;
+		result = DataFileIO::Decompress(texture_buffer, texture_buffer);
+		if (result >= 0)
+		{
+			if (!result)
+				result = v3;
+		}
+		else
+		{
+			myprintf("ERROR decompressing tmap%03d\n");
+			result = -2;
+		}
+		return result;
 	}
-	else
-	{
-		myprintf("ERROR decompressing tmap%03d\n");
-		result = -2;
-	}
-	return result;
 }
 
 void WriteTextureMapToBmp(uint16_t texture_index, type_particle_str* ptextureMap, MapType_t mapType)
