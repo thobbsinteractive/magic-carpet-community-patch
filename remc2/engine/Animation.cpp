@@ -217,7 +217,7 @@ void sub_75DB0()//256db0
 	x_WORD_17D724 = x_DWORD_17D720[1] & 0xffff;
 	x_WORD_17D726 = (x_DWORD_17D720[1] & 0xffff0000) >> 16;
 	while (x_WORD_17D724 != 0xf1fa/*-3590*/)
-		myprintf("ERROR UNKNOWN FRAME TYPE\n");
+		Logger->error("ERROR UNKNOWN FRAME TYPE");
 	DataFileIO::Read(x_DWORD_17DB38_intro_file_handle, x_DWORD_E9C38_smalltit, x_DWORD_17D720[0] - 16);
 	x_DWORD_E1300 += x_DWORD_17D720[0];
 }
@@ -625,6 +625,8 @@ void sub_75CB0()//256cb0
 //----- (0009A0FC) --------------------------------------------------------
 void sub_9A0FC_wait_to_screen_beam()//27B0fc
 {
+	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+
 	/*unsigned __int8 result; // al
 
 	do

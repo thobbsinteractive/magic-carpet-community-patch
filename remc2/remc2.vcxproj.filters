@@ -471,6 +471,9 @@
     <ClInclude Include="engine\Unk_D47E0.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="portability\port_show_perifery.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
     <ClInclude Include="engine\GameRenderLookingGlass.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
@@ -796,6 +799,9 @@
     </ClCompile>
     <ClCompile Include="engine\Unk_D47E0.cpp">
       <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_show_perifery.cpp">
+      <Filter>Source Files\portability</Filter>
     </ClCompile>
     <ClCompile Include="engine\GameRenderLookingGlass.cpp">
       <Filter>Source Files\engine</Filter>

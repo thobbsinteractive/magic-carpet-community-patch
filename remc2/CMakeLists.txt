@@ -117,7 +117,6 @@ set(SOURCE_FILES__libs__findfirst
 )
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
-
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
     "portability/fcaseopen.cpp"
@@ -134,6 +133,8 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+	"portability/port_show_perifery.cpp"
+    "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
     "portability/xmi2mid.cpp"
@@ -194,6 +195,7 @@ if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
         "${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
+        "${CMAKE_SOURCE_DIR}/spdlog/include"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)
