@@ -962,7 +962,8 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 	rectSrc.h = originalResHeight;
 
 	SDL_Rect dscrect;
-	if (m_bMaintainAspectRatio)
+
+	if (m_bMaintainAspectRatio && (originalResWidth <= m_gameRGBASurface->w || originalResHeight <= m_gameRGBASurface->h))
 	{
 		float widthRatio = (float)m_gameRGBASurface->w / (float)originalResWidth;
 		float heightRatio = (float)m_gameRGBASurface->h / (float)originalResHeight;
