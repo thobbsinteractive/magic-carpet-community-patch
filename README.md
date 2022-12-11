@@ -10,10 +10,10 @@ https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 #### Windows ####
 - 1: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
 - 2: Install the Game.
-- 3: Extract the contents of this Zip Archive to your Game Directory, 
-- 4: In the "Extract" folder run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files"
+- 3: Extract the contents of this Zip Archive to the install directory. This will normally be: "C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"
+- 4: In the "EXTRACT" folder run extract-GOG-CD.bat as administrator. The CD Data will now be copied to a directory called "CD_Files"
 - 5: Run remc2.exe
-- 6: Any errors will be output to "log.txt"
+- 6: Any errors will be output to "log.txt". You can change the detail of the logging in the config.ini file
 
 ## My intention is to make a patch for Magic Carpet 1 and 2 (GOG editions) that initially will:
 - Add more screen resolution options
