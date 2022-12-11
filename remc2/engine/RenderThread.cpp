@@ -60,7 +60,7 @@ void RenderThread::StartWorkerThread(int8_t core)
 
 			if (m_task) {
 				m_task();
-				m_task = 0;
+				m_task = nullptr;
 				m_isTaskRunning = false;
 			}
 			lock.unlock();
