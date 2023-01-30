@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows.Forms;
 using WixSharp;
 using WixSharp.Forms;
@@ -11,11 +10,11 @@ namespace remc2_installer
     {
         static void Main()
         {
-            var project = new ManagedProject("MyProduct",
-                             new Dir(@"%ProgramFiles%\My Company\My Product",
+            var project = new ManagedProject("Magic Carpet 2 HD",
+                             new Dir(@"%ProgramFiles%\Remc\Magic Carpet 2 HD",
                                  new File("Program.cs")));
 
-            project.GUID = new Guid("6fe30b47-2577-43ad-9095-1861ba25889b");
+            project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
 
             //project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
             //project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
@@ -25,7 +24,8 @@ namespace remc2_installer
 
             project.ManagedUI.InstallDialogs.Add(Dialogs.Welcome)
                                             .Add(Dialogs.Licence)
-                                            .Add<CustomDialog>()
+                                            .Add<GameDataDialog>()
+                                            .Add<InstallTypeDialog>()
                                             .Add(Dialogs.Progress)
                                             .Add(Dialogs.Exit);
 

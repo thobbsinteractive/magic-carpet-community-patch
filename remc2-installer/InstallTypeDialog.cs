@@ -5,13 +5,13 @@ using WixSharp.UI.Forms;
 
 namespace WixSharpSetup
 {
-    public partial class CustomDialog : ManagedForm, IManagedDialog
+    public partial class InstallTypeDialog : ManagedForm, IManagedDialog
     {
-        public CustomDialog()
+        public InstallTypeDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
-            //The incompatibility is particularly possible for the Embedded UI scenarios.
-            //The safest way to avoid the problem is to compile the assembly for v3.5 Target Framework.remc2_installer
+            //The incompatibility is particularly possible for the Embedded UI scenarios. 
+            //The safest way to avoid the problem is to compile the assembly for v3.5 Target Framework.WixSharp Setup
             InitializeComponent();
         }
 
@@ -37,6 +37,16 @@ namespace WixSharpSetup
         void cancel_Click(object sender, EventArgs e)
         {
             Shell.Cancel();
+        }
+
+        private void rdBtn64Bit_CheckedChanged(object sender, EventArgs e)
+        {
+            this.rdBtn32Bit.Checked = false;
+        }
+
+        private void rdBtn32Bit_CheckedChanged(object sender, EventArgs e)
+        {
+            this.rdBtn64Bit.Checked = false;
         }
     }
 }
