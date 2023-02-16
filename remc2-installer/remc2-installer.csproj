@@ -1,10 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net451</TargetFramework>
   </PropertyGroup>
-  
   <ItemGroup>
     <None Remove="*.msi" />
     <None Remove="*.exe" />
@@ -13,15 +12,18 @@
     <None Remove="*.wixobj" />
     <None Remove="App.config" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="WixSharp" Version="1.19.0" />
     <PackageReference Include="WixSharp.bin" Version="1.19.0" />
     <PackageReference Include="WixSharp.wix.bin" Version="3.11.2" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Update="EnhancedTexturesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <None Include="wix\$(ProjectName).g.wxs" />
+  </ItemGroup>
 </Project>

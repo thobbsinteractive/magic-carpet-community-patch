@@ -12,7 +12,8 @@ namespace remc2_installer
         {
             var project = new ManagedProject("Magic Carpet 2 HD",
                              new Dir(@"%ProgramFiles%\Remc\Magic Carpet 2 HD",
-                                 new File("Program.cs")));
+                                 new File("Program.cs")),
+                             new Property("INSTALL_TYPE", "x64"));
 
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
 
@@ -24,8 +25,9 @@ namespace remc2_installer
 
             project.ManagedUI.InstallDialogs.Add(Dialogs.Welcome)
                                             .Add(Dialogs.Licence)
-                                            .Add<GameDataDialog>()
                                             .Add<InstallTypeDialog>()
+                                            .Add<GameDataDialog>()
+                                            .Add<EnhancedDataDialog>()
                                             .Add(Dialogs.Progress)
                                             .Add(Dialogs.Exit);
 
