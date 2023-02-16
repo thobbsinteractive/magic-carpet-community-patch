@@ -41,12 +41,12 @@ namespace WixSharpSetup
 
         private void rdBtn64Bit_CheckedChanged(object sender, EventArgs e)
         {
-            this.rdBtn32Bit.Checked = false;
+            this.rdBtn32Bit.Checked = !this.rdBtn64Bit.Checked;
         }
 
         private void rdBtn32Bit_CheckedChanged(object sender, EventArgs e)
         {
-            this.rdBtn64Bit.Checked = false;
+            this.rdBtn64Bit.Checked = !this.rdBtn32Bit.Checked; ;
         }
     }
 }
