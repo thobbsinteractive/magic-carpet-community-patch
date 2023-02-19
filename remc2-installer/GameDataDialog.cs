@@ -27,14 +27,141 @@ namespace WixSharpSetup
             if (Directory.Exists(path))
             {
                 string[] files = Directory.GetFiles(path);
-                valid = true;
+
+                bool foundGameIns = false;
+
+                if (this.cboInstallLocation.SelectedIndex == 0)
+                {
+                    foreach (string file in files)
+                    {
+                        if (file.PathGetFileName().Equals("game.ins", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            foundGameIns = true;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    foundGameIns = true;
+                }
+
+                bool foundGameData = false;
+                bool foundNetherw = false;
+                bool foundCData = false;
+                bool foundCLevels = false;
+                bool foundSound = false;
+
+                string[] directories = Directory.GetDirectories(path);
+
+                foreach (string directory in directories)
+                {
+                    if (HasGameDir(directories))
+                    {
+                        string[] gameDirectories = Directory.GetDirectories(directory);
+                        foundGameData = true;
+                        foreach (string gameDirectory in gameDirectories)
+                        {
+                            if (HasNetherwDir(gameDirectories))
+                            {
+                                foundNetherw = true;
+                                string[] netherwDirectories = Directory.GetDirectories(gameDirectory);
+                                foundCData = HasCDataDir(netherwDirectories);
+                                foundCLevels = HasCLevelsDir(netherwDirectories);
+                                foundSound = HasSoundDir(netherwDirectories);
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                valid = foundGameIns && foundGameData && foundNetherw && foundCData && foundCLevels && foundSound;
+
+                if (!foundGameIns)
+                    MessageBox.Show($"game.ins not found", "No game.ins", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else if (!foundGameData)
+                    MessageBox.Show($"GAME data directory not found", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else if (!foundNetherw)
+                    MessageBox.Show($"NETHERW data directory not found", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else if (!foundCData)
+                    MessageBox.Show($"CDATA directory not found", "No CDATA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else if (!foundCLevels)
+                    MessageBox.Show($"CLEVELS directory not found", "No CLEVELS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else if (!foundSound)
+                    MessageBox.Show($"SOUND directory not found", "No SOUND", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                MessageBox.Show($"This {path} directory does not exist found", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show($"This {path} directory does not exist", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             return valid;
+        }
+
+        private string GetDirectoryName(string path)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            return directoryInfo.Name;
+        }
+
+        private bool HasGameDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("game", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasNetherwDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("netherw", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasCDataDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("cdata", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasCLevelsDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("clevels", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasSoundDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("sound", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         void dialog_Load(object sender, EventArgs e)
