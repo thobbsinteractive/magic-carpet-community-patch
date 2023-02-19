@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Deployment.WindowsInstaller;
+using System;
 using System.Windows.Forms;
 using WixSharp;
 using WixSharp.Forms;
@@ -13,7 +14,8 @@ namespace remc2_installer
             var project = new ManagedProject("Magic Carpet 2 HD",
                              new Dir(@"%ProgramFiles%\Remc\Magic Carpet 2 HD",
                                  new File("Program.cs")),
-                             new Property("INSTALL_TYPE", "x64"));
+                             new Property("INSTALL_TYPE", "x64"),
+                             new ManagedAction(CustomActions.ExtractData));
 
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
 
@@ -22,7 +24,6 @@ namespace remc2_installer
 
             //custom set of standard UI dialogs
             project.ManagedUI = new ManagedUI();
-
             project.ManagedUI.InstallDialogs.Add(Dialogs.Welcome)
                                             .Add(Dialogs.Licence)
                                             .Add<InstallTypeDialog>()

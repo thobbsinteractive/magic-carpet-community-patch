@@ -1,7 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.Windows.Forms;
 using WixSharp;
 using WixSharp.UI.Forms;
 
@@ -9,6 +6,8 @@ namespace WixSharpSetup
 {
     public partial class EnhancedDataDialog : ManagedForm, IManagedDialog
     {
+        public static bool InstallEnchancedTextures = true;
+
         public EnhancedDataDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
@@ -17,23 +16,6 @@ namespace WixSharpSetup
             InitializeComponent();
 
             this.chkInstallTextures.Checked = true;
-        }
-
-        private bool ValidateGameDataLocation(string path)
-        {
-            bool valid = false;
-
-            if (Directory.Exists(path))
-            {
-                string[] files = Directory.GetFiles(path);
-                valid = true;
-            }
-            else
-            {
-                MessageBox.Show($"This {path} directory does not exist found", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            return valid;
         }
 
         void dialog_Load(object sender, EventArgs e)
@@ -52,6 +34,7 @@ namespace WixSharpSetup
 
         void next_Click(object sender, EventArgs e)
         {
+            InstallEnchancedTextures = chkInstallTextures.Checked;
             Shell.GoNext();
         }
 

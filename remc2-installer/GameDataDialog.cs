@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using WixSharp;
@@ -9,6 +8,8 @@ namespace WixSharpSetup
 {
     public partial class GameDataDialog : ManagedForm, IManagedDialog
     {
+        public string Path = "";
+
         public GameDataDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
@@ -54,6 +55,7 @@ namespace WixSharpSetup
         {
             if (ValidateGameDataLocation(this.txtPath.Text))
             {
+                Path = this.txtPath.Text;
                 Shell.GoNext();
             }
         }

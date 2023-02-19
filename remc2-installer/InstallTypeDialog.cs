@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using WixSharp;
 using WixSharp.UI.Forms;
 
@@ -7,6 +6,8 @@ namespace WixSharpSetup
 {
     public partial class InstallTypeDialog : ManagedForm, IManagedDialog
     {
+        public static bool X64 = true;
+
         public InstallTypeDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
@@ -31,6 +32,7 @@ namespace WixSharpSetup
 
         void next_Click(object sender, EventArgs e)
         {
+            X64 = rdBtn64Bit.Checked;
             Shell.GoNext();
         }
 
@@ -46,7 +48,7 @@ namespace WixSharpSetup
 
         private void rdBtn32Bit_CheckedChanged(object sender, EventArgs e)
         {
-            this.rdBtn64Bit.Checked = !this.rdBtn32Bit.Checked; ;
+            this.rdBtn64Bit.Checked = !this.rdBtn32Bit.Checked;
         }
     }
 }
