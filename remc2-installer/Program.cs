@@ -18,10 +18,9 @@ namespace remc2_installer
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"music-ogg",
-                                    new Files(@"..\Release\music-ogg\*.*")
+                                    new Files(@"..\Release\music-ogg\*.*"))),
                              //new Property("INSTALL_TYPE", "x64"),
-                             //new ManagedAction(CustomActions.ExtractData)
-                             )));
+                             new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed));
 
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
 

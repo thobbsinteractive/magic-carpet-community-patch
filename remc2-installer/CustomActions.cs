@@ -1,4 +1,5 @@
 ﻿using Microsoft.Deployment.WindowsInstaller;
+using System.Windows.Forms;
 
 public class CustomActions
 {
@@ -7,9 +8,12 @@ public class CustomActions
     {
         session.Log("Begin Extract Data");
 
-
+        string path = session["path"];
+        MessageBox.Show(path);
+        session.Log(path);
 
         return ActionResult.Success;
     }
 
 }
+
