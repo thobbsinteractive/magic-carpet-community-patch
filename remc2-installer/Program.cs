@@ -1,5 +1,4 @@
-﻿using Microsoft.Deployment.WindowsInstaller;
-using System;
+﻿using System;
 using System.Windows.Forms;
 using WixSharp;
 using WixSharp.Forms;
@@ -13,9 +12,16 @@ namespace remc2_installer
         {
             var project = new ManagedProject("Magic Carpet 2 HD",
                              new Dir(@"%ProgramFiles%\Remc\Magic Carpet 2 HD",
-                                 new File("Program.cs")),
-                             new Property("INSTALL_TYPE", "x64"),
-                             new ManagedAction(CustomActions.ExtractData));
+                                 new File(@"..\Release\remc2.exe"),
+                                 new File(@"..\Release\config.ini"),
+                                 new File(@"..\Release\SDL2.dll"),
+                                 new Dir(@"font",
+                                    new Files(@"..\Release\font\*.*")),
+                                 new Dir(@"music-ogg",
+                                    new Files(@"..\Release\music-ogg\*.*")
+                             //new Property("INSTALL_TYPE", "x64"),
+                             //new ManagedAction(CustomActions.ExtractData)
+                             )));
 
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
 
