@@ -12,13 +12,29 @@ namespace remc2_installer
         {
             var project = new ManagedProject("Magic Carpet 2 HD",
                              new Dir(@"%ProgramFiles%\Remc\Magic Carpet 2 HD",
-                                 new File(@"..\Release\remc2.exe"),
-                                 new File(@"..\Release\config.ini"),
+                                 new File(@"..\Release\remc2.exe") { Permissions = new[] {
+                                    new FilePermission("Everyone", GenericPermission.All) { Execute = true },
+                                    new FilePermission("Users", GenericPermission.All) { Execute = true },
+                                    new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
+                                    new FilePermission("CREATOR OWNER", GenericPermission.All)  { Execute = true },
+                                    new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
+                                 }
+                                 },
+                                 new File(@"..\Release\config.ini") { Permissions = new[] {
+                                    new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
+                                    new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
+                                    new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
+                                    new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
+                                    new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
+                                 }
+                                 },
                                  new File(@"..\Release\SDL2.dll"),
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
+                                 new Dir(@"biggraphics",
+                                    new Files(@"..\enhancedassets\biggraphics\*.*")),
                                  new Dir(@"music-ogg",
-                                    new Files(@"..\Release\music-ogg\*.*"))),
+                                    new Files(@"..\enhancedassets\music-ogg\*.*"))),
                              //new Property("INSTALL_TYPE", "x64"),
                              new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed));
 
