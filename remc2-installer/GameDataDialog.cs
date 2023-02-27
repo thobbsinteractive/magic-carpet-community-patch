@@ -196,6 +196,7 @@ namespace WixSharpSetup
         {
             using (var fbd = new FolderBrowserDialog())
             {
+                fbd.SelectedPath = this.txtPath.Text;
                 DialogResult result = fbd.ShowDialog();
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
