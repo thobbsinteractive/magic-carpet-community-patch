@@ -8,8 +8,6 @@ namespace WixSharpSetup
 {
     public partial class GameDataDialog : ManagedForm, IManagedDialog
     {
-        public string Path = "";
-
         public GameDataDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
@@ -168,7 +166,7 @@ namespace WixSharpSetup
         {
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
             Text = "[ProductName] Setup";
-
+            this.txtPath.Text = Runtime.Session["GAMEDATAPATH"];
             //resolve all Control.Text cases with embedded MSI properties (e.g. 'ProductName') and *.wxl file entries
             base.Localize();
         }
@@ -182,7 +180,7 @@ namespace WixSharpSetup
         {
             if (ValidateGameDataLocation(this.txtPath.Text))
             {
-                Path = this.txtPath.Text;
+                Runtime.Session["GAMEDATAPATH"] = this.txtPath.Text;
                 Shell.GoNext();
             }
         }
@@ -203,13 +201,6 @@ namespace WixSharpSetup
                 {
                     this.txtPath.Text = fbd.SelectedPath;
                 }
-            }
-        }
-
-        private void cboInstallLocation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.cboInstallLocation.SelectedIndex == 0) { 
-                this.txtPath.Text = "C:\\Program Files (x86)\\GOG Galaxy\\Games\\Magic Carpet 2";
             }
         }
     }
