@@ -45,7 +45,6 @@ namespace remc2_installer
                                     new Files(@"..\enhancedassets\music-ogg\*.*"))),
 
                             new Property("GAMEDATAPATH", @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"),
-                            new Property("INSTALLPATH", @"%ProgramFiles%\Remc\Magic Carpet 2 HD"),
                             new Property("HIGHTEX", "y"),
                             new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed));
 
@@ -63,13 +62,12 @@ namespace remc2_installer
                                             .Add(Dialogs.Licence)
                                             .Add<GameDataDialog>()
                                             .Add<EnhancedDataDialog>()
-                                            .Add(Dialogs.Features)
                                             .Add(Dialogs.InstallDir)
                                             .Add(Dialogs.Progress)
                                             .Add(Dialogs.Exit);
 
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
-                                           .Add(Dialogs.Features)
+                                           .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
                                            .Add(Dialogs.Exit);
 

@@ -8,7 +8,7 @@ public class CustomActions
     {
         session.Log("Begin Extract Data");
 
-        string path = session["PATH"];
+        string path = session["GAMEDATAPATH"];
         MessageBox.Show(path);
         session.Log(path);
 
