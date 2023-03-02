@@ -11,11 +11,11 @@ namespace remc2_installer
         static void Main()
         {
             var project = new ManagedProject("Magic Carpet 2 HD",
-                             new Dir(@"%ProgramFiles%\Remc\Magic Carpet 2 HD",
+                             new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
 #if WIN64
-                                 new File(@"..\x64\Release\remc2.exe")      
+                                 new File(@"..\x64\Release\remc2.exe", new FileShortcut("remc2.exe", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
 #else
-                                 new File(@"..\Release\remc2.exe")
+                                 new File(@"..\Release\remc2.exe", new FileShortcut("remc2.exe", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
 #endif
                                  {
                                     Permissions = new[] {
@@ -36,7 +36,11 @@ namespace remc2_installer
                                     new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
                                     }
                                  },
+#if WIN64
+                                 new File(@"..\x64\Release\SDL2.dll"),
+#else
                                  new File(@"..\Release\SDL2.dll"),
+#endif
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"biggraphics",
@@ -46,7 +50,8 @@ namespace remc2_installer
 
                             new Property("GAMEDATAPATH", @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"),
                             new Property("HIGHTEX", "y"),
-                            new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed));
+                            new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed),
+                            new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed));
 
 #if WIN64
             project.Platform = Platform.x64;

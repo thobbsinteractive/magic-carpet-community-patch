@@ -143,7 +143,6 @@
             this.cboInstallLocation.Name = "cboInstallLocation";
             this.cboInstallLocation.Size = new System.Drawing.Size(205, 21);
             this.cboInstallLocation.TabIndex = 3;
-            this.cboInstallLocation.SelectedIndexChanged += new System.EventHandler(this.cboInstallLocation_SelectedIndexChanged);
             // 
             // lblInstallLocation
             // 
