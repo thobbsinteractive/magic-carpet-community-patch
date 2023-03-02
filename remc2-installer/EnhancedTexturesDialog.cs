@@ -6,22 +6,20 @@ namespace WixSharpSetup
 {
     public partial class EnhancedDataDialog : ManagedForm, IManagedDialog
     {
-        public static bool InstallEnchancedTextures = true;
-
         public EnhancedDataDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
             //The incompatibility is particularly possible for the Embedded UI scenarios.
             //The safest way to avoid the problem is to compile the assembly for v3.5 Target Framework.remc2_installer
             InitializeComponent();
-
-            this.chkInstallTextures.Checked = true;
         }
 
         void dialog_Load(object sender, EventArgs e)
         {
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
             Text = "[ProductName] Setup";
+
+            this.chkInstallTextures.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["HIGHTEX"]) && Runtime.Session["HIGHTEX"].Equals("y", StringComparison.InvariantCultureIgnoreCase));
 
             //resolve all Control.Text cases with embedded MSI properties (e.g. 'ProductName') and *.wxl file entries
             base.Localize();
@@ -34,7 +32,7 @@ namespace WixSharpSetup
 
         void next_Click(object sender, EventArgs e)
         {
-            InstallEnchancedTextures = chkInstallTextures.Checked;
+            Runtime.Session["HIGHTEX"] = chkInstallTextures.Checked.ToString();
             Shell.GoNext();
         }
 

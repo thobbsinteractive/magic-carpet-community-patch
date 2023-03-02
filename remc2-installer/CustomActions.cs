@@ -9,7 +9,7 @@ public class CustomActions
     {
         bool enhancedTextures = false;
             
-        if (!string.IsNullOrWhiteSpace(session["HIGHTEX"]) && string.Compare(session["HIGHTEX"], "y", System.StringComparison.InvariantCultureIgnoreCase) == 0)
+        if (!string.IsNullOrWhiteSpace(session["HIGHTEX"]) && session["HIGHTEX"].Equals("y", System.StringComparison.InvariantCultureIgnoreCase))
         {
             enhancedTextures = true;
         }
@@ -18,9 +18,10 @@ public class CustomActions
 
         string path = session["INSTALLDIR"];
 
-        if (Directory.Exists(path) && System.IO.File.Exists(Path.Combine(path, "config.ini")))
+        if (Directory.Exists(path) && File.Exists(Path.Combine(path, "config.ini")))
         {
             Ini iniFile = new Ini(Path.Combine(path, "config.ini"));
+            iniFile.WriteValue("useEnhancedGraphics", "graphics", enhancedTextures.ToString());
             iniFile.Save();
             return ActionResult.Success;
         }
