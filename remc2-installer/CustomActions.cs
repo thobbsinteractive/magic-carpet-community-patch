@@ -14,20 +14,33 @@ public class CustomActions
             enhancedTextures = true;
         }
 
-        session.Log($"Setting Enhanced Textures to: {enhancedTextures}");
-
-        string path = session["INSTALLDIR"];
-
-        if (Directory.Exists(path) && File.Exists(Path.Combine(path, "config.ini")))
+        if (enhancedTextures)
         {
-            Ini iniFile = new Ini(Path.Combine(path, "config.ini"));
-            iniFile.WriteValue("useEnhancedGraphics", "graphics", enhancedTextures.ToString());
-            iniFile.Save();
-            return ActionResult.Success;
+            session.Log($"Setting Enhanced Textures to: {enhancedTextures}");
+
+            string path = session["INSTALLDIR"];
+
+            string configFilePath = Path.Combine(path, "config.ini");
+
+            session.Log($"Setting config.ini file: {configFilePath}");
+
+            if (File.Exists(configFilePath))
+            {
+                session.Log($"Setting Enhanced Textures to: {path}");
+                Ini iniFile = new Ini(Path.Combine(path, "config.ini"));
+                iniFile.WriteValue("useEnhancedGraphics", "graphics", enhancedTextures.ToString());
+                iniFile.Save();
+                return ActionResult.Success;
+            }
+            else
+            {
+                return ActionResult.Failure;
+            }
         }
         else
         {
-            return ActionResult.Failure;
+            session.Log($"User selected to not install Enchanced Textures");
+            return ActionResult.Success;
         }
     }
 
@@ -37,8 +50,7 @@ public class CustomActions
         session.Log("Begin Extract Data");
 
         string path = session["GAMEDATAPATH"];
-        MessageBox.Show(path);
-        session.Log(path);
+        session.Log($"Game Data Path: {path}");
 
         return ActionResult.Success;
     }
