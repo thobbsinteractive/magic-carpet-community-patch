@@ -12,13 +12,14 @@ namespace remc2_installer
         {
             var project = new ManagedProject("Magic Carpet 2 HD",
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
+                                 new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
                                  new File(@"..\x64\Release\remc2.exe", new FileShortcut("remc2.exe", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
 #else
                                  new File(@"..\Release\remc2.exe", new FileShortcut("remc2.exe", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
 #endif
                                  {
-                                    Permissions = new[] {
+                                     Permissions = new[] {
                                         new FilePermission("Everyone", GenericPermission.All) { Execute = true },
                                         new FilePermission("Users", GenericPermission.All) { Execute = true },
                                         new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
@@ -29,13 +30,14 @@ namespace remc2_installer
                                  new File(@"..\Release\config.ini")
                                  {
                                      Permissions = new[] {
-                                    new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
-                                    new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
-                                    new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
-                                    new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
-                                    new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
+                                        new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
+                                        new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
+                                        new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
+                                        new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
+                                        new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
                                     }
                                  },
+                                 new File(@"magic_carpet_2hd.ico"),
 #if WIN64
                                  new File(@"..\x64\Release\SDL2.dll"),
 #else
@@ -80,6 +82,8 @@ namespace remc2_installer
             project.BeforeInstall += Msi_BeforeInstall;
             project.AfterInstall += Msi_AfterInstall;
 
+            project.ControlPanelInfo.ProductIcon = "magic_carpet_2hd.ico";
+
             //project.SourceBaseDir = "<input dir path>";
             //project.OutDir = "<output dir path>";
 
@@ -90,20 +94,20 @@ namespace remc2_installer
 
         static void Msi_Load(SetupEventArgs e)
         {
-            if (!e.IsUninstalling)
-                MessageBox.Show(e.ToString(), "Load");
+            //if (!e.IsUninstalling)
+            //    MessageBox.Show(e.ToString(), "Load");
         }
 
         static void Msi_BeforeInstall(SetupEventArgs e)
         {
-            if (!e.IsUninstalling)
-                MessageBox.Show(e.ToString(), "BeforeInstall");
+            //if (!e.IsUninstalling)
+            //    MessageBox.Show(e.ToString(), "BeforeInstall");
         }
 
         static void Msi_AfterInstall(SetupEventArgs e)
         {
-            if (!e.IsUISupressed && !e.IsUninstalling)
-                MessageBox.Show(e.ToString(), "AfterExecute");
+            //if (!e.IsUISupressed && !e.IsUninstalling)
+            //    MessageBox.Show(e.ToString(), "AfterExecute");
         }
 
         static void ValidateAssemblyCompatibility()
