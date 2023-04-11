@@ -19,7 +19,7 @@ namespace WixSharpSetup
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
             Text = "[ProductName] Setup";
 
-            this.chkInstallTextures.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["HIGHTEX"]) && Runtime.Session["HIGHTEX"].Equals("y", StringComparison.InvariantCultureIgnoreCase));
+            this.chkInstallTextures.Checked = (!string.IsNullOrWhiteSpace(Runtime.Session["HIGHTEX"]) && Runtime.Session["HIGHTEX"].Equals("yes", StringComparison.InvariantCultureIgnoreCase));
 
             //resolve all Control.Text cases with embedded MSI properties (e.g. 'ProductName') and *.wxl file entries
             base.Localize();
@@ -32,7 +32,7 @@ namespace WixSharpSetup
 
         void next_Click(object sender, EventArgs e)
         {
-            Runtime.Session["HIGHTEX"] = chkInstallTextures.Checked.ToString();
+            Runtime.Session["HIGHTEX"] = (chkInstallTextures.Checked ? "yes": "no");
             Shell.GoNext();
         }
 

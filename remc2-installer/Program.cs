@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Microsoft.Deployment.WindowsInstaller;
+using System;
 using WixSharp;
 using WixSharp.Forms;
 using WixSharpSetup;
@@ -14,9 +14,9 @@ namespace remc2_installer
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
-                                 new File(@"..\x64\Release\remc2.exe", new FileShortcut("remc2.exe", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
+                                 new File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
 #else
-                                 new File(@"..\Release\remc2.exe", new FileShortcut("remc2.exe", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
+                                 new File(@"..\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
 #endif
                                  {
                                      Permissions = new[] {
@@ -51,9 +51,9 @@ namespace remc2_installer
                                     new Files(@"..\enhancedassets\music-ogg\*.*"))),
 
                             new Property("GAMEDATAPATH", @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"),
-                            new Property("HIGHTEX", "y"),
+                            new Property("HIGHTEX", "yes"),
                             new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed),
-                            new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed));
+                            new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed));
 
 #if WIN64
             project.Platform = Platform.x64;
