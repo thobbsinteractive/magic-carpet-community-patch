@@ -22,6 +22,7 @@ uint8_t m_fontBuffer[256 * 256];
 SDL_Surface* m_surfaceFont = nullptr;
 uint8_t m_smallFontBuffer[128 * 128];
 SDL_Surface* m_smallSurfaceFont = nullptr;
+SDL_Joystick* m_gameController = NULL;
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
@@ -57,6 +58,47 @@ Uint32 greenMask = 0x0000ff00;
 Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
+
+///< if the pointer is frozen when moving the _mouse_ while the joystick is resting
+///< then you need to increase the JOYSTICK_DEAD_ZONE constant in order to mitigate
+///< your noisy hardware. see "JOYSTICK_DEAD_ZONE not big enough" below
+#define JOYSTICK_DEAD_ZONE  2048
+#define          JOY_MIN_X  0
+#define          JOY_MIN_Y  0
+
+///< joystick_state_t flag
+#define      JOY_UPDATED_X  0x1
+#define      JOY_UPDATED_Y  0x2
+#define   JOY_BTN_RELEASED  0x4
+#define    JOY_BTN_PRESSED  0x8
+#define      JOY_UPDATED_Z  0x10
+
+
+struct joystick_state {
+	int32_t x;
+	int32_t y;
+	int32_t z;
+	int32_t rest_x;
+	int32_t rest_y;
+	int32_t max_x;
+	int32_t max_y;
+	uint8_t dead_zone_announced;   ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
+	uint8_t initialized;
+};
+typedef struct joystick_state joystick_state_t;
+
+joystick_state_t j;
+
+struct joystick_event {
+	int16_t coord_x;
+	int16_t coord_y;
+	int16_t coord_z;        ///< third axis coord for jysticks that support the feature
+	uint64_t btn_released;  ///< bitwise OR of every released button
+	uint64_t btn_pressed;   ///< bitwise OR of every pressed button
+	uint8_t flag;           ///< bitwise OR of every parameter that was updated
+};
+typedef struct joystick_event joystick_event_t;
+
 
 std::vector<SDL_Rect> GetDisplays()
 {
@@ -114,7 +156,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 	if (!inited)
 	{
 		//Initialize SDL
-		if (SDL_Init(SDL_INIT_VIDEO) < 0)
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
 		{
 			Logger->error("SDL could not initialize! SDL_Error: {}", SDL_GetError());
 			exit(0);
@@ -122,6 +164,17 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		else
 		{
+			m_gameController = SDL_JoystickOpen(0);
+			if( m_gameController == NULL ) {
+				Logger->debug("joystick not detected. SDL Error: {}", SDL_GetError() );
+			} else {
+				if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
+					Logger->error("unable to initialize joystick events. SDL Error: {}", SDL_GetError() );
+				} else {
+					j.initialized = 1;
+				}
+			}
+
 			init_sound();
 
 			SDL_ShowCursor(0);
@@ -813,6 +866,230 @@ bool handleSpecialKeys(const SDL_Event &event) {
 	return specialKey;
 }
 
+#if 0
+// if this is still not used in 2024, please remove entire #if 0 block
+struct joystick_filter {
+	uint8_t idx_cur;
+	uint8_t sample_cnt;
+	int16_t x[JOYSTICK_FILTER_MAX_DEPTH];
+	int16_t y[JOYSTICK_FILTER_MAX_DEPTH];
+};
+struct joystick_filter jf = {};
+
+/// \brief get a moving average value for x,y coord based on the last X readings
+void joystick_filtering()
+{
+	int64_t acc_x = 0, acc_y = 0;
+	uint8_t i;
+	uint8_t filter_depth = joy_filter_depth;
+
+	if (!filter_depth) {
+		return;
+	}
+
+	jf.x[jf.idx_cur] = j.x;
+	jf.y[jf.idx_cur] = j.y;
+
+	jf.idx_cur++;
+	jf.sample_cnt++;
+
+	if (jf.idx_cur > filter_depth - 1) {
+		jf.idx_cur = 0;
+	}
+	if (jf.sample_cnt > filter_depth) {
+		jf.sample_cnt = filter_depth;
+	}
+
+	for (i=0; i<jf.sample_cnt; i++) {
+		acc_x += jf.x[i];
+		acc_y += jf.y[i];
+	}
+
+	j.x = acc_x / jf.sample_cnt;
+	j.y = acc_y / jf.sample_cnt;
+
+	//Logger->trace("filter at {},{} sc {}  ic {}", j.x, j.y, jf.sample_cnt, jf.idx_cur);
+}
+#endif
+
+/// \brief set the x,y coord of the joystick rest position
+/// \param x coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
+/// \param y coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
+void joystick_set_rest(const int32_t x, const int32_t y)
+{
+	Logger->trace("pointer rest at {},{} window size {},{}", x, y, j.max_x, j.max_y);
+	j.rest_x = x;
+	j.rest_y = y;
+	j.x = x;
+	j.y = y;
+
+	// since the pointer is teleported to a new location it makes
+	// no sense to perform a moving average on past samples
+	//jf.sample_cnt = 0;
+	//jf.idx_cur = 0;
+
+	// prime the filtering struct
+	//joystick_filtering();
+}
+
+/// \brief set the maximal coordinate values that the joystick has to reach
+/// \param gameResWidth maximum x value
+/// \param gameResHeight maximum y value
+void joystick_init_limits(const int gameResWidth, const int gameResHeight)
+{
+	j.max_x = gameResWidth;
+	j.max_y = gameResHeight;
+	joystick_set_rest(j.max_x >> 1, j.max_y >> 1);
+}
+
+#define JOY_NAV_INC 4
+
+/// \brief emulate a mouse based on data provided by a USB joystick
+/// \param button_id  button that was pressed or released
+/// \param x SDL provides values in the -32768 ..  32767 range as axis movement
+/// \param y SDL provides values in the -32768 ..  32767 range as axis movement
+/// \param flags  can be one of JOY_UPDATED_X JOY_UPDATED_Y JOY_UPDATED_Z JOY_BTN_RELEASED JOY_BTN_PRESSED
+void joystick_event_mgr(joystick_event_t *je)
+{
+	uint16_t button_state = 0;
+	uint8_t flight = 1; // are we doing flight or menu navigation
+	uint8_t dead_zone = 0;
+
+	if (SDL_JoystickGetButton(m_gameController, joy_button_spell - 1)) {
+		flight = 0;
+	}
+
+	if (SDL_GetModState() & KMOD_CTRL) {
+		flight = 0;
+	}
+
+	if (flight) {
+		// we are currently flying
+		// the rest position of the stick always outputs the rest coordinates
+		if (je->flag & JOY_UPDATED_X) {
+			if ((je->coord_x < JOYSTICK_DEAD_ZONE) && (je->coord_x > -JOYSTICK_DEAD_ZONE)) {
+				j.x = j.rest_x;
+				dead_zone |= 1;
+			} else {
+				// use two different linear interpolation equations since the
+				// resting coordinate is not always the center of the display
+				if (je->coord_x > 0) {
+					j.x = (((j.max_x - j.rest_x) * je->coord_x) >> 15) + j.rest_x;
+				} else {
+					j.x = ((j.rest_x * je->coord_x) >> 15) + j.rest_x;
+				}
+				j.dead_zone_announced = 0;
+			}
+		} 
+
+		if (je->flag & JOY_UPDATED_Y) {
+			if ((je->coord_y < JOYSTICK_DEAD_ZONE) && (je->coord_y > -JOYSTICK_DEAD_ZONE)) {
+				j.y = j.rest_y;
+				dead_zone |= 2;
+			} else {
+				// use two different linear interpolation equations since the
+				// resting coordinate is not always the center of the display
+				if (je->coord_y > 0) {
+					j.y = (((j.max_y - j.rest_y) * je->coord_y) >> 15) + j.rest_y;
+				} else {
+					j.y = ((j.rest_y * je->coord_y) >> 15) + j.rest_y;
+				}
+				j.dead_zone_announced = 0;
+			}
+		}
+	} else {
+		// we are navigating a menu
+		// the rest position of the stick leaves the pointer in it's current position
+		if (je->flag & JOY_UPDATED_X) {
+			if ((je->coord_x < JOYSTICK_DEAD_ZONE) && (je->coord_x > -JOYSTICK_DEAD_ZONE)) {
+				dead_zone |= 1;
+			} else {
+				j.x += JOY_NAV_INC * (je->coord_x >> 13);
+				j.dead_zone_announced = 0;
+			}
+		} 
+
+		if (je->flag & JOY_UPDATED_Y) {
+			if ((je->coord_y < JOYSTICK_DEAD_ZONE) && (je->coord_y > -JOYSTICK_DEAD_ZONE)) {
+				dead_zone |= 2;
+			} else {
+				j.y += JOY_NAV_INC * (je->coord_y >> 13);
+				j.dead_zone_announced = 0;
+			}
+		}
+	}
+
+	if (je->flag & JOY_UPDATED_Z) {
+		// think of a way to add forward/backward movement
+		// should be implemented without sending fake keypresses via setPress(), since
+		// fakely unpressing a key does not stop the player
+		Logger->trace("raw z {}", je->coord_z);
+	}
+
+	if (j.x < JOY_MIN_X) {
+		j.x = JOY_MIN_X;
+	} else if (j.x > j.max_x) {
+		j.x = j.max_x;
+	}
+
+	if (je->btn_pressed) {
+		if (je->btn_pressed & 2) {
+			button_state |= 0x2;		// button "1"
+		}
+		if (je->btn_pressed & 4) {
+			button_state |= 0x8;		// button "2"
+		}
+		if (je->btn_pressed & (1 << joy_button_spell)) {
+			setPress(true, 0xe0e0);
+		}
+		if (je->btn_pressed & (1 << joy_button_fwd)) {
+			setPress(true, 0x5252);
+		}
+		if (je->btn_pressed & (1 << joy_button_back)) {
+			setPress(true, 0x5151);
+		}
+	}
+
+	if (je->btn_released) {
+		if (je->btn_released & 2) {
+			button_state |= 0x4;		// button "1"
+		}
+		if (je->btn_released & 4) {
+			button_state |= 0x10;	   // button "2"
+		}
+		if (je->btn_released & (1 << joy_button_spell)) {
+			setPress(false, 0xe0e0);
+		}
+		if (je->btn_released & (1 << joy_button_fwd)) {
+			setPress(false, 0x5252);
+		}
+		if (je->btn_released & (1 << joy_button_back)) {
+			setPress(false, 0x5151);
+		}
+	}
+
+	if (je->btn_pressed || je->btn_released) {
+		Logger->trace("joy pressed {}  released {}  mouse {}", je->btn_pressed, je->btn_released, button_state);
+	}
+
+	if (je->flag & (JOY_UPDATED_X | JOY_UPDATED_Y)) {
+		Logger->trace("raw ({},{}) out ({},{}) rest ({},{}) max ({},{}) flight {}", je->coord_x, je->coord_y, j.x, j.y, j.rest_x, j.rest_y, j.max_x, j.max_y, flight);
+	}
+
+	if ((dead_zone == 3) && (!button_state)) {
+		if (j.dead_zone_announced) {
+			// do NOT flood MouseEvents() on frames where the joystick is resting
+			return;
+		} else {
+			j.dead_zone_announced = 1;
+		}
+	} else {
+		//Logger->debug("JOYSTICK_DEAD_ZONE not big enough {},{}", je->coord_x, je->coord_y);
+	}
+
+	MouseEvents(button_state & 0x7f, j.x, j.y);
+}
+
 int mousex, mousey;
 bool pressed = false;
 uint16_t lastchar = 0;
@@ -822,10 +1099,45 @@ int events()
 	Uint8 buttonindex;
 	Uint8 buttonstate;
 	uint32_t buttonresult;
+	joystick_event_t je = {};
+
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
 		{
+		case SDL_JOYAXISMOTION:
+			if (event.jaxis.which == 0) {
+				// motion on controller 0
+				// we are reading the axis data when this event triggers, but it's futile
+				// for instance if I hold the stick very still at max right I will not get 
+				// events on every frame about this position. this is why we also poll 
+				// for the axis data via SDL_JoystickGetAxis() below
+				if (event.jaxis.axis == 0) {
+					je.coord_x = event.jaxis.value;
+					je.flag |= JOY_UPDATED_X;
+				} else if (event.jaxis.axis == 1) {
+					je.coord_y = event.jaxis.value;
+					je.flag |= JOY_UPDATED_Y;
+				} else if (event.jaxis.axis == 2) {
+					je.coord_z = event.jaxis.value;
+					je.flag |= JOY_UPDATED_Z;
+				}
+			}
+			break;
+		case SDL_JOYBUTTONDOWN:
+			if (event.jbutton.which == 0) {
+				je.btn_pressed = 1 << (event.jbutton.button + 1);
+				Logger->trace("Key {} press detected", event.jbutton.button + 1);
+				je.flag |= JOY_BTN_PRESSED;
+			}
+			break;
+		case SDL_JOYBUTTONUP:
+			if (event.jbutton.which == 0) {
+				je.btn_released = 1 << (event.jbutton.button + 1);
+				Logger->trace("Key {} release detected", event.jbutton.button + 1);
+				je.flag |= JOY_BTN_RELEASED;
+			}
+			break;
 		case SDL_KEYDOWN:
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
@@ -833,13 +1145,13 @@ int events()
 			if (!handleSpecialKeys(event)) {
 				setPress(true, lastchar);
 			}
-			Logger->trace("Key press detected");//test
+			Logger->trace("Key {} press detected", lastchar);
 			break;
 
 		case SDL_KEYUP:
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			setPress(false, lastchar);
-			Logger->trace("Key release detected");//test
+			Logger->trace("Key {} release detected", lastchar);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -910,11 +1222,32 @@ int events()
 		case SDL_QUIT: return 0;
 		}
 	}
+
+	if (j.initialized) {
+		// make sure to poll for the axis data on every single frame
+		// otherwise we get janky movement since there is no event
+		// if the joystick is held still outside the rest position
+		if (!(je.flag & JOY_UPDATED_X)) {
+			je.coord_x = SDL_JoystickGetAxis(m_gameController, 0);
+			je.flag |= JOY_UPDATED_X;
+		}
+
+		if (!(je.flag & JOY_UPDATED_Y)) {
+			je.coord_y = SDL_JoystickGetAxis(m_gameController, 1);
+			je.flag |= JOY_UPDATED_Y;
+		}
+
+		// call the event handler only once per frame not inside the SDL_PollEvent() loop
+		// https://stackoverflow.com/questions/39376356/non-instantaneous-jerky-movement-using-sdl2-opengl
+		joystick_event_mgr(&je);
+	}
+
 	return 1;
 }
 
 void VGA_Set_mouse(int16_t x, int16_t y) {
 	SDL_WarpMouseInWindow(m_window, x, y);
+	joystick_set_rest(x, y);
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
@@ -1065,6 +1398,8 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
+	SDL_JoystickClose(m_gameController);
+	m_gameController = NULL;
 	clean_up_sound();
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;

@@ -48,5 +48,8 @@ extern bool openGLRender;
 extern bool multiThreadedRender;
 extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
+extern int joy_button_fwd;
+extern int joy_button_back;
+extern int joy_button_spell;
 
 #endif //READ_CONFIG

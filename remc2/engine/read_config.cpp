@@ -27,6 +27,9 @@ bool multiThreadedRender = false;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
 bool openGLRender = false;
+int joy_button_fwd = 6;
+int joy_button_back = 7;
+int joy_button_spell = 8;
 
 std::string findIniFile() {
 	// find location of inifile and read it
@@ -196,6 +199,10 @@ bool readini() {
 	maxGameFps = reader.GetInteger("game", "maxGameFps", 0);
 	fmvFps = reader.GetInteger("game", "fmvFps", 20);
 	loggingLevel = reader.GetString("game", "loggingLevel", "Info");
+
+	joy_button_spell = reader.GetInteger("joystick", "button_spell", joy_button_spell);
+	joy_button_fwd = reader.GetInteger("joystick", "button_fwd", joy_button_fwd);
+	joy_button_back = reader.GetInteger("joystick", "button_back", joy_button_back);
 
 	return true;
 };
