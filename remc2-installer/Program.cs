@@ -51,7 +51,10 @@ namespace remc2_installer
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"biggraphics",
-                                    new Files(@"..\enhancedassets\biggraphics\*.*")),
+                                    new Files(@"..\enhancedassets\biggraphics\*.*")
+                                    {
+                                        ComponentCondition = "HIGHTEX=\"yes\""
+                                    }),
                                  new Dir(@"music-ogg",
                                     new Files(@"..\enhancedassets\music-ogg\*.*"))),
 
