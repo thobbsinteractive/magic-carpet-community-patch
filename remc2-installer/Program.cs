@@ -15,8 +15,14 @@ namespace remc2_installer
                                  new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
                                  new File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
+                                 {
+                                     IconFile = "images/app.ico"
+                                 })
 #else
-                                 new File(@"..\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
+                                 new File(@"..\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
+                                 {
+                                     IconFile = "images/app.ico"
+                                 })
 #endif
                                  {
                                      Permissions = new[] {
@@ -37,7 +43,6 @@ namespace remc2_installer
                                         new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
                                     }
                                  },
-                                 new File(@"magic_carpet_2hd.ico"),
 #if WIN64
                                  new File(@"..\x64\Release\SDL2.dll"),
 #else
@@ -82,7 +87,7 @@ namespace remc2_installer
             project.BeforeInstall += Msi_BeforeInstall;
             project.AfterInstall += Msi_AfterInstall;
 
-            project.ControlPanelInfo.ProductIcon = "magic_carpet_2hd.ico";
+            project.ControlPanelInfo.ProductIcon = "images/app.ico";
 
             //project.SourceBaseDir = "<input dir path>";
             //project.OutDir = "<output dir path>";

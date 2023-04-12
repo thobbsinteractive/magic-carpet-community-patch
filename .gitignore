@@ -228,3 +228,4 @@ MigrationBackup/
 *.wxs
 *.g.wxs
 *.msi
+/remc2-installer/wix/remc2-installer.g.wxs
