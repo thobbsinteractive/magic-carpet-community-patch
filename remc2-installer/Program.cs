@@ -15,12 +15,12 @@ namespace remc2_installer
 #if WIN64
                                  new WixSharp.File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
                                  {
-                                     IconFile = "images/app.ico"
+                                     IconFile = "Resources/app.ico"
                                  })
 #else
                                  new WixSharp.File(@"..\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
                                  {
-                                     IconFile = "images/app.ico"
+                                     IconFile = "Resources/app.ico"
                                  })
 #endif
                                  {
@@ -62,6 +62,9 @@ namespace remc2_installer
                             new Property("GAMEDATAPATH", @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"),
                             new Property("HIGHTEX", "yes"),
                             new ManagedAction(CustomActions.MoveGameData, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed),
+                            //new ManagedAction(CustomActions.CopyExtractFolder, Return.check, When.After, new Step("MoveGameData"), Condition.NOT_Installed),
+                            //new ManagedAction(CustomActions.ExtractCDFiles, Return.check, When.After, new Step("CopyExtractFolder"), Condition.NOT_Installed),
+                            //new ManagedAction(CustomActions.MoveCDFiles, Return.check, When.After, new Step("ExtractCDFiles"), Condition.NOT_Installed),
                             new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed));
 
 #if WIN64
@@ -88,7 +91,7 @@ namespace remc2_installer
                                            .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = "Resources/app.ico";
-            project.LicenceFile = "Resources/MagicCarpetHD.license.rtf";
+            project.LicenceFile = "Resources/MagicCarpet2HD.licence.rtf";
             project.BackgroundImage = "Resources/MagicCarpet2HD.dialog_bmp.png";
             project.BannerImage = "Resources/MagicCarpet2HD.dialog_banner.png";
 
