@@ -1,5 +1,4 @@
-﻿using Microsoft.Deployment.WindowsInstaller;
-using System;
+﻿using System;
 using WixSharp;
 using WixSharp.Forms;
 using WixSharpSetup;
@@ -14,12 +13,12 @@ namespace remc2_installer
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
-                                 new File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
+                                 new WixSharp.File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
                                  {
                                      IconFile = "images/app.ico"
                                  })
 #else
-                                 new File(@"..\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
+                                 new WixSharp.File(@"..\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
                                  {
                                      IconFile = "images/app.ico"
                                  })
@@ -33,7 +32,7 @@ namespace remc2_installer
                                         new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
                                     }
                                  },
-                                 new File(@"..\Release\config.ini")
+                                 new WixSharp.File(@"..\Release\config.ini")
                                  {
                                      Permissions = new[] {
                                         new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
@@ -44,9 +43,9 @@ namespace remc2_installer
                                     }
                                  },
 #if WIN64
-                                 new File(@"..\x64\Release\SDL2.dll"),
+                                 new WixSharp.File(@"..\x64\Release\SDL2.dll"),
 #else
-                                 new File(@"..\Release\SDL2.dll"),
+                                 new WixSharp.File(@"..\Release\SDL2.dll"),
 #endif
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
@@ -56,11 +55,13 @@ namespace remc2_installer
                                         ComponentCondition = "HIGHTEX=\"yes\""
                                     }),
                                  new Dir(@"music-ogg",
-                                    new Files(@"..\enhancedassets\music-ogg\*.*"))),
+                                    new Files(@"..\enhancedassets\music-ogg\*.*")),
+                                 new Dir(@"Extract",
+                                    new Files(@"Extract\*.*"))),
 
                             new Property("GAMEDATAPATH", @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"),
                             new Property("HIGHTEX", "yes"),
-                            new ManagedAction(CustomActions.ExtractData, Return.check, When.After, Step.InstallFiles, Condition.NOT_Installed),
+                            new ManagedAction(CustomActions.MoveGameData, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed),
                             new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed));
 
 #if WIN64
@@ -86,36 +87,19 @@ namespace remc2_installer
                                            .Add(Dialogs.Progress)
                                            .Add(Dialogs.Exit);
 
-            project.Load += Msi_Load;
-            project.BeforeInstall += Msi_BeforeInstall;
-            project.AfterInstall += Msi_AfterInstall;
-
-            project.ControlPanelInfo.ProductIcon = "images/app.ico";
+            project.ControlPanelInfo.ProductIcon = "Resources/app.ico";
+            project.LicenceFile = "Resources/MagicCarpetHD.license.rtf";
+            project.BackgroundImage = "Resources/MagicCarpet2HD.dialog_bmp.png";
+            project.BannerImage = "Resources/MagicCarpet2HD.dialog_banner.png";
 
             //project.SourceBaseDir = "<input dir path>";
             //project.OutDir = "<output dir path>";
 
+            project.InstallPrivileges = InstallPrivileges.elevated;
+
             ValidateAssemblyCompatibility();
 
             project.BuildMsi();
-        }
-
-        static void Msi_Load(SetupEventArgs e)
-        {
-            //if (!e.IsUninstalling)
-            //    MessageBox.Show(e.ToString(), "Load");
-        }
-
-        static void Msi_BeforeInstall(SetupEventArgs e)
-        {
-            //if (!e.IsUninstalling)
-            //    MessageBox.Show(e.ToString(), "BeforeInstall");
-        }
-
-        static void Msi_AfterInstall(SetupEventArgs e)
-        {
-            //if (!e.IsUISupressed && !e.IsUninstalling)
-            //    MessageBox.Show(e.ToString(), "AfterExecute");
         }
 
         static void ValidateAssemblyCompatibility()

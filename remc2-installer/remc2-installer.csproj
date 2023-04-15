@@ -42,4 +42,9 @@
     <None Remove="wix\remc2-installer.g.wxs" />
     <None Include="wix\$(ProjectName).g.wxs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Extract\dosboxExtract-GOG-CD.conf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
