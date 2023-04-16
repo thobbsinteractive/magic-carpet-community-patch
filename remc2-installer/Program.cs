@@ -57,14 +57,9 @@ namespace remc2_installer
                                  new Dir(@"music-ogg",
                                     new Files(@"..\enhancedassets\music-ogg\*.*")),
                                  new Dir(@"Extract",
-                                    new Files(@"Extract\*.*"))),
-
-                            new Property("GAMEDATAPATH", @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2"),
+                                    new File(@"Extract\dosboxExtract-GOG-CD.conf"),
+                                    new File(@"Extract\XXCOPY16.EXE"))),
                             new Property("HIGHTEX", "yes"),
-                            new ManagedAction(CustomActions.MoveGameData, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed),
-                            //new ManagedAction(CustomActions.CopyExtractFolder, Return.check, When.After, new Step("MoveGameData"), Condition.NOT_Installed),
-                            //new ManagedAction(CustomActions.ExtractCDFiles, Return.check, When.After, new Step("CopyExtractFolder"), Condition.NOT_Installed),
-                            //new ManagedAction(CustomActions.MoveCDFiles, Return.check, When.After, new Step("ExtractCDFiles"), Condition.NOT_Installed),
                             new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed));
 
 #if WIN64
@@ -79,10 +74,10 @@ namespace remc2_installer
             project.ManagedUI = new ManagedUI();
             project.ManagedUI.InstallDialogs.Add(Dialogs.Welcome)
                                             .Add(Dialogs.Licence)
-                                            .Add<GameDataDialog>()
-                                            .Add<EnhancedDataDialog>()
                                             .Add(Dialogs.InstallDir)
+                                            .Add<EnhancedDataDialog>()
                                             .Add(Dialogs.Progress)
+                                            .Add<GameDataDialog>()
                                             .Add(Dialogs.Exit);
 
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
@@ -90,18 +85,12 @@ namespace remc2_installer
                                            .Add(Dialogs.Progress)
                                            .Add(Dialogs.Exit);
 
-            project.ControlPanelInfo.ProductIcon = "Resources/app.ico";
-            project.LicenceFile = "Resources/MagicCarpet2HD.licence.rtf";
-            project.BackgroundImage = "Resources/MagicCarpet2HD.dialog_bmp.png";
-            project.BannerImage = "Resources/MagicCarpet2HD.dialog_banner.png";
-
-            //project.SourceBaseDir = "<input dir path>";
-            //project.OutDir = "<output dir path>";
-
+            project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
+            project.LicenceFile = @"Resources\MagicCarpet2HD.licence.rtf";
+            project.BackgroundImage = @"Resources\MagicCarpet2HD.dialog_bmp.png";
+            project.BannerImage = @"Resources\MagicCarpet2HD.dialog_banner.png";
             project.InstallPrivileges = InstallPrivileges.elevated;
-
             ValidateAssemblyCompatibility();
-
             project.BuildMsi();
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using WixSharp;
@@ -96,6 +97,103 @@ namespace WixSharpSetup
             return valid;
         }
 
+        public bool MoveGameData(string gamePath)
+        {
+            string path = Runtime.InstallDir;
+
+            try
+            {
+                if (Directory.Exists(Path.Combine(gamePath, "GAME")) && !Directory.Exists(Path.Combine(path, "GAME")))
+                {
+                    Utils.CopyDirectory(Path.Combine(gamePath, "GAME"), Path.Combine(path, "GAME"), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error moving game data files: {ex.Message}");
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CopyExtractFolder(string gamePath)
+        {
+            string path = Runtime.InstallDir;
+
+            try
+            {
+                if (Directory.Exists(Path.Combine(path, "Extract")))
+                {
+                    if (!Directory.Exists(Path.Combine(gamePath, "Extract")))
+                    {
+                        Utils.CopyDirectory(Path.Combine(path, "Extract"), Path.Combine(gamePath, "Extract"), true);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Error copying extract folder not present in: {Path.Combine(path, "Extract")}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error copying extract folder: {ex.Message}");
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ExtractCDFiles(string gamePath)
+        {
+            try
+            {
+                if (Directory.Exists(Path.Combine(gamePath, "CD_Files")))
+                {
+                    Directory.Delete(Path.Combine(gamePath, "CD_Files"), true);
+                }
+
+                if (Directory.Exists(Path.Combine(gamePath, "Extract")))
+                {
+                    ProcessStartInfo processStartInfo = new ProcessStartInfo(Path.Combine(gamePath, @"DOSBOX\dosbox.exe"), "-conf \"Extract\\dosboxExtract-GOG-CD.conf\" -c exit");
+                    processStartInfo.WorkingDirectory = gamePath;
+                    processStartInfo.UseShellExecute = false;
+                    processStartInfo.ErrorDialog = true;
+                    Process.Start(processStartInfo).Wait();
+                }
+            }
+            catch (Exception ex)
+            {
+                if (MessageBox.Show($"Error Extracting CD Files: {ex.Message}\nWould you like to continue the Installation?", "CD File Extraction Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+
+        private bool MoveCDFiles(string gamePath)
+        {
+            try
+            {
+                if (Directory.Exists(Path.Combine(gamePath, "CD_Files")))
+                {
+                    Utils.CopyDirectory(Path.Combine(gamePath, "CD_Files"), Path.Combine(Runtime.InstallDir, "CD_Files"), true);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (MessageBox.Show($"Error Moving CD Files: {ex.Message}\nWould you like to continue the Installation?", "CD File Extraction Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+
         private string GetDirectoryName(string path)
         {
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
@@ -166,28 +264,21 @@ namespace WixSharpSetup
         {
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
             Text = "[ProductName] Setup";
-            this.txtPath.Text = Runtime.Session["GAMEDATAPATH"];
+            this.txtPath.Text = @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2";
             //resolve all Control.Text cases with embedded MSI properties (e.g. 'ProductName') and *.wxl file entries
             base.Localize();
         }
 
-        void back_Click(object sender, EventArgs e)
+        void btnNext_Click(object sender, EventArgs e)
         {
-            Shell.GoPrev();
-        }
-
-        void next_Click(object sender, EventArgs e)
-        {
-            if (ValidateGameDataLocation(this.txtPath.Text))
+            if (ValidateGameDataLocation(this.txtPath.Text) && 
+                MoveGameData(this.txtPath.Text) &&
+                CopyExtractFolder(this.txtPath.Text) &&
+                ExtractCDFiles(this.txtPath.Text) && 
+                MoveCDFiles(this.txtPath.Text))
             {
-                Runtime.Session["GAMEDATAPATH"] = this.txtPath.Text;
                 Shell.GoNext();
             }
-        }
-
-        void cancel_Click(object sender, EventArgs e)
-        {
-            Shell.Cancel();
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -202,6 +293,11 @@ namespace WixSharpSetup
                     this.txtPath.Text = fbd.SelectedPath;
                 }
             }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Shell.Exit();
         }
     }
 }
