@@ -13,7 +13,7 @@ namespace remc2_installer
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
-                                 new WixSharp.File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD"))
+                                 new WixSharp.File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
                                  {
                                      IconFile = "Resources/app.ico"
                                  })
