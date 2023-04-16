@@ -86,6 +86,11 @@ namespace remc2_installer
                                            .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
+            project.ControlPanelInfo.Comments = "Enhanced Edition of Magic Carpet 2";
+            project.ControlPanelInfo.UrlInfoAbout = "https://github.com/thobbsinteractive/magic-carpet-2-hd";
+            project.ControlPanelInfo.Contact = "Magic Carpet 2 HD";
+            project.ControlPanelInfo.Manufacturer = "Magic Carpet 2 HD";
+
             project.LicenceFile = @"Resources\MagicCarpet2HD.licence.rtf";
             project.BackgroundImage = @"Resources\MagicCarpet2HD.dialog_bmp.png";
             project.BannerImage = @"Resources\MagicCarpet2HD.dialog_banner.png";

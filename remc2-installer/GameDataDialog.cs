@@ -271,6 +271,10 @@ namespace WixSharpSetup
 
         void btnNext_Click(object sender, EventArgs e)
         {
+            btnBrowse.Enabled = false;
+            btnNext.Enabled = false;
+            btnCancel.Enabled = false;
+
             if (ValidateGameDataLocation(this.txtPath.Text) && 
                 MoveGameData(this.txtPath.Text) &&
                 CopyExtractFolder(this.txtPath.Text) &&
@@ -279,6 +283,10 @@ namespace WixSharpSetup
             {
                 Shell.GoNext();
             }
+
+            btnBrowse.Enabled = true;
+            btnNext.Enabled = true;
+            btnCancel.Enabled = true;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
