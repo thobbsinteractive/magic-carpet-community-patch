@@ -66,13 +66,12 @@ Uint32 alphaMask = 0xff000000;
 #define          JOY_MIN_X  0
 #define          JOY_MIN_Y  0
 
-///< joystick_state_t flag
+///< joystick_event_t flag
 #define      JOY_UPDATED_X  0x1
 #define      JOY_UPDATED_Y  0x2
-#define   JOY_BTN_RELEASED  0x4
-#define    JOY_BTN_PRESSED  0x8
-#define      JOY_UPDATED_Z  0x10
-
+#define      JOY_UPDATED_Z  0x4
+#define   JOY_BTN_RELEASED  0x8
+#define    JOY_BTN_PRESSED  0x10
 
 struct joystick_state {
 	int32_t x;
@@ -84,6 +83,7 @@ struct joystick_state {
 	int32_t max_y;
 	uint8_t dead_zone_announced;   ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
 	uint8_t initialized;
+	uint8_t scene_id;
 };
 typedef struct joystick_state joystick_state_t;
 
@@ -171,7 +171,9 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 				if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
 					Logger->error("unable to initialize joystick events. SDL Error: {}", SDL_GetError() );
 				} else {
-					j.initialized = 1;
+					// as a test, consider the joystick initialized only after the first axis change event is caught
+					// due to the fact that after a cold-boot the joystick could send large random axis values without having been moved once
+					//j.initialized = 1;
 				}
 			}
 
@@ -912,12 +914,17 @@ void joystick_filtering()
 }
 #endif
 
+void set_scene(const uint8_t scene_id)
+{
+	j.scene_id = scene_id;
+}
+
 /// \brief set the x,y coord of the joystick rest position
 /// \param x coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
 /// \param y coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
-void joystick_set_rest(const int32_t x, const int32_t y)
+void joystick_set_env(const int32_t x, const int32_t y)
 {
-	Logger->trace("pointer rest at {},{} window size {},{}", x, y, j.max_x, j.max_y);
+	Logger->trace("pointer rest at {},{} scene {}, window size {},{}", x, y, j.scene_id, j.max_x, j.max_y);
 	j.rest_x = x;
 	j.rest_y = y;
 	j.x = x;
@@ -939,7 +946,7 @@ void joystick_init_limits(const int gameResWidth, const int gameResHeight)
 {
 	j.max_x = gameResWidth;
 	j.max_y = gameResHeight;
-	joystick_set_rest(j.max_x >> 1, j.max_y >> 1);
+	joystick_set_env(j.max_x >> 1, j.max_y >> 1);
 }
 
 #define JOY_NAV_INC 4
@@ -980,7 +987,7 @@ void joystick_event_mgr(joystick_event_t *je)
 				}
 				j.dead_zone_announced = 0;
 			}
-		} 
+		}
 
 		if (je->flag & JOY_UPDATED_Y) {
 			if ((je->coord_y < JOYSTICK_DEAD_ZONE) && (je->coord_y > -JOYSTICK_DEAD_ZONE)) {
@@ -1007,7 +1014,7 @@ void joystick_event_mgr(joystick_event_t *je)
 				j.x += JOY_NAV_INC * (je->coord_x >> 13);
 				j.dead_zone_announced = 0;
 			}
-		} 
+		}
 
 		if (je->flag & JOY_UPDATED_Y) {
 			if ((je->coord_y < JOYSTICK_DEAD_ZONE) && (je->coord_y > -JOYSTICK_DEAD_ZONE)) {
@@ -1030,6 +1037,12 @@ void joystick_event_mgr(joystick_event_t *je)
 		j.x = JOY_MIN_X;
 	} else if (j.x > j.max_x) {
 		j.x = j.max_x;
+	}
+
+	if (j.y < JOY_MIN_Y) {
+		j.y = JOY_MIN_Y;
+	} else if (j.y > j.max_y) {
+		j.y = j.max_y;
 	}
 
 	if (je->btn_pressed) {
@@ -1087,6 +1100,7 @@ void joystick_event_mgr(joystick_event_t *je)
 		//Logger->debug("JOYSTICK_DEAD_ZONE not big enough {},{}", je->coord_x, je->coord_y);
 	}
 
+	//joystick_filtering();
 	MouseEvents(button_state & 0x7f, j.x, j.y);
 }
 
@@ -1107,10 +1121,11 @@ int events()
 		{
 		case SDL_JOYAXISMOTION:
 			if (event.jaxis.which == 0) {
+				j.initialized = 1;
 				// motion on controller 0
 				// we are reading the axis data when this event triggers, but it's futile
-				// for instance if I hold the stick very still at max right I will not get 
-				// events on every frame about this position. this is why we also poll 
+				// for instance if I hold the stick very still at max right I will not get
+				// events on every frame about this position. this is why we also poll
 				// for the axis data via SDL_JoystickGetAxis() below
 				if (event.jaxis.axis == 0) {
 					je.coord_x = event.jaxis.value;
@@ -1245,9 +1260,9 @@ int events()
 	return 1;
 }
 
-void VGA_Set_mouse(int16_t x, int16_t y) {
+void VGA_Set_mouse(const int16_t x, const int16_t y) {
 	SDL_WarpMouseInWindow(m_window, x, y);
-	joystick_set_rest(x, y);
+	joystick_set_env(x, y);
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
@@ -1284,7 +1299,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 	}
 	if (srcBuffer)
 		memcpy(m_gamePalletisedSurface->pixels, srcBuffer, m_gamePalletisedSurface->h * m_gamePalletisedSurface->w);
-	
+
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
