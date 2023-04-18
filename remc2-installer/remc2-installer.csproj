@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net451</TargetFramework>
     <Platforms>x86;x64</Platforms>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <DefineConstants>$(DefineConstants)TRACE;WIN32</DefineConstants>
