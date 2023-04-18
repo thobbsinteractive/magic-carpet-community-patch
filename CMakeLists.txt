@@ -52,6 +52,7 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS_XBOX_DEBUG "")
     set(CMAKE_CXX_FLAGS_XBOX_RELEASE "")
 else()
+    set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
     #add_compile_options(-fpermissive)
     add_compile_options(-Wno-narrowing)
     add_compile_options(-Wall)
@@ -64,6 +65,7 @@ else()
         add_compile_options(-fsanitize=undefined)
     endif ()
 endif()
+
 
 ################################################################################
 # Global linker options
@@ -82,7 +84,11 @@ if(MSVC)
     set(CMAKE_MODULE_LINKER_FLAGS_RELEASE "${CMAKE_MODULE_LINKER_FLAGS}")
     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS}")
     set(CMAKE_STATIC_LINKER_FLAGS_RELEASE "${CMAKE_STATIC_LINKER_FLAGS}")
+else()
+    set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS})
+    set(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS})
 endif()
+
 
 ################################################################################
 # Use solution folders feature
@@ -97,12 +103,14 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set(libADLMIDI_STATIC TRUE)
 add_subdirectory(libADLMIDI-master)
 add_compile_definitions(COMPILE_FOR_64BIT)
+add_definitions(-w)
+add_definitions(-no-pie)
 
 # preprocessor flags
 if (FLATPAK)
     add_compile_definitions(FLATPAK)
 endif ()
-        
+
 # remc2 and tests
 add_subdirectory(remc2)
 if (UNIT_TESTS)

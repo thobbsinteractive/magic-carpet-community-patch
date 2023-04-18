@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -223,3 +223,9 @@ OpenCover/
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
+# vim temporary files
+*.swp
+
+# exuberant ctags (they change too often, plus it's huge)
+tags

@@ -1,4 +1,4 @@
-﻿#include "Basic.h"
+#include "Basic.h"
 #include "engine_support.h"
 #include "CommandLineParser.h"
 

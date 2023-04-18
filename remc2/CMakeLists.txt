@@ -28,6 +28,7 @@ if (WIN32)
 else()
     set(SOURCE_FILES
         "remc2.cpp"
+		"trace.cpp"
     )
 endif()
 source_group("Source Files" FILES ${SOURCE_FILES})
