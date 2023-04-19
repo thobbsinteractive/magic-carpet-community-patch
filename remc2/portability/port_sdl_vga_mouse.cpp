@@ -89,6 +89,7 @@ struct gamepad_state {
 	uint8_t dead_zone_announced;   ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
 	uint8_t initialized;
 	uint8_t scene_id;
+	uint8_t nav_mode;
 };
 typedef struct gamepad_state gamepad_state_t;
 
@@ -99,6 +100,20 @@ struct pointer_sys {
 	int16_t y;
 };
 typedef struct pointer_sys pointer_sys_t;
+
+struct vec1d {
+	int16_t x;
+	uint8_t x_conf;
+};
+typedef struct vec1d vec1d_t;
+
+struct vec2d {
+	int16_t x;
+	int16_t y;
+	uint8_t x_conf;
+	uint8_t y_conf;
+};
+typedef struct vec2d vec2d_t;
 
 struct gamepad_event {
 	int16_t axis_yaw;
@@ -933,6 +948,28 @@ void joystick_filtering()
 void set_scene(const uint8_t scene_id)
 {
 	j.scene_id = scene_id;
+	switch (scene_id) {
+		case SCENE_PREAMBLE_MENU:
+			j.max_x = 640;
+			j.max_y = 480;
+			j.nav_mode = 1;
+			break;
+		case SCENE_FLIGHT:
+			j.max_x = gameResWidth;
+			j.max_y = gameResHeight;
+			j.nav_mode = 0;
+			break;
+		case SCENE_FLIGHT_MENU:
+			j.max_x = gameResWidth;
+			j.max_y = gameResHeight;
+			j.nav_mode = 1;
+			break;
+		default:
+			j.max_x = gameResWidth;
+			j.max_y = gameResHeight;
+			break;
+	}
+	Logger->trace("set scene {}, nav_mode {}", scene_id, j.nav_mode);
 }
 
 /// \brief set the x,y coord of the joystick rest position
@@ -955,22 +992,25 @@ void joystick_set_env(const int32_t x, const int32_t y)
 	//joystick_filtering();
 }
 
-/// \brief set the maximal coordinate values that the joystick has to reach
+/// \brief initialize gamepad maximal coordinate values, default operating mode, etc
 /// \param gameResWidth maximum x value
 /// \param gameResHeight maximum y value
-void joystick_init_limits(const int gameResWidth, const int gameResHeight)
+void gamepad_init(const int gameResWidth, const int gameResHeight)
 {
 	j.max_x = gameResWidth;
 	j.max_y = gameResHeight;
 	joystick_set_env(j.max_x >> 1, j.max_y >> 1);
+	set_scene(SCENE_BLIT);
 }
 
 #define JOY_NAV_INC 4
 
 /// \brief flight support via conversion from stick coordinates to pointer coordinates
-uint16_t gamepad_axis_flight_conv(const int16_t axis_yaw, const int16_t axis_pitch, pointer_sys_t *point)
+uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
+	int16_t axis_yaw = stick->x;
+	int16_t axis_pitch = stick->y;
 
 	if ((axis_yaw < gpc.axis_dead_zone) && (axis_yaw > -gpc.axis_dead_zone)) {
 		point->x = j.rest_x;
@@ -1002,9 +1042,11 @@ uint16_t gamepad_axis_flight_conv(const int16_t axis_yaw, const int16_t axis_pit
 }
 
 /// \brief menu navigation support via conversion from stick coordinates to pointer coordinates
-uint16_t gamepad_axis_nav_conv(const int16_t axis_nav_ns, const int16_t axis_nav_ew, pointer_sys_t *point)
+uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
+	int16_t axis_nav_ns = stick->x;
+	int16_t axis_nav_ew = stick->y;
 
 	if ((axis_nav_ns < gpc.axis_dead_zone) && (axis_nav_ns > -gpc.axis_dead_zone)) {
 		// point->x remains unchanged
@@ -1024,7 +1066,7 @@ uint16_t gamepad_axis_nav_conv(const int16_t axis_nav_ns, const int16_t axis_nav
 }
 
 /// \brief menu navigation support via conversion from hat coordinates to pointer coordinates
-uint16_t gamepad_hat_nav_conv(const uint8_t dir, const uint8_t conf, pointer_sys_t *point)
+uint16_t gamepad_hat_nav_conv(const vec1d_t *hat, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
 	int16_t inv = 1;
@@ -1032,26 +1074,26 @@ uint16_t gamepad_hat_nav_conv(const uint8_t dir, const uint8_t conf, pointer_sys
 	// dir can be a bitwise OR of two adjacent directions
 	// so don't use 'else if' or 'switch'.
 
-	if (conf & GAMEPAD_AXIS_INVERTED) {
+	if (hat->x_conf & GAMEPAD_AXIS_INVERTED) {
 		inv = -1;
 	}
 
-	if (dir & SDL_HAT_UP) {
+	if (hat->x & SDL_HAT_UP) {
 		point->y += inv * JOY_NAV_INC * 2;
 		ret = GP_NAV_UPDATE;
 	}
 
-	if (dir & SDL_HAT_DOWN) {
+	if (hat->x & SDL_HAT_DOWN) {
 		point->y -= inv * JOY_NAV_INC * 2;
 		ret = GP_NAV_UPDATE;
 	}
 
-	if (dir & SDL_HAT_RIGHT) {
+	if (hat->x & SDL_HAT_RIGHT) {
 		point->x += JOY_NAV_INC * 2;
 		ret = GP_NAV_UPDATE;
 	}
 
-	if (dir & SDL_HAT_LEFT) {
+	if (hat->x & SDL_HAT_LEFT) {
 		point->x -= JOY_NAV_INC * 2;
 		ret = GP_NAV_UPDATE;
 	}
@@ -1060,30 +1102,30 @@ uint16_t gamepad_hat_nav_conv(const uint8_t dir, const uint8_t conf, pointer_sys
 }
 
 /// \brief longitudinal and transversal movement converted to hardcoded keyboard keypresses
-void gamepad_hat_mov_conv(const uint8_t dir, const uint8_t conf)
+void gamepad_hat_mov_conv(const vec1d_t *hat)
 {
 
-	if (dir & SDL_HAT_UP) {
+	if (hat->x & SDL_HAT_UP) {
 		setPress(false, GP_KEY_EMU_DOWN);
 		setPress(true, GP_KEY_EMU_UP);
 	}
 
-	if (dir & SDL_HAT_DOWN) {
+	if (hat->x & SDL_HAT_DOWN) {
 		setPress(false, GP_KEY_EMU_UP);
 		setPress(true, GP_KEY_EMU_DOWN);
 	}
 
-	if (dir & SDL_HAT_RIGHT) {
+	if (hat->x & SDL_HAT_RIGHT) {
 		setPress(false, GP_KEY_EMU_LEFT);
 		setPress(true, GP_KEY_EMU_RIGHT);
 	}
 
-	if (dir & SDL_HAT_LEFT) {
+	if (hat->x & SDL_HAT_LEFT) {
 		setPress(false, GP_KEY_EMU_RIGHT);
 		setPress(true, GP_KEY_EMU_LEFT);
 	}
 
-	if (dir == 0) {
+	if (hat->x == 0) {
 		setPress(false, GP_KEY_EMU_UP);
 		setPress(false, GP_KEY_EMU_DOWN);
 		setPress(false, GP_KEY_EMU_RIGHT);
@@ -1092,12 +1134,14 @@ void gamepad_hat_mov_conv(const uint8_t dir, const uint8_t conf)
 }
 
 /// \brief menu navigation support via conversion from stick coordinates to pointer coordinates
-void gamepad_axis_mov_conv(const int16_t axis_long, const int16_t axis_trans, const uint8_t axis_long_conf)
+void gamepad_axis_mov_conv(const vec2d_t *stick)
 {
 	uint16_t ret = 0;
 	int16_t axis_long_inv = 1;
+	int16_t axis_long = stick->x;
+	int16_t axis_trans = stick->y;
 
-	if (axis_long_conf & GAMEPAD_AXIS_INVERTED) {
+	if (stick->x_conf & GAMEPAD_AXIS_INVERTED) {
 		axis_long_inv = -1;
 	}
 
@@ -1147,9 +1191,18 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 	uint16_t conv_state = 0;
 	pointer_sys_t flight;
 	pointer_sys_t nav;
+	vec2d stick;
+	vec1d hat;
 
 	// decide if we are hadling flight mode or menu navigation mode
 	// both in the same time gets messy very fast
+
+	// default mode, based on scene
+	if (j.nav_mode) {
+		flight_mode = 0;
+	}
+
+	// overwrite scene-based mode based on what button is pressed
 	if (SDL_JoystickGetButton(m_gameController, gpc.button_spell - 1)) {
 		flight_mode = 0;
 	}
@@ -1158,10 +1211,12 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		flight_mode = 0;
 	}
 
+	stick.x = gpe->axis_yaw;
+	stick.y = gpe->axis_pitch;
 	flight.x = j.x;
 	flight.y = j.y;
 	// flight yaw/pitch is always done via two axes
-	conv_state |= gamepad_axis_flight_conv(gpe->axis_yaw, gpe->axis_pitch, &flight);
+	conv_state |= gamepad_axis_flight_conv(&stick, &flight);
 
 	// menu navigation
 	nav.x = j.x;
@@ -1169,10 +1224,14 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 
 	if (gpc.hat_nav_conf & GAMEPAD_ITEM_ENABLED) {
 		// menu navigation is done via a hat control
-		conv_state |= gamepad_hat_nav_conv(gpe->hat_nav, gpc.hat_nav_conf, &nav);
+		hat.x = gpe->hat_nav;
+		hat.x_conf = gpc.hat_nav_conf;
+		conv_state |= gamepad_hat_nav_conv(&hat, &nav);
 	} else if (gpc.axis_nav_ns & gpc.axis_nav_ew & GAMEPAD_ITEM_ENABLED) {
 		// menu navigation is done via two axes
-		conv_state |= gamepad_axis_nav_conv(gpe->axis_nav_ns, gpe->axis_nav_ew, &nav);
+		stick.x = gpe->axis_nav_ns;
+		stick.y = gpe->axis_nav_ew;
+		conv_state |= gamepad_axis_nav_conv(&stick, &nav);
 	}
 
 	if (flight_mode) {
@@ -1199,12 +1258,17 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 	// (aka forward/back/strafe right/strafe left)
 	if (gpc.hat_mov_conf & GAMEPAD_ITEM_ENABLED) {
 		// if movement is done via a hat
-		gamepad_hat_mov_conv(gpe->hat_mov, gpc.hat_mov_conf);
+		hat.x = gpe->hat_mov;
+		hat.x_conf = gpc.hat_mov_conf;
+		gamepad_hat_mov_conv(&hat);
 	}
 
 	if (gpc.axis_long_conf & gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED) {
 		// if movement is done via two axes
-		gamepad_axis_mov_conv(gpe->axis_long, gpe->axis_trans, gpc.axis_long_conf);
+		stick.x = gpe->axis_long;
+		stick.x_conf = gpc.axis_long_conf;
+		stick.y = gpe->axis_trans;
+		gamepad_axis_mov_conv(&stick);
 	}
 
 	if (gpe->btn_pressed) {
@@ -1268,7 +1332,6 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 
 announce:
 
-	//Logger->info("mouseEvents {} {} {} {}", button_state & 0x7f, j.x, j.y, conv_state);
 	//joystick_filtering();
 	MouseEvents(button_state & 0x7f, j.x, j.y);
 
@@ -1296,18 +1359,20 @@ int events()
 				j.initialized = 1;
 				// actual axis data is being read via SDL_JoystickGetAxis() below
 				// to counteract jerkiness due to missing event triggers
+				Logger->trace("axis {} event detected", event.jaxis.axis + 1);
 			}
 			break;
 		case SDL_JOYHATMOTION:
 			if (event.jhat.which == 0) {
 				j.initialized = 1;
 				// actual axis data is being read via SDL_JoystickGetHat() below
+				Logger->trace("hat {} event detected", event.jhat.hat + 1);
 			}
 		case SDL_JOYBUTTONDOWN:
 			if (event.jbutton.which == 0) {
 				j.initialized = 1;
 				gpe.btn_pressed = 1 << (event.jbutton.button + 1);
-				Logger->trace("Key {} press detected", event.jbutton.button + 1);
+				Logger->trace("key {} press detected", event.jbutton.button + 1);
 				gpe.flag |= GP_BTN_PRESSED;
 			}
 			break;
@@ -1315,7 +1380,7 @@ int events()
 			if (event.jbutton.which == 0) {
 				j.initialized = 1;
 				gpe.btn_released = 1 << (event.jbutton.button + 1);
-				Logger->trace("Key {} release detected", event.jbutton.button + 1);
+				Logger->trace("key {} release detected", event.jbutton.button + 1);
 				gpe.flag |= GP_BTN_RELEASED;
 			}
 			break;

@@ -18,15 +18,9 @@
 #include "port_sdl_sound.h"
 #include "port_filesystem.h"
 
-#define SCENE_UNK_01	0x1
-#define SCENE_UNK_02	0x2
-#define SCENE_UNK_03	0x3
-#define SCENE_UNK_04	0x4
-#define SCENE_UNK_05	0x5
-#define SCENE_UNK_06	0x6
-#define SCENE_UNK_07	0x7
-#define SCENE_UNK_08	0x8
-#define SCENE_UNK_09	0x9
+#define  SCENE_PREAMBLE_MENU  0x1
+#define         SCENE_FLIGHT  0x2
+#define    SCENE_FLIGHT_MENU  0x3
 
 typedef struct
 {
@@ -66,7 +60,7 @@ void VGA_Set_mouse(int16_t a1, int16_t a2);
 void setPress(bool locpressed, uint16_t loclastchar);
 
 void set_scene(const uint8_t scene_id);
-void joystick_init_limits(const int gameResWidth, const int gameResHeight);
+void gamepad_init(const int gameResWidth, const int gameResHeight);
 
 void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
