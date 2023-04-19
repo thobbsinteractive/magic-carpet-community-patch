@@ -96,6 +96,7 @@ namespace remc2_installer
             project.BannerImage = @"Resources\MagicCarpet2HD.dialog_banner.png";
             project.InstallPrivileges = InstallPrivileges.elevated;
             ValidateAssemblyCompatibility();
+            project.AfterInstall += OnAfterInstall;
             project.BuildMsi();
         }
 
@@ -109,6 +110,14 @@ namespace remc2_installer
                                   "The incompatibility is particularly possible for the EmbeddedUI scenarios. " +
                                    "The safest way to solve the problem is to compile the assembly for v3.5 Target Framework.",
                                    assembly.GetName().Name, assembly.ImageRuntimeVersion);
+            }
+        }
+
+        public static void OnAfterInstall(SetupEventArgs e)
+        {
+            if (e.IsUninstalling)
+            {
+                e.InstallDir.DeleteIfExists();
             }
         }
     }

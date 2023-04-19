@@ -33,12 +33,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.cboInstallLocation = new System.Windows.Forms.ComboBox();
             this.lblInstallLocation = new System.Windows.Forms.Label();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
+            this.txtCDPath = new System.Windows.Forms.TextBox();
+            this.btnBrowseCDFiles = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -99,6 +101,17 @@
             this.panel1.Size = new System.Drawing.Size(503, 57);
             this.panel1.TabIndex = 9;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new System.Drawing.Point(409, 17);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Exit";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // btnNext
             // 
             this.btnNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -114,7 +127,8 @@
             // 
             this.cboInstallLocation.FormattingEnabled = true;
             this.cboInstallLocation.Items.AddRange(new object[] {
-            "GOG Edition"});
+            "GOG Edition",
+            "DOS Edition"});
             this.cboInstallLocation.Location = new System.Drawing.Point(100, 66);
             this.cboInstallLocation.Name = "cboInstallLocation";
             this.cboInstallLocation.Size = new System.Drawing.Size(205, 21);
@@ -147,20 +161,29 @@
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // btnCancel
+            // txtCDPath
             // 
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(409, 17);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Exit";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.txtCDPath.Location = new System.Drawing.Point(86, 134);
+            this.txtCDPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.txtCDPath.Name = "txtCDPath";
+            this.txtCDPath.Size = new System.Drawing.Size(396, 21);
+            this.txtCDPath.TabIndex = 11;
+            // 
+            // btnBrowseCDFiles
+            // 
+            this.btnBrowseCDFiles.Location = new System.Drawing.Point(12, 132);
+            this.btnBrowseCDFiles.Name = "btnBrowseCDFiles";
+            this.btnBrowseCDFiles.Size = new System.Drawing.Size(68, 23);
+            this.btnBrowseCDFiles.TabIndex = 12;
+            this.btnBrowseCDFiles.Text = "Browse";
+            this.btnBrowseCDFiles.UseVisualStyleBackColor = true;
+            this.btnBrowseCDFiles.Click += new System.EventHandler(this.btnBrowseCDFiles_Click);
             // 
             // GameDataDialog
             // 
             this.ClientSize = new System.Drawing.Size(494, 361);
+            this.Controls.Add(this.btnBrowseCDFiles);
+            this.Controls.Add(this.txtCDPath);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtPath);
             this.Controls.Add(this.lblInstallLocation);
@@ -194,5 +217,7 @@
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txtCDPath;
+        private System.Windows.Forms.Button btnBrowseCDFiles;
     }
 }

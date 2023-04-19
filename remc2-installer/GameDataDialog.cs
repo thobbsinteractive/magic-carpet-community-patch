@@ -16,10 +16,11 @@ namespace WixSharpSetup
             //The safest way to avoid the problem is to compile the assembly for v3.5 Target Framework.remc2_installer
             InitializeComponent();
 
+            this.cboInstallLocation.SelectedIndexChanged += CboInstallLocation_SelectedIndexChanged;
             this.cboInstallLocation.SelectedIndex = 0;
         }
 
-        private bool ValidateGameDataLocation(string path)
+        private bool ValidateGoGGameDataLocation(string path)
         {
             bool valid = false;
 
@@ -29,65 +30,49 @@ namespace WixSharpSetup
 
                 bool foundGameIns = false;
 
-                if (this.cboInstallLocation.SelectedIndex == 0)
+                foreach (string file in files)
                 {
-                    foreach (string file in files)
+                    if (file.PathGetFileName().Equals("game.ins", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        if (file.PathGetFileName().Equals("game.ins", StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            foundGameIns = true;
-                            break;
-                        }
+                        foundGameIns = true;
+                        break;
                     }
-                }
-                else
-                {
-                    foundGameIns = true;
                 }
 
                 bool foundGameData = false;
                 bool foundNetherw = false;
-                bool foundCData = false;
-                bool foundCLevels = false;
-                bool foundSound = false;
 
                 string[] directories = Directory.GetDirectories(path);
 
-                foreach (string directory in directories)
+                if (HasGameDir(directories))
                 {
-                    if (HasGameDir(directories))
+                    foreach (string directory in directories)
                     {
-                        string[] gameDirectories = Directory.GetDirectories(directory);
-                        foundGameData = true;
-                        foreach (string gameDirectory in gameDirectories)
+                        if (IsGameDir(directory))
                         {
+                            foundGameData = true;
+                            string[] gameDirectories = Directory.GetDirectories(directory);
                             if (HasNetherwDir(gameDirectories))
                             {
-                                foundNetherw = true;
-                                string[] netherwDirectories = Directory.GetDirectories(gameDirectory);
-                                foundCData = HasCDataDir(netherwDirectories);
-                                foundCLevels = HasCLevelsDir(netherwDirectories);
-                                foundSound = HasSoundDir(netherwDirectories);
-                                break;
+                                foreach (string gameDirectory in gameDirectories)
+                                {
+                                    if (IsNetherwDir(gameDirectory))
+                                    {
+                                        foundNetherw = ValidateNetherwContent(gameDirectory);
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
                 }
 
-                valid = foundGameIns && foundGameData && foundNetherw && foundCData && foundCLevels && foundSound;
+                valid = foundGameIns && foundGameData && foundNetherw;
 
                 if (!foundGameIns)
                     MessageBox.Show($"game.ins not found", "No game.ins", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else if (!foundGameData)
                     MessageBox.Show($"GAME data directory not found", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (!foundNetherw)
-                    MessageBox.Show($"NETHERW data directory not found", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (!foundCData)
-                    MessageBox.Show($"CDATA directory not found", "No CDATA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (!foundCLevels)
-                    MessageBox.Show($"CLEVELS directory not found", "No CLEVELS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else if (!foundSound)
-                    MessageBox.Show($"SOUND directory not found", "No SOUND", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
@@ -97,15 +82,89 @@ namespace WixSharpSetup
             return valid;
         }
 
+        private bool ValidateDosGameDataLocation(string path, string cdPath)
+        {
+            bool validNetherw = false;
+            bool validCD = false;
+
+            if (Directory.Exists(path))
+            {
+                validNetherw = ValidateNetherwContent(path);
+
+                if (Directory.Exists(cdPath))
+                {
+                    validCD = ValidateCDContent(cdPath);
+                }
+                else
+                {
+                    MessageBox.Show($"This {cdPath} directory does not exist", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            else
+            {
+                MessageBox.Show($"This {path} directory does not exist", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            return validNetherw && validCD;
+        }
+
+        public bool ValidateNetherwContent(string gameDirectory)
+        {
+            string[] netherwDirectories = Directory.GetDirectories(gameDirectory);
+            bool foundCData = HasCDataDir(netherwDirectories);
+            bool foundCLevels = HasCLevelsDir(netherwDirectories);
+            bool foundSound = HasSoundDir(netherwDirectories);
+
+            if (!foundCData)
+                MessageBox.Show($"CDATA directory not found", "No CDATA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!foundCLevels)
+                MessageBox.Show($"CLEVELS directory not found", "No CLEVELS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!foundSound)
+                MessageBox.Show($"SOUND directory not found", "No SOUND", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            return foundCData && foundCLevels && foundSound;
+        }
+
+        public bool ValidateCDContent(string cdDirectory)
+        {
+            string[] cdDirectories = Directory.GetDirectories(cdDirectory);
+            bool foundData = HasDataDir(cdDirectories);
+            bool foundIntro = HasIntroDir(cdDirectories);
+            bool foundLanguage = HasLanguageDir(cdDirectories);
+            bool foundLevels = HasLevelsDir(cdDirectories);
+            bool foundSound = HasSoundDir(cdDirectories);
+
+            if (!foundData)
+                MessageBox.Show($"DATA directory not found", "No DATA", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!foundIntro)
+                MessageBox.Show($"Intro directory not found", "No INTRO", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!foundLanguage)
+                MessageBox.Show($"Language directory not found", "No LANGUAGE", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!foundLevels)
+                MessageBox.Show($"Levels directory not found", "No LEVELS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else if (!foundSound)
+                MessageBox.Show($"SOUND directory not found", "No SOUND", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            return foundData && foundIntro && foundLanguage && foundLevels && foundSound;
+        }
+
         public bool MoveGameData(string gamePath)
         {
             string path = Runtime.InstallDir;
 
             try
             {
-                if (Directory.Exists(Path.Combine(gamePath, "GAME")) && !Directory.Exists(Path.Combine(path, "GAME")))
+                if (Directory.Exists(gamePath))
                 {
-                    Utils.CopyDirectory(Path.Combine(gamePath, "GAME"), Path.Combine(path, "GAME"), true);
+                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"GAME\NETHERW"), true);
+                }
+                else
+                {
+                    if (MessageBox.Show($"Error finding directory {gamePath}\nWould you like to continue the Installation?", "CD File Extraction Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -174,13 +233,21 @@ namespace WixSharpSetup
             return true;
         }
 
-        private bool MoveCDFiles(string gamePath)
+        private bool MoveCDFiles(string cdPath)
         {
             try
             {
-                if (Directory.Exists(Path.Combine(gamePath, "CD_Files")))
+                if (Directory.Exists(cdPath))
                 {
-                    Utils.CopyDirectory(Path.Combine(gamePath, "CD_Files"), Path.Combine(Runtime.InstallDir, "CD_Files"), true);
+                    Utils.CopyDirectory(cdPath, Path.Combine(Runtime.InstallDir, "CD_Files"), true);
+                }
+                else
+                {
+                    if (MessageBox.Show($"Error finding directory {cdPath}\nWould you like to continue the Installation?", "CD File Extraction Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
+                    {
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch (Exception ex)
@@ -204,10 +271,19 @@ namespace WixSharpSetup
         {
             foreach (string directory in directories)
             {
-                if (GetDirectoryName(directory).Equals("game", StringComparison.InvariantCultureIgnoreCase))
+                if (IsGameDir(directory))
                 {
                     return true;
                 }
+            }
+            return false;
+        }
+
+        private bool IsGameDir(string directory)
+        {
+            if (GetDirectoryName(directory).Equals("game", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
             }
             return false;
         }
@@ -216,10 +292,19 @@ namespace WixSharpSetup
         {
             foreach (string directory in directories)
             {
-                if (GetDirectoryName(directory).Equals("netherw", StringComparison.InvariantCultureIgnoreCase))
+                if (IsNetherwDir(directory))
                 {
                     return true;
                 }
+            }
+            return false;
+        }
+
+        private bool IsNetherwDir(string directory)
+        {
+            if (GetDirectoryName(directory).Equals("netherw", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
             }
             return false;
         }
@@ -229,6 +314,42 @@ namespace WixSharpSetup
             foreach (string directory in directories)
             {
                 if (GetDirectoryName(directory).Equals("cdata", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasDataDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("data", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasIntroDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("intro", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool HasLanguageDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("language", StringComparison.InvariantCultureIgnoreCase))
                 {
                     return true;
                 }
@@ -248,6 +369,18 @@ namespace WixSharpSetup
             return false;
         }
 
+        private bool HasLevelsDir(string[] directories)
+        {
+            foreach (string directory in directories)
+            {
+                if (GetDirectoryName(directory).Equals("levels", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private bool HasSoundDir(string[] directories)
         {
             foreach (string directory in directories)
@@ -260,28 +393,68 @@ namespace WixSharpSetup
             return false;
         }
 
-        void dialog_Load(object sender, EventArgs e)
+        private void SetGoGInstall()
+        {
+            this.txtPath.Text = @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2";
+            this.txtCDPath.Text = @"";
+            this.txtCDPath.Visible = false;
+            this.btnBrowseCDFiles.Visible = false;
+        }
+
+        private void SetDosInstall()
+        {
+            this.txtPath.Text = @"C:\NETHERW";
+            this.txtCDPath.Text = @"D:\";
+            this.txtCDPath.Visible = true;
+            this.btnBrowseCDFiles.Visible = true;
+        }
+
+        private void dialog_Load(object sender, EventArgs e)
         {
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
             Text = "[ProductName] Setup";
-            this.txtPath.Text = @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2";
-            //resolve all Control.Text cases with embedded MSI properties (e.g. 'ProductName') and *.wxl file entries
             base.Localize();
         }
 
-        void btnNext_Click(object sender, EventArgs e)
+        private void CboInstallLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.cboInstallLocation.SelectedIndex == 0)
+            {
+                SetGoGInstall();
+            }
+            else if (this.cboInstallLocation.SelectedIndex == 1)
+            {
+                SetDosInstall();
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
         {
             btnBrowse.Enabled = false;
             btnNext.Enabled = false;
             btnCancel.Enabled = false;
 
-            if (ValidateGameDataLocation(this.txtPath.Text) && 
-                MoveGameData(this.txtPath.Text) &&
-                CopyExtractFolder(this.txtPath.Text) &&
-                ExtractCDFiles(this.txtPath.Text) && 
-                MoveCDFiles(this.txtPath.Text))
+            if (this.cboInstallLocation.SelectedIndex == 0)
             {
-                Shell.GoNext();
+                //GOG
+                if (ValidateGoGGameDataLocation(this.txtPath.Text) &&
+                MoveGameData(Path.Combine(this.txtPath.Text, "GAME")) &&
+                CopyExtractFolder(this.txtPath.Text) &&
+                ExtractCDFiles(this.txtPath.Text) &&
+                MoveCDFiles(Path.Combine(this.txtPath.Text, "CD_Files")))
+                {
+                    Shell.GoNext();
+                }
+            }
+            else if (this.cboInstallLocation.SelectedIndex == 1)
+            {
+                //DOS
+                if (ValidateDosGameDataLocation(this.txtPath.Text, this.txtCDPath.Text) &&
+                MoveGameData(this.txtPath.Text) &&
+                MoveCDFiles(this.txtCDPath.Text))
+                {
+                    Shell.GoNext();
+                }
             }
 
             btnBrowse.Enabled = true;
@@ -306,6 +479,20 @@ namespace WixSharpSetup
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Shell.Exit();
+        }
+
+        private void btnBrowseCDFiles_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                fbd.SelectedPath = this.txtCDPath.Text;
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    this.txtCDPath.Text = fbd.SelectedPath;
+                }
+            }
         }
     }
 }
