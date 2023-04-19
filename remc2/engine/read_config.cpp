@@ -245,6 +245,7 @@ bool readini() {
 	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
 	gpc.button_fire_L = reader.GetInteger("gamepad", "button_fire_L", 0);
 	gpc.button_spell = reader.GetInteger("gamepad", "button_spell", 0);
+	gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
 	gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
 	gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
 	gpc.axis_dead_zone = reader.GetInteger("gamepad", "axis_dead_zone", 2048);

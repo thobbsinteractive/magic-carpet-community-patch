@@ -1,12 +1,23 @@
-#include "port_sdl_vga_mouse.h"
-#include "port_sdl_joystick.h"
+
+// support for gamepads and joysticks
+// tested with Logitech Attack 3, Logitech Extreme PRO 3D and XBOX Elite Series 2
+// author: Petre Rodan, 2023
 
 #include <cstdint>
+#include <stdio.h>
+
+#ifdef _MSC_VER
+	#include "SDL.h"
+#else
+    #include "SDL2/SDL.h"
+#endif
 
 #include "../engine/sub_main_mouse.h"
 #include "../engine/read_config.h"
+#include "port_sdl_vga_mouse.h"
+#include "port_sdl_joystick.h"
 
-SDL_Joystick* m_gameController = NULL;
+SDL_Joystick *m_gameController = NULL;
 
 #define              JOY_MIN_X  0
 #define              JOY_MIN_Y  0
@@ -22,6 +33,23 @@ SDL_Joystick* m_gameController = NULL;
 #define        GP_KEY_EMU_DOWN  0x5151
 #define       GP_KEY_EMU_RIGHT  0x4f4f
 #define        GP_KEY_EMU_LEFT  0x5050
+#define     GP_KEY_EMU_MINIMAP  0x280d
+#define        GP_KEY_EMU_EXIT  0x291b
+#define       GP_KEY_EMU_SPELL  0xe0e0
+
+struct gamepad_state {
+	int32_t x;
+	int32_t y;
+	int32_t rest_x;
+	int32_t rest_y;
+	int32_t max_x;
+	int32_t max_y;
+	uint8_t dead_zone_announced;   ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
+	uint8_t initialized;
+	uint8_t scene_id;
+	uint8_t nav_mode;
+};
+typedef struct gamepad_state gamepad_state_t;
 
 struct pointer_sys {
 	int16_t x;
@@ -55,11 +83,10 @@ void gamepad_sdl_init(void)
 		if( m_gameController == NULL ) {
 			Logger->debug("joystick/gamepad not detected. SDL Error: {}", SDL_GetError() );
 		} else {
+			Logger->info("Found '{}' joystick", SDL_JoystickName(m_gameController) );
 			if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
 				Logger->error("unable to initialize joystick/gamepad events. SDL Error: {}", SDL_GetError() );
 			} else {
-				// as a test, consider the joystick initialized only after the first axis change event is caught
-				// due to the fact that after a cold-boot the joystick could send large random axis values without having been moved once
 				gps.initialized = 1;
 			}
 		}
@@ -271,8 +298,6 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 	vec1d hat;
 
 	// decide if we are hadling flight mode or menu navigation mode
-	// both in the same time gets messy very fast
-
 	// default mode, based on scene
 	if (gps.nav_mode) {
 		flight_mode = 0;
@@ -303,7 +328,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		hat.x = gpe->hat_nav;
 		hat.x_conf = gpc.hat_nav_conf;
 		conv_state |= gamepad_hat_nav_conv(&hat, &nav);
-	} else if (gpc.axis_nav_ns & gpc.axis_nav_ew & GAMEPAD_ITEM_ENABLED) {
+	} else if (gpc.axis_nav_ns_conf & gpc.axis_nav_ew_conf & GAMEPAD_ITEM_ENABLED) {
 		// menu navigation is done via two axes
 		stick.x = gpe->axis_nav_ns;
 		stick.y = gpe->axis_nav_ew;
@@ -339,7 +364,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		gamepad_hat_mov_conv(&hat);
 	}
 
-	if (gpc.axis_long_conf & gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED) {
+	if ((gpc.axis_long_conf & GAMEPAD_ITEM_ENABLED) || (gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED)) {
 		// if movement is done via two axes
 		stick.x = gpe->axis_long;
 		stick.x_conf = gpc.axis_long_conf;
@@ -355,7 +380,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 			button_state |= 0x8;
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_spell)) {
-			setPress(true, 0xe0e0);
+			setPress(true, GP_KEY_EMU_SPELL);
+		}
+		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
+			setPress(true, GP_KEY_EMU_MINIMAP);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
 			setPress(true, GP_KEY_EMU_UP);
@@ -373,7 +401,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 			button_state |= 0x10;
 		}
 		if (gpe->btn_released & (1 << gpc.button_spell)) {
-			setPress(false, 0xe0e0);
+			setPress(false, GP_KEY_EMU_SPELL);
+		}
+		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
+			setPress(false, GP_KEY_EMU_MINIMAP);
 		}
 		if (gpe->btn_released & (1 << gpc.button_fwd)) {
 			setPress(false, GP_KEY_EMU_UP);
