@@ -28,7 +28,6 @@ if (WIN32)
 else()
     set(SOURCE_FILES
         "remc2.cpp"
-		"trace.cpp"
     )
 endif()
 source_group("Source Files" FILES ${SOURCE_FILES})
@@ -138,6 +137,8 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+    "portability/port_sdl_joystick.cpp"
+    "portability/port_sdl_joystick.h"
 	"portability/port_show_perifery.cpp"
     "portability/port_show_perifery.h"
     "portability/port_time.cpp"

@@ -1,4 +1,5 @@
 #include "../engine/engine_support.h"
+#include "port_sdl_joystick.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
@@ -22,7 +23,6 @@ uint8_t m_fontBuffer[256 * 256];
 SDL_Surface* m_surfaceFont = nullptr;
 uint8_t m_smallFontBuffer[128 * 128];
 SDL_Surface* m_smallSurfaceFont = nullptr;
-SDL_Joystick* m_gameController = NULL;
 
 uint8_t LastPressedKey_1806E4; //3516e4
 int8_t pressedKeys_180664[128]; // idb
@@ -58,78 +58,6 @@ Uint32 greenMask = 0x0000ff00;
 Uint32 blueMask = 0x00ff0000;
 Uint32 alphaMask = 0xff000000;
 #endif
-
-#define          JOY_MIN_X  0
-#define          JOY_MIN_Y  0
-
-///< gamepad_event_t flag
-#define        GP_BTN_RELEASED  0x40
-#define         GP_BTN_PRESSED  0x80
-
-#define       GP_FLIGHT_UPDATE  0x1
-#define          GP_NAV_UPDATE  0x2
-#define          GP_MOV_UPDATE  0x4
-
-// to be modified once fully customized 
-// keyboard control is implemented
-#define          GP_KEY_EMU_UP  0x5252
-#define        GP_KEY_EMU_DOWN  0x5151
-#define       GP_KEY_EMU_RIGHT  0x4f4f
-#define        GP_KEY_EMU_LEFT  0x5050
-
-
-struct gamepad_state {
-	int32_t x;
-	int32_t y;
-	int32_t z;
-	int32_t rest_x;
-	int32_t rest_y;
-	int32_t max_x;
-	int32_t max_y;
-	uint8_t dead_zone_announced;   ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
-	uint8_t initialized;
-	uint8_t scene_id;
-	uint8_t nav_mode;
-};
-typedef struct gamepad_state gamepad_state_t;
-
-gamepad_state_t j;
-
-struct pointer_sys {
-	int16_t x;
-	int16_t y;
-};
-typedef struct pointer_sys pointer_sys_t;
-
-struct vec1d {
-	int16_t x;
-	uint8_t x_conf;
-};
-typedef struct vec1d vec1d_t;
-
-struct vec2d {
-	int16_t x;
-	int16_t y;
-	uint8_t x_conf;
-	uint8_t y_conf;
-};
-typedef struct vec2d vec2d_t;
-
-struct gamepad_event {
-	int16_t axis_yaw;
-	int16_t axis_pitch;
-	int16_t axis_long;
-	int16_t axis_trans;
-	int16_t axis_nav_ns;
-	int16_t axis_nav_ew;
-	uint8_t hat_nav;
-	uint8_t hat_mov;
-	uint64_t btn_released;  ///< bitwise OR of every released button
-	uint64_t btn_pressed;   ///< bitwise OR of every pressed button
-	uint8_t flag;           ///< bitwise OR of every parameter that was updated
-};
-typedef struct gamepad_event gamepad_event_t;
-
 
 std::vector<SDL_Rect> GetDisplays()
 {
@@ -187,7 +115,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 	if (!inited)
 	{
 		//Initialize SDL
-		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
+		if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		{
 			Logger->error("SDL could not initialize! SDL_Error: {}", SDL_GetError());
 			exit(0);
@@ -195,20 +123,9 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		else
 		{
-			m_gameController = SDL_JoystickOpen(0);
-			if( m_gameController == NULL ) {
-				Logger->debug("joystick/gamepad not detected. SDL Error: {}", SDL_GetError() );
-			} else {
-				if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
-					Logger->error("unable to initialize joystick/gamepad events. SDL Error: {}", SDL_GetError() );
-				} else {
-					// as a test, consider the joystick initialized only after the first axis change event is caught
-					// due to the fact that after a cold-boot the joystick could send large random axis values without having been moved once
-					//j.initialized = 1;
-				}
-			}
 
 			init_sound();
+			gamepad_sdl_init();
 
 			SDL_ShowCursor(0);
 			// Set hint before you create the Renderer!
@@ -899,445 +816,6 @@ bool handleSpecialKeys(const SDL_Event &event) {
 	return specialKey;
 }
 
-#if 0
-// if this is still not used in 2024, please remove entire #if 0 block
-struct joystick_filter {
-	uint8_t idx_cur;
-	uint8_t sample_cnt;
-	int16_t x[JOYSTICK_FILTER_MAX_DEPTH];
-	int16_t y[JOYSTICK_FILTER_MAX_DEPTH];
-};
-struct joystick_filter jf = {};
-
-/// \brief get a moving average value for x,y coord based on the last X readings
-void joystick_filtering()
-{
-	int64_t acc_x = 0, acc_y = 0;
-	uint8_t i;
-	uint8_t filter_depth = joy_filter_depth;
-
-	if (!filter_depth) {
-		return;
-	}
-
-	jf.x[jf.idx_cur] = j.x;
-	jf.y[jf.idx_cur] = j.y;
-
-	jf.idx_cur++;
-	jf.sample_cnt++;
-
-	if (jf.idx_cur > filter_depth - 1) {
-		jf.idx_cur = 0;
-	}
-	if (jf.sample_cnt > filter_depth) {
-		jf.sample_cnt = filter_depth;
-	}
-
-	for (i=0; i<jf.sample_cnt; i++) {
-		acc_x += jf.x[i];
-		acc_y += jf.y[i];
-	}
-
-	j.x = acc_x / jf.sample_cnt;
-	j.y = acc_y / jf.sample_cnt;
-
-	//Logger->trace("filter at {},{} sc {}  ic {}", j.x, j.y, jf.sample_cnt, jf.idx_cur);
-}
-#endif
-
-void set_scene(const uint8_t scene_id)
-{
-	j.scene_id = scene_id;
-	switch (scene_id) {
-		case SCENE_PREAMBLE_MENU:
-			j.max_x = 640;
-			j.max_y = 480;
-			j.nav_mode = 1;
-			break;
-		case SCENE_FLIGHT:
-			j.max_x = gameResWidth;
-			j.max_y = gameResHeight;
-			j.nav_mode = 0;
-			break;
-		case SCENE_FLIGHT_MENU:
-			j.max_x = gameResWidth;
-			j.max_y = gameResHeight;
-			j.nav_mode = 1;
-			break;
-		default:
-			j.max_x = gameResWidth;
-			j.max_y = gameResHeight;
-			break;
-	}
-	Logger->trace("set scene {}, nav_mode {}", scene_id, j.nav_mode);
-}
-
-/// \brief set the x,y coord of the joystick rest position
-/// \param x coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
-/// \param y coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
-void joystick_set_env(const int32_t x, const int32_t y)
-{
-	Logger->trace("pointer rest at {},{} scene {}, window size {},{}", x, y, j.scene_id, j.max_x, j.max_y);
-	j.rest_x = x;
-	j.rest_y = y;
-	j.x = x;
-	j.y = y;
-
-	// since the pointer is teleported to a new location it makes
-	// no sense to perform a moving average on past samples
-	//jf.sample_cnt = 0;
-	//jf.idx_cur = 0;
-
-	// prime the filtering struct
-	//joystick_filtering();
-}
-
-/// \brief initialize gamepad maximal coordinate values, default operating mode, etc
-/// \param gameResWidth maximum x value
-/// \param gameResHeight maximum y value
-void gamepad_init(const int gameResWidth, const int gameResHeight)
-{
-	j.max_x = gameResWidth;
-	j.max_y = gameResHeight;
-	joystick_set_env(j.max_x >> 1, j.max_y >> 1);
-	set_scene(SCENE_BLIT);
-}
-
-#define JOY_NAV_INC 4
-
-/// \brief flight support via conversion from stick coordinates to pointer coordinates
-uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
-{
-	uint16_t ret = 0;
-	int16_t axis_yaw = stick->x;
-	int16_t axis_pitch = stick->y;
-
-	if ((axis_yaw < gpc.axis_dead_zone) && (axis_yaw > -gpc.axis_dead_zone)) {
-		point->x = j.rest_x;
-	} else {
-		// use two different linear interpolation equations since the
-		// resting coordinate is not always the center of the display
-		if (axis_yaw > 0) {
-			point->x = (((j.max_x - j.rest_x) * axis_yaw) >> 15) + j.rest_x;
-		} else {
-			point->x = ((j.rest_x * axis_yaw) >> 15) + j.rest_x;
-		}
-		ret = GP_FLIGHT_UPDATE;
-	}
-
-	if ((axis_pitch < gpc.axis_dead_zone) && (axis_pitch > -gpc.axis_dead_zone)) {
-		point->y = j.rest_y;
-	} else {
-		// use two different linear interpolation equations since the
-		// resting coordinate is not always the center of the display
-		if (axis_pitch > 0) {
-			point->y = (((j.max_y - j.rest_y) * axis_pitch) >> 15) + j.rest_y;
-		} else {
-			point->y = ((j.rest_y * axis_pitch) >> 15) + j.rest_y;
-		}
-		ret = GP_FLIGHT_UPDATE;
-	}
-
-	return ret;
-}
-
-/// \brief menu navigation support via conversion from stick coordinates to pointer coordinates
-uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
-{
-	uint16_t ret = 0;
-	int16_t axis_nav_ns = stick->x;
-	int16_t axis_nav_ew = stick->y;
-
-	if ((axis_nav_ns < gpc.axis_dead_zone) && (axis_nav_ns > -gpc.axis_dead_zone)) {
-		// point->x remains unchanged
-	} else {
-		point->x += JOY_NAV_INC * (axis_nav_ns >> 13);
-		ret = GP_NAV_UPDATE;
-	}
-
-	if ((axis_nav_ew < gpc.axis_dead_zone) && (axis_nav_ew > -gpc.axis_dead_zone)) {
-		// point->y remains unchanged
-	} else {
-		point->y += JOY_NAV_INC * (axis_nav_ew >> 13);
-		ret = GP_NAV_UPDATE;
-	}
-
-	return ret;
-}
-
-/// \brief menu navigation support via conversion from hat coordinates to pointer coordinates
-uint16_t gamepad_hat_nav_conv(const vec1d_t *hat, pointer_sys_t *point)
-{
-	uint16_t ret = 0;
-	int16_t inv = 1;
-
-	// dir can be a bitwise OR of two adjacent directions
-	// so don't use 'else if' or 'switch'.
-
-	if (hat->x_conf & GAMEPAD_AXIS_INVERTED) {
-		inv = -1;
-	}
-
-	if (hat->x & SDL_HAT_UP) {
-		point->y += inv * JOY_NAV_INC * 2;
-		ret = GP_NAV_UPDATE;
-	}
-
-	if (hat->x & SDL_HAT_DOWN) {
-		point->y -= inv * JOY_NAV_INC * 2;
-		ret = GP_NAV_UPDATE;
-	}
-
-	if (hat->x & SDL_HAT_RIGHT) {
-		point->x += JOY_NAV_INC * 2;
-		ret = GP_NAV_UPDATE;
-	}
-
-	if (hat->x & SDL_HAT_LEFT) {
-		point->x -= JOY_NAV_INC * 2;
-		ret = GP_NAV_UPDATE;
-	}
-
-	return ret;
-}
-
-/// \brief longitudinal and transversal movement converted to hardcoded keyboard keypresses
-void gamepad_hat_mov_conv(const vec1d_t *hat)
-{
-
-	if (hat->x & SDL_HAT_UP) {
-		setPress(false, GP_KEY_EMU_DOWN);
-		setPress(true, GP_KEY_EMU_UP);
-	}
-
-	if (hat->x & SDL_HAT_DOWN) {
-		setPress(false, GP_KEY_EMU_UP);
-		setPress(true, GP_KEY_EMU_DOWN);
-	}
-
-	if (hat->x & SDL_HAT_RIGHT) {
-		setPress(false, GP_KEY_EMU_LEFT);
-		setPress(true, GP_KEY_EMU_RIGHT);
-	}
-
-	if (hat->x & SDL_HAT_LEFT) {
-		setPress(false, GP_KEY_EMU_RIGHT);
-		setPress(true, GP_KEY_EMU_LEFT);
-	}
-
-	if (hat->x == 0) {
-		setPress(false, GP_KEY_EMU_UP);
-		setPress(false, GP_KEY_EMU_DOWN);
-		setPress(false, GP_KEY_EMU_RIGHT);
-		setPress(false, GP_KEY_EMU_LEFT);
-	}
-}
-
-/// \brief menu navigation support via conversion from stick coordinates to pointer coordinates
-void gamepad_axis_mov_conv(const vec2d_t *stick)
-{
-	uint16_t ret = 0;
-	int16_t axis_long_inv = 1;
-	int16_t axis_long = stick->x;
-	int16_t axis_trans = stick->y;
-
-	if (stick->x_conf & GAMEPAD_AXIS_INVERTED) {
-		axis_long_inv = -1;
-	}
-
-	if ((axis_long < gpc.axis_dead_zone) && (axis_long > -gpc.axis_dead_zone)) {
-		// player seems to always have some inertia, so the following wont't actually stop
-		// longitudinal movement
-		setPress(false, GP_KEY_EMU_UP);
-		setPress(false, GP_KEY_EMU_DOWN);
-	} else {
-		// use two different linear interpolation equations since the
-		// resting coordinate is not always the center of the display
-		if (axis_long * axis_long_inv > 0) {
-			setPress(false, GP_KEY_EMU_DOWN);
-			setPress(true, GP_KEY_EMU_UP);
-		} else {
-			setPress(false, GP_KEY_EMU_UP);
-			setPress(true, GP_KEY_EMU_DOWN);
-		}
-	}
-
-	if ((axis_trans < gpc.axis_dead_zone) && (axis_trans > -gpc.axis_dead_zone)) {
-		setPress(false, GP_KEY_EMU_RIGHT);
-		setPress(false, GP_KEY_EMU_LEFT);
-	} else {
-		// use two different linear interpolation equations since the
-		// resting coordinate is not always the center of the display
-		if (axis_trans > 0) {
-			setPress(false, GP_KEY_EMU_LEFT);
-			setPress(true, GP_KEY_EMU_RIGHT);
-		} else {
-			setPress(false, GP_KEY_EMU_RIGHT);
-			setPress(true, GP_KEY_EMU_LEFT);
-		}
-	}
-}
-
-/// \brief emulate a mouse based on data provided by a gamepad or joystick
-/// \param button_id  button that was pressed or released
-/// \param x SDL provides values in the -32768 ..  32767 range as axis movement
-/// \param y SDL provides values in the -32768 ..  32767 range as axis movement
-/// \param flags  can be one of GP_BTN_RELEASED GP_BTN_PRESSED
-void gamepad_event_mgr(gamepad_event_t *gpe)
-{
-	uint16_t button_state = 0;
-	uint8_t flight_mode = 1; // are we doing flight or menu navigation
-	uint16_t dead_zone = 0;
-	uint16_t conv_state = 0;
-	pointer_sys_t flight;
-	pointer_sys_t nav;
-	vec2d stick;
-	vec1d hat;
-
-	// decide if we are hadling flight mode or menu navigation mode
-	// both in the same time gets messy very fast
-
-	// default mode, based on scene
-	if (j.nav_mode) {
-		flight_mode = 0;
-	}
-
-	// overwrite scene-based mode based on what button is pressed
-	if (SDL_JoystickGetButton(m_gameController, gpc.button_spell - 1)) {
-		flight_mode = 0;
-	}
-
-	if (SDL_GetModState() & KMOD_CTRL) {
-		flight_mode = 0;
-	}
-
-	stick.x = gpe->axis_yaw;
-	stick.y = gpe->axis_pitch;
-	flight.x = j.x;
-	flight.y = j.y;
-	// flight yaw/pitch is always done via two axes
-	conv_state |= gamepad_axis_flight_conv(&stick, &flight);
-
-	// menu navigation
-	nav.x = j.x;
-	nav.y = j.y;
-
-	if (gpc.hat_nav_conf & GAMEPAD_ITEM_ENABLED) {
-		// menu navigation is done via a hat control
-		hat.x = gpe->hat_nav;
-		hat.x_conf = gpc.hat_nav_conf;
-		conv_state |= gamepad_hat_nav_conv(&hat, &nav);
-	} else if (gpc.axis_nav_ns & gpc.axis_nav_ew & GAMEPAD_ITEM_ENABLED) {
-		// menu navigation is done via two axes
-		stick.x = gpe->axis_nav_ns;
-		stick.y = gpe->axis_nav_ew;
-		conv_state |= gamepad_axis_nav_conv(&stick, &nav);
-	}
-
-	if (flight_mode) {
-		j.x = flight.x;
-		j.y = flight.y;
-	} else {
-		j.x = nav.x;
-		j.y = nav.y;
-	}
-
-	if (j.x < JOY_MIN_X) {
-		j.x = JOY_MIN_X;
-	} else if (j.x > j.max_x) {
-		j.x = j.max_x;
-	}
-
-	if (j.y < JOY_MIN_Y) {
-		j.y = JOY_MIN_Y;
-	} else if (j.y > j.max_y) {
-		j.y = j.max_y;
-	}
-
-	// longitudinal/transversal movement 
-	// (aka forward/back/strafe right/strafe left)
-	if (gpc.hat_mov_conf & GAMEPAD_ITEM_ENABLED) {
-		// if movement is done via a hat
-		hat.x = gpe->hat_mov;
-		hat.x_conf = gpc.hat_mov_conf;
-		gamepad_hat_mov_conv(&hat);
-	}
-
-	if (gpc.axis_long_conf & gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED) {
-		// if movement is done via two axes
-		stick.x = gpe->axis_long;
-		stick.x_conf = gpc.axis_long_conf;
-		stick.y = gpe->axis_trans;
-		gamepad_axis_mov_conv(&stick);
-	}
-
-	if (gpe->btn_pressed) {
-		if (gpe->btn_pressed & (1 << gpc.button_fire_R)) {
-			button_state |= 0x2;
-		}
-		if (gpe->btn_pressed & (1 << gpc.button_fire_L)) {
-			button_state |= 0x8;
-		}
-		if (gpe->btn_pressed & (1 << gpc.button_spell)) {
-			setPress(true, 0xe0e0);
-		}
-		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
-			setPress(true, GP_KEY_EMU_UP);
-		}
-		if (gpe->btn_pressed & (1 << gpc.button_back)) {
-			setPress(true, GP_KEY_EMU_DOWN);
-		}
-	}
-
-	if (gpe->btn_released) {
-		if (gpe->btn_released & (1 << gpc.button_fire_R)) {
-			button_state |= 0x4;
-		}
-		if (gpe->btn_released & (1 << gpc.button_fire_L)) {
-			button_state |= 0x10;
-		}
-		if (gpe->btn_released & (1 << gpc.button_spell)) {
-			setPress(false, 0xe0e0);
-		}
-		if (gpe->btn_released & (1 << gpc.button_fwd)) {
-			setPress(false, GP_KEY_EMU_UP);
-		}
-		if (gpe->btn_released & (1 << gpc.button_back)) {
-			setPress(false, GP_KEY_EMU_DOWN);
-		}
-	}
-
-	if (gpe->btn_pressed || gpe->btn_released) {
-		Logger->trace("joy pressed {}  released {}  mouse {}", gpe->btn_pressed, gpe->btn_released, button_state);
-	}
-
-	//if (ge->flag & (JOY_UPDATED_X | JOY_UPDATED_Y)) {
-	//	Logger->trace("raw ({},{}) out ({},{}) rest ({},{}) max ({},{}) flight {}", ge->coord_x, ge->coord_y, j.x, j.y, j.rest_x, j.rest_y, j.max_x, j.max_y, flight);
-	//}
-
-	if (button_state) {
-		goto announce;
-	}
-
-	if (conv_state) {
-		j.dead_zone_announced = 0;
-	} else {
-		if (j.dead_zone_announced) {
-			// do NOT flood MouseEvents() on frames where the joystick is resting
-			return;
-		} else {
-			j.dead_zone_announced = 1;
-		}
-	}
-
-announce:
-
-	//joystick_filtering();
-	MouseEvents(button_state & 0x7f, j.x, j.y);
-
-	//Logger->info("gpc.axis_dead_zone not big enough fly ({},{}) nav ({},{}) conv_state {}", ge->axis_yaw, ge->axis_pitch, ge->axis_nav_ns, ge->axis_nav_ew, conv_state);
-}
-
 int mousex, mousey;
 bool pressed = false;
 uint16_t lastchar = 0;
@@ -1356,21 +834,21 @@ int events()
 		case SDL_JOYAXISMOTION:
 			if (event.jaxis.which == 0) {
 				// motion on controller 0
-				j.initialized = 1;
-				// actual axis data is being read via SDL_JoystickGetAxis() below
+				//gps.initialized = 1;
+				// actual axis data is being read via gamepad_poll_data()
 				// to counteract jerkiness due to missing event triggers
 				Logger->trace("axis {} event detected", event.jaxis.axis + 1);
 			}
 			break;
 		case SDL_JOYHATMOTION:
 			if (event.jhat.which == 0) {
-				j.initialized = 1;
-				// actual axis data is being read via SDL_JoystickGetHat() below
+				//gps.initialized = 1;
+				// actual axis data is being read via gamepad_poll_data()
 				Logger->trace("hat {} event detected", event.jhat.hat + 1);
 			}
 		case SDL_JOYBUTTONDOWN:
 			if (event.jbutton.which == 0) {
-				j.initialized = 1;
+				//gps.initialized = 1;
 				gpe.btn_pressed = 1 << (event.jbutton.button + 1);
 				Logger->trace("key {} press detected", event.jbutton.button + 1);
 				gpe.flag |= GP_BTN_PRESSED;
@@ -1378,7 +856,7 @@ int events()
 			break;
 		case SDL_JOYBUTTONUP:
 			if (event.jbutton.which == 0) {
-				j.initialized = 1;
+				//gps.initialized = 1;
 				gpe.btn_released = 1 << (event.jbutton.button + 1);
 				Logger->trace("key {} release detected", event.jbutton.button + 1);
 				gpe.flag |= GP_BTN_RELEASED;
@@ -1469,47 +947,7 @@ int events()
 		}
 	}
 
-	if (j.initialized) {
-		// make sure to poll for the axis data on every single frame
-		// otherwise we get janky movement since there is no event
-		// if the joystick is held still outside the rest position
-
-		if (gpc.axis_yaw_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.axis_yaw = SDL_JoystickGetAxis(m_gameController, gpc.axis_yaw);
-		}
-
-		if (gpc.axis_pitch_conf & GAMEPAD_ITEM_ENABLED)  {
-			gpe.axis_pitch = SDL_JoystickGetAxis(m_gameController, gpc.axis_pitch);
-		}
-
-		if (gpc.axis_long_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.axis_long = SDL_JoystickGetAxis(m_gameController, gpc.axis_long);
-		}
-
-		if (gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.axis_trans = SDL_JoystickGetAxis(m_gameController, gpc.axis_trans);
-		}
-
-		if (gpc.axis_nav_ns_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.axis_nav_ns = SDL_JoystickGetAxis(m_gameController, gpc.axis_nav_ns);
-		}
-
-		if (gpc.axis_nav_ew_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.axis_nav_ew = SDL_JoystickGetAxis(m_gameController, gpc.axis_nav_ew);
-		}
-
-		if (gpc.hat_nav_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.hat_nav = SDL_JoystickGetHat(m_gameController, gpc.hat_nav);
-		}
-
-		if (gpc.hat_mov_conf & GAMEPAD_ITEM_ENABLED) {
-			gpe.hat_mov = SDL_JoystickGetHat(m_gameController, gpc.hat_mov);
-		}
-
-		// call the event handler only once per frame not inside the SDL_PollEvent() loop
-		// https://stackoverflow.com/questions/39376356/non-instantaneous-jerky-movement-using-sdl2-opengl
-		gamepad_event_mgr(&gpe);
-	}
+	gamepad_poll_data(&gpe);
 
 	return 1;
 }
@@ -1667,9 +1105,8 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
-	SDL_JoystickClose(m_gameController);
-	m_gameController = NULL;
 	clean_up_sound();
+	gamepad_sdl_close();
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;
 	SDL_FreeSurface(m_gamePalletisedSurface);

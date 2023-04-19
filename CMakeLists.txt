@@ -104,7 +104,6 @@ set(libADLMIDI_STATIC TRUE)
 add_subdirectory(libADLMIDI-master)
 add_compile_definitions(COMPILE_FOR_64BIT)
 add_definitions(-w)
-add_definitions(-no-pie)
 
 # preprocessor flags
 if (FLATPAK)

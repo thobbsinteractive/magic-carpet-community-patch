@@ -59,9 +59,6 @@ uint16_t VGA_read_char_from_buffer();
 void VGA_Set_mouse(int16_t a1, int16_t a2);
 void setPress(bool locpressed, uint16_t loclastchar);
 
-void set_scene(const uint8_t scene_id);
-void gamepad_init(const int gameResWidth, const int gameResHeight);
-
 void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
 void Draw_debug_matrix1();
