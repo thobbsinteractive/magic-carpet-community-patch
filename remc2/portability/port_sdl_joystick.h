@@ -17,6 +17,8 @@ struct gamepad_event {
 	int16_t axis_trans;
 	int16_t axis_nav_ns;
 	int16_t axis_nav_ew;
+	int16_t axis_fire_R;
+	int16_t axis_fire_L;
 	uint8_t hat_nav;
 	uint8_t hat_mov;
 	uint64_t btn_released;  ///< bitwise OR of every released button

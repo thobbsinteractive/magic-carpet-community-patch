@@ -60,12 +60,16 @@ struct gamepad_config {
 	uint16_t axis_trans;
 	uint16_t axis_nav_ns;
 	uint16_t axis_nav_ew;
+	uint16_t axis_fire_R;
+	uint16_t axis_fire_L;
 	uint8_t axis_yaw_conf;
 	uint8_t axis_pitch_conf;
 	uint8_t axis_long_conf;
 	uint8_t axis_trans_conf;
 	uint8_t axis_nav_ns_conf;
 	uint8_t axis_nav_ew_conf;
+	uint8_t axis_fire_R_conf;
+	uint8_t axis_fire_L_conf;
 	uint16_t axis_dead_zone;
 	uint16_t hat_nav;
 	uint16_t hat_mov;

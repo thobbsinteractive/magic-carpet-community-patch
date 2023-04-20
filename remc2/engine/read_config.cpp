@@ -205,6 +205,8 @@ bool readini() {
 	gpc.axis_trans = reader.GetInteger("gamepad", "axis_trans", GAMEPAD_ITEM_DISABLED);
 	gpc.axis_nav_ns = reader.GetInteger("gamepad", "axis_nav_ns", GAMEPAD_ITEM_DISABLED);
 	gpc.axis_nav_ew = reader.GetInteger("gamepad", "axis_nav_ew", GAMEPAD_ITEM_DISABLED);
+	gpc.axis_fire_R = reader.GetInteger("gamepad", "axis_fire_R", GAMEPAD_ITEM_DISABLED);
+	gpc.axis_fire_L = reader.GetInteger("gamepad", "axis_fire_L", GAMEPAD_ITEM_DISABLED);
 
 	gp_temp = reader.GetBoolean("gamepad", "axis_yaw_inv", 0);
 	if (gpc.axis_yaw) {
@@ -240,6 +242,16 @@ bool readini() {
 	if (gpc.axis_nav_ew) {
 		gpc.axis_nav_ew -= 1; // go back to SDL axis notation
 		gpc.axis_nav_ew_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+	}
+
+	if (gpc.axis_fire_R) {
+		gpc.axis_fire_R -= 1; // go back to SDL axis notation
+		gpc.axis_fire_R_conf = GAMEPAD_ITEM_ENABLED;
+	}
+
+	if (gpc.axis_fire_L) {
+		gpc.axis_fire_L -= 1; // go back to SDL axis notation
+		gpc.axis_fire_L_conf = GAMEPAD_ITEM_ENABLED;
 	}
 
 	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);

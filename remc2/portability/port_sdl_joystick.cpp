@@ -48,6 +48,8 @@ struct gamepad_state {
 	uint8_t initialized;
 	uint8_t scene_id;
 	uint8_t nav_mode;
+	uint8_t last_trig_fire_R;
+	uint8_t last_trig_fire_L;
 };
 typedef struct gamepad_state gamepad_state_t;
 
@@ -157,14 +159,14 @@ uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
 	if ((axis_nav_ns < gpc.axis_dead_zone) && (axis_nav_ns > -gpc.axis_dead_zone)) {
 		// point->x remains unchanged
 	} else {
-		point->x += JOY_NAV_INC * (axis_nav_ns >> 13);
+		point->y += JOY_NAV_INC * (axis_nav_ns >> 13);
 		ret = GP_NAV_UPDATE;
 	}
 
 	if ((axis_nav_ew < gpc.axis_dead_zone) && (axis_nav_ew > -gpc.axis_dead_zone)) {
 		// point->y remains unchanged
 	} else {
-		point->y += JOY_NAV_INC * (axis_nav_ew >> 13);
+		point->x += JOY_NAV_INC * (axis_nav_ew >> 13);
 		ret = GP_NAV_UPDATE;
 	}
 
@@ -284,6 +286,16 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 	}
 }
 
+/// \brief menu navigation support via conversion from axis coordinates to a boolean (for xbox trigger buttons)
+void gamepad_axis_bool_conv(const int16_t input, bool *ret)
+{
+	if (input > -32767 + gpc.axis_dead_zone) {
+		*ret = 1;
+	} else {
+		*ret = 0;
+	}
+}
+
 /// \brief emulate a mouse based on data provided by a gamepad or joystick
 /// \param gpe  gamepad_event_t event strucure populated thru SDL_PollEvent()
 void gamepad_event_mgr(gamepad_event_t *gpe)
@@ -296,6 +308,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 	pointer_sys_t nav;
 	vec2d stick;
 	vec1d hat;
+	bool trig_fire_R = 0, trig_fire_L = 0;
 
 	// decide if we are hadling flight mode or menu navigation mode
 	// default mode, based on scene
@@ -372,12 +385,37 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		gamepad_axis_mov_conv(&stick);
 	}
 
+	// trigger commands
+	if (gpc.axis_fire_R_conf & GAMEPAD_ITEM_ENABLED) {
+		gamepad_axis_bool_conv(gpe->axis_fire_R, &trig_fire_R);
+		if (trig_fire_R != gps.last_trig_fire_R) {
+			if (trig_fire_R) {
+				button_state |= 0x8;
+			} else {
+				button_state |= 0x10;
+			}
+			gps.last_trig_fire_R = trig_fire_R;
+		}
+	}
+
+	if (gpc.axis_fire_L_conf & GAMEPAD_ITEM_ENABLED) {
+		gamepad_axis_bool_conv(gpe->axis_fire_L, &trig_fire_L);
+		if (trig_fire_L != gps.last_trig_fire_L) {
+			if (trig_fire_L) {
+				button_state |= 0x2;
+			} else {
+				button_state |= 0x4;
+			}
+			gps.last_trig_fire_L = trig_fire_L;
+		}
+	}
+
 	if (gpe->btn_pressed) {
 		if (gpe->btn_pressed & (1 << gpc.button_fire_R)) {
-			button_state |= 0x2;
+			button_state |= 0x8;
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fire_L)) {
-			button_state |= 0x8;
+			button_state |= 0x2;
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_spell)) {
 			setPress(true, GP_KEY_EMU_SPELL);
@@ -395,10 +433,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 
 	if (gpe->btn_released) {
 		if (gpe->btn_released & (1 << gpc.button_fire_R)) {
-			button_state |= 0x4;
+			button_state |= 0x10;
 		}
 		if (gpe->btn_released & (1 << gpc.button_fire_L)) {
-			button_state |= 0x10;
+			button_state |= 0x4;
 		}
 		if (gpe->btn_released & (1 << gpc.button_spell)) {
 			setPress(false, GP_KEY_EMU_SPELL);
@@ -482,6 +520,14 @@ void gamepad_poll_data(gamepad_event_t *gpe)
 
 	if (gpc.hat_mov_conf & GAMEPAD_ITEM_ENABLED) {
 		gpe->hat_mov = SDL_JoystickGetHat(m_gameController, gpc.hat_mov);
+	}
+
+	if (gpc.axis_fire_R_conf & GAMEPAD_ITEM_ENABLED) {
+		gpe->axis_fire_R = SDL_JoystickGetAxis(m_gameController, gpc.axis_fire_R);
+	}
+
+	if (gpc.axis_fire_L_conf & GAMEPAD_ITEM_ENABLED) {
+		gpe->axis_fire_L = SDL_JoystickGetAxis(m_gameController, gpc.axis_fire_L);
 	}
 
 	// call the event handler only once per frame not inside the SDL_PollEvent() loop
