@@ -13,7 +13,7 @@ namespace remc2_installer
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
-                                 new WixSharp.File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
+                                 new File(@"..\x64\Release\remc2.exe", new FileShortcut("Magic Carpet 2 HD", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
                                  {
                                      IconFile = "Resources/app.ico"
                                  })
@@ -32,7 +32,7 @@ namespace remc2_installer
                                         new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
                                     }
                                  },
-                                 new WixSharp.File(@"..\Release\config.ini")
+                                 new File(@"..\Release\config.ini")
                                  {
                                      Permissions = new[] {
                                         new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
@@ -43,10 +43,11 @@ namespace remc2_installer
                                     }
                                  },
 #if WIN64
-                                 new WixSharp.File(@"..\x64\Release\SDL2.dll"),
+                                 new File(@"..\x64\Release\SDL2.dll"),
 #else
-                                 new WixSharp.File(@"..\Release\SDL2.dll"),
+                                 new File(@"..\Release\SDL2.dll"),
 #endif
+                                 new File(@"Extract.bat"),
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"biggraphics",

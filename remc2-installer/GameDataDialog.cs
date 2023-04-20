@@ -16,8 +16,43 @@ namespace WixSharpSetup
             //The safest way to avoid the problem is to compile the assembly for v3.5 Target Framework.remc2_installer
             InitializeComponent();
 
+            this.Shown += GameDataDialog_Shown;
+            this.FormClosing += GameDataDialog_FormClosing;
             this.cboInstallLocation.SelectedIndexChanged += CboInstallLocation_SelectedIndexChanged;
             this.cboInstallLocation.SelectedIndex = 0;
+        }
+
+        private string GetGoGInstructions()
+        {
+            string installPath = "INSTALL DIR";
+            try
+            {
+                if (Runtime != null)
+                    installPath = Runtime.InstallDir;
+            }
+            catch { };
+
+            return $"The installer will now atempt to copy the NETHEW directory from: '{Path.Combine(this.txtPath.Text,"GAME")}' " +
+                $"to: '{Path.Combine(installPath, "GAME")}'.\nIt will then extract the CD Files to: " +
+                $"'{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'" +
+                "\nClick [Next] to continue";
+        }
+
+        private string GetDosInstructions()
+        {
+            string installPath = "INSTALL DIR";
+            try
+            {
+                if (Runtime != null)
+                    installPath = Runtime.InstallDir;
+            }
+            catch { };
+
+            return $"You must install the DOS/Original version of Magic Carpet 2 first. The installer will now attempt to copy the " +
+                $"contents of NETHEW directory from: '{this.txtPath.Text}' " +
+                $"to: '{Path.Combine(installPath, @"GAME\NETHEW")}'.\nIt will then copy the CD Files from: " +
+                $"'{this.txtCDPath.Text}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'" +
+                "\nClick [Next] to continue";
         }
 
         private bool ValidateGoGGameDataLocation(string path)
@@ -148,10 +183,17 @@ namespace WixSharpSetup
             return foundData && foundIntro && foundLanguage && foundLevels && foundSound;
         }
 
+        public bool CopyExtractBatchFile(string gamePath)
+        {
+            if (System.IO.File.Exists(Path.Combine(Runtime.InstallDir, @"Extract.bat")))
+            {
+                System.IO.File.Copy(Path.Combine(Runtime.InstallDir, @"Extract.bat"), Path.Combine(gamePath, @"Extract.bat"), true);
+            }
+            return true;
+        }
+
         public bool MoveGameData(string gamePath)
         {
-            string path = Runtime.InstallDir;
-
             try
             {
                 if (Directory.Exists(gamePath))
@@ -409,6 +451,29 @@ namespace WixSharpSetup
             this.btnBrowseCDFiles.Visible = true;
         }
 
+        private string GetInstructions()
+        {
+            if (this.cboInstallLocation.SelectedIndex == 0)
+            {
+                return this.GetGoGInstructions();
+            }
+            else if (this.cboInstallLocation.SelectedIndex == 1)
+            {
+                return this.GetDosInstructions();
+            }
+            return string.Empty;
+        }
+
+        private void GameDataDialog_Shown(object sender, EventArgs e)
+        {
+            this.lblInstructions.Text = GetInstructions();
+        }
+
+        private void GameDataDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Shown -= GameDataDialog_Shown;
+        }
+
         private void dialog_Load(object sender, EventArgs e)
         {
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
@@ -438,6 +503,7 @@ namespace WixSharpSetup
             {
                 //GOG
                 if (ValidateGoGGameDataLocation(this.txtPath.Text) &&
+                CopyExtractBatchFile(this.txtPath.Text) &&
                 MoveGameData(Path.Combine(this.txtPath.Text, "GAME")) &&
                 CopyExtractFolder(this.txtPath.Text) &&
                 ExtractCDFiles(this.txtPath.Text) &&
@@ -493,6 +559,11 @@ namespace WixSharpSetup
                     this.txtCDPath.Text = fbd.SelectedPath;
                 }
             }
+        }
+
+        private void Path_TextChanged(object sender, EventArgs e)
+        {
+            this.lblInstructions.Text = GetInstructions();
         }
     }
 }

@@ -41,9 +41,12 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtCDPath = new System.Windows.Forms.TextBox();
             this.btnBrowseCDFiles = new System.Windows.Forms.Button();
+            this.lblInstructions = new System.Windows.Forms.Label();
+            this.grpInstructions = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.grpInstructions.SuspendLayout();
             this.SuspendLayout();
             // 
             // banner
@@ -129,7 +132,7 @@
             this.cboInstallLocation.Items.AddRange(new object[] {
             "GOG Edition",
             "DOS Edition"});
-            this.cboInstallLocation.Location = new System.Drawing.Point(100, 66);
+            this.cboInstallLocation.Location = new System.Drawing.Point(100, 193);
             this.cboInstallLocation.Name = "cboInstallLocation";
             this.cboInstallLocation.Size = new System.Drawing.Size(205, 21);
             this.cboInstallLocation.TabIndex = 3;
@@ -137,7 +140,7 @@
             // lblInstallLocation
             // 
             this.lblInstallLocation.AutoSize = true;
-            this.lblInstallLocation.Location = new System.Drawing.Point(13, 69);
+            this.lblInstallLocation.Location = new System.Drawing.Point(13, 196);
             this.lblInstallLocation.Name = "lblInstallLocation";
             this.lblInstallLocation.Size = new System.Drawing.Size(81, 13);
             this.lblInstallLocation.TabIndex = 2;
@@ -145,15 +148,16 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(86, 100);
+            this.txtPath.Location = new System.Drawing.Point(86, 227);
             this.txtPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(396, 21);
             this.txtPath.TabIndex = 5;
+            this.txtPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(12, 98);
+            this.btnBrowse.Location = new System.Drawing.Point(12, 225);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(68, 23);
             this.btnBrowse.TabIndex = 4;
@@ -163,15 +167,16 @@
             // 
             // txtCDPath
             // 
-            this.txtCDPath.Location = new System.Drawing.Point(86, 134);
+            this.txtCDPath.Location = new System.Drawing.Point(86, 261);
             this.txtCDPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtCDPath.Name = "txtCDPath";
             this.txtCDPath.Size = new System.Drawing.Size(396, 21);
             this.txtCDPath.TabIndex = 11;
+            this.txtCDPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
             // btnBrowseCDFiles
             // 
-            this.btnBrowseCDFiles.Location = new System.Drawing.Point(12, 132);
+            this.btnBrowseCDFiles.Location = new System.Drawing.Point(12, 259);
             this.btnBrowseCDFiles.Name = "btnBrowseCDFiles";
             this.btnBrowseCDFiles.Size = new System.Drawing.Size(68, 23);
             this.btnBrowseCDFiles.TabIndex = 12;
@@ -179,9 +184,29 @@
             this.btnBrowseCDFiles.UseVisualStyleBackColor = true;
             this.btnBrowseCDFiles.Click += new System.EventHandler(this.btnBrowseCDFiles_Click);
             // 
+            // lblInstructions
+            // 
+            this.lblInstructions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblInstructions.Location = new System.Drawing.Point(3, 17);
+            this.lblInstructions.Name = "lblInstructions";
+            this.lblInstructions.Size = new System.Drawing.Size(465, 104);
+            this.lblInstructions.TabIndex = 13;
+            this.lblInstructions.Text = "<Instructions>";
+            // 
+            // grpInstructions
+            // 
+            this.grpInstructions.Controls.Add(this.lblInstructions);
+            this.grpInstructions.Location = new System.Drawing.Point(11, 63);
+            this.grpInstructions.Name = "grpInstructions";
+            this.grpInstructions.Size = new System.Drawing.Size(471, 124);
+            this.grpInstructions.TabIndex = 14;
+            this.grpInstructions.TabStop = false;
+            this.grpInstructions.Text = "Instructions";
+            // 
             // GameDataDialog
             // 
             this.ClientSize = new System.Drawing.Size(494, 361);
+            this.Controls.Add(this.grpInstructions);
             this.Controls.Add(this.btnBrowseCDFiles);
             this.Controls.Add(this.txtCDPath);
             this.Controls.Add(this.btnBrowse);
@@ -191,7 +216,11 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(510, 400);
+            this.MinimumSize = new System.Drawing.Size(510, 400);
             this.Name = "GameDataDialog";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Game Data";
             this.Load += new System.EventHandler(this.dialog_Load);
@@ -199,6 +228,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.grpInstructions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,5 +249,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtCDPath;
         private System.Windows.Forms.Button btnBrowseCDFiles;
+        private System.Windows.Forms.Label lblInstructions;
+        private System.Windows.Forms.GroupBox grpInstructions;
     }
 }
