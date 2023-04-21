@@ -81,6 +81,8 @@ struct gamepad_config {
 	uint16_t button_fire_L;
 	uint16_t button_fwd;
 	uint16_t button_back;
+	bool haptic_enabled;
+	uint16_t haptic_gain_max;
 };
 
 typedef struct gamepad_config gamepad_config_t;

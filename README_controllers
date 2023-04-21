@@ -34,7 +34,8 @@ button_fire_L = 0 ; fire left-hand spell, also left mouse button equivalent
 button_fwd = 0 ; joystick button-press code used for forward movement
 button_back = 0 ; joystick button-press code used for backward movement
 axis_dead_zone = 2048 ; increase if _mouse_ is unresponsive
-
+haptic_enabled = 0 ; set to 1 to try initialization of the controller's haptic engine
+haptic_max_gain = 75 ; set GAIN value, if feature is supported. it limits the amplitude of all the effects between 0-100
 
 
     Sample setups
@@ -66,6 +67,8 @@ axis_nav_ew_inv = false
 ;   use triggers to fire
 axis_fire_R = 6 ; fire right-hand spell - right trigger
 axis_fire_L = 3 ; fire left-hand spell - left trigger
+haptic_enabled = 1 ; set to 1 to try initialization of the controller's haptic engine
+haptic_max_gain = 90 ; set GAIN value, if feature is supported. it limits the amplitude of all the effects between 0-100
 
 
 Logitech Attack 3 (the joystick shares flight and navigation modes, the 3-rd axis can be used for fwd-back movement)

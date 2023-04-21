@@ -18,6 +18,7 @@
 #include "port_sdl_joystick.h"
 
 SDL_Joystick *m_gameController = NULL;
+SDL_Haptic *m_haptic = NULL;
 
 #define              JOY_MIN_X  0
 #define              JOY_MIN_Y  0
@@ -73,16 +74,31 @@ struct vec2d {
 };
 typedef struct vec2d vec2d_t;
 
+struct haptic_state {
+	uint8_t enabled;
+	uint8_t gain_max;
+	uint8_t initialized;
+	uint8_t rumble; ///< rumble is initialized
+	uint8_t rumble_trig; ///< rumble trigger is present
+	uint32_t cap; ///< capabilities
+	int quake;
+};
+typedef struct haptic_state haptic_state_t;
+
 gamepad_state_t gps = {};
+haptic_state_t hs = {};
+
+int8_t haptic_load_effects(void);
 
 /// \brief initialization of the SDL joystick subsystem
 void gamepad_sdl_init(void)
 {
-	if (SDL_Init(SDL_INIT_JOYSTICK) < 0) {
+
+	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
 		Logger->error("SDL joystick could not be initialized! SDL_Error: {}", SDL_GetError());
 	} else {
 		m_gameController = SDL_JoystickOpen(0);
-		if( m_gameController == NULL ) {
+		if(m_gameController == NULL) {
 			Logger->debug("joystick/gamepad not detected. SDL Error: {}", SDL_GetError() );
 		} else {
 			Logger->info("Found '{}' joystick", SDL_JoystickName(m_gameController) );
@@ -90,6 +106,29 @@ void gamepad_sdl_init(void)
 				Logger->error("unable to initialize joystick/gamepad events. SDL Error: {}", SDL_GetError() );
 			} else {
 				gps.initialized = 1;
+			}
+			if (gpc.haptic_enabled && (SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0) && SDL_JoystickIsHaptic(m_gameController)) {
+				m_haptic = SDL_HapticOpenFromJoystick(m_gameController);
+				if (m_haptic == NULL) {
+					Logger->info("unable to init force feedback. SDL Error: {}", SDL_GetError() );
+				} else {
+					hs.cap = SDL_HapticQuery(m_haptic);
+					hs.rumble = SDL_HapticRumbleSupported(m_haptic);
+					hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
+					hs.initialized = 1;
+					hs.enabled = 1;
+					haptic_load_effects();
+					if (hs.rumble) {
+						if (SDL_HapticRumbleInit(m_haptic) < 0) {
+							hs.rumble = 0;
+						}
+					}
+					if (hs.cap & SDL_HAPTIC_GAIN) {
+						Logger->info("gain set to {}", gpc.haptic_gain_max);
+						SDL_HapticSetGain(m_haptic, gpc.haptic_gain_max);
+					}
+					Logger->info("found haptic support (cap {}), effect cnt {}, rumble {}, rumble_trig {}", hs.cap, SDL_HapticNumEffects(m_haptic), hs.rumble, hs.rumble_trig);
+				}
 			}
 		}
 	}
@@ -100,6 +139,10 @@ void gamepad_sdl_close(void)
 {
 	SDL_JoystickClose(m_gameController);
 	m_gameController = NULL;
+	if (m_haptic) {
+		SDL_HapticClose(m_haptic);
+		m_haptic = NULL;
+	}
 }
 
 /// \brief initialize gamepad maximal coordinate values, default operating mode, etc
@@ -410,18 +453,23 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 	}
 
+	// temporary place for testing haptic effects
 	if (gpe->btn_pressed) {
 		if (gpe->btn_pressed & (1 << gpc.button_fire_R)) {
 			button_state |= 0x8;
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fire_L)) {
 			button_state |= 0x2;
+			//haptic_rumble_triggers_effect(0, 32000, 1000);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_spell)) {
 			setPress(true, GP_KEY_EMU_SPELL);
+			//haptic_rumble_triggers_effect(32000, 0, 1000);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
 			setPress(true, GP_KEY_EMU_MINIMAP);
+			haptic_run_effect(hs.quake);
+			//haptic_rumble_effect(0.5, 2000);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
 			setPress(true, GP_KEY_EMU_UP);
@@ -573,5 +621,58 @@ void joystick_set_env(const int32_t x, const int32_t y)
 	gps.rest_y = y;
 	gps.x = x;
 	gps.y = y;
+}
+
+int8_t haptic_load_effects(void) {
+	SDL_HapticEffect effect;
+	uint16_t max_effects = 0;
+
+	if ((hs.cap & SDL_HAPTIC_SINE)==0) {
+		Logger->info("haptic sine not supported");
+		return EXIT_FAILURE;
+	}
+
+	max_effects = SDL_HapticNumEffects(m_haptic);
+	if (max_effects < 0) {
+		Logger->info("SDL_HapticNumEffects() error {}", SDL_GetError());
+	}
+
+	// quake effect
+	SDL_memset( &effect, 0, sizeof(SDL_HapticEffect) ); // 0 is safe default
+	effect.type = SDL_HAPTIC_SINE;
+	effect.periodic.direction.type = SDL_HAPTIC_POLAR; // polar coordinates
+	effect.periodic.direction.dir[0] = 18000; // force comes from south
+	effect.periodic.period = 1000; // time in ms
+	effect.periodic.magnitude = 10000; // out of 32767 strength
+	effect.periodic.length = 3000; // time in ms
+	effect.periodic.attack_length = 1000; // takes 1 second to get max strength
+	effect.periodic.fade_length = 1000; // takes 1 second to fade away
+
+	hs.quake = SDL_HapticNewEffect(m_haptic, &effect);
+
+	return EXIT_SUCCESS;
+}
+
+void haptic_run_effect(const int effect_id) {
+	if (!hs.enabled || ((hs.cap & SDL_HAPTIC_SINE)==0)) {
+		return;
+	}
+	Logger->info("run_effect {}", effect_id);
+	SDL_HapticRunEffect(m_haptic, effect_id, 1);
+}
+
+void haptic_rumble_effect(const float strength, const uint32_t length) {
+	if ((!hs.enabled) || (!hs.rumble)) {
+		return;
+	}
+	Logger->info("run_rumble {},{}", strength, length);
+	SDL_HapticRumblePlay(m_haptic, strength, length);
+}
+
+void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t strength_r, const uint32_t length) {
+	if ((!hs.enabled) || (!hs.rumble_trig)) {
+		return;
+	}
+	SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
 }
 

@@ -277,5 +277,8 @@ bool readini() {
 		gpc.hat_mov_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
 	}
 
+	gpc.haptic_enabled = reader.GetBoolean("gamepad", "haptic_enabled", false);
+	gpc.haptic_gain_max = reader.GetInteger("gamepad", "haptic_max_gain", 75);
+
 	return true;
 };

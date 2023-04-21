@@ -34,4 +34,8 @@ void gamepad_sdl_close(void);
 void gamepad_init(const int gameResWidth, const int gameResHeight);
 void gamepad_poll_data(gamepad_event_t *gpe);
 
+void haptic_run_effect(const int effect_id);
+void haptic_rumble_effect(const float strength, const uint32_t length);
+void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t strength_r, const uint32_t length);
+
 #endif //PORT_SDL_JOYSTICK
