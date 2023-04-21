@@ -140,7 +140,7 @@ The game will search for this file in the following locations and this particula
 
 ## MILLSTONE 3
 - [ ] Improve sounds and music using updated original scores and directional sounds in game
-- [ ] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
+- [X] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 4
 - [ ] Get basic LAN/IPv4 multiplayer working again (Tom is currently making great progress on this!)
