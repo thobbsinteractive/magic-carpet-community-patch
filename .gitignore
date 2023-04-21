@@ -223,3 +223,9 @@ OpenCover/
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
+# Wix
+*.wxs
+*.g.wxs
+*.msi
+/remc2-installer/wix/remc2-installer.g.wxs
