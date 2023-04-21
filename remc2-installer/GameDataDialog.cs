@@ -32,12 +32,10 @@ namespace WixSharpSetup
             }
             catch { };
 
-            return $"The installer will now atempt to copy the NETHEW directory from: '{Path.Combine(this.txtPath.Text,"GAME")}' " +
-                $"to: '{Path.Combine(installPath, "GAME")}'.\nIt will then extract the CD Files to: " +
-                $"'{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'" +
-                $"\nIf this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and " +
-                $"manually copy them to '{Path.Combine(installPath, "CD_Files")}'" +
-                "\n\nClick [Next] to continue";
+            return $"The installer will now atempt to copy the NETHEW directory from: '{Path.Combine(this.txtPath.Text,"GAME")}' to: '{Path.Combine(installPath, "GAME")}'.\n" +
+                $"It will then extract the CD Files to: '{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
+                $"If this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and manually copy them to '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
+                "Click [Next] to continue";
         }
 
         private string GetDosInstructions()
@@ -50,11 +48,9 @@ namespace WixSharpSetup
             }
             catch { };
 
-            return $"You must install the DOS/Original version of Magic Carpet 2 first. The installer will now attempt to copy the " +
-                $"contents of NETHEW directory from: '{this.txtPath.Text}' " +
-                $"to: '{Path.Combine(installPath, @"GAME\NETHEW")}'.\nIt will then copy the CD Files from: " +
-                $"'{this.txtCDPath.Text}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'" +
-                "\n\nClick [Next] to continue";
+            return $"You must install the DOS/Original version of Magic Carpet 2 first. The installer will now attempt to copy the contents of NETHEW directory from: '{this.txtPath.Text}' to: '{Path.Combine(installPath, @"GAME\NETHEW")}'.\n" +
+                $"It will then copy the CD Files from: '{this.txtCDPath.Text}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
+                "Click [Next] to continue";
         }
 
         private bool ValidateGoGGameDataLocation(string path)
@@ -468,7 +464,7 @@ namespace WixSharpSetup
 
         private void GameDataDialog_Shown(object sender, EventArgs e)
         {
-            this.lblInstructions.Text = GetInstructions();
+            this.txtInstructions.Text = GetInstructions();
         }
 
         private void GameDataDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -571,7 +567,7 @@ namespace WixSharpSetup
 
         private void Path_TextChanged(object sender, EventArgs e)
         {
-            this.lblInstructions.Text = GetInstructions();
+            this.txtInstructions.Text = GetInstructions();
         }
     }
 }

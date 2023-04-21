@@ -41,8 +41,8 @@
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtCDPath = new System.Windows.Forms.TextBox();
             this.btnBrowseCDFiles = new System.Windows.Forms.Button();
-            this.lblInstructions = new System.Windows.Forms.Label();
             this.grpInstructions = new System.Windows.Forms.GroupBox();
+            this.txtInstructions = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -184,24 +184,25 @@
             this.btnBrowseCDFiles.UseVisualStyleBackColor = true;
             this.btnBrowseCDFiles.Click += new System.EventHandler(this.btnBrowseCDFiles_Click);
             // 
-            // lblInstructions
-            // 
-            this.lblInstructions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblInstructions.Location = new System.Drawing.Point(3, 17);
-            this.lblInstructions.Name = "lblInstructions";
-            this.lblInstructions.Size = new System.Drawing.Size(465, 124);
-            this.lblInstructions.TabIndex = 13;
-            this.lblInstructions.Text = "<Instructions>";
-            // 
             // grpInstructions
             // 
-            this.grpInstructions.Controls.Add(this.lblInstructions);
+            this.grpInstructions.Controls.Add(this.txtInstructions);
             this.grpInstructions.Location = new System.Drawing.Point(11, 63);
             this.grpInstructions.Name = "grpInstructions";
             this.grpInstructions.Size = new System.Drawing.Size(471, 144);
             this.grpInstructions.TabIndex = 14;
             this.grpInstructions.TabStop = false;
             this.grpInstructions.Text = "Instructions";
+            // 
+            // txtInstructions
+            // 
+            this.txtInstructions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtInstructions.Location = new System.Drawing.Point(3, 17);
+            this.txtInstructions.Name = "txtInstructions";
+            this.txtInstructions.ReadOnly = true;
+            this.txtInstructions.Size = new System.Drawing.Size(465, 124);
+            this.txtInstructions.TabIndex = 15;
+            this.txtInstructions.Text = "";
             // 
             // GameDataDialog
             // 
@@ -249,7 +250,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox txtCDPath;
         private System.Windows.Forms.Button btnBrowseCDFiles;
-        private System.Windows.Forms.Label lblInstructions;
         private System.Windows.Forms.GroupBox grpInstructions;
+        private System.Windows.Forms.RichTextBox txtInstructions;
     }
 }
