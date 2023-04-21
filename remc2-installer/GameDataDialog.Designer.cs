@@ -132,7 +132,7 @@
             this.cboInstallLocation.Items.AddRange(new object[] {
             "GOG Edition",
             "DOS Edition"});
-            this.cboInstallLocation.Location = new System.Drawing.Point(100, 193);
+            this.cboInstallLocation.Location = new System.Drawing.Point(101, 213);
             this.cboInstallLocation.Name = "cboInstallLocation";
             this.cboInstallLocation.Size = new System.Drawing.Size(205, 21);
             this.cboInstallLocation.TabIndex = 3;
@@ -140,7 +140,7 @@
             // lblInstallLocation
             // 
             this.lblInstallLocation.AutoSize = true;
-            this.lblInstallLocation.Location = new System.Drawing.Point(13, 196);
+            this.lblInstallLocation.Location = new System.Drawing.Point(12, 216);
             this.lblInstallLocation.Name = "lblInstallLocation";
             this.lblInstallLocation.Size = new System.Drawing.Size(81, 13);
             this.lblInstallLocation.TabIndex = 2;
@@ -148,7 +148,7 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(86, 227);
+            this.txtPath.Location = new System.Drawing.Point(86, 247);
             this.txtPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtPath.Name = "txtPath";
             this.txtPath.Size = new System.Drawing.Size(396, 21);
@@ -157,7 +157,7 @@
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(12, 225);
+            this.btnBrowse.Location = new System.Drawing.Point(11, 245);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(68, 23);
             this.btnBrowse.TabIndex = 4;
@@ -167,7 +167,7 @@
             // 
             // txtCDPath
             // 
-            this.txtCDPath.Location = new System.Drawing.Point(86, 261);
+            this.txtCDPath.Location = new System.Drawing.Point(86, 281);
             this.txtCDPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtCDPath.Name = "txtCDPath";
             this.txtCDPath.Size = new System.Drawing.Size(396, 21);
@@ -176,7 +176,7 @@
             // 
             // btnBrowseCDFiles
             // 
-            this.btnBrowseCDFiles.Location = new System.Drawing.Point(12, 259);
+            this.btnBrowseCDFiles.Location = new System.Drawing.Point(12, 279);
             this.btnBrowseCDFiles.Name = "btnBrowseCDFiles";
             this.btnBrowseCDFiles.Size = new System.Drawing.Size(68, 23);
             this.btnBrowseCDFiles.TabIndex = 12;
@@ -189,7 +189,7 @@
             this.lblInstructions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblInstructions.Location = new System.Drawing.Point(3, 17);
             this.lblInstructions.Name = "lblInstructions";
-            this.lblInstructions.Size = new System.Drawing.Size(465, 104);
+            this.lblInstructions.Size = new System.Drawing.Size(465, 124);
             this.lblInstructions.TabIndex = 13;
             this.lblInstructions.Text = "<Instructions>";
             // 
@@ -198,7 +198,7 @@
             this.grpInstructions.Controls.Add(this.lblInstructions);
             this.grpInstructions.Location = new System.Drawing.Point(11, 63);
             this.grpInstructions.Name = "grpInstructions";
-            this.grpInstructions.Size = new System.Drawing.Size(471, 124);
+            this.grpInstructions.Size = new System.Drawing.Size(471, 144);
             this.grpInstructions.TabIndex = 14;
             this.grpInstructions.TabStop = false;
             this.grpInstructions.Text = "Instructions";

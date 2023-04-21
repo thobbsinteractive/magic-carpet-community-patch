@@ -35,7 +35,9 @@ namespace WixSharpSetup
             return $"The installer will now atempt to copy the NETHEW directory from: '{Path.Combine(this.txtPath.Text,"GAME")}' " +
                 $"to: '{Path.Combine(installPath, "GAME")}'.\nIt will then extract the CD Files to: " +
                 $"'{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'" +
-                "\nClick [Next] to continue";
+                $"\nIf this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and " +
+                $"manually copy them to '{Path.Combine(installPath, "CD_Files")}'" +
+                "\n\nClick [Next] to continue";
         }
 
         private string GetDosInstructions()
@@ -52,7 +54,7 @@ namespace WixSharpSetup
                 $"contents of NETHEW directory from: '{this.txtPath.Text}' " +
                 $"to: '{Path.Combine(installPath, @"GAME\NETHEW")}'.\nIt will then copy the CD Files from: " +
                 $"'{this.txtCDPath.Text}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'" +
-                "\nClick [Next] to continue";
+                "\n\nClick [Next] to continue";
         }
 
         private bool ValidateGoGGameDataLocation(string path)
@@ -198,7 +200,7 @@ namespace WixSharpSetup
             {
                 if (Directory.Exists(gamePath))
                 {
-                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"GAME\NETHERW"), true);
+                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"GAME"), true);
                 }
                 else
                 {
@@ -496,8 +498,11 @@ namespace WixSharpSetup
         private void btnNext_Click(object sender, EventArgs e)
         {
             btnBrowse.Enabled = false;
+            btnBrowseCDFiles.Enabled = false;
             btnNext.Enabled = false;
             btnCancel.Enabled = false;
+            txtPath.Enabled = false;
+            txtCDPath.Enabled = false;
 
             if (this.cboInstallLocation.SelectedIndex == 0)
             {
@@ -516,7 +521,7 @@ namespace WixSharpSetup
             {
                 //DOS
                 if (ValidateDosGameDataLocation(this.txtPath.Text, this.txtCDPath.Text) &&
-                MoveGameData(this.txtPath.Text) &&
+                MoveGameData(Path.Combine(this.txtPath.Text, "NETHEW")) &&
                 MoveCDFiles(this.txtCDPath.Text))
                 {
                     Shell.GoNext();
@@ -524,8 +529,11 @@ namespace WixSharpSetup
             }
 
             btnBrowse.Enabled = true;
+            btnBrowseCDFiles.Enabled = true;
             btnNext.Enabled = true;
             btnCancel.Enabled = true;
+            txtPath.Enabled = true;
+            txtCDPath.Enabled = true;
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)

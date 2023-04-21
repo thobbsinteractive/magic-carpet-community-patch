@@ -9,7 +9,12 @@ namespace remc2_installer
     {
         static void Main()
         {
-            var project = new ManagedProject("Magic Carpet 2 HD",
+
+#if WIN64
+            var project = new ManagedProject("Magic Carpet 2 HD x64",
+#else
+            var project = new ManagedProject("Magic Carpet 2 HD x86",
+#endif
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
 #if WIN64
