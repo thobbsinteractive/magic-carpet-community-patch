@@ -124,7 +124,6 @@ void gamepad_sdl_init(void)
 						}
 					}
 					if (hs.cap & SDL_HAPTIC_GAIN) {
-						Logger->info("gain set to {}", gpc.haptic_gain_max);
 						SDL_HapticSetGain(m_haptic, gpc.haptic_gain_max);
 					}
 					Logger->info("found haptic support (cap {}), effect cnt {}, rumble {}, rumble_trig {}", hs.cap, SDL_HapticNumEffects(m_haptic), hs.rumble, hs.rumble_trig);
@@ -468,7 +467,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
 			setPress(true, GP_KEY_EMU_MINIMAP);
-			haptic_run_effect(hs.quake);
+			//haptic_run_effect(hs.quake);
 			//haptic_rumble_effect(0.5, 2000);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
