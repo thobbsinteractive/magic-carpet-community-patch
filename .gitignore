@@ -227,5 +227,15 @@ MigrationBackup/
 # vim temporary files
 *.swp
 
-# exuberant ctags (they change too often, plus it's huge)
+# indent
+*~
+
+# exuberant ctags
 tags
+
+# Wix
+*.wxs
+*.g.wxs
+*.msi
+/remc2-installer/wix/remc2-installer.g.wxs
+
