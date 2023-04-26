@@ -43,6 +43,8 @@
             this.btnBrowseCDFiles = new System.Windows.Forms.Button();
             this.grpInstructions = new System.Windows.Forms.GroupBox();
             this.txtInstructions = new System.Windows.Forms.RichTextBox();
+            this.lblGameData = new System.Windows.Forms.Label();
+            this.lblCDData = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -148,10 +150,10 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(86, 247);
+            this.txtPath.Location = new System.Drawing.Point(155, 247);
             this.txtPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(396, 21);
+            this.txtPath.Size = new System.Drawing.Size(327, 21);
             this.txtPath.TabIndex = 5;
             this.txtPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
@@ -167,10 +169,10 @@
             // 
             // txtCDPath
             // 
-            this.txtCDPath.Location = new System.Drawing.Point(86, 281);
+            this.txtCDPath.Location = new System.Drawing.Point(155, 281);
             this.txtCDPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtCDPath.Name = "txtCDPath";
-            this.txtCDPath.Size = new System.Drawing.Size(396, 21);
+            this.txtCDPath.Size = new System.Drawing.Size(327, 21);
             this.txtCDPath.TabIndex = 11;
             this.txtCDPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
@@ -204,9 +206,29 @@
             this.txtInstructions.TabIndex = 15;
             this.txtInstructions.Text = "";
             // 
+            // lblGameData
+            // 
+            this.lblGameData.AutoSize = true;
+            this.lblGameData.Location = new System.Drawing.Point(85, 250);
+            this.lblGameData.Name = "lblGameData";
+            this.lblGameData.Size = new System.Drawing.Size(64, 13);
+            this.lblGameData.TabIndex = 15;
+            this.lblGameData.Text = "Game Data:";
+            // 
+            // lblCDData
+            // 
+            this.lblCDData.AutoSize = true;
+            this.lblCDData.Location = new System.Drawing.Point(86, 284);
+            this.lblCDData.Name = "lblCDData";
+            this.lblCDData.Size = new System.Drawing.Size(51, 13);
+            this.lblCDData.TabIndex = 16;
+            this.lblCDData.Text = "CD Data:";
+            // 
             // GameDataDialog
             // 
             this.ClientSize = new System.Drawing.Size(494, 361);
+            this.Controls.Add(this.lblCDData);
+            this.Controls.Add(this.lblGameData);
             this.Controls.Add(this.grpInstructions);
             this.Controls.Add(this.btnBrowseCDFiles);
             this.Controls.Add(this.txtCDPath);
@@ -252,5 +274,7 @@
         private System.Windows.Forms.Button btnBrowseCDFiles;
         private System.Windows.Forms.GroupBox grpInstructions;
         private System.Windows.Forms.RichTextBox txtInstructions;
+        private System.Windows.Forms.Label lblGameData;
+        private System.Windows.Forms.Label lblCDData;
     }
 }
