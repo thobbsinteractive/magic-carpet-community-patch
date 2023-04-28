@@ -846,6 +846,7 @@ int events()
 				// actual axis data is being read via gamepad_poll_data()
 				Logger->trace("hat {} event detected", event.jhat.hat + 1);
 			}
+			break;
 		case SDL_JOYBUTTONDOWN:
 			if (event.jbutton.which == 0) {
 				//gps.initialized = 1;
@@ -871,7 +872,6 @@ int events()
 			}
 			Logger->trace("Key {} press detected", lastchar);
 			break;
-
 		case SDL_KEYUP:
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			setPress(false, lastchar);

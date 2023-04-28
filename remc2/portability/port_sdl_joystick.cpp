@@ -1,6 +1,12 @@
 
 // support for gamepads and joysticks
+//
+// adds configurable game specific controls to be bound to axes, buttons and hats present on a controller
+// see README_controllers for sample configurations
+// this implementation basically simulates mouse moves and key presses
+//
 // tested with Logitech Attack 3, Logitech Extreme PRO 3D and XBOX Elite Series 2
+//
 // author: Petre Rodan, 2023
 
 #include <cstdint>
@@ -20,14 +26,15 @@
 SDL_Joystick *m_gameController = NULL;
 SDL_Haptic *m_haptic = NULL;
 
-#define              JOY_MIN_X  0
-#define              JOY_MIN_Y  0
-#define            JOY_NAV_INC  4
+#define              JOY_MIN_X  0   ///< minimum bounds for mouse position value for x axis
+#define              JOY_MIN_Y  0   ///< minimum bounds for mouse position value for y axis
+#define            JOY_NAV_INC  4   ///< coefficient that defines how many pixels to skip while navigating a menu
 
-#define       GP_FLIGHT_UPDATE  0x1
-#define          GP_NAV_UPDATE  0x2
-#define          GP_MOV_UPDATE  0x4
+#define       GP_FLIGHT_UPDATE  0x1 ///< bitflag set if the axes controlling flight are out of the stick dead zone
+#define          GP_NAV_UPDATE  0x2 ///< bitflag set if the axes controlling navigation are out of the stick dead zone
+#define          GP_MOV_UPDATE  0x4 ///< bitflag set if the axes controlling movement are out of the stick dead zone
 
+///< simulated key presses
 // to be modified once fully customized 
 // keyboard control is implemented
 #define          GP_KEY_EMU_UP  0x5252
@@ -38,50 +45,54 @@ SDL_Haptic *m_haptic = NULL;
 #define        GP_KEY_EMU_EXIT  0x291b
 #define       GP_KEY_EMU_SPELL  0xe0e0
 
+///< structure that defines the current gamepad state ad it's simulated output
 struct gamepad_state {
-	int32_t x;
-	int32_t y;
-	int32_t rest_x;
-	int32_t rest_y;
-	int32_t max_x;
-	int32_t max_y;
-	uint8_t dead_zone_announced;   ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
-	uint8_t initialized;
-	uint8_t scene_id;
-	uint8_t nav_mode;
-	uint8_t last_trig_fire_R;
-	uint8_t last_trig_fire_L;
+	int32_t x;                      ///< currently simulated x mouse position
+	int32_t y;                      ///< currently simulated y mouse position
+	int32_t rest_x;                 ///< mouse x position to use when the stick is in the rest position (or dead zone)
+	int32_t rest_y;                 ///< mouse y position to use when the stick is in the rest position (or dead zone)
+	int32_t max_x;                  ///< maximum bounds for mouse position on the x axis based on current scene (sometimes we get garbage values here from upstream)
+	int32_t max_y;                  ///< maximum bounds for mouse position on the y axis based on current scene (sometimes we get garbage values here from upstream)
+	uint8_t dead_zone_announced;    ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
+	uint8_t initialized;            ///< gamepad was initialized and it's ready to be queried
+	uint8_t scene_id;				///< current scene displayed by the recode. one of SCENE_PREAMBLE_MENU, SCENE_FLIGHT, SCENE_FLIGHT_MENU
+	uint8_t nav_mode;               ///< true during menu navigation
+	uint8_t last_trig_fire_R;       ///< detection of movement based on the right trigger button's axis value
+	uint8_t last_trig_fire_L;       ///< detection of movement based on the left trigger button's axis value
 };
 typedef struct gamepad_state gamepad_state_t;
 
+///< structure that defines the mouse pointer position
 struct pointer_sys {
 	int16_t x;
 	int16_t y;
 };
 typedef struct pointer_sys pointer_sys_t;
 
+///< hat position data
 struct vec1d {
-	int16_t x;
-	uint8_t x_conf;
+	int16_t x;                      ///< bitwise flags. SDL_HAT_UP | SDL_HAT_DOWN | SDL_HAT_LEFT | SDL_HAT_RIGHT or 0
+	uint8_t x_conf;                 ///< bitwise flags. cound be 0 or a combination of GAMEPAD_AXIS_INVERTED | GAMEPAD_ITEM_ENABLED
 };
 typedef struct vec1d vec1d_t;
 
+///< axis position data
 struct vec2d {
-	int16_t x;
-	int16_t y;
-	uint8_t x_conf;
-	uint8_t y_conf;
+	int16_t x;                      ///< x axis value [-32767..32768]
+	int16_t y;                      ///< y axis value [-32767..32768]
+	uint8_t x_conf;                 ///< bitwise flags. cound be 0 or a combination of GAMEPAD_AXIS_INVERTED | GAMEPAD_ITEM_ENABLED
+	uint8_t y_conf;                 ///< bitwise flags. cound be 0 or a combination of GAMEPAD_AXIS_INVERTED | GAMEPAD_ITEM_ENABLED
 };
 typedef struct vec2d vec2d_t;
 
+///< force-feedback subsystem state
 struct haptic_state {
-	uint8_t enabled;
-	uint8_t gain_max;
-	uint8_t initialized;
-	uint8_t rumble; ///< rumble is initialized
-	uint8_t rumble_trig; ///< rumble trigger is present
-	uint32_t cap; ///< capabilities
-	int quake;
+	uint8_t enabled;                ///< if subsystem is currently enabled
+	uint8_t initialized;            ///< subsystem initialized and ready
+	uint8_t rumble;                 ///< rumble is initialized
+	uint8_t rumble_trig;            ///< rumble trigger is present
+	uint32_t cap;                   ///< controller capabilities
+	int quake;                      ///< quake effect identifier
 };
 typedef struct haptic_state haptic_state_t;
 
@@ -134,7 +145,7 @@ void gamepad_sdl_init(void)
 	}
 }
 
-/// \brief cleanup of the SDL joystick subsystem
+/// \brief cleanup of the SDL joystick subsystem, to be used only on program exit
 void gamepad_sdl_close(void)
 {
 	SDL_JoystickClose(m_gameController);
@@ -157,6 +168,9 @@ void gamepad_init(const int gameResWidth, const int gameResHeight)
 }
 
 /// \brief flight support via conversion from stick coordinates to pointer coordinates
+/// \param  stick input axis values
+/// \param  point output simulated mouse pointer values
+/// \return 0 if stick is in the dead zone or GP_FLIGHT_UPDATE otherwise
 uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
@@ -193,6 +207,9 @@ uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
 }
 
 /// \brief menu navigation support via conversion from stick coordinates to pointer coordinates
+/// \param  stick input axis values
+/// \param  point output simulated mouse pointer values
+/// \return 0 if stick is in the dead zone or GP_NAV_UPDATE otherwise
 uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
@@ -217,6 +234,9 @@ uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
 }
 
 /// \brief menu navigation support via conversion from hat coordinates to pointer coordinates
+/// \param  hat input value
+/// \param  point output simulated mouse pointer values
+/// \return 0 if stick is resting or GP_NAV_UPDATE otherwise
 uint16_t gamepad_hat_nav_conv(const vec1d_t *hat, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
@@ -252,7 +272,8 @@ uint16_t gamepad_hat_nav_conv(const vec1d_t *hat, pointer_sys_t *point)
 	return ret;
 }
 
-/// \brief longitudinal and transversal movement converted to hardcoded keyboard keypresses
+/// \brief longitudinal and transversal hat movement converted to hardcoded keyboard keypresses
+/// \param  hat input value
 void gamepad_hat_mov_conv(const vec1d_t *hat)
 {
 
@@ -284,10 +305,10 @@ void gamepad_hat_mov_conv(const vec1d_t *hat)
 	}
 }
 
-/// \brief menu navigation support via conversion from stick coordinates to pointer coordinates
+/// \brief longitudinal and transversal movement via conversion from stick coordinates to key presses
+/// \param  stick input axis values
 void gamepad_axis_mov_conv(const vec2d_t *stick)
 {
-	uint16_t ret = 0;
 	int16_t axis_long_inv = 1;
 	int16_t axis_long = stick->x;
 	int16_t axis_trans = stick->y;
@@ -330,6 +351,8 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 }
 
 /// \brief menu navigation support via conversion from axis coordinates to a boolean (for xbox trigger buttons)
+/// \param  input axis value
+/// \return 0 is button is inside the dead zone, 1 otherwise
 void gamepad_axis_bool_conv(const int16_t input, bool *ret)
 {
 	if (input > -32767 + gpc.axis_dead_zone) {
@@ -345,7 +368,6 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 {
 	uint16_t button_state = 0;
 	uint8_t flight_mode = 1; // are we doing flight or menu navigation
-	uint16_t dead_zone = 0;
 	uint16_t conv_state = 0;
 	pointer_sys_t flight;
 	pointer_sys_t nav;
@@ -527,6 +549,7 @@ announce:
 }
 
 /// \brief once per frame read out all axes and hats, for perfect smoothness
+/// \param gpe event data
 void gamepad_poll_data(gamepad_event_t *gpe)
 {
 
@@ -583,7 +606,8 @@ void gamepad_poll_data(gamepad_event_t *gpe)
 	gamepad_event_mgr(gpe);
 }
 
-/// \brief reconfigure gamepad maximum coverage and operating mode
+/// \brief reconfigure gamepad maximum coverage and operating mode based on recode scene
+/// \param scene_id one of SCENE_PREAMBLE_MENU, SCENE_FLIGHT, SCENE_FLIGHT_MENU
 void set_scene(const uint8_t scene_id)
 {
 	gps.scene_id = scene_id;
@@ -611,9 +635,9 @@ void set_scene(const uint8_t scene_id)
 	Logger->trace("set scene {}, nav_mode {}", scene_id, gps.nav_mode);
 }
 
-/// \brief set the x,y coord of the joystick rest position
-/// \param x coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
-/// \param y coordinate where the mouse pointer needs to end up when the joystick is in it's rest position
+/// \brief set the x,y simulated mouse pointer coordinates of the joystick rest position
+/// \param x coordinate
+/// \param y coordinate
 void joystick_set_env(const int32_t x, const int32_t y)
 {
 	Logger->trace("pointer rest at {},{} scene {}, window size {},{}", x, y, gps.scene_id, gps.max_x, gps.max_y);
@@ -623,9 +647,11 @@ void joystick_set_env(const int32_t x, const int32_t y)
 	gps.y = y;
 }
 
+/// \brief unfinished load effects to be sent to the haptic subsystem
+/// \return EXIT_FAILURE on error, EXIT_SUCCESS otherwise
 int8_t haptic_load_effects(void) {
 	SDL_HapticEffect effect;
-	uint16_t max_effects = 0;
+	int16_t max_effects = 0;
 
 	if ((hs.cap & SDL_HAPTIC_SINE)==0) {
 		Logger->info("haptic sine not supported");
@@ -653,6 +679,8 @@ int8_t haptic_load_effects(void) {
 	return EXIT_SUCCESS;
 }
 
+/// \brief send sine-based effect to the haptic subsystem
+/// \param effect_id  identifier
 void haptic_run_effect(const int effect_id) {
 	if (!hs.enabled || ((hs.cap & SDL_HAPTIC_SINE)==0)) {
 		return;
@@ -661,6 +689,9 @@ void haptic_run_effect(const int effect_id) {
 	SDL_HapticRunEffect(m_haptic, effect_id, 1);
 }
 
+/// \brief send rumble effect to the haptic subsystem
+/// \param strength defined in the [0-1.0] interval
+/// \param length  effect duration in ms
 void haptic_rumble_effect(const float strength, const uint32_t length) {
 	if ((!hs.enabled) || (!hs.rumble)) {
 		return;
@@ -669,6 +700,10 @@ void haptic_rumble_effect(const float strength, const uint32_t length) {
 	SDL_HapticRumblePlay(m_haptic, strength, length);
 }
 
+/// \brief send rumble effect to the trigger buttons
+/// \param strength_l TL effect level
+/// \param strength_r TR effect level
+/// \param length effect duration in ms
 void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t strength_r, const uint32_t length) {
 	if ((!hs.enabled) || (!hs.rumble_trig)) {
 		return;
