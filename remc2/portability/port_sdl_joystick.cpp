@@ -34,6 +34,8 @@ SDL_Haptic *m_haptic = NULL;
 #define          GP_NAV_UPDATE  0x2 ///< bitflag set if the axes controlling navigation are out of the stick dead zone
 #define          GP_MOV_UPDATE  0x4 ///< bitflag set if the axes controlling movement are out of the stick dead zone
 
+#define GP_MAX_KEY_RELEASE_ANN  4   ///< maximum number of key release announcements
+
 ///< simulated key presses
 // to be modified once fully customized 
 // keyboard control is implemented
@@ -54,6 +56,7 @@ struct gamepad_state {
 	int32_t max_x;                  ///< maximum bounds for mouse position on the x axis based on current scene (sometimes we get garbage values here from upstream)
 	int32_t max_y;                  ///< maximum bounds for mouse position on the y axis based on current scene (sometimes we get garbage values here from upstream)
 	uint8_t dead_zone_announced;    ///< slow infinite spin mitigation when joystick is in the resting position while in the flying window
+	uint8_t mov_key_announced;      ///< counter of consecutive setPress(false, KEY) requests 
 	uint8_t initialized;            ///< gamepad was initialized and it's ready to be queried
 	uint8_t scene_id;				///< current scene displayed by the recode. one of SCENE_PREAMBLE_MENU, SCENE_FLIGHT, SCENE_FLIGHT_MENU
 	uint8_t nav_mode;               ///< true during menu navigation
@@ -276,32 +279,44 @@ uint16_t gamepad_hat_nav_conv(const vec1d_t *hat, pointer_sys_t *point)
 /// \param  hat input value
 void gamepad_hat_mov_conv(const vec1d_t *hat)
 {
+	uint16_t ret = 0;
 
 	if (hat->x & SDL_HAT_UP) {
 		setPress(false, GP_KEY_EMU_DOWN);
 		setPress(true, GP_KEY_EMU_UP);
+		ret = GP_MOV_UPDATE;
 	}
 
 	if (hat->x & SDL_HAT_DOWN) {
 		setPress(false, GP_KEY_EMU_UP);
 		setPress(true, GP_KEY_EMU_DOWN);
+		ret = GP_MOV_UPDATE;
 	}
 
 	if (hat->x & SDL_HAT_RIGHT) {
 		setPress(false, GP_KEY_EMU_LEFT);
 		setPress(true, GP_KEY_EMU_RIGHT);
+		ret = GP_MOV_UPDATE;
 	}
 
 	if (hat->x & SDL_HAT_LEFT) {
 		setPress(false, GP_KEY_EMU_RIGHT);
 		setPress(true, GP_KEY_EMU_LEFT);
+		ret = GP_MOV_UPDATE;
 	}
 
 	if (hat->x == 0) {
-		setPress(false, GP_KEY_EMU_UP);
-		setPress(false, GP_KEY_EMU_DOWN);
-		setPress(false, GP_KEY_EMU_RIGHT);
-		setPress(false, GP_KEY_EMU_LEFT);
+		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
+			setPress(false, GP_KEY_EMU_UP);
+			setPress(false, GP_KEY_EMU_DOWN);
+			setPress(false, GP_KEY_EMU_RIGHT);
+			setPress(false, GP_KEY_EMU_LEFT);
+			gps.mov_key_announced++;
+		}
+	}
+
+	if (ret) {
+		gps.mov_key_announced = 0;
 	}
 }
 
@@ -309,6 +324,7 @@ void gamepad_hat_mov_conv(const vec1d_t *hat)
 /// \param  stick input axis values
 void gamepad_axis_mov_conv(const vec2d_t *stick)
 {
+	uint16_t ret = 0;
 	int16_t axis_long_inv = 1;
 	int16_t axis_long = stick->x;
 	int16_t axis_trans = stick->y;
@@ -320,11 +336,11 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 	if ((axis_long < gpc.axis_dead_zone) && (axis_long > -gpc.axis_dead_zone)) {
 		// player seems to always have some inertia, so the following wont't actually stop
 		// longitudinal movement
-		setPress(false, GP_KEY_EMU_UP);
-		setPress(false, GP_KEY_EMU_DOWN);
+		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
+			setPress(false, GP_KEY_EMU_UP);
+			setPress(false, GP_KEY_EMU_DOWN);
+		}
 	} else {
-		// use two different linear interpolation equations since the
-		// resting coordinate is not always the center of the display
 		if (axis_long * axis_long_inv > 0) {
 			setPress(false, GP_KEY_EMU_DOWN);
 			setPress(true, GP_KEY_EMU_UP);
@@ -332,14 +348,15 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 			setPress(false, GP_KEY_EMU_UP);
 			setPress(true, GP_KEY_EMU_DOWN);
 		}
+		ret = GP_MOV_UPDATE;
 	}
 
 	if ((axis_trans < gpc.axis_dead_zone) && (axis_trans > -gpc.axis_dead_zone)) {
-		setPress(false, GP_KEY_EMU_RIGHT);
-		setPress(false, GP_KEY_EMU_LEFT);
+		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
+			setPress(false, GP_KEY_EMU_RIGHT);
+			setPress(false, GP_KEY_EMU_LEFT);
+		}
 	} else {
-		// use two different linear interpolation equations since the
-		// resting coordinate is not always the center of the display
 		if (axis_trans > 0) {
 			setPress(false, GP_KEY_EMU_LEFT);
 			setPress(true, GP_KEY_EMU_RIGHT);
@@ -347,6 +364,15 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 			setPress(false, GP_KEY_EMU_RIGHT);
 			setPress(true, GP_KEY_EMU_LEFT);
 		}
+		ret = GP_MOV_UPDATE;
+	}
+
+	if (!ret) {
+		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
+			gps.mov_key_announced++;
+		}
+	} else {
+		gps.mov_key_announced = 0;
 	}
 }
 
@@ -490,7 +516,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
 			setPress(true, GP_KEY_EMU_MINIMAP);
-			haptic_run_effect(hs.quake);
+			//haptic_run_effect(hs.quake);
 			//haptic_rumble_effect(0.5, 2000);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
