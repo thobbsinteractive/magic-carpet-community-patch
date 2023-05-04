@@ -48,9 +48,12 @@ axis_pitch = 5 ; pitch - vertical axis on the right joystick
 axis_long = 2 ; longitudinal movement - vertical axis on the left joystick
 axis_long_inv = true ; needs inversion
 axis_trans = 1 ; transversal movement - horizontal axis on the left joystick
-button_minimap = 1 ; half-screen minimap
+button_minimap = 1 ; half-screen minimap - (A) button
 button_spell = 3 ; spellbook - (X) button
+button_esc = 4 ; escape key equivalent - (Y) button
+button_fire_L = 2 ; a secondary MLB equivalent for menu interaction - (B) button
 axis_dead_zone = 3000 ; joysticks are quite noisy and can get bumped accidentally so definitely at least 3000
+trigger_dead_zone = 3000 ; trigger button-related dead zone
 ; select either hat or joystick control below:
 ;   menu navigation using the hat
 ;hat_nav = 1 ; menu navigation on the hat
