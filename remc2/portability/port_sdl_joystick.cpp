@@ -44,7 +44,7 @@ SDL_Haptic *m_haptic = NULL;
 #define       GP_KEY_EMU_RIGHT  0x4f4f
 #define        GP_KEY_EMU_LEFT  0x5050
 #define     GP_KEY_EMU_MINIMAP  0x280d
-#define        GP_KEY_EMU_EXIT  0x291b
+#define         GP_KEY_EMU_ESC  0x291b
 #define       GP_KEY_EMU_SPELL  0xe0e0
 
 ///< structure that defines the current gamepad state ad it's simulated output
@@ -128,7 +128,7 @@ void gamepad_sdl_init(void)
 				} else {
 					hs.cap = SDL_HapticQuery(m_haptic);
 					hs.rumble = SDL_HapticRumbleSupported(m_haptic);
-					hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
+					//hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
 					hs.initialized = 1;
 					hs.enabled = 1;
 					haptic_load_effects();
@@ -375,12 +375,12 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 	}
 }
 
-/// \brief menu navigation support via conversion from axis coordinates to a boolean (for xbox trigger buttons)
+/// \brief button-like action via conversion from axis coordinates to a boolean (for xbox trigger buttons)
 /// \param  input axis value
 /// \return 0 is button is inside the dead zone, 1 otherwise
 void gamepad_axis_bool_conv(const int16_t input, bool *ret)
 {
-	if (input > -32767 + gpc.axis_dead_zone) {
+	if (input > -32767 + gpc.trigger_dead_zone) {
 		*ret = 1;
 	} else {
 		*ret = 0;
@@ -524,6 +524,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		if (gpe->btn_pressed & (1 << gpc.button_back)) {
 			setPress(true, GP_KEY_EMU_DOWN);
 		}
+		if (gpe->btn_pressed & (1 << gpc.button_esc)) {
+			setPress(true, GP_KEY_EMU_ESC);
+		}
 	}
 
 	if (gpe->btn_released) {
@@ -544,6 +547,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 		if (gpe->btn_released & (1 << gpc.button_back)) {
 			setPress(false, GP_KEY_EMU_DOWN);
+		}
+		if (gpe->btn_released & (1 << gpc.button_esc)) {
+			setPress(false, GP_KEY_EMU_ESC);
 		}
 	}
 
@@ -733,6 +739,6 @@ void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t str
 	if ((!hs.enabled) || (!hs.rumble_trig)) {
 		return;
 	}
-	SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
+	//SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
 }
 

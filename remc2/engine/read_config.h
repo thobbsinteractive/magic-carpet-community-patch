@@ -71,6 +71,7 @@ struct gamepad_config {
 	uint8_t axis_fire_R_conf;
 	uint8_t axis_fire_L_conf;
 	uint16_t axis_dead_zone;
+	uint16_t trigger_dead_zone;
 	uint16_t hat_nav;
 	uint16_t hat_mov;
 	uint8_t hat_mov_conf;
@@ -81,6 +82,7 @@ struct gamepad_config {
 	uint16_t button_fire_L;
 	uint16_t button_fwd;
 	uint16_t button_back;
+	uint16_t button_esc;
 	bool haptic_enabled;
 	uint16_t haptic_gain_max;
 };

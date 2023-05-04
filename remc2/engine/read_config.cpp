@@ -260,7 +260,9 @@ bool readini() {
 	gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
 	gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
 	gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
+	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
 	gpc.axis_dead_zone = reader.GetInteger("gamepad", "axis_dead_zone", 2048);
+	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 2048);
 
 	gpc.hat_nav = reader.GetInteger("gamepad", "hat_nav", GAMEPAD_ITEM_DISABLED);
 	gpc.hat_mov = reader.GetInteger("gamepad", "hat_mov", GAMEPAD_ITEM_DISABLED);
