@@ -33,7 +33,9 @@ button_fire_R = 0 ; fire right-hand spell, also right mouse button equivalent
 button_fire_L = 0 ; fire left-hand spell, also left mouse button equivalent
 button_fwd = 0 ; joystick button-press code used for forward movement
 button_back = 0 ; joystick button-press code used for backward movement
+button_esc = 0 ; escape key equivalent
 axis_dead_zone = 2048 ; increase if _mouse_ is unresponsive
+trigger_dead_zone = 2048 ; trigger button-related dead zone
 haptic_enabled = 0 ; set to 1 to try initialization of the controller's haptic engine
 haptic_max_gain = 75 ; set GAIN value, if feature is supported. it limits the amplitude of all the effects between 0-100
 
