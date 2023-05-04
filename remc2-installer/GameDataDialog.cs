@@ -438,6 +438,7 @@ namespace WixSharpSetup
             this.txtPath.Text = @"C:\Program Files (x86)\GOG Galaxy\Games\Magic Carpet 2";
             this.txtCDPath.Text = @"";
             this.txtCDPath.Visible = false;
+            this.lblCDData.Visible = false;
             this.btnBrowseCDFiles.Visible = false;
         }
 
@@ -446,6 +447,7 @@ namespace WixSharpSetup
             this.txtPath.Text = @"C:\NETHERW";
             this.txtCDPath.Text = @"D:\";
             this.txtCDPath.Visible = true;
+            this.lblCDData.Visible = true;
             this.btnBrowseCDFiles.Visible = true;
         }
 
