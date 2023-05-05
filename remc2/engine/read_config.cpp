@@ -254,20 +254,23 @@ bool readini() {
 		gpc.axis_fire_L_conf = GAMEPAD_ITEM_ENABLED;
 	}
 
-	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
 	gpc.button_fire_L = reader.GetInteger("gamepad", "button_fire_L", 0);
+	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
 	gpc.button_spell = reader.GetInteger("gamepad", "button_spell", 0);
 	gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
 	gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
 	gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
+	gpc.button_options_menu = reader.GetInteger("gamepad", "button_options_menu", 0);
 	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
+	gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
 
-	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
-	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
-	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
-	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 3000);
-	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);
-	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 3000);
+	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 6000);
+	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 6000);
+	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 6000);
+	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 6000);
+	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 6000);
+	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 6000);
+
 	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 3000);
 
 	gpc.hat_nav = reader.GetInteger("gamepad", "hat_nav", GAMEPAD_ITEM_DISABLED);

@@ -83,11 +83,13 @@ struct gamepad_config {
 	uint8_t hat_nav_conf;
 	uint16_t button_spell;
 	uint16_t button_minimap;
-	uint16_t button_fire_R;
 	uint16_t button_fire_L;
+	uint16_t button_fire_R;
 	uint16_t button_fwd;
 	uint16_t button_back;
+	uint16_t button_options_menu;
 	uint16_t button_esc;
+	uint16_t button_menu_select;
 	bool haptic_enabled;
 	uint16_t haptic_gain_max;
 };

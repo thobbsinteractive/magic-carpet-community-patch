@@ -46,6 +46,7 @@ SDL_Haptic *m_haptic = NULL;
 #define     GP_KEY_EMU_MINIMAP  0x280d
 #define         GP_KEY_EMU_ESC  0x291b
 #define       GP_KEY_EMU_SPELL  0xe0e0
+#define     GP_KEY_EMU_OPTIONS  0x764
 
 ///< structure that defines the current gamepad state ad it's simulated output
 struct gamepad_state {
@@ -412,6 +413,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		flight_mode = 0;
 	}
 
+	if (SDL_JoystickGetButton(m_gameController, gpc.button_options_menu - 1)) {
+		flight_mode = 0;
+	}
+
 	if (SDL_GetModState() & KMOD_CTRL) {
 		flight_mode = 0;
 	}
@@ -519,6 +524,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 			//haptic_run_effect(hs.quake);
 			//haptic_rumble_effect(0.5, 2000);
 		}
+		if (gpe->btn_pressed & (1 << gpc.button_options_menu)) {
+			setPress(true, GP_KEY_EMU_OPTIONS);
+		}
 		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
 			setPress(true, GP_KEY_EMU_UP);
 		}
@@ -542,6 +550,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
 			setPress(false, GP_KEY_EMU_MINIMAP);
+		}
+		if (gpe->btn_pressed & (1 << gpc.button_options_menu)) {
+			setPress(true, GP_KEY_EMU_OPTIONS);
 		}
 		if (gpe->btn_released & (1 << gpc.button_fwd)) {
 			setPress(false, GP_KEY_EMU_UP);
