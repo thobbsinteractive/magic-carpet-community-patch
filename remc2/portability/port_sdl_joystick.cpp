@@ -180,7 +180,7 @@ uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
 	int16_t axis_yaw = stick->x;
 	int16_t axis_pitch = stick->y;
 
-	if ((axis_yaw < gpc.axis_dead_zone) && (axis_yaw > -gpc.axis_dead_zone)) {
+	if ((axis_yaw < gpc.axis_yaw_dead_zone) && (axis_yaw > -gpc.axis_yaw_dead_zone)) {
 		point->x = gps.rest_x;
 	} else {
 		// use two different linear interpolation equations since the
@@ -193,7 +193,7 @@ uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
 		ret = GP_FLIGHT_UPDATE;
 	}
 
-	if ((axis_pitch < gpc.axis_dead_zone) && (axis_pitch > -gpc.axis_dead_zone)) {
+	if ((axis_pitch < gpc.axis_pitch_dead_zone) && (axis_pitch > -gpc.axis_pitch_dead_zone)) {
 		point->y = gps.rest_y;
 	} else {
 		// use two different linear interpolation equations since the
@@ -219,14 +219,14 @@ uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
 	int16_t axis_nav_ns = stick->x;
 	int16_t axis_nav_ew = stick->y;
 
-	if ((axis_nav_ns < gpc.axis_dead_zone) && (axis_nav_ns > -gpc.axis_dead_zone)) {
+	if ((axis_nav_ns < gpc.axis_long_nav_dead_zone) && (axis_nav_ns > -gpc.axis_long_nav_dead_zone)) {
 		// point->x remains unchanged
 	} else {
 		point->y += JOY_NAV_INC * (axis_nav_ns >> 13);
 		ret = GP_NAV_UPDATE;
 	}
 
-	if ((axis_nav_ew < gpc.axis_dead_zone) && (axis_nav_ew > -gpc.axis_dead_zone)) {
+	if ((axis_nav_ew < gpc.axis_trans_nav_dead_zone) && (axis_nav_ew > -gpc.axis_trans_nav_dead_zone)) {
 		// point->y remains unchanged
 	} else {
 		point->x += JOY_NAV_INC * (axis_nav_ew >> 13);
@@ -333,7 +333,7 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 		axis_long_inv = -1;
 	}
 
-	if ((axis_long < gpc.axis_dead_zone) && (axis_long > -gpc.axis_dead_zone)) {
+	if ((axis_long < gpc.axis_long_dead_zone) && (axis_long > -gpc.axis_long_dead_zone)) {
 		// player seems to always have some inertia, so the following wont't actually stop
 		// longitudinal movement
 		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
@@ -351,7 +351,7 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 		ret = GP_MOV_UPDATE;
 	}
 
-	if ((axis_trans < gpc.axis_dead_zone) && (axis_trans > -gpc.axis_dead_zone)) {
+	if ((axis_trans < gpc.axis_trans_dead_zone) && (axis_trans > -gpc.axis_trans_dead_zone)) {
 		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
 			setPress(false, GP_KEY_EMU_RIGHT);
 			setPress(false, GP_KEY_EMU_LEFT);
