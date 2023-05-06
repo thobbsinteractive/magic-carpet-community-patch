@@ -544,10 +544,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		if (gpe->btn_released & (1 << gpc.button_spell)) {
 			setPress(false, GP_KEY_EMU_SPELL);
 		}
-		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
+		if (gpe->btn_released & (1 << gpc.button_minimap)) {
 			setPress(false, GP_KEY_EMU_MINIMAP);
 		}
-		if (gpe->btn_pressed & (1 << gpc.button_pause_menu)) {
+		if (gpe->btn_released & (1 << gpc.button_pause_menu)) {
 			setPress(false, GP_KEY_EMU_PAUSE);
 		}
 		if (gpe->btn_released & (1 << gpc.button_fwd)) {
