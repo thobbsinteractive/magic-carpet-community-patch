@@ -3,14 +3,13 @@
 
 usage() {
 	echo 'Usage (check mode)'
-	echo "      $0 [dir]"
-	echo '      (check mode)'
-	echo '          dir      has to be the parent directory that holds "CD_Files" and "GAME"'
+	echo "      $0 -d [dest_dir]"
 	echo ''
-	echo 'Usage (install mode)'
+	echo '      (install mode)'
 	echo "      $0 -s [src_dir] -d [dest_dir]"
+	echo ''
 	echo '          src_dir  has to be the dir where GOG installed Magic Carpet 2'
-	echo '          dst_dir  has to be the dir where remc2 will search for the game data'
+	echo '          dst_dir  has to be the dir where remc2 will search for the game assets'
 	echo ''
 	echo '  the install mode needs the "p7zip" and "bchunk" packages to be installed'
 }
@@ -286,6 +285,7 @@ check_inst() {
 	if check_CD_Files; then
 		eend
 	else
+		echo ''
 		eend 1 failed
 	fi
 
@@ -373,11 +373,11 @@ done
 	cp -r "${src}/GAME" "${dst}"
 	mkdir -p "${dst}/CD_Files"
 	if [ -e "${src}/game.gog" ] && [ -e "${src}/game.ins" ]; then
-		pushd "${dst}/CD_Files" > /dev/null
+		pushd "${dst}/CD_Files" > /dev/null || exit 1
 		bchunk "${src}/game.gog" "${src}/game.ins" cd_content > /dev/null
 		7z x -y -bso0 cd_content01.iso
 		rm -f cd_content*
-		popd > /dev/null
+		popd > /dev/null || exit 1
 	else
 		echo "${BAD}error${NORMAL}: game.gog, game.ins are missing from '${src}'"
 		exit 1
