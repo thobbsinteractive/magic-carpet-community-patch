@@ -260,16 +260,16 @@ bool readini() {
 	gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
 	gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
 	gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
-	gpc.button_options_menu = reader.GetInteger("gamepad", "button_options_menu", 0);
+	gpc.button_pause_menu = reader.GetInteger("gamepad", "button_pause_menu", 0);
 	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
 	gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
 
-	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 6000);
-	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 6000);
-	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 6000);
-	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 6000);
-	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 6000);
-	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 6000);
+	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
+	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
+	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
+	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 3000);
+	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);
+	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 3000);
 
 	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 3000);
 

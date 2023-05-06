@@ -87,7 +87,7 @@ struct gamepad_config {
 	uint16_t button_fire_R;
 	uint16_t button_fwd;
 	uint16_t button_back;
-	uint16_t button_options_menu;
+	uint16_t button_pause_menu;
 	uint16_t button_esc;
 	uint16_t button_menu_select;
 	bool haptic_enabled;
