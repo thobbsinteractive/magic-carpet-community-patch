@@ -96,25 +96,29 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
   2. Download the Windows "Offline Backup Game Installer"
   - Open GOGGalaxy
   - Install the game
-  - Go to the "Extras" section of a GOG Magic Carpet 2
-  - In the Offline Backup Installers Windows section:
-    - Click the Download button
-    - Wait for the download to complete
-    - Click the Downloads menu item on the left. 
-    - Click to open the containing folder and copy it to the `Downloads` folder on your Linux PC
-  3. Make sure that you have `innoextract` and `dosbox` installed
-     - To install them on Debian/Pi OS:`sudo apt install innoextract dosbox`  
-  4. Run the `extract-GOG-CD.sh` script from the `EXTRACT` directory of the `remc2` source code and provide the path to the GOG installer as well as a path where the files should be extractet to. Example:
+  3. In order to retrieve the original game's assets run the following script located in the root of the repository:
   ```
-  ./extract-GOG-CD.sh ~/Downloads/setup_magic_carpet_2_1.0_\(28044\).exe ~/.local/share/remc2
+  bash check_install.sh -s [directory where GOG installed MC2] -d [destination directory]
+  # for example :
+  bash check_install.sh -s "${HOME}/.wine/drive_c/games/Magic Carpet 2/" -d "build/${BUILDTYPE}/inst/bin/"
   ```
-  5. NOTE: The game will search in the following locations (and in this particular order) for the game assets. For the flatpak only the first two locations can be used.
+  Please note that if you have used any other method to get the assets, at least run a check to make sure that remc2 has access to every file it needs:
+  ```
+  bash check_install.sh -d [destination directory]
+  # for example:
+  bash check_install.sh -d "build/${BUILDTYPE}/inst/bin/"
+   [ ok ] CD_Files directory
+   [ ok ] GAME directory
+  ```
+  this script will fix the permissions, make everything uppercase, check all file hashes and complain if any file is missing.
+  it's also recommended that before the first run you remove the file GAME/NETHERW/CONFIG.DAT if it exists.
+  4. NOTE: The game will search in the following locations (and in this particular order) for the game assets. For the flatpak only the first two locations can be used.
      1. `$XDG_DATA_HOME/remc2/`
      2. `$HOME/.local/share/remc2`
      3. next to the `remc2` binary
-  6. Run the `remc2` executable in install directory
-  ```bash
-  cd /Documents/repos/magic-carpet-2-hd/build/${BUILDTYPE}/inst/bin
+  5. Run the `remc2` executable in install directory
+  ```
+  cd magic-carpet-2-hd/build/${BUILDTYPE}/inst/bin
   ./remc2
   ```
 
@@ -126,7 +130,7 @@ The game will search for this file in the following locations and this particula
 2. `$HOME/.config/remc2`
 3. next to the `remc2` binary
 
-
+ 
 # ROADMAP:
 
 ## MILLSTONE 1
@@ -136,6 +140,7 @@ The game will search for this file in the following locations and this particula
 ## MILLSTONE 2
 - [x] Add resolution support
 - [ ] Implement Open GL render
+- [ ] Implement Controller Support
 - [ ] Implement a (platform independent) Launch menu to adjust settings in config.ini before launch
 
 ## MILLSTONE 3
