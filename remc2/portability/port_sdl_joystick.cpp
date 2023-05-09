@@ -20,11 +20,13 @@
 
 #include "../engine/sub_main_mouse.h"
 #include "../engine/read_config.h"
+#include "../utilities/Maths.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_sdl_joystick.h"
 
 SDL_Joystick *m_gameController = NULL;
 SDL_Haptic *m_haptic = NULL;
+std::vector<Maths::Zone> m_Zones;
 
 #define              JOY_MIN_X  0   ///< minimum bounds for mouse position value for x axis
 #define              JOY_MIN_Y  0   ///< minimum bounds for mouse position value for y axis
@@ -108,6 +110,13 @@ int8_t haptic_load_effects(void);
 /// \brief initialization of the SDL joystick subsystem
 void gamepad_sdl_init(void)
 {
+	m_Zones.push_back(Maths::Zone{ 0,		4095,	0 });
+	m_Zones.push_back(Maths::Zone{ 4095,	8190,	0.1 });
+	m_Zones.push_back(Maths::Zone{ 8190,	12285,	0.15 });
+	m_Zones.push_back(Maths::Zone{ 12285,	16380,	0.2 });
+	m_Zones.push_back(Maths::Zone{ 16380,	20475,	0.4 });
+	m_Zones.push_back(Maths::Zone{ 20475,	28665,	0.8 });
+	m_Zones.push_back(Maths::Zone{ 28665,	32767,	1.0 });
 
 	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
 		Logger->error("SDL joystick could not be initialized! SDL_Error: {}", SDL_GetError());
@@ -171,13 +180,35 @@ void gamepad_init(const int gameResWidth, const int gameResHeight)
 	set_scene(SCENE_PREAMBLE_MENU);
 }
 
+void SmoothStickCoords(vec2d_t* stick)
+{
+	if (stick->x >= 0)
+	{
+		stick->x = ((int16_t)Maths::CurveCoords(stick->x, stick->x, m_Zones));
+	}
+	else
+	{
+		stick->x = -((int16_t)Maths::CurveCoords(-stick->x, -stick->x, m_Zones));
+	}
+
+	if (stick->y >= 0)
+	{
+		stick->y = ((int16_t)Maths::CurveCoords(stick->y, stick->y, m_Zones));
+	}
+	else
+	{
+		stick->y = -((int16_t)Maths::CurveCoords(-stick->y, -stick->y, m_Zones));
+	}
+}
+
 /// \brief flight support via conversion from stick coordinates to pointer coordinates
 /// \param  stick input axis values
 /// \param  point output simulated mouse pointer values
 /// \return 0 if stick is in the dead zone or GP_FLIGHT_UPDATE otherwise
-uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
+uint16_t gamepad_axis_flight_conv(vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
+	SmoothStickCoords(stick);
 	int16_t axis_yaw = stick->x;
 	int16_t axis_pitch = stick->y;
 
@@ -323,10 +354,11 @@ void gamepad_hat_mov_conv(const vec1d_t *hat)
 
 /// \brief longitudinal and transversal movement via conversion from stick coordinates to key presses
 /// \param  stick input axis values
-void gamepad_axis_mov_conv(const vec2d_t *stick)
+void gamepad_axis_mov_conv(vec2d_t *stick)
 {
 	uint16_t ret = 0;
 	int16_t axis_long_inv = 1;
+	SmoothStickCoords(stick);
 	int16_t axis_long = stick->x;
 	int16_t axis_trans = stick->y;
 

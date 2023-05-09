@@ -267,9 +267,9 @@ bool readini() {
 	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
 	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
 	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
-	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 3000);
 	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);
-	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 3000);
+	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 6000);
+	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 6000);
 
 	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 3000);
 
