@@ -52,6 +52,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="utilities\Math.cpp" />
+    <ClCompile Include="utilities\MathUT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\remc2\remc2.vcxproj">

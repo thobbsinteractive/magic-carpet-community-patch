@@ -1013,3 +1013,28 @@ int Maths::SubtrackUntilZero(int x, int y)
 	}
 	return result;
 }
+
+uint16_t Maths::CurveCoords(uint16_t x, uint16_t y, std::vector<Maths::Zone>& zones)
+{
+	double factor = 1;
+
+	if (&zones != nullptr)
+	{
+		//Get Zone
+		for (uint16_t i = 0; i < zones.size(); i++)
+		{
+			if ((zones[i].m_xStart >= x) || (zones[i].m_xEnd < x))
+			{
+				factor = zones[i].m_factor;
+				break;
+			}
+		}
+	}
+
+	if (factor * y >= 0 && factor * y <= INT16_MAX)
+	{
+		y = factor * y;
+	}
+
+	return y;
+}
