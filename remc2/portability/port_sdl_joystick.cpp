@@ -543,7 +543,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 			button_state |= 0x2;
 			//haptic_rumble_triggers_effect(0, 32000, 1000);
 		}
-		if (gpe->btn_pressed & (1 << gpc.button_spell)) {
+		if (gps.scene_id != SCENE_FLIGHT && (gpe->btn_pressed & (1 << gpc.button_menu_select))) {
+			button_state |= 0x2;
+		}
+		if (gps.scene_id != SCENE_FLIGHT_MENU && (gpe->btn_pressed & (1 << gpc.button_spell))) {
 			setPress(true, GP_KEY_EMU_SPELL);
 			//haptic_rumble_triggers_effect(32000, 0, 1000);
 		}
@@ -573,7 +576,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		if (gpe->btn_released & (1 << gpc.button_fire_L)) {
 			button_state |= 0x4;
 		}
-		if (gpe->btn_released & (1 << gpc.button_spell)) {
+		if (gps.scene_id != SCENE_FLIGHT && (gpe->btn_released & (1 << gpc.button_menu_select))) {
+			button_state |= 0x4;
+		}
+		if (gps.scene_id != SCENE_FLIGHT_MENU && (gpe->btn_released & (1 << gpc.button_spell))) {
 			setPress(false, GP_KEY_EMU_SPELL);
 		}
 		if (gpe->btn_released & (1 << gpc.button_minimap)) {
