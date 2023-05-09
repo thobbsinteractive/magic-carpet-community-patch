@@ -20,6 +20,6 @@ TEST(Math, Curve)
 	ASSERT_EQ(Maths::CurveCoords(16380, 16380, zones), 8190);
 	ASSERT_EQ(Maths::CurveCoords(20475, 20475, zones), 10237);
 	ASSERT_EQ(Maths::CurveCoords(28665, 28665, zones), 14332);
-	ASSERT_EQ(Maths::CurveCoords(32767, 32767, zones), 16383);
+	ASSERT_EQ(Maths::CurveCoords(32767, 32767, zones), 32767);
 
 }

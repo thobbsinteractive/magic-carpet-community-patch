@@ -1023,7 +1023,7 @@ uint16_t Maths::CurveCoords(uint16_t x, uint16_t y, std::vector<Maths::Zone>& zo
 		//Get Zone
 		for (uint16_t i = 0; i < zones.size(); i++)
 		{
-			if ((zones[i].m_xStart >= x) || (zones[i].m_xEnd < x))
+			if ((x >= zones[i].m_xStart) && (x < zones[i].m_xEnd))
 			{
 				factor = zones[i].m_factor;
 				break;
