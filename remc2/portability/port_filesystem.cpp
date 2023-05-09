@@ -214,10 +214,15 @@ FILE* myopen(const char* path, int pmode, uint32_t flags) {
 	Logger->debug("myopen:open file: {}", path);
 	//bool localDrive::FileOpen(DOS_File * * file, const char * name, uint32_t flags) {
 	const char * type;
-	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
-	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
-	else
+	if ((pmode == 0x222) && (flags == 0x40)) {
+		// Open for reading and writing.  The stream is positioned at the beginning of the file.
+		type = "rb+";
+	} else if ((pmode == 0x200) && (flags == 0x40)) {
+		// Open file for reading.  The stream is positioned at the beginning of the file.
+		type = "rb";
+	} else {
 		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
+	}
 	FILE* fp = nullptr;
 	//char path2[512] = "\0";
 	//pathfix(path, path2);//only for DOSBOX version
