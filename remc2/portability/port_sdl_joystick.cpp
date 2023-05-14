@@ -26,7 +26,6 @@
 
 SDL_Joystick *m_gameController = NULL;
 SDL_Haptic *m_haptic = NULL;
-std::vector<Maths::Zone> m_Zones;
 
 #define              JOY_MIN_X  0   ///< minimum bounds for mouse position value for x axis
 #define              JOY_MIN_Y  0   ///< minimum bounds for mouse position value for y axis
@@ -110,14 +109,6 @@ int8_t haptic_load_effects(void);
 /// \brief initialization of the SDL joystick subsystem
 void gamepad_sdl_init(void)
 {
-	m_Zones.push_back(Maths::Zone{ 0,		4095,	0 });
-	m_Zones.push_back(Maths::Zone{ 4095,	8190,	0.1 });
-	m_Zones.push_back(Maths::Zone{ 8190,	12285,	0.15 });
-	m_Zones.push_back(Maths::Zone{ 12285,	16380,	0.2 });
-	m_Zones.push_back(Maths::Zone{ 16380,	20475,	0.4 });
-	m_Zones.push_back(Maths::Zone{ 20475,	28665,	0.8 });
-	m_Zones.push_back(Maths::Zone{ 28665,	32767,	1.0 });
-
 	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
 		Logger->error("SDL joystick could not be initialized! SDL_Error: {}", SDL_GetError());
 	} else {
@@ -180,24 +171,24 @@ void gamepad_init(const int gameResWidth, const int gameResHeight)
 	set_scene(SCENE_PREAMBLE_MENU);
 }
 
-void SmoothStickCoords(vec2d_t* stick)
+void SmoothStickCoords(vec2d_t* stick, std::vector<Maths::Zone>* zonesX, std::vector<Maths::Zone>* zonesY)
 {
 	if (stick->x >= 0)
 	{
-		stick->x = ((int16_t)Maths::CurveCoords(stick->x, stick->x, m_Zones));
+		stick->x = ((int16_t)Maths::CurveCoords(stick->x, stick->x, *zonesX));
 	}
 	else
 	{
-		stick->x = -((int16_t)Maths::CurveCoords(-stick->x, -stick->x, m_Zones));
+		stick->x = -((int16_t)Maths::CurveCoords(-stick->x, -stick->x, *zonesX));
 	}
 
 	if (stick->y >= 0)
 	{
-		stick->y = ((int16_t)Maths::CurveCoords(stick->y, stick->y, m_Zones));
+		stick->y = ((int16_t)Maths::CurveCoords(stick->y, stick->y, *zonesY));
 	}
 	else
 	{
-		stick->y = -((int16_t)Maths::CurveCoords(-stick->y, -stick->y, m_Zones));
+		stick->y = -((int16_t)Maths::CurveCoords(-stick->y, -stick->y, *zonesY));
 	}
 }
 
@@ -208,7 +199,7 @@ void SmoothStickCoords(vec2d_t* stick)
 uint16_t gamepad_axis_flight_conv(vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
-	SmoothStickCoords(stick);
+	SmoothStickCoords(stick, &gpc.axis_yaw_smoothing, &gpc.axis_pitch_smoothing);
 	int16_t axis_yaw = stick->x;
 	int16_t axis_pitch = stick->y;
 
@@ -358,7 +349,6 @@ void gamepad_axis_mov_conv(vec2d_t *stick)
 {
 	uint16_t ret = 0;
 	int16_t axis_long_inv = 1;
-	SmoothStickCoords(stick);
 	int16_t axis_long = stick->x;
 	int16_t axis_trans = stick->y;
 

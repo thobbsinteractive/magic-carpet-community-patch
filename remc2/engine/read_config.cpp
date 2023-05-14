@@ -1,9 +1,4 @@
 #include "read_config.h"
-#include "../engine/CommandLineParser.h"
-
-#include <vector>
-#include <filesystem>
-#include <cstdlib>
 
 int config_skip_screen;
 int texturepixels = 32;
@@ -71,6 +66,26 @@ std::string findIniFile() {
 
 
 	return inifile;
+}
+
+std::vector<Maths::Zone> ReadZones(std::string zonesJson) {
+	std::vector<Maths::Zone> zones;
+
+	rapidjson::Document document;
+	document.Parse(zonesJson.c_str());
+	if (document.HasMember("Zones"))
+	{
+		auto zonesArray = document["Zones"].GetArray();
+		for (int i = 0; i < zonesArray.Size(); i++) // Uses SizeType instead of size_t
+		{
+			auto zone = zonesArray[i].GetObj();
+			if (zone.HasMember("Start") && zone.HasMember("End") && zone.HasMember("Factor"))
+			{
+				zones.push_back(Maths::Zone{ (uint16_t)zone["Start"].GetInt(), (uint16_t)zone["End"].GetInt(), zone["Factor"].GetDouble() });
+			}
+		}
+	}
+	return zones;
 }
 
 bool readini() {
@@ -264,7 +279,9 @@ bool readini() {
 	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
 	gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
 
+	gpc.axis_yaw_smoothing = ReadZones(reader.GetString("gamepad", "axis_yaw_smoothing", ""));
 	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
+	gpc.axis_pitch_smoothing = ReadZones(reader.GetString("gamepad", "axis_pitch_smoothing", ""));
 	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
 	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
 	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);
