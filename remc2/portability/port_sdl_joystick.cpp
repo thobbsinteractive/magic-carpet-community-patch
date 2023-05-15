@@ -491,7 +491,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		gamepad_hat_mov_conv(&hat);
 	}
 
-	if ((gpc.axis_long_conf & GAMEPAD_ITEM_ENABLED) || (gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED)) {
+	if (((gpc.axis_long_conf & GAMEPAD_ITEM_ENABLED) || (gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED)) && (gps.scene_id != SCENE_SPELL_MENU)) {
 		// if movement is done via two axes
 		stick.x = gpe->axis_long;
 		stick.x_conf = gpc.axis_long_conf;
@@ -690,6 +690,7 @@ void set_scene(const uint8_t scene_id)
 			gps.nav_mode = 0;
 			break;
 		case SCENE_FLIGHT_MENU:
+		case SCENE_SPELL_MENU:
 			gps.max_x = gameResWidth;
 			gps.max_y = gameResHeight;
 			gps.nav_mode = 1;
