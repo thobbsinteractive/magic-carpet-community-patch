@@ -48,6 +48,7 @@ SDL_Haptic *m_haptic = NULL;
 #define         GP_KEY_EMU_ESC  0x291b
 #define       GP_KEY_EMU_SPELL  0xe0e0
 #define		  GP_KEY_EMU_PAUSE  0x1370
+#define		  GP_KEY_EMU_SPACE  0x2C20
 
 ///< structure that defines the current gamepad state ad it's simulated output
 struct gamepad_state {
@@ -557,6 +558,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		if (gpe->btn_pressed & (1 << gpc.button_esc)) {
 			setPress(true, GP_KEY_EMU_ESC);
 		}
+		if (gps.scene_id == SCENE_DEAD) {
+			setPress(true, GP_KEY_EMU_SPACE);
+		}
 	}
 
 	if (gpe->btn_released) {
@@ -586,6 +590,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 		if (gpe->btn_released & (1 << gpc.button_esc)) {
 			setPress(false, GP_KEY_EMU_ESC);
+		}
+		if (gps.scene_id == SCENE_DEAD) {
+			setPress(false, GP_KEY_EMU_SPACE);
 		}
 	}
 

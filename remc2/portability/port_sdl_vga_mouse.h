@@ -21,7 +21,8 @@
 #define  SCENE_PREAMBLE_MENU  0x1
 #define         SCENE_FLIGHT  0x2
 #define    SCENE_FLIGHT_MENU  0x3
-#define    SCENE_SPELL_MENU	  0x4
+#define     SCENE_SPELL_MENU  0x4
+#define           SCENE_DEAD  0x5
 
 typedef struct
 {
