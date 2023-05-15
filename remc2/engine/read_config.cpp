@@ -71,17 +71,20 @@ std::string findIniFile() {
 std::vector<Maths::Zone> ReadZones(std::string zonesJson) {
 	std::vector<Maths::Zone> zones;
 
-	rapidjson::Document document;
-	document.Parse(zonesJson.c_str());
-	if (document.HasMember("Zones"))
+	if (zonesJson.size() > 0)
 	{
-		auto zonesArray = document["Zones"].GetArray();
-		for (int i = 0; i < zonesArray.Size(); i++) // Uses SizeType instead of size_t
+		rapidjson::Document document;
+		document.Parse(zonesJson.c_str());
+		if (document.HasMember("Zones"))
 		{
-			auto zone = zonesArray[i].GetObj();
-			if (zone.HasMember("Start") && zone.HasMember("End") && zone.HasMember("Factor"))
+			auto zonesArray = document["Zones"].GetArray();
+			for (int i = 0; i < zonesArray.Size(); i++) // Uses SizeType instead of size_t
 			{
-				zones.push_back(Maths::Zone{ (uint16_t)zone["Start"].GetInt(), (uint16_t)zone["End"].GetInt(), zone["Factor"].GetDouble() });
+				auto zone = zonesArray[i].GetObj();
+				if (zone.HasMember("Start") && zone.HasMember("End") && zone.HasMember("Factor"))
+				{
+					zones.push_back(Maths::Zone{ (uint16_t)zone["Start"].GetInt(), (uint16_t)zone["End"].GetInt(), zone["Factor"].GetDouble() });
+				}
 			}
 		}
 	}
