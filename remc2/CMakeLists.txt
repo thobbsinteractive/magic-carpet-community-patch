@@ -104,6 +104,30 @@ set(SOURCE_FILES_ENGINE
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
+set(SOURCE_FILES__libs__rapidjson
+    "../rapidjson/allocators.h"
+	"../rapidjson/cursorstreamwrapper.h"
+	"../rapidjson/document.h"
+	"../rapidjson/encodedstream.h"
+	"../rapidjson/encodings.h"
+	"../rapidjson/filereadstream.h"
+	"../rapidjson/filewritestream.h"
+	"../rapidjson/fwd.h"
+	"../rapidjson/istreamwrapper.h"
+	"../rapidjson/memorybuffer.h"
+	"../rapidjson/memorystream.h"
+	"../rapidjson/ostreamwrapper.h"
+	"../rapidjson/pointer.h"
+	"../rapidjson/prettywriter.h"
+	"../rapidjson/rapidjson.h"
+	"../rapidjson/reader.h"
+	"../rapidjson/schema.h"
+	"../rapidjson/stream.h"
+	"../rapidjson/stringbuffer.h"
+	"../rapidjson/uri.h"
+	"../rapidjson/writer.h"
+)
+source_group("Source Files\\libs\\rapidjson" FILES ${SOURCE_FILES__libs__rapidjson})
 
 set(SOURCE_FILES__libs__inih
     "../inih/ini.c"
@@ -139,7 +163,7 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_vga_mouse.h"
     "portability/port_sdl_joystick.cpp"
     "portability/port_sdl_joystick.h"
-	"portability/port_show_perifery.cpp"
+    "portability/port_show_perifery.cpp"
     "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
