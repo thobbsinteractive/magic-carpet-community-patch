@@ -105,6 +105,23 @@ set(SOURCE_FILES_ENGINE
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
 set(SOURCE_FILES__libs__rapidjson
+    "../rapidjson/error/en.h"
+	"../rapidjson/error/error.h"
+	"../rapidjson/internal/biginteger.h"
+	"../rapidjson/internal/clzll.h"
+	"../rapidjson/internal/diyfp.h"
+	"../rapidjson/internal/dtoa.h"
+	"../rapidjson/internal/ieee754.h"
+	"../rapidjson/internal/itoa.h"
+	"../rapidjson/internal/meta.h"
+	"../rapidjson/internal/pow10.h"
+	"../rapidjson/internal/regex.h"
+	"../rapidjson/internal/stack.h"
+	"../rapidjson/internal/strfunc.h"
+	"../rapidjson/internal/strtod.h"
+	"../rapidjson/internal/swap.h"
+	"../rapidjson/msinttypes/inttypes.h"
+	"../rapidjson/msinttypes/stdint.h"
     "../rapidjson/allocators.h"
 	"../rapidjson/cursorstreamwrapper.h"
 	"../rapidjson/document.h"
@@ -224,7 +241,8 @@ set(ROOT_NAMESPACE remc2)
 ################################################################################
 if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
-        "${CMAKE_SOURCE_DIR}/inih"
+        "${CMAKE_SOURCE_DIR}/rapidjson"
+		"${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
         "${CMAKE_SOURCE_DIR}/spdlog/include"
     )
