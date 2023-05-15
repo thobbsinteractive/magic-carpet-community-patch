@@ -175,6 +175,7 @@ set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
+	${SOURCE_FILES__libs__rapidjson}
     ${SOURCE_FILES__libs__inih}
     ${SOURCE_FILES__portability}
     ${SOURCE_FILES__networklib}
