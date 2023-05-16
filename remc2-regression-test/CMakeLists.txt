@@ -109,6 +109,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "../findfirst"
     "../inih"
 	"../spdlog/include"
+	"../rapidjson"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
