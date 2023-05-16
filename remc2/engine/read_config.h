@@ -77,9 +77,9 @@ struct gamepad_config {
 	uint8_t axis_nav_ew_conf;
 	uint8_t axis_fire_R_conf;
 	uint8_t axis_fire_L_conf;
-	std::vector<Maths::Zone> axis_yaw_smoothing;
+	std::vector<Maths::Zone> axis_yaw_sensitivity;
 	uint16_t axis_yaw_dead_zone;
-	std::vector<Maths::Zone> axis_pitch_smoothing;
+	std::vector<Maths::Zone> axis_pitch_sensitivity;
 	uint16_t axis_pitch_dead_zone;
 	uint16_t axis_long_dead_zone;
 	uint16_t axis_trans_dead_zone;

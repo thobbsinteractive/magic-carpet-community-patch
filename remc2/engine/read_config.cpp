@@ -283,9 +283,9 @@ bool readini() {
 	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
 	gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
 
-	gpc.axis_yaw_smoothing = ReadZones(reader.GetString("gamepad", "axis_yaw_smoothing", ""));
+	gpc.axis_yaw_sensitivity = ReadZones(reader.GetString("gamepad", "axis_yaw_sensitivity", ""));
 	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
-	gpc.axis_pitch_smoothing = ReadZones(reader.GetString("gamepad", "axis_pitch_smoothing", ""));
+	gpc.axis_pitch_sensitivity = ReadZones(reader.GetString("gamepad", "axis_pitch_sensitivity", ""));
 	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
 	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
 	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);

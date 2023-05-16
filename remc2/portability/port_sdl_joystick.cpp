@@ -172,7 +172,7 @@ void gamepad_init(const int gameResWidth, const int gameResHeight)
 	set_scene(SCENE_PREAMBLE_MENU);
 }
 
-void SmoothStickCoords(vec2d_t* stick, std::vector<Maths::Zone>* zonesX, std::vector<Maths::Zone>* zonesY)
+void AdjustStickCoords(vec2d_t* stick, std::vector<Maths::Zone>* zonesX, std::vector<Maths::Zone>* zonesY)
 {
 	if (stick->x >= 0)
 	{
@@ -200,7 +200,7 @@ void SmoothStickCoords(vec2d_t* stick, std::vector<Maths::Zone>* zonesX, std::ve
 uint16_t gamepad_axis_flight_conv(vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
-	SmoothStickCoords(stick, &gpc.axis_yaw_smoothing, &gpc.axis_pitch_smoothing);
+	AdjustStickCoords(stick, &gpc.axis_yaw_sensitivity, &gpc.axis_pitch_sensitivity);
 	int16_t axis_yaw = stick->x;
 	int16_t axis_pitch = stick->y;
 
