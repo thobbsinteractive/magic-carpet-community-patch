@@ -104,6 +104,14 @@ set(SOURCE_FILES_ENGINE
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
+set(SOURCE_FILES__libs__inih
+    "../inih/ini.c"
+    "../inih/ini.h"
+    "../inih/INIReader.cpp"
+    "../inih/INIReader.h"
+)
+source_group("Source Files\\libs\\inih" FILES ${SOURCE_FILES__libs__inih})
+
 set(SOURCE_FILES__libs__rapidjson
     "../rapidjson/error/en.h"
 	"../rapidjson/error/error.h"
@@ -146,14 +154,6 @@ set(SOURCE_FILES__libs__rapidjson
 )
 source_group("Source Files\\libs\\rapidjson" FILES ${SOURCE_FILES__libs__rapidjson})
 
-set(SOURCE_FILES__libs__inih
-    "../inih/ini.c"
-    "../inih/ini.h"
-    "../inih/INIReader.cpp"
-    "../inih/INIReader.h"
-)
-source_group("Source Files\\libs\\inih" FILES ${SOURCE_FILES__libs__inih})
-
 set(SOURCE_FILES__libs__findfirst
     "../findfirst/findfirst.c"
     "../findfirst/findfirst.h"
@@ -192,8 +192,8 @@ set(ALL_FILES
     ${HEADER_FILES}
     ${SOURCE_FILES}
     ${SOURCE_FILES_ENGINE}
-	${SOURCE_FILES__libs__rapidjson}
     ${SOURCE_FILES__libs__inih}
+	${SOURCE_FILES__libs__rapidjson}
     ${SOURCE_FILES__portability}
     ${SOURCE_FILES__networklib}
 )
@@ -201,7 +201,6 @@ set(ALL_FILES
 ################################################################################
 # targets
 ################################################################################
-add_library(rapidjson ${SOURCE_FILES__libs__rapidjson})
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
