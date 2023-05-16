@@ -1600,8 +1600,8 @@ void VGA_BlitAny(uint8_t maxFps)//256200
 
 	std::chrono::duration<double, std::milli> timeDelta = CalculateTimeDelta();
 #if _DEBUG
-	//VGA_CalculateAndPrintFps(0, 0, timeDelta.count());
-	//VGA_DrawPlayerCoordData(0, 16);
+	VGA_CalculateAndPrintFps(0, 0, timeDelta.count());
+	VGA_DrawPlayerCoordData(0, 16);
 #endif
 	VGA_Blit(pdwScreenBuffer_351628);
 
