@@ -90,6 +90,7 @@ struct gamepad_config {
 	uint16_t hat_mov;
 	uint8_t hat_mov_conf;
 	uint8_t hat_nav_conf;
+	uint16_t controller_id;
 	uint16_t button_spell;
 	uint16_t button_minimap;
 	uint16_t button_fire_L;
