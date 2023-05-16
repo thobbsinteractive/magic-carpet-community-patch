@@ -255,7 +255,6 @@ if (UNIX)
         SDL2::Main
         SDL2::Mixer
         ${PNG_LIBRARY}
-		rapidjson
         findfirst
         ADLMIDI_static
         Boost::system
