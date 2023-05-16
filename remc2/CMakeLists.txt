@@ -201,6 +201,7 @@ set(ALL_FILES
 ################################################################################
 # targets
 ################################################################################
+add_library(rapidjson ${SOURCE_FILES__libs__rapidjson})
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
@@ -254,6 +255,7 @@ if (UNIX)
         SDL2::Main
         SDL2::Mixer
         ${PNG_LIBRARY}
+		rapidjson
         findfirst
         ADLMIDI_static
         Boost::system
