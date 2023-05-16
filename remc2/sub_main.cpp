@@ -51881,10 +51881,12 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
+	{
 		//SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
 		// if a joystick is used, do not set that random resting point from above
 		SetMousePositionInMemory_5BDC0(320, 240);
 		set_scene(SCENE_FLIGHT);
+	}
 }
 
 //----- (000548F0) --------------------------------------------------------
