@@ -36,6 +36,8 @@ set(SOURCE_FILES_UNITTESTS
     "../remc2/portability/port_filesystem.h"
     "../remc2/portability/port_sdl_vga_mouse.cpp"
     "../remc2/portability/port_sdl_vga_mouse.h"
+    "../remc2/portability/port_sdl_joystick.cpp"
+    "../remc2/portability/port_sdl_joystick.h"
     "../remc2/portability/port_show_perifery.cpp"
     "../remc2/portability/port_show_perifery.h"
     "../remc2/portability/port_net.cpp"
@@ -115,6 +117,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "../findfirst"
     "../inih"
 	"../spdlog/include"
+	"../rapidjson"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest

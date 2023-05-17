@@ -1,4 +1,4 @@
-﻿################################################################################
+################################################################################
 # Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
 ################################################################################
 
@@ -224,8 +224,18 @@ OpenCover/
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 
+# vim temporary files
+*.swp
+
+# indent
+*~
+
+# exuberant ctags
+tags
+
 # Wix
 *.wxs
 *.g.wxs
 *.msi
 /remc2-installer/wix/remc2-installer.g.wxs
+

@@ -27689,6 +27689,7 @@ void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t col
 	}
 }
 
+// spellbook menu
 //----- (0002ECC0) --------------------------------------------------------
 void DrawBottomMenu_2ECC0()//20fcc0
 {
@@ -28056,6 +28057,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		//result = sub_2BB40_draw_bitmap(x_DWORD_1805B0_mouse.x, x_DWORD_1805B0_mouse.y, (uint8_t**)(**filearray_2aa18c[0] + 6 * (unsigned __int8)x_BYTE_D419E));
 		/*result = */sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+	set_scene(SCENE_SPELL_MENU);
 	//return result;
 }
 // D419E: using guessed type char x_BYTE_D419E;
@@ -28318,6 +28320,7 @@ void DrawChatMenu_2F6B0()//2106b0
 		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
 	//return result;
+	set_scene(SCENE_FLIGHT_MENU);
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
 // D419E: using guessed type char x_BYTE_D419E;
@@ -28397,6 +28400,7 @@ void DrawPauseMenu_2FD90()//210d90
 			}
 			posY += heigth;
 			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178]);//Settings button
+			set_scene(SCENE_FLIGHT_MENU);
 		}
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 			|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
@@ -28411,6 +28415,7 @@ void DrawPauseMenu_2FD90()//210d90
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
 			sub_30870();
 	}
+
 }
 
 //----- (0002FFE0) --------------------------------------------------------
@@ -28579,6 +28584,8 @@ void DrawInGameOptionsMenu_30050()//211050
 	else
 		DrawText_2BC10((char*)"OK", (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + 33, 379, v12);	
 
+	set_scene(SCENE_FLIGHT_MENU);
+
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
@@ -28589,6 +28596,7 @@ void DrawInGameOptionsMenu_30050()//211050
 	{
 		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+
 }
 
 //----- (000303D0) --------------------------------------------------------
@@ -28838,6 +28846,7 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 			sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 		}
 	}
+	set_scene(SCENE_FLIGHT_MENU);
 }
 
 //----- (00030BE0) --------------------------------------------------------
@@ -38881,6 +38890,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 			x_D41A0_BYTEARRAY_4_struct.byteindex_181 = 1;
 			break;
 		case 7:
+			//Black and White
 			v23 = 1;
 			while (v23 < 256)
 			{
@@ -50343,6 +50353,7 @@ void GameEvents_51BB0()//232bb0
 		{
 			sub_53A40(&D41A0_0.array_0x6E3E[i]);
 		}
+
 		switch (D41A0_0.array_0x6E3E[i].str_0x6E3E_byte0)
 		{
 		case 1:
@@ -51866,10 +51877,16 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 }
 
 //----- (000548B0) --------------------------------------------------------
+// returns viewport from menu to flight mode
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+	{
+		//SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+		// if a joystick is used, do not set that random resting point from above
+		SetMousePositionInMemory_5BDC0(320, 240);
+		set_scene(SCENE_FLIGHT);
+	}
 }
 
 //----- (000548F0) --------------------------------------------------------
@@ -53036,11 +53053,12 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		spdlog::level::level_enum level = spdlog::level::info;
 
-#ifdef _DEBUG
-		level = GetLoggingLevelFromString("Debug");
-#else
+// there is a configuration file for a reason.
+//#ifdef _DEBUG
+//		level = GetLoggingLevelFromString("Debug");
+//#else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
-#endif // _DEBUG
+//#endif // _DEBUG
 		InitializeLogging(level);
 
 		if (assignToSpecificCores)
@@ -53066,6 +53084,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
 		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+		gamepad_init(gameResWidth, gameResHeight);
 
 		//char maindir[1024];
 		Logger->info("Finding Game Data...");
@@ -58192,6 +58211,7 @@ void sub_5C800(type_event_0x6E8E* a1x, char a2)//23d800
 	{
 		//result = (short)x_D41A0_BYTEARRAY_4;
 		x_D41A0_BYTEARRAY_4_struct.byteindex_180 = a2;
+		set_scene(SCENE_DEAD);
 	}
 	//return result;
 }
@@ -71301,20 +71321,25 @@ void sub_6EBF0(filearray_struct* a1)//24FBF0
 //----- (0006EDB0) --------------------------------------------------------
 void SetCenterScreenForFlyAssistant_6EDB0()//24FDB0
 {
-	if (x_WORD_180660_VGA_type_resolution == 1)
-		SetMousePosition_6EDE0(320, 200);
-	else
-	{
-		if (!DefaultResolutions())
-			SetMousePosition_6EDE0(320, 200);
-		else
-			SetMousePosition_6EDE0(320, 240);
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+	if (x_WORD_180660_VGA_type_resolution & 1) {
+		// 640x480 virtual screen
+		display_w = 640;
+		display_h = 480;
 	}
+
+	new_x = display_w >> 1;
+	new_y = display_h >> 1;
+
+	VGA_Set_mouse(new_x, new_y);
 }
 
 //----- (0006EDE0) --------------------------------------------------------
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
+#if 0
 	int locScreenWidth;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
@@ -71378,11 +71403,31 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 					posY *= 8;
 				}
 				//320x200 fix
-
+				//Logger->info("set wonky center {} {} for {},{} {},{}", posX / 8, posY / 8, posX, posY, screenHeight_180624, screenWidth_18062C);
 				VGA_Set_mouse(posX / 8, posY / 8);
 			}
 		}
 	}
+#else
+
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+
+	// we get in posX, posY the location of the pointer for a 640x480 display
+	// so recalculate the position based on what we actually have
+
+	if (x_WORD_180660_VGA_type_resolution & 1) {
+		// 320x240 virtual screen
+		display_w = 320;
+		display_h = 240;
+	}
+
+	new_x = display_w * posX / 640;
+	new_y = display_h * posY / 480;
+
+	VGA_Set_mouse(new_x, new_y);
+#endif
 }
 
 //----- (0006F030) --------------------------------------------------------
@@ -78392,11 +78437,13 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 	switch (a1)
 	{
 	case 1u:
+		// i_Glasses (Virtual I-O) joystick
 		v1 = sub_8B600(unk_18058Cstr);//fix it
 		if ((signed __int16)v1 != -1)
 			goto LABEL_3;
 		break;
 	case 2u:
+		// VFX1 CyberPuck joystick
 		if (sub_75650())//fix it
 		{
 			v1 = 1;
@@ -81041,7 +81088,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+ 	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{

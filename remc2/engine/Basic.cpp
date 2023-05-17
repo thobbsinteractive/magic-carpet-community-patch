@@ -1,4 +1,4 @@
-﻿#include "Basic.h"
+#include "Basic.h"
 #include "engine_support.h"
 #include "CommandLineParser.h"
 
@@ -92,6 +92,8 @@ uint8_t* x_DWORD_180708; // weak
 uint8_t* x_DWORD_18070C; // weak
 uint8_t* x_DWORD_180714; // weak
 uint8_t* x_DWORD_180718; // weak
+
+extern axis_2d x_WORD_E3760_mouse;
 
 //basic graphics
 
@@ -1769,6 +1771,11 @@ void VGA_DrawPlayerCoordData(int x, int y)
 			" Yaw: " + std::to_string(rotData.yaw);
 
 		VGA_Draw_stringXYtoBuffer(playerRotationStr.c_str(), x, y + 8, pdwScreenBuffer_351628, 'S');
+#if 0
+		axis_2d mouseData = x_WORD_E3760_mouse;
+		std::string mouseCoordStr = "x: " + std::to_string(mouseData.x) + " y: " + std::to_string(mouseData.y);
+		VGA_Draw_stringXYtoBuffer(mouseCoordStr.c_str(), x, y + 16, pdwScreenBuffer_351628, 'S');
+#endif
 	}
 }
 
