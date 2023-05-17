@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "remc2-installer", "remc2-installer\remc2-installer.csproj", "{4204F0B0-377F-4B14-B2A4-592306A8E7ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Debug|x64.ActiveCfg = Debug|x64
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Debug|x64.Build.0 = Debug|x64
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Debug|x86.ActiveCfg = Debug|x86
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Debug|x86.Build.0 = Debug|x86
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Release|x64.ActiveCfg = Release|x64
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Release|x64.Build.0 = Release|x64
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Release|x86.ActiveCfg = Release|x86
+		{4204F0B0-377F-4B14-B2A4-592306A8E7ED}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35ABB317-674B-4620-8540-F20B13D18756}
+	EndGlobalSection
+EndGlobal

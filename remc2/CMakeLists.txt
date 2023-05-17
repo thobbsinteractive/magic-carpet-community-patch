@@ -39,6 +39,8 @@ set(SOURCE_FILES_ENGINE
     "engine/engine_support.h"
     "utilities/Maths.cpp"
     "utilities/Maths.h"
+    "engine/Compare.cpp"
+    "engine/Compare.h"
     "engine/engine_support_converts.cpp"
     "engine/engine_support_converts.h"
     "engine/Type_D93C0_Bldgprmbuffer.cpp"
@@ -71,6 +73,8 @@ set(SOURCE_FILES_ENGINE
     "engine/TextureMaps.h"
     "engine/GameRenderOriginal.cpp"
     "engine/GameRenderOriginal.h"
+    "engine/GameRenderNG.cpp"
+    "engine/GameRenderNG.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
     "engine/GameRenderGL.cpp"
@@ -100,7 +104,6 @@ set(SOURCE_FILES_ENGINE
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
-
 set(SOURCE_FILES__libs__inih
     "../inih/ini.c"
     "../inih/ini.h"
@@ -116,7 +119,6 @@ set(SOURCE_FILES__libs__findfirst
     "../findfirst/spec.h"
 )
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
-
 
 set(SOURCE_FILES__portability
     "portability/mctypes.h"
@@ -134,6 +136,10 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
+    "portability/port_sdl_joystick.cpp"
+    "portability/port_sdl_joystick.h"
+    "portability/port_show_perifery.cpp"
+    "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
     "portability/xmi2mid.cpp"
@@ -164,7 +170,8 @@ install(
 )
 install(
     FILES 
-    ${CMAKE_SOURCE_DIR}/Debug/font/16x16-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/16x16-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/8x8-font.bmp
     DESTINATION bin/font
 )
 install(
@@ -191,8 +198,10 @@ set(ROOT_NAMESPACE remc2)
 ################################################################################
 if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
-        "${CMAKE_SOURCE_DIR}/inih"
+		"${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
+        "${CMAKE_SOURCE_DIR}/spdlog/include"
+		"${CMAKE_SOURCE_DIR}/rapidjson"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)

@@ -18,14 +18,20 @@
 #include "port_sdl_sound.h"
 #include "port_filesystem.h"
 
+#define  SCENE_PREAMBLE_MENU  0x1
+#define         SCENE_FLIGHT  0x2
+#define    SCENE_FLIGHT_MENU  0x3
+#define     SCENE_SPELL_MENU  0x4
+#define           SCENE_DEAD  0x5
+
 typedef struct
 {
 	int32_t x;
 	int32_t y;
 } POSITION;
 
-void VGA_Init(int width, int height, bool maintainAspectRatio);
-void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio);
+void VGA_Init(int width, int height, bool maintainAspectRatio, int displayIndex);
+void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio, int displayIndex);
 bool VGA_LoadFont();
 void VGA_close();
 void VGA_Resize(int width, int height);
@@ -38,7 +44,9 @@ void SetPalette(SDL_Color* colors);
 void VGA_Write_basic_Palette(Uint8* Palettebuffer);
 Uint8* VGA_Get_Palette();
 void VGA_Draw_string(char* wrstring);
-void VGA_Draw_stringXYtoBuffer(char* wrstring, int x, int y, uint8_t* buffer);
+void VGA_Draw_stringXYtoBuffer(const char* wrstring, int x, int y, uint8_t* buffer, char fontSize = 'M');
+void Draw_letter(int letter_number, int pozx, int pozy);
+void Draw_letterToBuffer(int letter_number, int pozx, int pozy, uint8_t* buffer, char fontSize = 'M');
 //void VGA_Set_Cursor(posistruct posstrcursor,int count);
 void VGA_GotoXY(int x, int y);
 int VGA_WhereX(); //returns current text cursor (x) coordinate
@@ -57,6 +65,9 @@ void VGA_mouse_clear_keys();
 void VGA_cleanKeyBuffer();
 void Draw_debug_matrix1();
 void Draw_black();
+std::vector<SDL_Rect> GetDisplays();
+SDL_Rect GetDisplayByIndex(uint8_t index);
+SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height);
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb

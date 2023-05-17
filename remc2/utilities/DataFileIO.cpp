@@ -62,7 +62,7 @@ int DataFileIO::ReadFileAndDecompress(const char* path, uint8_t** data)
 		}
 		else
 		{
-			myprintf("ERROR decompressing %s\n");
+			Logger->error("ERROR decompressing");
 			result = -2;
 		}
 	}
@@ -236,7 +236,9 @@ FILE* DataFileIO::CreateOrOpenFile(const char* pathname, int __pmode)
 	{
 		file = CreateFile(pathname, 0x1c0);
 		//x_setmode(v2, 0x200);
-		Close(file);
+		if (file) {
+			Close(file);
+		}
 	}
 	return Open(pathname, __pmode, 0x40);
 }
@@ -260,9 +262,7 @@ int32_t DataFileIO::Seek(FILE* file, x_DWORD position, char type) {
 
 size_t DataFileIO::Read(FILE* file, uint8_t* data, uint32_t length) {
 	size_t result = fread(data, 1, length, file);
-#ifdef _DEBUG
-	debug_printf("Read fread length %d result %d\n", length, result);
-#endif
+	Logger->trace("Read fread length {} result {}", length, result);
 	return result;
 };
 

@@ -21,7 +21,9 @@
 #include "MapType.h"
 #include "../portability/port_time.h"
 #include "../portability/port_sdl_vga_mouse.h"
+#include "../portability/port_sdl_joystick.h"
 #include "../portability/port_outputs.h"
+#include "../portability/port_show_perifery.h"
 
 #pragma pack (1)
 typedef struct {//lenght 3
