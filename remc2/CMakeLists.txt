@@ -104,7 +104,6 @@ set(SOURCE_FILES_ENGINE
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
 
-
 set(SOURCE_FILES__libs__inih
     "../inih/ini.c"
     "../inih/ini.h"
@@ -139,7 +138,7 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_vga_mouse.h"
     "portability/port_sdl_joystick.cpp"
     "portability/port_sdl_joystick.h"
-	"portability/port_show_perifery.cpp"
+    "portability/port_show_perifery.cpp"
     "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
@@ -199,9 +198,10 @@ set(ROOT_NAMESPACE remc2)
 ################################################################################
 if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
-        "${CMAKE_SOURCE_DIR}/inih"
+		"${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
         "${CMAKE_SOURCE_DIR}/spdlog/include"
+		"${CMAKE_SOURCE_DIR}/rapidjson"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)

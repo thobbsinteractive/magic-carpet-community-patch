@@ -1,9 +1,4 @@
 #include "read_config.h"
-#include "../engine/CommandLineParser.h"
-
-#include <vector>
-#include <filesystem>
-#include <cstdlib>
 
 int config_skip_screen;
 int texturepixels = 32;
@@ -71,6 +66,29 @@ std::string findIniFile() {
 
 
 	return inifile;
+}
+
+std::vector<Maths::Zone> ReadZones(std::string zonesJson) {
+	std::vector<Maths::Zone> zones;
+
+	if (zonesJson.size() > 0)
+	{
+		rapidjson::Document document;
+		document.Parse(zonesJson.c_str());
+		if (document.HasMember("Zones"))
+		{
+			auto zonesArray = document["Zones"].GetArray();
+			for (int i = 0; i < zonesArray.Size(); i++) // Uses SizeType instead of size_t
+			{
+				auto zone = zonesArray[i].GetObj();
+				if (zone.HasMember("Start") && zone.HasMember("End") && zone.HasMember("Factor"))
+				{
+					zones.push_back(Maths::Zone{ (uint16_t)zone["Start"].GetInt(), (uint16_t)zone["End"].GetInt(), zone["Factor"].GetDouble() });
+				}
+			}
+		}
+	}
+	return zones;
 }
 
 bool readini() {
@@ -254,15 +272,27 @@ bool readini() {
 		gpc.axis_fire_L_conf = GAMEPAD_ITEM_ENABLED;
 	}
 
-	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
 	gpc.button_fire_L = reader.GetInteger("gamepad", "button_fire_L", 0);
+	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
+	gpc.controller_id = reader.GetInteger("gamepad", "controller_id", 0);
 	gpc.button_spell = reader.GetInteger("gamepad", "button_spell", 0);
 	gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
 	gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
 	gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
+	gpc.button_pause_menu = reader.GetInteger("gamepad", "button_pause_menu", 0);
 	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
-	gpc.axis_dead_zone = reader.GetInteger("gamepad", "axis_dead_zone", 2048);
-	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 2048);
+	gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
+
+	gpc.axis_yaw_sensitivity = ReadZones(reader.GetString("gamepad", "axis_yaw_sensitivity", ""));
+	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
+	gpc.axis_pitch_sensitivity = ReadZones(reader.GetString("gamepad", "axis_pitch_sensitivity", ""));
+	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
+	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
+	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);
+	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 6000);
+	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 6000);
+
+	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 3000);
 
 	gpc.hat_nav = reader.GetInteger("gamepad", "hat_nav", GAMEPAD_ITEM_DISABLED);
 	gpc.hat_mov = reader.GetInteger("gamepad", "hat_mov", GAMEPAD_ITEM_DISABLED);

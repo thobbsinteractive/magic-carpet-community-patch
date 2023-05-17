@@ -20,6 +20,7 @@
 
 #include "../engine/sub_main_mouse.h"
 #include "../engine/read_config.h"
+#include "../utilities/Maths.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_sdl_joystick.h"
 
@@ -46,6 +47,8 @@ SDL_Haptic *m_haptic = NULL;
 #define     GP_KEY_EMU_MINIMAP  0x280d
 #define         GP_KEY_EMU_ESC  0x291b
 #define       GP_KEY_EMU_SPELL  0xe0e0
+#define		  GP_KEY_EMU_PAUSE  0x1370
+#define		  GP_KEY_EMU_SPACE  0x2C20
 
 ///< structure that defines the current gamepad state ad it's simulated output
 struct gamepad_state {
@@ -107,7 +110,6 @@ int8_t haptic_load_effects(void);
 /// \brief initialization of the SDL joystick subsystem
 void gamepad_sdl_init(void)
 {
-
 	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
 		Logger->error("SDL joystick could not be initialized! SDL_Error: {}", SDL_GetError());
 	} else {
@@ -169,17 +171,39 @@ void gamepad_init(const int gameResWidth, const int gameResHeight)
 	set_scene(SCENE_PREAMBLE_MENU);
 }
 
+void AdjustStickCoords(vec2d_t* stick, std::vector<Maths::Zone>* zonesX, std::vector<Maths::Zone>* zonesY)
+{
+	if (stick->x >= 0)
+	{
+		stick->x = ((int16_t)Maths::CurveCoords(stick->x, stick->x, *zonesX));
+	}
+	else
+	{
+		stick->x = -((int16_t)Maths::CurveCoords(-stick->x, -stick->x, *zonesX));
+	}
+
+	if (stick->y >= 0)
+	{
+		stick->y = ((int16_t)Maths::CurveCoords(stick->y, stick->y, *zonesY));
+	}
+	else
+	{
+		stick->y = -((int16_t)Maths::CurveCoords(-stick->y, -stick->y, *zonesY));
+	}
+}
+
 /// \brief flight support via conversion from stick coordinates to pointer coordinates
 /// \param  stick input axis values
 /// \param  point output simulated mouse pointer values
 /// \return 0 if stick is in the dead zone or GP_FLIGHT_UPDATE otherwise
-uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
+uint16_t gamepad_axis_flight_conv(vec2d_t *stick, pointer_sys_t *point)
 {
 	uint16_t ret = 0;
+	AdjustStickCoords(stick, &gpc.axis_yaw_sensitivity, &gpc.axis_pitch_sensitivity);
 	int16_t axis_yaw = stick->x;
 	int16_t axis_pitch = stick->y;
 
-	if ((axis_yaw < gpc.axis_dead_zone) && (axis_yaw > -gpc.axis_dead_zone)) {
+	if ((axis_yaw < gpc.axis_yaw_dead_zone) && (axis_yaw > -gpc.axis_yaw_dead_zone)) {
 		point->x = gps.rest_x;
 	} else {
 		// use two different linear interpolation equations since the
@@ -192,7 +216,7 @@ uint16_t gamepad_axis_flight_conv(const vec2d_t *stick, pointer_sys_t *point)
 		ret = GP_FLIGHT_UPDATE;
 	}
 
-	if ((axis_pitch < gpc.axis_dead_zone) && (axis_pitch > -gpc.axis_dead_zone)) {
+	if ((axis_pitch < gpc.axis_pitch_dead_zone) && (axis_pitch > -gpc.axis_pitch_dead_zone)) {
 		point->y = gps.rest_y;
 	} else {
 		// use two different linear interpolation equations since the
@@ -218,14 +242,14 @@ uint16_t gamepad_axis_nav_conv(const vec2d_t *stick, pointer_sys_t *point)
 	int16_t axis_nav_ns = stick->x;
 	int16_t axis_nav_ew = stick->y;
 
-	if ((axis_nav_ns < gpc.axis_dead_zone) && (axis_nav_ns > -gpc.axis_dead_zone)) {
+	if ((axis_nav_ns < gpc.axis_long_nav_dead_zone) && (axis_nav_ns > -gpc.axis_long_nav_dead_zone)) {
 		// point->x remains unchanged
 	} else {
 		point->y += JOY_NAV_INC * (axis_nav_ns >> 13);
 		ret = GP_NAV_UPDATE;
 	}
 
-	if ((axis_nav_ew < gpc.axis_dead_zone) && (axis_nav_ew > -gpc.axis_dead_zone)) {
+	if ((axis_nav_ew < gpc.axis_trans_nav_dead_zone) && (axis_nav_ew > -gpc.axis_trans_nav_dead_zone)) {
 		// point->y remains unchanged
 	} else {
 		point->x += JOY_NAV_INC * (axis_nav_ew >> 13);
@@ -321,7 +345,7 @@ void gamepad_hat_mov_conv(const vec1d_t *hat)
 
 /// \brief longitudinal and transversal movement via conversion from stick coordinates to key presses
 /// \param  stick input axis values
-void gamepad_axis_mov_conv(const vec2d_t *stick)
+void gamepad_axis_mov_conv(vec2d_t *stick)
 {
 	uint16_t ret = 0;
 	int16_t axis_long_inv = 1;
@@ -332,7 +356,7 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 		axis_long_inv = -1;
 	}
 
-	if ((axis_long < gpc.axis_dead_zone) && (axis_long > -gpc.axis_dead_zone)) {
+	if ((axis_long < gpc.axis_long_dead_zone) && (axis_long > -gpc.axis_long_dead_zone)) {
 		// player seems to always have some inertia, so the following wont't actually stop
 		// longitudinal movement
 		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
@@ -350,7 +374,7 @@ void gamepad_axis_mov_conv(const vec2d_t *stick)
 		ret = GP_MOV_UPDATE;
 	}
 
-	if ((axis_trans < gpc.axis_dead_zone) && (axis_trans > -gpc.axis_dead_zone)) {
+	if ((axis_trans < gpc.axis_trans_dead_zone) && (axis_trans > -gpc.axis_trans_dead_zone)) {
 		if (gps.mov_key_announced < GP_MAX_KEY_RELEASE_ANN) {
 			setPress(false, GP_KEY_EMU_RIGHT);
 			setPress(false, GP_KEY_EMU_LEFT);
@@ -467,7 +491,7 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		gamepad_hat_mov_conv(&hat);
 	}
 
-	if ((gpc.axis_long_conf & GAMEPAD_ITEM_ENABLED) || (gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED)) {
+	if (((gpc.axis_long_conf & GAMEPAD_ITEM_ENABLED) || (gpc.axis_trans_conf & GAMEPAD_ITEM_ENABLED)) && (gps.scene_id != SCENE_SPELL_MENU)) {
 		// if movement is done via two axes
 		stick.x = gpe->axis_long;
 		stick.x_conf = gpc.axis_long_conf;
@@ -509,7 +533,10 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 			button_state |= 0x2;
 			//haptic_rumble_triggers_effect(0, 32000, 1000);
 		}
-		if (gpe->btn_pressed & (1 << gpc.button_spell)) {
+		if (gps.scene_id != SCENE_FLIGHT && (gpe->btn_pressed & (1 << gpc.button_menu_select))) {
+			button_state |= 0x2;
+		}
+		if (gps.scene_id != SCENE_FLIGHT_MENU && (gpe->btn_pressed & (1 << gpc.button_spell))) {
 			setPress(true, GP_KEY_EMU_SPELL);
 			//haptic_rumble_triggers_effect(32000, 0, 1000);
 		}
@@ -517,6 +544,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 			setPress(true, GP_KEY_EMU_MINIMAP);
 			//haptic_run_effect(hs.quake);
 			//haptic_rumble_effect(0.5, 2000);
+		}
+		if (gpe->btn_pressed & (1 << gpc.button_pause_menu)) {
+			setPress(true, GP_KEY_EMU_PAUSE);
 		}
 		if (gpe->btn_pressed & (1 << gpc.button_fwd)) {
 			setPress(true, GP_KEY_EMU_UP);
@@ -527,6 +557,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		if (gpe->btn_pressed & (1 << gpc.button_esc)) {
 			setPress(true, GP_KEY_EMU_ESC);
 		}
+		if (gps.scene_id == SCENE_DEAD) {
+			setPress(true, GP_KEY_EMU_SPACE);
+		}
 	}
 
 	if (gpe->btn_released) {
@@ -536,11 +569,17 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		if (gpe->btn_released & (1 << gpc.button_fire_L)) {
 			button_state |= 0x4;
 		}
-		if (gpe->btn_released & (1 << gpc.button_spell)) {
+		if (gps.scene_id != SCENE_FLIGHT && (gpe->btn_released & (1 << gpc.button_menu_select))) {
+			button_state |= 0x4;
+		}
+		if (gps.scene_id != SCENE_FLIGHT_MENU && (gpe->btn_released & (1 << gpc.button_spell))) {
 			setPress(false, GP_KEY_EMU_SPELL);
 		}
-		if (gpe->btn_pressed & (1 << gpc.button_minimap)) {
+		if (gpe->btn_released & (1 << gpc.button_minimap)) {
 			setPress(false, GP_KEY_EMU_MINIMAP);
+		}
+		if (gpe->btn_released & (1 << gpc.button_pause_menu)) {
+			setPress(false, GP_KEY_EMU_PAUSE);
 		}
 		if (gpe->btn_released & (1 << gpc.button_fwd)) {
 			setPress(false, GP_KEY_EMU_UP);
@@ -550,6 +589,9 @@ void gamepad_event_mgr(gamepad_event_t *gpe)
 		}
 		if (gpe->btn_released & (1 << gpc.button_esc)) {
 			setPress(false, GP_KEY_EMU_ESC);
+		}
+		if (gps.scene_id == SCENE_DEAD) {
+			setPress(false, GP_KEY_EMU_SPACE);
 		}
 	}
 
@@ -654,6 +696,7 @@ void set_scene(const uint8_t scene_id)
 			gps.nav_mode = 0;
 			break;
 		case SCENE_FLIGHT_MENU:
+		case SCENE_SPELL_MENU:
 			gps.max_x = gameResWidth;
 			gps.max_y = gameResHeight;
 			gps.nav_mode = 1;

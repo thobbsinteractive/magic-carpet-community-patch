@@ -28057,6 +28057,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		//result = sub_2BB40_draw_bitmap(x_DWORD_1805B0_mouse.x, x_DWORD_1805B0_mouse.y, (uint8_t**)(**filearray_2aa18c[0] + 6 * (unsigned __int8)x_BYTE_D419E));
 		/*result = */sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+	set_scene(SCENE_SPELL_MENU);
 	//return result;
 }
 // D419E: using guessed type char x_BYTE_D419E;
@@ -38889,6 +38890,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 			x_D41A0_BYTEARRAY_4_struct.byteindex_181 = 1;
 			break;
 		case 7:
+			//Black and White
 			v23 = 1;
 			while (v23 < 256)
 			{
@@ -51879,10 +51881,12 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
+	{
 		//SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
 		// if a joystick is used, do not set that random resting point from above
 		SetMousePositionInMemory_5BDC0(320, 240);
 		set_scene(SCENE_FLIGHT);
+	}
 }
 
 //----- (000548F0) --------------------------------------------------------
@@ -58207,6 +58211,7 @@ void sub_5C800(type_event_0x6E8E* a1x, char a2)//23d800
 	{
 		//result = (short)x_D41A0_BYTEARRAY_4;
 		x_D41A0_BYTEARRAY_4_struct.byteindex_180 = a2;
+		set_scene(SCENE_DEAD);
 	}
 	//return result;
 }
@@ -81083,7 +81088,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+ 	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{
