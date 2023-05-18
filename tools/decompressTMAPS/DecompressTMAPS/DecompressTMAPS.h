@@ -71,7 +71,7 @@ typedef unsigned int    uint32;
 
 namespace fs = std::filesystem;
 
-enum ImageType { png, pnga, bmp, rnc };
+enum ImageType { png, pnga, bmp, rnc, data };
 
 int other_folder0[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
 	51, 52, 53, 54, 57, 59, 76, 77, 82, 85, 88, 89, 90,
@@ -85,7 +85,6 @@ int other_folder2[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
 
 int* other_folder;
 
-int max_images = 504;
 int transparent_color = 0;
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[]);

@@ -1,32 +1,5 @@
 #include "DecompressTMAPS.h"
 
-//#define level1 //night
-//#define level2 //day
-//#define level4 //cave
-/*
-#ifdef level1
-char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-n.pal";
-char tmapsdatfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.dat";
-char tmapstabfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps1-0.tab";
-char tmapsstr[] = "TMAPS2-1-";
-int transparent_color = 0;
-#endif
-#ifdef level2
-char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-block.pal";
-char tmapsdatfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.dat";
-char tmapstabfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps0-0.tab";
-char tmapsstr[]="TMAPS2-0-";
-int transparent_color = 0;
-#endif
-#ifdef level4
-char palfilename[] = "c:\\prenos\\remc2\\tools\\palletelight\\Debug\\out-c.pal";
-char tmapsdatfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.dat";
-char tmapstabfilename[] = "c:\\prenos\\Magic2\\mc2-orig\\data\\tmaps2-0.tab";
-char tmapsstr[] = "TMAPS2-2-";
-int transparent_color = 0;
-#endif
-*/
-
 typedef struct huftable_s {
 	uint32 l1; // +0
 	uint16 l2; // +4
@@ -1943,26 +1916,28 @@ int main(int argc, char** argv) {
 				palletPath = fs::current_path().u8string() + "/" + palletPath;
 			}
 		}
-		else if ((param == "-d") || (param == "--tmaps-dat")) 
-		{
-			tmapsDat = *(++p);	
-			if (!fs::exists(tmapsDat))
-			{
-				tmapsDat = fs::current_path().u8string() + "/" + tmapsDat;
-			}
-		}
 		else if ((param == "-t") || (param == "--tmaps-tab")) 
 		{
 			tmapsTab = *(++p);
+
 			if (!fs::exists(tmapsTab))
 			{
 				tmapsTab = fs::current_path().u8string() + "/" + tmapsTab;
 			}
+
+			tmapsDat = fs::path(tmapsTab).replace_extension("dat").u8string();
+
+			folderPath = fs::path(tmapsTab).filename().replace_extension("").u8string() + "-";
+
 		}
 		else if ((param == "-i") || (param == "--image-type"))
 		{
 			format = *(++p);
 
+			if (strcmp(format.c_str(), "data") == 0)
+			{
+				imageType = ImageType::data;
+			}
 			if (strcmp(format.c_str(), "rnc") == 0)
 			{
 				imageType = ImageType::rnc;
@@ -1980,34 +1955,12 @@ int main(int argc, char** argv) {
 		{
 			outputPath = *(++p);
 		}
-		else if ((param == "-f") || (param == "--folder-pattern")) 
-		{
-			folderPath = *(++p);
-
-			if (strcmp(folderPath.c_str(), "0") == 0)
-			{
-				other_folder = other_folder0;
-				max_images = 504;
-			}
-			if (strcmp(folderPath.c_str(), "1") == 0)
-			{
-				other_folder = other_folder1;
-				max_images = 504;
-			}
-			if (strcmp(folderPath.c_str(), "2") == 0)
-			{
-				other_folder = other_folder2;
-				max_images = 464;
-			}
-
-			folderPath = "TMAPS2-" + folderPath + "-";
-		}
 		else if ((param == "-h") || (param == "--help")) {
 			showHelp = true;
 		}
 	}
 
-	if (palletPath.length() == 0 || tmapsDat.length() == 0 || tmapsTab.length() == 0 || folderPath.length() == 0)
+	if (palletPath.length() == 0 || tmapsDat.length() == 0 || tmapsTab.length() == 0)
 	{
 		printf("Missing required parameters!\n");
 		showHelp = true;
@@ -2038,11 +1991,9 @@ int main(int argc, char** argv) {
 	if (showHelp)
 	{
 		printf("-p --pallet: (Required) Pallet file path\n");
-		printf("-d --tmaps-dat: (Required) Tmap .dat file path\n");
-		printf("-t --tmaps-tab: (Required) Tmap .tab file path\n");
-		printf("-i --image-type: (Default png) File output format to use rnc, bmp, png or pnga\n");
+		printf("-t --tmaps: (Required) Tmap .tab file path. Needs a .dat file of the same name\n");
+		printf("-i --image-type: (Default png) File output format to use rnc, data, bmp, png or pnga\n");
 		printf("-o --output-path: (Default) ./out\n");
-		printf("-f --folder-pattern: Folder pattern to use 0, 1 or 2\n\n");
 		printf("For night levels:\n");
 		printf("-p c:\\remc2\\tools\\out-n.pal -d c:\\remc2\\tools\\tmaps1-0.dat -t c:\\remc2\\tools\\tmaps1-0.tab -f 1\n");
 		printf("For day levels:\n");
@@ -2057,6 +2008,7 @@ int main(int argc, char** argv) {
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[])
 {
+	int max_images = 504;
 	double colourMultiplier = 4;
 
 	FILE* fptrTMAPSdata;
@@ -2147,14 +2099,15 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		int width = *(Bit16u*)&buffer[2];
 		int height = *(Bit16u*)&buffer[4];
 
-#ifdef write_data
-		FILE* fptw2;
-		char filenamedata[300];
-		sprintf_s(filenamedata, "%s\\out\\%s%03i-00.data", outputPath, tmapsstr, index);
-		fopen_s(&fptw2, filenamedata, "wb");
-		fwrite(buffer, unpacksize, 1, fptw2);
-		fclose(fptw2);
-#endif
+		if (imageType == ImageType::data)
+		{
+			FILE* fptw2;
+			char filenamedata[300];
+			sprintf_s(filenamedata, "%s\\%s%03i-00.data", outputPath, tmapsstr, index);
+			fopen_s(&fptw2, filenamedata, "wb");
+			fwrite(buffer, unpacksize, 1, fptw2);
+			fclose(fptw2);
+		}
 
 		if (imageType == ImageType::bmp)
 		{
@@ -2164,9 +2117,9 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 
 		if (imageType == ImageType::png)
 		{
-			if (isOther(other_folder, index))
-				sprintf_s(outname, "%s\\%s%03i-00-other.png", outputPath, tmapsstr, index);
-			else
+			//if (isOther(other_folder, index))
+			//	sprintf_s(outname, "%s\\%s%03i-00-other.png", outputPath, tmapsstr, index);
+			//else
 				sprintf_s(outname, "%s\\%s%03i-00.png", outputPath, tmapsstr, index);
 
 			sprintf_s(title, "%s%03i", tmapsstr, index);
@@ -2186,15 +2139,15 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 #ifdef level4
 		if (index < 452)
 #endif
-			indextab += 10;
+		indextab += 10;
 		index++;
 	}
 
-	for(int mainindex=0; mainindex<24; mainindex++)
+	for (int mainindex = 0; mainindex < 24; mainindex++)
 	{
 		index = 0;
 		while (index < max_images) {
-			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
+			Bit8u* subpointer = *(Bit8u**)x_DWORD_F66F0[index];
 			subpointer[0] |= 8;
 			index++;
 		}
@@ -2206,7 +2159,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		while (index < max_images)
 		{
 
-			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
+			Bit8u* subpointer = *(Bit8u**)x_DWORD_F66F0[index];
 			//memcpy(buffer, subpointer, unpacksize);
 
 			//int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
@@ -2214,8 +2167,8 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			//Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
 			//Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
 
-			int width = *(Bit16u*)& stmpdat[2];
-			int height = *(Bit16u*)& stmpdat[4];
+			int width = *(Bit16u*)&stmpdat[2];
+			int height = *(Bit16u*)&stmpdat[4];
 
 			memcpy(buffer, stmpdat, width * height + 6);
 			/*
@@ -2238,55 +2191,54 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			memcpy(subpointer, buffer, unpacksize);
 			*/
 
-	#ifdef write_data
-
-			FILE* fptw2_prev;
-			char filenamedata[300];
-			sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.data", tmapsstr, index);
-			fopen_s(&fptw2_prev, filenamedata, "rb");
-			fread(prevbuffer, width * height + 6, 1, fptw2_prev);
-			fclose(fptw2_prev);
-
-			bool same = true;
-			for (int kk = 0; kk < width * height + 6; kk++)
+			if (imageType == ImageType::data)
 			{
-				if (buffer[kk] != prevbuffer[kk])
-					same = false;
-			}
-			if (same)
-			{
-				index++; continue;
-			}
+				FILE* fptw2_prev;
+				char filenamedata[300];
+				sprintf_s(filenamedata, "%s\\%s%03i-00.data", outputPath, tmapsstr, index);
+				fopen_s(&fptw2_prev, filenamedata, "rb");
+				fread(prevbuffer, width * height + 6, 1, fptw2_prev);
+				fclose(fptw2_prev);
 
-			//FILE* fptw2_prev;
-			//char filenamedata[300];
-			sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.data", tmapsstr, index, mainindex);
-			fopen_s(&fptw2_prev, filenamedata, "rb");
-			if(fptw2_prev==NULL)
-			{
-				index++; continue;
-			}
-			fread(prevbuffer, width* height + 6, 1, fptw2_prev);
-			fclose(fptw2_prev);
+				bool same = true;
+				for (int kk = 0; kk < width * height + 6; kk++)
+				{
+					if (buffer[kk] != prevbuffer[kk])
+						same = false;
+				}
+				if (same)
+				{
+					index++; continue;
+				}
 
-			same = true;
-			for (int kk = 0; kk < width * height + 6; kk++)
-			{
-				if (buffer[kk] != prevbuffer[kk])
-					same = false;
-			}
-			if (same)
-			{
-				index++; continue;
-			}
+				//FILE* fptw2_prev;
+				//char filenamedata[300];
+				sprintf_s(filenamedata, "%s\\%s%03i-%02i.data", outputPath, tmapsstr, index, mainindex);
+				fopen_s(&fptw2_prev, filenamedata, "rb");
+				if (fptw2_prev == NULL)
+				{
+					index++; continue;
+				}
+				fread(prevbuffer, width * height + 6, 1, fptw2_prev);
+				fclose(fptw2_prev);
 
+				same = true;
+				for (int kk = 0; kk < width * height + 6; kk++)
+				{
+					if (buffer[kk] != prevbuffer[kk])
+						same = false;
+				}
+				if (same)
+				{
+					index++; continue;
+				}
 
-			FILE* fptw2;
-			sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.data", tmapsstr, index, mainindex+1);
-			fopen_s(&fptw2, filenamedata, "wb");
-			fwrite(buffer, width * height + 6, 1, fptw2);
-			fclose(fptw2);
-	#endif
+				FILE* fptw2;
+				sprintf_s(filenamedata, "%s\\%s%03i-%02i.data", outputPath, tmapsstr, index, mainindex + 1);
+				fopen_s(&fptw2, filenamedata, "wb");
+				fwrite(buffer, width * height + 6, 1, fptw2);
+				fclose(fptw2);
+			}
 
 			if (imageType == ImageType::bmp)
 			{
@@ -2312,78 +2264,12 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 				write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30, colourMultiplier);//test write
 			}
 
-	#ifdef level4
+#ifdef level4
 			if (index < 452)
-	#endif
+#endif
 				indextab += 10;
 			index++;
 		}
-
-
-
-}
-
-	/*
-	sub_715B0();
-
-	indextab = 0;
-	index = 0;
-	while (index < 504)
-	{
-
-		Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
-		//memcpy(buffer, subpointer, unpacksize);
-
-		//int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
-		Bit8u* stmpdat = &subpointer[0];
-		//Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
-		//Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
-
-		int width = *(Bit16u*)& stmpdat[2];
-		int height = *(Bit16u*)& stmpdat[4];
-
-		memcpy(buffer, stmpdat, width * height + 6);
-
-#ifdef write_data
-		FILE* fptw2;
-		char filenamedata[300];
-		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i-3.data", index);
-		fopen_s(&fptw2, filenamedata, "wb");
-		fwrite(buffer, width * height + 6, 1, fptw2);
-		fclose(fptw2);
-#endif
-
-#ifdef write_bmp
-		char outname[512];
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i-3.bmp", index);
-		write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
-#endif
-
-#ifdef write_png
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i-3.png", index);
-		sprintf_s(title, "TMAPS2-0-%03i", index);
-		write_posistruct_to_png(buffer + 6, width, height, outname, title, 0);//test write
-#ifdef write_alphapng
-#endif
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\TMAPS2-0-%03i-alpha-3.png", index);
-		sprintf_s(title, "TMAPS2-0-%03i", index);
-		write_posistruct_to_png(buffer + 6, width, height, outname, title, 1);//test write
-#endif
-
-		indextab += 10;
-		index++;
 	}
-	*/
 	return 0;
 }
-
-// Spuštění programu: Ctrl+F5 nebo nabídka Ladit > Spustit bez ladění
-// Ladění programu: F5 nebo nabídka Ladit > Spustit ladění
-
-// Tipy pro zahájení práce:
-//   1. K přidání nebo správě souborů použijte okno Průzkumník řešení.
-//   2. Pro připojení ke správě zdrojového kódu použijte okno Team Explorer.
-//   3. K zobrazení výstupu sestavení a dalších zpráv použijte okno Výstup.
-//   4. K zobrazení chyb použijte okno Seznam chyb.
-//   5. Pokud chcete vytvořit nové soubory kódu, přejděte na Projekt > Přidat novou položku. Pokud chcete přidat do projektu existující soubory kódu, přejděte na Projekt > Přidat existující položku.
-//   6. Pokud budete chtít v budoucnu znovu otevřít tento projekt, přejděte na Soubor > Otevřít > Projekt a vyberte příslušný soubor .sln.
