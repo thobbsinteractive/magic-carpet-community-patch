@@ -1003,6 +1003,7 @@ void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, in
 					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = transColR;
 					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = transColG;
 					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = transColB;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 0;
 				}
 			}
 		}
@@ -1040,7 +1041,7 @@ void write_posistruct_to_alpha_png(Bit8u* pallettebuffer, Bit8u* buffer, int wid
 					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = 0;
 					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = 0;
 					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = 0;
-					buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 0;
+					buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				}
 			}
 		}
