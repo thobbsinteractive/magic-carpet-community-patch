@@ -922,15 +922,14 @@ void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, in
 {
 	char textbuffer[512];
 	Bit8u buffer2[100000 * 4];
-	std::vector<uint8_t> usedColors;
+	//std::vector<uint8_t> usedColors;
 	//sort(usedColors.begin(), usedColors.end());
 	//sprintf_s(textbuffer, "%s-col.txt", filename);
 	//writeUsedColor(textbuffer, usedColors);
 
 	//sprintf_s(textbuffer, "%s-%s", filename, "Rd");
 	//write_posistruct_to_png(pallettebuffer, buffer, width, height, textbuffer, title, frame, multiplier, 255, 0, 0);
-	sprintf_s(textbuffer, "%s-%s", filename, "Gr");
-	write_posistruct_to_png(pallettebuffer, buffer, width, height, textbuffer, title, frame, multiplier, 0, 255, 0);
+	write_posistruct_to_png(pallettebuffer, buffer, width, height, filename, title, frame, multiplier, 0, 255, 0);
 	//sprintf_s(textbuffer, "%s-%s", filename, "Bl");
 	//write_posistruct_to_png(pallettebuffer, buffer, width, height, textbuffer, title, frame, multiplier, 0, 0, 255);
 	//sprintf_s(textbuffer, "%s-%s", filename, "Wh");
