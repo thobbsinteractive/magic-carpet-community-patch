@@ -781,32 +781,6 @@ unsigned char* createBitmapInfoHeader(int height, int width) {
 	return infoHeader;
 }
 
-void writeImageBMP(char* imageFileName, int width, int height, Bit8u* image)
-{
-	int pitch = bytesPerPixel * width;
-	unsigned char padding[3] = { 0, 0, 0 };
-	int paddingSize = (4 - (/*width*bytesPerPixel*/ pitch) % 4) % 4;
-
-	unsigned char* fileHeader = createBitmapFileHeader(height, width, pitch, paddingSize);
-	unsigned char* infoHeader = createBitmapInfoHeader(height, width);
-
-	FILE* imageFile;
-	fopen_s(&imageFile, imageFileName, "wb");
-
-	fwrite(fileHeader, 1, fileHeaderSize, imageFile);
-	fwrite(infoHeader, 1, infoHeaderSize, imageFile);
-
-	int i;
-	for (i = 0; i < height; i++) {
-		fwrite(image + (i * pitch /*width*bytesPerPixel*/), bytesPerPixel, width, imageFile);
-		fwrite(padding, 1, paddingSize, imageFile);
-	}
-
-	fclose(imageFile);
-	//free(fileHeader);
-	//free(infoHeader);
-}
-
 inline void setRGBA(png_byte* ptr, Bit8u* val)
 {
 	ptr[0] = val[0];
@@ -1006,33 +980,9 @@ void writeUsedColor(char* filename, std::vector<uint8_t> usedColors) {
 	fclose(colfile);
 };
 
-void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width, int height, char* filename, char* filenamealpha, char* title,bool alpha, int frame) {
-	Bit8u pallettebuffer[768];
-	FILE* palfile;
-	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
-	fopen_s(&palfile,  palfilename, "rb");
-	fread(pallettebuffer, 768, 1, palfile);
-	fclose(palfile);
+void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, char* filename, char* filenamealpha, char* title, bool alpha, int frame, double multiplier) {
 	char textbuffer[512];
 	Bit8u buffer2[100000 * 4];
-	/*for (int i = 0; i < width * height; i++)
-	{		
-		buffer2[i * 4 + 0] = pallettebuffer[buffer[i] * 3];
-		buffer2[i * 4 + 1] = pallettebuffer[buffer[i] * 3 + 1];
-		buffer2[i * 4 + 2] = pallettebuffer[buffer[i] * 3 + 2];
-
-		if (buffer[i] == transparent_color)
-		{
-			buffer2[i * 4 + 0] = 255;
-			buffer2[i * 4 + 1] = 255;
-			buffer2[i * 4 + 2] = 255;
-			buffer2[i * 4 + 3] = 0;
-		}
-		else
-		{
-			buffer2[i * 4 + 3] = 255;
-		}
-	}*/
 	std::vector<uint8_t> usedColors;
 
 	for (int y = 0; y < height + 2 * frame; y++)
@@ -1050,9 +1000,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			else
 			{
 
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[y2 * width + x2] == transparent_color)
 				{
@@ -1081,9 +1031,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			}
 			else
 			{
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[y2 * width + x2] == transparent_color)
 				{
@@ -1108,9 +1058,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			}
 			else
 			{
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[y2 * width + x2] == transparent_color)
 				{
@@ -1135,9 +1085,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			}
 			else
 			{
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[y2 * width + x2] == transparent_color)
 				{
@@ -1162,9 +1112,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			}
 			else
 			{
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[y2 * width + x2] == transparent_color)
 				{
@@ -1189,9 +1139,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			}
 			else
 			{
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[y2 * width + x2] == transparent_color)
 				{
@@ -1219,9 +1169,9 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 			else
 			{
 				bool isWhite = false;
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[y2 * width + x2] * 3];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[y2 * width + x2] * 3 + 1];
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[y2 * width + x2] * 3 + 2];
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[y2 * width + x2] * 3 + 2], multiplier);
 				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
 				if (buffer[(y2 * width + x2)] == transparent_color)
 				{
@@ -1229,33 +1179,33 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 					if (y2 > 0)
 						if ((buffer[((y2 - 1) * width + x2)] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3 + 1];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3 + 2];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3 + 1], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[((y2 - 1) * width + x2)] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 					if (y2 < height - 1)
 						if ((buffer[((y2 + 1) * width + x2)] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3 + 1];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3 + 2];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3 + 1], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[((y2 + 1) * width + x2)] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 					if (x2 > 0)
 						if ((buffer[(y2 * width + (x2 - 1))] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3 + 1];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3 + 2];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3 + 1], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[(y2 * width + (x2 - 1))] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 					if (x2 < width - 1)
 						if ((buffer[(y2 * width + (x2 + 1))] != transparent_color) && (buffer[y2 * width + x2] == transparent_color))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3 + 1];
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3 + 2];
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3 + 1], multiplier);
+							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(pallettebuffer[buffer[(y2 * width + (x2 + 1))] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 				}
@@ -1269,36 +1219,6 @@ void write_posistruct_to_png(char const palfilename[], Bit8u* buffer, int width,
 		}
 	sprintf_s(textbuffer, "%sFinal.png", filename);
 	writeImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
-}
-
-void write_posistruct_to_bmp(char const palfilename[], Bit8u* buffer, int width, int height, char* filename) {
-	Bit8u pallettebuffer[768];
-	FILE* palfile;
-	//fopen_s(&palfile, "c:\\prenos\\remc2\\testpal.pal", "rb");
-	fopen_s(&palfile, palfilename, "rb");
-	fread(pallettebuffer, 768, 1, palfile);
-	fclose(palfile);
-
-	Bit8u buffer2[100000 * 4];
-	for (int i = 0; i < width * height; i++)
-	{
-		/*buffer2[i * 4 + 0] = buffer[i];
-		buffer2[i * 4 + 1] = buffer[i];
-		buffer2[i * 4 + 2] = buffer[i];*/
-		buffer2[i * 4 + 0] = pallettebuffer[buffer[(width * height) - 1 - i] * 3+2];
-		buffer2[i * 4 + 1] = pallettebuffer[buffer[(width * height) - 1 - i] * 3 + 1];
-		buffer2[i * 4 + 2] = pallettebuffer[buffer[(width * height) - 1 - i] * 3];
-
-		if (buffer[(width * height) - 1 - i] != 0xff)
-		{
-			if((buffer2[i * 4 + 0]==0)&& (buffer2[i * 4 + 1] == 0)&& (buffer2[i * 4 + 2] == 0))
-				buffer2[i * 4 + 3] = 0;
-			else
-				buffer2[i * 4 + 3] = 255;
-		}
-	}
-	//writeImage(filename, width, height, buffer2);
-	writeImageBMP(filename, width, height, buffer2);
 }
 
 #pragma pack (1)
@@ -2137,6 +2057,8 @@ int main(int argc, char** argv) {
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[])
 {
+	double colourMultiplier = 4;
+
 	FILE* fptrTMAPSdata;
 	fopen_s(&fptrTMAPSdata, tmapsdatfilename, "rb");
 	fseek(fptrTMAPSdata, 0L, SEEK_END);
@@ -2171,13 +2093,20 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 	char outnameAlpha[512];
 	char title[512];
 
+	Bit8u pallettebuffer[768];
+	FILE* palfile = nullptr;
+
+	fopen_s(&palfile, palfilename, "rb");
+	fread(pallettebuffer, 768, 1, palfile);
+	fclose(palfile);
+
 	while (index < max_images)
 	{
-		if (index == 186)
-		{
-			index++;
-			index--;
-		}
+		//if (index == 186)
+		//{
+		//	index++;
+		//	index--;
+		//}
 		//int size = *(Bit32u*)&contentTMAPStab[indextab];
 		int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
 		//if (shift > 500)shift = shift - 500;
@@ -2230,7 +2159,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		if (imageType == ImageType::bmp)
 		{
 			sprintf_s(outname, "%s\\%s%03i-00.bmp", outputPath, tmapsstr, index);
-			write_posistruct_to_bmp(palfilename, buffer + 6, width, height, outname);//test write
+			BitmapIO::WriteRGBAImageBufferAsImageBMP(outname, width, height, pallettebuffer, buffer + 6, colourMultiplier);
 		}
 
 		if (imageType == ImageType::png)
@@ -2244,14 +2173,14 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 
 			sprintf_s(outnameAlpha, "%s\\%s%03i-00APLH.png", outputPath, tmapsstr, index);
 
-			write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
+			write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30, colourMultiplier);//test write
 		}
 
 		if (imageType == ImageType::pnga)
 		{
 			sprintf_s(outname, "%s\\%s%03i-alpha-00.png", outputPath, tmapsstr, index);
 			sprintf_s(title, "%s%03i", tmapsstr, index);
-			write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30);//test write
+			write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30, colourMultiplier);//test write
 		}
 
 #ifdef level4
@@ -2362,7 +2291,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			if (imageType == ImageType::bmp)
 			{
 				sprintf_s(outname, "%s\\%s%03i-00.bmp", outputPath, tmapsstr, index);
-				write_posistruct_to_bmp(palfilename, buffer + 6, width, height, outname);//test write
+				BitmapIO::WriteRGBAImageBufferAsImageBMP(outname, width, height, pallettebuffer, buffer + 6, colourMultiplier);
 			}
 
 			if (imageType == ImageType::png)
@@ -2371,17 +2300,16 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 					sprintf_s(outname, "%s\\%s%03i-%02i-other.png", outputPath, tmapsstr, index, mainindex + 1);
 				else
 					sprintf_s(outname, "%s\\%s%03i-%02i.png", outputPath, tmapsstr, index, mainindex + 1);
-				//sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
 				sprintf_s(outnameAlpha, "%s\\%s%03i-%02iAlpha.png", outputPath, tmapsstr, index, mainindex + 1);
 				sprintf_s(title, "%s%03i", tmapsstr, index);
-				write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
+				write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30, colourMultiplier);//test write
 			}
 
 			if (imageType == ImageType::pnga)
 			{
 				sprintf_s(outname, "%s\\%s%03i-alpha-%02i.png", outputPath, tmapsstr, index, mainindex + 1);
 				sprintf_s(title, "%s%03i", tmapsstr, index);
-				write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30);//test write
+				write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30, colourMultiplier);//test write
 			}
 
 	#ifdef level4

@@ -171,6 +171,7 @@ XCOPY "$(SolutionDir)..\..\zlib-64\bin\zlib1.dll" "$(TargetDir)" /D /K /Y</Comma
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BitmapIO.cpp" />
     <ClCompile Include="DecompressTMAPS.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +179,7 @@ XCOPY "$(SolutionDir)..\..\zlib-64\bin\zlib1.dll" "$(TargetDir)" /D /K /Y</Comma
     <Library Include="..\..\..\zlib\lib\zlib.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BitmapIO.h" />
     <ClInclude Include="DecompressTMAPS.h" />
     <ClInclude Include="mctypes.h" />
   </ItemGroup>
