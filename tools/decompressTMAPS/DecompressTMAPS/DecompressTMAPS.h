@@ -88,3 +88,7 @@ int* other_folder;
 int transparent_color = 0;
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[]);
+
+void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, char* filename, char* title, int frame, double multiplier);
+void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, char* filename, char* title, int frame, double multiplier, uint8_t transColR, uint8_t transColG, uint8_t transColB);
+void write_posistruct_to_alpha_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, const char* filename, char* title, int frame);
