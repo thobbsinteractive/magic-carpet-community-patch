@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <vector>
 #include <algorithm>    // std::sort
+#include <filesystem>
 #include "mctypes.h"
 #include "png.h"
 #pragma comment(lib, "zlib.lib") // must be before libpng!
@@ -66,6 +67,10 @@ typedef unsigned int    uint32;
 #define LOBYTE(x)   (*((_BYTE*)&(x)))   // low byte
 #define HIBYTE(x)   (*((_BYTE*)&(x)+1))
 
+namespace fs = std::filesystem;
+
+enum ImageType { png, pnga, bmp, rnc };
+
 int other_folder0[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
 	51, 52, 53, 54, 57, 59, 76, 77, 82, 85, 88, 89, 90,
 	91, 92, 93, 94, 95, 144, 260, 261, 425 - 1 };
@@ -81,4 +86,4 @@ int* other_folder;
 int max_images = 504;
 int transparent_color = 0;
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[]);
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[]);

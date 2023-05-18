@@ -1,5 +1,3 @@
-﻿// DecompressTMAPS.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
-//
 #include "DecompressTMAPS.h"
 
 //#define level1 //night
@@ -1939,7 +1937,6 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 	return v7y;
 }
 
-
 type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int* a2, __int16 a3)//2531c0
 {
 	signed __int16 v3; // cx
@@ -1992,13 +1989,6 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int* a2, __int16 a3)//2531
 	return &a1x->dword_2[v12];
 }
 
-
-#define write_data
-//#define write_rnc
-//#define write_bmp
-#define write_png
-//#define write_alphapng
-
 bool isOther(int* other_folder,int index) {
 	for (int i = 0; other_folder[i] != -1; i++)
 		if (index == other_folder[i])
@@ -2011,7 +2001,10 @@ int main(int argc, char** argv) {
 	std::string palletPath;
 	std::string tmapsDat;
 	std::string tmapsTab;
+	std::string outputPath = fs::current_path().u8string() + "/out";
 	std::string folderPath;
+	std::string format;
+	ImageType imageType = ImageType::png;
 	bool showHelp = false;
 
 	std::vector<std::string> params;
@@ -2033,6 +2026,27 @@ int main(int argc, char** argv) {
 		else if ((param == "-t") || (param == "--tmaps-tab")) 
 		{
 			tmapsTab = *(++p);
+		}
+		else if ((param == "-i") || (param == "--image-type"))
+		{
+			format = *(++p);
+
+			if (strcmp(format.c_str(), "rnc") == 0)
+			{
+				imageType = ImageType::rnc;
+			}
+			if (strcmp(format.c_str(), "bmp") == 0)
+			{
+				imageType = ImageType::bmp;
+			}
+			if (strcmp(format.c_str(), "pnga") == 0)
+			{
+				imageType = ImageType::pnga;
+			}
+		}
+		else if ((param == "-o") || (param == "--output-path"))
+		{
+			outputPath = *(++p);
 		}
 		else if ((param == "-f") || (param == "--folder-pattern")) 
 		{
@@ -2069,9 +2083,11 @@ int main(int argc, char** argv) {
 
 	if (showHelp)
 	{
-		printf("-p --pallet: Pallet file path\n");
-		printf("-d --tmaps-dat: Tmap .dat file path\n");
-		printf("-t --tmaps-tab: Tmap .tab file path\n");
+		printf("-p --pallet: (Required) Pallet file path\n");
+		printf("-d --tmaps-dat: (Required) Tmap .dat file path\n");
+		printf("-t --tmaps-tab: (Required) Tmap .tab file path\n");
+		printf("-i --image-type: (Default png) File output format to use rnc, bmp, png or pnga\n");
+		printf("-o --output-path: (Default) ./out\n");
 		printf("-f --folder-pattern: Folder pattern to use 0, 1 or 2\n\n");
 		printf("For night levels:\n");
 		printf("-p c:\\remc2\\tools\\out-n.pal -d c:\\remc2\\tools\\tmaps1-0.dat -t c:\\remc2\\tools\\tmaps1-0.tab -f 1\n");
@@ -2082,10 +2098,14 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str());
+	if (!fs::is_directory(outputPath) || !fs::exists(outputPath)) { // Check if outputPath folder exists
+		fs::create_directory(outputPath); // create src folder
+	}
+
+	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), imageType, outputPath.c_str());
 }
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[])
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[])
 {
 	FILE* fptrTMAPSdata;
 	fopen_s(&fptrTMAPSdata, tmapsdatfilename, "rb");
@@ -2129,7 +2149,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			index--;
 		}
 		//int size = *(Bit32u*)&contentTMAPStab[indextab];
-		int shift = *(Bit32u*)& contentTMAPStab[indextab + 4];
+		int shift = *(Bit32u*)&contentTMAPStab[indextab + 4];
 		//if (shift > 500)shift = shift - 500;
 		Bit8u* stmpdat = &contentTMAPSdat[shift];
 
@@ -2138,72 +2158,71 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
 		Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
 
-#ifdef write_rnc
-		FILE* fptw;
-		char filename[300];
-		sprintf_s(filename, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i.rnc", tmapsstr, index);
-		fopen_s(&fptw, filename, "wb");
-		fwrite(&contentTMAPSdat[shift], size, 1, fptw);
-		fclose(fptw);
-#endif
+		if (imageType == ImageType::rnc)
+		{
+			FILE* fptw;
+			char filename[300];
+			sprintf_s(filename, "%s\\out\\%s%03i.rnc", outputPath, tmapsstr, index);
+			fopen_s(&fptw, filename, "wb");
+			fwrite(&contentTMAPSdat[shift], size, 1, fptw);
+			fclose(fptw);
+		}
 
-		int decompsize = *(Bit32u*)& contentTMAPSdat[shift + 6];
+		int decompsize = *(Bit32u*)&contentTMAPSdat[shift + 6];
 		sub_5C3D0_file_decompress(&contentTMAPSdat[shift], buffer);
-
-
 
 		Bit8u* index2 = 10 * index + TMAPS00TAB_BEGIN_BUFFER;
 		x_DWORD_F66F0[index] = (int)sub_71E70(x_DWORD_E9C28_str, (unsigned __int16)(4 * ((unsigned int)(*(x_DWORD*)index2 + 13) >> 2)), index);
 		int index6 = x_DWORD_F66F0[index];
-		Bit8u** subpointer = (Bit8u * *)x_DWORD_F66F0[index];
+		Bit8u** subpointer = (Bit8u**)x_DWORD_F66F0[index];
 		*subpointer = (Bit8u*)malloc(unpacksize);
 		memcpy(*subpointer, buffer, unpacksize);
 
-		if (**(x_BYTE * *)index6 & 1)
+		if (**(x_BYTE**)index6 & 1)
 			/*index = */sub_721C0_initTmap(x_DWORD_E9C08x, (int*)index6, index);
 		/*
 				if (**(x_BYTE **)index6 & 1)
 			index = sub_721C0_initTmap((unsigned __int16*)x_DWORD_E9C08, (int*)index6, index);
 		*/
 
-
-
-		int width = *(Bit16u*)& buffer[2];
-		int height = *(Bit16u*)& buffer[4];
+		int width = *(Bit16u*)&buffer[2];
+		int height = *(Bit16u*)&buffer[4];
 
 #ifdef write_data
 		FILE* fptw2;
 		char filenamedata[300];
-		sprintf_s(filenamedata, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.data", tmapsstr, index);
+		sprintf_s(filenamedata, "%s\\out\\%s%03i-00.data", outputPath, tmapsstr, index);
 		fopen_s(&fptw2, filenamedata, "wb");
 		fwrite(buffer, unpacksize, 1, fptw2);
 		fclose(fptw2);
 #endif
 
+		if (imageType == ImageType::bmp)
+		{
+			sprintf_s(outname, "%s\\%s%03i-00.bmp", outputPath, tmapsstr, index);
+			write_posistruct_to_bmp(palfilename, buffer + 6, width, height, outname);//test write
+		}
 
-#ifdef write_bmp
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.bmp", tmapsstr, index);
-		write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
-#endif
+		if (imageType == ImageType::png)
+		{
+			if (isOther(other_folder, index))
+				sprintf_s(outname, "%s\\%s%03i-00-other.png", outputPath, tmapsstr, index);
+			else
+				sprintf_s(outname, "%s\\%s%03i-00.png", outputPath, tmapsstr, index);
 
-#ifdef write_png
-		
-		if(isOther(other_folder, index))
-			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00-other.png", tmapsstr, index);
-		else
-			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00.png", tmapsstr, index);
+			sprintf_s(title, "%s%03i", tmapsstr, index);
 
-		sprintf_s(title, "%s%03i", tmapsstr, index);
+			sprintf_s(outnameAlpha, "%s\\%s%03i-00APLH.png", outputPath, tmapsstr, index);
 
-		sprintf_s(outnameAlpha, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-00APLH.png", tmapsstr, index);
+			write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
+		}
 
-		write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
-#endif
-#ifdef write_alphapng
-		sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-00.png", tmapsstr, index);
-		sprintf_s(title, "%s%03i", tmapsstr, index);
-		write_posistruct_to_png(buffer + 6, width, height, outname, title, 1);//test write
-#endif
+		if (imageType == ImageType::pnga)
+		{
+			sprintf_s(outname, "%s\\%s%03i-alpha-00.png", outputPath, tmapsstr, index);
+			sprintf_s(title, "%s%03i", tmapsstr, index);
+			write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30);//test write
+		}
 
 #ifdef level4
 		if (index < 452)
@@ -2214,8 +2233,6 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 
 	for(int mainindex=0; mainindex<24; mainindex++)
 	{
-		
-
 		index = 0;
 		while (index < max_images) {
 			Bit8u* subpointer = *(Bit8u * *)x_DWORD_F66F0[index];
@@ -2312,27 +2329,30 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			fclose(fptw2);
 	#endif
 
-	#ifdef write_bmp
-			char outname[512];
-			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.bmp", tmapsstr, index, mainindex + 1);
-			write_posistruct_to_bmp(buffer + 6, width, height, outname);//test write
-	#endif
+			if (imageType == ImageType::bmp)
+			{
+				sprintf_s(outname, "%s\\%s%03i-00.bmp", outputPath, tmapsstr, index);
+				write_posistruct_to_bmp(palfilename, buffer + 6, width, height, outname);//test write
+			}
 
-	#ifdef write_png
-			if (isOther(other_folder, index))
-				sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i-other.png", tmapsstr, index, mainindex + 1);
-			else
-				sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex + 1);
-			//sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
-			sprintf_s(outnameAlpha, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02iAlpha.png", tmapsstr, index, mainindex + 1);
-			sprintf_s(title, "%s%03i", tmapsstr, index);
-			write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha,title, 0, 30);//test write
-	#endif
-	#ifdef write_alphapng
-			sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-alpha-%02i.png", tmapsstr, index, mainindex + 1);
-			sprintf_s(title, "%s%03i", tmapsstr, index);
-			write_posistruct_to_png(buffer + 6, width, height, outname, title, 1);//test write
-	#endif
+			if (imageType == ImageType::png)
+			{
+				if (isOther(other_folder, index))
+					sprintf_s(outname, "%s\\%s%03i-%02i-other.png", outputPath, tmapsstr, index, mainindex + 1);
+				else
+					sprintf_s(outname, "%s\\%s%03i-%02i.png", tmapsstr, index, mainindex + 1);
+				//sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
+				sprintf_s(outnameAlpha, "%s\\%s%03i-%02iAlpha.png", outputPath, tmapsstr, index, mainindex + 1);
+				sprintf_s(title, "%s%03i", tmapsstr, index);
+				write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 0, 30);//test write
+			}
+
+			if (imageType == ImageType::pnga)
+			{
+				sprintf_s(outname, "%s\\%s%03i-alpha-%02i.png", outputPath, tmapsstr, index, mainindex + 1);
+				sprintf_s(title, "%s%03i", tmapsstr, index);
+				write_posistruct_to_png(palfilename, buffer + 6, width, height, outname, outnameAlpha, title, 1, 30);//test write
+			}
 
 	#ifdef level4
 			if (index < 452)
