@@ -2018,14 +2018,26 @@ int main(int argc, char** argv) {
 		if ((param == "-p") || (param == "--pallet")) 
 		{
 			palletPath = *(++p);
+			if (!fs::exists(palletPath))
+			{
+				palletPath = fs::current_path().u8string() + "/" + palletPath;
+			}
 		}
 		else if ((param == "-d") || (param == "--tmaps-dat")) 
 		{
-			tmapsDat = *(++p);
+			tmapsDat = *(++p);	
+			if (!fs::exists(tmapsDat))
+			{
+				tmapsDat = fs::current_path().u8string() + "/" + tmapsDat;
+			}
 		}
 		else if ((param == "-t") || (param == "--tmaps-tab")) 
 		{
 			tmapsTab = *(++p);
+			if (!fs::exists(tmapsTab))
+			{
+				tmapsTab = fs::current_path().u8string() + "/" + tmapsTab;
+			}
 		}
 		else if ((param == "-i") || (param == "--image-type"))
 		{
@@ -2081,6 +2093,28 @@ int main(int argc, char** argv) {
 		showHelp = true;
 	}
 
+	if (!fs::exists(palletPath))
+	{
+		printf("Pallet file not found!\n");
+		showHelp;
+	}
+
+	if (!fs::exists(tmapsDat))
+	{
+		printf("TMaps DAT file not found!\n");
+		showHelp;
+	}
+
+	if (!fs::exists(tmapsTab))
+	{
+		printf("TMaps TAB file not found!\n");
+		showHelp;
+	}
+
+	if (!fs::is_directory(outputPath) || !fs::exists(outputPath)) { // Check if outputPath folder exists
+		fs::create_directory(outputPath); // create src folder
+	}
+
 	if (showHelp)
 	{
 		printf("-p --pallet: (Required) Pallet file path\n");
@@ -2096,10 +2130,6 @@ int main(int argc, char** argv) {
 		printf("For cave levels:\n");
 		printf("-p c:\\remc2\\tools\\out-c.pal -d c:\\remc2\\tools\\tmaps2-0.dat -t c:\\remc2\\tools\\tmaps2-0.tab -f 2\n");
 		return -1;
-	}
-
-	if (!fs::is_directory(outputPath) || !fs::exists(outputPath)) { // Check if outputPath folder exists
-		fs::create_directory(outputPath); // create src folder
 	}
 
 	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), imageType, outputPath.c_str());
@@ -2340,7 +2370,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 				if (isOther(other_folder, index))
 					sprintf_s(outname, "%s\\%s%03i-%02i-other.png", outputPath, tmapsstr, index, mainindex + 1);
 				else
-					sprintf_s(outname, "%s\\%s%03i-%02i.png", tmapsstr, index, mainindex + 1);
+					sprintf_s(outname, "%s\\%s%03i-%02i.png", outputPath, tmapsstr, index, mainindex + 1);
 				//sprintf_s(outname, "c:\\prenos\\remc2\\tools\\decompressTMAPS\\out\\%s%03i-%02i.png", tmapsstr, index, mainindex+1);
 				sprintf_s(outnameAlpha, "%s\\%s%03i-%02iAlpha.png", outputPath, tmapsstr, index, mainindex + 1);
 				sprintf_s(title, "%s%03i", tmapsstr, index);
