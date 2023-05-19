@@ -1738,9 +1738,12 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int* a2, __int16 a3)//2531
 }
 
 bool isOther(int* other_folder,int index) {
-	for (int i = 0; other_folder[i] != -1; i++)
-		if (index == other_folder[i])
-			return true;
+	if (other_folder != nullptr)
+	{
+		for (int i = 0; other_folder[i] != -1; i++)
+			if (index == other_folder[i])
+				return true;
+	}
 	return false;
 }
 
@@ -1972,20 +1975,21 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 
 		if (imageType == ImageType::png)
 		{
-			//if (isOther(other_folder, index))
-			//	sprintf_s(outname, "%s\\%s%03i-00-other.png", outputPath, tmapsstr, index);
-			//else
-			sprintf_s(outname, "%s\\%s%03i-00.png", outputPath, tmapsstr, index);
+			if (isOther(other_folder, index))
+				sprintf_s(outname, "%s\\%s%03i-00-other", outputPath, tmapsstr, index);
+			else
+				sprintf_s(outname, "%s\\%s%03i-00", outputPath, tmapsstr, index);
+
 			sprintf_s(title, "%s%03i", tmapsstr, index);
 			write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
 		}
 
 		if (imageType == ImageType::pnga)
 		{
-			sprintf_s(outname, "%s\\%s%03i-00.png", outputPath, tmapsstr, index);
+			sprintf_s(outname, "%s\\%s%03i-00", outputPath, tmapsstr, index);
 			sprintf_s(title, "%s%03i", tmapsstr, index);
 			write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
-			sprintf_s(outname, "%s\\%s%03i-alpha-00.png", outputPath, tmapsstr, index);
+			sprintf_s(outname, "%s\\%s%03i-alpha-00", outputPath, tmapsstr, index);
 			write_posistruct_to_alpha_png(pallettebuffer, buffer + 6, width, height, outname, title, 0);
 		}
 
@@ -2101,17 +2105,18 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 
 			if (imageType == ImageType::png)
 			{
-				//if (isOther(other_folder, index))
-				//	sprintf_s(outname, "%s\\%s%03i-%02i-other.png", outputPath, tmapsstr, index, mainindex + 1);
-				//else
-				sprintf_s(outname, "%s\\%s%03i-%02i.png", outputPath, tmapsstr, index, mainindex + 1);
+				if (isOther(other_folder, index))
+					sprintf_s(outname, "%s\\%s%03i-%02i-other", outputPath, tmapsstr, index, mainindex + 1);
+				else
+					sprintf_s(outname, "%s\\%s%03i-%02i", outputPath, tmapsstr, index, mainindex + 1);
+
 				sprintf_s(title, "%s%03i", tmapsstr, index);
 				write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
 			}
 
 			if (imageType == ImageType::pnga)
 			{
-				sprintf_s(outname, "%s\\%s%03i-alpha-%02i.png", outputPath, tmapsstr, index, mainindex + 1);
+				sprintf_s(outname, "%s\\%s%03i-alpha-%02i", outputPath, tmapsstr, index, mainindex + 1);
 				sprintf_s(title, "%s%03i", tmapsstr, index);
 				write_posistruct_to_png(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
 				write_posistruct_to_alpha_png(pallettebuffer, buffer + 6, width, height, outname, title, 0);

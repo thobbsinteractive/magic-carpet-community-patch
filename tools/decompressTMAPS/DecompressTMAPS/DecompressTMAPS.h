@@ -14,6 +14,8 @@
 #else
 #endif
 
+#define RNC_SIGN 0x524E43 // RNC
+
 #define x_BYTE int8
 #define x_WORD int16
 #define x_DWORD int32
@@ -83,7 +85,7 @@ int other_folder1[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47 ,48, 49, 50,
 int other_folder2[] = { 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
 	51, 52, 53, 54, 66, 77, 82, 261, -1 };
 
-int* other_folder;
+int* other_folder = nullptr;
 
 int transparent_color = 0;
 
