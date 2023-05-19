@@ -49,63 +49,63 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="kiss_active.png">
+    <Image Include="Kiss\kiss_active.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_bar.png">
+    <Image Include="Kiss\kiss_bar.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_combo.png">
+    <Image Include="Kiss\kiss_combo.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_down.png">
+    <Image Include="Kiss\kiss_down.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_hslider.png">
+    <Image Include="Kiss\kiss_hslider.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_left.png">
+    <Image Include="Kiss\kiss_left.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_left_sel.png">
+    <Image Include="Kiss\kiss_left_sel.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_normal.png">
+    <Image Include="Kiss\kiss_normal.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_prelight.png">
+    <Image Include="Kiss\kiss_prelight.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_right.png">
+    <Image Include="Kiss\kiss_right.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_right_sel.png">
+    <Image Include="Kiss\kiss_right_sel.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_selected.png">
+    <Image Include="Kiss\kiss_selected.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_ss1.jpg">
+    <Image Include="Kiss\kiss_ss1.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_ss2.jpg">
+    <Image Include="Kiss\kiss_ss2.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_unselected.png">
+    <Image Include="Kiss\kiss_unselected.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_up.png">
+    <Image Include="Kiss\kiss_up.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_vslider.png">
+    <Image Include="Kiss\kiss_vslider.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="kiss_wood.png">
+    <Image Include="Kiss\kiss_wood.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="kiss_font.ttf">
+    <Font Include="Kiss\kiss_font.ttf">
       <Filter>Resource Files</Filter>
     </Font>
   </ItemGroup>
