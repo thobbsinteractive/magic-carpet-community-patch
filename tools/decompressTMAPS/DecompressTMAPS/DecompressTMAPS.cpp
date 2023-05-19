@@ -1749,6 +1749,7 @@ bool isOther(int* other_folder,int index) {
 
 int main(int argc, char** argv) {
 
+	int max_images = 504;
 	std::string palletPath;
 	std::string tmapsDat;
 	std::string tmapsTab;
@@ -1774,16 +1775,16 @@ int main(int argc, char** argv) {
 				palletPath = fs::current_path().u8string() + "/" + palletPath;
 			}
 		}
-		else if ((param == "-t") || (param == "--tmaps-tab")) 
+		else if ((param == "-d") || (param == "--tmaps-dat")) 
 		{
-			tmapsTab = *(++p);
+			tmapsDat = *(++p);
 
-			if (!fs::exists(tmapsTab))
+			if (!fs::exists(tmapsDat))
 			{
-				tmapsTab = fs::current_path().u8string() + "/" + tmapsTab;
+				tmapsDat = fs::current_path().u8string() + "/" + tmapsTab;
 			}
 
-			tmapsDat = fs::path(tmapsTab).replace_extension("dat").u8string();
+			tmapsTab = fs::path(tmapsDat).replace_extension("tab").u8string();
 
 			folderPath = fs::path(tmapsTab).filename().replace_extension("").u8string() + "-";
 
@@ -1807,6 +1808,24 @@ int main(int argc, char** argv) {
 			if (strcmp(format.c_str(), "pnga") == 0)
 			{
 				imageType = ImageType::pnga;
+			}
+		}
+		else if ((param == "-f") || (param == "--folder-pattern"))
+		{
+			std::string folderPattern = *(++p);
+
+			if (strcmp(folderPattern.c_str(), "0") == 0)
+			{
+				other_folder = other_folder0;
+			}
+			if (strcmp(folderPattern.c_str(), "1") == 0)
+			{
+				other_folder = other_folder1;
+			}
+			if (strcmp(folderPattern.c_str(), "2") == 0)
+			{
+				other_folder = other_folder2;
+				max_images = 464;
 			}
 		}
 		else if ((param == "-o") || (param == "--output-path"))
@@ -1849,24 +1868,24 @@ int main(int argc, char** argv) {
 	if (showHelp)
 	{
 		printf("-p --pallet: (Required) Pallet file path\n");
-		printf("-t --tmaps: (Required) Tmap .tab file path. Needs a .dat file of the same name\n");
+		printf("-d --tmaps-dat: (Required) Tmap .DAT file path. Needs a .TAB file of the same name\n");
 		printf("-i --image-type: (Default png) File output format to use rnc, data, bmp, png or pnga\n");
+		printf("-f --folder-pattern: (Optional) Required for full error free extraction of MC2 Data\n");
 		printf("-o --output-path: (Default) ./out\n");
 		printf("For night levels:\n");
-		printf("-p c:\\remc2\\tools\\out-n.pal -d c:\\remc2\\tools\\tmaps1-0.dat -t c:\\remc2\\tools\\tmaps1-0.tab -f 1\n");
+		printf("-p PALN-0.DAT -d TMAPS1-0.DAT -f 1\n");
 		printf("For day levels:\n");
-		printf("-p c:\\remc2\\tools\\out-block.pal -d c:\\remc2\\tools\\tmaps0-0.dat -t c:\\remc2\\tools\\tmaps0-0.tab -f 0\n");
+		printf("-p PALD-0.DAT -d TMAPS0-0.DAT -f 0\n");
 		printf("For cave levels:\n");
-		printf("-p c:\\remc2\\tools\\out-c.pal -d c:\\remc2\\tools\\tmaps2-0.dat -t c:\\remc2\\tools\\tmaps2-0.tab -f 2\n");
+		printf("-p PALC-0.DAT -d TMAPS2-0.DAT -f 2\n");
 		return -1;
 	}
 
-	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), imageType, outputPath.c_str());
+	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, outputPath.c_str());
 }
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], ImageType imageType, const char outputPath[])
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, const char outputPath[])
 {
-	int max_images = 504;
 	double colourMultiplier = 4;
 
 	FILE* fptrTMAPSdata;
