@@ -53053,12 +53053,11 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		spdlog::level::level_enum level = spdlog::level::info;
 
-// there is a configuration file for a reason.
-//#ifdef _DEBUG
-//		level = GetLoggingLevelFromString("Debug");
-//#else
+#ifdef _DEBUG
+		level = GetLoggingLevelFromString("Debug");
+#else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
-//#endif // _DEBUG
+#endif
 		InitializeLogging(level);
 
 		if (assignToSpecificCores)
