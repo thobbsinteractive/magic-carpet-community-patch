@@ -14,9 +14,6 @@ using namespace std;
 #else
 #endif
 
-//#include "../portability/port_time.h"
-//#include "../portability/port_sdl_vga_mouse.h"
-
 #ifdef _MSC_VER
 	#include "SDL.h"
 #else
@@ -25,11 +22,10 @@ using namespace std;
 #include "editor.h"
 
 int main(int argc, char* argv[])
-//int SDLmain(int argc, char** argv)
 {	
-	//VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio);
-
 	spdlog::level::level_enum level = spdlog::level::info;
+
+
 
 #ifdef _DEBUG
 	level = GetLoggingLevelFromString("Debug");
