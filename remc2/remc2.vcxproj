@@ -307,7 +307,6 @@
   <ItemGroup>
     <ClInclude Include="..\inih\ini.h" />
     <ClInclude Include="..\inih\INIReader.h" />
-    <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h" />
     <ClInclude Include="..\libADLMIDI-master\src\adldata.hh" />
     <ClInclude Include="..\libADLMIDI-master\src\adlmidi_bankmap.h" />
     <ClInclude Include="..\libADLMIDI-master\src\adlmidi_cvt.hpp" />
@@ -420,7 +419,6 @@
     <ClInclude Include="portability\port_show_perifery.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
-    <ClInclude Include="editor\editor.h" />
     <ClInclude Include="engine\ail_sound.h" />
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
@@ -446,10 +444,6 @@
   <ItemGroup>
     <ClCompile Include="..\inih\ini.c" />
     <ClCompile Include="..\inih\INIReader.cpp" />
-    <ClCompile Include="..\kiss_sdl-master\kiss_draw.cpp" />
-    <ClCompile Include="..\kiss_sdl-master\kiss_general.cpp" />
-    <ClCompile Include="..\kiss_sdl-master\kiss_posix.cpp" />
-    <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\adldata.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\adlmidi.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\adlmidi_load.cpp" />
@@ -539,7 +533,6 @@
     <ClCompile Include="portability\port_show_perifery.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
-    <ClCompile Include="editor\editor.cpp" />
     <ClCompile Include="engine\engine_support.cpp" />
     <ClCompile Include="engine\engine_support_converts.cpp" />
     <ClCompile Include="engine\read_config.cpp" />
