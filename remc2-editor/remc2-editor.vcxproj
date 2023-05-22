@@ -120,7 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\rapidjson;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -144,7 +144,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\rapidjson;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +159,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -166,7 +169,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\rapidjson;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -190,7 +193,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\rapidjson;$(SolutionDir)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -203,6 +208,7 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
