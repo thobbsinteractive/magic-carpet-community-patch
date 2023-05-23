@@ -37,9 +37,6 @@
     <Filter Include="Source Files\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\libs\libpng">
-      <UniqueIdentifier>{fb196976-86c1-4372-b999-a541250ac3dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\libs\sdl-image">
       <UniqueIdentifier>{59b0bf29-bc92-4444-a34f-c199f5de56c9}</UniqueIdentifier>
     </Filter>
@@ -862,18 +859,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\zlib\lib\zlib.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
-    <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
-    <Library Include="..\libpng3\lib\libpng16_static.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
-    <Library Include="..\zlib-64\lib\zlib.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
     <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib">
       <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
