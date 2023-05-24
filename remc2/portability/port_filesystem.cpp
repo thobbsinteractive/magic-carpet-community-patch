@@ -11,8 +11,7 @@ using namespace std;
 #endif
 */
 
-//char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gameFolder[512] = "GAME/NETHERW";
+char gameFolder[512] = "NETHERW";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
 char forceRender[512] = "";

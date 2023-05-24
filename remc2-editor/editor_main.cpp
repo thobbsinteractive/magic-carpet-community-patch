@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 
 	if (showHelp)
 	{
-		printf("-g --game-folder: (Optional) Folder Location of MC2 Game Data. Defaults to ./GAME/NETHERW. \n");
+		printf("-g --game-folder: (Optional) Folder Location of MC2 Game Data. Defaults to ./NETHERW. \n");
 		printf("-c --cd-folder: (Optional) Folder Location of MC2 CD Data.  Defaults to ./CD_FILES. \n");
 		return -1;
 	}
