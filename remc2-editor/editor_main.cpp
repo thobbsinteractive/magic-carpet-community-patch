@@ -8,11 +8,6 @@ using namespace std;
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
 #include "png.h"
-#pragma comment(lib, "zlib.lib") // must be before libpng!
-#ifndef _WIN64
-#pragma comment(lib, "libpng15.lib") // must be after zlib!
-#else
-#endif
 
 #ifdef _MSC_VER
 	#include "SDL.h"
