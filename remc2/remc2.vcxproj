@@ -140,6 +140,8 @@
     </Link>
     <PostBuildEvent>
       <Command>
+		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -166,6 +168,8 @@
     </Link>
     <PostBuildEvent>
       <Command>
+		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
@@ -197,6 +201,8 @@
     </Link>
     <PostBuildEvent>
       <Command>
+	    XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -227,6 +233,8 @@
     </Link>
     <PostBuildEvent>
       <Command>
+	    XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
@@ -262,6 +270,7 @@
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Release\libpng.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
@@ -299,6 +308,7 @@
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
+		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Release\libpng.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
