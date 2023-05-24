@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using WixSharp;
 using WixSharp.Forms;
 using WixSharpSetup;
@@ -48,11 +48,13 @@ namespace remc2_installer
                                     }
                                  },
 #if WIN64
-                                 new File(@"..\x64\Release\SDL2.dll"),
+								 new File(@"..\x64\Release\libpng.dll"),
+								 new File(@"..\x64\Release\SDL2.dll"),
 #else
+                                 new File(@"..\Release\libpng.dll"),
                                  new File(@"..\Release\SDL2.dll"),
 #endif
-                                 new File(@"Extract.bat"),
+								 new File(@"Extract.bat"),
                                  new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"biggraphics",

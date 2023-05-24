@@ -196,7 +196,7 @@ namespace WixSharpSetup
             {
                 if (Directory.Exists(gamePath))
                 {
-                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"GAME"), true);
+                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"NETHERW"), true);
                 }
                 else
                 {
@@ -507,7 +507,7 @@ namespace WixSharpSetup
                 //GOG
                 if (ValidateGoGGameDataLocation(this.txtPath.Text) &&
                 CopyExtractBatchFile(this.txtPath.Text) &&
-                MoveGameData(Path.Combine(this.txtPath.Text, "GAME")) &&
+                MoveGameData(Path.Combine(this.txtPath.Text, @"GAME\NETHERW")) &&
                 CopyExtractFolder(this.txtPath.Text) &&
                 ExtractCDFiles(this.txtPath.Text) &&
                 MoveCDFiles(Path.Combine(this.txtPath.Text, "CD_Files")))
