@@ -1485,7 +1485,9 @@ inline void setRGBA(png_byte* ptr, uint8_t* val)
 	ptr[2] = val[2];
 	ptr[3] = val[3];
 }
+#endif
 
+#ifdef _DEBUG
 int writeImage(const char* filename, int width, int height, uint8_t* buffer, char* title)
 {
 	int code = 0;
