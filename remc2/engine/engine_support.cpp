@@ -1477,6 +1477,7 @@ void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0()
 	}
 }*/
 
+#ifdef _DEBUG
 inline void setRGBA(png_byte* ptr, uint8_t* val)
 {
 	ptr[0] = val[0];
@@ -1565,6 +1566,7 @@ finalise:
 
 	return code;
 }
+#endif
 
 const int bytesPerPixel = 4; /// red, green, blue
 const int fileHeaderSize = 14;
@@ -1778,6 +1780,7 @@ void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char*
 	if (row != NULL) free(row);*/
 }
 
+#ifdef _DEBUG
 void buff_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename) {
 	//png_bytep row = NULL;
 	uint8_t Palettebuffer[768];
@@ -1797,6 +1800,7 @@ void buff_posistruct_to_png(uint8_t* buffer, int width, int height, const char* 
 	}
 	writeImage(filename, width, height, buffer2, (char*)"test");
 }
+#endif
 
 void testdword(int32_t* val1, int32_t* val2) {
 	if (*val1 != *val2)

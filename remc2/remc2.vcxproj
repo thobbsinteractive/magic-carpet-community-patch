@@ -270,7 +270,6 @@
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Release\libpng.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
@@ -297,10 +296,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\x64\Release;$(SolutionDir)x64\Release;$(SolutionDir)fluidsynth\lib;$(SolutionDir)libogg\win32\VS2015\x64\Release;$(SolutionDir)libvorbis\win32\VS2010\x64\Release;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\x64\Release;$(SolutionDir)x64\Release;$(SolutionDir)fluidsynth\lib;$(SolutionDir)libogg\win32\VS2015\x64\Release;$(SolutionDir)libvorbis\win32\VS2010\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>
       </AdditionalManifestDependencies>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -308,7 +307,6 @@
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Release\libpng.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
