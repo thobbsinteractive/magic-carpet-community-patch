@@ -13,9 +13,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\libs">
-      <UniqueIdentifier>{c9e8a2ab-55a1-4378-abf0-1b8f7eb1a606}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DecompressTMAPS.cpp">
@@ -24,14 +21,6 @@
     <ClCompile Include="BitmapIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\..\..\zlib\lib\zlib.lib">
-      <Filter>Source Files\libs</Filter>
-    </Library>
-    <Library Include="..\..\..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
-      <Filter>Source Files\libs</Filter>
-    </Library>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DecompressTMAPS.h">

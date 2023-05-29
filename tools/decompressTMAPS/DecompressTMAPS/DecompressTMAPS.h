@@ -7,12 +7,7 @@
 #include "mctypes.h"
 #include "png.h"
 #include "BitmapIO.h"
-
-#pragma comment(lib, "zlib.lib") // must be before libpng!
-#ifndef _WIN64
-#pragma comment(lib, "libpng15.lib") // must be after zlib!
-#else
-#endif
+#include <filesystem>
 
 #define RNC_SIGN 0x524E43 // RNC
 
