@@ -18,6 +18,7 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {	
+	int exitCode = 0;
 	spdlog::level::level_enum level = spdlog::level::info;
 	std::string gameFolder;
 	std::string cdFolder;
@@ -56,11 +57,19 @@ int main(int argc, char* argv[])
 #else
 	level = GetLoggingLevelFromString(loggingLevel.c_str());
 #endif
-	InitializeLogging(level);
 
-	support_begin();
-
-    editor_run(gameFolder, cdFolder);
+	try
+	{
+		InitializeLogging(level);
+		support_begin();
+		editor_run(gameFolder, cdFolder);
+	}
+	catch (const std::exception& e)
+	{
+		Logger->critical("Critial Error: {}", e.what());
+		exitCode = -1;
+	}
+	Logger->info("Exited Game");
 
     return 0;
 }
