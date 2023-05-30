@@ -40,12 +40,12 @@ namespace remc2_installer
 #if WIN64
 								 new File(@"..\x64\Release\remc2-editor.exe", new FileShortcut("Editor", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
 								 {
-									 IconFile = "Resources/app.ico"
+									 IconFile = "Resources/editor.ico"
 								 })
 #else
                                  new WixSharp.File(@"..\Release\remc2-editor.exe", new FileShortcut("Editor", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
                                  {
-                                     IconFile = "Resources/app.ico"
+                                     IconFile = "Resources/editor.ico"
                                  })
 #endif
 								 {
