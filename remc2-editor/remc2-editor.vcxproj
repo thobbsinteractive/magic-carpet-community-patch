@@ -133,6 +133,12 @@
     <PostBuildEvent>
       <Command>
         XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
+		XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
+		COPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)libpng16-16.dll" /Y
+		XCOPY "$(SolutionDir)SDL2_image-2.0.5\lib\x86\SDL2_Image.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x86\libfreetype-6.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.dll" "$(TargetDir)" /Y
+		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -186,7 +192,13 @@
     </Link>
     <PostBuildEvent>
       <Command>
-        XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
+	  XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
+	  XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
+	  COPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)libpng16-16.dll" /Y
+	  XCOPY "$(SolutionDir)SDL2_image-2.0.5\lib\x64\SDL2_Image.dll" "$(TargetDir)" /Y
+	  XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x64\libfreetype-6.dll" "$(TargetDir)" /Y
+	  XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.dll" "$(TargetDir)" /Y
+	  XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
