@@ -69,12 +69,14 @@ namespace remc2_installer
 								 },
 #if WIN64
 								 new File(@"..\x64\Release\libfreetype-6.dll"),
+								 new File(@"..\x64\Release\libpng16-16.dll"),
 								 new File(@"..\x64\Release\SDL2.dll"),
 								 new File(@"..\x64\Release\SDL2_image.dll"),
 								 new File(@"..\x64\Release\SDL2_ttf.dll"),
 								 new File(@"..\x64\Release\zlib1.dll"),
 #else
                                  new File(@"..\Release\libfreetype-6.dll"),
+								 new File(@"..\Release\libpng16-16.dll"),
 								 new File(@"..\Release\SDL2.dll"),
 								 new File(@"..\Release\SDL2_image.dll"),
 								 new File(@"..\Release\SDL2_ttf.dll"),
