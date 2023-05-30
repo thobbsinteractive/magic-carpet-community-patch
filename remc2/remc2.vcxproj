@@ -140,6 +140,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
+	  	XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
@@ -168,6 +169,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
+	    XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
@@ -201,6 +203,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
+	    XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
 	    XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
@@ -233,6 +236,7 @@
     </Link>
     <PostBuildEvent>
       <Command>
+	    XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
 	    XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)" /Y
 		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
