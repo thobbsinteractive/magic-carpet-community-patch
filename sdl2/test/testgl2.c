@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -238,10 +238,10 @@ main(int argc, char *argv[])
         consumed = SDLTest_CommonArg(state, i);
         if (consumed == 0) {
             if (SDL_strcasecmp(argv[i], "--fsaa") == 0 && i+1 < argc) {
-                fsaa = atoi(argv[i+1]);
+                fsaa = SDL_atoi(argv[i+1]);
                 consumed = 2;
             } else if (SDL_strcasecmp(argv[i], "--accel") == 0 && i+1 < argc) {
-                accel = atoi(argv[i+1]);
+                accel = SDL_atoi(argv[i+1]);
                 consumed = 2;
             } else {
                 consumed = -1;
@@ -302,7 +302,7 @@ main(int argc, char *argv[])
     }
 
     SDL_GetCurrentDisplayMode(0, &mode);
-    SDL_Log("Screen BPP    : %d\n", SDL_BITSPERPIXEL(mode.format));
+    SDL_Log("Screen BPP    : %" SDL_PRIu32 "\n", SDL_BITSPERPIXEL(mode.format));
     SDL_Log("Swap Interval : %d\n", SDL_GL_GetSwapInterval());
     SDL_GetWindowSize(state->windows[0], &dw, &dh);
     SDL_Log("Window Size   : %d,%d\n", dw, dh);

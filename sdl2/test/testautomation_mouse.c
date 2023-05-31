@@ -41,21 +41,21 @@ mouse_getMouseState(void *arg)
    /* Case where x, y pointer is NULL */
    state = SDL_GetMouseState(NULL, NULL);
    SDLTest_AssertPass("Call to SDL_GetMouseState(NULL, NULL)");
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    /* Case where x pointer is not NULL */
    x = INT_MIN;
    state = SDL_GetMouseState(&x, NULL);
    SDLTest_AssertPass("Call to SDL_GetMouseState(&x, NULL)");
    SDLTest_AssertCheck(x > INT_MIN, "Validate that value of x is > INT_MIN, got: %i", x);
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    /* Case where y pointer is not NULL */
    y = INT_MIN;
    state = SDL_GetMouseState(NULL, &y);
    SDLTest_AssertPass("Call to SDL_GetMouseState(NULL, &y)");
    SDLTest_AssertCheck(y > INT_MIN, "Validate that value of y is > INT_MIN, got: %i", y);
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    /* Case where x and y pointer is not NULL */
    x = INT_MIN;
@@ -64,7 +64,7 @@ mouse_getMouseState(void *arg)
    SDLTest_AssertPass("Call to SDL_GetMouseState(&x, &y)");
    SDLTest_AssertCheck(x > INT_MIN, "Validate that value of x is > INT_MIN, got: %i", x);
    SDLTest_AssertCheck(y > INT_MIN, "Validate that value of y is > INT_MIN, got: %i", y);
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    return TEST_COMPLETED;
 }
@@ -87,21 +87,21 @@ mouse_getRelativeMouseState(void *arg)
    /* Case where x, y pointer is NULL */
    state = SDL_GetRelativeMouseState(NULL, NULL);
    SDLTest_AssertPass("Call to SDL_GetRelativeMouseState(NULL, NULL)");
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    /* Case where x pointer is not NULL */
    x = INT_MIN;
    state = SDL_GetRelativeMouseState(&x, NULL);
    SDLTest_AssertPass("Call to SDL_GetRelativeMouseState(&x, NULL)");
    SDLTest_AssertCheck(x > INT_MIN, "Validate that value of x is > INT_MIN, got: %i", x);
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    /* Case where y pointer is not NULL */
    y = INT_MIN;
    state = SDL_GetRelativeMouseState(NULL, &y);
    SDLTest_AssertPass("Call to SDL_GetRelativeMouseState(NULL, &y)");
    SDLTest_AssertCheck(y > INT_MIN, "Validate that value of y is > INT_MIN, got: %i", y);
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    /* Case where x and y pointer is not NULL */
    x = INT_MIN;
@@ -110,7 +110,7 @@ mouse_getRelativeMouseState(void *arg)
    SDLTest_AssertPass("Call to SDL_GetRelativeMouseState(&x, &y)");
    SDLTest_AssertCheck(x > INT_MIN, "Validate that value of x is > INT_MIN, got: %i", x);
    SDLTest_AssertCheck(y > INT_MIN, "Validate that value of y is > INT_MIN, got: %i", y);
-   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %i", state);
+   SDLTest_AssertCheck(_mouseStateCheck(state), "Validate state returned from function, got: %" SDL_PRIu32, state);
 
    return TEST_COMPLETED;
 }
@@ -192,8 +192,8 @@ static SDL_Cursor *_initArrowCursor(const char *image[])
 /**
  * @brief Check call to SDL_CreateCursor and SDL_FreeCursor
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_CreateCursor
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_FreeCursor
+ * @sa http://wiki.libsdl.org/SDL_CreateCursor
+ * @sa http://wiki.libsdl.org/SDL_FreeCursor
  */
 int
 mouse_createFreeCursor(void *arg)
@@ -218,8 +218,8 @@ mouse_createFreeCursor(void *arg)
 /**
  * @brief Check call to SDL_CreateColorCursor and SDL_FreeCursor
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_CreateColorCursor
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_FreeCursor
+ * @sa http://wiki.libsdl.org/SDL_CreateColorCursor
+ * @sa http://wiki.libsdl.org/SDL_FreeCursor
  */
 int
 mouse_createFreeColorCursor(void *arg)
@@ -275,7 +275,7 @@ void _changeCursorVisibility(int state)
 /**
  * @brief Check call to SDL_ShowCursor
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_ShowCursor
+ * @sa http://wiki.libsdl.org/SDL_ShowCursor
  */
 int
 mouse_showCursor(void *arg)
@@ -305,7 +305,7 @@ mouse_showCursor(void *arg)
 /**
  * @brief Check call to SDL_SetCursor
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_SetCursor
+ * @sa http://wiki.libsdl.org/SDL_SetCursor
  */
 int
 mouse_setCursor(void *arg)
@@ -338,7 +338,7 @@ mouse_setCursor(void *arg)
 /**
  * @brief Check call to SDL_GetCursor
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_GetCursor
+ * @sa http://wiki.libsdl.org/SDL_GetCursor
  */
 int
 mouse_getCursor(void *arg)
@@ -356,8 +356,8 @@ mouse_getCursor(void *arg)
 /**
  * @brief Check call to SDL_GetRelativeMouseMode and SDL_SetRelativeMouseMode
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_GetRelativeMouseMode
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_SetRelativeMouseMode
+ * @sa http://wiki.libsdl.org/SDL_GetRelativeMouseMode
+ * @sa http://wiki.libsdl.org/SDL_SetRelativeMouseMode
  */
 int
 mouse_getSetRelativeMouseMode(void *arg)
@@ -440,7 +440,7 @@ void _destroyMouseSuiteTestWindow(SDL_Window *window)
 /**
  * @brief Check call to SDL_WarpMouseInWindow
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_WarpMouseInWindow
+ * @sa http://wiki.libsdl.org/SDL_WarpMouseInWindow
  */
 int
 mouse_warpMouseInWindow(void *arg)
@@ -502,7 +502,7 @@ mouse_warpMouseInWindow(void *arg)
 /**
  * @brief Check call to SDL_GetMouseFocus
  *
- * @sa http://wiki.libsdl.org/moin.cgi/SDL_GetMouseFocus
+ * @sa http://wiki.libsdl.org/SDL_GetMouseFocus
  */
 int
 mouse_getMouseFocus(void *arg)
@@ -527,6 +527,7 @@ mouse_getMouseFocus(void *arg)
     SDLTest_AssertPass("SDL_WarpMouseInWindow(...,%i,%i)", x, y);
 
     /* Pump events to update focus state */
+    SDL_Delay(100);
     SDL_PumpEvents();
     SDLTest_AssertPass("SDL_PumpEvents()");
 

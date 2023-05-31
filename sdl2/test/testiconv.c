@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -10,9 +10,15 @@
   freely.
 */
 
+/* quiet windows compiler warnings */
+#if defined(_MSC_VER) && !defined(_CRT_SECURE_NO_WARNINGS)
+# define _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <stdio.h>
 
 #include "SDL.h"
+#include "testutils.h"
 
 static size_t
 widelen(char *data)
@@ -42,6 +48,8 @@ main(int argc, char *argv[])
         "UCS4",
         "UCS-4",
     };
+
+    char * fname;
     char buffer[BUFSIZ];
     char *ucs4;
     char *test[2];
@@ -52,14 +60,13 @@ main(int argc, char *argv[])
     /* Enable standard application logging */
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO);
 
-    if (!argv[1]) {
-        argv[1] = "utf8.txt";
-    }
-    file = fopen(argv[1], "rb");
+    fname = GetResourceFilename(argc > 1 ? argv[1] : NULL, "utf8.txt");
+    file = fopen(fname, "rb");
     if (!file) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to open %s\n", argv[1]);
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Unable to open %s\n", fname);
         return (1);
     }
+    SDL_free(fname);
 
     while (fgets(buffer, sizeof(buffer), file)) {
         /* Convert to UCS-4 */
@@ -84,5 +91,7 @@ main(int argc, char *argv[])
         SDL_free(test[0]);
     }
     fclose(file);
+
+    SDL_LogInfo(SDL_LOG_CATEGORY_APPLICATION, "Total errors: %d\n", errors);
     return (errors ? errors + 1 : 0);
 }
