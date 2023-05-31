@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -72,16 +72,16 @@ main(int argc, char **argv)
 
     SDL_Log("There are %d sensors available\n", num_sensors);
     for (i = 0; i < num_sensors; ++i) {
-        SDL_Log("Sensor %" SDL_PRIs32 ": %s, type %s, platform type %d\n",
-                SDL_SensorGetDeviceInstanceID(i),
-                SDL_SensorGetDeviceName(i),
-                GetSensorTypeString(SDL_SensorGetDeviceType(i)),
-                SDL_SensorGetDeviceNonPortableType(i));
+        SDL_Log("Sensor %d: %s, type %s, platform type %d\n",
+            SDL_SensorGetDeviceInstanceID(i),
+            SDL_SensorGetDeviceName(i),
+            GetSensorTypeString(SDL_SensorGetDeviceType(i)),
+            SDL_SensorGetDeviceNonPortableType(i));
 
         if (SDL_SensorGetDeviceType(i) != SDL_SENSOR_UNKNOWN) {
             SDL_Sensor *sensor = SDL_SensorOpen(i);
             if (sensor == NULL) {
-                SDL_Log("Couldn't open sensor %" SDL_PRIs32 ": %s\n", SDL_SensorGetDeviceInstanceID(i), SDL_GetError());
+                SDL_Log("Couldn't open sensor %d: %s\n", SDL_SensorGetDeviceInstanceID(i), SDL_GetError());
             } else {
                 ++num_opened;
             }
@@ -95,11 +95,7 @@ main(int argc, char **argv)
 
         SDL_CreateWindow("Sensor Test", 0, 0, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
         while (!done) {
-            /* Update to get the current event state */
-            SDL_PumpEvents();
-
-            /* Process all currently pending events */
-            while (SDL_PeepEvents(&event, 1, SDL_GETEVENT, SDL_FIRSTEVENT, SDL_LASTEVENT) == 1) {
+            while (SDL_PollEvent(&event) > 0) {
                 switch (event.type) {
                 case SDL_SENSORUPDATE:
                     HandleSensorEvent(&event.sensor);

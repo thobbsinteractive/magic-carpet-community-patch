@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,7 +25,6 @@
 #endif
 
 #include "SDL.h"
-#include "testutils.h"
 
 static struct
 {
@@ -70,13 +69,12 @@ open_audio()
     SDL_PauseAudioDevice(device, SDL_FALSE);
 }
 
-#ifndef __EMSCRIPTEN__
 static void reopen_audio()
 {
     close_audio();
     open_audio();
 }
-#endif
+
 
 void SDLCALL
 fillerup(void *unused, Uint8 * stream, int len)
@@ -116,7 +114,7 @@ int
 main(int argc, char *argv[])
 {
     int i;
-    char *filename = NULL;
+    char filename[4096];
 
     /* Enable standard application logging */
     SDL_LogSetPriority(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO);
@@ -127,13 +125,11 @@ main(int argc, char *argv[])
         return (1);
     }
 
-    filename = GetResourceFilename(argc > 1 ? argv[1] : NULL, "sample.wav");
-
-    if (filename == NULL) {
-        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "%s\n", SDL_GetError());
-        quit(1);
+    if (argc > 1) {
+        SDL_strlcpy(filename, argv[1], sizeof(filename));
+    } else {
+        SDL_strlcpy(filename, "sample.wav", sizeof(filename));
     }
-
     /* Load the wave file into memory */
     if (SDL_LoadWAV(filename, &wave.spec, &wave.sound, &wave.soundlen) == NULL) {
         SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't load %s: %s\n", filename, SDL_GetError());
@@ -176,7 +172,6 @@ main(int argc, char *argv[])
     /* Clean up on signal */
     close_audio();
     SDL_FreeWAV(wave.sound);
-    SDL_free(filename);
     SDL_Quit();
     return (0);
 }

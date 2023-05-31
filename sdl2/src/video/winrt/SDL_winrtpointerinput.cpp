@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -26,6 +26,7 @@
 #include "SDL_winrtevents_c.h"
 #include "SDL_winrtmouse_c.h"
 #include "SDL_winrtvideo_cpp.h"
+#include "SDL_assert.h"
 #include "SDL_system.h"
 
 extern "C" {
@@ -116,55 +117,52 @@ WINRT_TransformCursorPosition(SDL_Window * window,
     return outputPosition;
 }
 
-SDL_bool
-WINRT_GetSDLButtonForPointerPoint(Windows::UI::Input::PointerPoint ^pt, Uint8 *button, Uint8 *pressed)
+static inline int
+_lround(float arg)
+{
+    if (arg >= 0.0f) {
+        return (int)floor(arg + 0.5f);
+    } else {
+        return (int)ceil(arg - 0.5f);
+    }
+}
+
+Uint8
+WINRT_GetSDLButtonForPointerPoint(Windows::UI::Input::PointerPoint ^pt)
 {
     using namespace Windows::UI::Input;
 
 #if WINAPI_FAMILY == WINAPI_FAMILY_PHONE_APP
-    *button = SDL_BUTTON_LEFT;
-    return SDL_TRUE;
+    return SDL_BUTTON_LEFT;
 #else
     switch (pt->Properties->PointerUpdateKind)
     {
         case PointerUpdateKind::LeftButtonPressed:
         case PointerUpdateKind::LeftButtonReleased:
-            *button = SDL_BUTTON_LEFT;
-            *pressed = (pt->Properties->PointerUpdateKind == PointerUpdateKind::LeftButtonPressed);
-            return SDL_TRUE;
+            return SDL_BUTTON_LEFT;
 
         case PointerUpdateKind::RightButtonPressed:
         case PointerUpdateKind::RightButtonReleased:
-            *button = SDL_BUTTON_RIGHT;
-            *pressed = (pt->Properties->PointerUpdateKind == PointerUpdateKind::RightButtonPressed);
-            return SDL_TRUE;
+            return SDL_BUTTON_RIGHT;
 
         case PointerUpdateKind::MiddleButtonPressed:
         case PointerUpdateKind::MiddleButtonReleased:
-            *button = SDL_BUTTON_MIDDLE;
-            *pressed = (pt->Properties->PointerUpdateKind == PointerUpdateKind::MiddleButtonPressed);
-            return SDL_TRUE;
+            return SDL_BUTTON_MIDDLE;
 
         case PointerUpdateKind::XButton1Pressed:
         case PointerUpdateKind::XButton1Released:
-            *button = SDL_BUTTON_X1;
-            *pressed = (pt->Properties->PointerUpdateKind == PointerUpdateKind::XButton1Pressed);
-            return SDL_TRUE;
+            return SDL_BUTTON_X1;
 
         case PointerUpdateKind::XButton2Pressed:
         case PointerUpdateKind::XButton2Released:
-            *button = SDL_BUTTON_X2;
-            *pressed = (pt->Properties->PointerUpdateKind == PointerUpdateKind::XButton2Pressed);
-            return SDL_TRUE;
+            return SDL_BUTTON_X2;
 
         default:
             break;
     }
 #endif
 
-    *button = 0;
-    *pressed = 0;
-    return SDL_FALSE;
+    return 0;
 }
 
 //const char *
@@ -224,10 +222,9 @@ void WINRT_ProcessPointerPressedEvent(SDL_Window *window, Windows::UI::Input::Po
         return;
     }
 
+    Uint8 button = WINRT_GetSDLButtonForPointerPoint(pointerPoint);
+
     if ( ! WINRT_IsTouchEvent(pointerPoint)) {
-        Uint8 button, pressed;
-        WINRT_GetSDLButtonForPointerPoint(pointerPoint, &button, &pressed);
-        SDL_assert(pressed == 1);
         SDL_SendMouseButton(window, 0, SDL_PRESSED, button);
     } else {
         Windows::Foundation::Point normalizedPoint = WINRT_TransformCursorPosition(window, pointerPoint->Position, NormalizeZeroToOne);
@@ -236,7 +233,6 @@ void WINRT_ProcessPointerPressedEvent(SDL_Window *window, Windows::UI::Input::Po
         SDL_SendTouch(
             WINRT_TouchID,
             (SDL_FingerID) pointerPoint->PointerId,
-            window,
             SDL_TRUE,
             normalizedPoint.X,
             normalizedPoint.Y,
@@ -255,18 +251,11 @@ WINRT_ProcessPointerMovedEvent(SDL_Window *window, Windows::UI::Input::PointerPo
     Windows::Foundation::Point windowPoint = WINRT_TransformCursorPosition(window, pointerPoint->Position, TransformToSDLWindowSize);
 
     if ( ! WINRT_IsTouchEvent(pointerPoint)) {
-        /* For some odd reason Moved events are used for multiple mouse buttons */
-        Uint8 button, pressed;
-        if (WINRT_GetSDLButtonForPointerPoint(pointerPoint, &button, &pressed)) {
-            SDL_SendMouseButton(window, 0, pressed, button);
-        }
-
         SDL_SendMouseMotion(window, 0, 0, (int)windowPoint.X, (int)windowPoint.Y);
     } else {
         SDL_SendTouchMotion(
             WINRT_TouchID,
             (SDL_FingerID) pointerPoint->PointerId,
-            window,
             normalizedPoint.X,
             normalizedPoint.Y,
             pointerPoint->Properties->Pressure);
@@ -279,10 +268,9 @@ void WINRT_ProcessPointerReleasedEvent(SDL_Window *window, Windows::UI::Input::P
         return;
     }
 
+    Uint8 button = WINRT_GetSDLButtonForPointerPoint(pointerPoint);
+
     if (!WINRT_IsTouchEvent(pointerPoint)) {
-        Uint8 button, pressed;
-        WINRT_GetSDLButtonForPointerPoint(pointerPoint, &button, &pressed);
-        SDL_assert(pressed == 0);
         SDL_SendMouseButton(window, 0, SDL_RELEASED, button);
     } else {
         Windows::Foundation::Point normalizedPoint = WINRT_TransformCursorPosition(window, pointerPoint->Position, NormalizeZeroToOne);
@@ -290,7 +278,6 @@ void WINRT_ProcessPointerReleasedEvent(SDL_Window *window, Windows::UI::Input::P
         SDL_SendTouch(
             WINRT_TouchID,
             (SDL_FingerID) pointerPoint->PointerId,
-            window,
             SDL_FALSE,
             normalizedPoint.X,
             normalizedPoint.Y,
@@ -400,8 +387,8 @@ WINRT_ProcessMouseMovedEvent(SDL_Window * window, Windows::Devices::Input::Mouse
         window,
         0,
         1,
-        SDL_lroundf(mouseDeltaInSDLWindowCoords.X),
-        SDL_lroundf(mouseDeltaInSDLWindowCoords.Y));
+        _lround(mouseDeltaInSDLWindowCoords.X),
+        _lround(mouseDeltaInSDLWindowCoords.Y));
 }
 
 #endif // SDL_VIDEO_DRIVER_WINRT

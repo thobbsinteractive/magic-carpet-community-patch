@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,29 +25,17 @@
 #include "SDL_events.h"
 #include "SDL_events_c.h"
 #include "SDL_mouse_c.h"
-#include "SDL_hints.h"
 
-typedef struct RemovePendingSizeChangedAndResizedEvents_Data
-{
-    const SDL_Event *new_event;
-    SDL_bool saw_resized;
-} RemovePendingSizeChangedAndResizedEvents_Data;
 
 static int SDLCALL
-RemovePendingSizeChangedAndResizedEvents(void *_userdata, SDL_Event *event)
+RemovePendingSizeChangedAndResizedEvents(void * userdata, SDL_Event *event)
 {
-    RemovePendingSizeChangedAndResizedEvents_Data *userdata = (RemovePendingSizeChangedAndResizedEvents_Data *) _userdata;
-    const SDL_Event *new_event = userdata->new_event;
+    SDL_Event *new_event = (SDL_Event *)userdata;
 
     if (event->type == SDL_WINDOWEVENT &&
         (event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED ||
          event->window.event == SDL_WINDOWEVENT_RESIZED) &&
         event->window.windowID == new_event->window.windowID) {
-
-        if (event->window.event == SDL_WINDOWEVENT_RESIZED) {
-            userdata->saw_resized = SDL_TRUE;
-        }
-
         /* We're about to post a new size event, drop the old one */
         return 0;
     }
@@ -122,7 +110,6 @@ SDL_SendWindowEvent(SDL_Window * window, Uint8 windowevent, int data1,
         }
         window->x = data1;
         window->y = data2;
-        SDL_OnWindowMoved(window);
         break;
     case SDL_WINDOWEVENT_RESIZED:
         if (!(window->flags & SDL_WINDOW_FULLSCREEN)) {
@@ -200,18 +187,7 @@ SDL_SendWindowEvent(SDL_Window * window, Uint8 windowevent, int data1,
 
         /* Fixes queue overflow with resize events that aren't processed */
         if (windowevent == SDL_WINDOWEVENT_SIZE_CHANGED) {
-            /* !!! FIXME: in SDL3, let's make RESIZED/SIZE_CHANGED into one event with a flag to distinguish between them, and remove all this tapdancing. */
-            RemovePendingSizeChangedAndResizedEvents_Data userdata;
-            userdata.new_event = &event;
-            userdata.saw_resized = SDL_FALSE;
-            SDL_FilterEvents(RemovePendingSizeChangedAndResizedEvents, &userdata);
-            if (userdata.saw_resized) {  /* if there was a pending resize, make sure one at the new dimensions remains. */
-                event.window.event = SDL_WINDOWEVENT_RESIZED;
-                if (SDL_PushEvent(&event) <= 0) {
-                    return 0;  /* oh well. */
-                }
-                event.window.event = SDL_WINDOWEVENT_SIZE_CHANGED;  /* then push the actual event next. */
-            }
+            SDL_FilterEvents(RemovePendingSizeChangedAndResizedEvents, &event);
         }
         if (windowevent == SDL_WINDOWEVENT_MOVED) {
             SDL_FilterEvents(RemovePendingMoveEvents, &event);
@@ -224,13 +200,12 @@ SDL_SendWindowEvent(SDL_Window * window, Uint8 windowevent, int data1,
 
     if (windowevent == SDL_WINDOWEVENT_CLOSE) {
         if ( !window->prev && !window->next ) {
-            if (SDL_GetHintBoolean(SDL_HINT_QUIT_ON_LAST_WINDOW_CLOSE, SDL_TRUE)) {
-                SDL_SendQuit();  /* This is the last window in the list so send the SDL_QUIT event */
-            }
+            /* This is the last window in the list so send the SDL_QUIT event */
+            SDL_SendQuit();
         }
     }
 
-    return posted;
+    return (posted);
 }
 
 /* vi: set ts=4 sw=4 expandtab: */

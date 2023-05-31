@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -21,6 +21,7 @@
 
 #include "../../SDL_internal.h"
 
+#include "SDL_assert.h"
 #include "SDL_poll.h"
 
 #ifdef HAVE_POLL
@@ -34,11 +35,9 @@
 
 
 int
-SDL_IOReady(int fd, int flags, int timeoutMS)
+SDL_IOReady(int fd, SDL_bool forWrite, int timeoutMS)
 {
     int result;
-
-    SDL_assert(flags & (SDL_IOR_READ | SDL_IOR_WRITE));
 
     /* Note: We don't bother to account for elapsed time if we get EINTR */
     do
@@ -47,12 +46,10 @@ SDL_IOReady(int fd, int flags, int timeoutMS)
         struct pollfd info;
 
         info.fd = fd;
-        info.events = 0;
-        if (flags & SDL_IOR_READ) {
-            info.events |= POLLIN | POLLPRI;
-        }
-        if (flags & SDL_IOR_WRITE) {
-            info.events |= POLLOUT;
+        if (forWrite) {
+            info.events = POLLOUT;
+        } else {
+            info.events = POLLIN | POLLPRI;
         }
         result = poll(&info, 1, timeoutMS);
 #else
@@ -63,15 +60,14 @@ SDL_IOReady(int fd, int flags, int timeoutMS)
         /* If this assert triggers we'll corrupt memory here */
         SDL_assert(fd >= 0 && fd < FD_SETSIZE);
 
-        if (flags & SDL_IOR_READ) {
-            FD_ZERO(&rfdset);
-            FD_SET(fd, &rfdset);
-            rfdp = &rfdset;
-        }
-        if (flags & SDL_IOR_WRITE) {
+        if (forWrite) {
             FD_ZERO(&wfdset);
             FD_SET(fd, &wfdset);
             wfdp = &wfdset;
+        } else {
+            FD_ZERO(&rfdset);
+            FD_SET(fd, &rfdset);
+            rfdp = &rfdset;
         }
 
         if (timeoutMS >= 0) {
@@ -83,7 +79,7 @@ SDL_IOReady(int fd, int flags, int timeoutMS)
         result = select(fd + 1, rfdp, wfdp, NULL, tvp);
 #endif /* HAVE_POLL */
 
-    } while ( result < 0 && errno == EINTR && !(flags & SDL_IOR_NO_RETRY));
+    } while ( result < 0 && errno == EINTR );
 
     return result;
 }

@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -237,11 +237,11 @@ SNDIO_CloseDevice(_THIS)
 }
 
 static int
-SNDIO_OpenDevice(_THIS, const char *devname)
+SNDIO_OpenDevice(_THIS, void *handle, const char *devname, int iscapture)
 {
-    SDL_AudioFormat test_format;
+    SDL_AudioFormat test_format = SDL_FirstAudioFormat(this->spec.format);
     struct sio_par par;
-    SDL_bool iscapture = this->iscapture;
+    int status;
 
     this->hidden = (struct SDL_PrivateAudioData *)
         SDL_malloc(sizeof(*this->hidden));
@@ -273,7 +273,8 @@ SNDIO_OpenDevice(_THIS, const char *devname)
     par.appbufsz = par.round * 2;
 
     /* Try for a closest match on audio format */
-    for (test_format = SDL_FirstAudioFormat(this->spec.format); test_format; test_format = SDL_NextAudioFormat()) {
+    status = -1;
+    while (test_format && (status < 0)) {
         if (!SDL_AUDIO_ISFLOAT(test_format)) {
             par.le = SDL_AUDIO_ISLITTLEENDIAN(test_format) ? 1 : 0;
             par.sig = SDL_AUDIO_ISSIGNED(test_format) ? 1 : 0;
@@ -289,13 +290,15 @@ SNDIO_OpenDevice(_THIS, const char *devname)
                 continue;
             }
             if ((par.bits == 8 * par.bps) || (par.msb)) {
+                status = 0;
                 break;
             }
         }
+        test_format = SDL_NextAudioFormat();
     }
 
-    if (!test_format) {
-        return SDL_SetError("%s: Unsupported audio format", "sndio");
+    if (status < 0) {
+        return SDL_SetError("sndio: Couldn't find any hardware audio formats");
     }
 
     if ((par.bps == 4) && (par.sig) && (par.le))
@@ -347,18 +350,11 @@ SNDIO_Deinitialize(void)
     UnloadSNDIOLibrary();
 }
 
-static void
-SNDIO_DetectDevices(void)
-{
-	SDL_AddAudioDevice(SDL_FALSE, DEFAULT_OUTPUT_DEVNAME, NULL, (void *) 0x1);
-	SDL_AddAudioDevice(SDL_TRUE, DEFAULT_INPUT_DEVNAME, NULL, (void *) 0x2);
-}
-
-static SDL_bool
+static int
 SNDIO_Init(SDL_AudioDriverImpl * impl)
 {
     if (LoadSNDIOLibrary() < 0) {
-        return SDL_FALSE;
+        return 0;
     }
 
     /* Set the function pointers */
@@ -370,16 +366,15 @@ SNDIO_Init(SDL_AudioDriverImpl * impl)
     impl->CaptureFromDevice = SNDIO_CaptureFromDevice;
     impl->FlushCapture = SNDIO_FlushCapture;
     impl->Deinitialize = SNDIO_Deinitialize;
-    impl->DetectDevices = SNDIO_DetectDevices;
 
-    impl->AllowsArbitraryDeviceNames = SDL_TRUE;
+    impl->AllowsArbitraryDeviceNames = 1;
     impl->HasCaptureSupport = SDL_TRUE;
 
-    return SDL_TRUE;   /* this audio target is available. */
+    return 1;   /* this audio target is available. */
 }
 
 AudioBootStrap SNDIO_bootstrap = {
-    "sndio", "OpenBSD sndio", SNDIO_Init, SDL_FALSE
+    "sndio", "OpenBSD sndio", SNDIO_Init, 0
 };
 
 #endif /* SDL_AUDIO_DRIVER_SNDIO */

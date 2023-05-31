@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -40,10 +40,14 @@ static int shm_errhandler(Display *d, XErrorEvent *e)
         return(X_handler(d,e));
 }
 
-static SDL_bool have_mitshm(Display *dpy)
+static SDL_bool have_mitshm(void)
 {
     /* Only use shared memory on local X servers */
-    return X11_XShmQueryExtension(dpy) ? SDL_X11_HAVE_SHM : SDL_FALSE;
+    if ( (SDL_strncmp(X11_XDisplayName(NULL), ":", 1) == 0) ||
+         (SDL_strncmp(X11_XDisplayName(NULL), "unix:", 5) == 0) ) {
+        return SDL_X11_HAVE_SHM;
+    }
+    return SDL_FALSE;
 }
 
 #endif /* !NO_SHARED_MEMORY */
@@ -82,7 +86,7 @@ X11_CreateWindowFramebuffer(_THIS, SDL_Window * window, Uint32 * format,
 
     /* Create the actual image */
 #ifndef NO_SHARED_MEMORY
-    if (have_mitshm(display)) {
+    if (have_mitshm()) {
         XShmSegmentInfo *shminfo = &data->shminfo;
 
         shminfo->shmid = shmget(IPC_PRIVATE, window->h*(*pitch), IPC_CREAT | 0777);
@@ -115,7 +119,6 @@ X11_CreateWindowFramebuffer(_THIS, SDL_Window * window, Uint32 * format,
                 shmdt(shminfo->shmaddr);
             } else {
                 /* Done! */
-                data->ximage->byte_order = (SDL_BYTEORDER == SDL_BIG_ENDIAN) ? MSBFirst : LSBFirst;
                 data->use_mitshm = SDL_TRUE;
                 *pixels = shminfo->shmaddr;
                 return 0;
@@ -136,7 +139,6 @@ X11_CreateWindowFramebuffer(_THIS, SDL_Window * window, Uint32 * format,
         SDL_free(*pixels);
         return SDL_SetError("Couldn't create XImage");
     }
-    data->ximage->byte_order = (SDL_BYTEORDER == SDL_BIG_ENDIAN) ? MSBFirst : LSBFirst;
     return 0;
 }
 

@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -30,16 +30,11 @@
 
 #include "SDL_waylandvideo.h"
 #include "SDL_waylandwindow.h"
+#include "SDL_assert.h"
 
 #include "SDL_loadso.h"
 #include "SDL_waylandvulkan.h"
 #include "SDL_syswm.h"
-
-#if defined(__OpenBSD__)
-#define DEFAULT_VULKAN  "libvulkan.so"
-#else
-#define DEFAULT_VULKAN  "libvulkan.so.1"
-#endif
 
 int Wayland_Vulkan_LoadLibrary(_THIS, const char *path)
 {
@@ -55,7 +50,7 @@ int Wayland_Vulkan_LoadLibrary(_THIS, const char *path)
     if(!path)
         path = SDL_getenv("SDL_VULKAN_LIBRARY");
     if(!path)
-        path = DEFAULT_VULKAN;
+        path = "libvulkan.so.1";
     _this->vulkan_config.loader_handle = SDL_LoadObject(path);
     if(!_this->vulkan_config.loader_handle)
         return -1;
@@ -132,6 +127,22 @@ SDL_bool Wayland_Vulkan_GetInstanceExtensions(_THIS,
             extensionsForWayland);
 }
 
+void Wayland_Vulkan_GetDrawableSize(_THIS, SDL_Window *window, int *w, int *h)
+{
+    SDL_WindowData *data;
+    if (window->driverdata) {
+        data = (SDL_WindowData *) window->driverdata;
+
+        if (w) {
+            *w = window->w * data->scale_factor;
+        }
+
+        if (h) {
+            *h = window->h * data->scale_factor;
+        }
+    }
+}
+
 SDL_bool Wayland_Vulkan_CreateSurface(_THIS,
                                   SDL_Window *window,
                                   VkInstance instance,
@@ -142,7 +153,7 @@ SDL_bool Wayland_Vulkan_CreateSurface(_THIS,
         (PFN_vkGetInstanceProcAddr)_this->vulkan_config.vkGetInstanceProcAddr;
     PFN_vkCreateWaylandSurfaceKHR vkCreateWaylandSurfaceKHR =
         (PFN_vkCreateWaylandSurfaceKHR)vkGetInstanceProcAddr(
-                                            instance,
+                                            (VkInstance)instance,
                                             "vkCreateWaylandSurfaceKHR");
     VkWaylandSurfaceCreateInfoKHR createInfo;
     VkResult result;

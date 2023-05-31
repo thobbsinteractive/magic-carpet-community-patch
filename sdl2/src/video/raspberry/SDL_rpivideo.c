@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -49,6 +49,12 @@
 #include "SDL_rpievents_c.h"
 #include "SDL_rpiopengles.h"
 #include "SDL_rpimouse.h"
+
+static int
+RPI_Available(void)
+{
+    return 1;
+}
 
 static void
 RPI_Destroy(SDL_VideoDevice * device)
@@ -120,6 +126,7 @@ RPI_Create()
     device->MaximizeWindow = RPI_MaximizeWindow;
     device->MinimizeWindow = RPI_MinimizeWindow;
     device->RestoreWindow = RPI_RestoreWindow;
+    device->SetWindowGrab = RPI_SetWindowGrab;
     device->DestroyWindow = RPI_DestroyWindow;
 #if 0
     device->GetWindowWMInfo = RPI_GetWindowWMInfo;
@@ -143,6 +150,7 @@ RPI_Create()
 VideoBootStrap RPI_bootstrap = {
     "RPI",
     "RPI Video Driver",
+    RPI_Available,
     RPI_Create
 };
 
@@ -195,7 +203,7 @@ AddDispManXDisplay(const int display_id)
 
     display.driverdata = data;
 
-    SDL_AddVideoDisplay(&display, SDL_FALSE);
+    SDL_AddVideoDisplay(&display);
 }
 
 int
@@ -420,6 +428,11 @@ void
 RPI_RestoreWindow(_THIS, SDL_Window * window)
 {
 }
+void
+RPI_SetWindowGrab(_THIS, SDL_Window * window, SDL_bool grabbed)
+{
+
+}
 
 /*****************************************************************************/
 /* SDL Window Manager function                                               */
@@ -431,8 +444,8 @@ RPI_GetWindowWMInfo(_THIS, SDL_Window * window, struct SDL_SysWMinfo *info)
     if (info->version.major <= SDL_MAJOR_VERSION) {
         return SDL_TRUE;
     } else {
-        SDL_SetError("application not compiled with SDL %d",
-                     SDL_MAJOR_VERSION);
+        SDL_SetError("application not compiled with SDL %d.%d",
+                     SDL_MAJOR_VERSION, SDL_MINOR_VERSION);
         return SDL_FALSE;
     }
 

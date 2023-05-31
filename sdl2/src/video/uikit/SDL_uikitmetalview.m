@@ -1,6 +1,6 @@
 /*
  Simple DirectMedia Layer
- Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+ Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
  
  This software is provided 'as-is', without any express or implied
  warranty.  In no event will the authors be held liable for any damages
@@ -22,20 +22,19 @@
 /*
  * @author Mark Callow, www.edgewise-consulting.com.
  *
- * Thanks to @slime73 on GitHub for their gist showing how to add a CAMetalLayer
- * backed view.
+ * Thanks to Alex Szpakowski, @slime73 on GitHub, for his gist showing
+ * how to add a CAMetalLayer backed view.
  */
 
 #include "../../SDL_internal.h"
 
-#if SDL_VIDEO_DRIVER_UIKIT && (SDL_VIDEO_VULKAN || SDL_VIDEO_METAL)
+#if SDL_VIDEO_DRIVER_UIKIT && (SDL_VIDEO_RENDER_METAL || SDL_VIDEO_VULKAN)
 
-#include "SDL_syswm.h"
-#include "../SDL_sysvideo.h"
-
+#import "../SDL_sysvideo.h"
 #import "SDL_uikitwindow.h"
 #import "SDL_uikitmetalview.h"
 
+#include "SDL_assert.h"
 
 @implementation SDL_uikitmetalview
 
@@ -49,7 +48,7 @@
                         scale:(CGFloat)scale
 {
     if ((self = [super initWithFrame:frame])) {
-        self.tag = SDL_METALVIEW_TAG;
+        self.tag = METALVIEW_TAG;
         self.layer.contentsScale = scale;
         [self updateDrawableSize];
     }
@@ -74,12 +73,16 @@
 
 @end
 
-SDL_MetalView
-UIKit_Metal_CreateView(_THIS, SDL_Window * window)
-{ @autoreleasepool {
+SDL_uikitmetalview*
+UIKit_Mtl_AddMetalView(SDL_Window* window)
+{
     SDL_WindowData *data = (__bridge SDL_WindowData *)window->driverdata;
+    SDL_uikitview *view = (SDL_uikitview*)data.uiwindow.rootViewController.view;
     CGFloat scale = 1.0;
-    SDL_uikitmetalview *metalview;
+
+    if ([view isKindOfClass:[SDL_uikitmetalview class]]) {
+        return (SDL_uikitmetalview *)view;
+    }
 
     if (window->flags & SDL_WINDOW_ALLOW_HIGHDPI) {
         /* Set the scale to the natural scale factor of the screen - then
@@ -87,40 +90,27 @@ UIKit_Metal_CreateView(_THIS, SDL_Window * window)
          * dimensions of the screen rather than the dimensions in points
          * yielding high resolution on retine displays.
          */
-        scale = data.uiwindow.screen.nativeScale;
+        if ([data.uiwindow.screen respondsToSelector:@selector(nativeScale)]) {
+            scale = data.uiwindow.screen.nativeScale;
+        } else {
+            scale = data.uiwindow.screen.scale;
+        }
     }
-
-    metalview = [[SDL_uikitmetalview alloc] initWithFrame:data.uiwindow.bounds
-                                                    scale:scale];
+    SDL_uikitmetalview *metalview
+         = [[SDL_uikitmetalview alloc] initWithFrame:view.frame
+                                               scale:scale];
     [metalview setSDLWindow:window];
 
-    return (void*)CFBridgingRetain(metalview);
-}}
+    return metalview;
+}
 
 void
-UIKit_Metal_DestroyView(_THIS, SDL_MetalView view)
-{ @autoreleasepool {
-    SDL_uikitmetalview *metalview = CFBridgingRelease(view);
-
-    if ([metalview isKindOfClass:[SDL_uikitmetalview class]]) {
-        [metalview setSDLWindow:NULL];
-    }
-}}
-
-void *
-UIKit_Metal_GetLayer(_THIS, SDL_MetalView view)
-{ @autoreleasepool {
-    SDL_uikitview *uiview = (__bridge SDL_uikitview *)view;
-    return (__bridge void *)uiview.layer;
-}}
-
-void
-UIKit_Metal_GetDrawableSize(_THIS, SDL_Window * window, int * w, int * h)
+UIKit_Mtl_GetDrawableSize(SDL_Window * window, int * w, int * h)
 {
     @autoreleasepool {
         SDL_WindowData *data = (__bridge SDL_WindowData *)window->driverdata;
         SDL_uikitview *view = (SDL_uikitview*)data.uiwindow.rootViewController.view;
-        SDL_uikitmetalview* metalview = [view viewWithTag:SDL_METALVIEW_TAG];
+        SDL_uikitmetalview* metalview = [view viewWithTag:METALVIEW_TAG];
         if (metalview) {
             CAMetalLayer *layer = (CAMetalLayer*)metalview.layer;
             assert(layer != NULL);
@@ -136,4 +126,4 @@ UIKit_Metal_GetDrawableSize(_THIS, SDL_Window * window, int * w, int * h)
     }
 }
 
-#endif /* SDL_VIDEO_DRIVER_UIKIT && (SDL_VIDEO_VULKAN || SDL_VIDEO_METAL) */
+#endif /* SDL_VIDEO_DRIVER_UIKIT && (SDL_VIDEO_RENDER_METAL || SDL_VIDEO_VULKAN) */

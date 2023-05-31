@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -26,6 +26,7 @@
 #include "../SDL_internal.h"
 
 #include "SDL_stdinc.h"
+#include "SDL_assert.h"
 
 #if defined(HAVE_QSORT)
 void
@@ -63,7 +64,7 @@ SDL_qsort(void *base, size_t nmemb, size_t size, int (*compare) (const void *, c
 
 /*
 This code came from Gareth McCaughan, under the zlib license.
-Specifically this: https://www.mccaughan.org.uk/software/qsort.c-1.15
+Specifically this: https://www.mccaughan.org.uk/software/qsort.c-1.14
 
 Everything below this comment until the HAVE_QSORT #endif was from Gareth
 (any minor changes will be noted inline).
@@ -142,10 +143,6 @@ benefit!
  *   2016-02-21 v1.14 Replace licence with 2-clause BSD,
  *                    and clarify a couple of things in
  *                    comments. No code changes.
- *   2016-03-10 v1.15 Fix bug kindly reported by Ryan Gordon
- *                    (pre-insertion-sort messed up).
- *                    Disable DEBUG_QSORT by default.
- *                    Tweak comments very slightly.
  */
 
 /* BEGIN SDL CHANGE ... commented this out with an #if 0 block. --ryan. */
@@ -154,9 +151,9 @@ benefit!
 #include <stdlib.h>
 #include <string.h>
 
-#undef DEBUG_QSORT
+#define DEBUG_QSORT
 
-static char _ID[]="<qsort.c gjm 1.15 2016-03-10>";
+static char _ID[]="<qsort.c gjm 1.14 2016-02-21>";
 #endif
 /* END SDL CHANGE ... commented this out with an #if 0 block. --ryan. */
 
@@ -319,9 +316,7 @@ typedef struct { char * first; char * last; } stack_entry;
  * We find the smallest element from the first |nmemb|,
  * or the first |limit|, whichever is smaller;
  * therefore we must have ensured that the globally smallest
- * element is in the first |limit| (because our
- * quicksort recursion bottoms out only once we
- * reach subarrays smaller than |limit|).
+ * element is in the first |limit|.
  */
 #define PreInsertion(swapper,limit,sz)		\
   first=base;					\
@@ -414,7 +409,7 @@ static void qsort_nonaligned(void *base, size_t nmemb, size_t size,
   char *first,*last;
   char *pivot=malloc(size);
   size_t trunc=TRUNC_nonaligned*size;
-  assert(pivot != NULL);
+  assert(pivot!=0);
 
   first=(char*)base; last=first+(nmemb-1)*size;
 
@@ -445,7 +440,7 @@ static void qsort_aligned(void *base, size_t nmemb, size_t size,
   char *first,*last;
   char *pivot=malloc(size);
   size_t trunc=TRUNC_aligned*size;
-  assert(pivot != NULL);
+  assert(pivot!=0);
 
   first=(char*)base; last=first+(nmemb-1)*size;
 
@@ -475,7 +470,7 @@ static void qsort_words(void *base, size_t nmemb,
   int stacktop=0;
   char *first,*last;
   char *pivot=malloc(WORD_BYTES);
-  assert(pivot != NULL);
+  assert(pivot!=0);
 
   first=(char*)base; last=first+(nmemb-1)*WORD_BYTES;
 
@@ -504,7 +499,7 @@ fprintf(stderr, "after partitioning first=#%lu last=#%lu\n", (first-(char*)base)
       Recurse(TRUNC_words)
     }
   }
-  PreInsertion(SWAP_words,TRUNC_words/WORD_BYTES,WORD_BYTES);
+  PreInsertion(SWAP_words,(TRUNC_words/WORD_BYTES),WORD_BYTES);
   /* Now do insertion sort. */
   last=((char*)base)+nmemb*WORD_BYTES;
   for (first=((char*)base)+WORD_BYTES;first!=last;first+=WORD_BYTES) {
@@ -532,40 +527,8 @@ extern void qsortG(void *base, size_t nmemb, size_t size,
     qsort_words(base,nmemb,compare);
 }
 
+
 #endif /* HAVE_QSORT */
-
-void *
-SDL_bsearch(const void *key, const void *base, size_t nmemb, size_t size, int (*compare)(const void *, const void *))
-{
-#if defined(HAVE_BSEARCH)
-    return bsearch(key, base, nmemb, size, compare);
-#else
-/* SDL's replacement:  Taken from the Public Domain C Library (PDCLib):
-   Permission is granted to use, modify, and / or redistribute at will.
-*/
-    const void *pivot;
-    size_t corr;
-    int rc;
-
-    while (nmemb) {
-        /* algorithm needs -1 correction if remaining elements are an even number. */
-        corr = nmemb % 2;
-        nmemb /= 2;
-        pivot = (const char *)base + (nmemb * size);
-        rc = compare(key, pivot);
-
-        if (rc > 0) {
-            base = (const char *)pivot + size;
-            /* applying correction */
-            nmemb -= (1 - corr);
-        } else if (rc == 0) {
-            return (void *)pivot;
-        }
-    }
-
-    return NULL;
-#endif /* HAVE_BSEARCH */
-}
 
 /* vi: set ts=4 sw=4 expandtab: */
 

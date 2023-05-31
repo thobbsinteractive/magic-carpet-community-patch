@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -28,10 +28,10 @@ SDL_Rect rect;
 SDL_Event event;
 
 static void
-DrawRects(SDL_Renderer * renderer)
+DrawRects(SDL_Renderer * renderer, SDL_Rect * rect)
 {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderFillRect(renderer, rect);
 }
 
 static void
@@ -63,7 +63,7 @@ loop(){
         if (rect.x > viewport.x + viewport.w) rect.x -= viewport.w;
         if (rect.y > viewport.y + viewport.h) rect.y -= viewport.h;
 
-        DrawRects(renderer);
+        DrawRects(renderer, &rect);
 
         SDL_RenderPresent(renderer);
     }
@@ -104,7 +104,7 @@ main(int argc, char *argv[])
     srand((unsigned int)time(NULL));
     if(SDL_SetRelativeMouseMode(SDL_TRUE) < 0) {
         return 3;
-    }
+    };
 
     rect.x = DEFAULT_WINDOW_WIDTH / 2;
     rect.y = DEFAULT_WINDOW_HEIGHT / 2;

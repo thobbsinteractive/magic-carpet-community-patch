@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -25,8 +25,7 @@
 
 #ifdef SDL_VIDEO_DRIVER_WAYLAND_QT_TOUCH
 
-#include "SDL_mouse.h"
-#include "SDL_keyboard.h"
+#include "SDL_log.h"
 #include "SDL_waylandtouch.h"
 #include "../../events/SDL_touch_c.h"
 
@@ -73,8 +72,8 @@ touch_handle_touch(void *data,
      **/
 
     float FIXED_TO_FLOAT = 1. / 10000.;
-    float xf = FIXED_TO_FLOAT * normalized_x;
-    float yf = FIXED_TO_FLOAT * normalized_y;
+    float xf = FIXED_TO_FLOAT * x;
+    float yf = FIXED_TO_FLOAT * y;
 
     float PRESSURE_TO_FLOAT = 1. / 255.;
     float pressuref = PRESSURE_TO_FLOAT * pressure;
@@ -89,29 +88,20 @@ touch_handle_touch(void *data,
     uint32_t capabilities = flags >> 16;
     */
 
-    SDL_Window* window = NULL;
-
     SDL_TouchID deviceId = 1;
     if (SDL_AddTouch(deviceId, SDL_TOUCH_DEVICE_DIRECT, "qt_touch_extension") < 0) {
          SDL_Log("error: can't add touch %s, %d", __FILE__, __LINE__);
     }
 
-    /* FIXME: This should be the window the given wayland surface is associated
-     * with, but how do we get the wayland surface? */
-    window = SDL_GetMouseFocus();
-    if (window == NULL) {
-        window = SDL_GetKeyboardFocus();
-    }
-
     switch (touchState) {
         case QtWaylandTouchPointPressed:
         case QtWaylandTouchPointReleased:
-            SDL_SendTouch(deviceId, (SDL_FingerID)id, window,
+            SDL_SendTouch(deviceId, (SDL_FingerID)id,
                     (touchState == QtWaylandTouchPointPressed) ? SDL_TRUE : SDL_FALSE,
                     xf, yf, pressuref);
             break;
         case QtWaylandTouchPointMoved:
-            SDL_SendTouchMotion(deviceId, (SDL_FingerID)id, window, xf, yf, pressuref);
+            SDL_SendTouchMotion(deviceId, (SDL_FingerID)id, xf, yf, pressuref);
             break;
         default:
             /* Should not happen */
@@ -160,7 +150,7 @@ static const struct wl_message qt_touch_extension_events[] = {
     { "configure", "u", qt_touch_extension_types + 0 },
 };
 
-const struct wl_interface qt_touch_extension_interface = {
+WL_EXPORT const struct wl_interface qt_touch_extension_interface = {
     "qt_touch_extension", 1,
     1, qt_touch_extension_requests,
     2, qt_touch_extension_events,
@@ -183,7 +173,7 @@ static const struct wl_message qt_windowmanager_events[] = {
     { "quit", "", qt_windowmanager_types + 0 },
 };
 
-const struct wl_interface qt_windowmanager_interface = {
+WL_EXPORT const struct wl_interface qt_windowmanager_interface = {
     "qt_windowmanager", 1,
     1, qt_windowmanager_requests,
     2, qt_windowmanager_events,
@@ -191,6 +181,7 @@ const struct wl_interface qt_windowmanager_interface = {
 /* wayland-qt-windowmanager.c ENDS */
 
 /* wayland-qt-surface-extension.c BEGINS */
+extern const struct wl_interface qt_extended_surface_interface;
 #ifndef SDL_VIDEO_DRIVER_WAYLAND_DYNAMIC
 extern const struct wl_interface wl_surface_interface;
 #endif
@@ -214,7 +205,7 @@ static const struct wl_message qt_surface_extension_requests[] = {
     { "get_extended_surface", "no", qt_surface_extension_types + 2 },
 };
 
-const struct wl_interface qt_surface_extension_interface = {
+WL_EXPORT const struct wl_interface qt_surface_extension_interface = {
     "qt_surface_extension", 1,
     1, qt_surface_extension_requests,
     0, NULL,
@@ -232,7 +223,7 @@ static const struct wl_message qt_extended_surface_events[] = {
     { "close", "", qt_surface_extension_types + 0 },
 };
 
-const struct wl_interface qt_extended_surface_interface = {
+WL_EXPORT const struct wl_interface qt_extended_surface_interface = {
     "qt_extended_surface", 1,
     3, qt_extended_surface_requests,
     3, qt_extended_surface_events,

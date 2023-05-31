@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2023 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2019 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -37,11 +37,11 @@
 
 static int ThreadEntry(SceSize args, void *argp)
 {
-    SDL_RunThread(*(SDL_Thread **) argp);
+    SDL_RunThread(*(void **) argp);
     return 0;
 }
 
-int SDL_SYS_CreateThread(SDL_Thread *thread)
+int SDL_SYS_CreateThread(SDL_Thread *thread, void *args)
 {
     SceKernelThreadInfo status;
     int priority = 32;
@@ -59,7 +59,7 @@ int SDL_SYS_CreateThread(SDL_Thread *thread)
         return SDL_SetError("sceKernelCreateThread() failed");
     }
 
-    sceKernelStartThread(thread->handle, 4, &thread);
+    sceKernelStartThread(thread->handle, 4, &args);
     return 0;
 }
 
@@ -95,13 +95,13 @@ int SDL_SYS_SetThreadPriority(SDL_ThreadPriority priority)
     int value;
 
     if (priority == SDL_THREAD_PRIORITY_LOW) {
-        value = 111;
+        value = 19;
     } else if (priority == SDL_THREAD_PRIORITY_HIGH) {
-        value = 32;
+        value = -10;
     } else if (priority == SDL_THREAD_PRIORITY_TIME_CRITICAL) {
-        value = 16;
+        value = -20;
     } else {
-        value = 50;
+        value = 0;
     }
 
     return sceKernelChangeThreadPriority(sceKernelGetThreadId(),value);
