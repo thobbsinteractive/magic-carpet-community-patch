@@ -83,7 +83,9 @@ namespace remc2_installer
 								 new File(@"..\Release\zlib1.dll"),
 #endif
 								 new File(@"Extract.bat"),
-                                 new Dir(@"font",
+								 new Dir(@"kiss",
+									new Files(@"..\Release\kiss\*.*")),
+								 new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"biggraphics",
                                     new Files(@"..\enhancedassets\biggraphics\*.*")
