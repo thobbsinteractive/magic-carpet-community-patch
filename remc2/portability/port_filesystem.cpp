@@ -63,7 +63,7 @@ void InitializeLogging(spdlog::level::level_enum level)
 
 			auto max_size = 1048576 * 5;
 			auto max_files = 3;
-			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
+			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log-editor.txt", max_size, max_files);
 			file_sink->set_level(level);
 			file_sink->set_pattern("[%H:%M:%S:%f %z] [%^%-8l%$] %v");
 

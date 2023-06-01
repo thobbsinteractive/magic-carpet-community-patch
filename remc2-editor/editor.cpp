@@ -114,13 +114,21 @@ void editor_run(std::string gameFolderParam, std::string cdFolderParam)
 	initposistruct();
 
 	if (gameFolderParam != "")
-		strcpy(gameFolder,gameFolderParam.c_str());
+		strcpy(gameFolder, gameFolderParam.c_str());
+	
 
 	if (cdFolderParam != "")
 		strcpy(cdFolder, cdFolderParam.c_str());
 
 	gameDataPath = GetSubDirectoryPath(gameFolder);
 	cdDataPath = GetSubDirectoryPath(cdFolder);
+
+	if (!std::filesystem::exists(gameDataPath))
+		throw std::invalid_argument("Game Data Path is not valid");
+
+	if (!std::filesystem::exists(cdDataPath))
+		throw std::invalid_argument("CD Data Path is not valid");
+
 	SetCDFilePaths(cdDataPath.c_str(), pstr);
 
 	//init
