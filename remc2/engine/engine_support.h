@@ -10,11 +10,8 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
+#ifdef _DEBUG
 #include "png.h"
-#pragma comment(lib, "zlib.lib") // must be before libpng!
-#ifndef _WIN64
-#pragma comment(lib, "libpng15.lib") // must be after zlib!
-#else
 #endif
 
 #include "global_types.h"
@@ -663,7 +660,9 @@ void add_compare2(uint32_t adress, uint8_t* memadress, uint32_t dosmemadress, ui
 void writehex(uint8_t* buffer, uint32_t count);
 
 void mine_texts(const char* filename, uint32_t adressdos, uint32_t count, char* outfilename);
+#ifdef _DEBUG
 int writeImage(const char* filename, int width, int height, uint8_t* buffer, char* title);
+#endif
 void writeImageBMP(const char* imageFileName, int width, int height, uint8_t* image);
 
 /*

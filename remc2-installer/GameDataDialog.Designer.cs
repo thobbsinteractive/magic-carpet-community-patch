@@ -1,4 +1,4 @@
-﻿namespace WixSharpSetup
+namespace WixSharpSetup
 {
     partial class GameDataDialog
     {
@@ -28,27 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("CD_Files");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NETHERW");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2});
             this.banner = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
+            this.btnRun = new System.Windows.Forms.Button();
             this.cboInstallLocation = new System.Windows.Forms.ComboBox();
             this.lblInstallLocation = new System.Windows.Forms.Label();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.txtCDPath = new System.Windows.Forms.TextBox();
             this.btnBrowseCDFiles = new System.Windows.Forms.Button();
-            this.grpInstructions = new System.Windows.Forms.GroupBox();
-            this.txtInstructions = new System.Windows.Forms.RichTextBox();
             this.lblGameData = new System.Windows.Forms.Label();
             this.lblCDData = new System.Windows.Forms.Label();
+            this.grpBox = new System.Windows.Forms.GroupBox();
+            this.btnInfo = new System.Windows.Forms.Button();
+            this.treeViewInstallProgress = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.banner)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.grpInstructions.SuspendLayout();
+            this.grpBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // banner
@@ -99,34 +105,33 @@
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.btnCancel);
             this.panel1.Controls.Add(this.btnNext);
             this.panel1.Location = new System.Drawing.Point(-3, 308);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(503, 57);
             this.panel1.TabIndex = 9;
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(409, 17);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Exit";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // btnNext
             // 
             this.btnNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNext.Location = new System.Drawing.Point(328, 17);
+            this.btnNext.Location = new System.Drawing.Point(409, 17);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 0;
+            this.btnNext.TabIndex = 1;
             this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnRun
+            // 
+            this.btnRun.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRun.Location = new System.Drawing.Point(12, 62);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(118, 23);
+            this.btnRun.TabIndex = 0;
+            this.btnRun.Text = "Extract Game Data";
+            this.btnRun.UseVisualStyleBackColor = true;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // cboInstallLocation
             // 
@@ -134,7 +139,7 @@
             this.cboInstallLocation.Items.AddRange(new object[] {
             "GOG Edition",
             "DOS Edition"});
-            this.cboInstallLocation.Location = new System.Drawing.Point(101, 213);
+            this.cboInstallLocation.Location = new System.Drawing.Point(100, 17);
             this.cboInstallLocation.Name = "cboInstallLocation";
             this.cboInstallLocation.Size = new System.Drawing.Size(205, 21);
             this.cboInstallLocation.TabIndex = 3;
@@ -142,7 +147,7 @@
             // lblInstallLocation
             // 
             this.lblInstallLocation.AutoSize = true;
-            this.lblInstallLocation.Location = new System.Drawing.Point(12, 216);
+            this.lblInstallLocation.Location = new System.Drawing.Point(11, 20);
             this.lblInstallLocation.Name = "lblInstallLocation";
             this.lblInstallLocation.Size = new System.Drawing.Size(81, 13);
             this.lblInstallLocation.TabIndex = 2;
@@ -150,16 +155,16 @@
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(155, 247);
+            this.txtPath.Location = new System.Drawing.Point(154, 51);
             this.txtPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(327, 21);
+            this.txtPath.Size = new System.Drawing.Size(310, 21);
             this.txtPath.TabIndex = 5;
             this.txtPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
             // btnBrowse
             // 
-            this.btnBrowse.Location = new System.Drawing.Point(11, 245);
+            this.btnBrowse.Location = new System.Drawing.Point(10, 49);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(68, 23);
             this.btnBrowse.TabIndex = 4;
@@ -169,47 +174,27 @@
             // 
             // txtCDPath
             // 
-            this.txtCDPath.Location = new System.Drawing.Point(155, 281);
+            this.txtCDPath.Location = new System.Drawing.Point(154, 85);
             this.txtCDPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtCDPath.Name = "txtCDPath";
-            this.txtCDPath.Size = new System.Drawing.Size(327, 21);
-            this.txtCDPath.TabIndex = 11;
+            this.txtCDPath.Size = new System.Drawing.Size(310, 21);
+            this.txtCDPath.TabIndex = 7;
             this.txtCDPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
             // btnBrowseCDFiles
             // 
-            this.btnBrowseCDFiles.Location = new System.Drawing.Point(12, 279);
+            this.btnBrowseCDFiles.Location = new System.Drawing.Point(11, 83);
             this.btnBrowseCDFiles.Name = "btnBrowseCDFiles";
             this.btnBrowseCDFiles.Size = new System.Drawing.Size(68, 23);
-            this.btnBrowseCDFiles.TabIndex = 12;
+            this.btnBrowseCDFiles.TabIndex = 6;
             this.btnBrowseCDFiles.Text = "Browse";
             this.btnBrowseCDFiles.UseVisualStyleBackColor = true;
             this.btnBrowseCDFiles.Click += new System.EventHandler(this.btnBrowseCDFiles_Click);
             // 
-            // grpInstructions
-            // 
-            this.grpInstructions.Controls.Add(this.txtInstructions);
-            this.grpInstructions.Location = new System.Drawing.Point(11, 63);
-            this.grpInstructions.Name = "grpInstructions";
-            this.grpInstructions.Size = new System.Drawing.Size(471, 144);
-            this.grpInstructions.TabIndex = 14;
-            this.grpInstructions.TabStop = false;
-            this.grpInstructions.Text = "Instructions";
-            // 
-            // txtInstructions
-            // 
-            this.txtInstructions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInstructions.Location = new System.Drawing.Point(3, 17);
-            this.txtInstructions.Name = "txtInstructions";
-            this.txtInstructions.ReadOnly = true;
-            this.txtInstructions.Size = new System.Drawing.Size(465, 124);
-            this.txtInstructions.TabIndex = 15;
-            this.txtInstructions.Text = "";
-            // 
             // lblGameData
             // 
             this.lblGameData.AutoSize = true;
-            this.lblGameData.Location = new System.Drawing.Point(85, 250);
+            this.lblGameData.Location = new System.Drawing.Point(84, 54);
             this.lblGameData.Name = "lblGameData";
             this.lblGameData.Size = new System.Drawing.Size(64, 13);
             this.lblGameData.TabIndex = 15;
@@ -218,24 +203,67 @@
             // lblCDData
             // 
             this.lblCDData.AutoSize = true;
-            this.lblCDData.Location = new System.Drawing.Point(86, 284);
+            this.lblCDData.Location = new System.Drawing.Point(85, 88);
             this.lblCDData.Name = "lblCDData";
             this.lblCDData.Size = new System.Drawing.Size(51, 13);
             this.lblCDData.TabIndex = 16;
             this.lblCDData.Text = "CD Data:";
             // 
+            // grpBox
+            // 
+            this.grpBox.Controls.Add(this.lblGameData);
+            this.grpBox.Controls.Add(this.lblCDData);
+            this.grpBox.Controls.Add(this.cboInstallLocation);
+            this.grpBox.Controls.Add(this.lblInstallLocation);
+            this.grpBox.Controls.Add(this.txtPath);
+            this.grpBox.Controls.Add(this.btnBrowseCDFiles);
+            this.grpBox.Controls.Add(this.btnBrowse);
+            this.grpBox.Controls.Add(this.txtCDPath);
+            this.grpBox.Location = new System.Drawing.Point(12, 91);
+            this.grpBox.Name = "grpBox";
+            this.grpBox.Size = new System.Drawing.Size(470, 128);
+            this.grpBox.TabIndex = 17;
+            this.grpBox.TabStop = false;
+            // 
+            // btnInfo
+            // 
+            this.btnInfo.Location = new System.Drawing.Point(407, 62);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(75, 23);
+            this.btnInfo.TabIndex = 8;
+            this.btnInfo.Text = "Info";
+            this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
+            // treeViewInstallProgress
+            // 
+            this.treeViewInstallProgress.CheckBoxes = true;
+            this.treeViewInstallProgress.Enabled = false;
+            this.treeViewInstallProgress.Location = new System.Drawing.Point(12, 232);
+            this.treeViewInstallProgress.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.treeViewInstallProgress.Name = "treeViewInstallProgress";
+            treeNode1.Name = "CDFiles";
+            treeNode1.Text = "CD_Files";
+            treeNode2.Name = "NETHERW";
+            treeNode2.Text = "NETHERW";
+            treeNode3.Checked = true;
+            treeNode3.Name = "InstallPath";
+            treeNode3.Text = "C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD";
+            this.treeViewInstallProgress.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            this.treeViewInstallProgress.ShowPlusMinus = false;
+            this.treeViewInstallProgress.ShowRootLines = false;
+            this.treeViewInstallProgress.Size = new System.Drawing.Size(391, 52);
+            this.treeViewInstallProgress.TabIndex = 19;
+            this.treeViewInstallProgress.TabStop = false;
+            // 
             // GameDataDialog
             // 
             this.ClientSize = new System.Drawing.Size(494, 361);
-            this.Controls.Add(this.lblCDData);
-            this.Controls.Add(this.lblGameData);
-            this.Controls.Add(this.grpInstructions);
-            this.Controls.Add(this.btnBrowseCDFiles);
-            this.Controls.Add(this.txtCDPath);
-            this.Controls.Add(this.btnBrowse);
-            this.Controls.Add(this.txtPath);
-            this.Controls.Add(this.lblInstallLocation);
-            this.Controls.Add(this.cboInstallLocation);
+            this.Controls.Add(this.treeViewInstallProgress);
+            this.Controls.Add(this.btnInfo);
+            this.Controls.Add(this.grpBox);
+            this.Controls.Add(this.btnRun);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -251,9 +279,9 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.grpInstructions.ResumeLayout(false);
+            this.grpBox.ResumeLayout(false);
+            this.grpBox.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -264,17 +292,18 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.ComboBox cboInstallLocation;
         private System.Windows.Forms.Label lblInstallLocation;
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.TextBox txtCDPath;
         private System.Windows.Forms.Button btnBrowseCDFiles;
-        private System.Windows.Forms.GroupBox grpInstructions;
-        private System.Windows.Forms.RichTextBox txtInstructions;
         private System.Windows.Forms.Label lblGameData;
         private System.Windows.Forms.Label lblCDData;
-    }
+		private System.Windows.Forms.GroupBox grpBox;
+		private System.Windows.Forms.Button btnInfo;
+		private System.Windows.Forms.TreeView treeViewInstallProgress;
+	}
 }

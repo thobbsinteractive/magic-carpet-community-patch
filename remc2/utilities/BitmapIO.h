@@ -3,7 +3,6 @@
 #define BitmapIO_H
 
 #include <cstdint>
-#include <png.h>
 #include "../portability/port_filesystem.h"
 
 class BitmapIO

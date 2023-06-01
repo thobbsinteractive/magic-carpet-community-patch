@@ -1,0 +1,12 @@
+prefix=D:/a/1/a
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: FluidSynth
+Description: Software SoundFont synth
+Version: 2.3.2
+Requires.private: glib-2.0 gthread-2.0 sndfile
+Libs: -L${libdir} -lfluidsynth
+Libs.private: -ldsound -lksuser -lwinmm -lole32 -lws2_32 D:/deps/lib/gcc/x86_64-w64-mingw32/8.1.0/libgomp.dll.a D:/deps/x86_64-w64-mingw32/lib/libmingwthrd.a D:/deps/x86_64-w64-mingw32/lib/libpthread.dll.a
+Cflags: -I${includedir}
