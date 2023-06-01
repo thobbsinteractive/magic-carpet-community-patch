@@ -237,7 +237,6 @@ namespace WixSharpSetup
             // 
             // treeViewInstallProgress
             // 
-            this.treeViewInstallProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewInstallProgress.CheckBoxes = true;
             this.treeViewInstallProgress.Enabled = false;
             this.treeViewInstallProgress.Location = new System.Drawing.Point(12, 232);
