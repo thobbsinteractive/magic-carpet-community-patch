@@ -44,6 +44,7 @@ extern spdlog::logger* Logger;
 const char* GetStringFromLoggingLevel(spdlog::level::level_enum level);
 spdlog::level::level_enum GetLoggingLevelFromString(const char* levelStr);
 void InitializeLogging(spdlog::level::level_enum level);
+void InitializeLogging(spdlog::level::level_enum level, const char* logFileName);
 long my_findfirst(char* path, _finddata_t* c_file);
 long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);

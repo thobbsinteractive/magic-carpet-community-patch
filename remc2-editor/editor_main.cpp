@@ -40,7 +40,11 @@ int main(int argc, char* argv[])
 		{
 			cdFolder = *(++p);
 		}
-		else if ((param == "-h") || (param == "--help")) {
+		if ((param == "-l") || (param == "--log-level"))
+		{
+			loggingLevel = *(++p);
+		}
+		if ((param == "-h") || (param == "--help")) {
 			showHelp = true;
 		}
 	}
@@ -49,6 +53,7 @@ int main(int argc, char* argv[])
 	{
 		printf("-g --game-folder: (Optional) Folder Location of MC2 Game Data. Defaults to ./NETHERW. \n");
 		printf("-c --cd-folder: (Optional) Folder Location of MC2 CD Data.  Defaults to ./CD_FILES. \n");
+		printf("-l --log-level: (Optional) Logging Level E.g. Debug, Trace or Info.  Defaults to Info \n");
 		return -1;
 	}
 
@@ -60,7 +65,7 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		InitializeLogging(level);
+		InitializeLogging(level, "log-editor.txt");
 		support_begin();
 		editor_run(gameFolder, cdFolder);
 	}
