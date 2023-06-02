@@ -1,5 +1,5 @@
 using System.IO;
-
+using System.Linq;
 
 public static class Utils
 {
@@ -36,5 +36,47 @@ public static class Utils
             }
         }
     }
+
+	public static bool DeleteFiles(DirectoryInfo baseDir, string[] excludedFiles, string[] excludedDirs)
+	{
+		bool keepBaseDir = false;
+
+		// Check if the source directory exists
+		if (baseDir.Exists)
+		{
+			if (excludedDirs?.Length > 0 && excludedDirs.Select(x => x.ToLower()).Contains(baseDir.Name.ToLower()))
+			{
+				keepBaseDir = true;
+			}
+			else
+			{
+				foreach (DirectoryInfo subDir in baseDir.GetDirectories())
+				{
+					if(DeleteFiles(subDir, excludedFiles, excludedDirs))
+					{
+						keepBaseDir = true;
+					}
+					else
+					{
+						subDir.Delete(true);
+					}
+				}
+
+				foreach (FileInfo file in baseDir.GetFiles())
+				{
+					if (excludedFiles?.Length > 0 && excludedFiles.Select(x => x.ToLower()).Contains(file.Name.ToLower()))
+					{
+						//Skip File
+					}
+					else
+					{
+						file.Delete();
+					}
+				}
+			}
+		}
+
+		return keepBaseDir;
+	}
 }
 
