@@ -513,6 +513,7 @@ namespace WixSharpSetup
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+			bool success = false;
 			_runClicked = true;
 
 			btnInfo.Enabled = false;
@@ -533,8 +534,8 @@ namespace WixSharpSetup
                 ExtractCDFiles(this.txtPath.Text) &&
                 MoveCDFiles(Path.Combine(this.txtPath.Text, "CD_Files")))
                 {
-                    Shell.GoNext();
-                }
+					success = true;
+				}
             }
             else if (this.cboInstallLocation.SelectedIndex == 1)
             {
@@ -543,17 +544,26 @@ namespace WixSharpSetup
                 MoveGameData(Path.Combine(this.txtPath.Text, "NETHEW")) &&
                 MoveCDFiles(this.txtCDPath.Text))
                 {
-                    Shell.GoNext();
-                }
+					success = true;
+				}
             }
 
 			btnInfo.Enabled = true;
-			btnBrowse.Enabled = true;
-            btnBrowseCDFiles.Enabled = true;
-            btnRun.Enabled = true;
-            btnNext.Enabled = true;
-            txtPath.Enabled = true;
-            txtCDPath.Enabled = true;
+
+			if (success)
+			{
+				MessageBox.Show("Extraction was successful. Click [Next] to finish", "Success", MessageBoxButtons.OK);
+				btnNext.Enabled = true;
+			}
+			else
+			{
+				btnBrowse.Enabled = true;
+				btnBrowseCDFiles.Enabled = true;
+				btnRun.Enabled = true;
+				btnNext.Enabled = true;
+				txtPath.Enabled = true;
+				txtCDPath.Enabled = true;
+			}
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
