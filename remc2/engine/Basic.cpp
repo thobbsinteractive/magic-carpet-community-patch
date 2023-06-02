@@ -1605,6 +1605,15 @@ void VGA_BlitAny(uint8_t maxFps)//256200
 #endif
 	VGA_Blit(pdwScreenBuffer_351628);
 
+#ifdef SOUND_OPENAL
+    if (x_DWORD_EA3E4 != nullptr && x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240] != nullptr) {
+        int16_t index = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1;
+        axis_3d player_coord = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].axis_2BDE_11695;
+        axis_4d player_rot = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].rotation__2BDE_11701;
+        alsound_set_location(&player_coord, &player_rot);
+    }
+#endif
+
 	//set speed
 	LockFps(maxFps);
 	//set speed

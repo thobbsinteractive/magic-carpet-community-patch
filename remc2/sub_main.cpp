@@ -4312,15 +4312,14 @@ char* off_DB06C[5] = { (char*)"I",(char*)"II",(char*)"III",(char*)"IV",(char*)"V
 
 #pragma pack (1)
 typedef struct {//lenght 4
-	int16_t word_0;
-	int16_t word_2;
-}
-type_sub_BYTE_DB080;
+	int16_t offset;
+	int16_t length;
+} track_chunk_t;
 
 typedef struct {//lenght 42
-	int8_t word_0;
+	int8_t track;
 	//int8_t stub;
-	type_sub_BYTE_DB080 str_sub_BYTE_DB080[10];
+	track_chunk_t chunk[10];
 }
 type_BYTE_DB080;
 #pragma pack (16)
@@ -4666,7 +4665,7 @@ char x_BYTE_E29F0 = 0; // weak
 char x_BYTE_E29F1 = 0; // weak
 char x_BYTE_E2A20 = 0; // weak
 uint8_t* x_WORD_E2A24 = 0; // weak
-char x_BYTE_E2A28_speek = 0; // weak
+char x_BYTE_E2A28_speek = 1; // weak
 
 //int x_DWORD_E36C4 = 0; // weak//50
 //little fix
@@ -13340,6 +13339,15 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		return;
 	}
 }
+
+void disable_speech(void)
+{
+    x_BYTE_E2A28_speek = 0;
+    x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 &= ~0x40;
+    x_D41A0_BYTEARRAY_4_struct.dwordindex_188 &= ~0x08;
+    x_D41A0_BYTEARRAY_4_struct.dwordindex_192 &= ~0x08;
+}
+
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 // D41A4: using guessed type int x_DWORD_D41A4;
 // D41A8: using guessed type char *off_D41A8;
@@ -40838,6 +40846,10 @@ type_event_0x6E8E* NewEvent_4A050()//22b050
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->dword_0xA4_164x = unk_F42B0x;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->byte_0x43_67 = 10;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->byte_0x39_57 = -6;
+		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->play_ch = -1;
+        D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->play_mark = 0;
+        D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->dist_mark = UINT64_MAX;
+        D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->dist = UINT32_MAX;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->byte_0x3E_62 = D41A0_0.pointers_0x246[D41A0_0.dword_0x35] - D41A0_0.struct_0x6E8E;
 		D41A0_0.pointers_0x246[D41A0_0.dword_0x35]->rand_0x14_20 = D41A0_0.pointers_0x246[D41A0_0.dword_0x35] - D41A0_0.struct_0x6E8E + D41A0_0.rand_0x8;//this is it line
 		return D41A0_0.pointers_0x246[D41A0_0.dword_0x35--];
@@ -40864,6 +40876,10 @@ type_event_0x6E8E* NewEvent_4A050()//22b050
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->dword_0xA4_164x = unk_F42B0x;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->byte_0x43_67 = 10;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->byte_0x39_57 = -6;
+		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->play_ch = -1;
+        D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->play_mark = 0;
+        D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->dist_mark = UINT64_MAX;
+        D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->dist = UINT32_MAX;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->byte_0x3E_62 = D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6] - D41A0_0.struct_0x6E8E;
 		D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6]->rand_0x14_20 = D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6] - D41A0_0.struct_0x6E8E + D41A0_0.rand_0x8;//this is it line
 		return D41A0_0.dword_0x11EA[D41A0_0.dword_0x11e6--];
@@ -53054,7 +53070,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		spdlog::level::level_enum level = spdlog::level::info;
 
 #ifdef _DEBUG
-		level = GetLoggingLevelFromString("Debug");
+		// why is there an ini file to set this option?
+		//level = GetLoggingLevelFromString("Debug");
 #else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
 #endif
@@ -54295,8 +54312,14 @@ void UpdateEntities_57730()//238730
 				}
 				continue;
 			case 0x5:
-				if (jx->life_0x8 < 0)
-					continue;
+				if (jx->life_0x8 < 0) {
+                    //Logger->error("UpdateEntities_57730 death of class 5 id {}  ch {}", jx->id_0x1A_26, jx->play_ch);
+                    if (jx->play_ch > -1) {
+                        alsound_delete_source(jx->play_ch);
+                        jx->play_ch = -1;
+                    }
+                    continue;
+                }
 				if (jx->state_0x45_69 < 0xE8)
 				{
 					v8 = (jx->state_0x45_69==0xB4);
@@ -76569,7 +76592,7 @@ void sub_86BD0_freemem1()//267bd0
 //		result = sub_85F00_free_memory(x_DWORD_E2A6C);//264CDC - 266070
 	/*if (x_DWORD_E2A70)
 		result = sub_85F00_free_memory(x_DWORD_E2A70);*/
-	x_BYTE_E2A28_speek = 0;
+	//x_BYTE_E2A28_speek = 0;
 	//x_DWORD_E2A6C = 0;
 	//x_DWORD_E2A70 = 0;
 	//return result;
@@ -76595,18 +76618,18 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 
 	//v3 = 42 * a1;
 	//v4 = x_BYTE_DB080[v3];
-	v4 = str_BYTE_DB080[a1].word_0;
+	v4 = str_BYTE_DB080[a1].track;
 	/*v5 = 4 * a2 + v3;
 	v6 = *(__int16*)((char*)&x_BYTE_DB080[2] + v5);
 	v7 = *(__int16*)((char*)&x_BYTE_DB080[4] + v5);*/
-	v6 = str_BYTE_DB080[a1].str_sub_BYTE_DB080[a2].word_0;
-	v7 = str_BYTE_DB080[a1].str_sub_BYTE_DB080[a2].word_2;
-	if (v4 && v7)
-	{
-		if (a3)
-			sub_86F70_sound_proc12(v4, v6, v7);
-		else
-			sub_86FF0(v4, v6, v7);
+	v6 = str_BYTE_DB080[a1].chunk[a2].offset;
+	v7 = str_BYTE_DB080[a1].chunk[a2].length;
+	if (v4 && v7) {
+		SOUND_start_speech(v4, v6, v7);
+		//if (a3)
+		//	sub_86F70_sound_proc12(v4, v6, v7);
+		//else
+		//	sub_86FF0(v4, v6, v7);
 	}
 }
 // DB082: using guessed type __int16 x_WORD_DB082[];
@@ -76625,9 +76648,9 @@ void sub_86F20(char a1)//267f20
 	/*v3 = *(int16_t*)&x_BYTE_DB080[2 + v1 * 2];
 	v4 = *(int16_t*)&x_BYTE_DB080[4 + v1 * 2];*/
 	v1 = ((a1 != 0) + 25);
-	v2 = str_BYTE_DB080[v1].word_0;
-	v3 = str_BYTE_DB080[v1].str_sub_BYTE_DB080[0].word_0;
-	v4 = str_BYTE_DB080[v1].str_sub_BYTE_DB080[0].word_2;
+	v2 = str_BYTE_DB080[v1].track;
+	v3 = str_BYTE_DB080[v1].chunk[0].offset;
+	v4 = str_BYTE_DB080[v1].chunk[0].length;
 	if (v2)
 	{
 		if (v4)

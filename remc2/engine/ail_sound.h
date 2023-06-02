@@ -119,6 +119,8 @@ int32_t sam_var[1000];
    void* start_44mhz;//8
    uint8_t mark44mark[sample_mark];
    //Mix_Chunk chunk;
+	uint8_t id;                 // chunk identifier used in openal functions
+	void *wavbuff;              // stereo wav chunk data used in openal functions
 }
 SAMPLE;
 typedef MSS_STRUCT _SAMPLE * HSAMPLE;           // Handle to sample

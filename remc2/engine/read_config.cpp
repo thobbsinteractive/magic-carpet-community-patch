@@ -1,4 +1,5 @@
 #include "read_config.h"
+#include "../sub_main.h"
 
 int config_skip_screen;
 int texturepixels = 32;
@@ -144,6 +145,18 @@ bool readini() {
 	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
 	strcpy(oggmusicFolder, (char*)readstr.c_str());
 
+    std::string speech_folder_str = reader.GetString("sound", "speech_folder", "");
+    strcpy(speech_folder, (char *)speech_folder_str.c_str());
+    oac.speech_volume = reader.GetInteger("sound", "openal_speech_volume", 102);
+
+    if ((oac.speech_volume == 0) || (speech_folder_str.length() < 3)) {
+        disable_speech();
+    }
+
+    oac.env_volume = reader.GetInteger("sound", "openal_environment_volume", 52);
+    oac.efx_enabled = reader.GetBoolean("sound", "openal_efx", false);
+    oac.same_chunk_concurrency = reader.GetInteger("sound", "openal_same_chunk_concurrency", 5);
+
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
@@ -217,100 +230,101 @@ bool readini() {
 	fmvFps = reader.GetInteger("game", "fmvFps", 20);
 	loggingLevel = reader.GetString("game", "loggingLevel", "Info");
 
-	gpc.axis_yaw = reader.GetInteger("gamepad", "axis_yaw", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_pitch = reader.GetInteger("gamepad", "axis_pitch", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_long = reader.GetInteger("gamepad", "axis_long", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_trans = reader.GetInteger("gamepad", "axis_trans", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_nav_ns = reader.GetInteger("gamepad", "axis_nav_ns", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_nav_ew = reader.GetInteger("gamepad", "axis_nav_ew", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_fire_R = reader.GetInteger("gamepad", "axis_fire_R", GAMEPAD_ITEM_DISABLED);
-	gpc.axis_fire_L = reader.GetInteger("gamepad", "axis_fire_L", GAMEPAD_ITEM_DISABLED);
 
-	gp_temp = reader.GetBoolean("gamepad", "axis_yaw_inv", 0);
-	if (gpc.axis_yaw) {
-		gpc.axis_yaw -= 1; // go back to SDL axis notation
-		gpc.axis_yaw_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gpc.axis_yaw = reader.GetInteger("gamepad", "axis_yaw", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_pitch = reader.GetInteger("gamepad", "axis_pitch", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_long = reader.GetInteger("gamepad", "axis_long", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_trans = reader.GetInteger("gamepad", "axis_trans", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_nav_ns = reader.GetInteger("gamepad", "axis_nav_ns", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_nav_ew = reader.GetInteger("gamepad", "axis_nav_ew", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_fire_R = reader.GetInteger("gamepad", "axis_fire_R", GAMEPAD_ITEM_DISABLED);
+    gpc.axis_fire_L = reader.GetInteger("gamepad", "axis_fire_L", GAMEPAD_ITEM_DISABLED);
 
-	gp_temp = reader.GetBoolean("gamepad", "axis_pitch_inv", 0);
-	if (gpc.axis_pitch) {
-		gpc.axis_pitch -= 1; // go back to SDL axis notation
-		gpc.axis_pitch_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gp_temp = reader.GetBoolean("gamepad", "axis_yaw_inv", 0);
+    if (gpc.axis_yaw) {
+        gpc.axis_yaw -= 1;      // go back to SDL axis notation
+        gpc.axis_yaw_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	gp_temp = reader.GetBoolean("gamepad", "axis_long_inv", 0);
-	if (gpc.axis_long) {
-		gpc.axis_long -= 1; // go back to SDL axis notation
-		gpc.axis_long_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gp_temp = reader.GetBoolean("gamepad", "axis_pitch_inv", 0);
+    if (gpc.axis_pitch) {
+        gpc.axis_pitch -= 1;    // go back to SDL axis notation
+        gpc.axis_pitch_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	gp_temp = reader.GetBoolean("gamepad", "axis_trans_inv", 0);
-	if (gpc.axis_trans) {
-		gpc.axis_trans -= 1; // go back to SDL axis notation
-		gpc.axis_trans_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gp_temp = reader.GetBoolean("gamepad", "axis_long_inv", 0);
+    if (gpc.axis_long) {
+        gpc.axis_long -= 1;     // go back to SDL axis notation
+        gpc.axis_long_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	gp_temp = reader.GetBoolean("gamepad", "axis_nav_ns_inv", 0);
-	if (gpc.axis_nav_ns) {
-		gpc.axis_nav_ns -= 1; // go back to SDL axis notation
-		gpc.axis_nav_ns_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gp_temp = reader.GetBoolean("gamepad", "axis_trans_inv", 0);
+    if (gpc.axis_trans) {
+        gpc.axis_trans -= 1;    // go back to SDL axis notation
+        gpc.axis_trans_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	gp_temp = reader.GetBoolean("gamepad", "axis_nav_ew_inv", 0);
-	if (gpc.axis_nav_ew) {
-		gpc.axis_nav_ew -= 1; // go back to SDL axis notation
-		gpc.axis_nav_ew_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gp_temp = reader.GetBoolean("gamepad", "axis_nav_ns_inv", 0);
+    if (gpc.axis_nav_ns) {
+        gpc.axis_nav_ns -= 1;   // go back to SDL axis notation
+        gpc.axis_nav_ns_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	if (gpc.axis_fire_R) {
-		gpc.axis_fire_R -= 1; // go back to SDL axis notation
-		gpc.axis_fire_R_conf = GAMEPAD_ITEM_ENABLED;
-	}
+    gp_temp = reader.GetBoolean("gamepad", "axis_nav_ew_inv", 0);
+    if (gpc.axis_nav_ew) {
+        gpc.axis_nav_ew -= 1;   // go back to SDL axis notation
+        gpc.axis_nav_ew_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	if (gpc.axis_fire_L) {
-		gpc.axis_fire_L -= 1; // go back to SDL axis notation
-		gpc.axis_fire_L_conf = GAMEPAD_ITEM_ENABLED;
-	}
+    if (gpc.axis_fire_R) {
+        gpc.axis_fire_R -= 1;   // go back to SDL axis notation
+        gpc.axis_fire_R_conf = GAMEPAD_ITEM_ENABLED;
+    }
 
-	gpc.button_fire_L = reader.GetInteger("gamepad", "button_fire_L", 0);
-	gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
-	gpc.controller_id = reader.GetInteger("gamepad", "controller_id", 0);
-	gpc.button_spell = reader.GetInteger("gamepad", "button_spell", 0);
-	gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
-	gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
-	gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
-	gpc.button_pause_menu = reader.GetInteger("gamepad", "button_pause_menu", 0);
-	gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
-	gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
+    if (gpc.axis_fire_L) {
+        gpc.axis_fire_L -= 1;   // go back to SDL axis notation
+        gpc.axis_fire_L_conf = GAMEPAD_ITEM_ENABLED;
+    }
 
-	gpc.axis_yaw_sensitivity = ReadZones(reader.GetString("gamepad", "axis_yaw_sensitivity", ""));
-	gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
-	gpc.axis_pitch_sensitivity = ReadZones(reader.GetString("gamepad", "axis_pitch_sensitivity", ""));
-	gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
-	gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 3000);
-	gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 3000);
-	gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 6000);
-	gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 6000);
+    gpc.controller_id = reader.GetInteger("gamepad", "controller_id", 0);
+    gpc.button_fire_L = reader.GetInteger("gamepad", "button_fire_L", 0);
+    gpc.button_fire_R = reader.GetInteger("gamepad", "button_fire_R", 0);
+    gpc.button_spell = reader.GetInteger("gamepad", "button_spell", 0);
+    gpc.button_minimap = reader.GetInteger("gamepad", "button_minimap", 0);
+    gpc.button_fwd = reader.GetInteger("gamepad", "button_fwd", 0);
+    gpc.button_back = reader.GetInteger("gamepad", "button_back", 0);
+    gpc.button_pause_menu = reader.GetInteger("gamepad", "button_pause_menu", 0);
+    gpc.button_esc = reader.GetInteger("gamepad", "button_esc", 0);
+    gpc.button_menu_select = reader.GetInteger("gamepad", "button_menu_select", 0);
+    gpc.inflection_x = reader.GetInteger("gamepad", "inflection_x", 0);
+    gpc.inflection_y = reader.GetInteger("gamepad", "inflection_y", 0);
 
-	gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 3000);
+    gpc.axis_yaw_dead_zone = reader.GetInteger("gamepad", "axis_yaw_dead_zone", 3000);
+    gpc.axis_pitch_dead_zone = reader.GetInteger("gamepad", "axis_pitch_dead_zone", 3000);
+    gpc.axis_long_nav_dead_zone = reader.GetInteger("gamepad", "axis_long_nav_dead_zone", 6000);
+    gpc.axis_trans_nav_dead_zone = reader.GetInteger("gamepad", "axis_trans_nav_dead_zone", 6000);
+    gpc.axis_long_dead_zone = reader.GetInteger("gamepad", "axis_long_dead_zone", 12000);
+    gpc.axis_trans_dead_zone = reader.GetInteger("gamepad", "axis_trans_dead_zone", 12000);
 
-	gpc.hat_nav = reader.GetInteger("gamepad", "hat_nav", GAMEPAD_ITEM_DISABLED);
-	gpc.hat_mov = reader.GetInteger("gamepad", "hat_mov", GAMEPAD_ITEM_DISABLED);
+    gpc.trigger_dead_zone = reader.GetInteger("gamepad", "trigger_dead_zone", 3000);
 
-	gp_temp = reader.GetBoolean("gamepad", "hat_nav_inv", 0);
-	if (gpc.hat_nav) {
-		gpc.hat_nav -= 1; // go back to SDL axis notation
-		gpc.hat_nav_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gpc.hat_nav = reader.GetInteger("gamepad", "hat_nav", GAMEPAD_ITEM_DISABLED);
+    gpc.hat_mov = reader.GetInteger("gamepad", "hat_mov", GAMEPAD_ITEM_DISABLED);
 
-	gp_temp = reader.GetBoolean("gamepad", "hat_mov_inv", 0);
-	if (gpc.hat_mov) {
-		gpc.hat_mov -= 1; // go back to SDL axis notation
-		gpc.hat_mov_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
-	}
+    gp_temp = reader.GetBoolean("gamepad", "hat_nav_inv", 0);
+    if (gpc.hat_nav) {
+        gpc.hat_nav -= 1;       // go back to SDL axis notation
+        gpc.hat_nav_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	gpc.haptic_enabled = reader.GetBoolean("gamepad", "haptic_enabled", false);
-	gpc.haptic_gain_max = reader.GetInteger("gamepad", "haptic_max_gain", 75);
+    gp_temp = reader.GetBoolean("gamepad", "hat_mov_inv", 0);
+    if (gpc.hat_mov) {
+        gpc.hat_mov -= 1;       // go back to SDL axis notation
+        gpc.hat_mov_conf = GAMEPAD_ITEM_ENABLED | (gp_temp ? GAMEPAD_AXIS_INVERTED : 0);
+    }
 
-	return true;
+    gpc.haptic_enabled = reader.GetBoolean("gamepad", "haptic_enabled", false);
+    gpc.haptic_gain_max = reader.GetInteger("gamepad", "haptic_max_gain", 75);
+
+    return true;
 };
