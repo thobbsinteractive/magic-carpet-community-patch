@@ -3321,6 +3321,8 @@ int main_x(/*int argc, char** argv*/)
 			//button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
 
 			kiss_entry_event(&entry, &e, &draw);
+			kiss_entry_event(&txtFilePath, &e, &draw);
+
 			//button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);			
 			if (kiss_hex4edit_event(&hex4edit1, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit2, &e, &draw) > 10)changed = true;
