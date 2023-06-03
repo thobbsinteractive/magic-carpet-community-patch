@@ -3,7 +3,7 @@ Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++
 Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2 <br /><br />
 Tomas has done amazing work, not only reverse engineering this code but updating it to use more modern memory allocation and use the SDL library for input and sound. He has even increased the sprite resolutions.
 
-## Download the latest Alpha Here ##
+## Download the latest Alpha Here now with MSI Installer!##
 https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 
 ### Install Guide for GOG Edition ###
@@ -14,6 +14,13 @@ https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 - 4: Run the MSI file. Follow the on-screen instructions to install.
 - 5: Click the Start menu shortcut "Magic Carpet 2 HD" to run the game.
 - 6: Any errors will be output to "log.txt"
+
+#### Command Line Args ####
+You can use the following arguments:
+To jump to a selected Level use:
+--set_level [0-25]
+To run a level you have created using the editor
+--custom_level "[PATH TO .mc2 file]"
 
 ## My intention is to make a patch for Magic Carpet 1 and 2 (GOG editions) that initially will:
 - Add more screen resolution options
@@ -142,11 +149,11 @@ The game will search for this file in the following locations and this particula
 ## MILLSTONE 2
 - [x] Add resolution support
 - [ ] Implement Open GL render
-- [ ] Implement Controller Support
+- [X] Implement Controller Support
 - [ ] Implement a (platform independent) Launch menu to adjust settings in config.ini before launch
 
 ## MILLSTONE 3
-- [ ] Improve sounds and music using updated original scores and directional sounds in game
+- [ ] Improve sounds and music using updated original scores and directional sounds in game - In Review!
 - [X] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 4

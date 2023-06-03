@@ -1,4 +1,5 @@
 using System;
+using System.Windows.Forms;
 using WixSharp;
 using WixSharp.Forms;
 using WixSharpSetup;
@@ -9,11 +10,10 @@ namespace remc2_installer
     {
         static void Main()
         {
-
 #if WIN64
             var project = new ManagedProject("Magic Carpet 2 HD x64",
 #else
-            var project = new ManagedProject("Magic Carpet 2 HD x86",
+			var project = new ManagedProject("Magic Carpet 2 HD x86",
 #endif
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
@@ -155,7 +155,18 @@ namespace remc2_installer
         {
             if (e.IsUninstalling)
             {
-                e.InstallDir.DeleteIfExists();
+				if (MessageBox.Show("Would you like to keep your Save Game data?", "Keep Save files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+				{
+					var path = e.InstallDir;
+					if (path.IsDirectory())
+					{
+						Utils.DeleteFiles(new System.IO.DirectoryInfo(path), null, new[] { "SAVE" });
+					}
+				}
+				else
+				{
+					e.InstallDir.DeleteIfExists();
+				}
             }
         }
     }

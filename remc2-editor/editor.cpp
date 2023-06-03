@@ -908,17 +908,22 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
+static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry *txtFilePath)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		char path2[512];
-		FixDir(path2, (char*)"testsave.sav");
-		FILE* file = fopen(path2, "rb");
-		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
-		memcpy(temparray_0x30311,D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));		
-		fclose(file);
-		return true;
+		char fileName[KISS_MAX_LENGTH];
+		sprintf(fileName, "%s.mc2", txtFilePath->text);
+		char path[512];
+		FixDir(path, fileName);
+		if (std::filesystem::exists(path))
+		{
+			FILE* file = fopen(path, "rb");
+			fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
+			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+			fclose(file);
+			return true;
+		}
 	}//*quit = 1;
 	return false;
 }
@@ -926,7 +931,7 @@ static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 int indexUndoPoint = 0;
 const int MaxUndoPoints = 5000;
 int MaxUndoPoints2 = 0;
-type_str_2FECE UndoPoint[MaxUndoPoints];
+Type_Level_2FECE UndoPoint[MaxUndoPoints];
 bool UndoInactive[MaxUndoPoints][1200];
 bool UndoSelected[MaxUndoPoints][1200];
 
@@ -938,7 +943,7 @@ static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint > 1)
 		{
 			indexUndoPoint--;
-			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(Type_Level_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
@@ -955,7 +960,7 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint < MaxUndoPoints2)
 		{
 			indexUndoPoint++;
-			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(Type_Level_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
@@ -975,38 +980,48 @@ void cyclefwrite(char* buffer,int size,FILE* file)
 	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
 }
 */
-static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
+static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, kiss_entry* txtFilePath)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		char path2[512];
-		FixDir(path2, (char*)"testsave.sav");
-		FILE* file = fopen(path2,"wb");
-		memcpy(D41A0_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
-		fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
-		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
-		/*int buffersize = 1000;
-		int buffercount=
+		if (strlen(txtFilePath->text) > 0)
+		{
+			char fileName[KISS_MAX_LENGTH];
+			sprintf(fileName, "%s.mc2", txtFilePath->text);
+			char path[512];
+			FixDir(path, fileName);
+			FILE* file = fopen(path, "wb");
+			memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
+			fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
+			//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
+			/*int buffersize = 1000;
+			int buffercount=
 
 
-		cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
-		fclose(file);
+			cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
+			fclose(file);
+		}
 	}//*quit = 1;
 }
 
-static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* draw)
+static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry* txtFilePath)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		char path2[512];
-		FixDir(path2, (char*)"testsave.csv");
-		FILE* file = fopen(path2, "wt");
-		for (int i = 0; i < 0x4B0; i++)
+		if (strlen(txtFilePath->text) > 0)
 		{
-			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);			
+			char fileName[KISS_MAX_LENGTH];
+			sprintf(fileName, "%s.csv", txtFilePath->text);
+			char path[512];
+			FixDir(path, fileName);
+			FILE* file = fopen(path, "wt");
+			for (int i = 0; i < 0x4B0; i++)
+			{
+				type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+				fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
+			}
+			fclose(file);
 		}
-		fclose(file);
 	}//*quit = 1;
 }
 
@@ -2029,7 +2044,7 @@ void SetUndoPoint() {
 		memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		memcpy(UndoInactive[indexUndoPoint], temparray_0x30311_inactive, sizeof(bool) * 0x4b0);
 		memcpy(UndoSelected[indexUndoPoint], temparray_0x30311_selected, sizeof(bool) * 0x4b0);
-		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(type_str_2FECE));
+		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(Type_Level_2FECE));
 		indexUndoPoint++;
 		MaxUndoPoints2 = indexUndoPoint;
 	}
@@ -2055,11 +2070,14 @@ int main_x(/*int argc, char** argv*/)
 		button_undo = { 0 }, button_redo = { 0 },
 		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 };
 	
+	kiss_label lblFilePath = { 0 };
+	kiss_entry txtFilePath = { 0 };
+
 	kiss_image* act_img_type = NULL;
 	kiss_image* act_img_subtype = NULL;
 	kiss_image* act_img_subsubtype = NULL;
 	
-	kiss_textbox textbox1 = { 0 };
+	kiss_textbox txtEntities = { 0 };
 	kiss_textbox textbox2 = { 0 };
 	kiss_textbox textbox3 = { 0 };
 	kiss_vscrollbar vscrollbar1 = { 0 };
@@ -2173,11 +2191,13 @@ int main_x(/*int argc, char** argv*/)
 	kiss_array_new(&objects);
 	kiss_array_new(&obj_stages);
 	kiss_array_new(&obj_vars);
+
 	/* Arrange the widgets nicely relative to each other */
 	kiss_window_new(&window1, NULL, 1, 0, 0, kiss_screen_width, kiss_screen_height);
-	kiss_textbox_new(&textbox1, &window1, 1, &objects, 530, 50, textbox_width, textbox_height);
+	kiss_textbox_new(&txtEntities, &window1, 1, &objects, 530, 50, textbox_width, textbox_height);
 	kiss_textbox_new(&textbox2, &window1, 1, &obj_stages, 530, 540, textbox2_width, textbox2_height);
 	kiss_textbox_new(&textbox3, &window1, 1, &obj_vars, 750, 540, textbox3_width, textbox3_height);
+	kiss_entry_new(&txtFilePath, &window1, 1, (char*)"user-level1", 716, 765, 180);
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -2960,11 +2980,11 @@ int main_x(/*int argc, char** argv*/)
 	img_addcount[6].magic = KISS_MAGIC;
 	img_addcount[6].image = IMG_LoadTexture(editor_renderer, path2);
 
-	kiss_vscrollbar_new(&vscrollbar1, &window1, textbox1.rect.x + textbox_width, textbox1.rect.y, textbox_height);
+	kiss_vscrollbar_new(&vscrollbar1, &window1, txtEntities.rect.x + textbox_width, txtEntities.rect.y, textbox_height);
 	//kiss_textbox_new(&textbox2, &window1, 1, &a2,vscrollbar1.uprect.x + kiss_up.w, textbox1.rect.y,	textbox_width, textbox_height);
 	//kiss_vscrollbar_new(&vscrollbar2, &window1, textbox2.rect.x +textbox_width, vscrollbar1.uprect.y, textbox_height);
-	kiss_label_new(&label_terfeat, &window1, (char*)"LEVEL ENTITES:", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight*2);
-	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG|PAR1|PAR2|PAR3", 5 + textbox1.rect.x + kiss_edge, textbox1.rect.y - kiss_textfont.lineheight);
+	kiss_label_new(&label_terfeat, &window1, (char*)"LEVEL ENTITES:", 5 + txtEntities.rect.x + kiss_edge, txtEntities.rect.y - kiss_textfont.lineheight*2);
+	kiss_label_new(&label_terfeat2, &window1, (char*)"IDX|TYPE|SUBT| X  | Y  |DIID| 10 |STAG|PAR1|PAR2|PAR3", 5 + txtEntities.rect.x + kiss_edge, txtEntities.rect.y - kiss_textfont.lineheight);
 
 	kiss_label_new(&label_stages, &window1, (char*)"LEVEL STAGES:", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight * 2);
 	kiss_label_new(&label_stages2, &window1, (char*)"IX|ST| 01 | 03 | 05 ", 5 + textbox2.rect.x + kiss_edge, textbox2.rect.y - kiss_textfont.lineheight);
@@ -2979,6 +2999,9 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_levelload, &window1, (char*)"LOAD", 530, 700);
 	kiss_button_new(&button_levelsavecsv, &window1, (char*)"S_CSV", 600, 720);
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 600, 740);
+	
+	kiss_label_new(&lblFilePath, &window1, (char*)"SAVE/LOAD FILE NAME:", 534, 770);
+
 	kiss_button_new(&button_cleanselectedlevelfeat, &window1, (char*)"D_SEL", 600, 700);
 	kiss_button_new(&button_filter, &window1, (char*)"FILTR", 670, 700);
 
@@ -3199,7 +3222,7 @@ int main_x(/*int argc, char** argv*/)
 
 	//dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
 	
-	terrain_feat_append(&textbox1, &vscrollbar1);
+	terrain_feat_append(&txtEntities, &vscrollbar1);
 	terrain_stages_append(&textbox2);
 	terrain_vars_append(&textbox3);
 
@@ -3241,7 +3264,7 @@ int main_x(/*int argc, char** argv*/)
 			kiss_window_event(&window3, &e, &draw);
 			kiss_window_event(&window2, &e, &draw);
 			kiss_window_event(&window1, &e, &draw);
-			edited_line = textbox1_event(&textbox1, &e, &vscrollbar1, mousex, mousey, &draw);
+			edited_line = textbox1_event(&txtEntities, &e, &vscrollbar1, mousex, mousey, &draw);
 			if (edited_line == -2) { changed2 = true; zoomchanged = true; }
 			if (edited_line >= 0)
 			{
@@ -3280,7 +3303,7 @@ int main_x(/*int argc, char** argv*/)
 				terrainbeginyfeat = cursorpixy - (terrainfeat.rect.h / 2) / (terrainzoomfeat * 2);
 			}
 
-			vscrollbar1_event(&vscrollbar1, &e, &textbox1, &draw);
+			vscrollbar1_event(&vscrollbar1, &e, &txtEntities, &draw);
 
 			edited_line2 = textbox2_event(&textbox2, &e, mousex, mousey, &draw);
 			if (edited_line2 == -2) { changed2 = true; zoomchanged = true; }
@@ -3309,6 +3332,8 @@ int main_x(/*int argc, char** argv*/)
 			//button_ok1_event(&button_ok1, &e, &window1, &window2,&label_sel, &entry, &label_res, &progressbar,&draw);
 
 			kiss_entry_event(&entry, &e, &draw);
+			kiss_entry_event(&txtFilePath, &e, &draw);
+
 			//button_ok2_event(&button_ok2, &e, &window1, &window2,&progressbar, &draw);			
 			if (kiss_hex4edit_event(&hex4edit1, &e, &draw) > 10)changed = true;
 			if (kiss_hex4edit_event(&hex4edit2, &e, &draw) > 10)changed = true;
@@ -3384,7 +3409,7 @@ int main_x(/*int argc, char** argv*/)
 
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
-			if (button_loadlevel_event(&button_levelload, &e, &draw))
+			if (button_loadlevel_event(&button_levelload, &e, &draw, &txtFilePath))
 			{
 				changed = true; changed2 = true; changed3 = true;
 			};
@@ -3398,8 +3423,8 @@ int main_x(/*int argc, char** argv*/)
 				changed = true; changed2 = true; changed3 = true; undoredo = true;
 			};
 
-			button_savelevel_event(&button_levelsave, &e, &draw);
-			button_savelevelcsv_event(&button_levelsavecsv, &e, &draw);
+			button_savelevel_event(&button_levelsave, &e, &draw, &txtFilePath);
+			button_savelevelcsv_event(&button_levelsavecsv, &e, &draw, &txtFilePath);
 
 			if (button_cleanlevelfeat_event(&button_cleanlevelfeat, &e, &draw))
 			{
@@ -3612,7 +3637,7 @@ int main_x(/*int argc, char** argv*/)
 			}
 			if ((terev == 14) || (terev == 20))
 			{			
-				kiss_textbox_setviewon(&textbox1,findFirstSelected(temparray_0x30311_selected));
+				kiss_textbox_setviewon(&txtEntities,findFirstSelected(temparray_0x30311_selected));
 				changed2 = true;
 				terev14 = false;
 				if (terev == 14)terev14 = true;
@@ -3670,7 +3695,7 @@ int main_x(/*int argc, char** argv*/)
 				changed2 = true; zoomchanged = true;
 			}
 
-			if (changed2)terrain_feat_append(&textbox1, &vscrollbar1);
+			if (changed2)terrain_feat_append(&txtEntities, &vscrollbar1);
 			if (changed3) { 
 				terrain_stages_append(&textbox2); terrain_vars_append(&textbox3);
 			}
@@ -3684,7 +3709,7 @@ int main_x(/*int argc, char** argv*/)
 			SetUndoPoint();
 		}
 
-		vscrollbar1_event(&vscrollbar1, NULL, &textbox1, &draw);
+		vscrollbar1_event(&vscrollbar1, NULL, &txtEntities, &draw);
 		//vscrollbar2_event(&vscrollbar2, NULL, &textbox2, &draw);
 		//kiss_progressbar_event(&progressbar, NULL, &draw);
 		
@@ -3695,9 +3720,10 @@ int main_x(/*int argc, char** argv*/)
 
 		
 		kiss_window_draw(&window1, editor_renderer);
-		kiss_textbox_draw(&textbox1, editor_renderer);
+		kiss_textbox_draw(&txtEntities, editor_renderer);
 		kiss_textbox_draw(&textbox2, editor_renderer);
 		kiss_textbox_draw(&textbox3, editor_renderer);
+		kiss_entry_draw(&txtFilePath, editor_renderer);
 		/*kiss_textbox_draw(&textbox1, editor_renderer);
 		kiss_textbox_draw(&textbox2, editor_renderer);
 		kiss_textbox_draw(&textbox3, editor_renderer);*/
@@ -3711,6 +3737,7 @@ int main_x(/*int argc, char** argv*/)
 		kiss_label_draw(&label_stages2, editor_renderer);//fix ter feat
 		kiss_label_draw(&label_vars, editor_renderer);//fix ter feat
 		kiss_label_draw(&label_vars2, editor_renderer);//fix ter feat
+		kiss_label_draw(&lblFilePath, editor_renderer);
 		//kiss_label_draw(&label2, editor_renderer);
 		
 		kiss_vscrollbar_draw(&vscrollbar1, editor_renderer);
