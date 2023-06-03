@@ -51213,7 +51213,7 @@ char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string 
 			Type_CompressedLevel_2FECE shadow_a2x;
 			qmemcpy(&shadow_a2x, (Type_CompressedLevel_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(Type_CompressedLevel_2FECE));//0x6604
 			memset((Type_CompressedLevel_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(Type_CompressedLevel_2FECE));//0x6604
-			Convert_from_shadow_str_2FECE(&shadow_a2x, a2x);
+			DecompressLevel_2FECE(&shadow_a2x, a2x);
 			//type_shadow_str_2FECE
 		}
 		DataFileIO::Close(levelsdatfile);
@@ -51229,7 +51229,7 @@ char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string 
 				/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
 					if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
 						allert_error();*/
-				Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
+				DecompressLevel_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
 			}
 			fclose(file);
 		}
