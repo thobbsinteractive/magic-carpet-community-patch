@@ -50,7 +50,6 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = false;
 
 /*
 fix sub_3C080_draw_terrain_and_particles_old
@@ -37774,6 +37773,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	bool isSecretLevel; // al
 	bool skipMenus = false;
 	int16_t setLevel = -1;
+	std::string customLevelPath = "";
 	//unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
@@ -37799,7 +37799,8 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_0xc + 11234] = 0;//fix it
 
 	setLevel = CommandLineParams.GetSetLevel();
-	if (setLevel > -1)
+	customLevelPath = CommandLineParams.GetCustomLevelPath();
+	if (setLevel > -1 || customLevelPath.length() > 0)
 		skipMenus = true;
 
 	while (1)
@@ -37831,7 +37832,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			Logger->debug("sub_46830_main_loop:load scr passed");
 
-			sub_56A30_init_game_level(a3, setLevel);
+			sub_56A30_init_game_level(a3, setLevel, customLevelPath);
 
 			Logger->debug("sub_46830_main_loop:init game level passed");
 
@@ -37979,6 +37980,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 			x_WORD_E29D8 = 4;
 			skipMenus = false;
 			setLevel = -1;
+			customLevelPath = "";
 		}
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0
@@ -51155,7 +51157,7 @@ void sub_53160()//234160
 // D93A0: using guessed type const char *off_D93A0_wizards_names2;
 
 //----- (000533B0) --------------------------------------------------------
-char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
+char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x, std::string customLevelPath)//2343b0
 {
 	uint8_t* v2; // edi
 	FILE* levelsdatfile; // ebx
@@ -51201,7 +51203,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 			DataFileIO::Read(levelsdatfile, (uint8_t*)x_DWORD_E9C38_smalltit, v9);
 			if (DataFileIO::Decompress((uint8_t*)x_DWORD_E9C38_smalltit, (uint8_t*)x_DWORD_E9C38_smalltit) < 0)
 			{
-				myprintf("ERROR decompressing LEVELS.DAT\n");
+				Logger->error("ERROR decompressing LEVELS.DAT\n");
 				return 0;
 			}
 			/*
@@ -51217,25 +51219,20 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 		DataFileIO::Close(levelsdatfile);
 
 		//if exist editor generated level
-		#if !defined(IS_EDITOR)
-			if (CommandLineParams.DoLoadEditedLevel()) {
-				if (config_LOAD_EDITED_LEVEL) {
-					char path2[512];
-					FixDir(path2, (char*)"../remc2/editor/Debug/testsave.sav");
-					FILE* file = fopen(path2, "rb");
-					if (file)
-					{
-						type_shadow_str_2FECE shadow_2FECE;
-						fread(&shadow_2FECE, sizeof(type_shadow_str_2FECE), 1, file);
-						/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
-							if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
-								allert_error();*/
-						Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
-					}
-					fclose(file);
-				}
+		if (customLevelPath.length() > 0)
+		{
+			FILE* file = fopen(customLevelPath.c_str(), "rb");
+			if (file)
+			{
+				type_shadow_str_2FECE shadow_2FECE;
+				fread(&shadow_2FECE, sizeof(type_shadow_str_2FECE), 1, file);
+				/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
+					if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
+						allert_error();*/
+				Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
 			}
-		#endif //!IS_EDITOR
+			fclose(file);
+		}
 		//if exist editor generated level
 
 		sub_56C00_sound_proc2(a2x);
@@ -53323,10 +53320,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			{
 				config_EDITOR = true;
 			}
-			else if (!_stricmp("testlevel", (char*)actarg))
-			{
-				config_LOAD_EDITED_LEVEL = true;
-			}
 			else if (!_stricmp("reglevel", (char*)actarg))
 			{
 				test_regression_level = atoi(argv[++argnumber]);
@@ -53571,7 +53564,7 @@ void ClearSettings_567C0()//2377c0 // clean level
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00056A30) --------------------------------------------------------
-void sub_56A30_init_game_level(unsigned int a1, int16_t level)//237a30
+void sub_56A30_init_game_level(unsigned int a1, int16_t level, std::string customLevelPath)//237a30
 {
 	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
 	if (level > -1) {
@@ -53592,7 +53585,7 @@ void sub_56A30_init_game_level(unsigned int a1, int16_t level)//237a30
 
 		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels");
 
-		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
+		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE, customLevelPath);
 
 		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed");
 

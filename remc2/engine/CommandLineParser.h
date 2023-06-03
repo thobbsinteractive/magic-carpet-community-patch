@@ -54,6 +54,7 @@ class CommandLineParser {
         std::string GetMemimagesPath() const {return m_memimages_path;};
         std::string GetConfigFilePath() const { return m_config_file_path; };
 		int16_t GetSetLevel() const { return m_set_level; };
+		std::string GetCustomLevelPath() const { return m_custom_level_path; };
 
     private:
         void InterpretParams();
@@ -101,6 +102,7 @@ class CommandLineParser {
         std::string m_memimages_path;
         std::string m_config_file_path;
 		uint16_t m_set_level;
+		std::string m_custom_level_path;
 };
 
 extern CommandLineParser CommandLineParams;

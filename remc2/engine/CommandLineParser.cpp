@@ -42,6 +42,7 @@ void CommandLineParser::Init(int argc, char **argv) {
     m_rotate_player = false;
     m_set_objective = false;
     m_set_level = -1;
+	m_custom_level_path = "";
     m_test_network_chng1 = false;
     m_show_debug_messages1 = false;
     m_show_debug_perifery = false;
@@ -200,6 +201,9 @@ void CommandLineParser::InterpretParams() {
 			{
 				m_set_level = level;
 			}
+		}
+		else if (param == "--custom_level") {
+			m_custom_level_path = *(++p);
 		}
     }
 }
