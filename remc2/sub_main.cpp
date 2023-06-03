@@ -37773,6 +37773,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	int v5; // edx
 	bool isSecretLevel; // al
 	bool skipMenus = false;
+	int16_t setLevel = -1;
 	//unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
@@ -37796,6 +37797,11 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234 = 0;
 	//	  * (_BYTE *)(2124 * *(signed __int16 *)(dword_D41A0 + 12) + dword_D41A0 + 11234) = 0;
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_0xc + 11234] = 0;//fix it
+
+	setLevel = CommandLineParams.GetSetLevel();
+	if (setLevel > -1)
+		skipMenus = true;
+
 	while (1)
 	{
 		//result = (int)x_D41A0_BYTEARRAY_0;
@@ -37825,7 +37831,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			Logger->debug("sub_46830_main_loop:load scr passed");
 
-			sub_56A30_init_game_level(a3);
+			sub_56A30_init_game_level(a3, setLevel);
 
 			Logger->debug("sub_46830_main_loop:init game level passed");
 
@@ -37972,6 +37978,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 			}
 			x_WORD_E29D8 = 4;
 			skipMenus = false;
+			setLevel = -1;
 		}
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0

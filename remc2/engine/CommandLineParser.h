@@ -45,7 +45,6 @@ class CommandLineParser {
         bool DoHideGraphics() const {return m_hide_graphics;};
         bool DoRotatePlayer() const {return m_rotate_player;};
         bool DoSetObjective() const {return m_set_objective;};
-        bool DoSetLevel() const {return m_set_level;};
         bool DoTestNetworkChng1() const {return m_test_network_chng1;};
         bool DoShowDebugMessages1() const { return m_show_debug_messages1;};
         bool DoShowDebugPerifery() const { return m_show_debug_perifery; };
@@ -54,6 +53,7 @@ class CommandLineParser {
         // settings
         std::string GetMemimagesPath() const {return m_memimages_path;};
         std::string GetConfigFilePath() const { return m_config_file_path; };
+		int16_t GetSetLevel() const { return m_set_level; };
 
     private:
         void InterpretParams();
@@ -94,13 +94,13 @@ class CommandLineParser {
         bool m_hide_graphics;
         bool m_rotate_player;
         bool m_set_objective;
-        bool m_set_level;
         bool m_test_network_chng1;
         bool m_show_debug_messages1;
         bool m_show_debug_perifery;
         bool m_text_output_to_console;
         std::string m_memimages_path;
         std::string m_config_file_path;
+		uint16_t m_set_level;
 };
 
 extern CommandLineParser CommandLineParams;
