@@ -22,6 +22,9 @@ To jump to a selected Level use:</br>
 To run a level you have created using the editor:</br>
 --custom_level "[Path to .mc2 file]"</br>
 
+## For more information on Magic Carpet 2 ##
+Moburma has been tirelessly working to document cut levels, level data structures and missing graphics at: https://tcrf.net/Magic_Carpet_2:_The_Netherworlds
+
 ## My intention is to make a patch for Magic Carpet 1 and 2 (GOG editions) that initially will:
 - Add more screen resolution options
 - Increase draw distance
@@ -50,7 +53,7 @@ To run a level you have created using the editor:</br>
 - 8: Close that solution and open "remc2.sln" in your prefered config (x64, x86).
 - 9: Build the code
 - 10: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 11: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\GAME" Folder
+- 11: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\" Folder
 - 12: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
 - 13: Move "CD_Files" directory into the "remc2\Debug" Folder
 - 14: Run
