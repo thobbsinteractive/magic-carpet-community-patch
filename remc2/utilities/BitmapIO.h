@@ -26,7 +26,7 @@ public:
 	static void WriteRGBAImageBufferAsImageBMP(const char* path, int width, int height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 	static void WritePaletteAsImageBMP(const char* path, int numColors, uint8_t* ptrPalette);
 #ifdef _DEBUG
-	static void WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int frame, double multiplier);
+	static void WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int frame, double multiplier = 4);
 	static void WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int frame, double multiplier, uint8_t transColR, uint8_t transColG, uint8_t transColB);
 #endif
 
