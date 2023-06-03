@@ -51210,9 +51210,9 @@ char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string 
 			qmemcpy(a2x, (type_str_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(type_str_2FECE));//0x6604
 			memset((type_str_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(type_str_2FECE));//0x6604
 			*/
-			type_shadow_str_2FECE shadow_a2x;
-			qmemcpy(&shadow_a2x, (type_shadow_str_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(type_shadow_str_2FECE));//0x6604
-			memset((type_shadow_str_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(type_shadow_str_2FECE));//0x6604
+			Type_CompressedLevel_2FECE shadow_a2x;
+			qmemcpy(&shadow_a2x, (Type_CompressedLevel_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			memset((Type_CompressedLevel_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(Type_CompressedLevel_2FECE));//0x6604
 			Convert_from_shadow_str_2FECE(&shadow_a2x, a2x);
 			//type_shadow_str_2FECE
 		}
@@ -51224,8 +51224,8 @@ char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string 
 			FILE* file = fopen(customLevelPath.c_str(), "rb");
 			if (file)
 			{
-				type_shadow_str_2FECE shadow_2FECE;
-				fread(&shadow_2FECE, sizeof(type_shadow_str_2FECE), 1, file);
+				Type_CompressedLevel_2FECE shadow_2FECE;
+				fread(&shadow_2FECE, sizeof(Type_CompressedLevel_2FECE), 1, file);
 				/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
 					if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
 						allert_error();*/
