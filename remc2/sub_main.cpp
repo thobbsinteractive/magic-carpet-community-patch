@@ -4654,7 +4654,7 @@ void begin_plugin() {
 int16_t x_WORD_E29D6_not_movex = 0; // weak
 int16_t x_WORD_E29D8 = 0; // weak//2b39d8
 __int16 x_WORD_E29DA_type_resolution = 0; // weak
-int16_t x_WORD_E29DC = 0; // weak
+int16_t m_ExitMenuLoop_E29DC = 0; // weak
 char x_BYTE_E29DF_skip_screen = 0; // weak
 char x_BYTE_E29E0 = 1; // weak
 char x_BYTE_E29E8 = 1; // weak
@@ -37772,6 +37772,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
   //int8_t* v4; // eax
 	int v5; // edx
 	bool isSecretLevel; // al
+	bool skipMenus = false;
 	//unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
@@ -37812,7 +37813,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		int comp12 = compare_with_snapshot_D41A0((char*)"0160-0022787A", x_D41A0_BYTEARRAY_0, 0x356038, 224790, &origbyte3, &remakebyte3);
 		*/
 		//!!!!test area1
-		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
+
+		MenusAndIntros_76930(v5, 0, skipMenus /*a1*/);//set language, intro, menu, atd. //257930
+
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
 			Logger->debug("sub_46830_main_loop:before load scr");
@@ -37968,6 +37971,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				}
 			}
 			x_WORD_E29D8 = 4;
+			skipMenus = false;
 		}
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0
@@ -53560,11 +53564,11 @@ void ClearSettings_567C0()//2377c0 // clean level
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00056A30) --------------------------------------------------------
-void sub_56A30_init_game_level(unsigned int a1)//237a30
+void sub_56A30_init_game_level(unsigned int a1, int16_t level)//237a30
 {
 	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
-	if (CommandLineParams.DoSetLevel()) {
-		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+	if (level > -1) {
+		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = (uint16_t)level;
 	}
 	Logger->debug("sub_56A30_init_game_level:before sub_6EB90");
 	//fixing
