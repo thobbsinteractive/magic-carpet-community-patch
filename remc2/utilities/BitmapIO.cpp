@@ -179,86 +179,84 @@ void BitmapIO::WritePaletteAsImageBMP(const char* path, int numColors, uint8_t* 
 }
 
 #ifdef _DEBUG
-void BitmapIO::WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int frame, double multiplier)
+void BitmapIO::WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int padding, double multiplier)
 {
-	char textbuffer[512];
-	uint8_t buffer2[100000 * 4];
-	BitmapIO::WritePosistructToPng(ptrPalette, ptrBuffer, width, height, filename, title, frame, multiplier, 0, 255, 0);
+	BitmapIO::WritePosistructToPng(ptrPalette, ptrBuffer, width, height, filename, title, padding, multiplier, 0, 255, 0);
 }
 
-void BitmapIO::WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int frame, double multiplier, uint8_t transColR, uint8_t transColG, uint8_t transColB)
+void BitmapIO::WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int width, int height, char* filename, char* title, int padding, double multiplier, uint8_t transColR, uint8_t transColG, uint8_t transColB)
 {
 	char textbuffer[512];
-	uint8_t buffer2[100000 * 4];
+	std::vector<uint8_t> buffer2((width + (2 * padding)) * (height + (2 * padding)) * 4);
 
-	for (int y = 0; y < height + 2 * frame; y++)
+	for (int y = 0; y < height + (2 * padding); y++)
 	{
-		for (int x = 0; x < width + 2 * frame; x++)
+		for (int x = 0; x < width + (2 * padding); x++)
 		{
-			int x2 = x - frame;
-			int y2 = y - frame;
+			int x2 = x - padding;
+			int y2 = y - padding;
 
-			if ((x < frame) || (y < frame) || (x >= width + frame) || (y >= height + frame)) {
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = transColR;
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = transColG;
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = transColB;
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+			if ((x < padding) || (y < padding) || (x >= width + padding) || (y >= height + padding)) {
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = transColR;
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = transColG;
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = transColB;
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 3] = 255;
 			}
 			else
 			{
 				bool isWhite = false;
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[y2 * width + x2] * 3], multiplier);
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[y2 * width + x2] * 3 + 1], multiplier);
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[y2 * width + x2] * 3 + 2], multiplier);
-				buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 255;
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[y2 * width + x2] * 3], multiplier);
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[y2 * width + x2] * 3 + 1], multiplier);
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[y2 * width + x2] * 3 + 2], multiplier);
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 3] = 255;
 				if (ptrBuffer[(y2 * width + x2)] == TRANSPARENT_COLOUR)
 				{
 					isWhite = true;
 					if (y2 > 0)
 						if ((ptrBuffer[((y2 - 1) * width + x2)] != TRANSPARENT_COLOUR) && (ptrBuffer[y2 * width + x2] == TRANSPARENT_COLOUR))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 - 1) * width + x2)] * 3], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 - 1) * width + x2)] * 3 + 1], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 - 1) * width + x2)] * 3 + 2], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 - 1) * width + x2)] * 3], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 - 1) * width + x2)] * 3 + 1], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 - 1) * width + x2)] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 					if (y2 < height - 1)
 						if ((ptrBuffer[((y2 + 1) * width + x2)] != TRANSPARENT_COLOUR) && (ptrBuffer[y2 * width + x2] == TRANSPARENT_COLOUR))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 + 1) * width + x2)] * 3], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 + 1) * width + x2)] * 3 + 1], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 + 1) * width + x2)] * 3 + 2], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 + 1) * width + x2)] * 3], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 + 1) * width + x2)] * 3 + 1], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[((y2 + 1) * width + x2)] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 					if (x2 > 0)
 						if ((ptrBuffer[(y2 * width + (x2 - 1))] != TRANSPARENT_COLOUR) && (ptrBuffer[y2 * width + x2] == TRANSPARENT_COLOUR))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 - 1))] * 3], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 - 1))] * 3 + 1], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 - 1))] * 3 + 2], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 - 1))] * 3], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 - 1))] * 3 + 1], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 - 1))] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 					if (x2 < width - 1)
 						if ((ptrBuffer[(y2 * width + (x2 + 1))] != TRANSPARENT_COLOUR) && (ptrBuffer[y2 * width + x2] == TRANSPARENT_COLOUR))
 						{
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 + 1))] * 3], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 + 1))] * 3 + 1], multiplier);
-							buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 + 1))] * 3 + 2], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 + 1))] * 3], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 + 1))] * 3 + 1], multiplier);
+							buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = BitmapIO::MultiplyValue(ptrPalette[ptrBuffer[(y2 * width + (x2 + 1))] * 3 + 2], multiplier);
 							isWhite = false;
 						}
 				}
 				if (isWhite)
 				{
-					buffer2[(y * (width + 2 * frame) + x) * 4 + 0] = transColR;
-					buffer2[(y * (width + 2 * frame) + x) * 4 + 1] = transColG;
-					buffer2[(y * (width + 2 * frame) + x) * 4 + 2] = transColB;
-					buffer2[(y * (width + 2 * frame) + x) * 4 + 3] = 0;
+					buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = transColR;
+					buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = transColG;
+					buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = transColB;
+					buffer2[(y * (width + (2 * padding)) + x) * 4 + 3] = 0;
 				}
 			}
 		}
 	}
 	sprintf_s(textbuffer, "%s.png", filename);
-	WriteImagePNG(textbuffer, width + 2 * frame, height + 2 * frame, buffer2, title);
+	WriteImagePNG(textbuffer, width + (2 * padding), height + (2 * padding), buffer2.data(), title);
 }
 
 void BitmapIO::WriteImagePNG(const char* filename, int width, int height, uint8_t* buffer, char* title)
