@@ -908,17 +908,22 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
+static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry *txtFilePath)
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		char path2[512];
-		FixDir(path2, (char*)"testsave.sav");
-		FILE* file = fopen(path2, "rb");
-		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
-		memcpy(temparray_0x30311,D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));		
-		fclose(file);
-		return true;
+		char fileName[KISS_MAX_LENGTH];
+		sprintf(fileName, "%s.mc2", txtFilePath->text);
+		char path[512];
+		FixDir(path, fileName);
+		if (std::filesystem::exists(path))
+		{
+			FILE* file = fopen(path, "rb");
+			fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
+			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+			fclose(file);
+			return true;
+		}
 	}//*quit = 1;
 	return false;
 }
@@ -979,20 +984,23 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, 
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		char fileName[KISS_MAX_LENGTH];
-		sprintf(fileName, "%s.mc2", txtFilePath->text);
-		char path[512];
-		FixDir(path, fileName);
-		FILE* file = fopen(path,"wb");
-		memcpy(D41A0_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
-		fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
-		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
-		/*int buffersize = 1000;
-		int buffercount=
+		if (strlen(txtFilePath->text) > 0)
+		{
+			char fileName[KISS_MAX_LENGTH];
+			sprintf(fileName, "%s.mc2", txtFilePath->text);
+			char path[512];
+			FixDir(path, fileName);
+			FILE* file = fopen(path, "wb");
+			memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
+			fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
+			//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
+			/*int buffersize = 1000;
+			int buffercount=
 
 
-		cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
-		fclose(file);
+			cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
+			fclose(file);
+		}
 	}//*quit = 1;
 }
 
@@ -1000,17 +1008,20 @@ static void button_savelevelcsv_event(kiss_button* button, SDL_Event* e, int* dr
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		char fileName[KISS_MAX_LENGTH];
-		sprintf(fileName, "%s.csv", txtFilePath->text);
-		char path[512];
-		FixDir(path, fileName);
-		FILE* file = fopen(path, "wt");
-		for (int i = 0; i < 0x4B0; i++)
+		if (strlen(txtFilePath->text) > 0)
 		{
-			type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-			fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);			
+			char fileName[KISS_MAX_LENGTH];
+			sprintf(fileName, "%s.csv", txtFilePath->text);
+			char path[512];
+			FixDir(path, fileName);
+			FILE* file = fopen(path, "wt");
+			for (int i = 0; i < 0x4B0; i++)
+			{
+				type_entity_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
+				fprintf(file, "0x%03X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X;0x%04X\n", i, actfeat.type_0x30311, actfeat.subtype_0x30311, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.stageTag_12, actfeat.par1_14, actfeat.par2_16, actfeat.par3_18);
+			}
+			fclose(file);
 		}
-		fclose(file);
 	}//*quit = 1;
 }
 
@@ -2186,7 +2197,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_textbox_new(&txtEntities, &window1, 1, &objects, 530, 50, textbox_width, textbox_height);
 	kiss_textbox_new(&textbox2, &window1, 1, &obj_stages, 530, 540, textbox2_width, textbox2_height);
 	kiss_textbox_new(&textbox3, &window1, 1, &obj_vars, 750, 540, textbox3_width, textbox3_height);
-	kiss_entry_new(&txtFilePath, &window1, 1, (char*)"user-level1", 670, 765, 210);
+	kiss_entry_new(&txtFilePath, &window1, 1, (char*)"user-level1", 716, 765, 180);
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -2989,7 +3000,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_levelsavecsv, &window1, (char*)"S_CSV", 600, 720);
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 600, 740);
 	
-	kiss_label_new(&lblFilePath, &window1, (char*)"SAVE FILE NAME:", 534, 770);
+	kiss_label_new(&lblFilePath, &window1, (char*)"SAVE/LOAD FILE NAME:", 534, 770);
 
 	kiss_button_new(&button_cleanselectedlevelfeat, &window1, (char*)"D_SEL", 600, 700);
 	kiss_button_new(&button_filter, &window1, (char*)"FILTR", 670, 700);
@@ -3398,7 +3409,7 @@ int main_x(/*int argc, char** argv*/)
 
 			button_ok_event(&button_ok1feat, &e, &quit, &draw);
 			button_cancel_event(&button_cancel, &e, &quit, &draw);
-			if (button_loadlevel_event(&button_levelload, &e, &draw))
+			if (button_loadlevel_event(&button_levelload, &e, &draw, &txtFilePath))
 			{
 				changed = true; changed2 = true; changed3 = true;
 			};
