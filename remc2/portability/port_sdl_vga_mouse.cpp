@@ -1,10 +1,12 @@
 #include "../engine/engine_support.h"
+#include "port_sdl_joystick.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 
 #include <cstdint>
 
 #include "../engine/sub_main_mouse.h"
+#include "../engine/read_config.h"
 #include "../engine/CommandLineParser.h"
 
 #ifdef USE_DOSBOX
@@ -121,7 +123,9 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		else
 		{
+
 			init_sound();
+			gamepad_sdl_init();
 
 			SDL_ShowCursor(0);
 			// Set hint before you create the Renderer!
@@ -137,12 +141,19 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			SDL_WindowFlags test_fullscr = SDL_WINDOW_SHOWN;
 
-			SDL_Rect display = GetDisplayByIndex(displayIndex);
-			if (width > display.w || height > display.h)
+			if (forceWindow)//window
 			{
-				display = FindDisplayByResolution(width, height);
+				m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
 			}
-			m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
+			else
+			{
+				SDL_Rect display = GetDisplayByIndex(displayIndex);
+				if (width > display.w || height > display.h)
+				{
+					display = FindDisplayByResolution(width, height);
+				}
+				m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
+			}
 			SDL_SetWindowGrab(m_window, settingWindowGrabbed ? SDL_TRUE : SDL_FALSE);
 
 			m_renderer =
@@ -814,10 +825,44 @@ int events()
 	Uint8 buttonindex;
 	Uint8 buttonstate;
 	uint32_t buttonresult;
+	gamepad_event_t gpe = {};
+
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
 		{
+		case SDL_JOYAXISMOTION:
+			if (event.jaxis.which == gpc.controller_id) {
+				// motion on controller 0
+				//gps.initialized = 1;
+				// actual axis data is being read via gamepad_poll_data()
+				// to counteract jerkiness due to missing event triggers
+				Logger->trace("axis {} event detected", event.jaxis.axis + 1);
+			}
+			break;
+		case SDL_JOYHATMOTION:
+			if (event.jhat.which == gpc.controller_id) {
+				//gps.initialized = 1;
+				// actual axis data is being read via gamepad_poll_data()
+				Logger->trace("hat {} event detected", event.jhat.hat + 1);
+			}
+			break;
+		case SDL_JOYBUTTONDOWN:
+			if (event.jbutton.which == gpc.controller_id) {
+				//gps.initialized = 1;
+				gpe.btn_pressed = 1 << (event.jbutton.button + 1);
+				Logger->trace("key {} press detected", event.jbutton.button + 1);
+				gpe.flag |= GP_BTN_PRESSED;
+			}
+			break;
+		case SDL_JOYBUTTONUP:
+			if (event.jbutton.which == gpc.controller_id) {
+				//gps.initialized = 1;
+				gpe.btn_released = 1 << (event.jbutton.button + 1);
+				Logger->trace("key {} release detected", event.jbutton.button + 1);
+				gpe.flag |= GP_BTN_RELEASED;
+			}
+			break;
 		case SDL_KEYDOWN:
 			pressed = true;
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
@@ -825,13 +870,12 @@ int events()
 			if (!handleSpecialKeys(event)) {
 				setPress(true, lastchar);
 			}
-			Logger->trace("Key press detected");//test
+			Logger->trace("Key {} press detected", lastchar);
 			break;
-
 		case SDL_KEYUP:
 			lastchar = (event.key.keysym.scancode << 8) + event.key.keysym.sym;
 			setPress(false, lastchar);
-			Logger->trace("Key release detected");//test
+			Logger->trace("Key {} release detected", lastchar);
 			break;
 
 		case SDL_MOUSEMOTION:
@@ -902,11 +946,15 @@ int events()
 		case SDL_QUIT: return 0;
 		}
 	}
+
+	gamepad_poll_data(&gpe);
+
 	return 1;
 }
 
-void VGA_Set_mouse(int16_t x, int16_t y) {
+void VGA_Set_mouse(const int16_t x, const int16_t y) {
 	SDL_WarpMouseInWindow(m_window, x, y);
+	joystick_set_env(x, y);
 };
 
 void VGA_Blit(Uint8* srcBuffer) {
@@ -943,7 +991,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 	}
 	if (srcBuffer)
 		memcpy(m_gamePalletisedSurface->pixels, srcBuffer, m_gamePalletisedSurface->h * m_gamePalletisedSurface->w);
-	
+
 	if (SDL_MUSTLOCK(m_gamePalletisedSurface)) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
@@ -1058,6 +1106,7 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 void VGA_close()
 {
 	clean_up_sound();
+	gamepad_sdl_close();
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;
 	SDL_FreeSurface(m_gamePalletisedSurface);

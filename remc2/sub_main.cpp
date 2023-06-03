@@ -50,7 +50,6 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = false;
 
 /*
 fix sub_3C080_draw_terrain_and_particles_old
@@ -1468,10 +1467,10 @@ signed int sub_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
 signed int sub_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
 signed int sub_48F20(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
 signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
-void sub_49090(type_str_2FECE* a1, type_str_2FECE* a2);
-void sub_49270_generate_level_features(type_str_2FECE* terrain);
+void sub_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2);
+void sub_49270_generate_level_features(Type_Level_2FECE* terrain);
 //void sub_49290(type_str_2FECE* a1, char a2);
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity);
+void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 //void sub_49830(type_str_2FECE* a1);
 void ApplyEvents_498A0();
 void CopyEventVar0408_49A20(type_event_0x6E8E* event);
@@ -1730,7 +1729,7 @@ void sub_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
 void sub_53120();
 void sub_53160();
 //char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
-void sub_53590(type_str_2FECE* a1);
+void sub_53590(Type_Level_2FECE* a1);
 char sub_53770_test_open_moviegam(uint16_t a1);
 char sub_53950_test_open_moviemap(uint16_t a1);
 void sub_539A0_load_bldgprm();
@@ -1773,7 +1772,7 @@ void sub_56210_process_command_line(int a1, char** a2);
 int sub_56730_clean_memory();
 void ClearSettings_567C0();
 // char sub_56A30_init_game_level(unsigned int a1);
-void sub_56C00_sound_proc2(type_str_2FECE* a1);
+void sub_56C00_sound_proc2(Type_Level_2FECE* a1);
 // char sub_56D60(unsigned int a1, char a2);
 bool sub_56EE0(uaxis_2d a1);
 char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4);
@@ -4654,7 +4653,7 @@ void begin_plugin() {
 int16_t x_WORD_E29D6_not_movex = 0; // weak
 int16_t x_WORD_E29D8 = 0; // weak//2b39d8
 __int16 x_WORD_E29DA_type_resolution = 0; // weak
-int16_t x_WORD_E29DC = 0; // weak
+int16_t m_ExitMenuLoop_E29DC = 0; // weak
 char x_BYTE_E29DF_skip_screen = 0; // weak
 char x_BYTE_E29E0 = 1; // weak
 char x_BYTE_E29E8 = 1; // weak
@@ -27689,6 +27688,7 @@ void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t col
 	}
 }
 
+// spellbook menu
 //----- (0002ECC0) --------------------------------------------------------
 void DrawBottomMenu_2ECC0()//20fcc0
 {
@@ -28056,6 +28056,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		//result = sub_2BB40_draw_bitmap(x_DWORD_1805B0_mouse.x, x_DWORD_1805B0_mouse.y, (uint8_t**)(**filearray_2aa18c[0] + 6 * (unsigned __int8)x_BYTE_D419E));
 		/*result = */sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+	set_scene(SCENE_SPELL_MENU);
 	//return result;
 }
 // D419E: using guessed type char x_BYTE_D419E;
@@ -28318,6 +28319,7 @@ void DrawChatMenu_2F6B0()//2106b0
 		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
 	//return result;
+	set_scene(SCENE_FLIGHT_MENU);
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
 // D419E: using guessed type char x_BYTE_D419E;
@@ -28397,6 +28399,7 @@ void DrawPauseMenu_2FD90()//210d90
 			}
 			posY += heigth;
 			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178]);//Settings button
+			set_scene(SCENE_FLIGHT_MENU);
 		}
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 			|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
@@ -28411,6 +28414,7 @@ void DrawPauseMenu_2FD90()//210d90
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
 			sub_30870();
 	}
+
 }
 
 //----- (0002FFE0) --------------------------------------------------------
@@ -28579,6 +28583,8 @@ void DrawInGameOptionsMenu_30050()//211050
 	else
 		DrawText_2BC10((char*)"OK", (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + 33, 379, v12);	
 
+	set_scene(SCENE_FLIGHT_MENU);
+
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
@@ -28589,6 +28595,7 @@ void DrawInGameOptionsMenu_30050()//211050
 	{
 		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+
 }
 
 //----- (000303D0) --------------------------------------------------------
@@ -28838,6 +28845,7 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 			sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 		}
 	}
+	set_scene(SCENE_FLIGHT_MENU);
 }
 
 //----- (00030BE0) --------------------------------------------------------
@@ -29151,8 +29159,8 @@ LABEL_8:
 					v10 = Maths::sub_58490_radix_3d_2(&a1x->axis_0x4C_76, &v28x);
 					if (v10 < v35 && v10 >= v43)
 					{
-						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v10 << 10) / v35]) >> 1) >> 16)
-							* (0x10000 - Maths::x_DWORD_DB750[0x200 + v7]);
+						v11 = (v44 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v10 << 10) / v35]) >> 1) >> 16)
+							* (0x10000 - Maths::sin_DB750[0x200 + v7]);
 						v12 = v11 >> 16;
 						v45 = (v11 >> 18) + v42;
 						if (mapHeightmap_11B4E0[ix] < v45)
@@ -29516,7 +29524,7 @@ void sub_31940(type_event_0x6E8E* a1x)//212940
 				if (v11 < v6)
 				{
 					v12 = (a1x->word_0x2C_44
-						* ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v11 << 10) / v6]) >> 1) >> 16)
+						* ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v11 << 10) / v6]) >> 1) >> 16)
 						+ a1x->axis_0x4C_76.z;
 					v43 = v12;
 					v42 = mapHeightmap_11B4E0[v9x.word];
@@ -31712,7 +31720,7 @@ void sub_34C40(type_event_0x6E8E* a1x)//215c40
 					{
 						v22 = mapHeightmap_11B4E0[i];
 						v25 = x_BYTE_14B4E0_second_heightmap[i];
-						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v8 << 10) / v7]) >> 1) >> 16;
+						v18 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v8 << 10) / v7]) >> 1) >> 16;
 						v9 = v18 + v23;
 						if (v18 + v23 > 254)
 							v9 = 254;
@@ -31879,7 +31887,7 @@ void sub_34EE0(/*signed int a1, int a2, */type_event_0x6E8E* a3x)//215ee0
 					v31 = v15;
 					if (v15 < v35)
 					{
-						v16 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v15 << 10) / v35]) >> 1);
+						v16 = v14 * ((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v15 << 10) / v35]) >> 1);
 						v17 = a3x->model_0x40_64;
 						v18 = v16 >> 16;
 						if (v17 >= 0x54u)
@@ -34884,14 +34892,14 @@ void sub_39040(type_event_0x6E8E* a1x)//21a040
 									if (a1x->word_0x2C_44 < v11)
 										a1x->word_0x2C_44 = v11;
 									v50 = v11
-										- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + ((v48 - 2304) << 10) / 1536]) >> 1)
+										- (((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + ((v48 - 2304) << 10) / 1536]) >> 1)
 											* (v11 - (a1x->axis_0x4C_76.z + 64)) >> 16);
 								}
 								else
 								{
 									v50 = a1x->axis_0x4C_76.z
 										+ 64
-										- ((0x10000 - Maths::x_DWORD_DB750[0x200 + ((2304 - v9) << 9) / 2304]) << 6 >> 16);
+										- ((0x10000 - Maths::sin_DB750[0x200 + ((2304 - v9) << 9) / 2304]) << 6 >> 16);
 								}
 								v12 = (v50 - mapHeightmap_11B4E0[v8x.word]) / a1x->dword_0x10_16
 									+ mapHeightmap_11B4E0[v8x.word];
@@ -35238,7 +35246,7 @@ unsigned __int8 sub_396D0(type_event_0x6E8E* a1x)//21a6d0
 						MovePlayer_57FA0(&v28x, v11, 0, 3840);
 						v12 = getTerrainAlt_10C40(&v28x);
 						v13 = (v12 >> 5)
-							- (((x_DWORD)(0x10000 + (signed int)Maths::x_DWORD_DB750[0x200 + (v36 << 10) / 3840]) >> 1)
+							- (((x_DWORD)(0x10000 + (signed int)Maths::sin_DB750[0x200 + (v36 << 10) / 3840]) >> 1)
 								* ((v12 >> 5) - a1x->axis_0x4C_76.z) >> 16);
 						a1x->rand_0x14_20 = 9377 * a1x->rand_0x14_20 + 9439;
 						v14 = (a1x->rand_0x14_20 & 3) + v13 - 2;
@@ -37763,6 +37771,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
   //int8_t* v4; // eax
 	int v5; // edx
 	bool isSecretLevel; // al
+	bool skipMenus = false;
+	int16_t setLevel = -1;
+	std::string customLevelPath = "";
 	//unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
@@ -37786,6 +37797,12 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234 = 0;
 	//	  * (_BYTE *)(2124 * *(signed __int16 *)(dword_D41A0 + 12) + dword_D41A0 + 11234) = 0;
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_0xc + 11234] = 0;//fix it
+
+	setLevel = CommandLineParams.GetSetLevel();
+	customLevelPath = CommandLineParams.GetCustomLevelPath();
+	if (setLevel > -1 || customLevelPath.length() > 0)
+		skipMenus = true;
+
 	while (1)
 	{
 		//result = (int)x_D41A0_BYTEARRAY_0;
@@ -37803,7 +37820,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		int comp12 = compare_with_snapshot_D41A0((char*)"0160-0022787A", x_D41A0_BYTEARRAY_0, 0x356038, 224790, &origbyte3, &remakebyte3);
 		*/
 		//!!!!test area1
-		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
+
+		MenusAndIntros_76930(v5, 0, skipMenus /*a1*/);//set language, intro, menu, atd. //257930
+
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
 			Logger->debug("sub_46830_main_loop:before load scr");
@@ -37813,7 +37832,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			Logger->debug("sub_46830_main_loop:load scr passed");
 
-			sub_56A30_init_game_level(a3);
+			sub_56A30_init_game_level(a3, setLevel, customLevelPath);
 
 			Logger->debug("sub_46830_main_loop:init game level passed");
 
@@ -37861,11 +37880,20 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				SetCenterScreenForFlyAssistant_6EDB0();
 				if (m_ptrGameRender == nullptr)
 				{
-					if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
+					if (!strcmp(forceRender, "NG"))
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderNG();
+					else if (!strcmp(forceRender, "Original"))
 						m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
-					}
-					else {
-						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624,(multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+					else if (!strcmp(forceRender, "HD"))
+						m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+					else
+					{
+						if ((gameResWidth <= 640) && (gameResHeight <= 480)) {
+							m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+						}
+						else {
+							m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+						}
 					}
 				}
 				sub_47320_in_game_loop(a2);
@@ -37950,6 +37978,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				}
 			}
 			x_WORD_E29D8 = 4;
+			skipMenus = false;
+			setLevel = -1;
+			customLevelPath = "";
 		}
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0
@@ -38872,6 +38903,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 			x_D41A0_BYTEARRAY_4_struct.byteindex_181 = 1;
 			break;
 		case 7:
+			//Black and White
 			v23 = 1;
 			while (v23 < 256)
 			{
@@ -40062,7 +40094,7 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t*
 }
 
 //----- (00049090) --------------------------------------------------------
-void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
+void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
 	type_entity_0x30311* tempEntity; // ebx
 	int16_t tempSubtype; // si
@@ -40166,7 +40198,7 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 }
 
 //----- (00049270) --------------------------------------------------------
-void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
+void sub_49270_generate_level_features(Type_Level_2FECE* terrain)//22a270
 {
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
@@ -40180,7 +40212,7 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 }
 
 //----- (00049290) --------------------------------------------------------
-void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
+void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
 {
 	int ix;
 	int jx;
@@ -40315,7 +40347,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 int debugcounter_22a540 = 0;
 
 //----- (00049540) --------------------------------------------------------
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
+void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a540
 {
 	int16_t z_temp; // ax
 	type_event_0x6E8E* event; // eax
@@ -40436,7 +40468,7 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 }
 
 //----- (00049830) --------------------------------------------------------
-void SetStagetagForTermod_49830(type_str_2FECE* terrain)//22a830 //set v1x->word_12
+void SetStagetagForTermod_49830(Type_Level_2FECE* terrain)//22a830 //set v1x->word_12
 {
 	type_entity_0x30311* entity = &terrain->entity_0x30311[1];
 	do
@@ -44140,7 +44172,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x234590: {
-		sub_53590((type_str_2FECE*)a1_6E8E);
+		sub_53590((Type_Level_2FECE*)a1_6E8E);
 		break;
 	}
 
@@ -50334,6 +50366,7 @@ void GameEvents_51BB0()//232bb0
 		{
 			sub_53A40(&D41A0_0.array_0x6E3E[i]);
 		}
+
 		switch (D41A0_0.array_0x6E3E[i].str_0x6E3E_byte0)
 		{
 		case 1:
@@ -51124,7 +51157,7 @@ void sub_53160()//234160
 // D93A0: using guessed type const char *off_D93A0_wizards_names2;
 
 //----- (000533B0) --------------------------------------------------------
-char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
+char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string customLevelPath)//2343b0
 {
 	uint8_t* v2; // edi
 	FILE* levelsdatfile; // ebx
@@ -51170,41 +51203,36 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 			DataFileIO::Read(levelsdatfile, (uint8_t*)x_DWORD_E9C38_smalltit, v9);
 			if (DataFileIO::Decompress((uint8_t*)x_DWORD_E9C38_smalltit, (uint8_t*)x_DWORD_E9C38_smalltit) < 0)
 			{
-				myprintf("ERROR decompressing LEVELS.DAT\n");
+				Logger->error("ERROR decompressing LEVELS.DAT\n");
 				return 0;
 			}
 			/*
 			qmemcpy(a2x, (type_str_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(type_str_2FECE));//0x6604
 			memset((type_str_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(type_str_2FECE));//0x6604
 			*/
-			type_shadow_str_2FECE shadow_a2x;
-			qmemcpy(&shadow_a2x, (type_shadow_str_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(type_shadow_str_2FECE));//0x6604
-			memset((type_shadow_str_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(type_shadow_str_2FECE));//0x6604
-			Convert_from_shadow_str_2FECE(&shadow_a2x, a2x);
+			Type_CompressedLevel_2FECE shadow_a2x;
+			qmemcpy(&shadow_a2x, (Type_CompressedLevel_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			memset((Type_CompressedLevel_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			DecompressLevel_2FECE(&shadow_a2x, a2x);
 			//type_shadow_str_2FECE
 		}
 		DataFileIO::Close(levelsdatfile);
 
 		//if exist editor generated level
-		#if !defined(IS_EDITOR)
-			if (CommandLineParams.DoLoadEditedLevel()) {
-				if (config_LOAD_EDITED_LEVEL) {
-					char path2[512];
-					FixDir(path2, (char*)"../remc2/editor/Debug/testsave.sav");
-					FILE* file = fopen(path2, "rb");
-					if (file)
-					{
-						type_shadow_str_2FECE shadow_2FECE;
-						fread(&shadow_2FECE, sizeof(type_shadow_str_2FECE), 1, file);
-						/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
-							if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
-								allert_error();*/
-						Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
-					}
-					fclose(file);
-				}
+		if (customLevelPath.length() > 0)
+		{
+			FILE* file = fopen(customLevelPath.c_str(), "rb");
+			if (file)
+			{
+				Type_CompressedLevel_2FECE shadow_2FECE;
+				fread(&shadow_2FECE, sizeof(Type_CompressedLevel_2FECE), 1, file);
+				/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
+					if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
+						allert_error();*/
+				DecompressLevel_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
 			}
-		#endif //!IS_EDITOR
+			fclose(file);
+		}
 		//if exist editor generated level
 
 		sub_56C00_sound_proc2(a2x);
@@ -51219,7 +51247,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00053590) --------------------------------------------------------
-void sub_53590(type_str_2FECE* a1x)//234590
+void sub_53590(Type_Level_2FECE* a1x)//234590
 {
 	//int result; // eax
 
@@ -51857,10 +51885,16 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 }
 
 //----- (000548B0) --------------------------------------------------------
+// returns viewport from menu to flight mode
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+	{
+		//SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+		// if a joystick is used, do not set that random resting point from above
+		SetMousePositionInMemory_5BDC0(320, 240);
+		set_scene(SCENE_FLIGHT);
+	}
 }
 
 //----- (000548F0) --------------------------------------------------------
@@ -52992,6 +53026,7 @@ void InitNetworkInfo() {
 //----- (00055F70) --------------------------------------------------------
 int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 {
+	int exitCode = 0;
 	try
 	{
 		begin_plugin();
@@ -53030,7 +53065,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		level = GetLoggingLevelFromString("Debug");
 #else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
-#endif // _DEBUG
+#endif
 		InitializeLogging(level);
 
 		if (assignToSpecificCores)
@@ -53056,6 +53091,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
 		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+		gamepad_init(gameResWidth, gameResHeight);
 
 		//char maindir[1024];
 		Logger->info("Finding Game Data...");
@@ -53148,9 +53184,10 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 	catch (const std::exception& e)
 	{
 		Logger->critical("Critial Error: {}", e.what());
+		exitCode = -1;
 	}
 	Logger->info("Exited Game");
-	return 0;
+	return exitCode;
 }
 
 //----- (000560D0) --------------------------------------------------------
@@ -53282,10 +53319,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			if (!_stricmp("editor", (char*)actarg))
 			{
 				config_EDITOR = true;
-			}
-			else if (!_stricmp("testlevel", (char*)actarg))
-			{
-				config_LOAD_EDITED_LEVEL = true;
 			}
 			else if (!_stricmp("reglevel", (char*)actarg))
 			{
@@ -53531,11 +53564,11 @@ void ClearSettings_567C0()//2377c0 // clean level
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00056A30) --------------------------------------------------------
-void sub_56A30_init_game_level(unsigned int a1)//237a30
+void sub_56A30_init_game_level(unsigned int a1, int16_t level, std::string customLevelPath)//237a30
 {
 	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
-	if (CommandLineParams.DoSetLevel()) {
-		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+	if (level > -1) {
+		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = (uint16_t)level;
 	}
 	Logger->debug("sub_56A30_init_game_level:before sub_6EB90");
 	//fixing
@@ -53552,7 +53585,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 
 		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels");
 
-		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
+		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE, customLevelPath);
 
 		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed");
 
@@ -53623,7 +53656,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 }
 
 //----- (00056C00) --------------------------------------------------------
-void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
+void sub_56C00_sound_proc2(Type_Level_2FECE* a1x)//237c00
 {
 	MapType_t v1; // al
 	//int v2; // eax
@@ -54660,11 +54693,11 @@ void MovePlayer_57FA0(axis_3d* position, unsigned __int16 a2, __int16 a3, __int1
 		a2 &= 0x7ffu;
 		if (a3)
 		{
-			position->z -= (int)(a4 * Maths::x_DWORD_DB750[a3]) >> 16;//change z axis
-			a4 = (int)(a4 * Maths::x_DWORD_DB750[0x200 + a3]) >> 16;
+			position->z -= (int)(a4 * Maths::sin_DB750[a3]) >> 16;//change z axis
+			a4 = (int)(a4 * Maths::sin_DB750[0x200 + a3]) >> 16;
 		}
-		position->x += (int)(a4 * Maths::x_DWORD_DB750[a2]) >> 16;
-		position->y -= (int)(a4 * Maths::x_DWORD_DB750[0x200 + a2]) >> 16;
+		position->x += (int)(a4 * Maths::sin_DB750[a2]) >> 16;
+		position->y -= (int)(a4 * Maths::sin_DB750[0x200 + a2]) >> 16;
 	}
 }
 
@@ -54948,7 +54981,7 @@ LABEL_5:
 //----- (00058940) --------------------------------------------------------
 void InitStages_58940()//239940 //init games objectives
 {
-	type_str_2FECE* terrain = &D41A0_0.terrain_2FECE;
+	Type_Level_2FECE* terrain = &D41A0_0.terrain_2FECE;
 	D41A0_0.stageIndex_0x36E01 = 0;
 	memset(D41A0_0.struct_0x3659C, 0, sizeof(type_str_3654C)*8);
 	memset(D41A0_0.stages_0x3654C, 0, sizeof(type_str_3654C)*8);
@@ -58181,6 +58214,7 @@ void sub_5C800(type_event_0x6E8E* a1x, char a2)//23d800
 	{
 		//result = (short)x_D41A0_BYTEARRAY_4;
 		x_D41A0_BYTEARRAY_4_struct.byteindex_180 = a2;
+		set_scene(SCENE_DEAD);
 	}
 	//return result;
 }
@@ -61889,9 +61923,9 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 	HIDWORD(v12) = 0x10000 >> 31;
 	v13 = v12 / v10;
 	v82 = width / 2;
-	v14 = v13 * Maths::x_DWORD_DB750[yaw & 0x7FF];
+	v14 = v13 * Maths::sin_DB750[yaw & 0x7FF];
 	v76 = height / 2;
-	v15 = (x_DWORD)Maths::x_DWORD_DB750[0x200 + yaw & 0x7FF] * v13;
+	v15 = (x_DWORD)Maths::sin_DB750[0x200 + yaw & 0x7FF] * v13;
 	v86 = -v14 >> 16;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	v73 = v15 >> 16;
@@ -61916,16 +61950,16 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 		v72 = (unsigned __int16)Maths::sub_72633_maybe_tan(v25 - v20, v26 - v21);
 		for (i = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 & 3;
 			;
-			*(x_BYTE*)(v84 + v20 + (i * Maths::x_DWORD_DB750[v72] >> 16) + screenWidth_18062C * v85) = x_BYTE_F6EE0_tablesx[0x4000 + 256
-			* *(unsigned __int8*)(v84 + v20 + (i * Maths::x_DWORD_DB750[v72] >> 16) + screenWidth_18062C * v85)
+			*(x_BYTE*)(v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85) = x_BYTE_F6EE0_tablesx[0x4000 + 256
+			* *(unsigned __int8*)(v84 + v20 + (i * Maths::sin_DB750[v72] >> 16) + screenWidth_18062C * v85)
 			+ (unsigned __int8)(*xadataclrd0dat.colorPalette_var28)[4095]])//castle rope
 		{
 			i += 4;
 			if (i > v75)
 				break;
-			v29 = v20 + (i * Maths::x_DWORD_DB750[v72] >> 16);
+			v29 = v20 + (i * Maths::sin_DB750[v72] >> 16);
 			//v29 = v20 + (i * Maths::x_DWORD_DB750ar_ret(4*v72) >> 16);
-			v85 = v21 + (-i * Maths::x_DWORD_DB750[0x200 + v72] >> 16);
+			v85 = v21 + (-i * Maths::sin_DB750[0x200 + v72] >> 16);
 			if (v29 < 0 || v29 >= width || v85 < 0 || v85 >= height || v29 < x_WORD_F4960[1 + 2 * v85] || v29 >= x_WORD_F4960[2 * v85])
 				break;
 		}
@@ -62494,8 +62528,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 	HIDWORD(v13) = 0x10000 >> 31;
 	v14 = v13 / v10;
 	v98 = width / 2;
-	v15 = v14 * Maths::x_DWORD_DB750[yaw & 0x7FF];
-	v16 = (x_DWORD)Maths::x_DWORD_DB750[0x200 + yaw & 0x7FF] * v14;
+	v15 = v14 * Maths::sin_DB750[yaw & 0x7FF];
+	v16 = (x_DWORD)Maths::sin_DB750[0x200 + yaw & 0x7FF] * v14;
 	v85 = height / 2;
 	v86 = -v15 >> 16;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
@@ -62526,8 +62560,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 			v30 += 4;
 			if (v30 > v91)
 				break;
-			v31 = v21 + (v30 * Maths::x_DWORD_DB750[v89] >> 16);
-			v94 = v24 + (-v30 * (signed int)Maths::x_DWORD_DB750[0x200 + v89] >> 16);
+			v31 = v21 + (v30 * Maths::sin_DB750[v89] >> 16);
+			v94 = v24 + (-v30 * (signed int)Maths::sin_DB750[0x200 + v89] >> 16);
 			if (v31 < 0 || v31 >= width || v94 < 0 || v94 >= height || v31 < x_WORD_F4960[1 + 2 * v94] || v31 >= x_WORD_F4960[2 * v94])
 				break;
 			v32x = &v99x[screenWidth_18062C * v94 + v31];
@@ -63156,9 +63190,9 @@ void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16
 		}
 	}
 	v23 = yaw & 0x7FF;
-	v24 = v13 * (a8 * Maths::x_DWORD_DB750[v23] >> 16);
-	v25 = a8 * (signed int)Maths::x_DWORD_DB750[0x200 + v23] >> 16;
-	v80 = a8 * Maths::x_DWORD_DB750[v23] >> 16;
+	v24 = v13 * (a8 * Maths::sin_DB750[v23] >> 16);
+	v25 = a8 * (signed int)Maths::sin_DB750[0x200 + v23] >> 16;
+	v80 = a8 * Maths::sin_DB750[v23] >> 16;
 	v81y = v25;
 	v67 = v24 / v12;
 	v26 = v13 * v25;
@@ -63476,9 +63510,9 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 		}
 	}
 	v20 = yaw & 0x7FF;
-	v21 = v13 * (a8 * Maths::x_DWORD_DB750[v20] >> 16);
-	v22 = a8 * (signed int)Maths::x_DWORD_DB750[0x200 + v20] >> 16;
-	v70 = a8 * Maths::x_DWORD_DB750[v20] >> 16;
+	v21 = v13 * (a8 * Maths::sin_DB750[v20] >> 16);
+	v22 = a8 * (signed int)Maths::sin_DB750[0x200 + v20] >> 16;
+	v70 = a8 * Maths::sin_DB750[v20] >> 16;
 	v69 = v22;
 	v59 = v21 / v12;
 	v23 = v13 * v22;
@@ -63810,9 +63844,9 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 	v51x.v59xdw_30 = height;
 	v51x.v60xdw_34 = width / 2;
 	v10 = yaw & 0x7FF;
-	v11 = v83 * Maths::x_DWORD_DB750[v10];
+	v11 = v83 * Maths::sin_DB750[v10];
 	v51x.v61xdw_38 = height / 2;
-	v12 = v83 * Maths::x_DWORD_DB750[0x200 + v10] >> 16;
+	v12 = v83 * Maths::sin_DB750[0x200 + v10] >> 16;
 	v51x.v55xdw_14 = -v11 >> 16;
 	v51x.v54xdw_10 = v12;
 	v82 = yaw & 0x7FF;
@@ -63961,8 +63995,8 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 					LOWORD(v21) = 15872;
 				v67x = v75x->axis_0x4C_76;
 				MovePlayer_57FA0(&v67x, v78, 0, v21);
-				v22 = v83 * Maths::x_DWORD_DB750[v82];
-				v23 = v83 * (x_DWORD)Maths::x_DWORD_DB750[0x200 + v82];
+				v22 = v83 * Maths::sin_DB750[v82];
+				v23 = v83 * (x_DWORD)Maths::sin_DB750[0x200 + v82];
 				v71 = (signed __int16)(*(int16_t*)&v67x - posX);
 				v23 >>= 16;
 				v24 = -v22 >> 16;
@@ -63984,8 +64018,8 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 				v37x[24] = 4;
 				v26 = 1;
 				v78 = ((x_WORD)v78 - (x_WORD)v82) & 0x7FF;
-				v27 = Maths::x_DWORD_DB750[v78];
-				v28 = Maths::x_DWORD_DB750[0x200 + v78];
+				v27 = Maths::sin_DB750[v78];
+				v28 = Maths::sin_DB750[0x200 + v78];
 				while (v26 < 7)
 				{
 					v29 = 3 * v26;
@@ -66859,10 +66893,10 @@ int sub_68490(type_event_0x6E8E* a1y, type_event_0x6E8E* a2x, unsigned __int16 a
 			if (v8 <= 5120)
 			{
 				sub_655A0(a2x);
-				v9 = v8 * Maths::x_DWORD_DB750[0x200 + v13];
-				v10 = v8 * Maths::x_DWORD_DB750[v13];
-				v11 = v8 * Maths::x_DWORD_DB750[0x200 + v14];
-				v12 = 4 * Maths::x_DWORD_DB750[v14] * v8 >> 16;
+				v9 = v8 * Maths::sin_DB750[0x200 + v13];
+				v10 = v8 * Maths::sin_DB750[v13];
+				v11 = v8 * Maths::sin_DB750[0x200 + v14];
+				v12 = 4 * Maths::sin_DB750[v14] * v8 >> 16;
 				result = (v11 >> 16) * (v11 >> 16) + (v9 >> 16) * (v9 >> 16) + (4 * v10 >> 16) * (4 * v10 >> 16) + v12 * v12;
 			}
 			else
@@ -66914,10 +66948,10 @@ int sub_685D0(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x, unsigned __int16 a
 	v10 = Maths::sub_58490_radix_3d_2(v5x, v4x);
 	if (v10 > 5120)
 		return -1;
-	v11 = v10 * (x_DWORD)Maths::x_DWORD_DB750[0x200 + v15];
-	v12 = v10 * Maths::x_DWORD_DB750[v15];
-	v13 = v10 * (x_DWORD)Maths::x_DWORD_DB750[0x200 + v9];
-	v14 = 4 * Maths::x_DWORD_DB750[v9] * v10 >> 16;
+	v11 = v10 * (x_DWORD)Maths::sin_DB750[0x200 + v15];
+	v12 = v10 * Maths::sin_DB750[v15];
+	v13 = v10 * (x_DWORD)Maths::sin_DB750[0x200 + v9];
+	v14 = 4 * Maths::sin_DB750[v9] * v10 >> 16;
 	return (4 * v12 >> 16) * (4 * v12 >> 16) + (v11 >> 16) * (v11 >> 16) + (v13 >> 16) * (v13 >> 16) + v14 * v14;
 }
 // DBF50: using guessed type void (/*__noreturn*/ *off_DBF50[2])();
@@ -71290,20 +71324,25 @@ void sub_6EBF0(filearray_struct* a1)//24FBF0
 //----- (0006EDB0) --------------------------------------------------------
 void SetCenterScreenForFlyAssistant_6EDB0()//24FDB0
 {
-	if (x_WORD_180660_VGA_type_resolution == 1)
-		SetMousePosition_6EDE0(320, 200);
-	else
-	{
-		if (!DefaultResolutions())
-			SetMousePosition_6EDE0(320, 200);
-		else
-			SetMousePosition_6EDE0(320, 240);
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+	if (x_WORD_180660_VGA_type_resolution & 1) {
+		// 640x480 virtual screen
+		display_w = 640;
+		display_h = 480;
 	}
+
+	new_x = display_w >> 1;
+	new_y = display_h >> 1;
+
+	VGA_Set_mouse(new_x, new_y);
 }
 
 //----- (0006EDE0) --------------------------------------------------------
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
+#if 0
 	int locScreenWidth;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
@@ -71367,11 +71406,31 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 					posY *= 8;
 				}
 				//320x200 fix
-
+				//Logger->info("set wonky center {} {} for {},{} {},{}", posX / 8, posY / 8, posX, posY, screenHeight_180624, screenWidth_18062C);
 				VGA_Set_mouse(posX / 8, posY / 8);
 			}
 		}
 	}
+#else
+
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+
+	// we get in posX, posY the location of the pointer for a 640x480 display
+	// so recalculate the position based on what we actually have
+
+	if (x_WORD_180660_VGA_type_resolution & 1) {
+		// 320x240 virtual screen
+		display_w = 320;
+		display_h = 240;
+	}
+
+	new_x = display_w * posX / 640;
+	new_y = display_h * posY / 480;
+
+	VGA_Set_mouse(new_x, new_y);
+#endif
 }
 
 //----- (0006F030) --------------------------------------------------------
@@ -78381,11 +78440,13 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 	switch (a1)
 	{
 	case 1u:
+		// i_Glasses (Virtual I-O) joystick
 		v1 = sub_8B600(unk_18058Cstr);//fix it
 		if ((signed __int16)v1 != -1)
 			goto LABEL_3;
 		break;
 	case 2u:
+		// VFX1 CyberPuck joystick
 		if (sub_75650())//fix it
 		{
 			v1 = 1;
@@ -81030,7 +81091,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+ 	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{

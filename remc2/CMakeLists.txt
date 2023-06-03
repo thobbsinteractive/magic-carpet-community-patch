@@ -39,6 +39,8 @@ set(SOURCE_FILES_ENGINE
     "engine/engine_support.h"
     "utilities/Maths.cpp"
     "utilities/Maths.h"
+    "engine/Compare.cpp"
+    "engine/Compare.h"
     "engine/engine_support_converts.cpp"
     "engine/engine_support_converts.h"
     "engine/Type_D93C0_Bldgprmbuffer.cpp"
@@ -71,6 +73,8 @@ set(SOURCE_FILES_ENGINE
     "engine/TextureMaps.h"
     "engine/GameRenderOriginal.cpp"
     "engine/GameRenderOriginal.h"
+    "engine/GameRenderNG.cpp"
+    "engine/GameRenderNG.h"
     "engine/GameRenderHD.cpp"
     "engine/GameRenderHD.h"
     "engine/GameRenderGL.cpp"
@@ -99,7 +103,6 @@ set(SOURCE_FILES_ENGINE
     "engine/MenusAndIntros.h"
 )
 source_group("Source Files\\engine" FILES ${SOURCE_FILES_ENGINE})
-
 
 set(SOURCE_FILES__libs__inih
     "../inih/ini.c"
@@ -133,7 +136,9 @@ set(SOURCE_FILES__portability
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
     "portability/port_sdl_vga_mouse.h"
-	"portability/port_show_perifery.cpp"
+    "portability/port_sdl_joystick.cpp"
+    "portability/port_sdl_joystick.h"
+    "portability/port_show_perifery.cpp"
     "portability/port_show_perifery.h"
     "portability/port_time.cpp"
     "portability/port_time.h"
@@ -193,9 +198,10 @@ set(ROOT_NAMESPACE remc2)
 ################################################################################
 if (UNIX)
     target_include_directories(${PROJECT_NAME} PUBLIC
-        "${CMAKE_SOURCE_DIR}/inih"
+		"${CMAKE_SOURCE_DIR}/inih"
         "${CMAKE_SOURCE_DIR}/findfirst"
         "${CMAKE_SOURCE_DIR}/spdlog/include"
+		"${CMAKE_SOURCE_DIR}/rapidjson"
     )
     #target_compile_definitions(${PROJECT_NAME} PRIVATE
     #)
@@ -216,13 +222,6 @@ if (UNIX)
     )
 endif ()
 
-
-# editor
-if (EDITOR)
-    add_subdirectory(editor)
-endif ()
-
-
 if (UNIX)
     if (USE_SANITIZERS)
         set(SANITIZER_OPTIONS
@@ -236,8 +235,5 @@ if (UNIX)
             -static-libubsan
         )
         target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
-        if (EDITOR)
-            target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
-        endif ()
     endif ()
 endif ()

@@ -31,6 +31,8 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/portability/port_filesystem.h"
     "../remc2/portability/port_sdl_vga_mouse.cpp"
     "../remc2/portability/port_sdl_vga_mouse.h"
+    "../remc2/portability/port_sdl_joystick.cpp"
+    "../remc2/portability/port_sdl_joystick.h"
 	"../remc2/portability/port_show_perifery.cpp"
     "../remc2/portability/port_show_perifery.h"
     "../remc2/portability/port_net.cpp"
@@ -63,6 +65,8 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/engine/RenderThread.h"
     "../remc2/engine/GameRenderOriginal.cpp"
     "../remc2/engine/GameRenderOriginal.h"
+    "../remc2/engine/GameRenderNG.cpp"
+    "../remc2/engine/GameRenderNG.h"
     "../remc2/engine/GameRenderHD.cpp"
     "../remc2/engine/GameRenderHD.h"
     "../remc2/engine/TextureMaps.cpp"
@@ -105,6 +109,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     "../findfirst"
     "../inih"
 	"../spdlog/include"
+	"../rapidjson"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest

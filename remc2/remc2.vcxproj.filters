@@ -37,12 +37,6 @@
     <Filter Include="Source Files\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\libs\libpng">
-      <UniqueIdentifier>{fb196976-86c1-4372-b999-a541250ac3dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\libs\kiss-sdl">
-      <UniqueIdentifier>{e736b33a-3eae-4e8d-b5ab-9f14d29617a5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\libs\sdl-image">
       <UniqueIdentifier>{59b0bf29-bc92-4444-a34f-c199f5de56c9}</UniqueIdentifier>
     </Filter>
@@ -57,12 +51,6 @@
     </Filter>
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{d66c5d79-ce86-490d-b4a9-d0e8bb9146e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\editor">
-      <UniqueIdentifier>{0837e4e0-01f0-4c0c-beb1-ba41cdf17b6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\editor">
-      <UniqueIdentifier>{c6723a58-ab58-4cf4-abba-4a430c08f7b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\utilities">
       <UniqueIdentifier>{15c82538-965f-4690-ab35-edbdb3acb34c}</UniqueIdentifier>
@@ -225,9 +213,6 @@
     <ClInclude Include="..\inih\INIReader.h">
       <Filter>Source Files\libs\inih</Filter>
     </ClInclude>
-    <ClInclude Include="..\kiss_sdl-master\kiss_sdl.h">
-      <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClInclude>
     <ClInclude Include="..\SDL-Mixer-X-master\src\music.h">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </ClInclude>
@@ -344,9 +329,6 @@
     </ClInclude>
     <ClInclude Include="engine\read_config.h">
       <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="editor\editor.h">
-      <Filter>Header Files\editor</Filter>
     </ClInclude>
     <ClInclude Include="utilities\BitmapIO.h">
       <Filter>Header Files\utilities</Filter>
@@ -472,6 +454,15 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="portability\port_show_perifery.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Compare.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\GameRenderNG.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sdl_joystick.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
   </ItemGroup>
@@ -605,18 +596,6 @@
     <ClCompile Include="engine\engine_support_converts.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
-    <ClCompile Include="..\kiss_sdl-master\kiss_draw.cpp">
-      <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\kiss_sdl-master\kiss_general.cpp">
-      <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\kiss_sdl-master\kiss_posix.cpp">
-      <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\kiss_sdl-master\kiss_widgets.cpp">
-      <Filter>Source Files\libs\kiss-sdl</Filter>
-    </ClCompile>
     <ClCompile Include="..\SDL-Mixer-X-master\src\music.c">
       <Filter>Source Files\libs\sdl-mixer-x</Filter>
     </ClCompile>
@@ -703,9 +682,6 @@
     </ClCompile>
     <ClCompile Include="sub_main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="editor\editor.cpp">
-      <Filter>Source Files\editor</Filter>
     </ClCompile>
     <ClCompile Include="utilities\BitmapIO.cpp">
       <Filter>Source Files\utilities</Filter>
@@ -797,6 +773,15 @@
     <ClCompile Include="portability\port_show_perifery.cpp">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
+    <ClCompile Include="engine\Compare.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameRenderNG.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_sdl_joystick.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\info.x">
@@ -874,18 +859,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\zlib\lib\zlib.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
-    <Library Include="..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng15.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
-    <Library Include="..\libpng3\lib\libpng16_static.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
-    <Library Include="..\zlib-64\lib\zlib.lib">
-      <Filter>Source Files\libs\libpng</Filter>
-    </Library>
     <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib">
       <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
