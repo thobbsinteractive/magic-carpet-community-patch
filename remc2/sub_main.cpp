@@ -1467,10 +1467,10 @@ signed int sub_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
 signed int sub_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
 signed int sub_48F20(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
 signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
-void sub_49090(type_str_2FECE* a1, type_str_2FECE* a2);
-void sub_49270_generate_level_features(type_str_2FECE* terrain);
+void sub_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2);
+void sub_49270_generate_level_features(Type_Level_2FECE* terrain);
 //void sub_49290(type_str_2FECE* a1, char a2);
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity);
+void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 //void sub_49830(type_str_2FECE* a1);
 void ApplyEvents_498A0();
 void CopyEventVar0408_49A20(type_event_0x6E8E* event);
@@ -1729,7 +1729,7 @@ void sub_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
 void sub_53120();
 void sub_53160();
 //char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
-void sub_53590(type_str_2FECE* a1);
+void sub_53590(Type_Level_2FECE* a1);
 char sub_53770_test_open_moviegam(uint16_t a1);
 char sub_53950_test_open_moviemap(uint16_t a1);
 void sub_539A0_load_bldgprm();
@@ -1772,7 +1772,7 @@ void sub_56210_process_command_line(int a1, char** a2);
 int sub_56730_clean_memory();
 void ClearSettings_567C0();
 // char sub_56A30_init_game_level(unsigned int a1);
-void sub_56C00_sound_proc2(type_str_2FECE* a1);
+void sub_56C00_sound_proc2(Type_Level_2FECE* a1);
 // char sub_56D60(unsigned int a1, char a2);
 bool sub_56EE0(uaxis_2d a1);
 char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4);
@@ -40094,7 +40094,7 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t*
 }
 
 //----- (00049090) --------------------------------------------------------
-void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
+void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
 	type_entity_0x30311* tempEntity; // ebx
 	int16_t tempSubtype; // si
@@ -40198,7 +40198,7 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 }
 
 //----- (00049270) --------------------------------------------------------
-void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
+void sub_49270_generate_level_features(Type_Level_2FECE* terrain)//22a270
 {
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
@@ -40212,7 +40212,7 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 }
 
 //----- (00049290) --------------------------------------------------------
-void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
+void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
 {
 	int ix;
 	int jx;
@@ -40347,7 +40347,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 int debugcounter_22a540 = 0;
 
 //----- (00049540) --------------------------------------------------------
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
+void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a540
 {
 	int16_t z_temp; // ax
 	type_event_0x6E8E* event; // eax
@@ -40468,7 +40468,7 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 }
 
 //----- (00049830) --------------------------------------------------------
-void SetStagetagForTermod_49830(type_str_2FECE* terrain)//22a830 //set v1x->word_12
+void SetStagetagForTermod_49830(Type_Level_2FECE* terrain)//22a830 //set v1x->word_12
 {
 	type_entity_0x30311* entity = &terrain->entity_0x30311[1];
 	do
@@ -44172,7 +44172,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x234590: {
-		sub_53590((type_str_2FECE*)a1_6E8E);
+		sub_53590((Type_Level_2FECE*)a1_6E8E);
 		break;
 	}
 
@@ -51157,7 +51157,7 @@ void sub_53160()//234160
 // D93A0: using guessed type const char *off_D93A0_wizards_names2;
 
 //----- (000533B0) --------------------------------------------------------
-char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x, std::string customLevelPath)//2343b0
+char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string customLevelPath)//2343b0
 {
 	uint8_t* v2; // edi
 	FILE* levelsdatfile; // ebx
@@ -51247,7 +51247,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x, std::string cu
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00053590) --------------------------------------------------------
-void sub_53590(type_str_2FECE* a1x)//234590
+void sub_53590(Type_Level_2FECE* a1x)//234590
 {
 	//int result; // eax
 
@@ -53656,7 +53656,7 @@ void sub_56A30_init_game_level(unsigned int a1, int16_t level, std::string custo
 }
 
 //----- (00056C00) --------------------------------------------------------
-void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
+void sub_56C00_sound_proc2(Type_Level_2FECE* a1x)//237c00
 {
 	MapType_t v1; // al
 	//int v2; // eax
@@ -54981,7 +54981,7 @@ LABEL_5:
 //----- (00058940) --------------------------------------------------------
 void InitStages_58940()//239940 //init games objectives
 {
-	type_str_2FECE* terrain = &D41A0_0.terrain_2FECE;
+	Type_Level_2FECE* terrain = &D41A0_0.terrain_2FECE;
 	D41A0_0.stageIndex_0x36E01 = 0;
 	memset(D41A0_0.struct_0x3659C, 0, sizeof(type_str_3654C)*8);
 	memset(D41A0_0.stages_0x3654C, 0, sizeof(type_str_3654C)*8);

@@ -926,7 +926,7 @@ static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw)
 int indexUndoPoint = 0;
 const int MaxUndoPoints = 5000;
 int MaxUndoPoints2 = 0;
-type_str_2FECE UndoPoint[MaxUndoPoints];
+Type_Level_2FECE UndoPoint[MaxUndoPoints];
 bool UndoInactive[MaxUndoPoints][1200];
 bool UndoSelected[MaxUndoPoints][1200];
 
@@ -938,7 +938,7 @@ static bool button_undo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint > 1)
 		{
 			indexUndoPoint--;
-			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint-1], sizeof(Type_Level_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
@@ -955,7 +955,7 @@ static bool button_redo_event(kiss_button* button, SDL_Event* e, int* draw)
 		if (indexUndoPoint < MaxUndoPoints2)
 		{
 			indexUndoPoint++;
-			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(type_str_2FECE));
+			memcpy(&D41A0_0.terrain_2FECE, &UndoPoint[indexUndoPoint - 1], sizeof(Type_Level_2FECE));
 			memcpy(temparray_0x30311_inactive, UndoInactive[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311_selected, UndoSelected[indexUndoPoint - 1], sizeof(bool) * 0x4b0);
 			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
@@ -983,7 +983,7 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw)
 		FixDir(path2, (char*)"testsave.sav");
 		FILE* file = fopen(path2,"wb");
 		memcpy(D41A0_0.terrain_2FECE.entity_0x30311,temparray_0x30311, sizeof(type_entity_0x30311) *0x4b0);
-		fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(type_str_2FECE), file);
+		fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
 		//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
 		/*int buffersize = 1000;
 		int buffercount=
@@ -2029,7 +2029,7 @@ void SetUndoPoint() {
 		memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
 		memcpy(UndoInactive[indexUndoPoint], temparray_0x30311_inactive, sizeof(bool) * 0x4b0);
 		memcpy(UndoSelected[indexUndoPoint], temparray_0x30311_selected, sizeof(bool) * 0x4b0);
-		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(type_str_2FECE));
+		memcpy(&UndoPoint[indexUndoPoint],&D41A0_0.terrain_2FECE, sizeof(Type_Level_2FECE));
 		indexUndoPoint++;
 		MaxUndoPoints2 = indexUndoPoint;
 	}

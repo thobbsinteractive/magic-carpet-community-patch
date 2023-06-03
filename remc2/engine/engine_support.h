@@ -937,7 +937,7 @@ typedef struct {//lenght 0x6604u
 	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
 	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
 	type_str_0x3647Ac StageVars_0x3647A[11];//8x11
-} type_str_2FECE;//compress level
+} Type_Level_2FECE;//Uncompressed level
 
 typedef union {
 	axis_2du axis;
@@ -1215,7 +1215,7 @@ typedef struct {//lenght 224791
 	type_str_0x2BDE array_0x2BDE[8];
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
 	type_event_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
-	type_str_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
+	Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	type_str_0x364D2 str_0x364D2;//lenght 108
 	int16_t word_0x3653E;//
 	int16_t word_0x36540;//
