@@ -707,9 +707,12 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	}
 
 	std::string path = GetSubDirectoryPath(palleteName);
-	palfile = fopen(path.c_str(), "rb");
-	fread(Palettebuffer, 768, 1, palfile);
-	fclose(palfile);
+	if (std::filesystem::exists(path))
+	{
+		palfile = fopen(path.c_str(), "rb");
+		fread(Palettebuffer, 768, 1, palfile);
+		fclose(palfile);
+	}
 
 	return Palettebuffer;
 }
