@@ -1814,7 +1814,10 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		//if (shift > 500)shift = shift - 500;
 		Bit8u* stmpdat = &contentTMAPSdat[shift];
 
-		while ((*(Bit32u*)stmpdat) != RNC_SIGN) { shift++; stmpdat = &contentTMAPSdat[shift + 1]; }
+		while (stmpdat[0] == 'R' && stmpdat[0] == 'N' && stmpdat[0] == 'C')
+		{
+			shift++; stmpdat = &contentTMAPSdat[shift + 1];
+		}
 
 		Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
 		Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
