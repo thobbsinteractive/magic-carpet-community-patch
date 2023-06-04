@@ -696,13 +696,13 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	switch (mapType)
 	{
 		case MapType_t::Cave:
-			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "c");
+			sprintf(palleteName, "CD_Files/DATA/PALC-0.DAT");
 		break;
 		case MapType_t::Day:
-			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "block");
+			sprintf(palleteName, "CD_Files/DATA/PALD-0.DAT");
 		break;
 		case MapType_t::Night:
-			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "n");
+			sprintf(palleteName, "CD_Files/DATA/PALN-0.DAT");
 		break;
 	}
 
