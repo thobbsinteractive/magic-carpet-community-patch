@@ -95,6 +95,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\libpng2\libpng-master;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,7 +103,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libpng2\libpng-master\projects\vstudio2017\Debug;$(SolutionDir)..\..\zlib\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-	<PostBuildEvent>
+    <PostBuildEvent>
       <Command>
 	  XCOPY "$(SolutionDir)..\..\libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /D /K /Y
 	  XCOPY "$(SolutionDir)..\..\zlib\bin\zlib1.dll" "$(TargetDir)" /D /K /Y
@@ -158,7 +159,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libpng2\libpng-master\projects\vstudio2017\Release;$(SolutionDir)..\..\zlib\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-	<PostBuildEvent>
+    <PostBuildEvent>
       <Command>
 	  XCOPY "$(SolutionDir)..\..\libpng2\libpng-master\projects\vstudio2017\Release\libpng.dll" "$(TargetDir)" /D /K /Y
 	  XCOPY "$(SolutionDir)..\..\zlib\bin\zlib1.dll" "$(TargetDir)" /D /K /Y
@@ -188,7 +189,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\libpng2\libpng-master\projects\vstudio2017\x64\Release;$(SolutionDir)..\..\zlib-64\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-	<PostBuildEvent>
+    <PostBuildEvent>
       <Command>
 	  XCOPY "$(SolutionDir)..\..\libpng2\libpng-master\projects\vstudio2017\x64\Release\libpng.dll" "$(TargetDir)" /D /K /Y
 	  XCOPY "$(SolutionDir)..\..\zlib-64\bin\zlib1.dll" "$(TargetDir)" /D /K /Y
