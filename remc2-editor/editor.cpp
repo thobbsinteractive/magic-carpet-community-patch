@@ -1002,28 +1002,33 @@ void cyclefwrite(char* buffer,int size,FILE* file)
 	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
 }
 */
+static void SaveLevel(char const text[]) {
+	char path[512];
+	char dir[] = "user-levels";
+	FixDir(path, dir);
+
+	if (!std::filesystem::is_directory(path))
+	{
+		std::filesystem::create_directory(path);
+	}
+
+	char fileName[KISS_MAX_LENGTH];
+	sprintf(fileName, "/user-levels/%s.mc2", text);
+	FixDir(path, fileName);
+
+	FILE* file = fopen(path, "wb");
+	memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
+	fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
+	fclose(file);
+}
+
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, kiss_entry* txtFilePath)
 {
 	if (kiss_button_event(button, e, draw))
 	{
 		if (strlen(txtFilePath->text) > 0)
 		{
-			//if (std::filesystem::current_path().u8string() + "/user-levels/" )
-
-			char fileName[KISS_MAX_LENGTH];
-			sprintf(fileName, "%s.mc2", txtFilePath->text);
-			char path[512];
-			FixDir(path, fileName);
-			FILE* file = fopen(path, "wb");
-			memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
-			fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
-			//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
-			/*int buffersize = 1000;
-			int buffercount=
-
-
-			cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
-			fclose(file);
+			SaveLevel(txtFilePath->text);
 		}
 	}//*quit = 1;
 }
