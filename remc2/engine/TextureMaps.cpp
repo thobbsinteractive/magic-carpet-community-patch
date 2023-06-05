@@ -489,6 +489,13 @@ void InitTmaps(unsigned __int16 a1)//251f50
 								//fread(BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4 * oldheight * 4, 1, fptr_outdata);
 								//myclose(fptr_outdata);
 								ReadGraphicsfile(filebuffer, BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4 * oldheight * 4);
+
+								//Saves BigSprites to png
+								/*if (m_pColorPalette == NULL)
+								{
+									m_pColorPalette = LoadTMapColorPalette(D41A0_0.terrain_2FECE.MapType);
+								}
+								BitmapIO::WritePosistructToPng(m_pColorPalette, BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4, oldheight * 4, filebuffer, filebuffer);*/
 							}
 
 							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
@@ -696,20 +703,23 @@ uint8_t* LoadTMapColorPalette(MapType_t mapType)
 	switch (mapType)
 	{
 		case MapType_t::Cave:
-			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "c");
+			sprintf(palleteName, "CD_Files/DATA/PALC-0.DAT");
 		break;
 		case MapType_t::Day:
-			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "block");
+			sprintf(palleteName, "CD_Files/DATA/PALD-0.DAT");
 		break;
 		case MapType_t::Night:
-			sprintf(palleteName, "../tools/palletelight/Debug/out-%s.pal", "n");
+			sprintf(palleteName, "CD_Files/DATA/PALN-0.DAT");
 		break;
 	}
 
 	std::string path = GetSubDirectoryPath(palleteName);
-	palfile = fopen(path.c_str(), "rb");
-	fread(Palettebuffer, 768, 1, palfile);
-	fclose(palfile);
+	if (std::filesystem::exists(path))
+	{
+		palfile = fopen(path.c_str(), "rb");
+		fread(Palettebuffer, 768, 1, palfile);
+		fclose(palfile);
+	}
 
 	return Palettebuffer;
 }

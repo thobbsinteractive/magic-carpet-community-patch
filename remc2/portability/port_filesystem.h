@@ -59,7 +59,7 @@ int32_t mylseek(FILE* filedesc, x_DWORD position, char type);
 int32_t myfseek(FILE* filedesc, x_DWORD position, char type);
 
 void AdvReadfile(const char* path, uint8_t* buffer);
-void ReadGraphicsfile(const char* path, uint8_t* buffer,long size=-1);
+long ReadGraphicsfile(const char* path, uint8_t* buffer,long size=-1);
 bool ExistGraphicsfile(const char* path);
 
 long myftell(FILE* decriptor);

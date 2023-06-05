@@ -460,7 +460,7 @@ bool ExistGraphicsfile(const char* path) {
 	return false;
 }
 
-void ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
+long ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
 {
 	FILE* file;
 	file = fcaseopen(path, (char*)"rb");
@@ -474,7 +474,9 @@ void ReadGraphicsfile(const char* path, uint8_t* buffer, long size)
 		}
 		fread(buffer, size, 1, file);
 		myclose(file);
+		return size;
 	}
+	return -1;
 };
 
 std::string getExistingDataPath(std::filesystem::path path) 
