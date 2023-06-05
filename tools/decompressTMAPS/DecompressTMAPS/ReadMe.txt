@@ -7,13 +7,13 @@ DecompressTMAPS.exe -p "[Path to Pallet File] -t [Path to .DAT file (needs a .TA
 
 e.g:
 For the night level sprites:
-DecompressTMAPS.exe -p PALN-0.DAT -t TMAPS1-0.DAT -f 1
+DecompressTMAPS.exe -p PALN-0.DAT -t TMAPS1-0.DAT -f 1 -o out-night
 
 For the day level sprites:
-For the night level sprites: -p PALD-0.DAT -t TMAPS0-0.DAT -f 0
+DecompressTMAPS.exe -p PALD-0.DAT -t TMAPS0-0.DAT -f 0 -o out-day
 
 For cave level sprites:
-For the night level sprites: -p PALC-0.DAT -t TMAPS2-0.DAT -f 2
+DecompressTMAPS.exe -p PALC-0.DAT -t TMAPS2-0.DAT -f 2 -o out-cave
 
 You can us DecompressTMAPS.exe -h to list these parameters are anytime
 

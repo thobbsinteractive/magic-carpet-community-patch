@@ -82,4 +82,4 @@ int* other_folder = nullptr;
 
 int transparent_color = 0;
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, const char outputPath[]);
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, bool caveSprites, const char outputPath[]);

@@ -1628,6 +1628,7 @@ int main(int argc, char** argv) {
 	std::string format;
 	ImageType imageType = ImageType::png;
 	bool showHelp = false;
+	bool caveSprites = false;
 
 	std::vector<std::string> params;
 	params.clear();
@@ -1699,6 +1700,7 @@ int main(int argc, char** argv) {
 			if (strcmp(folderPattern.c_str(), "2") == 0)
 			{
 				other_folder = other_folder2;
+				caveSprites = true;
 				max_images = 464;
 			}
 		}
@@ -1753,17 +1755,17 @@ int main(int argc, char** argv) {
 		printf("--padding: (Optional) For PNG you can specify how many pixels of padding around the image you want\n");
 		printf("-o --output-path: (Default) ./out\n");
 		printf("For night levels:\n");
-		printf("-p PALN-0.DAT -t TMAPS1-0.DAT -f 1\n");
+		printf("-p PALN-0.DAT -t TMAPS1-0.DAT -f 1 -o out-night\n");
 		printf("For day levels:\n");
-		printf("-p PALD-0.DAT -t TMAPS0-0.DAT -f 0\n");
+		printf("-p PALD-0.DAT -t TMAPS0-0.DAT -f 0 -o out-day\n");
 		printf("For cave levels:\n");
-		printf("-p PALC-0.DAT -t TMAPS2-0.DAT -f 2\n");
+		printf("-p PALC-0.DAT -t TMAPS2-0.DAT -f 2 -o out-cave\n");
 		return -1;
 	}
 
 	try
 	{
-		return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, padding, outputPath.c_str());
+		return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, padding, caveSprites, outputPath.c_str());
 	}
 	catch (std::exception& e)
 	{
@@ -1772,7 +1774,7 @@ int main(int argc, char** argv) {
 	}
 }
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, const char outputPath[])
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, bool caveSprites, const char outputPath[])
 {
 	double colourMultiplier = 4;
 
@@ -1900,10 +1902,11 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			BitmapIO::WritePosistructToAlphaPng(pallettebuffer, buffer + 6, width, height, outname, title, padding);
 		}
 
-#ifdef level4
-		if (index < 452)
-#endif
+		if (caveSprites && index < 452)
 			indextab += 10;
+		else if (!caveSprites)
+			indextab += 10;
+
 		index++;
 	}
 
@@ -2030,10 +2033,11 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 				BitmapIO::WritePosistructToAlphaPng(pallettebuffer, buffer + 6, width, height, outname, title, padding);
 			}
 
-#ifdef level4
-			if (index < 452)
-#endif
+			if (caveSprites && index < 452)
 				indextab += 10;
+			else if(!caveSprites)
+				indextab += 10;
+
 			index++;
 		}
 	}
