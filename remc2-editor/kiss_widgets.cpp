@@ -961,7 +961,10 @@ int kiss_dec1edit_event(kiss_dec1edit* dec1edit, SDL_Event* event, int* draw)
 	if (event->type == SDL_MOUSEBUTTONDOWN && kiss_pointinrect(event->button.x, event->button.y, &dec1edit->leftrect1)) {
 		dec1edit->left1active = 1;
 		*draw = 1;
-		*(uint16_t*)dec1edit->valueadress -=1;
+		if (*(uint16_t*)dec1edit->valueadress - 1 > -1)
+		{
+			*(uint16_t*)dec1edit->valueadress -= 1;
+		}
 		if (*(uint16_t*)dec1edit->valueadress < dec1edit->min)* (uint16_t*)dec1edit->valueadress = dec1edit->min;
 		char buf[256];
 		sprintf(buf, "%d", *(uint16_t*)dec1edit->valueadress);

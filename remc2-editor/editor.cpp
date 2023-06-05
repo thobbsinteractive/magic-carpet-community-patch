@@ -8,7 +8,7 @@ int minimapy = 0;
 
 int maptype = 0;
 int maptypefeat = 0;
-int actlevel = 1;
+int actlevel = 0;
 int first_terrain_feature = 1;
 
 float terrainzoom = 1;
@@ -56,6 +56,7 @@ typedef struct {
 	int y;
 } TypePos;
 
+std::vector<int> m_mc2validLevelIndexes;
 
 TypePos RelPos[21];
 
@@ -88,8 +89,29 @@ void init_pal() {
 	VGA_Set_Palette2(temppal);
 };
 
-void clean_tarrain()
+void clean_terrain()
 {
+	type_entity_0x30311* empty = new type_entity_0x30311[1200];
+
+	for (int i = 0; i < 0x4b0; i++)
+	{
+		empty->axis2d_4.x = 0;
+		empty->axis2d_4.y = 0;
+		empty->DisId = 0;
+		empty->par1_14 = 0;
+		empty->par2_16 = 0;
+		empty->par3_18 = 0;
+		empty->stageTag_12 = 0;
+		empty->subtype_0x30311 = 0;
+		empty->type_0x30311 = 0;
+		empty->word_10 = 0;
+	}
+
+	memcpy(temparray_0x30311, empty, sizeof(type_entity_0x30311) * 0x4b0);
+	for (int i = 0; i < 0x4b0; i++)
+		temparray_0x30311_inactive[i] = 0;
+	for (int i = 0; i < 0x4b0; i++)
+		temparray_0x30311_selected[i] = 0;
 }
 
 void editor_loop();
@@ -161,7 +183,7 @@ void editor_run(std::string gameFolderParam, std::string cdFolderParam)
 	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	//init_pal();
-	clean_tarrain();
+	clean_terrain();
 	loadlevel(0);
 	terrain_recalculate();
 
@@ -986,6 +1008,8 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, 
 	{
 		if (strlen(txtFilePath->text) > 0)
 		{
+			//if (std::filesystem::current_path().u8string() + "/user-levels/" )
+
 			char fileName[KISS_MAX_LENGTH];
 			sprintf(fileName, "%s.mc2", txtFilePath->text);
 			char path[512];
@@ -2050,6 +2074,45 @@ void SetUndoPoint() {
 	}
 };
 
+std::vector<int> SetValidMc2LevelIndexes()
+{
+	std::vector<int> mc2validLevelIndexes;
+	for (int i = 0; i < 25; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	mc2validLevelIndexes.push_back(27);
+
+	for (int i = 30; i < 34; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 38; i < 41; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	mc2validLevelIndexes.push_back(46);
+	mc2validLevelIndexes.push_back(48);
+
+	for (int i = 52; i < 75; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	mc2validLevelIndexes.push_back(77);
+
+	for (int i = 80; i < 86; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 87; i < 92; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 93; i < 104; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 105; i < 118; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 120; i < 128; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	return mc2validLevelIndexes;
+}
 
 bool first = true;
 int main_x(/*int argc, char** argv*/)
@@ -2198,7 +2261,6 @@ int main_x(/*int argc, char** argv*/)
 	kiss_textbox_new(&textbox2, &window1, 1, &obj_stages, 530, 540, textbox2_width, textbox2_height);
 	kiss_textbox_new(&textbox3, &window1, 1, &obj_vars, 750, 540, textbox3_width, textbox3_height);
 	kiss_entry_new(&txtFilePath, &window1, 1, (char*)"user-level1", 716, 765, 180);
-
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 	Uint32 rmask = 0xff000000;
@@ -3100,8 +3162,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_selectbutton_new(&select3, &window1, select2.rect.x + 20, labelSel.rect.y);
 	kiss_selectbutton_new(&select4, &window1, select3.rect.x + 20, labelSel.rect.y);
 
-
-	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 1, 24, 250, 230);
+	m_mc2validLevelIndexes = SetValidMc2LevelIndexes();
+	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 0, 127, 250, 230);
 
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 760);
 
@@ -3217,7 +3279,6 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_check[9], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 40, window_selectcheck.rect.y + kiss_border + 80, &img_check09);
 	button_check[9].activeimg = img_check09; button_check[9].prelightimg = img_check09;
 	
-
 	kiss_terrain_new(&terraincheck, &window3, mapsurfacecheck, window3.rect.x + kiss_border, window3.rect.y + window3.rect.h - mapimagecheck.h - kiss_border, &terrainzoomcheck, &terrainbeginxcheck, &terrainbeginycheck);
 
 	//dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
@@ -3629,7 +3690,22 @@ int main_x(/*int argc, char** argv*/)
 
 			int terev = kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey, temparray_0x30311, temparray_0x30311_selected);
 
-			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel - 1); changed = true; changed2 = true; changed3 = true; }
+			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) 
+			{
+				if (std::find(m_mc2validLevelIndexes.begin(), m_mc2validLevelIndexes.end(), actlevel) != m_mc2validLevelIndexes.end()) {
+					loadlevel(actlevel);
+					changed = true;
+					changed2 = true;
+					changed3 = true;
+				}
+				else
+				{
+					clean_terrain();
+					changed = true;
+					changed2 = true;
+					changed3 = true;
+				}
+			}
 
 			if (terev >= 1)
 			{
