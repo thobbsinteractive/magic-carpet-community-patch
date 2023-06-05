@@ -207,6 +207,11 @@
     <ClInclude Include="DecompressTMAPS.h" />
     <ClInclude Include="mctypes.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <DeploymentContent>true</DeploymentContent>
+    </Text>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

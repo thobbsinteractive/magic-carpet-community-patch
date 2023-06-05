@@ -1761,7 +1761,15 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, padding, outputPath.c_str());
+	try
+	{
+		return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, padding, outputPath.c_str());
+	}
+	catch (std::exception& e)
+	{
+		printf(e.what());
+		return -100;
+	}
 }
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, const char outputPath[])
@@ -1821,10 +1829,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		//if (shift > 500)shift = shift - 500;
 		Bit8u* stmpdat = &contentTMAPSdat[shift];
 
-		while (stmpdat[0] == 'R' && stmpdat[0] == 'N' && stmpdat[0] == 'C')
-		{
-			shift++; stmpdat = &contentTMAPSdat[shift + 1];
-		}
+		while ((*(Bit32u*)stmpdat) != 0x1434e52) { shift++; stmpdat = &contentTMAPSdat[shift + 1]; }
 
 		Bit32u size = stmpdat[11] + (stmpdat[10] << 8) + (stmpdat[9] << 16) + (stmpdat[8] << 24) + 12;
 		Bit32u unpacksize = stmpdat[7] + (stmpdat[6] << 8) + (stmpdat[5] << 16) + (stmpdat[4] << 24);
@@ -1898,7 +1903,7 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 #ifdef level4
 		if (index < 452)
 #endif
-		indextab += 10;
+			indextab += 10;
 		index++;
 	}
 
