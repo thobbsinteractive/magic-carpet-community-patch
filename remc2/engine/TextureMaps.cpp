@@ -489,6 +489,13 @@ void InitTmaps(unsigned __int16 a1)//251f50
 								//fread(BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4 * oldheight * 4, 1, fptr_outdata);
 								//myclose(fptr_outdata);
 								ReadGraphicsfile(filebuffer, BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4 * oldheight * 4);
+
+								//Saves BigSprites to png
+								/*if (m_pColorPalette == NULL)
+								{
+									m_pColorPalette = LoadTMapColorPalette(D41A0_0.terrain_2FECE.MapType);
+								}
+								BitmapIO::WritePosistructToPng(m_pColorPalette, BIG_SPRITES_BUFFERx[i].frames[mm], oldwidth * 4, oldheight * 4, filebuffer, filebuffer);*/
 							}
 
 							BIG_SPRITES_BUFFERx[i].actdatax = (type_particle_str*)malloc(oldwidth * 4 * oldheight * 4 + 6 + 2);
