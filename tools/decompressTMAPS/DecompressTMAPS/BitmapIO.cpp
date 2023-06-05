@@ -202,7 +202,7 @@ void BitmapIO::WritePosistructToPng(uint8_t* ptrPalette, uint8_t* ptrBuffer, int
 				buffer2[(y * (width + (2 * padding)) + x) * 4 + 0] = transColR;
 				buffer2[(y * (width + (2 * padding)) + x) * 4 + 1] = transColG;
 				buffer2[(y * (width + (2 * padding)) + x) * 4 + 2] = transColB;
-				buffer2[(y * (width + (2 * padding)) + x) * 4 + 3] = 255;
+				buffer2[(y * (width + (2 * padding)) + x) * 4 + 3] = 0;
 			}
 			else
 			{
