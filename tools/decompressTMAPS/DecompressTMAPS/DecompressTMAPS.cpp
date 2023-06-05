@@ -1623,6 +1623,7 @@ int main(int argc, char** argv) {
 	std::string tmapsDat;
 	std::string tmapsTab;
 	std::string outputPath = fs::current_path().u8string() + "/out";
+	int padding = 0;
 	std::string folderPath;
 	std::string format;
 	ImageType imageType = ImageType::png;
@@ -1701,6 +1702,10 @@ int main(int argc, char** argv) {
 				max_images = 464;
 			}
 		}
+		else if (param == "--padding")
+		{
+			padding = std::stoi(*(++p));
+		}
 		else if ((param == "-o") || (param == "--output-path"))
 		{
 			outputPath = *(++p);
@@ -1741,23 +1746,25 @@ int main(int argc, char** argv) {
 	if (showHelp)
 	{
 		printf("-p --pallet: (Required) Pallet file path\n");
-		printf("-d --tmaps-dat: (Required) Tmap .DAT file path. Needs a .TAB file of the same name\n");
+		printf("-t --tmaps-dat: (Required) Tmap .DAT file path. Needs a .TAB file of the same name\n");
+		printf("-d --data: (Optional) Extracts a *.Data file path. Needs the .DAT and .TAB file to get dimensions\n");
 		printf("-i --image-type: (Default png) File output format to use rnc, data, bmp, png or pnga\n");
 		printf("-f --folder-pattern: (Optional) Required for full error free extraction of MC2 Data\n");
+		printf("--padding: (Optional) For PNG you can specify how many pixels of padding around the image you want\n");
 		printf("-o --output-path: (Default) ./out\n");
 		printf("For night levels:\n");
-		printf("-p PALN-0.DAT -d TMAPS1-0.DAT -f 1\n");
+		printf("-p PALN-0.DAT -t TMAPS1-0.DAT -f 1\n");
 		printf("For day levels:\n");
-		printf("-p PALD-0.DAT -d TMAPS0-0.DAT -f 0\n");
+		printf("-p PALD-0.DAT -t TMAPS0-0.DAT -f 0\n");
 		printf("For cave levels:\n");
-		printf("-p PALC-0.DAT -d TMAPS2-0.DAT -f 2\n");
+		printf("-p PALC-0.DAT -t TMAPS2-0.DAT -f 2\n");
 		return -1;
 	}
 
-	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, outputPath.c_str());
+	return sub_main(palletPath.c_str(), tmapsDat.c_str(), tmapsTab.c_str(), folderPath.c_str(), max_images, imageType, padding, outputPath.c_str());
 }
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, const char outputPath[])
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, const char outputPath[])
 {
 	double colourMultiplier = 4;
 
@@ -1876,16 +1883,16 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 				sprintf_s(outname, "%s\\%s%03i-00", outputPath, tmapsstr, index);
 
 			sprintf_s(title, "%s%03i", tmapsstr, index);
-			BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
+			BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, padding, colourMultiplier);
 		}
 
 		if (imageType == ImageType::pnga)
 		{
 			sprintf_s(outname, "%s\\%s%03i-00", outputPath, tmapsstr, index);
 			sprintf_s(title, "%s%03i", tmapsstr, index);
-			BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
+			BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, padding, colourMultiplier);
 			sprintf_s(outname, "%s\\%s%03i-alpha-00", outputPath, tmapsstr, index);
-			BitmapIO::WritePosistructToAlphaPng(pallettebuffer, buffer + 6, width, height, outname, title, 0);
+			BitmapIO::WritePosistructToAlphaPng(pallettebuffer, buffer + 6, width, height, outname, title, padding);
 		}
 
 #ifdef level4
@@ -2006,15 +2013,16 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 					sprintf_s(outname, "%s\\%s%03i-%02i", outputPath, tmapsstr, index, mainindex + 1);
 
 				sprintf_s(title, "%s%03i", tmapsstr, index);
-				BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
+				BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, padding, colourMultiplier);
 			}
 
 			if (imageType == ImageType::pnga)
 			{
 				sprintf_s(outname, "%s\\%s%03i-alpha-%02i", outputPath, tmapsstr, index, mainindex + 1);
 				sprintf_s(title, "%s%03i", tmapsstr, index);
-				BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, 0, colourMultiplier);
-				BitmapIO::WritePosistructToAlphaPng(pallettebuffer, buffer + 6, width, height, outname, title, 0);
+				BitmapIO::WritePosistructToPng(pallettebuffer, buffer + 6, width, height, outname, title, padding, colourMultiplier);
+				sprintf_s(outname, "%s\\%s%03i-alpha-00", outputPath, tmapsstr, index);
+				BitmapIO::WritePosistructToAlphaPng(pallettebuffer, buffer + 6, width, height, outname, title, padding);
 			}
 
 #ifdef level4
