@@ -27498,7 +27498,7 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 		v9 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
 		v10 = a3.data;
 		v17 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
-#if 0 // pointer offset fuckery going on here which later crashes during dereferencing
+#ifndef __linux__ // pointer offset fuckery going on here which later crashes during dereferencing
 		if (a3.height_5)
 		{
 			do
@@ -27523,7 +27523,7 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 				v11 = a4;
 				v12 = (char)screenWidth_18062C;
 				v15 = (char)screenWidth_18062C;
-#if 0 // keep this disabled until v9's address is corrected
+#ifndef __linux__ // keep this disabled until v9's address is corrected
 				do
 				{
 					BYTE1(v11) = *v9;
