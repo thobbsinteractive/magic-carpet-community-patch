@@ -9,6 +9,8 @@ namespace WixSharpSetup
 {
     public partial class GameDataDialog : ManagedForm, IManagedDialog
     {
+		private bool _runClicked;
+
         public GameDataDialog()
         {
             //NOTE: If this assembly is compiled for v4.0.30319 runtime, it may not be compatible with the MSI hosted CLR.
@@ -35,7 +37,7 @@ namespace WixSharpSetup
             return $"The installer will now atempt to copy the NETHEW directory from: '{Path.Combine(this.txtPath.Text,"GAME")}' to: '{Path.Combine(installPath, "GAME")}'.\n" +
                 $"It will then extract the CD Files to: '{Path.Combine(this.txtPath.Text, "CD_Files")}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
                 $"If this extract fails you can run '{Path.Combine(this.txtPath.Text, "Extract.bat")}' to extract the files and manually copy them to '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
-                "Click [Next] to continue";
+                "Click [Extract Game Data] to continue";
         }
 
         private string GetDosInstructions()
@@ -50,7 +52,7 @@ namespace WixSharpSetup
 
             return $"You must install the DOS/Original version of Magic Carpet 2 first. The installer will now attempt to copy the contents of NETHEW directory from: '{this.txtPath.Text}' to: '{Path.Combine(installPath, @"GAME\NETHEW")}'.\n" +
                 $"It will then copy the CD Files from: '{this.txtCDPath.Text}' and copy them to: '{Path.Combine(installPath, "CD_Files")}'.\n\n" +
-                "Click [Next] to continue";
+				"Click [Extract Game Data] to continue";
         }
 
         private bool ValidateGoGGameDataLocation(string path)
@@ -196,7 +198,7 @@ namespace WixSharpSetup
             {
                 if (Directory.Exists(gamePath))
                 {
-                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"GAME"), true);
+                    Utils.CopyDirectory(gamePath, Path.Combine(Runtime.InstallDir, @"NETHERW"), true);
                 }
                 else
                 {
@@ -206,13 +208,13 @@ namespace WixSharpSetup
                     }
                     return false;
                 }
-            }
+				treeViewInstallProgress.Nodes["InstallPath"].Nodes["NETHERW"].Checked = true;
+			}
             catch (Exception ex)
             {
                 MessageBox.Show($"Error moving game data files: {ex.Message}");
                 return false;
             }
-
             return true;
         }
 
@@ -289,7 +291,8 @@ namespace WixSharpSetup
                     }
                     return false;
                 }
-            }
+				treeViewInstallProgress.Nodes["InstallPath"].Nodes["CDFiles"].Checked = true;
+			}
             catch (Exception ex)
             {
                 if (MessageBox.Show($"Error Moving CD Files: {ex.Message}\nWould you like to continue the Installation?", "CD File Extraction Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes)
@@ -298,7 +301,7 @@ namespace WixSharpSetup
                 }
                 return false;
             }
-            return true;
+			return true;
         }
 
         private string GetDirectoryName(string path)
@@ -464,9 +467,24 @@ namespace WixSharpSetup
             return string.Empty;
         }
 
+		private void UpdateTree()
+		{
+			string installPath = "INSTALL DIR";
+			try
+			{
+				if (Runtime != null)
+					installPath = Runtime.InstallDir;
+			}
+			catch { };
+
+			this.treeViewInstallProgress.Nodes["InstallPath"].Text = installPath;
+			
+		}
+
         private void GameDataDialog_Shown(object sender, EventArgs e)
         {
-            this.txtInstructions.Text = GetInstructions();
+			UpdateTree();
+			treeViewInstallProgress.ExpandAll();
         }
 
         private void GameDataDialog_FormClosing(object sender, FormClosingEventArgs e)
@@ -493,12 +511,16 @@ namespace WixSharpSetup
             }
         }
 
-        private void btnNext_Click(object sender, EventArgs e)
+        private void btnRun_Click(object sender, EventArgs e)
         {
-            btnBrowse.Enabled = false;
+			bool success = false;
+			_runClicked = true;
+
+			btnInfo.Enabled = false;
+			btnBrowse.Enabled = false;
             btnBrowseCDFiles.Enabled = false;
+            btnRun.Enabled = false;
             btnNext.Enabled = false;
-            btnCancel.Enabled = false;
             txtPath.Enabled = false;
             txtCDPath.Enabled = false;
 
@@ -507,13 +529,13 @@ namespace WixSharpSetup
                 //GOG
                 if (ValidateGoGGameDataLocation(this.txtPath.Text) &&
                 CopyExtractBatchFile(this.txtPath.Text) &&
-                MoveGameData(Path.Combine(this.txtPath.Text, "GAME")) &&
+                MoveGameData(Path.Combine(this.txtPath.Text, @"GAME\NETHERW")) &&
                 CopyExtractFolder(this.txtPath.Text) &&
                 ExtractCDFiles(this.txtPath.Text) &&
                 MoveCDFiles(Path.Combine(this.txtPath.Text, "CD_Files")))
                 {
-                    Shell.GoNext();
-                }
+					success = true;
+				}
             }
             else if (this.cboInstallLocation.SelectedIndex == 1)
             {
@@ -522,16 +544,26 @@ namespace WixSharpSetup
                 MoveGameData(Path.Combine(this.txtPath.Text, "NETHEW")) &&
                 MoveCDFiles(this.txtCDPath.Text))
                 {
-                    Shell.GoNext();
-                }
+					success = true;
+				}
             }
 
-            btnBrowse.Enabled = true;
-            btnBrowseCDFiles.Enabled = true;
-            btnNext.Enabled = true;
-            btnCancel.Enabled = true;
-            txtPath.Enabled = true;
-            txtCDPath.Enabled = true;
+			btnInfo.Enabled = true;
+
+			if (success)
+			{
+				MessageBox.Show("Extraction was successful. Click [Next] to finish", "Success", MessageBoxButtons.OK);
+				btnNext.Enabled = true;
+			}
+			else
+			{
+				btnBrowse.Enabled = true;
+				btnBrowseCDFiles.Enabled = true;
+				btnRun.Enabled = true;
+				btnNext.Enabled = true;
+				txtPath.Enabled = true;
+				txtCDPath.Enabled = true;
+			}
         }
 
         private void btnBrowse_Click(object sender, EventArgs e)
@@ -548,10 +580,18 @@ namespace WixSharpSetup
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void btnNext_Click(object sender, EventArgs e)
         {
-            Shell.Exit();
-        }
+			if (!_runClicked)
+			{
+				if (MessageBox.Show("Are you sure you want to skip Extracting the Game Data? You cannot run Magic Carpet 2 HD without it!", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+					Shell.GoNext();
+			}
+			else
+			{
+				Shell.GoNext();
+			}
+		}
 
         private void btnBrowseCDFiles_Click(object sender, EventArgs e)
         {
@@ -569,7 +609,12 @@ namespace WixSharpSetup
 
         private void Path_TextChanged(object sender, EventArgs e)
         {
-            this.txtInstructions.Text = GetInstructions();
-        }
-    }
+			UpdateTree();
+		}
+
+		private void btnInfo_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show(GetInstructions(), "Infomation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
+	}
 }

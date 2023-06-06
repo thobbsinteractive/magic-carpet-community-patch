@@ -7,14 +7,7 @@
 #include "mctypes.h"
 #include "png.h"
 #include "BitmapIO.h"
-
-#pragma comment(lib, "zlib.lib") // must be before libpng!
-#ifndef _WIN64
-#pragma comment(lib, "libpng15.lib") // must be after zlib!
-#else
-#endif
-
-#define RNC_SIGN 0x524E43 // RNC
+#include <filesystem>
 
 #define x_BYTE int8
 #define x_WORD int16
@@ -89,8 +82,4 @@ int* other_folder = nullptr;
 
 int transparent_color = 0;
 
-int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, const char outputPath[]);
-
-void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, char* filename, char* title, int frame, double multiplier);
-void write_posistruct_to_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, char* filename, char* title, int frame, double multiplier, uint8_t transColR, uint8_t transColG, uint8_t transColB);
-void write_posistruct_to_alpha_png(Bit8u* pallettebuffer, Bit8u* buffer, int width, int height, const char* filename, char* title, int frame);
+int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, bool caveSprites, const char outputPath[]);

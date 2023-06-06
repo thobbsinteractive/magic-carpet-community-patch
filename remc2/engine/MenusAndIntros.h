@@ -20,7 +20,7 @@ extern char maxTimeCounter_E2097;
 extern type_x_BYTE_E25ED_db_str x_BYTE_E25ED_db_str[16];
 extern int16_t x_WORD_E29D6_not_movex;
 extern int16_t x_WORD_E29D8;
-extern int16_t x_WORD_E29DC;
+extern int16_t m_ExitMenuLoop_E29DC;
 extern char x_BYTE_E29DF_skip_screen;
 extern char x_BYTE_E29E0;
 extern uint8_t* pre_x_DWORD_E9C3C;
@@ -36,12 +36,11 @@ extern char x_BYTE_17E09D;
 extern int16_t x_WORD_1803EC;
 extern uint8_t unk_180560x[44];
 extern type_unk_18058Cstr unk_18058Cstr;
-extern int16_t x_WORD_E29DC;
 
 extern int test_regression_level;
 
 // functions
-void MenusAndIntros_76930(int a2, uint16_t a3);
+void MenusAndIntros_76930(int a2, uint16_t a3, bool skipMenus = false);
 void InitLanguage_76A40();
 void Intros_76D10(char a1);
 void sub_76CF0();

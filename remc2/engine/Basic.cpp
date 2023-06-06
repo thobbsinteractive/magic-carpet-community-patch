@@ -3718,7 +3718,7 @@ signed int GetTrueWizardNumber_61790(signed int inputnumber)//242790
 	return outputNumber;
 }
 
-void Convert_from_shadow_str_2FECE(type_shadow_str_2FECE* from, type_str_2FECE* to) {
+void DecompressLevel_2FECE(Type_CompressedLevel_2FECE* from, Type_Level_2FECE* to) {
 	to->word_2FECE = from->word_2FECE;
 	to->word_2FED0 = from->word_2FED0;
 	to->byte_0x2FED2 = from->byte_0x2FED2;

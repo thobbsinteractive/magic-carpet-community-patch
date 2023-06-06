@@ -222,13 +222,6 @@ if (UNIX)
     )
 endif ()
 
-
-# editor
-if (EDITOR)
-    add_subdirectory(editor)
-endif ()
-
-
 if (UNIX)
     if (USE_SANITIZERS)
         set(SANITIZER_OPTIONS
@@ -242,8 +235,5 @@ if (UNIX)
             -static-libubsan
         )
         target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
-        if (EDITOR)
-            target_link_options(remc2editor PRIVATE ${SANITIZER_OPTIONS})
-        endif ()
     endif ()
 endif ()

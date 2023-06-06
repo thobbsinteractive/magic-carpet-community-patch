@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Windows.Forms;
 using WixSharp;
 using WixSharp.Forms;
 using WixSharpSetup;
@@ -9,11 +10,10 @@ namespace remc2_installer
     {
         static void Main()
         {
-
 #if WIN64
             var project = new ManagedProject("Magic Carpet 2 HD x64",
 #else
-            var project = new ManagedProject("Magic Carpet 2 HD x86",
+			var project = new ManagedProject("Magic Carpet 2 HD x86",
 #endif
                              new Dir(@"%ProgramFiles%\ReMC\Magic Carpet 2 HD",
                                  new DirPermission("Everyone", GenericPermission.All),
@@ -37,23 +37,55 @@ namespace remc2_installer
                                         new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
                                     }
                                  },
-                                 new File(@"..\Release\config.ini")
-                                 {
-                                     Permissions = new[] {
-                                        new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
-                                        new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
-                                        new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
-                                        new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
-                                        new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
-                                    }
-                                 },
 #if WIN64
-                                 new File(@"..\x64\Release\SDL2.dll"),
+								 new File(@"..\x64\Release\remc2-editor.exe", new FileShortcut("Editor", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
+								 {
+									 IconFile = "Resources/editor.ico"
+								 })
 #else
-                                 new File(@"..\Release\SDL2.dll"),
+                                 new WixSharp.File(@"..\Release\remc2-editor.exe", new FileShortcut("Editor", @"%ProgramMenu%\ReMC\Magic Carpet 2 HD")
+                                 {
+                                     IconFile = "Resources/editor.ico"
+                                 })
 #endif
-                                 new File(@"Extract.bat"),
-                                 new Dir(@"font",
+								 {
+									 Permissions = new[] {
+										new FilePermission("Everyone", GenericPermission.All) { Execute = true },
+										new FilePermission("Users", GenericPermission.All) { Execute = true },
+										new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
+										new FilePermission("CREATOR OWNER", GenericPermission.All)  { Execute = true },
+										new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
+									}
+								 },
+								 new File(@"..\Release\config.ini")
+								 {
+									 Permissions = new[] {
+										new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
+										new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
+										new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
+										new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
+										new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
+									}
+								 },
+#if WIN64
+								 new File(@"..\x64\Release\libfreetype-6.dll"),
+								 new File(@"..\x64\Release\libpng16-16.dll"),
+								 new File(@"..\x64\Release\SDL2.dll"),
+								 new File(@"..\x64\Release\SDL2_image.dll"),
+								 new File(@"..\x64\Release\SDL2_ttf.dll"),
+								 new File(@"..\x64\Release\zlib1.dll"),
+#else
+                                 new File(@"..\Release\libfreetype-6.dll"),
+								 new File(@"..\Release\libpng16-16.dll"),
+								 new File(@"..\Release\SDL2.dll"),
+								 new File(@"..\Release\SDL2_image.dll"),
+								 new File(@"..\Release\SDL2_ttf.dll"),
+								 new File(@"..\Release\zlib1.dll"),
+#endif
+								 new File(@"Extract.bat"),
+								 new Dir(@"kiss",
+									new Files(@"..\Release\kiss\*.*")),
+								 new Dir(@"font",
                                     new Files(@"..\Release\font\*.*")),
                                  new Dir(@"biggraphics",
                                     new Files(@"..\enhancedassets\biggraphics\*.*")
@@ -123,7 +155,18 @@ namespace remc2_installer
         {
             if (e.IsUninstalling)
             {
-                e.InstallDir.DeleteIfExists();
+				if (MessageBox.Show("Would you like to keep your Save Game data?", "Keep Save files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+				{
+					var path = e.InstallDir;
+					if (path.IsDirectory())
+					{
+						Utils.DeleteFiles(new System.IO.DirectoryInfo(path), null, new[] { "SAVE" });
+					}
+				}
+				else
+				{
+					e.InstallDir.DeleteIfExists();
+				}
             }
         }
     }

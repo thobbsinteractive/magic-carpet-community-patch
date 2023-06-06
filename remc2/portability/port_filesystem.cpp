@@ -11,8 +11,7 @@ using namespace std;
 #endif
 */
 
-//char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gameFolder[512] = "GAME/NETHERW";
+char gameFolder[512] = "NETHERW";
 char cdFolder[512] = "CD_Files";
 char bigGraphicsFolder[512] = "bigGraphics";
 char forceRender[512] = "";
@@ -52,7 +51,13 @@ spdlog::level::level_enum GetLoggingLevelFromString(const char* levelStr)
 
 	return level;
 }
+
 void InitializeLogging(spdlog::level::level_enum level)
+{
+	InitializeLogging(level, "log.txt");
+}
+
+void InitializeLogging(spdlog::level::level_enum level, const char* logFileName)
 {
 	try
 	{
@@ -64,7 +69,7 @@ void InitializeLogging(spdlog::level::level_enum level)
 
 			auto max_size = 1048576 * 5;
 			auto max_files = 3;
-			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>("log.txt", max_size, max_files);
+			auto file_sink = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logFileName, max_size, max_files);
 			file_sink->set_level(level);
 			file_sink->set_pattern("[%H:%M:%S:%f %z] [%^%-8l%$] %v");
 
@@ -455,7 +460,7 @@ bool ExistGraphicsfile(const char* path) {
 	return false;
 }
 
-void ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
+long ReadGraphicsfile(const char* path, uint8_t* buffer, long size) 
 {
 	FILE* file;
 	file = fcaseopen(path, (char*)"rb");
@@ -469,7 +474,9 @@ void ReadGraphicsfile(const char* path, uint8_t* buffer, long size)
 		}
 		fread(buffer, size, 1, file);
 		myclose(file);
+		return size;
 	}
+	return -1;
 };
 
 std::string getExistingDataPath(std::filesystem::path path) 

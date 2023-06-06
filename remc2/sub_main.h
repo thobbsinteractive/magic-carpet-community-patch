@@ -441,8 +441,8 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
 
-void SetStagetagForTermod_49830(type_str_2FECE* terrain);
-void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height);
+void SetStagetagForTermod_49830(Type_Level_2FECE* terrain);
+void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 
@@ -450,7 +450,7 @@ void DrawHelpText_6FC50(__int16 a1);
 
 void sub_6EBF0(filearray_struct* a1);
 
-char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
+char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2, std::string customLevelPath = "");
 
 //int /*__noreturn*/ sub_10000(); // weak
 type_event_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_event_0x6E8E* a2); // weak
@@ -483,7 +483,7 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 void sub_41BC0();
 void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_54600_mouse_reset();
-void sub_56A30_init_game_level(unsigned int a1);
+void sub_56A30_init_game_level(unsigned int a1, int16_t level = -1, std::string customLevelPath = "");
 void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, uint32_t count);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);

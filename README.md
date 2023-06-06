@@ -3,7 +3,7 @@ Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++
 Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2 <br /><br />
 Tomas has done amazing work, not only reverse engineering this code but updating it to use more modern memory allocation and use the SDL library for input and sound. He has even increased the sprite resolutions.
 
-## Download the latest Alpha Here ##
+## Download the latest Alpha Here (now with MSI Installer)! ##
 https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 
 ### Install Guide for GOG Edition ###
@@ -14,6 +14,16 @@ https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 - 4: Run the MSI file. Follow the on-screen instructions to install.
 - 5: Click the Start menu shortcut "Magic Carpet 2 HD" to run the game.
 - 6: Any errors will be output to "log.txt"
+
+#### Command Line Args ####
+You can use the following arguments:</br>
+To jump to a selected Level use:</br>
+--set_level [0-25]</br>
+To run a level you have created using the editor:</br>
+--custom_level "[Path to .mc2 file]"</br>
+
+## For more information on Magic Carpet 2 ##
+Moburma has been tirelessly working to document cut levels, level data structures and missing graphics at: https://tcrf.net/Magic_Carpet_2:_The_Netherworlds
 
 ## My intention is to make a patch for Magic Carpet 1 and 2 (GOG editions) that initially will:
 - Add more screen resolution options
@@ -35,16 +45,18 @@ https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 ### Windows:
 - 1: Pull the development branch
 - 2: You can build either x64 or 32 bit versions
-- 3: Open the Solution file "\sdl2\VisualC\SDL.sln" and build it in your prefered config (x64, x86). This builds the SDL2 library
-- 4: Open the Solution file "\libogg\win32\VS2015\libogg_static.sln" and build it in your prefered config (x64, x86). This builds the libogg library
-- 5: Open the Solution file "\libvorbis\win32\VS2010\vorbis_static.sln" and build it in your prefered config (x64, x86). This builds the vorbis library
-- 6: Close that solution and open "remc2.sln" in your prefered config (x64, x86).
-- 6: Build the code
-- 7: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 8: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\GAME" Folder
-- 9: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
-- 10: Move "CD_Files" directory into the "remc2\Debug" Folder
-- 11: Run
+- 3: Open the Solution file "\libpng2\libpng-master\projects\vstudio2017\vstudio.sln" and build it in your prefered config (x64, x86). This builds the libpn2 library
+- 4: Open the Solution file "\sdl2\VisualC\SDL.sln" and build it in your prefered config (x64, x86). This builds the SDL2 library
+- 5: Open the Solution file "\sdl2_mixer\VisualC\SDL_mixer.sln" and build it in your prefered config (x64, x86). This builds the SDL_Mixer library
+- 6: Open the Solution file "\libogg\win32\VS2015\libogg_static.sln" and build it in your prefered config (x64, x86). This builds the libogg library
+- 7: Open the Solution file "\libvorbis\win32\VS2010\vorbis_static.sln" and build it in your prefered config (x64, x86). This builds the vorbis library
+- 8: Close that solution and open "remc2.sln" in your prefered config (x64, x86).
+- 9: Build the code
+- 10: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+- 11: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\" Folder
+- 12: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
+- 13: Move "CD_Files" directory into the "remc2\Debug" Folder
+- 14: Run
 
 ### Linux:
 
@@ -140,11 +152,11 @@ The game will search for this file in the following locations and this particula
 ## MILLSTONE 2
 - [x] Add resolution support
 - [ ] Implement Open GL render
-- [ ] Implement Controller Support
+- [X] Implement Controller Support
 - [ ] Implement a (platform independent) Launch menu to adjust settings in config.ini before launch
 
 ## MILLSTONE 3
-- [ ] Improve sounds and music using updated original scores and directional sounds in game
+- [ ] Improve sounds and music using updated original scores and directional sounds in game - In Review!
 - [X] Implement a wix sharp .msi installation for new .exe to make patching the and running existing game simple and something similar for the Linux versions
 
 ## MILLSTONE 4
