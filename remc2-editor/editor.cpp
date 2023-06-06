@@ -930,26 +930,6 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry *txtFilePath)
-{
-	if (kiss_button_event(button, e, draw))
-	{
-		char fileName[KISS_MAX_LENGTH];
-		sprintf(fileName, "%s.mc2", txtFilePath->text);
-		char path[512];
-		FixDir(path, fileName);
-		if (std::filesystem::exists(path))
-		{
-			FILE* file = fopen(path, "rb");
-			fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
-			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
-			fclose(file);
-			return true;
-		}
-	}//*quit = 1;
-	return false;
-}
-
 int indexUndoPoint = 0;
 const int MaxUndoPoints = 5000;
 int MaxUndoPoints2 = 0;
@@ -1002,24 +982,51 @@ void cyclefwrite(char* buffer,int size,FILE* file)
 	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
 }
 */
-static void SaveLevel(char const text[]) {
-	char path[512];
+static void SaveLevelFile(char const text[], char fullPath[KISS_MAX_LENGTH]) {
 	char dir[] = "user-levels";
-	FixDir(path, dir);
+	FixDir(fullPath, dir);
 
-	if (!std::filesystem::is_directory(path))
+	if (!std::filesystem::is_directory(fullPath))
 	{
-		std::filesystem::create_directory(path);
+		std::filesystem::create_directory(fullPath);
 	}
 
 	char fileName[KISS_MAX_LENGTH];
 	sprintf(fileName, "/user-levels/%s.mc2", text);
-	FixDir(path, fileName);
+	FixDir(fullPath, fileName);
 
-	FILE* file = fopen(path, "wb");
+	FILE* file = fopen(fullPath, "wb");
 	memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
 	fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
 	fclose(file);
+}
+
+static bool LoadLevelFile(char const text[]) {
+	char path[512];
+	char fileName[KISS_MAX_LENGTH];
+	sprintf(fileName, "/user-levels/%s.mc2", text);
+	FixDir(path, fileName);
+
+	if (std::filesystem::exists(path))
+	{
+		FILE* file = fopen(path, "rb");
+		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
+		memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+		fclose(file);
+		return true;
+	}
+}
+
+static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry* txtFilePath)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		if (strlen(txtFilePath->text) > 0)
+		{
+			return LoadLevelFile(txtFilePath->text);
+		}
+	}//*quit = 1;
+	return false;
 }
 
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, kiss_entry* txtFilePath)
@@ -1028,7 +1035,8 @@ static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, 
 	{
 		if (strlen(txtFilePath->text) > 0)
 		{
-			SaveLevel(txtFilePath->text);
+			char fullPath[KISS_MAX_LENGTH];
+			SaveLevelFile(txtFilePath->text, fullPath);
 		}
 	}//*quit = 1;
 }
@@ -1129,6 +1137,31 @@ static int button_cleanselectedlevelfeat_event(kiss_button* button, SDL_Event* e
 		return 1;
 	}
 	return 0;
+}
+
+static bool button_run_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry* txtFilePath)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		if (strlen(txtFilePath->text) > 0)
+		{
+			char fullPath[KISS_MAX_LENGTH];
+			SaveLevelFile(txtFilePath->text, fullPath);
+
+			char path[512];
+			char mc2[] = "remc2.exe";
+			FixDir(path, mc2);
+
+			if (std::filesystem::exists(path) && std::filesystem::exists(fullPath))
+			{
+				char launchpath[512];
+				sprintf(launchpath, "%s --custom_level \"%s\"", path, fullPath);
+				std::system(launchpath);
+			}
+		}
+		return true;
+	}
+	return false;
 }
 
 static void button_ok_event(kiss_button* button, SDL_Event* e,
@@ -2136,8 +2169,9 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label label_vars2 = { 0 };
 	kiss_button button_cancel = { 0 }, button_levelload = { 0 }, button_levelsave = { 0 },
 		button_undo = { 0 }, button_redo = { 0 },
-		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 };
-	
+		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 },
+		button_run = { 0 };
+
 	kiss_label lblFilePath = { 0 };
 	kiss_entry txtFilePath = { 0 };
 
@@ -3066,6 +3100,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_levelload, &window1, (char*)"LOAD", 530, 700);
 	kiss_button_new(&button_levelsavecsv, &window1, (char*)"S_CSV", 600, 720);
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 600, 740);
+	kiss_button_new(&button_run, &window1, (char*)"RUN!", 670, 740);
 	
 	kiss_label_new(&lblFilePath, &window1, (char*)"SAVE/LOAD FILE NAME:", 534, 770);
 
@@ -3502,6 +3537,11 @@ int main_x(/*int argc, char** argv*/)
 				changed2 = true; changed = true; zoomchanged = true;
 			}
 
+			if (button_run_event(&button_run, &e, &draw, &txtFilePath))
+			{
+				
+			}
+
 			for (int i = 0; i < 16; i++)
 			{
 				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2, &window_selecttype);
@@ -3839,6 +3879,7 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_button_draw(&button_undo, editor_renderer);
 		kiss_button_draw(&button_redo, editor_renderer);
+		kiss_button_draw(&button_run, editor_renderer);
 		//kiss_label_draw(&label_res, editor_renderer);
 		//kiss_progressbar_draw(&progressbar, editor_renderer);
 		//kiss_button_draw(&button_ok2, editor_renderer);
