@@ -1143,22 +1143,19 @@ static bool button_run_event(kiss_button* button, SDL_Event* e, int* draw, kiss_
 {
 	if (kiss_button_event(button, e, draw))
 	{
-		if (strlen(txtFilePath->text) > 0)
+		char fullPath[KISS_MAX_LENGTH];
+		SaveLevelFile("run-level.tmp", fullPath);
+
+		char path[512];
+		char mc2[] = "remc2.exe";
+		FixDir(path, mc2);
+
+		if (std::filesystem::exists(path) && std::filesystem::exists(fullPath))
 		{
-			char fullPath[KISS_MAX_LENGTH];
-			SaveLevelFile(txtFilePath->text, fullPath);
-
-			char path[512];
-			char mc2[] = "remc2.exe";
-			FixDir(path, mc2);
-
-			if (std::filesystem::exists(path) && std::filesystem::exists(fullPath))
-			{
-				char launchpath[512];
-				sprintf(launchpath, "%s --custom_level \"%s\"", path, fullPath);
-				std::system(launchpath);
-			}
-		}
+			char launchpath[512];
+			sprintf(launchpath, "%s --custom_level \"%s\"", path, fullPath);
+			std::system(launchpath);
+		}		
 		return true;
 	}
 	return false;
