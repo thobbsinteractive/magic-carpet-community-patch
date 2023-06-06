@@ -140,7 +140,6 @@ void gamepad_sdl_init(void)
 						}
 					}
 					if (hs.cap & SDL_HAPTIC_GAIN) {
-						Logger->info("gain set to {}", gpc.haptic_gain_max);
 						SDL_HapticSetGain(m_haptic, gpc.haptic_gain_max);
 					}
 					Logger->info("found haptic support (cap {}), effect cnt {}, rumble {}, rumble_trig {}", hs.cap, SDL_HapticNumEffects(m_haptic), hs.rumble, hs.rumble_trig);
