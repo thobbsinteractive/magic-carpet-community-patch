@@ -1776,6 +1776,7 @@ int main(int argc, char** argv) {
 
 int sub_main(const char palfilename[], const char tmapsdatfilename[], const char tmapstabfilename[], const char tmapsstr[], int max_images, ImageType imageType, int padding, bool caveSprites, const char outputPath[])
 {
+	std::vector<std::string> filesToDelete;
 	double colourMultiplier = 4;
 
 	FILE* fptrTMAPSdata;
@@ -1866,15 +1867,14 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 		int width = *(Bit16u*)&buffer[2];
 		int height = *(Bit16u*)&buffer[4];
 
-		if (imageType == ImageType::data)
-		{
-			FILE* fptw2;
-			char filenamedata[300];
-			sprintf_s(filenamedata, "%s\\%s%03i-00.data", outputPath, tmapsstr, index);
-			fopen_s(&fptw2, filenamedata, "wb");
-			fwrite(buffer, unpacksize, 1, fptw2);
-			fclose(fptw2);
-		}
+		//Used for later comparison
+		FILE* fptw2;
+		char filenamedata[300];
+		sprintf_s(filenamedata, "%s\\%s%03i-00.data", outputPath, tmapsstr, index);
+		fopen_s(&fptw2, filenamedata, "wb");
+		fwrite(buffer, unpacksize, 1, fptw2);
+		fclose(fptw2);
+		filesToDelete.push_back(filenamedata);
 
 		if (imageType == ImageType::bmp)
 		{
@@ -1958,54 +1958,54 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			memcpy(subpointer, buffer, unpacksize);
 			*/
 
-			if (imageType == ImageType::data)
+			FILE* fptw2_prev;
+			char filenamedata[300];
+			sprintf_s(filenamedata, "%s\\%s%03i-00.data", outputPath, tmapsstr, index);
+			fopen_s(&fptw2_prev, filenamedata, "rb");
+			fread(prevbuffer, width * height + 6, 1, fptw2_prev);
+			fclose(fptw2_prev);
+			filesToDelete.push_back(filenamedata);
+
+			bool same = true;
+			for (int kk = 0; kk < width * height + 6; kk++)
 			{
-				FILE* fptw2_prev;
-				char filenamedata[300];
-				sprintf_s(filenamedata, "%s\\%s%03i-00.data", outputPath, tmapsstr, index);
-				fopen_s(&fptw2_prev, filenamedata, "rb");
-				fread(prevbuffer, width * height + 6, 1, fptw2_prev);
-				fclose(fptw2_prev);
-
-				bool same = true;
-				for (int kk = 0; kk < width * height + 6; kk++)
-				{
-					if (buffer[kk] != prevbuffer[kk])
-						same = false;
-				}
-				if (same)
-				{
-					index++; continue;
-				}
-
-				//FILE* fptw2_prev;
-				//char filenamedata[300];
-				sprintf_s(filenamedata, "%s\\%s%03i-%02i.data", outputPath, tmapsstr, index, mainindex);
-				fopen_s(&fptw2_prev, filenamedata, "rb");
-				if (fptw2_prev == NULL)
-				{
-					index++; continue;
-				}
-				fread(prevbuffer, width * height + 6, 1, fptw2_prev);
-				fclose(fptw2_prev);
-
-				same = true;
-				for (int kk = 0; kk < width * height + 6; kk++)
-				{
-					if (buffer[kk] != prevbuffer[kk])
-						same = false;
-				}
-				if (same)
-				{
-					index++; continue;
-				}
-
-				FILE* fptw2;
-				sprintf_s(filenamedata, "%s\\%s%03i-%02i.data", outputPath, tmapsstr, index, mainindex + 1);
-				fopen_s(&fptw2, filenamedata, "wb");
-				fwrite(buffer, width * height + 6, 1, fptw2);
-				fclose(fptw2);
+				if (buffer[kk] != prevbuffer[kk])
+					same = false;
 			}
+			if (same)
+			{
+				index++; continue;
+			}
+
+			//FILE* fptw2_prev;
+			//char filenamedata[300];
+			sprintf_s(filenamedata, "%s\\%s%03i-%02i.data", outputPath, tmapsstr, index, mainindex);
+			fopen_s(&fptw2_prev, filenamedata, "rb");
+			if (fptw2_prev == NULL)
+			{
+				index++; continue;
+			}
+			fread(prevbuffer, width * height + 6, 1, fptw2_prev);
+			fclose(fptw2_prev);
+			filesToDelete.push_back(filenamedata);
+
+			same = true;
+			for (int kk = 0; kk < width * height + 6; kk++)
+			{
+				if (buffer[kk] != prevbuffer[kk])
+					same = false;
+			}
+			if (same)
+			{
+				index++; continue;
+			}
+
+			FILE* fptw2;
+			sprintf_s(filenamedata, "%s\\%s%03i-%02i.data", outputPath, tmapsstr, index, mainindex + 1);
+			fopen_s(&fptw2, filenamedata, "wb");
+			fwrite(buffer, width * height + 6, 1, fptw2);
+			fclose(fptw2);
+			filesToDelete.push_back(filenamedata);
 
 			if (imageType == ImageType::bmp)
 			{
@@ -2041,5 +2041,22 @@ int sub_main(const char palfilename[], const char tmapsdatfilename[], const char
 			index++;
 		}
 	}
+
+	//Clean up
+	if (imageType != ImageType::data && filesToDelete.size() > 0)
+	{
+		printf("Cleaning up .data files...\n");
+
+		for(int i = 0; i < filesToDelete.size(); i++)
+		{
+			if (std::filesystem::exists(filesToDelete[i]))
+			{
+				std::filesystem::remove(filesToDelete[i]);
+			}
+		}
+
+		printf("Completed cleanup\n");
+	}
+	printf("Extraction Completed\n");
 	return 0;
 }
