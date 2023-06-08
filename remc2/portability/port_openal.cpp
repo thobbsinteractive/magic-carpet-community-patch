@@ -770,7 +770,7 @@ uint16_t alsound_get_chunk_flags(const int16_t chunk_id)
     } else if (ale.bank == AL_BANK_MENU) {
         // sound during intro, boulder menu
         ret = AL_FORMAT_MONO8_22050;
-    } else if (ale.bank < AL_BANK_MENU) {
+    } else if (ale.bank < 3) {
         // sound in day/night/cave locations
         ret = alct[ale.bank][chunk_id].flags;
     }

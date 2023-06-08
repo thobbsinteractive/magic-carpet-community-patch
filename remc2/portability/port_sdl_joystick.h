@@ -17,7 +17,7 @@
 #define     GP_HAPTIC_METEOR  0x0
 #define      GP_HAPTIC_QUAKE  0x1
 #define    GP_HAPTIC_TORNADO  0x2
-#define GP_HAPTIC_EFFECT_CNT  0x2  ///< update this one to last effect count!
+#define GP_HAPTIC_EFFECT_CNT  0x3  ///< update this one to last effect count+1 !
 
 struct gamepad_event {
     int16_t axis_yaw;
