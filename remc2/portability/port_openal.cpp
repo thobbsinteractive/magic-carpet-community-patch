@@ -762,7 +762,7 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
 /// \return AL_FORMAT_STEREO8_22050, AL_FORMAT_MONO8_22050, AL_TYPE_ENV 
 uint16_t alsound_get_chunk_flags(const int16_t chunk_id)
 {
-    int16_t ret;
+    int16_t ret = 0;
 
     if ((ale.bank > AL_BANK_MENU) || (chunk_id > 69) || (chunk_id < 1)) {
         // not covered
