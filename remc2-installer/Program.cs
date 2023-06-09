@@ -34,7 +34,6 @@ namespace remc2_installer
                                         new FilePermission("Users", GenericPermission.All) { Execute = true },
                                         new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
                                         new FilePermission("CREATOR OWNER", GenericPermission.All)  { Execute = true },
-                                        new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
                                     }
                                  },
 #if WIN64
@@ -54,7 +53,6 @@ namespace remc2_installer
 										new FilePermission("Users", GenericPermission.All) { Execute = true },
 										new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
 										new FilePermission("CREATOR OWNER", GenericPermission.All)  { Execute = true },
-										new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
 									}
 								 },
 								 new File(@"..\Release\config.ini")
@@ -64,7 +62,6 @@ namespace remc2_installer
 										new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
 										new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
 										new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
-										new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
 									}
 								 },
 #if WIN64
