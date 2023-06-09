@@ -53115,8 +53115,8 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 			//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
 			//if (!file_exists(mainfile))//test existing GOG cd iso file
 			{
-				Logger->error("Original game not found in {} folder", gameDataPath.c_str());
-				mydelay(20000);
+				Logger->error("Original game not found in {0} sub folder ", gameFolder);
+				mydelay(5000);
 				exit(1);//iso not found
 			}
 			/*myprintf("GOG game iso cd founded!\n");
