@@ -101,12 +101,13 @@ namespace remc2_installer
             project.Platform = Platform.x64;
 #endif
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
+			project.Version = new Version(0, 9, 3, 0);
 
-            //project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
-            //project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
+			//project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
+			//project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
 
-            //custom set of standard UI dialogs
-            project.ManagedUI = new ManagedUI();
+			//custom set of standard UI dialogs
+			project.ManagedUI = new ManagedUI();
             project.ManagedUI.InstallDialogs.Add(Dialogs.Welcome)
                                             .Add(Dialogs.Licence)
                                             .Add(Dialogs.InstallDir)
