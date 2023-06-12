@@ -28,11 +28,11 @@ namespace WixSharpSetup
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("CD_Files");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NETHERW");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("CD_Files");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("NETHERW");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD", new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11});
             this.banner = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,10 +44,7 @@ namespace WixSharpSetup
             this.lblInstallLocation = new System.Windows.Forms.Label();
             this.txtPath = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
-            this.txtCDPath = new System.Windows.Forms.TextBox();
-            this.btnBrowseCDFiles = new System.Windows.Forms.Button();
             this.lblGameData = new System.Windows.Forms.Label();
-            this.lblCDData = new System.Windows.Forms.Label();
             this.grpBox = new System.Windows.Forms.GroupBox();
             this.btnInfo = new System.Windows.Forms.Button();
             this.treeViewInstallProgress = new System.Windows.Forms.TreeView();
@@ -155,10 +152,10 @@ namespace WixSharpSetup
             // 
             // txtPath
             // 
-            this.txtPath.Location = new System.Drawing.Point(154, 51);
+            this.txtPath.Location = new System.Drawing.Point(244, 51);
             this.txtPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(310, 21);
+            this.txtPath.Size = new System.Drawing.Size(220, 21);
             this.txtPath.TabIndex = 5;
             this.txtPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
             // 
@@ -172,53 +169,22 @@ namespace WixSharpSetup
             this.btnBrowse.UseVisualStyleBackColor = true;
             this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
             // 
-            // txtCDPath
-            // 
-            this.txtCDPath.Location = new System.Drawing.Point(154, 85);
-            this.txtCDPath.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
-            this.txtCDPath.Name = "txtCDPath";
-            this.txtCDPath.Size = new System.Drawing.Size(310, 21);
-            this.txtCDPath.TabIndex = 7;
-            this.txtCDPath.TextChanged += new System.EventHandler(this.Path_TextChanged);
-            // 
-            // btnBrowseCDFiles
-            // 
-            this.btnBrowseCDFiles.Location = new System.Drawing.Point(11, 83);
-            this.btnBrowseCDFiles.Name = "btnBrowseCDFiles";
-            this.btnBrowseCDFiles.Size = new System.Drawing.Size(68, 23);
-            this.btnBrowseCDFiles.TabIndex = 6;
-            this.btnBrowseCDFiles.Text = "Browse";
-            this.btnBrowseCDFiles.UseVisualStyleBackColor = true;
-            this.btnBrowseCDFiles.Click += new System.EventHandler(this.btnBrowseCDFiles_Click);
-            // 
             // lblGameData
             // 
             this.lblGameData.AutoSize = true;
             this.lblGameData.Location = new System.Drawing.Point(84, 54);
             this.lblGameData.Name = "lblGameData";
-            this.lblGameData.Size = new System.Drawing.Size(64, 13);
+            this.lblGameData.Size = new System.Drawing.Size(154, 13);
             this.lblGameData.TabIndex = 15;
-            this.lblGameData.Text = "Game Data:";
-            // 
-            // lblCDData
-            // 
-            this.lblCDData.AutoSize = true;
-            this.lblCDData.Location = new System.Drawing.Point(85, 88);
-            this.lblCDData.Name = "lblCDData";
-            this.lblCDData.Size = new System.Drawing.Size(51, 13);
-            this.lblCDData.TabIndex = 16;
-            this.lblCDData.Text = "CD Data:";
+            this.lblGameData.Text = "Magic Carpet 2 GOG directory:";
             // 
             // grpBox
             // 
             this.grpBox.Controls.Add(this.lblGameData);
-            this.grpBox.Controls.Add(this.lblCDData);
             this.grpBox.Controls.Add(this.cboInstallLocation);
             this.grpBox.Controls.Add(this.lblInstallLocation);
             this.grpBox.Controls.Add(this.txtPath);
-            this.grpBox.Controls.Add(this.btnBrowseCDFiles);
             this.grpBox.Controls.Add(this.btnBrowse);
-            this.grpBox.Controls.Add(this.txtCDPath);
             this.grpBox.Location = new System.Drawing.Point(12, 91);
             this.grpBox.Name = "grpBox";
             this.grpBox.Size = new System.Drawing.Size(470, 128);
@@ -231,7 +197,7 @@ namespace WixSharpSetup
             this.btnInfo.Name = "btnInfo";
             this.btnInfo.Size = new System.Drawing.Size(75, 23);
             this.btnInfo.TabIndex = 8;
-            this.btnInfo.Text = "Info";
+            this.btnInfo.Text = "Help";
             this.btnInfo.UseVisualStyleBackColor = true;
             this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
             // 
@@ -242,15 +208,15 @@ namespace WixSharpSetup
             this.treeViewInstallProgress.Location = new System.Drawing.Point(12, 232);
             this.treeViewInstallProgress.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.treeViewInstallProgress.Name = "treeViewInstallProgress";
-            treeNode1.Name = "CDFiles";
-            treeNode1.Text = "CD_Files";
-            treeNode2.Name = "NETHERW";
-            treeNode2.Text = "NETHERW";
-            treeNode3.Checked = true;
-            treeNode3.Name = "InstallPath";
-            treeNode3.Text = "C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD";
+            treeNode10.Name = "CDFiles";
+            treeNode10.Text = "CD_Files";
+            treeNode11.Name = "NETHERW";
+            treeNode11.Text = "NETHERW";
+            treeNode12.Checked = true;
+            treeNode12.Name = "InstallPath";
+            treeNode12.Text = "C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD";
             this.treeViewInstallProgress.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode12});
             this.treeViewInstallProgress.ShowPlusMinus = false;
             this.treeViewInstallProgress.ShowRootLines = false;
             this.treeViewInstallProgress.Size = new System.Drawing.Size(391, 52);
@@ -298,10 +264,7 @@ namespace WixSharpSetup
         private System.Windows.Forms.TextBox txtPath;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.TextBox txtCDPath;
-        private System.Windows.Forms.Button btnBrowseCDFiles;
         private System.Windows.Forms.Label lblGameData;
-        private System.Windows.Forms.Label lblCDData;
 		private System.Windows.Forms.GroupBox grpBox;
 		private System.Windows.Forms.Button btnInfo;
 		private System.Windows.Forms.TreeView treeViewInstallProgress;
