@@ -234,7 +234,7 @@ FILE* DataFileIO::CreateOrOpenFile(const char* pathname, int __pmode)
 
 	if (__pmode == 0x222)
 	{
-		file = CreateFile(pathname, 0x1c0);
+		file = CreateFile(pathname, GENERIC_ALL);
 		//x_setmode(v2, 0x200);
 		if (file) {
 			Close(file);

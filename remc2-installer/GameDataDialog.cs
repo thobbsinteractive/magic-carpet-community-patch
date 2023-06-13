@@ -20,8 +20,6 @@ namespace WixSharpSetup
 
             this.Shown += GameDataDialog_Shown;
             this.FormClosing += GameDataDialog_FormClosing;
-            this.cboInstallLocation.SelectedIndexChanged += CboInstallLocation_SelectedIndexChanged;
-            this.cboInstallLocation.SelectedIndex = 0;
         }
 
         private string GetGoGInstructions()
@@ -227,32 +225,6 @@ namespace WixSharpSetup
 					// Create the destination directory
 					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, @"NETHERW")))
 						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, @"NETHERW"));
-
-					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, @"NETHERW/CLEVELS")))
-						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, @"NETHERW/CLEVELS"));
-
-					Utils.CopyDirectory(Path.Combine(cdPath, "LEVELS"), Path.Combine(Runtime.InstallDir, @"NETHERW/CLEVELS"), true);
-
-					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, @"NETHERW/CDATA")))
-						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, @"NETHERW/CDATA"));
-
-					FileInfo fileInfo = new FileInfo(Path.Combine(cdPath, "DATA/TMAPS0-0.DAT"));
-					fileInfo.CopyTo(Path.Combine(Runtime.InstallDir, "NETHERW/CDATA/TMAPS0-0.DAT"));
-
-					fileInfo = new FileInfo(Path.Combine(cdPath, "DATA/TMAPS0-0.TAB"));
-					fileInfo.CopyTo(Path.Combine(Runtime.InstallDir, "NETHERW/CDATA/TMAPS0-0.TAB"));
-
-					fileInfo = new FileInfo(Path.Combine(cdPath, "DATA/TMAPS1-0.DAT"));
-					fileInfo.CopyTo(Path.Combine(Runtime.InstallDir, "NETHERW/CDATA/TMAPS1-0.DAT"));
-
-					fileInfo = new FileInfo(Path.Combine(cdPath, "DATA/TMAPS1-0.TAB"));
-					fileInfo.CopyTo(Path.Combine(Runtime.InstallDir, "NETHERW/CDATA/TMAPS1-0.TAB"));
-
-					fileInfo = new FileInfo(Path.Combine(cdPath, "DATA/TMAPS2-0.DAT"));
-					fileInfo.CopyTo(Path.Combine(Runtime.InstallDir, "NETHERW/CDATA/TMAPS2-0.DAT"));
-
-					fileInfo = new FileInfo(Path.Combine(cdPath, "DATA/TMAPS2-0.TAB"));
-					fileInfo.CopyTo(Path.Combine(Runtime.InstallDir, "NETHERW/CDATA/TMAPS2-0.TAB"));
 
 					if (!Directory.Exists(Path.Combine(Runtime.InstallDir, @"NETHERW/SOUND")))
 						Directory.CreateDirectory(Path.Combine(Runtime.InstallDir, @"NETHERW/SOUND"));
@@ -536,6 +508,8 @@ namespace WixSharpSetup
 
         private void GameDataDialog_Shown(object sender, EventArgs e)
         {
+			this.cboInstallLocation.SelectedIndexChanged += CboInstallLocation_SelectedIndexChanged;
+			this.cboInstallLocation.SelectedIndex = 0;
 			UpdateTree();
 			treeViewInstallProgress.ExpandAll();
         }
@@ -550,6 +524,8 @@ namespace WixSharpSetup
             banner.Image = Runtime.Session.GetResourceBitmap("WixUI_Bmp_Banner");
             Text = "[ProductName] Setup";
             base.Localize();
+
+
         }
 
         private void CboInstallLocation_SelectedIndexChanged(object sender, EventArgs e)
