@@ -115,32 +115,6 @@ namespace WixSharpSetup
             return valid;
         }
 
-        private bool ValidateDosGameDataLocation(string path, string cdPath)
-        {
-            bool validNetherw = false;
-            bool validCD = false;
-
-            if (Directory.Exists(path))
-            {
-                validNetherw = ValidateNetherwContent(path);
-
-                if (Directory.Exists(cdPath))
-                {
-                    validCD = ValidateCDContent(cdPath);
-                }
-                else
-                {
-                    MessageBox.Show($"This {cdPath} directory does not exist", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
-            else
-            {
-                MessageBox.Show($"This {path} directory does not exist", "Invalid Directory", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            return validNetherw && validCD;
-        }
-
         public bool ValidateNetherwContent(string gameDirectory)
         {
             string[] netherwDirectories = Directory.GetDirectories(gameDirectory);
