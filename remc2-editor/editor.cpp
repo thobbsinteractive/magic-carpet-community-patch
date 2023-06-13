@@ -1153,7 +1153,8 @@ static bool button_run_event(kiss_button* button, SDL_Event* e, int* draw, kiss_
 		if (std::filesystem::exists(path) && std::filesystem::exists(fullPath))
 		{
 			char launchpath[512];
-			sprintf(launchpath, "%s --custom_level \"%s\"", path, fullPath);
+			sprintf(launchpath, "\"\"%s\" --custom_level \"%s\"\"", path, fullPath);
+			Logger->info(launchpath);
 			std::system(launchpath);
 		}		
 		return true;
