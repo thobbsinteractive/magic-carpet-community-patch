@@ -1,0 +1,36 @@
+
+About OpenAL
+
+    OpenAL is an API designed for rendering positional audio and environmental effects.
+    It's development started 4 years after the Magic Carpet's release, however I am certain that if the release dates would have been reversed then Bullfrog would have implemented this API in all their games.
+In MC2 the structures were ready to support left/right volume panning and there is an effort to decrease the volume for distant creatures. Fortunately they did not waste too much code trying to implement an in-house 3D positional sound system and were quite happy to simply provide arround 200 PCM sound samples that will end up being triggered during gameplay and rendered as mono sounds with just variable gain.
+
+runtime dependencies
+
+    linux needs the openal package installed. windows needs a driver called 'OpenAL x.y Windows Installer (zip)' available here: https://www.openal.org/downloads/
+
+OpenAL port
+
+    The ~200 samples can be divided into three main categories:
+      - creature-bound howls/squeals/screams/buzzing sound bytes. used by dragons, goats, bees, worms, wyverns, manticores, fireflies, spiders, devils, mana worms, moon dwellers, troglodites, cymmerians, zombies and hydras. these creature's positions are tracked frame-by-frame and if the listener is within AL_DIST_MIN_PLAY pixels distance then the associated sound chunk is sheduled to be played at random intervals. the initial sound's amplitude and the trigger interval is customized by the port, but the listener's left/right panning and the distance compensated acoustic attenuation is fully controlled by OpenAL.
+      - spells and some creature attacks. these are not tracked since they come with some distancing effects pre-applied. the sound source is placed at the listener's position at the time of when the sound sample was triggered. so if the player moves while being attacked then those samples will trail behind.
+      - environmental sounds (wind, markets, oceans, crickets, drips). these are triggered based on the area in which the player is flying. it makes little sense to set these as puctiform sound sources as for the previous categories, so they are converted to stereo before being fed to OpenAL. this means that no positional effect is applied and the player will hear these sounds with a constant volume which is controlled via config.ini:openal_environment_volume
+
+    Every PCM sound sample that can be heard is thus an OpenAL 'sound source'. the player is what the API calls a 'listener'. the listener's position and direction are updated every frame and we have seen that some sound sources get their position updated with the same frequency. once a sound is triggered by the scheduler or by the recode, a sound source is created and thus a play channel is used. it seems like most soundcards support up to about 30 concurrent sources (sometimes called 'voices'). in order to be able to hear a more diverse range of sounds, a limit of how many times one sample can be played concurrently is implemented and can be customized via config.ini:openal_same_chunk_concurrency. experimentation with this setting is welcome.
+
+    OpenAL's alternative to Creative EAX is called EFX. it can provide nice reverb effects for better game immersion. it can be enabled or disabled via the config.ini:openal_efx option.
+
+
+speech audio tracks
+
+    The Magic Carpet 2 game comes on a mixed-mode CD containing 28 tracks. The first track holds the game data in ISO9660 format, while the rest are audio tracks of a narrator voice-over that is triggered from time to time during gameplay. This port keeps them in the 'speech' directory, in raw form.
+    The problem is that GoG and most other sources provide flawed rips of these data tracks. So if you happen to hear short pop sounds while speech is enabled or if the speech is misaligned (it ends too soon), then either try to rip an original CD yourself (via the provided assets/scrips/check_install.sh script) or mix-and-match tracks from GoG and other sources. you can load these files into a sound editor like audacity (by importing them as raw data in little endian, 44100 stereo signed 16 bit pcm format) and simply identify the zones where digital noise has crept over the audio.
+
+    this is a list of audio tracks and their status on the GoG-provided image:
+
+    track#2              - no artefacts and perfectly aligned
+    track#3 - track#28   - all have noisy artefacts in the first 400 ms at the beginning of the track, so it is advised to obtain these tracks from a different rip.
+
+    enabling speech is as simple as providing a relative directory as config.ini:speech_folder.
+    it's volume level is controllerd by config.ini:openal_speech_volume (must be provided as an integer between 0 and 127). 0 completely disables the speech subsystem.
+

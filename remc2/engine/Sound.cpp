@@ -1069,6 +1069,8 @@ void AilRestoreUSE16ISR_91E90(int32_t isr)
 //----- (00099C10) --------------------------------------------------------
 void EndSounds_99C10()//27ac10
 {
+	uint16_t i;
+
 	if (soundLoaded_E379A)
 	{
 		EndSample_8D8F0();
@@ -1079,8 +1081,17 @@ void EndSounds_99C10()//27ac10
 			FreeMem_83E80((uint8_t*)soundIndex_E37A0);
 			numOfLoadedSounds_E37A4 = 0;
 		}
-		if (soundBuffer1_E37A8)
+		if (soundBuffer1_E37A8) {
+			for (i = 0; i < hDigSoundEffectsDriver_180B48->n_samples_24; i++) {
+                if (hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz) {
+                    free(hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz);
+                }
+                if (hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff) {
+                    free(hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff);
+                }
+            }
 			FreeMem_83E80(soundBuffer1_E37A8);
+		}
 		soundAble_E3798 = false;
 		soundActive_E3799 = false;
 		soundLoaded_E379A = false;
@@ -1815,6 +1826,10 @@ bool LoadSound_84300(uint8_t soundIndex)//265300
 				DataFileIO::Close(file);
 				return true;
 			}
+#ifdef SOUND_OPENAL
+            alsound_clear_cache();
+            alsound_set_env(soundIndex, AL_SET_BANK);
+#endif
 			actualSound_E37AD = soundIndex;
 			DataFileIO::Close(file);
 		}
@@ -1887,19 +1902,17 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_4, 0);
 	DataFileIO::Read(file, soundBuffer1_E37A8, 8);
-	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C')
-	{
+	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C') {
 		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBank2[soundIndex2].dword_12 - 8);
-	}
-	else
-	{
+	} else {
 		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBuffer1_E37A8[7] + ((soundBuffer1_E37A8[6] + ((soundBuffer1_E37A8[5] + (soundBuffer1_E37A8[4] << 8)) << 8)) << 8) - 8);
 		DataFileIO::Decompress(soundBuffer1_E37A8, soundBuffer1_E37A8);
 	}
 	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_0, 0);
 	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer2, 8);
-	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
-	{
+	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C') {
+		// go back to the start of the bank, since this block has no header
+        DataFileIO::Seek(file, soundBank2[soundIndex2].dword_0, 0);
 		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, soundBank2[soundIndex2].sizeBytes_8 - 8);
 	}
 	else
@@ -1915,17 +1928,10 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	soundIndex_E37A0->byte_5 = shadow_str_E37A0_sound_buffer2->byte_5;
 	soundIndex_E37A0->byte_6 = shadow_str_E37A0_sound_buffer2->byte_6;
 	soundIndex_E37A0->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
-	for(int i = 0; i < 10; i++)
-		soundIndex_E37A0->str_8.stub[i] = shadow_str_E37A0_sound_buffer2->str_8.stub[i];
 
-	for (int i = 0; i < 96; i++)
+	for (int i = 0; i < numOfLoadedSounds_E37A4; i++)
 	{
 		soundIndex_E37A0->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
-		for (int j = 0; j < 4; j++)
-		{
-			soundIndex_E37A0->str_8.wavs_10[i].stub_4[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].stub_4[j];
-		}
-
 		soundIndex_E37A0->str_8.wavs_10[i].wavSize_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavSize_8;
 		soundIndex_E37A0->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
 		for (int j = 0; j < 18; j++)
@@ -3136,8 +3142,40 @@ void InitSample_A38E0(HSAMPLE S)//2848e0
 		S->sam_var[530] = 0;
 		S->sam_var[531] = 0;
 		S->sam_var532_EOS_ptr = 0;
+		S->id = -1;
 		InitSampleVolume_A2110(S);
 	}
+}
+
+/// \brief prepare the chunk buffer for the openal subsystem 
+/// for chunks that cannot be localized (environment samples) a stereo sample is generated
+/// \param S sample to operate on
+void init_openal_sample(HSAMPLE S)
+{
+    uint8_t actval;
+    uint16_t format;
+
+    format = alsound_get_chunk_flags(S->id);
+
+    if (S->wavbuff != nullptr) {
+        free(S->wavbuff);
+        S->wavbuff = nullptr;
+    }
+
+    if (format & AL_FORMAT_STEREO8_22050) {
+        S->wavbuff = malloc(S->len_4_5[0] * 2);
+        if (!S->wavbuff) {
+            return;
+        }
+
+        for (int i = 0; i < S->len_4_5[0]; i++) {
+            actval = ((uint8_t *) S->start_2_3[0])[i];
+            (*(int8_t *) & ((uint8_t *) S->wavbuff)[0 + i * 2]) = actval;
+            (*(int8_t *) & ((uint8_t *) S->wavbuff)[1 + i * 2]) = actval;
+        }
+    }
+
+    //Logger->info("init_openal_sample id {} fmt {} sz {}", S->id, format, S->len_4_5[0]);
 }
 
 void InitHqsound(HSAMPLE S) {
@@ -3162,8 +3200,10 @@ void InitHqsound(HSAMPLE S) {
 			S->mark44mark[i] = ((uint8_t*)S->start_2_3[0])[i];
 		}
 
-		if (S->start_44mhz != nullptr)
+		if (S->start_44mhz != nullptr) {
 			free(S->start_44mhz);
+			S->start_44mhz = NULL;
+		}
 		if (fixspeedsound)
 			S->start_44mhz = malloc(S->len_4_5[0] * 2 * 2 * 2 * 2);
 		else
@@ -3208,8 +3248,13 @@ void SetSampleAddress_A3A30(HSAMPLE S, uint8_t* start, uint32_t len)
 		S->start_2_3[1] = 0;
 		S->len_4_5[0] = len;
 		S->len_4_5[1] = 0;
-		if (hqsound)
+#ifdef SOUND_OPENAL
+        init_openal_sample(S);
+#else
+		if (hqsound) {
 			InitHqsound(S);
+		}
+#endif
 	}
 }
 
@@ -5085,7 +5130,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	if (!soundAble_E3798
 		|| !soundActive_E3799
 		|| index > (signed int)indexLoadedSound_180B50
-		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[index -1].filename_14, "null.wav"))
+		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[index].filename_14, "null.wav"))
 	{
 		return;
 	}
@@ -5171,6 +5216,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 			for (int i = 0; i < 100; i++)
 				Logger->trace("{}", debug_sound_buff[i]);
 		}
+		(*soundBuffer1)->id = index;
 		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->str_8.wavs_10[index].wavData_0, 1);
 	}
 	AilSetSampleVolume_93E30(*soundBuffer1, volume);
@@ -5519,3 +5565,23 @@ void WriteWaveToFile(wav_t* wav, const char* name)
 		fclose(wavFile);
 	}
 }
+
+uint8_t get_sample_ptr(const uint8_t index, uint8_t **data, int32_t *len)
+{
+    *len = 0;
+    *data = NULL;
+    int i;
+    uint8_t *pWaveData = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
+
+    i = 12;
+    for (int j = _strnicmp((const char *)&pWaveData[12], "data", 4); j; j = _strnicmp((const char *)&pWaveData[i], "data", 4)) {
+        i += (*(int32_t *) & pWaveData[i + 4] & 1) + *(int32_t *) & pWaveData[i + 4] + 8;
+    }
+
+    *data = &pWaveData[i + 8];
+    *len = *(int32_t *) & pWaveData[i + 4];
+
+    //Logger->info("get_sample_ptr  id {}  sz {}", index, *len);
+    return EXIT_SUCCESS;
+}
+

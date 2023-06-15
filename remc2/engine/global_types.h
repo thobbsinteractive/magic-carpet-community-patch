@@ -362,6 +362,10 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 	type_str_160* dword_0xA0_160x;//160 //special settings
 	//uint16_t word_0xA2_162;//162
 	type_str_164* dword_0xA4_164x;//100 // adress of xx
+	int16_t play_ch;                    ///< play channel currently used to play this entity's sound sample
+	uint64_t play_mark;                 ///< when this entity is supposed to play it's sound sample (in ms)
+	uint32_t dist;                      ///< distance between this entity and the listener
+	uint64_t dist_mark;                 ///< when should the distance be recalculated (in ms)
 }
 type_event_0x6E8E;
 

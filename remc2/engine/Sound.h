@@ -257,5 +257,6 @@ void SetSoundFreq_9A230(int a1);
 void WriteWaveToFile(wav_t* wav, const char* name);
 void AIL_fix();
 const char* mygetenv(const char* a1);
+uint8_t get_sample_ptr(const uint8_t index, uint8_t ** data, int32_t * len);
 
 #endif //MAIN_SOUND
