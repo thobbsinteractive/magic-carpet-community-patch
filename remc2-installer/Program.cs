@@ -93,7 +93,8 @@ namespace remc2_installer
                                     new Files(@"..\enhancedassets\music-ogg\*.*")),
                                  new Dir(@"Extract",
                                     new File(@"Extract\dosboxExtract-GOG-CD.conf"),
-                                    new File(@"Extract\XXCOPY16.EXE"))),
+                                    new File(@"Extract\XXCOPY16.EXE"),
+									new File(@"Extract\mpxplay.exe"))),
                             new Property("HIGHTEX", "yes"),
                             new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed));
 
@@ -101,7 +102,7 @@ namespace remc2_installer
             project.Platform = Platform.x64;
 #endif
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
-			project.Version = new Version(0, 9, 3, 0);
+			project.Version = new Version(0, 9, 4, 0);
 
 			//project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
 			//project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
