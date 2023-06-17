@@ -651,4 +651,6 @@ void initposistruct();
 void Initialize();
 int /*__cdecl*/ sub_main(int argc, char **argv, char **envp);
 
+void disable_speech(void);
+
 #endif //SUB_MAIN_ACTIVE
