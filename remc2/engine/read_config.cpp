@@ -147,7 +147,8 @@ bool readini() {
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
-	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0)
+	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0 
+		&& std::filesystem::is_directory(GetSubDirectoryPath(bigGraphicsFolder)))
 	{
 		bigSprites = true;
 		bigTextures = true;
