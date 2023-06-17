@@ -465,6 +465,12 @@
     <ClInclude Include="portability\port_sdl_joystick.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="portability\port_openal.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="portability\port_sound_lut.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -780,6 +786,9 @@
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="portability\port_sdl_joystick.cpp">
+      <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="portability\port_openal.cpp">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
   </ItemGroup>
