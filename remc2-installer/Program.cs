@@ -120,7 +120,8 @@ namespace remc2_installer
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
                                            .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
-                                           .Add(Dialogs.Exit);
+										   .Add<GameDataDialog>()
+										   .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
             project.ControlPanelInfo.Comments = "Enhanced Edition of Magic Carpet 2";
