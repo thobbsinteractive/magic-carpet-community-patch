@@ -231,10 +231,7 @@ namespace WixSharpSetup
             {
                 if (Directory.Exists(Path.Combine(path, "Extract")))
                 {
-                    if (!Directory.Exists(Path.Combine(gamePath, "Extract")))
-                    {
-                        Utils.CopyDirectory(Path.Combine(path, "Extract"), Path.Combine(gamePath, "Extract"), true);
-                    }
+					Utils.CopyDirectory(Path.Combine(path, "Extract"), Path.Combine(gamePath, "Extract"), true);
                 }
                 else
                 {
@@ -557,15 +554,13 @@ namespace WixSharpSetup
 				MessageBox.Show("Extraction was successful. Click [Next] to finish", "Success", MessageBoxButtons.OK);
 				btnNext.Enabled = true;
 			}
-			else
-			{
-				btnBrowse.Enabled = true;
-				btnRun.Enabled = true;
-				btnNext.Enabled = true;
-				txtPath.Enabled = true;
-				cboInstallLocation.Enabled = true;
-			}
-        }
+
+			btnBrowse.Enabled = true;
+			btnRun.Enabled = true;
+			btnNext.Enabled = true;
+			txtPath.Enabled = true;
+			cboInstallLocation.Enabled = true;
+		}
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
