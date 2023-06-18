@@ -49,6 +49,7 @@ remc2-test/Debug
 **/music-ogg
 **/config.ini
 **/BufferOut
+**/vcpkg_installed
 /build*
 flatpak/build-dir
 .flatpak*
