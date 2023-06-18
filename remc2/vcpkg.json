@@ -2,7 +2,8 @@
     "name": "remc2",
     "version": "0.9.4",
     "dependencies": [
-		"libvorbis"
+		"libvorbis",
+		"libogg"
     ],
 	"builtin-baseline": "3426db05b996481ca31e95fff3734cf23e0f51bc"
 }
