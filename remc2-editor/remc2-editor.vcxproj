@@ -123,15 +123,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;$(SolutionDir)sdl2\VisualC\Win32\Debug;$(SolutionDir)Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;$(SolutionDir)SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)SDL2_image-2.0.5\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;ogg.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;$(SolutionDir)sdl2\VisualC\Win32\Debug;$(SolutionDir)Debug;$(SolutionDir)sdl2_mixer\VisualC\Win32\Debug;$(SolutionDir)SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)SDL2_image-2.0.5\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -153,7 +153,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -162,8 +162,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Release;$(SolutionDir)sdl2\VisualC\Win32\Release;$(SolutionDir)Release;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Release;$(SolutionDir)sdl2_mixer\VisualC\Win32\Release;$(SolutionDir)SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)SDL2_image-2.0.5\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;ogg.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Release;$(SolutionDir)sdl2\VisualC\Win32\Release;$(SolutionDir)Release;$(SolutionDir)sdl2_mixer\VisualC\Win32\Release;$(SolutionDir)SDL2_ttf-2.0.15\lib\x86;$(SolutionDir)SDL2_image-2.0.5\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -183,15 +183,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;$(SolutionDir)sdl2\VisualC\x64\Debug;$(SolutionDir)x64\Debug;$(SolutionDir)zlib-64\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug;$(SolutionDir)sdl2_mixer\VisualC\x64\Debug;$(SolutionDir)SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;ogg.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;$(SolutionDir)sdl2\VisualC\x64\Debug;$(SolutionDir)x64\Debug;$(SolutionDir)sdl2_mixer\VisualC\x64\Debug;$(SolutionDir)SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -213,7 +213,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -222,8 +222,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;ogg.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Release;$(SolutionDir)sdl2\VisualC\x64\Release;$(SolutionDir)x64\Release;$(SolutionDir)zlib-64\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Release;$(SolutionDir)sdl2_mixer\VisualC\x64\Release;$(SolutionDir)SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;timidity.lib;native_midi.lib;SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Release;$(SolutionDir)sdl2\VisualC\x64\Release;$(SolutionDir)x64\Release;$(SolutionDir)sdl2_mixer\VisualC\x64\Release;$(SolutionDir)SDL2_ttf-2.0.15\lib\x64;$(SolutionDir)SDL2_image-2.0.5\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
