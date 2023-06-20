@@ -594,15 +594,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib" />
-    <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
-      </ExcludedFromBuild>
-    </Library>
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="font\16x16-font.bmp">
       <DeploymentContent>true</DeploymentContent>
     </Image>
