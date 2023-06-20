@@ -37,9 +37,6 @@
     <Filter Include="Source Files\libs\inih">
       <UniqueIdentifier>{88c3818e-fa9e-47cd-9191-d23071ee450d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\libs\sdl-image">
-      <UniqueIdentifier>{59b0bf29-bc92-4444-a34f-c199f5de56c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\libs\sdl-ttf">
       <UniqueIdentifier>{1d61dcf1-3c1a-4a47-8271-a8ce53ef3ff8}</UniqueIdentifier>
     </Filter>
@@ -859,17 +856,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib">
-      <Filter>Source Files\libs\sdl-image</Filter>
-    </Library>
     <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
       <Filter>Source Files\libs\sdl-ttf</Filter>
     </Library>
     <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib">
       <Filter>Source Files\libs\sdl-ttf</Filter>
-    </Library>
-    <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib">
-      <Filter>Source Files\libs\sdl-image</Filter>
     </Library>
   </ItemGroup>
   <ItemGroup>
