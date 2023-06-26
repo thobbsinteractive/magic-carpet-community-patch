@@ -5,6 +5,7 @@
 		"libvorbis",
 		"libogg",
 		"libpng",
+		"sdl2",
 		"sdl2-mixer"
     ],
 	"builtin-baseline": "288e8bebf4ca67c1f8ebd49366b03650cfd9eb7d"

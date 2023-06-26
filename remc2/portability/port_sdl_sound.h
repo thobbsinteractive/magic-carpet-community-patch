@@ -9,7 +9,7 @@
 #define SOUND_SDLMIXER
 
 #ifdef _MSC_VER
-	#include "SDL.h"
+	#include "SDL2/SDL.h"
 #ifdef SOUND_SDLMIXER
 	#include "SDL2/SDL_mixer.h"
 #endif

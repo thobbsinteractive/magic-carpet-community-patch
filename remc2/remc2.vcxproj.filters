@@ -16,9 +16,6 @@
     <Filter Include="Source Files\engine">
       <UniqueIdentifier>{226f2cc7-6c68-4f39-ab8d-24eefc9e6d28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sdl">
-      <UniqueIdentifier>{0b9261b4-dda7-45c4-a93c-23eae6176727}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\portability">
       <UniqueIdentifier>{01d93e33-43df-4fd3-8b70-5b751cd75b6f}</UniqueIdentifier>
     </Filter>

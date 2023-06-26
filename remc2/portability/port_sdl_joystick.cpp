@@ -12,11 +12,7 @@
 #include <cstdint>
 #include <stdio.h>
 
-#ifdef _MSC_VER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#include "SDL2/SDL.h"
 
 #include "../engine/sub_main_mouse.h"
 #include "../engine/read_config.h"
