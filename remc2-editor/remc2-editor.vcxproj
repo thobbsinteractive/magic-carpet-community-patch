@@ -123,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -131,17 +131,11 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\Debug;$(SolutionDir)sdl2\VisualC\Win32\Debug;$(SolutionDir)Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2maind.lib;adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
         XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
-		XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
-		COPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)libpng16-16.dll" /Y
-		XCOPY "$(SolutionDir)SDL2_image-2.0.5\lib\x86\SDL2_Image.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x86\libfreetype-6.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -153,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -162,18 +156,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Release;$(SolutionDir)sdl2\VisualC\Win32\Release;$(SolutionDir)Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\Release;$(SolutionDir)Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
         XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
-		XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
-		COPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Release\libpng.dll" "$(TargetDir)libpng16-16.dll" /Y
-		XCOPY "$(SolutionDir)SDL2_image-2.0.5\lib\x86\SDL2_Image.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x86\libfreetype-6.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -183,7 +171,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -191,17 +179,11 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Debug;$(SolutionDir)sdl2\VisualC\x64\Debug;$(SolutionDir)x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2maind.lib;adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
 	  XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
-	  XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
-	  COPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)libpng16-16.dll" /Y
-	  XCOPY "$(SolutionDir)SDL2_image-2.0.5\lib\x64\SDL2_Image.dll" "$(TargetDir)" /Y
-	  XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x64\libfreetype-6.dll" "$(TargetDir)" /Y
-	  XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.dll" "$(TargetDir)" /Y
-	  XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -213,7 +195,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)inih;$(SolutionDir)kiss_sdl-master;$(SolutionDir)rapidjson;$(SolutionDir)spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -222,18 +204,12 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;remc2.lib;SDL2.lib;SDL2main.lib;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Release;$(SolutionDir)sdl2\VisualC\x64\Release;$(SolutionDir)x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;adldata;adlmidi;adlmidi_load;adlmidi_opl3;adlmidi_private;adlmidi_sequencer;adlmidi_midiplay;XUnk_D4350;Unk_D4A30;Unk_D47E0;Type_WORD_D951C;Type_D404C;dbopl;dosbox_opl3;Compare;Type_D94F0_Bldgprmbuffer;Type_D93C0_Bldgprmbuffer;Type_SecretMapScreenPortals_E2970;Type_MapScreenPortals_E17CC;MenusAndIntros;ProjectionPolygon;Network;port_net;RenderThread;GameRenderOriginal;GameRenderHD;GameRenderNG;TextureMaps;Maths;Animation;Sound;CommandLineParser;ini;INIReader;read_config;Basic;BitmapIO;DataFileIO;port_outputs;sub_main;port_sdl_sound;port_sdl_vga_mouse;port_sdl_joystick;dirent;fcaseopen;port_filesystem;port_show_perifery;port_time;engine_support;Terrain;ViewPort;xmi2mid;wopl_file;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)remc2\x64\Release;$(SolutionDir)x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
         XCOPY "$(ProjectDir)kiss" "$(TargetDir)kiss\" /S /Y
-		XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
-		COPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Release\libpng.dll" "$(TargetDir)libpng16-16.dll" /Y
-		XCOPY "$(SolutionDir)SDL2_image-2.0.5\lib\x64\SDL2_Image.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x64\libfreetype-6.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /Y
       </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
