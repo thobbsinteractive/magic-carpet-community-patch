@@ -2,8 +2,11 @@
     "name": "remc2-regression-test",
     "version": "0.9.4",
     "dependencies": [
+		"libvorbis",
 		"libogg",
-		"libpng"
+		"libpng",
+		"sdl2",
+		"sdl2-mixer"
     ],
-	"builtin-baseline": "3426db05b996481ca31e95fff3734cf23e0f51bc"
+	"builtin-baseline": "288e8bebf4ca67c1f8ebd49366b03650cfd9eb7d"
 }

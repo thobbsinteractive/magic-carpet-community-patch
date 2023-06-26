@@ -47,8 +47,8 @@ Global
 		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug|x64.Build.0 = Debug|x64
 		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug|x86.ActiveCfg = Debug|Win32
 		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug|x86.Build.0 = Debug|Win32
-		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug-Deploy-Enhanced-Assets|x64.ActiveCfg = Debug|x64
-		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug-Deploy-Enhanced-Assets|x64.Build.0 = Debug|x64
+		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug-Deploy-Enhanced-Assets|x64.ActiveCfg = Release|x64
+		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug-Deploy-Enhanced-Assets|x64.Build.0 = Release|x64
 		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug-Deploy-Enhanced-Assets|x86.ActiveCfg = Debug|Win32
 		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Debug-Deploy-Enhanced-Assets|x86.Build.0 = Debug|Win32
 		{5A8F70A7-DFC4-4103-BFC2-C8E212918A73}.Release|x64.ActiveCfg = Release|x64
