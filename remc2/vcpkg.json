@@ -2,6 +2,7 @@
     "name": "remc2",
     "version": "0.9.4",
     "dependencies": [
+		"rapidjson",
 		"spdlog",
 		"libvorbis",
 		"libogg",
