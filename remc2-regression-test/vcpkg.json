@@ -2,6 +2,7 @@
     "name": "remc2-regression-test",
     "version": "0.9.4",
     "dependencies": [
+		"spdlog",
 		"libvorbis",
 		"libogg",
 		"libpng",

@@ -2,6 +2,7 @@
     "name": "remc2-editor",
     "version": "0.9.4",
     "dependencies": [
+		"spdlog",
 		"libogg",
 		"libpng",
 		"sdl2-mixer",
