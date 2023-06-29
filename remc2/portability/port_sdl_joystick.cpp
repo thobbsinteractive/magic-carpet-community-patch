@@ -127,7 +127,7 @@ void gamepad_sdl_init(void)
 					hs.cap = SDL_HapticQuery(m_haptic);
 					hs.rumble = SDL_HapticRumbleSupported(m_haptic);
 #ifdef _MSC_VER
-					hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
+					//hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
 #endif
 					hs.initialized = 1;
 					hs.enabled = 1;
@@ -781,7 +781,7 @@ void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t str
 		return;
 	}
 #ifdef _MSC_VER
-	SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
+	//SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
 #endif
 }
 
