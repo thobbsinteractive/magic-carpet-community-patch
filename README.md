@@ -6,7 +6,7 @@ Tomas has done amazing work, not only reverse engineering this code but updating
 ## Download the latest Alpha Here (now with MSI Installer)! ##
 https://github.com/thobbsinteractive/magic-carpet-2-hd/releases/latest
 
-### Install Guide for GOG Edition ###
+### Install Guide for GOG Edition or from Magic Carpet CD ###
 #### Windows ####
 - 1: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
 - 2: Install the Game.
@@ -43,20 +43,15 @@ Moburma has been tirelessly working to document cut levels, level data structure
 ## Steps: to build and run this code
 
 ### Windows:
-- 1: Pull the development branch
-- 2: You can build either x64 or 32 bit versions
-- 3: Open the Solution file "\libpng2\libpng-master\projects\vstudio2017\vstudio.sln" and build it in your prefered config (x64, x86). This builds the libpn2 library
-- 4: Open the Solution file "\sdl2\VisualC\SDL.sln" and build it in your prefered config (x64, x86). This builds the SDL2 library
-- 5: Open the Solution file "\sdl2_mixer\VisualC\SDL_mixer.sln" and build it in your prefered config (x64, x86). This builds the SDL_Mixer library
-- 6: Open the Solution file "\libogg\win32\VS2015\libogg_static.sln" and build it in your prefered config (x64, x86). This builds the libogg library
-- 7: Open the Solution file "\libvorbis\win32\VS2010\vorbis_static.sln" and build it in your prefered config (x64, x86). This builds the vorbis library
-- 8: Close that solution and open "remc2.sln" in your prefered config (x64, x86).
-- 9: Build the code
-- 10: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
-- 11: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\" Folder
-- 12: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
-- 13: Move "CD_Files" directory into the "remc2\Debug" Folder
-- 14: Run
+- 1: Install the latest version of Visual Studio 2022 Community. Ensure you install [vcpkg](https://devblogs.microsoft.com/cppblog/vcpkg-is-now-included-with-visual-studio/)
+- 2: Pull the development branch
+- 3: Open "remc2.sln", you can build either x64 or 32 bit versions
+- 4: Build the code
+- 5: Purchase a copy of Magic Carpet 2 from GOG here: https://www.gog.com/game/magic_carpet_2_the_netherworlds
+- 6: Install the Game. Copy the "NETHERW" directory to "remc2\Debug\" Folder
+- 7: Copy the "Extract" folder to your Game Directory, run extract-GOG-CD.bat. The CD Data will now be copied to a directory called "CD_Files" in the "Extract" directory
+- 8: Move "CD_Files" directory into the "remc2\Debug" Folder
+- 9: Run
 
 ### Linux:
 

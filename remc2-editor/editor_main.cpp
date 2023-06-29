@@ -9,11 +9,8 @@ using namespace std;
 
 #include "png.h"
 
-#ifdef _MSC_VER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#include "SDL2/SDL.h"
+
 #include "editor.h"
 
 int main(int argc, char* argv[])
