@@ -65,16 +65,36 @@ namespace remc2_installer
 									}
 								 },
 #if WIN64
-								 new File(@"..\x64\Release\libfreetype-6.dll"),
-								 new File(@"..\x64\Release\libpng16-16.dll"),
+								 new File(@"..\x64\Release\fmt.dll"),
+								 new File(@"..\x64\Release\ogg.dll"),
 								 new File(@"..\x64\Release\SDL2.dll"),
+								 new File(@"..\x64\Release\SDL2_mixer.dll"),
+								 new File(@"..\x64\Release\vorbis.dll"),
+								 new File(@"..\x64\Release\vorbisfile.dll"),
+
+								 //Required by the editor
+								 new File(@"..\x64\Release\brotlicommon.dll"),
+								 new File(@"..\x64\Release\brotlidec.dll"),
+								 new File(@"..\x64\Release\bz2.dll"),
+								 new File(@"..\x64\Release\freetype.dll"),
+								 new File(@"..\x64\Release\libpng16.dll"),
 								 new File(@"..\x64\Release\SDL2_image.dll"),
 								 new File(@"..\x64\Release\SDL2_ttf.dll"),
 								 new File(@"..\x64\Release\zlib1.dll"),
 #else
-                                 new File(@"..\Release\libfreetype-6.dll"),
-								 new File(@"..\Release\libpng16-16.dll"),
+								 new File(@"..\Release\fmt.dll"),
+								 new File(@"..\Release\ogg.dll"),
 								 new File(@"..\Release\SDL2.dll"),
+								 new File(@"..\Release\SDL2_mixer.dll"),
+								 new File(@"..\Release\vorbis.dll"),
+								 new File(@"..\Release\vorbisfile.dll"),
+
+								 //Required by the editor
+								 new File(@"..\Release\brotlicommon.dll"),
+								 new File(@"..\Release\brotlidec.dll"),
+								 new File(@"..\Release\bz2.dll"),
+								 new File(@"..\Release\freetype.dll"),
+								 new File(@"..\Release\libpng16.dll"),
 								 new File(@"..\Release\SDL2_image.dll"),
 								 new File(@"..\Release\SDL2_ttf.dll"),
 								 new File(@"..\Release\zlib1.dll"),
@@ -115,12 +135,14 @@ namespace remc2_installer
                                             .Add<EnhancedDataDialog>()
                                             .Add(Dialogs.Progress)
                                             .Add<GameDataDialog>()
-                                            .Add(Dialogs.Exit);
+											.Add<ReleaseNotesDialog>()
+											.Add(Dialogs.Exit);
 
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
                                            .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
 										   .Add<GameDataDialog>()
+										   .Add<ReleaseNotesDialog>()
 										   .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
@@ -155,7 +177,7 @@ namespace remc2_installer
         {
             if (e.IsUninstalling)
             {
-				if (MessageBox.Show("Would you like to keep your Save Game data?", "Keep Save files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+				if (MessageBox.Show("Would you like to keep your Save and Game data?", "Keep Game/Save files?", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
 				{
 					var path = e.InstallDir;
 					if (path.IsDirectory())
