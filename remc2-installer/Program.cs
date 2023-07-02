@@ -99,6 +99,7 @@ namespace remc2_installer
 								 new File(@"..\Release\SDL2_ttf.dll"),
 								 new File(@"..\Release\zlib1.dll"),
 #endif
+								 new File(@"release_notes.rtf"),
 								 new File(@"Extract.bat"),
 								 new Dir(@"kiss",
 									new Files(@"..\Release\kiss\*.*")),
@@ -122,7 +123,7 @@ namespace remc2_installer
             project.Platform = Platform.x64;
 #endif
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
-			project.Version = new Version(0, 9, 4, 0);
+			project.Version = new Version(0, 9, 3, 0);
 
 			//project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
 			//project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
@@ -139,7 +140,8 @@ namespace remc2_installer
 											.Add(Dialogs.Exit);
 
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
-                                           .Add<EnhancedDataDialog>()
+										   .Add(Dialogs.Licence)
+										   .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
 										   .Add<GameDataDialog>()
 										   .Add<ReleaseNotesDialog>()
