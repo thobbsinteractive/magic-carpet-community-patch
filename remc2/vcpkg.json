@@ -2,7 +2,7 @@
     "name": "remc2",
     "version": "0.9.4",
     "dependencies": [
-		"openal-soft"
+		"openal-soft",
 		"rapidjson",
 		"spdlog",
 		"libvorbis",
