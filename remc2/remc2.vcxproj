@@ -118,6 +118,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -126,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;WINDOWS_IGNORE_PACKING_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\spdlog\include;$(SolutionDir)\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)inih;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -135,14 +138,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\Win32\Debug\;$(SolutionDir)Debug;$(SolutionDir)libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)libogg\win32\VS2015\Win32\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
-	  	XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -155,7 +155,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\spdlog\include;$(SolutionDir)\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)inih;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -164,14 +164,11 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\Win32\Debug\;$(SolutionDir)Debug;$(SolutionDir)libvorbis\win32\VS2010\Win32\Debug;$(SolutionDir)libogg\win32\VS2015\Win32\Debug;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
-	    XCOPY "$(SolutionDir)zlib\bin\zlib1.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Debug\libpng.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
@@ -185,7 +182,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)libOPNMIDI-master\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libvorbis\include;$(SolutionDir)libogg\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)zlib-64\include;$(SolutionDir)kiss_sdl-master;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL-Mixer-X-master\src\codecs\;$(SolutionDir)spdlog\include;$(SolutionDir)rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)inih;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
@@ -198,14 +195,11 @@
       <TargetMachine>MachineX64</TargetMachine>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\x64\Debug\;$(SolutionDir)x64\Debug;$(SolutionDir)libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)libogg\win32\VS2015\x64\Debug;$(SolutionDir)zlib-64\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
-	    XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
-	    XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -218,7 +212,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)sdl2\include;$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)libOPNMIDI-master\include;$(SolutionDir)SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)SDL-Mixer-X-master\src;$(SolutionDir)inih;$(SolutionDir)libvorbis\include;$(SolutionDir)libogg\include;$(SolutionDir)libpng2\libpng-master;$(SolutionDir)zlib-64\include;$(SolutionDir)kiss_sdl-master;$(SolutionDir)SDL2_image-2.0.5\include;$(SolutionDir)SDL2_ttf-2.0.15\include;$(SolutionDir)SDL-Mixer-X-master\src\codecs\;$(SolutionDir)spdlog\include;$(SolutionDir)rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)inih;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OmitFramePointers>false</OmitFramePointers>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
@@ -231,14 +225,11 @@
       <TargetMachine>MachineX64</TargetMachine>
       <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\x64\Debug\;$(SolutionDir)x64\Debug;$(SolutionDir)libvorbis\win32\VS2010\x64\Debug;$(SolutionDir)libogg\win32\VS2015\x64\Debug;$(SolutionDir)zlib-64\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2maind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>
-	    XCOPY "$(SolutionDir)zlib-64\bin\zlib1.dll" "$(TargetDir)" /Y
-	    XCOPY "$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\x64\Debug\libpng.dll" "$(TargetDir)" /Y
-		XCOPY "$(SolutionDir)sdl2\VisualC\x64\Debug\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\biggraphics" "$(TargetDir)biggraphics\" /S /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
@@ -254,7 +245,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;C:\Program Files %28x86%29\Visual Leak Detector\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\OpenAL 1.1 SDK\include;$(SolutionDir)\spdlog\include;$(SolutionDir)\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)inih;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -265,8 +256,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\Win32\Release;$(SolutionDir)fluidsynth\lib;$(SolutionDir)libogg\win32\VS2015\Win32\Release;$(SolutionDir)libvorbis\win32\VS2010\Win32\Release;$(SolutionDir)zlib\lib;$(SolutionDir)libpng2\libpng-master\projects\vstudio2017\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;zlib.lib;libpng.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -274,7 +265,6 @@
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)sdl2\VisualC\Win32\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -292,7 +282,7 @@
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)\sdl2\include;$(SolutionDir)\fluidsynth\include;$(SolutionDir)\libADLMIDI-master\include;$(SolutionDir)\libOPNMIDI-master\include;$(SolutionDir)\SDL-Mixer-X-master\include\SDL_mixer_ext;$(SolutionDir)\SDL-Mixer-X-master\src;$(SolutionDir)\inih;$(SolutionDir)\libvorbis\include;$(SolutionDir)\libogg\include;$(SolutionDir)\libpng2\libpng-master;$(SolutionDir)\zlib\include;$(SolutionDir)\kiss_sdl-master;$(SolutionDir)\SDL2_image-2.0.5\include;$(SolutionDir)\SDL2_ttf-2.0.15\include;$(SolutionDir)\SDL-Mixer-X-master\include\;$(SolutionDir)\SDL-Mixer-X-master\src\codecs\;$(SolutionDir)\spdlog\include;$(SolutionDir)\rapidjson;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libADLMIDI-master\include;$(SolutionDir)inih;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
@@ -300,10 +290,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)sdl2\VisualC\x64\Release;$(SolutionDir)x64\Release;$(SolutionDir)fluidsynth\lib;$(SolutionDir)libogg\win32\VS2015\x64\Release;$(SolutionDir)libvorbis\win32\VS2010\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>
       </AdditionalManifestDependencies>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;winmm.lib;libvorbis_static.lib;libvorbisfile_static.lib;libogg_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>
@@ -311,7 +301,6 @@
         XCOPY "$(SolutionDir)Install Guide.txt" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)EXTRACT" "$(TargetDir)EXTRACT\" /S /Y
         XCOPY "$(SolutionDir)remc2\font" "$(TargetDir)font\" /S /Y
-        XCOPY "$(SolutionDir)sdl2\VisualC\x64\Release\SDL2.dll" "$(TargetDir)" /Y
         XCOPY "$(SolutionDir)enhancedassets\music-ogg" "$(TargetDir)music-ogg\" /S /Y
       </Command>
     </PostBuildEvent>
@@ -341,54 +330,6 @@
     <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer.hpp" />
     <ClInclude Include="..\libADLMIDI-master\src\midi_sequencer_impl.hpp" />
     <ClInclude Include="..\libADLMIDI-master\src\wopl\wopl_file.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\gens_opn2.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\gx_opn2.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mamedef.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\mame_opn2.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\nuked_opn2.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\chips\opn_chip_base.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\cvt_mus2mid.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\cvt_xmi2mid.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\file_reader.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\fraction.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\midi_sequencer_impl.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnbank.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_bankmap.h" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_cvt.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_midiplay.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_opn2.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_private.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\opnmidi_ptr.hpp" />
-    <ClInclude Include="..\libOPNMIDI-master\src\wopn\wopn_file.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\include\SDL_mixer_ext\SDL_mixer_ext.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\load_voc.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_flac.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_gme.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mad.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_opus.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\music_wav.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\effects_internal.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\mixer.h" />
-    <ClInclude Include="..\SDL-Mixer-X-master\src\music.h" />
     <ClInclude Include="engine\Animation.h" />
     <ClInclude Include="engine\Basic.h" />
     <ClInclude Include="engine\CommandLineParser.h" />
@@ -470,49 +411,6 @@
     <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\chips\nuked_opl3_v174.cpp" />
     <ClCompile Include="..\libADLMIDI-master\src\wopl\wopl_file.c" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens\Ym2612_Emu.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\gens_opn2.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx\gx_ym2612.c" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\gx_opn2.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame\mame_ym2612fm.c" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\mame_opn2.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked\ym3438.c" />
-    <ClCompile Include="..\libOPNMIDI-master\src\chips\nuked_opn2.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_load.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_midiplay.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_opn2.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_private.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\opnmidi_sequencer.cpp" />
-    <ClCompile Include="..\libOPNMIDI-master\src\wopn\wopn_file.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_aiff.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\load_voc.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_cmd.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_flac.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_fluidsynth.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_gme.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_id3tag.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mad.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mikmod.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_modplug.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_mpg123.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_nativemidi.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_ogg.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_opus.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_smpeg.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_timidity.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\music_wav.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_common.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_haiku.cpp" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_mac.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_macosx.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\codecs\native_midi\native_midi_win32.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\effects_internal.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_position.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\effect_stereoreverse.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\mixer_x_deprecated.c" />
-    <ClCompile Include="..\SDL-Mixer-X-master\src\music.c" />
     <ClCompile Include="engine\Animation.cpp" />
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\CommandLineParser.cpp" />
@@ -575,39 +473,10 @@
     </None>
     <None Include="..\libADLMIDI-master\src\adlmidi_bankmap.tcc" />
     <None Include="..\libADLMIDI-master\src\chips\opl_chip_base.tcc" />
-    <None Include="..\libOPNMIDI-master\src\chips\opn_chip_base.tcc" />
-    <None Include="..\libOPNMIDI-master\src\opnmidi_bankmap.tcc" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_cmdmusic.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_flac.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_gme.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_id3tag.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mad.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_adl.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_fluid.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_native.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_opn.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_midi_timidity.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mikmod.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_modplug.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_mpg123.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_ogg.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_smpeg.pri" />
-    <None Include="..\SDL-Mixer-X-master\src\codecs\play_wave.pri" />
     <None Include="engine\bytearrays.x" />
     <None Include="engine\info.x" />
     <None Include="engine\structures.x" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\SDL2_image-2.0.5\lib\x64\SDL2_image.lib" />
-    <Library Include="..\SDL2_image-2.0.5\lib\x86\SDL2_image.lib" />
-    <Library Include="..\SDL2_ttf-2.0.15\lib\x64\SDL2_ttf.lib" />
-    <Library Include="..\SDL2_ttf-2.0.15\lib\x86\SDL2_ttf.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug-Deploy-Enhanced-Assets|x64'">
-      </ExcludedFromBuild>
-    </Library>
   </ItemGroup>
   <ItemGroup>
     <Image Include="font\16x16-font.bmp">
@@ -623,7 +492,7 @@
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Tenhle projekt odkazuje na balíčky NuGet, které nejsou v tomhle počítači k dispozici. Když je chcete stáhnout, použijte funkci obnovení balíčků NuGet.  Další informace najdete na adrese http://go.microsoft.com/fwlink/?LinkID=322105. Chybějícím souborem je soubor {0}.</ErrorText>
+      <ErrorText>This project references NuGet packages that are not available on this machine. When you want to download them, use the NuGet package restore feature. For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is file {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\boost.1.79.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.79.0\build\boost.targets'))" />
   </Target>

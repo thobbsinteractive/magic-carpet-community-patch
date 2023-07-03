@@ -49,6 +49,7 @@ remc2-test/Debug
 **/music-ogg
 **/config.ini
 **/BufferOut
+**/vcpkg_installed
 /build*
 flatpak/build-dir
 .flatpak*
@@ -247,3 +248,4 @@ tags
 /libvorbis/win32/VS2010/Win32/Debug/libvorbis_static.lib
 /libvorbis/win32/VS2010/x64/Debug/libvorbisfile_static.lib
 /libvorbis/win32/VS2010/x64/Debug/libvorbis_static.lib
+remc2-editor/log-editor.txt
