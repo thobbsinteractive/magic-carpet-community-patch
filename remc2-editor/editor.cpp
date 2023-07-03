@@ -8,7 +8,7 @@ int minimapy = 0;
 
 int maptype = 0;
 int maptypefeat = 0;
-int actlevel = 1;
+int actlevel = 0;
 int first_terrain_feature = 1;
 
 float terrainzoom = 1;
@@ -56,6 +56,7 @@ typedef struct {
 	int y;
 } TypePos;
 
+std::vector<int> m_mc2validLevelIndexes;
 
 TypePos RelPos[21];
 
@@ -88,8 +89,29 @@ void init_pal() {
 	VGA_Set_Palette2(temppal);
 };
 
-void clean_tarrain()
+void clean_terrain()
 {
+	type_entity_0x30311* empty = new type_entity_0x30311[1200];
+
+	for (int i = 0; i < 0x4b0; i++)
+	{
+		empty->axis2d_4.x = 0;
+		empty->axis2d_4.y = 0;
+		empty->DisId = 0;
+		empty->par1_14 = 0;
+		empty->par2_16 = 0;
+		empty->par3_18 = 0;
+		empty->stageTag_12 = 0;
+		empty->subtype_0x30311 = 0;
+		empty->type_0x30311 = 0;
+		empty->word_10 = 0;
+	}
+
+	memcpy(temparray_0x30311, empty, sizeof(type_entity_0x30311) * 0x4b0);
+	for (int i = 0; i < 0x4b0; i++)
+		temparray_0x30311_inactive[i] = 0;
+	for (int i = 0; i < 0x4b0; i++)
+		temparray_0x30311_selected[i] = 0;
 }
 
 void editor_loop();
@@ -161,7 +183,7 @@ void editor_run(std::string gameFolderParam, std::string cdFolderParam)
 	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	D41A0_0.terrain_2FECE.rkSte_0x2FF11 = 0;
 	//init_pal();
-	clean_tarrain();
+	clean_terrain();
 	loadlevel(0);
 	terrain_recalculate();
 
@@ -908,26 +930,6 @@ static void button_cancel_event(kiss_button* button, SDL_Event* e,
 	}//*quit = 1;
 }
 
-static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry *txtFilePath)
-{
-	if (kiss_button_event(button, e, draw))
-	{
-		char fileName[KISS_MAX_LENGTH];
-		sprintf(fileName, "%s.mc2", txtFilePath->text);
-		char path[512];
-		FixDir(path, fileName);
-		if (std::filesystem::exists(path))
-		{
-			FILE* file = fopen(path, "rb");
-			fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
-			memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
-			fclose(file);
-			return true;
-		}
-	}//*quit = 1;
-	return false;
-}
-
 int indexUndoPoint = 0;
 const int MaxUndoPoints = 5000;
 int MaxUndoPoints2 = 0;
@@ -980,26 +982,61 @@ void cyclefwrite(char* buffer,int size,FILE* file)
 	fwrite(buffercount * buffersize + buffer, 1, nextbuffer, file);
 }
 */
+static void SaveLevelFile(char const text[], char fullPath[KISS_MAX_LENGTH]) {
+	char dir[] = "user-levels";
+	FixDir(fullPath, dir);
+
+	if (!std::filesystem::is_directory(fullPath))
+	{
+		std::filesystem::create_directory(fullPath);
+	}
+
+	char fileName[KISS_MAX_LENGTH];
+	sprintf(fileName, "/user-levels/%s.mc2", text);
+	FixDir(fullPath, fileName);
+
+	FILE* file = fopen(fullPath, "wb");
+	memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
+	fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
+	fclose(file);
+}
+
+static bool LoadLevelFile(char const text[]) {
+	char path[512];
+	char fileName[KISS_MAX_LENGTH];
+	sprintf(fileName, "/user-levels/%s.mc2", text);
+	FixDir(path, fileName);
+
+	if (std::filesystem::exists(path))
+	{
+		FILE* file = fopen(path, "rb");
+		fread(&D41A0_0.terrain_2FECE, sizeof(D41A0_0.terrain_2FECE), 1, file);
+		memcpy(temparray_0x30311, D41A0_0.terrain_2FECE.entity_0x30311, sizeof(D41A0_0.terrain_2FECE.entity_0x30311));
+		fclose(file);
+		return true;
+	}
+}
+
+static bool button_loadlevel_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry* txtFilePath)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		if (strlen(txtFilePath->text) > 0)
+		{
+			return LoadLevelFile(txtFilePath->text);
+		}
+	}//*quit = 1;
+	return false;
+}
+
 static void button_savelevel_event(kiss_button* button, SDL_Event* e,int* draw, kiss_entry* txtFilePath)
 {
 	if (kiss_button_event(button, e, draw))
 	{
 		if (strlen(txtFilePath->text) > 0)
 		{
-			char fileName[KISS_MAX_LENGTH];
-			sprintf(fileName, "%s.mc2", txtFilePath->text);
-			char path[512];
-			FixDir(path, fileName);
-			FILE* file = fopen(path, "wb");
-			memcpy(D41A0_0.terrain_2FECE.entity_0x30311, temparray_0x30311, sizeof(type_entity_0x30311) * 0x4b0);
-			fwrite((void*)&D41A0_0.terrain_2FECE, 1, sizeof(Type_Level_2FECE), file);
-			//cyclefwrite((char*)&D41A0_BYTESTR_0.terrain_2FECE, sizeof(type_str_2FECE), file);
-			/*int buffersize = 1000;
-			int buffercount=
-
-
-			cyclefwrite(&D41A0_BYTESTR_0.terrain_2FECE,sizeof(type_str_2FECE), file);*/
-			fclose(file);
+			char fullPath[KISS_MAX_LENGTH];
+			SaveLevelFile(txtFilePath->text, fullPath);
 		}
 	}//*quit = 1;
 }
@@ -1100,6 +1137,29 @@ static int button_cleanselectedlevelfeat_event(kiss_button* button, SDL_Event* e
 		return 1;
 	}
 	return 0;
+}
+
+static bool button_run_event(kiss_button* button, SDL_Event* e, int* draw, kiss_entry* txtFilePath)
+{
+	if (kiss_button_event(button, e, draw))
+	{
+		char fullPath[KISS_MAX_LENGTH];
+		SaveLevelFile("run-level.tmp", fullPath);
+
+		char path[512];
+		char mc2[] = "remc2.exe";
+		FixDir(path, mc2);
+
+		if (std::filesystem::exists(path) && std::filesystem::exists(fullPath))
+		{
+			char launchpath[512];
+			sprintf(launchpath, "\"\"%s\" --custom_level \"%s\"\"", path, fullPath);
+			Logger->info(launchpath);
+			std::system(launchpath);
+		}		
+		return true;
+	}
+	return false;
 }
 
 static void button_ok_event(kiss_button* button, SDL_Event* e,
@@ -2050,6 +2110,45 @@ void SetUndoPoint() {
 	}
 };
 
+std::vector<int> SetValidMc2LevelIndexes()
+{
+	std::vector<int> mc2validLevelIndexes;
+	for (int i = 0; i < 25; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	mc2validLevelIndexes.push_back(27);
+
+	for (int i = 30; i < 34; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 38; i < 41; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	mc2validLevelIndexes.push_back(46);
+	mc2validLevelIndexes.push_back(48);
+
+	for (int i = 52; i < 75; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	mc2validLevelIndexes.push_back(77);
+
+	for (int i = 80; i < 86; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 87; i < 92; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 93; i < 104; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 105; i < 118; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 120; i < 128; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	return mc2validLevelIndexes;
+}
 
 bool first = true;
 int main_x(/*int argc, char** argv*/)
@@ -2068,8 +2167,9 @@ int main_x(/*int argc, char** argv*/)
 	kiss_label label_vars2 = { 0 };
 	kiss_button button_cancel = { 0 }, button_levelload = { 0 }, button_levelsave = { 0 },
 		button_undo = { 0 }, button_redo = { 0 },
-		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 };
-	
+		button_levelsavecsv = { 0 }, button_cleanlevelfeat = { 0 }, button_cleanselectedlevelfeat = {0}, button_filter = { 0 },
+		button_run = { 0 };
+
 	kiss_label lblFilePath = { 0 };
 	kiss_entry txtFilePath = { 0 };
 
@@ -2198,7 +2298,6 @@ int main_x(/*int argc, char** argv*/)
 	kiss_textbox_new(&textbox2, &window1, 1, &obj_stages, 530, 540, textbox2_width, textbox2_height);
 	kiss_textbox_new(&textbox3, &window1, 1, &obj_vars, 750, 540, textbox3_width, textbox3_height);
 	kiss_entry_new(&txtFilePath, &window1, 1, (char*)"user-level1", 716, 765, 180);
-
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 	Uint32 rmask = 0xff000000;
@@ -2999,6 +3098,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_levelload, &window1, (char*)"LOAD", 530, 700);
 	kiss_button_new(&button_levelsavecsv, &window1, (char*)"S_CSV", 600, 720);
 	kiss_button_new(&button_cleanlevelfeat, &window1, (char*)"CLEAR", 600, 740);
+	kiss_button_new(&button_run, &window1, (char*)"RUN!", 670, 740);
 	
 	kiss_label_new(&lblFilePath, &window1, (char*)"SAVE/LOAD FILE NAME:", 534, 770);
 
@@ -3100,8 +3200,8 @@ int main_x(/*int argc, char** argv*/)
 	kiss_selectbutton_new(&select3, &window1, select2.rect.x + 20, labelSel.rect.y);
 	kiss_selectbutton_new(&select4, &window1, select3.rect.x + 20, labelSel.rect.y);
 
-
-	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 1, 24, 250, 230);
+	m_mc2validLevelIndexes = SetValidMc2LevelIndexes();
+	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 0, 127, 250, 230);
 
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 760);
 
@@ -3217,7 +3317,6 @@ int main_x(/*int argc, char** argv*/)
 	kiss_button_new(&button_check[9], &window_selectcheck, (char*)" ", window_selectcheck.rect.x + kiss_border + 40, window_selectcheck.rect.y + kiss_border + 80, &img_check09);
 	button_check[9].activeimg = img_check09; button_check[9].prelightimg = img_check09;
 	
-
 	kiss_terrain_new(&terraincheck, &window3, mapsurfacecheck, window3.rect.x + kiss_border, window3.rect.y + window3.rect.h - mapimagecheck.h - kiss_border, &terrainzoomcheck, &terrainbeginxcheck, &terrainbeginycheck);
 
 	//dirent_read(&textbox1, &vscrollbar1, &textbox2, &vscrollbar2,&label_sel);
@@ -3436,6 +3535,11 @@ int main_x(/*int argc, char** argv*/)
 				changed2 = true; changed = true; zoomchanged = true;
 			}
 
+			if (button_run_event(&button_run, &e, &draw, &txtFilePath))
+			{
+				
+			}
+
 			for (int i = 0; i < 16; i++)
 			{
 				int retvar = button_type_event(&button_type[i], &e, &draw, i, &window2, &window_selecttype);
@@ -3629,7 +3733,22 @@ int main_x(/*int argc, char** argv*/)
 
 			int terev = kiss_terrain_event(&terrain1, &e, &draw, mousex, mousey, temparray_0x30311, temparray_0x30311_selected);
 
-			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) { loadlevel(actlevel - 1); changed = true; changed2 = true; changed3 = true; }
+			if (kiss_dec1edit_event(&levelSel, &e, &draw) > 0) 
+			{
+				if (std::find(m_mc2validLevelIndexes.begin(), m_mc2validLevelIndexes.end(), actlevel) != m_mc2validLevelIndexes.end()) {
+					loadlevel(actlevel);
+					changed = true;
+					changed2 = true;
+					changed3 = true;
+				}
+				else
+				{
+					clean_terrain();
+					changed = true;
+					changed2 = true;
+					changed3 = true;
+				}
+			}
 
 			if (terev >= 1)
 			{
@@ -3758,6 +3877,7 @@ int main_x(/*int argc, char** argv*/)
 
 		kiss_button_draw(&button_undo, editor_renderer);
 		kiss_button_draw(&button_redo, editor_renderer);
+		kiss_button_draw(&button_run, editor_renderer);
 		//kiss_label_draw(&label_res, editor_renderer);
 		//kiss_progressbar_draw(&progressbar, editor_renderer);
 		//kiss_button_draw(&button_ok2, editor_renderer);

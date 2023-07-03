@@ -12,11 +12,7 @@
 #include <cstdint>
 #include <stdio.h>
 
-#ifdef _MSC_VER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#include "SDL2/SDL.h"
 
 #include "../engine/sub_main_mouse.h"
 #include "../engine/read_config.h"
@@ -130,7 +126,9 @@ void gamepad_sdl_init(void)
 				} else {
 					hs.cap = SDL_HapticQuery(m_haptic);
 					hs.rumble = SDL_HapticRumbleSupported(m_haptic);
+#ifdef _MSC_VER
 					//hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
+#endif
 					hs.initialized = 1;
 					hs.enabled = 1;
 					haptic_load_effects();
@@ -140,7 +138,6 @@ void gamepad_sdl_init(void)
 						}
 					}
 					if (hs.cap & SDL_HAPTIC_GAIN) {
-						Logger->info("gain set to {}", gpc.haptic_gain_max);
 						SDL_HapticSetGain(m_haptic, gpc.haptic_gain_max);
 					}
 					Logger->info("found haptic support (cap {}), effect cnt {}, rumble {}, rumble_trig {}", hs.cap, SDL_HapticNumEffects(m_haptic), hs.rumble, hs.rumble_trig);
@@ -783,6 +780,8 @@ void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t str
 	if ((!hs.enabled) || (!hs.rumble_trig)) {
 		return;
 	}
+#ifdef _MSC_VER
 	//SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
+#endif
 }
 

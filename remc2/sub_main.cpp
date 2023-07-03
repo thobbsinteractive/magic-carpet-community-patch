@@ -641,7 +641,10 @@ x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	#endif*/
 	return 0;
 };// weak
-void outtext(const char* text) { myWriteOut(text);};// weak
+void outtext(const char* text) 
+{ 
+	myWriteOut(text);
+};// weak
 
 POSITION gettextposition(/*x_DWORD, x_DWORD, x_DWORD*/) {
 	return VGA_WhereXY();
@@ -27497,6 +27500,7 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 		v9 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
 		v10 = a3.data;
 		v17 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
+#ifdef _MSC_VER // pointer offset fuckery going on here which later crashes during dereferencing
 		if (a3.height_5)
 		{
 			do
@@ -27507,7 +27511,7 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 					{
 						if (++(*v10))
 							break;
-						v9 = &screenWidth_18062C[v17];
+						v9 = &screenWidth_18062C[v17]; // FIXME no way this is correct
 						v17 += screenWidth_18062C;
 						if (!--v18)
 							return;
@@ -27521,15 +27525,18 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 				v11 = a4;
 				v12 = (char)screenWidth_18062C;
 				v15 = (char)screenWidth_18062C;
+#ifdef _MSC_VER // keep this disabled until v9's address is corrected
 				do
 				{
 					BYTE1(v11) = *v9;
 					*v9++ = x_BYTE_F6EE0_tablesx[0x4000 + v11];
 					--v12;
 				} while (v12);
+#endif
 				v10 += v15;
 			} while (v18);
 		}
+#endif
 	}
 }
 
@@ -51540,7 +51547,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 	sprintf(printbuffer, "%s/%s.TAB", cdPath, fileName);//234FCA - 269F3D5
 	sprintf(printbuffer2, "%s/%s.TAB", gamePath, fileName);//234FE3 - 269F3D5
 	file1 = DataFileIO::CreateOrOpenFile(printbuffer, 0x200);//234FF7 - 279817
-	if (file1 == NULL)//tady asi bude nerovnost
+	if (file1 == NULL)//there will probably be inequality here
 		return 3;
 	file2 = DataFileIO::CreateOrOpenFile(printbuffer2, 0x222);//235012 - 279817
 	if (file2 == NULL)
@@ -53093,56 +53100,20 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
 		gamepad_init(gameResWidth, gameResHeight);
 
-		//char maindir[1024];
 		Logger->info("Finding Game Data...");
 		if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
 		{
-			//myprintf("Original Game Data Not Found, find GOG iso file\n");
-			/*char locexepath[1024];
-			get_exe_path(locexepath);
-			for (int i = 0;i < strlen(locexepath);i++)
+			if (std::filesystem::is_directory(gameDataPath))
 			{
-				if (locexepath[i] == '\\')
-					locexepath[i] = '/';
-			}
-			sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
-			sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
-			//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
-			//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
-			//if (!file_exists(mainfile))//test existing GOG cd iso file
-			{
-				Logger->error("Original game not found in {} folder", gameDataPath.c_str());
-				mydelay(20000);
-				exit(1);//iso not found
-			}
-			/*myprintf("GOG game iso cd founded!\n");
-			sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
-			if (file_exists(mainfile))
-			{
-				myprintf("I found extracted GOG game files!\n");
-				sprintf(gamepath, "%s", maindir);
+				Logger->info("Original game not found in {0} sub folder ", gameFolder);
+				Logger->info("Installing game data from CD_Files...");
 			}
 			else
 			{
-				myprintf("Extracting GOG iso cd...\n");
-				sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
-
-				cd_iso_extract(mainfile, maindir);
-				//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
-
-				//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
-				if (file_exists(mainfile))
-				{
-					myprintf("GOG iso cd extracted!\n");
-					sprintf(gamepath, "%s", maindir);
-				}
-				else
-				{
-					myprintf("Any problem with GOG iso cd extracting\n");
-					mydelay(3000);
-					exit(1);//problem with file extracting
-				}
-			}	*/
+				Logger->error("Sub folder {0} does not exist!", gameFolder);
+				mydelay(5000);
+				exit(1);//iso not found
+			}
 		}
 		else
 		{
@@ -58214,7 +58185,6 @@ void sub_5C800(type_event_0x6E8E* a1x, char a2)//23d800
 	{
 		//result = (short)x_D41A0_BYTEARRAY_4;
 		x_D41A0_BYTEARRAY_4_struct.byteindex_180 = a2;
-		set_scene(SCENE_DEAD);
 	}
 	//return result;
 }
@@ -59348,6 +59318,7 @@ void AddPlayer03_00_5E010(type_event_0x6E8E* a1x)//23f010
 		a1x->state_0x45_69 = 2;
 		a1x->word_0x2C_44 = 0;
 		PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 16);
+		set_scene(SCENE_DEAD);
 	}
 }
 

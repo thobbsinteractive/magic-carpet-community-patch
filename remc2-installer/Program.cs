@@ -34,7 +34,6 @@ namespace remc2_installer
                                         new FilePermission("Users", GenericPermission.All) { Execute = true },
                                         new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
                                         new FilePermission("CREATOR OWNER", GenericPermission.All)  { Execute = true },
-                                        new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
                                     }
                                  },
 #if WIN64
@@ -54,7 +53,6 @@ namespace remc2_installer
 										new FilePermission("Users", GenericPermission.All) { Execute = true },
 										new FilePermission("AuthenticatedUser", GenericPermission.All) { Execute = true },
 										new FilePermission("CREATOR OWNER", GenericPermission.All)  { Execute = true },
-										new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { Execute = true }
 									}
 								 },
 								 new File(@"..\Release\config.ini")
@@ -64,7 +62,6 @@ namespace remc2_installer
 										new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
 										new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
 										new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
-										new FilePermission("ALL APPLICATION PACKAGES", GenericPermission.All)  { ChangePermission = true }
 									}
 								 },
 #if WIN64
@@ -96,7 +93,8 @@ namespace remc2_installer
                                     new Files(@"..\enhancedassets\music-ogg\*.*")),
                                  new Dir(@"Extract",
                                     new File(@"Extract\dosboxExtract-GOG-CD.conf"),
-                                    new File(@"Extract\XXCOPY16.EXE"))),
+                                    new File(@"Extract\XXCOPY16.EXE"),
+									new File(@"Extract\mpxplay.exe"))),
                             new Property("HIGHTEX", "yes"),
                             new ManagedAction(CustomActions.SetEnhancedTextures, Return.check, When.After, Step.InstallFinalize, Condition.NOT_Installed));
 
@@ -104,12 +102,13 @@ namespace remc2_installer
             project.Platform = Platform.x64;
 #endif
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
+			project.Version = new Version(0, 9, 4, 0);
 
-            //project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
-            //project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
+			//project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
+			//project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
 
-            //custom set of standard UI dialogs
-            project.ManagedUI = new ManagedUI();
+			//custom set of standard UI dialogs
+			project.ManagedUI = new ManagedUI();
             project.ManagedUI.InstallDialogs.Add(Dialogs.Welcome)
                                             .Add(Dialogs.Licence)
                                             .Add(Dialogs.InstallDir)
@@ -121,7 +120,8 @@ namespace remc2_installer
             project.ManagedUI.ModifyDialogs.Add(Dialogs.MaintenanceType)
                                            .Add<EnhancedDataDialog>()
                                            .Add(Dialogs.Progress)
-                                           .Add(Dialogs.Exit);
+										   .Add<GameDataDialog>()
+										   .Add(Dialogs.Exit);
 
             project.ControlPanelInfo.ProductIcon = @"Resources\app.ico";
             project.ControlPanelInfo.Comments = "Enhanced Edition of Magic Carpet 2";

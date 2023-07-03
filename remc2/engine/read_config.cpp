@@ -80,7 +80,11 @@ std::vector<Maths::Zone> ReadZones(std::string zonesJson) {
 			auto zonesArray = document["Zones"].GetArray();
 			for (int i = 0; i < zonesArray.Size(); i++) // Uses SizeType instead of size_t
 			{
+#ifdef __linux__
+				auto zone = zonesArray[i].GetObject();
+#else
 				auto zone = zonesArray[i].GetObj();
+#endif
 				if (zone.HasMember("Start") && zone.HasMember("End") && zone.HasMember("Factor"))
 				{
 					zones.push_back(Maths::Zone{ (uint16_t)zone["Start"].GetInt(), (uint16_t)zone["End"].GetInt(), zone["Factor"].GetDouble() });
@@ -147,7 +151,8 @@ bool readini() {
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
 
-	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0)
+	if (reader.GetBoolean("graphics", "useEnhancedGraphics", false) && strlen(bigGraphicsFolder) > 0 
+		&& std::filesystem::is_directory(GetSubDirectoryPath(bigGraphicsFolder)))
 	{
 		bigSprites = true;
 		bigTextures = true;
