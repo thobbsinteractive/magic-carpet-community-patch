@@ -1,8 +1,7 @@
 {
-    "name": "remc2",
+    "name": "remc2-regression-test",
     "version": "0.9.4",
     "dependencies": [
-		"openal-soft"
 		"rapidjson",
 		"spdlog",
 		"libvorbis",

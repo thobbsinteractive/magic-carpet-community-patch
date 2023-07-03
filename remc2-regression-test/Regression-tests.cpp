@@ -16,7 +16,7 @@ int run_regtest(int level)//236F70
 	char arg1[] = "remc2";
 	char arg2[] = "--mode_test_regressions_game";
 	char arg3[] = "--text_output_to_console";
-	char arg4[] = "reglevel";
+	char arg4[] = "--set_level";
 	char arg5[4];
 	sprintf(arg5, "%d", level - 1);
 	char arg6[] = "--config_file_path";

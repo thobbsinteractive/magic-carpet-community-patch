@@ -30,6 +30,8 @@ jobs:
         libpng-dev libpng++-dev \
         libz-dev libgtest-dev \
         libboost-system-dev \
+        libspdlog-dev \
+        rapidjson-dev \
         -o APT::Immediate-Configure=0
         
     - name: cmake release

@@ -12,11 +12,7 @@
 #include <cstdint>
 #include <stdio.h>
 
-#ifdef _MSC_VER
-    #include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#include "SDL2/SDL.h"
 
 #include "../engine/sub_main_mouse.h"
 #include "../engine/read_config.h"
@@ -118,49 +114,43 @@ void alsound_enable_scheduling(void); // provide the function signature without 
 /// \brief initialization of the SDL joystick subsystem
 void gamepad_sdl_init(void)
 {
-
-    if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
-        Logger->error("SDL joystick could not be initialized! SDL_Error: {}", SDL_GetError());
-    } else {
-        m_gameController = SDL_JoystickOpen(0);
-        if (m_gameController == NULL) {
-            Logger->debug("joystick/gamepad not detected. SDL Error: {}", SDL_GetError());
-        } else {
-            Logger->info("Found '{}' joystick", SDL_JoystickName(m_gameController));
-            if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
-                Logger->error("unable to initialize joystick/gamepad events. SDL Error: {}",
-                              SDL_GetError());
-            } else {
-                gps.initialized = 1;
-            }
-            if (gpc.haptic_enabled && (SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0)
-                && SDL_JoystickIsHaptic(m_gameController)) {
-                m_haptic = SDL_HapticOpenFromJoystick(m_gameController);
-                if (m_haptic == NULL) {
-                    Logger->info("unable to init force feedback. SDL Error: {}", SDL_GetError());
-                } else {
-                    hs.cap = SDL_HapticQuery(m_haptic);
-                    hs.rumble = SDL_HapticRumbleSupported(m_haptic);
-                    //hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
-                    hs.initialized = 1;
-                    hs.enabled = 1;
-                    haptic_load_effects();
-                    if (hs.rumble) {
-                        if (SDL_HapticRumbleInit(m_haptic) < 0) {
-                            hs.rumble = 0;
-                        }
-                    }
-                    if (hs.cap & SDL_HAPTIC_GAIN) {
-                        SDL_HapticSetGain(m_haptic, gpc.haptic_gain_max);
-                    }
-                    Logger->
-                        info
-                        ("found haptic support (cap {}), effect cnt {}, rumble {}, rumble_trig {}",
-                         hs.cap, SDL_HapticNumEffects(m_haptic), hs.rumble, hs.rumble_trig);
-                }
-            }
-        }
-    }
+	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0) {
+		Logger->error("SDL joystick could not be initialized! SDL_Error: {}", SDL_GetError());
+	} else {
+		m_gameController = SDL_JoystickOpen(0);
+		if(m_gameController == NULL) {
+			Logger->debug("joystick/gamepad not detected. SDL Error: {}", SDL_GetError() );
+		} else {
+			Logger->info("Found '{}' joystick", SDL_JoystickName(m_gameController) );
+			if (SDL_JoystickEventState(SDL_ENABLE) != 1) {
+				Logger->error("unable to initialize joystick/gamepad events. SDL Error: {}", SDL_GetError() );
+			} else {
+				gps.initialized = 1;
+			}
+			if (gpc.haptic_enabled && (SDL_InitSubSystem(SDL_INIT_HAPTIC) == 0) && SDL_JoystickIsHaptic(m_gameController)) {
+				m_haptic = SDL_HapticOpenFromJoystick(m_gameController);
+				if (m_haptic == NULL) {
+					Logger->info("unable to init force feedback. SDL Error: {}", SDL_GetError() );
+				} else {
+					hs.cap = SDL_HapticQuery(m_haptic);
+					hs.rumble = SDL_HapticRumbleSupported(m_haptic);
+					//hs.rumble_trig = SDL_JoystickHasRumbleTriggers(m_gameController);
+					hs.initialized = 1;
+					hs.enabled = 1;
+					haptic_load_effects();
+					if (hs.rumble) {
+						if (SDL_HapticRumbleInit(m_haptic) < 0) {
+							hs.rumble = 0;
+						}
+					}
+					if (hs.cap & SDL_HAPTIC_GAIN) {
+						SDL_HapticSetGain(m_haptic, gpc.haptic_gain_max);
+					}
+					Logger->info("found haptic support (cap {}), effect cnt {}, rumble {}, rumble_trig {}", hs.cap, SDL_HapticNumEffects(m_haptic), hs.rumble, hs.rumble_trig);
+				}
+			}
+		}
+	}
 }
 
 /// \brief cleanup of the SDL joystick subsystem, to be used only on program exit
@@ -852,12 +842,12 @@ void haptic_rumble_effect(const float strength, const uint32_t length)
 /// \param strength_l TL effect level
 /// \param strength_r TR effect level
 /// \param length effect duration in ms
-void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t strength_r,
-                                   const uint32_t length)
-{
-    if ((!hs.enabled) || (!hs.rumble_trig)) {
-        return;
-    }
-    SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
+void haptic_rumble_triggers_effect(const uint16_t strength_l, const uint16_t strength_r, const uint32_t length) {
+	if ((!hs.enabled) || (!hs.rumble_trig)) {
+		return;
+	}
+#ifdef _MSC_VER
+	//SDL_JoystickRumbleTriggers(m_gameController, strength_l, strength_r, length);
+#endif
 }
 

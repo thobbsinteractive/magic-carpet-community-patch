@@ -9,11 +9,7 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
-#ifdef _MSC_VER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#include "SDL2/SDL.h"
 
 #include "port_sdl_sound.h"
 #include "port_filesystem.h"

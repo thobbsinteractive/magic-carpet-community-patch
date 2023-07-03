@@ -24,9 +24,9 @@
 
 #include "INIReader.h"
 #include "ini.h"
-#include "document.h"
-#include "writer.h"
-#include "stringbuffer.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
 
 #ifndef READ_CONFIG
 #define READ_CONFIG
