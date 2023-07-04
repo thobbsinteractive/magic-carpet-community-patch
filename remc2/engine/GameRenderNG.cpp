@@ -288,8 +288,8 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 	}
 
 	uint8_t* viewPortRenderBufferStart = ViewPortRenderBufferStart_DE558;
-	int addX = (-(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
-	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x22 >> 16);
+	int addX = (-(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x22) >> 16) + str_F2C20ar.dword0x24;
+	int addY = str_F2C20ar.dword0x10 - (str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x22 >> 16);
 	beginX = (yaw_F2CC0 << 15) * (skyTextSize / 256) - (addX * cosRoll - addY * sinRoll);
 	beginY = -(cosRoll * addY + sinRoll * addX);
 	
@@ -321,147 +321,42 @@ void GameRenderNG::DrawSky_40950(int16_t roll)
 
 void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
-	int v9; // eax
-	int v10; // edx
-	int v11; // ecx
-	int v12; // edx
-	int v13; // edi
-	char v14; // dh
-	int v15x;
-	char v16; // dl
-	char v17; // dl
-	int v18x;
-	char v19; // dh
-	int v20; // ebx
-	char v22; // ch
-	int v23; // eax
-	uint8_t* v25x; // edi
+	int tempYaw; // eax
+	//int v10; // edx
+	//int v11; // ecx
+	//int v12; // edx
+	//char v19; // dh
 	int v25z;
-	unsigned __int16 v26; // dx
-	int v27; // ebx
-	int v28; // eax
-	__int16 v29; // si
-	int v30; // edx
-	__int16 v31; // cx
-	int v32; // eax
-	int v33; // ecx
-	signed int v34; // esi
-	int v35; // ebx
-	unsigned __int16 v36; // dx
-	int v37; // eax
-	__int16 v38; // ax
-	int v39; // eax
-	int v40; // edi
-	unsigned __int16 v42; // bx
-	uint8_t* v44; // eax
-	char v45; // bh
-	signed int v46; // edx
-	int v47x;
-	int v48; // esi
-	int v49; // ecx
-	int v50; // ecx
-	int v51; // ebx
-	int v52; // ecx
-	int v53; // ebx
-	signed int v54; // esi
-	signed int v55; // esi
+	//int v33; // ecx
+	//int v37; // eax
+	//__int16 v38; // ax
 	int v56x;
 	int v57x;
 	char v58; // ah
 	int jx;
-	char v60; // dl
-	char v62; // ch
-	char v63; // ah
-	char v64; // dl
-	char v65; // dh
-	char v66; // ch
-	char v67; // dl
-	char v71; // dl
-	char v73; // ch
-	char v74; // ah
-	char v75; // dl
-	char v76; // dh
-	char v77; // ch
-	char v78; // dl
-	char v79; // dh
 	int v82x;
 	int v83x;
-	char v84; // dl
-	char v85; // cl
-	char v87; // al
-	char v88; // dl
-	char v89; // dh
-	char v92; // cl
-	char v93; // dl
-	char v96; // al
-	char v97; // dl
-	char v99; // ah
-	char v100; // dl
-	char v101; // dh
-	char v102; // ch
-	char v105; // dl
-	char v106; // dh
-	signed int v109; // esi
-	int v110; // ebx
-	unsigned __int16 v111; // dx
-	__int16 v112; // ax
-	int v113; // eax
-	int v116; // eax
-	unsigned __int16 v118; // bx
-	unsigned __int8 v119; // al
-	uint8_t* v121; // eax
-	char v122; // bh
+	//__int16 v112; // ax
+	int tempSinXSin; // eax
 	signed int v123; // ebx
-	int v124x;
-	int v125; // esi
-	int v126; // ecx
-	int v127; // ecx
-	int v128; // edx
-	int v129; // ecx
-	int v130; // edx
-	signed int v131; // esi
-	signed int v132; // esi
+	int tempVar16; // esi
+	int tempVar28; // ecx
+	int tempVar20; // ecx
+	int tempVar24; // ecx
 	int v133x;
 	int v134x;
-	char v136; // dl
-	char v137; // ch
-	char v138; // dl
-	char v142; // ch
-	char v144; // dl
 	int v147x;
-	char v148; // dl
-	char v149; // dl
-	char v153; // cl
-	char v156; // dl
 	int v160x;
 	int v161x;
-	char v163; // dl
-	char v165; // ah
-	char v166; // dl
-	char v167; // dh
-	char v170; // ch
-	char v173; // dl
-	char v174; // dh
 	int v177x;
 	int v178x;
-	char v179; // dl
-	char v180; // ch
-	char v182; // ah
-	char v183; // dl
-	char v184; // dh
-	char v189; // ch
-	char v191; // dl
-	char v192; // dh
-	char v194; // ch
-	int v197; // ecx
-	signed int v198; // esi
-	int v199; // ebx
-	unsigned __int16 v200; // di
-	__int16 v201; // ax
-	int v202; // eax
-	int v203; // eax
-	unsigned __int16 v204; // bx
-	uint8_t* v207; // eax
+	//int v197; // ecx
+	//signed int v198; // esi
+	//int v199; // ebx
+	//__int16 v201; // ax
+	//int v202; // eax
+	//int v203; // eax
+	//unsigned __int16 v204; // bx
 	int v208; // eax
 	signed int v209; // ebx
 	int v210; // edx
@@ -470,37 +365,16 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v213; // edx
 	int v214; // ecx
 	int v215; // edx
-	signed int v216; // esi
 	int v217x;
 	int v218x;
-	char v219; // dl
-	char v221; // al
-	char v222; // dl
-	char v223; // dh
-	char v226; // cl
-	char v228; // dl
-	char v229; // dh
 	int v231x;
 	int v232x;
-	char v233; // dl
-	char v234; // ch
-	char v236; // ah
-	char v237; // dl
-	char v238; // dh
-	char v242; // ch
-	char v244; // dl
-	char v245; // dh
-	int v248x[33]; // [esp+0h] [ebp-62h]//v248x[0]
-	uint8_t* v277; // [esp+84h] [ebp+22h]
-	int v278x;
-	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
-	char l; // [esp+90h] [ebp+2Eh]
+	uint8_t* yawQuartal; // [esp+84h] [ebp+22h]
 	char v281; // [esp+94h] [ebp+32h]
 	char v282; // [esp+98h] [ebp+36h]
 	char v283; // [esp+9Ch] [ebp+3Ah]
 	char k; // [esp+A0h] [ebp+3Eh]
 	char v285; // [esp+A4h] [ebp+42h]
-	char i; // [esp+A8h] [ebp+46h]
 	char jj; // [esp+ACh] [ebp+4Ah]
 	char m; // [esp+B0h] [ebp+4Eh]
 	char v289; // [esp+B4h] [ebp+52h]
@@ -508,9 +382,27 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	char ii; // [esp+BCh] [ebp+5Ah]
 	char kk; // [esp+C0h] [ebp+5Eh]
 	char v293; // [esp+C4h] [ebp+62h]
-	int a1;
-	int a2;
 
+	int yawY;
+	int yawX;
+
+	const int textRows = 40;
+	const int textColumns = 21;
+
+	uaxis_2d uPosX;
+	uaxis_2d uPosY;
+
+	uPosX.word = posX;
+	uPosY.word = posY;
+
+	Type_RenderPoint rPoint1;//(v213x) //v248x[18] v248x[19] v248x[22] //v248x[20] v248x[21]
+	Type_RenderPoint rPoint2;//(v208x) //v248x[12] v248x[13] v248x[16] //v248x[14] v248x[15]
+	Type_RenderPoint rPoint3;//(v203x) //v248x[6] v248x[7] v248x[10] //v248x[8] v248x[9]
+	Type_RenderPoint rPoint4;//(v198x) //v248x[0] v248x[1] v248x[4] //v248x[2] v248x[3]
+
+	int modYaw;//v248x[32]
+	int32 tempCos;//v248x[30]
+	int32 tempSin;//v13
 	/*
 	if (CommandLineParams.DoDebugSequences()) {
 		uint8_t origbyte20 = 0;
@@ -532,119 +424,100 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 
 	shadows_F2CC7 = D41A0_0.m_GameSettings.m_Graphics.m_wShadows;//21d080
 	notDay_D4320 = D41A0_0.terrain_2FECE.MapType != MapType_t::Day;
-	str_F2C20ar.dword0x10 = (signed int)(unsigned __int16)viewPort.Height_DE568 >> 1;
+	str_F2C20ar.dword0x10 = viewPort.Height_DE568 >> 1;
 	x_WORD_F2CC4 = posX;
 	yaw_F2CC0 = yaw & 0x7FF;
 	x_WORD_F2CC2 = posY;
-	v9 = (yaw & 0x7FF) + 256;
+	tempYaw = (yaw & 0x7FF) + 256;
 	str_F2C20ar.dword0x20 = posZ;
-	v10 = Maths::sin_DB750[256 + v9];
-	str_F2C20ar.dword0x24 = x_DWORD_D4324 + ((signed int)(unsigned __int16)viewPort.Width_DE564 >> 1);
-	str_F2C20ar.dword0x0f = v10;
-	v11 = Maths::sin_DB750[v9 - 256];
-	v12 = ((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF;
-	v248x[32] = (v9 >> 9) & 3;
-	v248x[30] = Maths::sin_DB750[512 + v12];
-	str_F2C20ar.dword0x17 = v11;
-	v13 = Maths::sin_DB750[v12];
+	str_F2C20ar.dword0x24 = x_DWORD_D4324 + (viewPort.Width_DE564 >> 1);
+	str_F2C20ar.dword0x0f = Maths::sin_DB750[256 + tempYaw];
+	//v11 = Maths::sin_DB750[tempYaw - 256];
+	//v12 = ((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF;
+	modYaw = (tempYaw >> 9) & 3;
+	tempCos = Maths::sin_DB750[512 + ((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF];
+	str_F2C20ar.dword0x17 = Maths::sin_DB750[tempYaw - 256];
+	tempSin = Maths::sin_DB750[((((yaw & 0x7FF) + 256) & 0x1FF) - 256) & 0x7FF];
 	SetBillboards_3B560(-roll & 0x7FF);//21d1aa
 	str_F2C20ar.dword0x18 = 7
 		* Maths::sub_7277A_radix_3d(
-			(unsigned __int16)viewPort.Width_DE564 * (unsigned __int16)viewPort.Width_DE564
-			+ (unsigned __int16)viewPort.Height_DE568 * (unsigned __int16)viewPort.Height_DE568)
+			viewPort.Width_DE564 * viewPort.Width_DE564
+			+ viewPort.Height_DE568 * viewPort.Height_DE568)
 		* fov >> 11;
-	v277 = unk_D4328x + 10 * v248x[32];
-	switch ((unsigned __int8)v248x[32])//fixed? //rotations
+	yawQuartal = yawQuartal_D4328[modYaw];
+	switch (modYaw)//fixed? //rotations
 	{
 	case 0u:
-		a2 = (unsigned __int8)posY - 256;
-		a1 = -(unsigned __int8)posX - 4864;
+		yawX = uPosY._axis_2d.x - 256;
+		yawY = -uPosX._axis_2d.x - 4864;
 		break;
 	case 1u:
-		a1 = -(unsigned __int8)posY - 4864;
-		a2 = -(unsigned __int8)posX;
+		yawY = -uPosY._axis_2d.x - 4864;
+		yawX = -uPosX._axis_2d.x;
 		break;
 	case 2u:
-		a1 = (unsigned __int8)posX - 4864;
-		a2 = -(unsigned __int8)posY;
+		yawY = uPosX._axis_2d.x - 4864;
+		yawX = -uPosY._axis_2d.x;
 		break;
 	case 3u:
-		a1 = (unsigned __int8)posY - 4864;
-		a2 = (unsigned __int8)posX - 256;
+		yawY = uPosY._axis_2d.x - 4864;
+		yawX = uPosX._axis_2d.x - 256;
 		break;
 	default:
 		break;
 	}
-	v14 = 40;//21d231
-	v15x = 0;
-	do//filling first pointer of x_DWORD_E9C38_smalltit(3f52a4)//prepare billboards
+	//v14 = 40;//21d231
+	int index = 0;
+	for (int indexR = 0; indexR < textRows; indexR++)
 	{
-		v248x[29] = a1 * v13 >> 16;
-		v16 = 21;
-		v248x[28] = a1 * (signed int)v248x[30] >> 16;
-		while (v16)
+		for (int indexC = 0; indexC < textColumns; indexC++)
 		{
-			Str_E9C38_smalltit[v15x].dword0_rot = v248x[28];
-			Str_E9C38_smalltit[v15x].dword12 = v248x[29];
-			if (a1 < 0)
-				Str_E9C38_smalltit[v15x].word38 = 0;
+			Str_E9C38_smalltit[index].x_0 = yawY * tempCos >> 16;
+			Str_E9C38_smalltit[index].y_12 = yawY * tempSin >> 16;
+			if (yawY < 0)
+				Str_E9C38_smalltit[index].triangleFeatures_38 = 0;
 			else
-				Str_E9C38_smalltit[v15x].word38 = 4;
-			v15x += 40;
-			v16--;
+				Str_E9C38_smalltit[index].triangleFeatures_38 = 4;
+			index += textRows;
 		}
-		v15x -= 839;
-		a1 += 256;
-		v14--;
-	} while (v14);
-	v17 = 21;//21d29c not drawing
-	v18x = 0;
-	while (v17)
+		index -= textRows * textColumns - 1;
+		yawY += 256;
+	}
+	//21d29c not drawing
+	index = 0;
+	for (int indexC = 0; indexC < textColumns; indexC++)
 	{
-		v248x[27] = a2 * v13 >> 16;
-		v19 = 40;
-		v20 = a2 * (signed int)v248x[30] >> 16;
-		while (v19)
+		for (int indexR = 0; indexR < textRows; indexR++)
 		{
-			Str_E9C38_smalltit[v18x].dword0_rot -= v248x[27];
-			Str_E9C38_smalltit[v18x].dword12 += v20;
-			v19--;
-			v18x++;
+			Str_E9C38_smalltit[index].x_0 -= yawX * tempSin >> 16;
+			Str_E9C38_smalltit[index].y_12 += yawX * tempCos >> 16;
+			index++;
 		}
-		a2 += 256;
-		v17--;
+		yawX += 256;
 	}
 	str_F2C20ar.dword0x15 = 26214400;//21d2df not drawing
-	v278x = 0;
+	int index2 = 0;
 	str_F2C20ar.dword0x12 = 8912896;
-	v22 = v277[0];
-	str_F2C20ar.dword0x22 = pitch * (unsigned __int16)viewPort.Width_DE564 >> 8;
-	LOBYTE(v279) = v22 + HIBYTE(posX);
-	HIBYTE(v279) = v277[1] + HIBYTE(posY);
-	v23 = roll & 0x7FF;
-	str_F2C20ar.dword0x11 = Maths::sin_DB750[512 + v23];
+	str_F2C20ar.dword0x22 = (pitch * viewPort.Width_DE564) >> 8;
+	uaxis_2d yawXY;
+	yawXY._axis_2d.x = yawQuartal[0] + uPosX._axis_2d.y;
+	yawXY._axis_2d.y = yawQuartal[1] + uPosY._axis_2d.y;
+	str_F2C20ar.cos_0x11 = Maths::sin_DB750[512 + roll & 0x7FF];
 	str_F2C20ar.dword0x16 = 23658496;
-	str_F2C20ar.dword0x0d = Maths::sin_DB750[v23];
+	str_F2C20ar.sin_0x0d = Maths::sin_DB750[roll & 0x7FF];
 	str_F2C20ar.dword0x13 = 14745600;
+
+	int drawShift = 0;
+	uint8 pattern = keyColor1_D4B7C;
 	if (!D41A0_0.m_GameSettings.m_Graphics.m_wSky || isCaveLevel_D41B6)
 	{
-		v26 = viewPort.Width_DE564;
-		v27 = iScreenWidth_DE560 - viewPort.Width_DE564;
-		v28 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
-		v29 = viewPort.Height_DE568;
-		v25x = ViewPortRenderBufferStart_DE558;
-		v30 = (v26 - (__CFSHL__((signed int)v26 >> 31, 2) + 4 * ((signed int)v26 >> 31))) >> 2;
-		LOBYTE(v28) = x_WORD_D4B7C;
-		HIBYTE(v28) = x_WORD_D4B7C;
-		v31 = v28;
-		v32 = v28 << 16;
-		LOWORD(v32) = v31;
-		do
+		drawShift = iScreenWidth_DE560 - viewPort.Width_DE564;
+		uint8* drawBuffer = ViewPortRenderBufferStart_DE558;
+		for (index = 0; index < viewPort.Height_DE568; index++)
 		{
-			memset32(v25x, v32, v30 * 4);
-			v25x += 4 * v30 + v27;
-			v29--;
-		} while (v29);
+			memset32(drawBuffer, pattern, viewPort.Width_DE564);
+			drawBuffer += viewPort.Width_DE564 + drawShift;
+		}
 	}
 	else
 	{
@@ -653,199 +526,166 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	if (isCaveLevel_D41B6)//21d3e3 cleaned screen
 	{
 		//Cave Level Render
-		for (i = 21; ; i--)
+		for (int indexC = textColumns; ; indexC--)
 		{
-			if (!i)
+			if (!indexC)
 			{
-				v46 = 840;
-				v47x = 0;
-				while (v46)
+				for(index = 0; index< textRows * textColumns; index++)
 				{
-					v48 = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword20) >> 16) + str_F2C20ar.dword0x24;
-					v248x[25] = ((Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v47x].dword28) >> 16) + str_F2C20ar.dword0x24;
-					v49 = Str_E9C38_smalltit[v47x].dword16 * str_F2C20ar.dword0x0d;
-					v248x[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword20) >> 16);
-					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v47x].dword28) >> 16);
-					Str_E9C38_smalltit[v47x].dword16 = v48;
-					v51 = v50;
-					v52 = v248x[24];
-					Str_E9C38_smalltit[v47x].dword28 = v51;
-					Str_E9C38_smalltit[v47x].dword20 = v52;
-					v53 = Str_E9C38_smalltit[v47x].dword16;
-					Str_E9C38_smalltit[v47x].dword24 = v248x[25];
-					if (v53 >= 0)
+					tempVar24 = ((Str_E9C38_smalltit[index].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[index].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+					tempVar16 = ((Str_E9C38_smalltit[index].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[index].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					tempVar20 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[index].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[index].pnt2_20) >> 16);
+					tempVar28 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[index].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[index].pnt4_28) >> 16);
+					Str_E9C38_smalltit[index].pnt1_16 = tempVar16;
+					Str_E9C38_smalltit[index].pnt2_20 = tempVar20;
+					Str_E9C38_smalltit[index].pnt3_24 = tempVar24;
+					Str_E9C38_smalltit[index].pnt4_28 = tempVar28;
+                    if (Str_E9C38_smalltit[index].pnt1_16 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].dword16)
-							Str_E9C38_smalltit[v47x].word38 |= 0x10u;
+						if (viewPort.Width_DE564 <= Str_E9C38_smalltit[index].pnt1_16)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x10u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 8u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 8u;
 					}
-					v54 = Str_E9C38_smalltit[v47x].dword20;
-					if (v54 >= 0)
+					if (Str_E9C38_smalltit[index].pnt2_20 >= 0)
 					{
-						if ((unsigned __int16)viewPort.Height_DE568 <= v54)
-							Str_E9C38_smalltit[v47x].word38 |= 0x40u;
+						if (viewPort.Height_DE568 <= Str_E9C38_smalltit[index].pnt2_20)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x40u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 0x20u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x20u;
 					}
-					if (Str_E9C38_smalltit[v47x].dword24 >= 0)
+					if (Str_E9C38_smalltit[index].pnt3_24 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v47x].dword24)
-							Str_E9C38_smalltit[v47x].word38 |= 0x200u;
+						if (viewPort.Width_DE564 <= Str_E9C38_smalltit[index].pnt3_24)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x200u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 0x100u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x100u;
 					}
-					v55 = Str_E9C38_smalltit[v47x].dword28;
-					if (v55 >= 0)
+					if (Str_E9C38_smalltit[index].pnt4_28 >= 0)
 					{
-						if ((unsigned __int16)viewPort.Height_DE568 <= v55)
-							Str_E9C38_smalltit[v47x].word38 |= 0x800u;
+						if (viewPort.Height_DE568 <= Str_E9C38_smalltit[index].pnt4_28)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x800u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v47x].word38 |= 0x400u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x400u;
 					}
-					v47x++;
-					v46--;
 				}
-				v57x = 800;
-				v281 = 20;
+				v57x = (textColumns - 1) * textRows;
+				v281 = textColumns - 1;
 				do
 				{
-					v58 = 39;
+					v58 = textRows - 1;
 					for (jx = v57x; ; jx++)
 					{
 						v293 = v58;
 						if (!v58)
 							break;
-						v248x[18] = Str_E9C38_smalltit[jx].dword24;//*(x_DWORD*)(j + 24);
-						v248x[19] = Str_E9C38_smalltit[jx].dword28;//*(x_DWORD*)(j + 28);
-						v248x[22] = Str_E9C38_smalltit[jx].dword32;//*(x_DWORD*)(j + 32);
-						v60 = Str_E9C38_smalltit[jx].word38 & 0xff;//*(x_BYTE*)(j - 6);
-
-						if (Str_E9C38_smalltit[jx + 1].word38 & 4)
+						rPoint1.x_0 = Str_E9C38_smalltit[jx].pnt3_24;//*(x_DWORD*)(j + 24);
+						rPoint1.y_1 = Str_E9C38_smalltit[jx].pnt4_28;//*(x_DWORD*)(j + 28);
+						rPoint1.z_4 = Str_E9C38_smalltit[jx].pnt5_32;//*(x_DWORD*)(j + 32);
+						if (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 4)
 							break;
-						v248x[12] = Str_E9C38_smalltit[jx + 1].dword24;//*(x_DWORD*)(j + 24);
-						v248x[13] = Str_E9C38_smalltit[jx + 1].dword28;//*(x_DWORD*)(j + 28);
-						v248x[16] = Str_E9C38_smalltit[jx + 1].dword32;//*(x_DWORD*)(j + 32);
-						v62 = Str_E9C38_smalltit[jx + 1].word38 & 0xff;//*(x_BYTE*)(j + 38);
-
-						v248x[6] = Str_E9C38_smalltit[jx - 39].dword24;//*(x_DWORD*)(j - 1736);
-						v248x[7] = Str_E9C38_smalltit[jx - 39].dword28;//*(x_DWORD*)(j - 1732);
-						v248x[10] = Str_E9C38_smalltit[jx - 39].dword32;//*(x_DWORD*)(j - 1728);
-						v63 = Str_E9C38_smalltit[jx - 39].word38 & 0xff;//*(x_BYTE*)(j - 1722);
-						v64 = v63 | v62 | v60;
-						v65 = v63 & v62 & v60;
-
-						v248x[0] = Str_E9C38_smalltit[jx - 40].dword24;//*(x_DWORD*)(j - 1780);
-						v248x[1] = Str_E9C38_smalltit[jx - 40].dword28;//*(x_DWORD*)(j - 1776);
-						v248x[4] = Str_E9C38_smalltit[jx - 40].dword32;//*(x_DWORD*)(j - 1772);
-						v66 = Str_E9C38_smalltit[jx - 40].word38 & 0xff;//*(x_BYTE*)(j - 1766);
-						v67 = v66 | v64;
-
-						if ((v66 & v65 & 0x80u) == 0)
+						rPoint2.x_0 = Str_E9C38_smalltit[jx + 1].pnt3_24;//*(x_DWORD*)(j + 24);
+						rPoint2.y_1 = Str_E9C38_smalltit[jx + 1].pnt4_28;//*(x_DWORD*)(j + 28);
+						rPoint2.z_4 = Str_E9C38_smalltit[jx + 1].pnt5_32;//*(x_DWORD*)(j + 32);
+						rPoint3.x_0 = Str_E9C38_smalltit[jx - textRows + 1].pnt3_24;//*(x_DWORD*)(j - 1736);
+						rPoint3.y_1 = Str_E9C38_smalltit[jx - textRows + 1].pnt4_28;//*(x_DWORD*)(j - 1732);
+						rPoint3.z_4 = Str_E9C38_smalltit[jx - textRows + 1].pnt5_32;//*(x_DWORD*)(j - 1728);
+						rPoint4.x_0 = Str_E9C38_smalltit[jx - textRows].pnt3_24;//*(x_DWORD*)(j - 1780);
+						rPoint4.y_1 = Str_E9C38_smalltit[jx - textRows].pnt4_28;//*(x_DWORD*)(j - 1776);
+						rPoint4.z_4 = Str_E9C38_smalltit[jx - textRows].pnt5_32;//*(x_DWORD*)(j - 1772);
+						if (((Str_E9C38_smalltit[jx - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0xff) & 0x80u) == 0)
 						{
-							if (Str_E9C38_smalltit[jx].word38 & 0x1000)
+							if (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
-								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+								x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 							}
 							else
 							{
 								x_BYTE_E126D = 5;
 							}
-							if (!(v67 & 2))
+							if (!(((Str_E9C38_smalltit[jx - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[jx - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0xff)) & 2))
 							{
 								{
-									v248x[20] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][0];
-									v248x[21] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][1];
-									v248x[14] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][2];
-									v248x[15] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][3];
-									v248x[8] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][4];
-									v248x[9] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][5];
-									v248x[2] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][6];
-									v248x[3] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][7];
+									rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][0];
+									rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][1];
+									rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][2];
+									rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][3];
+									rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][4];
+									rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][5];
+									rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][6];
+									rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][7];
 									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
 									x_BYTE_E126D = 5;
-									if (Str_E9C38_smalltit[jx].word38 & 1)
+									if (Str_E9C38_smalltit[jx].triangleFeatures_38 & 1)
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[12]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[6], &v248x[12]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint2);
+										DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint3, &rPoint2);
 									}
 									else
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[12]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint2);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint3);
 									}
 								}
 							}
 						}
-						v248x[18] = Str_E9C38_smalltit[jx].dword16;//*(x_DWORD*)(v68 + 16);
-						v248x[19] = Str_E9C38_smalltit[jx].dword20;//*(x_DWORD*)(v68 + 20);
-						v248x[22] = Str_E9C38_smalltit[jx].dword32;//*(x_DWORD*)(v68 + 32);
-						v71 = Str_E9C38_smalltit[jx].word38 & 0xff;//*(x_BYTE*)(j - 6);
-
-						if (Str_E9C38_smalltit[jx + 1].word38 & 4)
+						rPoint1.x_0 = Str_E9C38_smalltit[jx].pnt1_16;//*(x_DWORD*)(v68 + 16);
+						rPoint1.y_1 = Str_E9C38_smalltit[jx].pnt2_20;//*(x_DWORD*)(v68 + 20);
+						rPoint1.z_4 = Str_E9C38_smalltit[jx].pnt5_32;//*(x_DWORD*)(v68 + 32);
+						if (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 4)
 							break;
-						v248x[12] = Str_E9C38_smalltit[jx + 1].dword16;//*(x_DWORD*)(j + 16);
-						v248x[13] = Str_E9C38_smalltit[jx + 1].dword20;//*(x_DWORD*)(j + 20);
-						v248x[16] = Str_E9C38_smalltit[jx + 1].dword32;//*(x_DWORD*)(j + 32);
-						v73 = Str_E9C38_smalltit[jx + 1].word38 & 0xff;
-
-						v248x[6] = Str_E9C38_smalltit[jx - 39].dword16;//*(x_DWORD*)(j - 1744);
-						v248x[7] = Str_E9C38_smalltit[jx - 39].dword20;//*(x_DWORD*)(j - 1740);
-						v248x[10] = Str_E9C38_smalltit[jx - 39].dword32;//*(x_DWORD*)(j - 1728);
-						v74 = Str_E9C38_smalltit[jx - 39].word38 & 0xff;//*(x_BYTE*)(j - 1722);
-						v75 = v74 | v73 | v71;
-						v76 = v74 & v73 & v71;
-
-						v248x[0] = Str_E9C38_smalltit[jx - 40].dword16;//*(x_DWORD*)(j - 1788);
-						v248x[1] = Str_E9C38_smalltit[jx - 40].dword20;//*(x_DWORD*)(j - 1784);
-						v248x[4] = Str_E9C38_smalltit[jx - 40].dword32;//*(x_DWORD*)(j - 1772);
-						v77 = Str_E9C38_smalltit[jx - 40].word38 & 0xff;//*(x_BYTE*)(j - 1766);
-						v78 = v77 | v75;
-						v79 = v77 & v76;
-
-						if (v79 >= 0)
+						rPoint2.x_0 = Str_E9C38_smalltit[jx + 1].pnt1_16;//*(x_DWORD*)(j + 16);
+						rPoint2.y_1 = Str_E9C38_smalltit[jx + 1].pnt2_20;//*(x_DWORD*)(j + 20);
+						rPoint2.z_4 = Str_E9C38_smalltit[jx + 1].pnt5_32;//*(x_DWORD*)(j + 32);
+						rPoint3.x_0 = Str_E9C38_smalltit[jx - textRows + 1].pnt1_16;//*(x_DWORD*)(j - 1744);
+						rPoint3.y_1 = Str_E9C38_smalltit[jx - textRows + 1].pnt2_20;//*(x_DWORD*)(j - 1740);
+						rPoint3.z_4 = Str_E9C38_smalltit[jx - textRows + 1].pnt5_32;//*(x_DWORD*)(j - 1728);
+						rPoint4.x_0 = Str_E9C38_smalltit[jx - textRows].pnt1_16;//*(x_DWORD*)(j - 1788);
+						rPoint4.y_1 = Str_E9C38_smalltit[jx - textRows].pnt2_20;//*(x_DWORD*)(j - 1784);
+						rPoint4.z_4 = Str_E9C38_smalltit[jx - textRows].pnt5_32;//*(x_DWORD*)(j - 1772);
+						if (((Str_E9C38_smalltit[jx - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0xff)) >= 0)
 						{
-							if (Str_E9C38_smalltit[jx].word38 & 0x1000)
+							if (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
-								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+								x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 							}
 							else
 							{
 								x_BYTE_E126D = 5;
 							}
-							if (!(v78 & 2) && !(v79 & 0x78))
+							if (!(((Str_E9C38_smalltit[jx - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[jx - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[jx - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[jx].triangleFeatures_38 & 0xff) & 0x78))
 							{
-								v248x[20] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][0];
-								v248x[21] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][1];
-								v248x[14] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][2];
-								v248x[15] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][3];
-								v248x[8] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][4];
-								v248x[9] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][5];
-								v248x[2] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][6];
-								v248x[3] = xunk_D4350[Str_E9C38_smalltit[jx].byte42_std][7];
-								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[jx].byte41];
-								if (Str_E9C38_smalltit[jx].word38 & 1)
+								rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][0];
+								rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][1];
+								rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][2];
+								rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][3];
+								rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][4];
+								rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][5];
+								rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][6];
+								rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[jx].textUV_42][7];
+								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[jx].textIndex_41];
+								if (Str_E9C38_smalltit[jx].triangleFeatures_38 & 1)
 								{
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-									DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+									DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 								}
 								else
 								{
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 								}
 							}
-							if (Str_E9C38_smalltit[jx].word36)
+							if (Str_E9C38_smalltit[jx].haveBillboard_36)
 								DrawParticles_3E360(jx);
 						}
 						v58 = v293 - 1;
@@ -853,297 +693,250 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					if (v293)
 					{
 						v82x = jx;// -1;
-						v83x = v57x + 38;
+						v83x = v57x + textRows - 2;
 						do
 						{
-							v248x[18] = Str_E9C38_smalltit[v83x].dword24;//*(x_DWORD*)(v83 + 24);
-							v248x[19] = Str_E9C38_smalltit[v83x].dword28;//*(x_DWORD*)(v83 + 28);
-							v248x[22] = Str_E9C38_smalltit[v83x].dword32;//*(x_DWORD*)(v83 + 32);
-							v84 = Str_E9C38_smalltit[v83x].word38 & 0xff;//*(x_BYTE*)(v83 + 38);
-
-							v248x[12] = Str_E9C38_smalltit[v83x + 1].dword24;//*(x_DWORD*)(v83 + 68);
-							v248x[13] = Str_E9C38_smalltit[v83x + 1].dword28;//*(x_DWORD*)(v83 + 72);
-							v248x[16] = Str_E9C38_smalltit[v83x + 1].dword32;//*(x_DWORD*)(v83 + 76);
-							v85 = Str_E9C38_smalltit[v83x + 1].word38 & 0xff;//*(x_BYTE*)(v83 + 82);
-
-							v248x[6] = Str_E9C38_smalltit[v83x - 39].dword24;//*(x_DWORD*)(v83 - 1692);
-							v248x[7] = Str_E9C38_smalltit[v83x - 39].dword28;//*(x_DWORD*)(v83 - 1688);
-							v248x[10] = Str_E9C38_smalltit[v83x - 39].dword32;//*(x_DWORD*)(v83 - 1684);
-							v87 = Str_E9C38_smalltit[v83x - 39].word38 & 0xff;//*(x_BYTE*)(v83 - 1678);
-							v88 = v87 | v85 | v84;
-							v89 = v87 & v85 & v84;
-
-							v248x[0] = Str_E9C38_smalltit[v83x - 40].dword24;//*(x_DWORD*)(v83 - 1736);
-							v248x[1] = Str_E9C38_smalltit[v83x - 40].dword28;//*(x_DWORD*)(v83 - 1732);
-							v248x[4] = Str_E9C38_smalltit[v83x - 40].dword32;//*(x_DWORD*)(v83 - 1728);
-							v92 = Str_E9C38_smalltit[v83x - 40].word38 & 0xff;//*(x_BYTE*)(v91 - 1766);
-							v93 = v92 | v88;
-
-							if ((v92 & v89 & 0x80u) == 0)
+							rPoint1.x_0 = Str_E9C38_smalltit[v83x].pnt3_24;//*(x_DWORD*)(v83 + 24);
+							rPoint1.y_1 = Str_E9C38_smalltit[v83x].pnt4_28;//*(x_DWORD*)(v83 + 28);
+							rPoint1.z_4 = Str_E9C38_smalltit[v83x].pnt5_32;//*(x_DWORD*)(v83 + 32);
+							rPoint2.x_0 = Str_E9C38_smalltit[v83x + 1].pnt3_24;//*(x_DWORD*)(v83 + 68);
+							rPoint2.y_1 = Str_E9C38_smalltit[v83x + 1].pnt4_28;//*(x_DWORD*)(v83 + 72);
+							rPoint2.z_4 = Str_E9C38_smalltit[v83x + 1].pnt5_32;//*(x_DWORD*)(v83 + 76);
+							rPoint3.x_0 = Str_E9C38_smalltit[v83x - textRows + 1].pnt3_24;//*(x_DWORD*)(v83 - 1692);
+							rPoint3.y_1 = Str_E9C38_smalltit[v83x - textRows + 1].pnt4_28;//*(x_DWORD*)(v83 - 1688);
+							rPoint3.z_4 = Str_E9C38_smalltit[v83x - textRows + 1].pnt5_32;//*(x_DWORD*)(v83 - 1684);
+							rPoint4.x_0 = Str_E9C38_smalltit[v83x - textRows].pnt3_24;//*(x_DWORD*)(v83 - 1736);
+							rPoint4.y_1 = Str_E9C38_smalltit[v83x - textRows].pnt4_28;//*(x_DWORD*)(v83 - 1732);
+							rPoint4.z_4 = Str_E9C38_smalltit[v83x - textRows].pnt5_32;//*(x_DWORD*)(v83 - 1728);
+							if (((Str_E9C38_smalltit[v83x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0xff) & 0x80u) == 0)
 							{
-								if (Str_E9C38_smalltit[v83x].word38 & 0x1000)
+								if (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+									x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 								}
 								else
 								{
 									x_BYTE_E126D = 5;
 								}
-								if (!(v93 & 2))
+								if (!(((Str_E9C38_smalltit[v83x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v83x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v83x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0xff)) & 2))
 								{
-									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][0];
-									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][1];
-									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][2];
-									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][3];
-									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][4];
-									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][5];
-									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][6];
-									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][7];
+									rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][0];
+									rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][1];
+									rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][2];
+									rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][3];
+									rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][4];
+									rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][5];
+									rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][6];
+									rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][7];
 									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[1];
-									v96 = Str_E9C38_smalltit[v83x].word38 & 0xff;
 									x_BYTE_E126D = 5;
-									if (v96 & 1)
+									if (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 1)
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[12]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[6], &v248x[12]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint2);
+										DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint3, &rPoint2);
 									}
 									else
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[12]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint2);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint3);
 									}
 								}
 							}
-							v248x[18] = Str_E9C38_smalltit[v83x].dword16;//*(x_DWORD*)(v94 + 16);
-							v248x[19] = Str_E9C38_smalltit[v83x].dword20;//*(x_DWORD*)(v94 + 20);
-							v248x[22] = Str_E9C38_smalltit[v83x].dword32;//*(x_DWORD*)(v94 + 32);
-							v97 = Str_E9C38_smalltit[v83x].word38 & 0xff;//*(x_BYTE*)(v94 + 38);
-
-							v248x[12] = Str_E9C38_smalltit[v83x + 1].dword16;//*(x_DWORD*)(v94 + 60);
-							v248x[13] = Str_E9C38_smalltit[v83x + 1].dword20;//*(x_DWORD*)(v94 + 64);
-							v248x[16] = Str_E9C38_smalltit[v83x + 1].dword32;//*(x_DWORD*)(v94 + 76);
-							v99 = Str_E9C38_smalltit[v83x + 1].word38 & 0xff;//*(x_BYTE*)(v94 + 82);
-							v100 = v99 | v97;
-							v101 = v99 & v97;
-
-							v248x[6] = Str_E9C38_smalltit[v83x - 39].dword16;//*(x_DWORD*)(v94 - 1700);
-							v248x[7] = Str_E9C38_smalltit[v83x - 39].dword20;//*(x_DWORD*)(v94 - 1696);
-							v248x[10] = Str_E9C38_smalltit[v83x - 39].dword32;//*(x_DWORD*)(v94 - 1684);
-							v102 = Str_E9C38_smalltit[v83x - 39].word38 & 0xff;//*(x_BYTE*)(v94 - 1678);
-
-							v248x[0] = Str_E9C38_smalltit[v83x - 40].dword16;//*(x_DWORD*)(v94 - 1744);
-							v248x[1] = Str_E9C38_smalltit[v83x - 40].dword20;//*(x_DWORD*)(v94 - 1740);
-							v248x[4] = Str_E9C38_smalltit[v83x - 40].dword32;//*(x_DWORD*)(v104 - 1772);
-							v105 = (Str_E9C38_smalltit[v83x - 40].word38 & 0xff) | v102 | v100;
-							v106 = (Str_E9C38_smalltit[v83x - 40].word38 & 0xff) & v102 & v101;
-
-							if (v106 >= 0)
+							rPoint1.x_0 = Str_E9C38_smalltit[v83x].pnt1_16;//*(x_DWORD*)(v94 + 16);
+							rPoint1.y_1 = Str_E9C38_smalltit[v83x].pnt2_20;//*(x_DWORD*)(v94 + 20);
+							rPoint1.z_4 = Str_E9C38_smalltit[v83x].pnt5_32;//*(x_DWORD*)(v94 + 32);
+							rPoint2.x_0 = Str_E9C38_smalltit[v83x + 1].pnt1_16;//*(x_DWORD*)(v94 + 60);
+							rPoint2.y_1 = Str_E9C38_smalltit[v83x + 1].pnt2_20;//*(x_DWORD*)(v94 + 64);
+							rPoint2.z_4 = Str_E9C38_smalltit[v83x + 1].pnt5_32;//*(x_DWORD*)(v94 + 76);
+							rPoint3.x_0 = Str_E9C38_smalltit[v83x - textRows + 1].pnt1_16;//*(x_DWORD*)(v94 - 1700);
+							rPoint3.y_1 = Str_E9C38_smalltit[v83x - textRows + 1].pnt2_20;//*(x_DWORD*)(v94 - 1696);
+							rPoint3.z_4 = Str_E9C38_smalltit[v83x - textRows + 1].pnt5_32;//*(x_DWORD*)(v94 - 1684);
+							rPoint4.x_0 = Str_E9C38_smalltit[v83x - textRows].pnt1_16;//*(x_DWORD*)(v94 - 1744);
+							rPoint4.y_1 = Str_E9C38_smalltit[v83x - textRows].pnt2_20;//*(x_DWORD*)(v94 - 1740);
+							rPoint4.z_4 = Str_E9C38_smalltit[v83x - textRows].pnt5_32;//*(x_DWORD*)(v104 - 1772);
+							if (((Str_E9C38_smalltit[v83x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0xff)) >= 0)
 							{
-								if (Str_E9C38_smalltit[v83x].word38 & 0x1000)
+								if (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+									x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 								}
 								else
 								{
 									x_BYTE_E126D = 5;
 								}
-								if (!(v105 & 2) && !(v106 & 0x78))
+								if (!((Str_E9C38_smalltit[v83x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v83x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v83x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0xff) & 2) && !((Str_E9C38_smalltit[v83x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 0xff) & 0x78))
 								{
-									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][0];
-									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][1];
-									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][2];
-									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][3];
-									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][4];
-									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][5];
-									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][6];
-									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v83x].byte42_std][7];
-									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v83x].byte41];
-									if (Str_E9C38_smalltit[v83x].word38 & 1)
+									rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][0];
+									rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][1];
+									rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][2];
+									rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][3];
+									rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][4];
+									rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][5];
+									rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][6];
+									rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v83x].textUV_42][7];
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v83x].textIndex_41];
+									if (Str_E9C38_smalltit[v83x].triangleFeatures_38 & 1)
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+										DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 									}
 									else
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 									}
 								}
-								if (Str_E9C38_smalltit[v83x].word36)
+								if (Str_E9C38_smalltit[v83x].haveBillboard_36)
 									DrawParticles_3E360(v83x);
-					}
+							}
 							v83x--;
-				} while (v83x >= v82x);
-			}
-					v57x -= 40;
+						} while (v83x >= v82x);
+					}
+					v57x -= textRows;
 					v281--;
-		} while (v281);
-		return;
-	}
-			for (k = 40; k; k--)
-			{
-				v33 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
-				v34 = Str_E9C38_smalltit[v278x].dword12;
-				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
-				Str_E9C38_smalltit[v278x].word36 = 0;
-				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15)
-				{
-					Str_E9C38_smalltit[v278x].word38 |= 2u;
-					goto LABEL_46;
-				}
-				if (v34 < 128)
-					v34 = 128;
-				Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v34;
-				v36 = v279;
-				Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v279] - posZ;
-				Str_E9C38_smalltit[v278x].dword8 = ((unsigned __int8)x_BYTE_14B4E0_second_heightmap[v36] << 15 >> 10) - posZ;
-				v37 = 0;
-				if (!mapTerrainType_10B4E0[v36])
-				{
-					v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
-					v37 = (Maths::sin_DB750[(v38 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8)
-						* (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v38) & 0x7FF] >> 8);
-					Str_E9C38_smalltit[v278x].dword4_height -= v37 >> 13;
-					if (v33 >= 14464)
-						v37 = 0;
-				}
-				v39 = (v33 << 8) + 8 * v37;
-				if (v35 <= str_F2C20ar.dword0x13)
-					goto LABEL_39;
-				if (v35 < str_F2C20ar.dword0x16)
-				{
-					v39 = v39 * (signed __int64)(str_F2C20ar.dword0x16 - v35) / str_F2C20ar.dword0x12;
-				LABEL_39:
-					Str_E9C38_smalltit[v278x].dword32 = v39;
-					goto LABEL_40;
-				}
-				Str_E9C38_smalltit[v278x].dword32 = 0;
-			LABEL_40:
-				if (mapAngle_13B4E0[v279] & 8)
-					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
-				v40 = str_F2C20ar.dword0x18;
-				//v41 = v278;
-				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v34;
-				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + v40 * Str_E9C38_smalltit[v278x].dword8 / v34;
-				LOBYTE(v42) = v277[2] + v279;
-				HIBYTE(v42) = v277[3] + HIBYTE(v279);
-				//v43 = v278;
-				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v42];
-				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
-				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v42] >> 2) & 0x1C);
-				LOBYTE(v42) = v277[4] + v42;
-				HIBYTE(v42) += v277[5];
-				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v42];
-			LABEL_46:
-				v44 = v277;
-				Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
-				LOBYTE(v279) = v44[8] + v279;
-				HIBYTE(v279) += v277[9];
-				v278x++;
+				} while (v281);
+				return;
 			}
-			v45 = v277[6] + v279;
-			HIBYTE(v279) += v277[7];
-			LOBYTE(v279) = v45;
-}
+			for (k = textRows; k; k--)
+			{
+				int tempMapShading = (mapShading_12B4E0[yawXY.word] << 8) + 128;
+				int tempY = Str_E9C38_smalltit[index2].y_12;
+				int powXY = pow(tempY,2) + pow(Str_E9C38_smalltit[index2].x_0,2);
+				Str_E9C38_smalltit[index2].haveBillboard_36 = 0;
+				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15)
+				{
+					Str_E9C38_smalltit[index2].triangleFeatures_38 |= 2u;
+				}
+				else
+				{
+					if (tempY < 128)
+						tempY = 128;
+					Str_E9C38_smalltit[index2].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].x_0 / tempY;
+					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
+					Str_E9C38_smalltit[index2].alt2_8 = (x_BYTE_14B4E0_second_heightmap[yawXY.word] << 15 >> 10) - posZ;
+					tempSinXSin = 0;
+					if (!mapTerrainType_10B4E0[yawXY.word])
+					{
+						//v38 = 32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248;
+						tempSinXSin = pow((Maths::sin_DB750[(32 * D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8), 2);
+						Str_E9C38_smalltit[index2].alt_4 -= tempSinXSin >> 13;
+						if (tempMapShading >= 14464)
+							tempSinXSin = 0;
+					}
+					if (powXY <= str_F2C20ar.dword0x13)
+						Str_E9C38_smalltit[index2].pnt5_32 = (tempMapShading << 8) + 8 * tempSinXSin;
+					else if (powXY < str_F2C20ar.dword0x16)
+					{
+						Str_E9C38_smalltit[index2].pnt5_32 = ((tempMapShading << 8) + 8 * tempSinXSin) * (signed __int64)(str_F2C20ar.dword0x16 - powXY) / str_F2C20ar.dword0x12;
+					}
+					else
+						Str_E9C38_smalltit[index2].pnt5_32 = 0;
+					if (mapAngle_13B4E0[yawXY.word] & 8)
+						Str_E9C38_smalltit[index2].triangleFeatures_38 |= 0x80u;
+					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
+					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt2_8 / tempY;
+					uaxis_2d tempYawXY = yawXY;
+					tempYawXY._axis_2d.x += yawQuartal[2];
+					tempYawXY._axis_2d.y += yawQuartal[3];
+					Str_E9C38_smalltit[index2].textIndex_41 = mapTerrainType_10B4E0[tempYawXY.word];
+					if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
+						Str_E9C38_smalltit[index2].triangleFeatures_38 |= 0x1000u;
+					Str_E9C38_smalltit[index2].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[index2].textIndex_41];
+					Str_E9C38_smalltit[index2].textUV_42 = modYaw + (((signed int)(unsigned __int8)mapAngle_13B4E0[tempYawXY.word] >> 2) & 0x1C);
+					tempYawXY._axis_2d.x += yawQuartal[4];
+					tempYawXY._axis_2d.y += yawQuartal[5];
+					Str_E9C38_smalltit[index2].haveBillboard_36 = mapEntityIndex_15B4E0[tempYawXY.word];
+				}
+				Str_E9C38_smalltit[index2].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
+				yawXY._axis_2d.x += yawQuartal[8];
+				yawXY._axis_2d.y += yawQuartal[9];
+				index2++;
+			}
+			yawXY._axis_2d.y += yawQuartal[7];
+			yawXY._axis_2d.x += yawQuartal[6];
+		}
 	}
 	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)//21de79 nothing changed
 	{
-		for (l = 21; ; l--)
+		for (int indexC = textColumns; ; indexC--)
 		{
-			if (!l)
+			if (!indexC)
 			{
-				v123 = 840;
-				v124x = 0;
+				v123 = textRows * textColumns;
+				index = 0;
 				while (v123)
 				{
-					v125 = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword20) >> 16) + str_F2C20ar.dword0x24;
-					v248x[25] = ((str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword16 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v124x].dword28) >> 16) + str_F2C20ar.dword0x24;
-					v126 = Str_E9C38_smalltit[v124x].dword16 * str_F2C20ar.dword0x0d;
-					v248x[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword20) >> 16);
-					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v124x].dword28) >> 16);
-					Str_E9C38_smalltit[v124x].dword16 = v125;
-					v128 = v127;
-					v129 = v248x[24];
-					Str_E9C38_smalltit[v124x].dword28 = v128;
-					Str_E9C38_smalltit[v124x].dword20 = v129;
-					v130 = Str_E9C38_smalltit[v124x].dword16;
-					Str_E9C38_smalltit[v124x].dword24 = v248x[25];
-					if (v130 >= 0)
+					tempVar16 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[index].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[index].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					tempVar24 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[index].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[index].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+					tempVar20 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[index].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[index].pnt2_20) >> 16);
+					tempVar28 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[index].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[index].pnt4_28) >> 16);
+					Str_E9C38_smalltit[index].pnt1_16 = tempVar16;					
+					Str_E9C38_smalltit[index].pnt2_20 = tempVar20;
+					Str_E9C38_smalltit[index].pnt3_24 = tempVar24;
+					Str_E9C38_smalltit[index].pnt4_28 = tempVar28;
+					if (Str_E9C38_smalltit[index].pnt1_16 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].dword16)
-							Str_E9C38_smalltit[v124x].word38 |= 0x10u;
+						if (viewPort.Width_DE564 <= Str_E9C38_smalltit[index].pnt1_16)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x10u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 8u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 8u;
 					}
-					v131 = Str_E9C38_smalltit[v124x].dword20;
-					if (v131 >= 0)
+					if (Str_E9C38_smalltit[index].pnt2_20 >= 0)
 					{
-						if ((unsigned __int16)viewPort.Height_DE568 <= v131)
-							Str_E9C38_smalltit[v124x].word38 |= 0x40u;
+						if (viewPort.Height_DE568 <= Str_E9C38_smalltit[index].pnt2_20)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x40u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 0x20u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x20u;
 					}
-					if (Str_E9C38_smalltit[v124x].dword24 >= 0)
+					if (Str_E9C38_smalltit[index].pnt3_24 >= 0)
 					{
-						if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v124x].dword24)
-							Str_E9C38_smalltit[v124x].word38 |= 0x200u;
+						if (viewPort.Width_DE564 <= Str_E9C38_smalltit[index].pnt3_24)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x200u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 0x100u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x100u;
 					}
-					v132 = Str_E9C38_smalltit[v124x].dword28;
-					if (v132 >= 0)
+					if (Str_E9C38_smalltit[index].pnt4_28 >= 0)
 					{
-						if ((unsigned __int16)viewPort.Height_DE568 <= v132)
-							Str_E9C38_smalltit[v124x].word38 |= 0x800u;
+						if (viewPort.Height_DE568 <= Str_E9C38_smalltit[index].pnt4_28)
+							Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x800u;
 					}
 					else
 					{
-						Str_E9C38_smalltit[v124x].word38 |= 0x400u;
+						Str_E9C38_smalltit[index].triangleFeatures_38 |= 0x400u;
 					}
-					v124x++;
+					index++;
 					v123--;
 				}
 				if (posZ < 4096)
 				{
-					v133x = 800;//35200/sizeof(type_E9C38_smalltit);
-					for (m = 20; m; --m)
+					v133x = (textColumns - 1) * textRows;//35200/sizeof(type_E9C38_smalltit);
+					for (m = textColumns - 1; m; --m)
 					{
 						v134x = v133x;
-						for (n = 39; n; --n)
+						for (n = textRows - 1; n; --n)
 						{
-							v248x[18] = Str_E9C38_smalltit[v134x].dword24;
-							v248x[19] = Str_E9C38_smalltit[v134x].dword28;
-							v248x[22] = Str_E9C38_smalltit[v134x].dword32;
-							v136 = Str_E9C38_smalltit[v134x].word38 & 0xff;
-
-							if (Str_E9C38_smalltit[v134x + 1].word38 & 4)
+							rPoint1.x_0 = Str_E9C38_smalltit[v134x].pnt3_24;
+							rPoint1.y_1 = Str_E9C38_smalltit[v134x].pnt4_28;
+							rPoint1.z_4 = Str_E9C38_smalltit[v134x].pnt5_32;
+							if (Str_E9C38_smalltit[v134x + 1].triangleFeatures_38 & 4)
 								break;
-							v248x[12] = Str_E9C38_smalltit[v134x + 1].dword24;
-							v248x[13] = Str_E9C38_smalltit[v134x + 1].dword28;
-							v248x[16] = Str_E9C38_smalltit[v134x + 1].dword32;
-							v137 = Str_E9C38_smalltit[v134x + 1].word38 & 0xff;
-
-							v248x[6] = Str_E9C38_smalltit[v134x - 39].dword24;//1716 //*(x_DWORD*)(v134 - 1736);
-							v248x[7] = Str_E9C38_smalltit[v134x - 39].dword28;//*(x_DWORD*)(v134 - 1732);
-							v248x[10] = Str_E9C38_smalltit[v134x - 39].dword32;//*(x_DWORD*)(v134 - 1728);
-							v138 = (Str_E9C38_smalltit[v134x - 39].word38 & 0xff) | v137 | v136;
-
-							v248x[0] = Str_E9C38_smalltit[v134x - 40].dword24;//*(x_DWORD*)(v134 - 1780);
-							v248x[1] = Str_E9C38_smalltit[v134x - 40].dword28;//*(x_DWORD*)(v134 - 1776);
-							v248x[4] = Str_E9C38_smalltit[v134x - 40].dword32;//*(x_DWORD*)(v140 - 12);
-							v142 = Str_E9C38_smalltit[v134x - 40].word38 & 0xff;
-							v144 = v142 | v138;
-
+							rPoint2.x_0 = Str_E9C38_smalltit[v134x + 1].pnt3_24;
+							rPoint2.y_1 = Str_E9C38_smalltit[v134x + 1].pnt4_28;
+							rPoint2.z_4 = Str_E9C38_smalltit[v134x + 1].pnt5_32;
+							rPoint3.x_0 = Str_E9C38_smalltit[v134x - textRows + 1].pnt3_24;//1716 //*(x_DWORD*)(v134 - 1736);
+							rPoint3.y_1 = Str_E9C38_smalltit[v134x - textRows + 1].pnt4_28;//*(x_DWORD*)(v134 - 1732);
+							rPoint3.z_4 = Str_E9C38_smalltit[v134x - textRows + 1].pnt5_32;//*(x_DWORD*)(v134 - 1728);
+							rPoint4.x_0 = Str_E9C38_smalltit[v134x - textRows].pnt3_24;//*(x_DWORD*)(v134 - 1780);
+							rPoint4.y_1 = Str_E9C38_smalltit[v134x - textRows].pnt4_28;//*(x_DWORD*)(v134 - 1776);
+							rPoint4.z_4 = Str_E9C38_smalltit[v134x - textRows].pnt5_32;//*(x_DWORD*)(v140 - 12);
 							/*
 							uint8_t origbyte20 = 0;
 							uint8_t remakebyte20 = 0;
@@ -1162,40 +955,40 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 
 							//0x21e378
 
-							if (Str_E9C38_smalltit[v134x].byte41)//(*(x_BYTE*)(v143 + 41))
+							if (Str_E9C38_smalltit[v134x].textIndex_41)//(*(x_BYTE*)(v143 + 41))
 							{
-								if (Str_E9C38_smalltit[v134x].word38 & 0x1000)
+								if (Str_E9C38_smalltit[v134x].triangleFeatures_38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+									x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 								}
 								else
 								{
 									x_BYTE_E126D = 5;
 								}
-								if (!(v144 & 2))
+								if (!(((Str_E9C38_smalltit[v134x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v134x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v134x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v134x].triangleFeatures_38 & 0xff)) & 2))
 								{
 									{
-										v248x[20] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][0];
-										v248x[21] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][1];
-										v248x[14] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][2];
-										v248x[15] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][3];
-										v248x[8] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][4];
-										v248x[9] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][5];
-										v248x[2] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][6];
-										v248x[3] = xunk_D4350[Str_E9C38_smalltit[v134x].byte42_std][7];
-										x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v134x].byte41];
+										rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][0];
+										rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][1];
+										rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][2];
+										rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][3];
+										rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][4];
+										rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][5];
+										rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][6];
+										rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v134x].textUV_42][7];
+										x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v134x].textIndex_41];
 										x_BYTE_E126D = 5;
 										//allert_error();
-										if (Str_E9C38_smalltit[v134x].word38 & 1)
+										if (Str_E9C38_smalltit[v134x].triangleFeatures_38 & 1)
 										{
-											DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[12]);
-											DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[6], &v248x[12]);
+											DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint2);
+											DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint3, &rPoint2);
 										}
 										else
 										{
-											DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[12]);
-											DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[6]);
+											DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint2);
+											DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint3);
 										}
 									}
 								}
@@ -1205,522 +998,478 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 								v143++;
 								v143--;
 							}*/
-							if (Str_E9C38_smalltit[v134x].word36)
+							if (Str_E9C38_smalltit[v134x].haveBillboard_36)
 								sub_3FD60(v134x);
 							v134x++;
 						}
 						if (n)
 						{
 							v25z = v134x;// -1;
-							v147x = v133x + 38;
+							v147x = v133x + textRows - 2;
 							do
 							{
-								v248x[18] = Str_E9C38_smalltit[v147x].dword24;//*(x_DWORD*)(v147 + 24);
-								v248x[19] = Str_E9C38_smalltit[v147x].dword28;//*(x_DWORD*)(v147 + 28);
-								v248x[22] = Str_E9C38_smalltit[v147x].dword32;//*(x_DWORD*)(v147 + 32);
-								v148 = Str_E9C38_smalltit[v147x].word38 & 0xff;//*(x_BYTE*)(v147 + 38);
-
-								v248x[12] = Str_E9C38_smalltit[v147x + 1].dword24;//*(x_DWORD*)(v147 + 68);
-								v248x[13] = Str_E9C38_smalltit[v147x + 1].dword28;//*(x_DWORD*)(v147 + 72);
-								v248x[16] = Str_E9C38_smalltit[v147x + 1].dword32;//*(x_DWORD*)(v147 + 76);
-								v149 = (Str_E9C38_smalltit[v147x + 1].word38 & 0xff) | v148;//*(x_BYTE*)(v147 + 82) | v148;
-
-								v248x[6] = Str_E9C38_smalltit[v147x - 39].dword24;//*(x_DWORD*)(v147 - 1692);
-								v248x[7] = Str_E9C38_smalltit[v147x - 39].dword28;//*(x_DWORD*)(v147 - 1688);
-								v248x[10] = Str_E9C38_smalltit[v147x - 39].dword32;//*(x_DWORD*)(v151 - 1728);
-								v153 = Str_E9C38_smalltit[v147x - 39].word38 & 0xff;//*(x_BYTE*)(v151 + 38);
-
-								v248x[0] = Str_E9C38_smalltit[v147x - 40].dword24;//*(x_DWORD*)(v151 - 20);
-								v248x[1] = Str_E9C38_smalltit[v147x - 40].dword28;//*(x_DWORD*)(v151 - 16);
-								v248x[4] = Str_E9C38_smalltit[v147x - 40].dword32;//*(x_DWORD*)(v151 + 32);
-								v156 = (Str_E9C38_smalltit[v147x - 40].word38 & 0xff) | v153 | v149;
-								if (Str_E9C38_smalltit[v147x].byte41)
+								rPoint1.x_0 = Str_E9C38_smalltit[v147x].pnt3_24;//*(x_DWORD*)(v147 + 24);
+								rPoint1.y_1 = Str_E9C38_smalltit[v147x].pnt4_28;//*(x_DWORD*)(v147 + 28);
+								rPoint1.z_4 = Str_E9C38_smalltit[v147x].pnt5_32;//*(x_DWORD*)(v147 + 32);
+								rPoint2.x_0 = Str_E9C38_smalltit[v147x + 1].pnt3_24;//*(x_DWORD*)(v147 + 68);
+								rPoint2.y_1 = Str_E9C38_smalltit[v147x + 1].pnt4_28;//*(x_DWORD*)(v147 + 72);
+								rPoint2.z_4 = Str_E9C38_smalltit[v147x + 1].pnt5_32;//*(x_DWORD*)(v147 + 76);
+								rPoint3.x_0 = Str_E9C38_smalltit[v147x - textRows + 1].pnt3_24;//*(x_DWORD*)(v147 - 1692);
+								rPoint3.y_1 = Str_E9C38_smalltit[v147x - textRows + 1].pnt4_28;//*(x_DWORD*)(v147 - 1688);
+								rPoint3.z_4 = Str_E9C38_smalltit[v147x - textRows + 1].pnt5_32;//*(x_DWORD*)(v151 - 1728);
+								rPoint4.x_0 = Str_E9C38_smalltit[v147x - textRows].pnt3_24;//*(x_DWORD*)(v151 - 20);
+								rPoint4.y_1 = Str_E9C38_smalltit[v147x - textRows].pnt4_28;//*(x_DWORD*)(v151 - 16);
+								rPoint4.z_4 = Str_E9C38_smalltit[v147x - textRows].pnt5_32;//*(x_DWORD*)(v151 + 32);
+								if (Str_E9C38_smalltit[v147x].textIndex_41)
 								{
-									if (Str_E9C38_smalltit[v147x].word38 & 0x1000)
+									if (Str_E9C38_smalltit[v147x].triangleFeatures_38 & 0x1000)
 									{
 										x_BYTE_E126D = 7;
-										x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+										x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 									}
 									else
 									{
 										x_BYTE_E126D = 5;
 									}
-									if (!(v156 & 2))
+									if (!(((Str_E9C38_smalltit[v147x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v147x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v147x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v147x].triangleFeatures_38 & 0xff)) & 2))
 									{
 										{
-											v248x[20] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][0];
-											v248x[21] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][1];
-											v248x[14] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][2];
-											v248x[15] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][3];
-											v248x[8] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][4];
-											v248x[9] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][5];
-											v248x[2] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][6];
-											v248x[3] = xunk_D4350[Str_E9C38_smalltit[v147x].byte42_std][7];
+											rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][0];
+											rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][1];
+											rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][2];
+											rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][3];
+											rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][4];
+											rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][5];
+											rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][6];
+											rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v147x].textUV_42][7];
 											x_BYTE_E126D = 5;
-											x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v147x].byte41];
+											x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v147x].textIndex_41];
 											//allert_error();
-											if (Str_E9C38_smalltit[v147x].word38 & 1)
+											if (Str_E9C38_smalltit[v147x].triangleFeatures_38 & 1)
 											{
-												DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[12]);
-												DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[6], &v248x[12]);
+												DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint2);
+												DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint3, &rPoint2);
 											}
 											else
 											{
-												DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[12]);
-												DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[0], &v248x[6]);
+												DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint2);
+												DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint4, &rPoint3);
 											}
 										}
 									}
 								}
-								if (Str_E9C38_smalltit[v147x].word36)
+								if (Str_E9C38_smalltit[v147x].haveBillboard_36)
 									sub_3FD60(v147x);
 								v147x--;
 							} while (v147x >= v25z);
 						}
-						v133x -= 40;
+						v133x -= textRows;
 					}
 				}
-				v160x = 800;
-				v282 = 20;
+				v160x = (textColumns - 1) * textRows;
+				v282 = textColumns - 1;
 				do
 				{
 					v161x = v160x;
 					for (ii = 39; ii; --ii)
 					{
-						v248x[18] = Str_E9C38_smalltit[v161x].dword16;//*(x_DWORD*)(v161 + 16);
-						v248x[19] = Str_E9C38_smalltit[v161x].dword20;//*(x_DWORD*)(v161 + 20);
-						v248x[22] = Str_E9C38_smalltit[v161x].dword32;//*(x_DWORD*)(v161 + 32);
-						v163 = Str_E9C38_smalltit[v161x].word38 & 0xff;//*(x_BYTE*)(v161 - 6);
-
+						rPoint1.x_0 = Str_E9C38_smalltit[v161x].pnt1_16;//*(x_DWORD*)(v161 + 16);
+						rPoint1.y_1 = Str_E9C38_smalltit[v161x].pnt2_20;//*(x_DWORD*)(v161 + 20);
+						rPoint1.z_4 = Str_E9C38_smalltit[v161x].pnt5_32;//*(x_DWORD*)(v161 + 32);
 						/*if (debugcounter_sub_particle >= 0xf)
 						{
 							debugcounter_sub_particle++;
 							debugcounter_sub_particle--;
 						}
-
 						debugcounter_sub_particle++;*/
 
-						if (Str_E9C38_smalltit[v161x + 1].word38 & 4)
+						if (Str_E9C38_smalltit[v161x + 1].triangleFeatures_38 & 4)
 							break;
-
-						v248x[12] = Str_E9C38_smalltit[v161x + 1].dword16;//*(x_DWORD*)(v161 + 16);
-						v248x[13] = Str_E9C38_smalltit[v161x + 1].dword20;//*(x_DWORD*)(v161 + 20);
-						v248x[16] = Str_E9C38_smalltit[v161x + 1].dword32;//*(x_DWORD*)(v161 + 32);
-						v165 = Str_E9C38_smalltit[v161x + 1].word38 & 0xff;
-						v166 = v165 | v163;
-						v167 = v165 & v163;
-
-						v248x[6] = Str_E9C38_smalltit[v161x - 39].dword16;//*(x_DWORD*)(v161 - 1744);
-						v248x[7] = Str_E9C38_smalltit[v161x - 39].dword20;//*(x_DWORD*)(v161 - 1740);
-						v248x[10] = Str_E9C38_smalltit[v161x - 39].dword32;//*(x_DWORD*)(v161 - 1728);
-						v170 = Str_E9C38_smalltit[v161x - 39].word38 & 0xff;//*(x_BYTE*)(v169 + 38);
-
-						v248x[0] = Str_E9C38_smalltit[v161x - 40].dword16;//*(x_DWORD*)(v169 - 28);
-						v248x[1] = Str_E9C38_smalltit[v161x - 40].dword20;//*(x_DWORD*)(v169 - 24);
-						v248x[4] = Str_E9C38_smalltit[v161x - 40].dword32;
-						v173 = (Str_E9C38_smalltit[v161x - 40].word38 & 0xff) | v170 | v166;
-						v174 = (Str_E9C38_smalltit[v161x - 40].word38 & 0xff) & v170 & v167;
-
-						if (!(Str_E9C38_smalltit[v161x].word38 & 0x80))
+						rPoint2.x_0 = Str_E9C38_smalltit[v161x + 1].pnt1_16;
+						rPoint2.y_1 = Str_E9C38_smalltit[v161x + 1].pnt2_20;
+						rPoint2.z_4 = Str_E9C38_smalltit[v161x + 1].pnt5_32;
+						rPoint3.x_0 = Str_E9C38_smalltit[v161x - textRows + 1].pnt1_16;
+						rPoint3.y_1 = Str_E9C38_smalltit[v161x - textRows + 1].pnt2_20;
+						rPoint3.z_4 = Str_E9C38_smalltit[v161x - textRows + 1].pnt5_32;
+						rPoint4.x_0 = Str_E9C38_smalltit[v161x - textRows].pnt1_16;
+						rPoint4.y_1 = Str_E9C38_smalltit[v161x - textRows].pnt2_20;
+						rPoint4.z_4 = Str_E9C38_smalltit[v161x - textRows].pnt5_32;
+						if (!(Str_E9C38_smalltit[v161x].triangleFeatures_38 & 0x80))
 						{
-							if (Str_E9C38_smalltit[v161x].word38 & 0x1000)
+							if (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 0x1000)
 							{
 								x_BYTE_E126D = 7;
-								x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+								x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 							}
 							else
 							{
 								x_BYTE_E126D = 5;
 							}
-							if (!(v173 & 2) && !(v174 & 0x78))
+							if (!(((Str_E9C38_smalltit[v161x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v161x - 39].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v161x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[v161x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v161x - 39].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v161x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 0xff) & 0x78))
 							{
-								v248x[20] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][0];
-								v248x[21] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][1];
-								v248x[14] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][2];
-								v248x[15] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][3];
-								v248x[8] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][4];
-								v248x[9] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][5];
-								v248x[2] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][6];
-								v248x[3] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][7];
-								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v161x].byte41];
-								if (Str_E9C38_smalltit[v161x].word38 & 1)
+								rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][0];
+								rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][1];
+								rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][2];
+								rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][3];
+								rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][4];
+								rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][5];
+								rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][6];
+								rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][7];
+								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v161x].textIndex_41];
+								if (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 1)
 								{
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-									DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+									DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 								}
 								else
 								{
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 								}
 							}
 						}
 						else
 						{
 							x_BYTE_E126D = 26;
-							if (!(v173 & 2) && !(v174 & 0x78))
+							if (!(((Str_E9C38_smalltit[v161x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v161x - 39].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v161x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[v161x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v161x - 39].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v161x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 0xff) & 0x78))
 							{
-								v248x[20] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][0];
-								v248x[21] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][1];
-								v248x[14] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][2];
-								v248x[15] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][3];
-								v248x[8] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][4];
-								v248x[9] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][5];
-								v248x[2] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][6];
-								v248x[3] = xunk_D4350[Str_E9C38_smalltit[v161x].byte42_std][7];
-								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v161x].byte41];
-								if (Str_E9C38_smalltit[v161x].word38 & 1)
+								rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][0];
+								rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][1];
+								rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][2];
+								rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][3];
+								rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][4];
+								rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][5];
+								rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][6];
+								rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v161x].textUV_42][7];
+								x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v161x].textIndex_41];
+								if (Str_E9C38_smalltit[v161x].triangleFeatures_38 & 1)
 								{
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-									DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+									DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 								}
 								else
 								{
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-									DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+									DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 								}
+							}
 						}
-					}
-						if (Str_E9C38_smalltit[v161x].word36)
+						if (Str_E9C38_smalltit[v161x].haveBillboard_36)
 							DrawParticles_3E360(/*v160,*/ v161x);
 						v161x++;
-				}
+					}
 					if (ii)
 					{
 						v177x = v161x;// -1;
-						v178x = v160x + 38;
+						v178x = v160x + textRows - 2;
 						do
 						{
-							v248x[18] = Str_E9C38_smalltit[v178x].dword16;//*(x_DWORD*)(v178 + 16);
-							v248x[19] = Str_E9C38_smalltit[v178x].dword20;//*(x_DWORD*)(v178 + 20);
-							v248x[22] = Str_E9C38_smalltit[v178x].dword32;//*(x_DWORD*)(v178 + 32);
-							v179 = Str_E9C38_smalltit[v178x].word38 & 0xff;//*(x_BYTE*)(v178 + 38);
-
-							v248x[12] = Str_E9C38_smalltit[v178x + 1].dword16;//*(x_DWORD*)(v178 + 60);
-							v248x[13] = Str_E9C38_smalltit[v178x + 1].dword20;//*(x_DWORD*)(v178 + 64);
-							v248x[16] = Str_E9C38_smalltit[v178x + 1].dword32;//*(x_DWORD*)(v178 + 76);
-							v180 = Str_E9C38_smalltit[v178x + 1].word38 & 0xff;//*(x_BYTE*)(v178 + 82);
-
-							v248x[6] = Str_E9C38_smalltit[v178x - 39].dword16;//*(x_DWORD*)(v178 - 1700);
-							v248x[7] = Str_E9C38_smalltit[v178x - 39].dword20;//*(x_DWORD*)(v178 - 1696);
-							v248x[10] = Str_E9C38_smalltit[v178x - 39].dword32;//*(x_DWORD*)(v178 - 1684);
-							v182 = Str_E9C38_smalltit[v178x - 39].word38 & 0xff;//*(x_BYTE*)(v178 - 1678);
-							v183 = v182 | v180 | v179;
-							v184 = v182 & v180 & v179;
-
-							v248x[0] = Str_E9C38_smalltit[v178x - 40].dword16;//*(x_DWORD*)(v178 - 1744);
-							v248x[1] = Str_E9C38_smalltit[v178x - 40].dword20;//*(x_DWORD*)(v186 - 1784);
-							v248x[4] = Str_E9C38_smalltit[v178x - 40].dword32;//*(x_DWORD*)(v186 - 12);
-							v189 = Str_E9C38_smalltit[v178x - 40].word38 & 0xff;//*(x_BYTE*)(v186 + 38);
-							v191 = v189 | v183;
-							v192 = v189 & v184;
-							if (!(Str_E9C38_smalltit[v178x].word38 & 0x80))
+							rPoint1.x_0 = Str_E9C38_smalltit[v178x].pnt1_16;//*(x_DWORD*)(v178 + 16);
+							rPoint1.y_1 = Str_E9C38_smalltit[v178x].pnt2_20;//*(x_DWORD*)(v178 + 20);
+							rPoint1.z_4 = Str_E9C38_smalltit[v178x].pnt5_32;//*(x_DWORD*)(v178 + 32);
+							rPoint2.x_0 = Str_E9C38_smalltit[v178x + 1].pnt1_16;//*(x_DWORD*)(v178 + 60);
+							rPoint2.y_1 = Str_E9C38_smalltit[v178x + 1].pnt2_20;//*(x_DWORD*)(v178 + 64);
+							rPoint2.z_4 = Str_E9C38_smalltit[v178x + 1].pnt5_32;//*(x_DWORD*)(v178 + 76);
+							rPoint3.x_0 = Str_E9C38_smalltit[v178x - textRows + 1].pnt1_16;//*(x_DWORD*)(v178 - 1700);
+							rPoint3.y_1 = Str_E9C38_smalltit[v178x - textRows + 1].pnt2_20;//*(x_DWORD*)(v178 - 1696);
+							rPoint3.z_4 = Str_E9C38_smalltit[v178x - textRows + 1].pnt5_32;//*(x_DWORD*)(v178 - 1684);
+							rPoint4.x_0 = Str_E9C38_smalltit[v178x - textRows].pnt1_16;//*(x_DWORD*)(v178 - 1744);
+							rPoint4.y_1 = Str_E9C38_smalltit[v178x - textRows].pnt2_20;//*(x_DWORD*)(v186 - 1784);
+							rPoint4.z_4 = Str_E9C38_smalltit[v178x - textRows].pnt5_32;//*(x_DWORD*)(v186 - 12);
+							if (!(Str_E9C38_smalltit[v178x].triangleFeatures_38 & 0x80))
 							{
-								if (Str_E9C38_smalltit[v178x].word38 & 0x1000)
+								if (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 0x1000)
 								{
 									x_BYTE_E126D = 7;
-									x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+									x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 								}
 								else
 								{
 									x_BYTE_E126D = 5;
 								}
-								if (!(v191 & 2) && !(v192 & 0x78))
+								if (!(((Str_E9C38_smalltit[v178x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v178x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v178x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[v178x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v178x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v178x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 0xff) & 0x78))
 								{
-									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][0];
-									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][1];
-									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][2];
-									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][3];
-									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][4];
-									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][5];
-									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][6];
-									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][7];
-									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v178x].byte41];
-									if (Str_E9C38_smalltit[v178x].word38 & 1)
+									rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][0];
+									rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][1];
+									rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][2];
+									rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][3];
+									rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][4];
+									rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][5];
+									rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][6];
+									rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][7];
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v178x].textIndex_41];
+									if (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 1)
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+										DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 									}
 									else
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 									}
 								}
 							}
 							else
 							{
 								x_BYTE_E126D = 26;
-								if (!(v191 & 2) && !(v192 & 0x78))
+								if (!(((Str_E9C38_smalltit[v178x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v178x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v178x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[v178x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v178x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v178x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 0xff) & 0x78))
 								{
-									v248x[20] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][0];
-									v248x[21] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][1];
-									v248x[14] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][2];
-									v248x[15] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][3];
-									v248x[8] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][4];
-									v248x[9] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][5];
-									v248x[2] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][6];
-									v248x[3] = xunk_D4350[Str_E9C38_smalltit[v178x].byte42_std][7];
-									v194 = Str_E9C38_smalltit[v178x].word38 & 0xff;
-									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v178x].byte41];
-									if (v194 & 1)
+									rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][0];
+									rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][1];
+									rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][2];
+									rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][3];
+									rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][4];
+									rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][5];
+									rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][6];
+									rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v178x].textUV_42][7];
+									x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v178x].textIndex_41];
+									if (Str_E9C38_smalltit[v178x].triangleFeatures_38 & 1)
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+										DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 									}
 									else
 									{
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-										DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+										DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 									}
 								}
 							}
-							if (Str_E9C38_smalltit[v178x].word36)
+							if (Str_E9C38_smalltit[v178x].haveBillboard_36)
 								DrawParticles_3E360(v178x);
 							v178x--;
 						} while (v178x >= v177x);
 					}
-					v160x -= 40;
+					v160x -= textRows;
 					v282--;
-			} while (v282);
-			return;
-		}
-			for (jj = 40; jj; --jj)
-			{
-				v248x[31] = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
-				v109 = Str_E9C38_smalltit[v278x].dword12;
-				v110 = v109 * v109 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
-				Str_E9C38_smalltit[v278x].word36 = 0;
-				if (v109 <= -256 || v110 >= str_F2C20ar.dword0x15)
-				{
-					Str_E9C38_smalltit[v278x].word38 |= 2u;
-					goto LABEL_140;
-				}
-				if (v109 < 128)
-					v109 = 128;
-				Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v109;
-				v111 = v279;
-				Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v279] - posZ;
-				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-				v248x[26] = Maths::sin_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
-				v113 = v248x[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
-				v248x[26] = mapHeightmap_11B4E0[v111];
-				Str_E9C38_smalltit[v278x].dword8 = -(v248x[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
-				if (!(mapAngle_13B4E0[v111] & 8)
-					|| (//v114 = (int32_t*)v278,
-						//v25y = (uint32_t*)(((uint32_t*)v278)[1] - (v113 >> 10)),
-						//v115 = v248x[31],
-						(Str_E9C38_smalltit[v278x].dword4_height -= (v113 >> 10)),
-						v248x[31] >= 14464))
-					/*if (!(x_BYTE_13B4E0_angle[v111] & 8)
-						|| (v114 = (int32_t*)v25y, v25y = (uint32_t*)(v25y[1] - (v113 >> 10)), v115 = v248x[31], v114[1] = (x_DWORD)v25y, v115 >= 14464))*/
-				{
-					v113 = 0;
-				}
-				v116 = (v248x[31] << 8) + 8 * v113;
-				if (v110 <= str_F2C20ar.dword0x13)
-					goto LABEL_133;
-				if (v110 < str_F2C20ar.dword0x16)
-				{
-					v116 = v116 * (signed __int64)(str_F2C20ar.dword0x16 - v110) / str_F2C20ar.dword0x12;
-				LABEL_133:
-					Str_E9C38_smalltit[v278x].dword32 = v116;
-					goto LABEL_134;
-				}
-				Str_E9C38_smalltit[v278x].dword32 = 0;
-			LABEL_134:
-				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v109;
-				Str_E9C38_smalltit[v278x].dword28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword8 / v109;
-				LOBYTE(v118) = v277[2] + v279;
-				HIBYTE(v118) = v277[3] + HIBYTE(v279);
-				v119 = mapTerrainType_10B4E0[v118];
-				Str_E9C38_smalltit[v278x].byte41 = v119;
-				if (Maths::x_BYTE_D41D8[164 + v119])
-					Str_E9C38_smalltit[v278x].word38 |= 0x80u;
-				if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
-					Str_E9C38_smalltit[v278x].word38 |= 0x1000u;
-				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v118] >> 2) & 0x1C);
-				LOBYTE(v118) = v277[4] + v118;
-				HIBYTE(v118) += v277[5];
-				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v118];
-			LABEL_140:
-				v121 = v277;
-				Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
-				LOBYTE(v279) = v121[8] + v279;
-				HIBYTE(v279) += v277[9];
-				v278x += 1;
+				} while (v282);
+				return;
 			}
-			v122 = v277[6] + v279;
-			HIBYTE(v279) += v277[7];
-			LOBYTE(v279) = v122;
+			for (jj = textRows; jj; --jj)
+			{
+				int tempMapShading = (mapShading_12B4E0[yawXY.word] << 8) + 128;
+				int tempY = Str_E9C38_smalltit[index2].y_12;
+				int powXY = pow(tempY,2) + pow(Str_E9C38_smalltit[index2].x_0,2);
+				Str_E9C38_smalltit[index2].haveBillboard_36 = 0;
+				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15)
+					Str_E9C38_smalltit[index2].triangleFeatures_38 |= 2u;
+				else
+				{
+					if (tempY < 128)
+						tempY = 128;
+					Str_E9C38_smalltit[index2].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].x_0 / tempY;
+					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
+					//v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
+					tempSinXSin = pow((Maths::sin_DB750[((D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6)+(yawXY._axis_2d.y << 7)) & 0x7FF] >> 8), 2);
+					Str_E9C38_smalltit[index2].alt2_8 = -(mapHeightmap_11B4E0[yawXY.word] * ((tempSinXSin >> 4) + 0x8000) >> 10) - posZ;
+					tempSinXSin = 0;
+					allert_error();//test  next ifs
+					if ((mapAngle_13B4E0[yawXY.word] & 8)!=0)
+					{
+						Str_E9C38_smalltit[index2].alt_4 -= (tempSinXSin >> 10);
+						if(tempMapShading >= 14464)
+							tempSinXSin = 0;						
+					}
+					if (powXY <= str_F2C20ar.dword0x13)
+						Str_E9C38_smalltit[index2].pnt5_32 = (tempMapShading << 8) + 8 * tempSinXSin;
+					else if (powXY < str_F2C20ar.dword0x16)
+					{
+						Str_E9C38_smalltit[index2].pnt5_32 = ((tempMapShading << 8) + 8 * tempSinXSin) * (signed __int64)(str_F2C20ar.dword0x16 - powXY) / str_F2C20ar.dword0x12;
+					}
+					else
+						Str_E9C38_smalltit[index2].pnt5_32 = 0;
+					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
+					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt2_8 / tempY;
+					uaxis_2d tempYawXY = yawXY;
+					tempYawXY._axis_2d.x += yawQuartal[2];
+					tempYawXY._axis_2d.y += yawQuartal[3];
+					Str_E9C38_smalltit[index2].textIndex_41 = mapTerrainType_10B4E0[tempYawXY.word];
+					if (Maths::x_BYTE_D41D8[164 + mapTerrainType_10B4E0[tempYawXY.word]])
+						Str_E9C38_smalltit[index2].triangleFeatures_38 |= 0x80u;
+					if (D41A0_0.m_GameSettings.str_0x2196.flat_0x2199)
+						Str_E9C38_smalltit[index2].triangleFeatures_38 |= 0x1000u;
+					Str_E9C38_smalltit[index2].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[index2].textIndex_41];
+					Str_E9C38_smalltit[index2].textUV_42 = modYaw + ((mapAngle_13B4E0[tempYawXY.word] >> 2) & 0x1C);
+					tempYawXY._axis_2d.x += yawQuartal[4];
+					tempYawXY._axis_2d.y += yawQuartal[5];
+					Str_E9C38_smalltit[index2].haveBillboard_36 = mapEntityIndex_15B4E0[tempYawXY.word];
+				}
+				Str_E9C38_smalltit[index2].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
+				yawXY._axis_2d.x += yawQuartal[8];
+				yawXY._axis_2d.y += yawQuartal[9];
+				index2++;
+			}
+			yawXY._axis_2d.y += yawQuartal[7];
+			yawXY._axis_2d.x += yawQuartal[6];
+		}
 	}
-	}
-	v283 = 21;//21eb44 nothing changed
-LABEL_259:
+	v283 = textColumns;//21eb44 nothing changed
+//LABEL_259:
 	if (v283)
 	{
-		v285 = 40;
+		v285 = textRows;
 		while (1)
 		{
 			if (!v285)
 			{
-				LOBYTE(v279) = v277[6] + v279;
-				HIBYTE(v279) += v277[7];
+				yawXY._axis_2d.x += yawQuartal[6];
+				yawXY._axis_2d.y += yawQuartal[7];
 				v283--;
-				goto LABEL_259;
+				if (v283)
+					v285 = textRows;
+				else
+					break;
 			}
-			v197 = ((unsigned __int8)mapShading_12B4E0[v279] << 8) + 128;
-			v198 = Str_E9C38_smalltit[v278x].dword12;
-			v199 = v198 * v198 + Str_E9C38_smalltit[v278x].dword0_rot * Str_E9C38_smalltit[v278x].dword0_rot;
-			Str_E9C38_smalltit[v278x].word36 = 0;
-			if (v198 > -256 && v199 < str_F2C20ar.dword0x15)
-				break;
-			Str_E9C38_smalltit[v278x].word38 |= 2u;
-		LABEL_256:
-			v207 = v277;
-			Str_E9C38_smalltit[v278x].word38 |= ((x_BYTE)v279 + HIBYTE(v279)) & 1;
-			LOBYTE(v279) = v207[8] + v279;
-			HIBYTE(v279) += v277[9];
-			v285--;
-			v278x++;
-		}
-		if (v198 < 128)
-			v198 = 128;
-		v200 = v279;
-		Str_E9C38_smalltit[v278x].dword16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword0_rot / v198;
-		Str_E9C38_smalltit[v278x].dword4_height = 32 * mapHeightmap_11B4E0[v200] - posZ;
-		v201 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-		v248x[26] = Maths::sin_DB750[(v201 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
-		v202 = v248x[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v201) & 0x7FF] >> 8);
-		if (!(mapAngle_13B4E0[v200] & 8) || (Str_E9C38_smalltit[v278x].dword4_height -= v202 >> 10, v197 >= 14464))
-			v202 = 0;
-		v203 = (v197 << 8) + 8 * v202;
-		if (v199 > str_F2C20ar.dword0x13)
-		{
-			if (v199 >= str_F2C20ar.dword0x16)
+			else
 			{
-				Str_E9C38_smalltit[v278x].dword32 = 0;
-			LABEL_254:
-				Str_E9C38_smalltit[v278x].dword20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].dword4_height / v198;
-				LOBYTE(v204) = v277[2] + v279;
-				HIBYTE(v204) = v277[3] + HIBYTE(v279);
-				Str_E9C38_smalltit[v278x].byte41 = mapTerrainType_10B4E0[v204];
-				Str_E9C38_smalltit[v278x].byte43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[v278x].byte41];
-				Str_E9C38_smalltit[v278x].byte42_std = v248x[32] + (((signed int)(unsigned __int8)mapAngle_13B4E0[v204] >> 2) & 0x1C);
-				LOBYTE(v204) = v277[4] + v204;
-				HIBYTE(v204) += v277[5];
-				Str_E9C38_smalltit[v278x].word36 = mapEntityIndex_15B4E0[v204];
-				goto LABEL_256;
+				int tempMapShading = (mapShading_12B4E0[yawXY.word] << 8) + 128;
+				int tempY = Str_E9C38_smalltit[index2].y_12;
+				int powXY = pow(tempY,2) + pow(Str_E9C38_smalltit[index2].x_0,2);
+				Str_E9C38_smalltit[index2].haveBillboard_36 = 0;
+				if (tempY > -256 && powXY < str_F2C20ar.dword0x15)
+				{
+					if (tempY < 128)
+						tempY = 128;
+					//v200 = yawXY.word;
+					Str_E9C38_smalltit[index2].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].x_0 / tempY;
+					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
+					//v201 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
+					tempSinXSin = pow(Maths::sin_DB750[((D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6) + (yawXY._axis_2d.y << 7)) & 0x7FF] >> 8,2);
+					allert_error();//test next if
+					if (!(mapAngle_13B4E0[yawXY.word] & 8))
+					{
+						Str_E9C38_smalltit[index2].alt_4 -= tempSinXSin >> 10;
+						if(tempMapShading < 14464)
+							tempSinXSin = 0;
+					}
+					else
+						tempSinXSin = 0;
+					if (powXY > str_F2C20ar.dword0x13)
+					{
+						if (powXY >= str_F2C20ar.dword0x16)
+							Str_E9C38_smalltit[index2].pnt5_32 = 0;
+						else
+							Str_E9C38_smalltit[index2].pnt5_32 = ((tempMapShading << 8) + 8 * tempSinXSin) * (signed __int64)(str_F2C20ar.dword0x16 - powXY) / str_F2C20ar.dword0x12;
+					}
+					else
+						Str_E9C38_smalltit[index2].pnt5_32 = (tempMapShading << 8) + 8 * tempSinXSin;
+					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
+					uaxis_2d tempYawXY = yawXY;
+					tempYawXY._axis_2d.x = yawQuartal[2] + yawXY._axis_2d.x;
+					tempYawXY._axis_2d.y = yawQuartal[3] + yawXY._axis_2d.y;
+					Str_E9C38_smalltit[index2].textIndex_41 = mapTerrainType_10B4E0[tempYawXY.word];
+					Str_E9C38_smalltit[index2].textAtyp_43 = Maths::x_BYTE_D41D8[Str_E9C38_smalltit[index2].textIndex_41];
+					Str_E9C38_smalltit[index2].textUV_42 = modYaw + ((mapAngle_13B4E0[tempYawXY.word] >> 2) & 0x1C);
+					tempYawXY._axis_2d.x = yawQuartal[4];
+					tempYawXY._axis_2d.y = yawQuartal[5];
+					Str_E9C38_smalltit[index2].haveBillboard_36 = mapEntityIndex_15B4E0[tempYawXY.word];
+					//goto LABEL_256;
+				}
+				else
+					Str_E9C38_smalltit[index2].triangleFeatures_38 |= 2u;
+			//LABEL_256:
+				//v207 = yawQuartal;
+				Str_E9C38_smalltit[index2].triangleFeatures_38 |= (yawXY._axis_2d.x + yawXY._axis_2d.y) & 1;
+				yawXY._axis_2d.x += yawQuartal[8];
+				yawXY._axis_2d.y += yawQuartal[9];
+				v285--;
+				index2++;
 			}
-			v203 = v203 * (signed __int64)(str_F2C20ar.dword0x16 - v199) / str_F2C20ar.dword0x12;
-		}
-		Str_E9C38_smalltit[v278x].dword32 = v203;
-		goto LABEL_254;
+		}		
 	}//21edb7 nothing changed
 	v208 = roll & 0x7FF;//21edb7
-	v209 = 840;
+	v209 = textRows * textColumns;
 	v210 = Maths::sin_DB750[v208];
 	v211 = Maths::sin_DB750[512 + v208];
-	str_F2C20ar.dword0x0d = v210;
-	str_F2C20ar.dword0x11 = v211;
+	str_F2C20ar.sin_0x0d = v210;
+	str_F2C20ar.cos_0x11 = v211;
 	v56x = 0;
 	while (v209)
 	{
 		v212 = str_F2C20ar.dword0x10;
-		v213 = (str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v56x].dword16 + str_F2C20ar.dword0x11 * Str_E9C38_smalltit[v56x].dword20) >> 16;
-		Str_E9C38_smalltit[v56x].dword16 = ((Str_E9C38_smalltit[v56x].dword16 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * Str_E9C38_smalltit[v56x].dword20) >> 16)
+		v213 = (str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v56x].pnt1_16 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v56x].pnt2_20) >> 16;
+		Str_E9C38_smalltit[v56x].pnt1_16 = ((Str_E9C38_smalltit[v56x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v56x].pnt2_20) >> 16)
 			+ str_F2C20ar.dword0x24;
 		v214 = v212 - v213;
-		v215 = Str_E9C38_smalltit[v56x].dword16;
-		Str_E9C38_smalltit[v56x].dword20 = v214;
+		v215 = Str_E9C38_smalltit[v56x].pnt1_16;
+		Str_E9C38_smalltit[v56x].pnt2_20 = v214;
 		if (v215 >= 0)
 		{
-			if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v56x].dword16)
-				Str_E9C38_smalltit[v56x].word38 |= 0x10u;
+			if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v56x].pnt1_16)
+				Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x10u;
 		}
 		else
 		{
-			Str_E9C38_smalltit[v56x].word38 |= 8u;
+			Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 8u;
 		}
-		v216 = Str_E9C38_smalltit[v56x].dword20;
-		if (v216 >= 0)
+		//v216 = Str_E9C38_smalltit[v56x].pnt2_20;
+		if (Str_E9C38_smalltit[v56x].pnt2_20 >= 0)
 		{
-			if ((unsigned __int16)viewPort.Height_DE568 <= v216)
-				Str_E9C38_smalltit[v56x].word38 |= 0x40u;
+			if (viewPort.Height_DE568 <= Str_E9C38_smalltit[v56x].pnt2_20)
+				Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x40u;
 		}
 		else
 		{
-			Str_E9C38_smalltit[v56x].word38 |= 0x20u;
+			Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x20u;
 		}
 		v56x++;
 		v209--;
 	}
 	//adress 3de7d
-	//v217 = &x_DWORD_E9C38_smalltit[35200];//21ee85
-	v217x = 800;
-	v289 = 20;
+	v217x = (textColumns - 1) * textRows;
+	v289 = textColumns - 1;
 	do
 	{
 		v218x = v217x;
-		for (kk = 39; kk; kk--)
+		for (kk = textRows - 1; kk; kk--)
 		{
-			v248x[18] = Str_E9C38_smalltit[v218x].dword16;//*(x_DWORD*)(v218 + 16);
-			v248x[19] = Str_E9C38_smalltit[v218x].dword20;//*(x_DWORD*)(v218 + 20);
-			v248x[22] = Str_E9C38_smalltit[v218x].dword32;//*(x_DWORD*)(v218 + 32);
-			v219 = Str_E9C38_smalltit[v218x].word38 & 0xff;//*(x_BYTE*)(v218 - 6);
-
-			if (Str_E9C38_smalltit[v218x + 1].word38 & 4)
+			rPoint1.x_0 = Str_E9C38_smalltit[v218x].pnt1_16;//*(x_DWORD*)(v218 + 16);
+			rPoint1.y_1 = Str_E9C38_smalltit[v218x].pnt2_20;//*(x_DWORD*)(v218 + 20);
+			rPoint1.z_4 = Str_E9C38_smalltit[v218x].pnt5_32;//*(x_DWORD*)(v218 + 32);
+			if (Str_E9C38_smalltit[v218x + 1].triangleFeatures_38 & 4)
 				break;
-			v248x[12] = Str_E9C38_smalltit[v218x + 1].dword16;//*(x_DWORD*)(v218 + 16);
-			v248x[13] = Str_E9C38_smalltit[v218x + 1].dword20;//*(x_DWORD*)(v218 + 20);
-			v248x[16] = Str_E9C38_smalltit[v218x + 1].dword32;//*(x_DWORD*)(v218 + 32);
-			v221 = Str_E9C38_smalltit[v218x + 1].word38 & 0xff;//*(x_BYTE*)(v218 + 38);
-			v222 = v221 | v219;
-			v223 = v221 & v219;
-
-			v248x[6] = Str_E9C38_smalltit[v218x - 39].dword16;//*(x_DWORD*)(v218 - 1744);
-			v248x[7] = Str_E9C38_smalltit[v218x - 39].dword20;//*(x_DWORD*)(v218 - 1740);
-			v248x[10] = Str_E9C38_smalltit[v218x - 39].dword32;//*(x_DWORD*)(v218 - 1728);
-			v226 = Str_E9C38_smalltit[v218x - 39].word38 & 0xff;//*(x_BYTE*)(v225 + 38);
-
-			v248x[0] = Str_E9C38_smalltit[v218x - 40].dword16;//*(x_DWORD*)(v225 - 28);
-			v248x[1] = Str_E9C38_smalltit[v218x - 40].dword20;//*(x_DWORD*)(v225 - 24);
-			v248x[4] = Str_E9C38_smalltit[v218x - 40].dword32;//*(x_DWORD*)(v225 + 32);
-			v228 = (Str_E9C38_smalltit[v218x - 40].word38 & 0xff) | v226 | v222;//(*(x_BYTE*)(v225 + 38)) | v226 | v222;
-			v229 = (Str_E9C38_smalltit[v218x - 40].word38 & 0xff) & v226 & v223;//(*(x_BYTE*)(v225 + 38)) & v226 & v223;
-			if (Str_E9C38_smalltit[v218x].word38 & 0x1000)
+			rPoint2.x_0 = Str_E9C38_smalltit[v218x + 1].pnt1_16;//*(x_DWORD*)(v218 + 16);
+			rPoint2.y_1 = Str_E9C38_smalltit[v218x + 1].pnt2_20;//*(x_DWORD*)(v218 + 20);
+			rPoint2.z_4 = Str_E9C38_smalltit[v218x + 1].pnt5_32;//*(x_DWORD*)(v218 + 32);
+			rPoint3.x_0 = Str_E9C38_smalltit[v218x - textRows + 1].pnt1_16;//*(x_DWORD*)(v218 - 1744);
+			rPoint3.y_1 = Str_E9C38_smalltit[v218x - textRows + 1].pnt2_20;//*(x_DWORD*)(v218 - 1740);
+			rPoint3.z_4 = Str_E9C38_smalltit[v218x - textRows + 1].pnt5_32;//*(x_DWORD*)(v218 - 1728);
+			rPoint4.x_0 = Str_E9C38_smalltit[v218x - textRows].pnt1_16;//*(x_DWORD*)(v225 - 28);
+			rPoint4.y_1 = Str_E9C38_smalltit[v218x - textRows].pnt2_20;//*(x_DWORD*)(v225 - 24);
+			rPoint4.z_4 = Str_E9C38_smalltit[v218x - textRows].pnt5_32;//*(x_DWORD*)(v225 + 32);
+			if (Str_E9C38_smalltit[v218x].triangleFeatures_38 & 0x1000)
 			{
 				x_BYTE_E126D = 7;
-				x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+				x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 			}
 			else
 			{
 				x_BYTE_E126D = 5;
 			}
-			if (!(v228 & 2) && !(v229 & 0x78))
+			if (!(((Str_E9C38_smalltit[v218x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v218x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v218x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v218x].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[v218x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v218x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v218x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v218x].triangleFeatures_38 & 0xff) & 0x78))
 			{//21ef76
-				v248x[20] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][0];
-				v248x[21] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][1];
-				v248x[14] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][2];
-				v248x[15] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][3];
-				v248x[8] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][4];
-				v248x[9] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][5];
-				v248x[2] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][6];
-				v248x[3] = xunk_D4350[Str_E9C38_smalltit[v218x].byte42_std][7];
-				x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v218x].byte41];
-				if ((Str_E9C38_smalltit[v218x].word38 & 0xff) & 1)
+				rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][0];
+				rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][1];
+				rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][2];
+				rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][3];
+				rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][4];
+				rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][5];
+				rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][6];
+				rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v218x].textUV_42][7];
+				x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v218x].textIndex_41];
+				if ((Str_E9C38_smalltit[v218x].triangleFeatures_38 & 0xff) & 1)
 				{//adress 21ddf0
-					DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-					DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+					DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+					DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 				}
 				else
 				{
-					DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-					DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+					DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+					DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 				}
 			}
-			if (Str_E9C38_smalltit[v218x].word36)
+			if (Str_E9C38_smalltit[v218x].haveBillboard_36)
 				DrawParticles_3E360(v218x);//21f01b
 			v218x++;
 		}
@@ -1728,70 +1477,58 @@ LABEL_259:
 		if (kk)
 		{
 			v231x = v218x;// -1;
-			v232x = v217x + 38;
+			v232x = v217x + textRows - 2;
 			do
 			{
-				v248x[18] = Str_E9C38_smalltit[v232x].dword16;//*(x_DWORD*)(v232 + 16);
-				v248x[19] = Str_E9C38_smalltit[v232x].dword20;//*(x_DWORD*)(v232 + 20);
-				v248x[22] = Str_E9C38_smalltit[v232x].dword32;//*(x_DWORD*)(v232 + 32);
-				v233 = Str_E9C38_smalltit[v232x].word38 & 0xff;//*(x_BYTE*)(v232 + 38);
-
-				v248x[12] = Str_E9C38_smalltit[v232x + 1].dword16;//*(x_DWORD*)(v232 + 60);
-				v248x[13] = Str_E9C38_smalltit[v232x + 1].dword20;//*(x_DWORD*)(v232 + 64);
-				v248x[16] = Str_E9C38_smalltit[v232x + 1].dword32;//*(x_DWORD*)(v232 + 76);
-				v234 = Str_E9C38_smalltit[v232x + 1].word38 & 0xff;//*(x_BYTE*)(v232 + 82);
-
-				v248x[6] = Str_E9C38_smalltit[v232x - 39].dword16;//*(x_DWORD*)(v232 - 1700);
-				v248x[7] = Str_E9C38_smalltit[v232x - 39].dword20;//*(x_DWORD*)(v232 - 1696);
-				v248x[10] = Str_E9C38_smalltit[v232x - 39].dword32;//*(x_DWORD*)(v232 - 1684);
-				v236 = Str_E9C38_smalltit[v232x - 39].word38 & 0xff;//*(x_BYTE*)(v232 - 1678);
-				v237 = v236 | v234 | v233;
-				v238 = v236 & v234 & v233;
-
-				v248x[0] = Str_E9C38_smalltit[v232x - 40].dword16;//*(x_DWORD*)(v232 - 1744);
-				v248x[1] = Str_E9C38_smalltit[v232x - 40].dword20;//*(x_DWORD*)(v240 - 1784);
-				v248x[4] = Str_E9C38_smalltit[v232x - 40].dword32;//*(x_DWORD*)(v240 - 12);
-				v242 = Str_E9C38_smalltit[v232x - 40].word38 & 0xff;//*(x_BYTE*)(v240 + 38);
-				v244 = v242 | v237;
-				v245 = v242 & v238;
-
-				if (Str_E9C38_smalltit[v232x].word38 & 0x1000)
+				rPoint1.x_0 = Str_E9C38_smalltit[v232x].pnt1_16;//*(x_DWORD*)(v232 + 16);
+				rPoint1.y_1 = Str_E9C38_smalltit[v232x].pnt2_20;//*(x_DWORD*)(v232 + 20);
+				rPoint1.z_4 = Str_E9C38_smalltit[v232x].pnt5_32;//*(x_DWORD*)(v232 + 32);
+				rPoint2.x_0 = Str_E9C38_smalltit[v232x + 1].pnt1_16;//*(x_DWORD*)(v232 + 60);
+				rPoint2.y_1 = Str_E9C38_smalltit[v232x + 1].pnt2_20;//*(x_DWORD*)(v232 + 64);
+				rPoint2.z_4 = Str_E9C38_smalltit[v232x + 1].pnt5_32;//*(x_DWORD*)(v232 + 76);
+				rPoint3.x_0 = Str_E9C38_smalltit[v232x - textRows + 1].pnt1_16;//*(x_DWORD*)(v232 - 1700);
+				rPoint3.y_1 = Str_E9C38_smalltit[v232x - textRows + 1].pnt2_20;//*(x_DWORD*)(v232 - 1696);
+				rPoint3.z_4 = Str_E9C38_smalltit[v232x - textRows + 1].pnt5_32;//*(x_DWORD*)(v232 - 1684);
+				rPoint4.x_0 = Str_E9C38_smalltit[v232x - textRows].pnt1_16;//*(x_DWORD*)(v232 - 1744);
+				rPoint4.y_1 = Str_E9C38_smalltit[v232x - textRows].pnt2_20;//*(x_DWORD*)(v240 - 1784);
+				rPoint4.z_4 = Str_E9C38_smalltit[v232x - textRows].pnt5_32;//*(x_DWORD*)(v240 - 12);
+				if (Str_E9C38_smalltit[v232x].triangleFeatures_38 & 0x1000)
 				{
 					x_BYTE_E126D = 7;
-					x_BYTE_E126C = ((signed int)v248x[10] + v248x[16] + v248x[22] + v248x[4]) >> 18;
+					x_BYTE_E126C = (rPoint3.z_4 + rPoint2.z_4 + rPoint1.z_4 + rPoint4.z_4) >> 18;
 				}
 				else
 				{
 					x_BYTE_E126D = 5;
 				}
-				if (!(v244 & 2) && !(v245 & 0x78))
+				if (!(((Str_E9C38_smalltit[v232x - textRows].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v232x - textRows + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v232x + 1].triangleFeatures_38 & 0xff) | (Str_E9C38_smalltit[v232x].triangleFeatures_38 & 0xff)) & 2) && !((Str_E9C38_smalltit[v232x - textRows].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v232x - textRows + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v232x + 1].triangleFeatures_38 & 0xff) & (Str_E9C38_smalltit[v232x].triangleFeatures_38 & 0xff) & 0x78))
 				{
-					v248x[20] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][0];
-					v248x[21] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][1];
-					v248x[14] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][2];
-					v248x[15] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][3];
-					v248x[8] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][4];
-					v248x[9] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][5];
-					v248x[2] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][6];
-					v248x[3] = xunk_D4350[Str_E9C38_smalltit[v232x].byte42_std][7];
-					x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v232x].byte41];
-					if (Str_E9C38_smalltit[v232x].word38 & 1)
+					rPoint1.u_2 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][0];
+					rPoint1.v_3 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][1];
+					rPoint2.u_2 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][2];
+					rPoint2.v_3 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][3];
+					rPoint3.u_2 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][4];
+					rPoint3.v_3 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][5];
+					rPoint4.u_2 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][6];
+					rPoint4.v_3 = xunk_D4350[Str_E9C38_smalltit[v232x].textUV_42][7];
+					x_DWORD_DE55C_ActTexture = x_DWORD_DDF50_texture_adresses[Str_E9C38_smalltit[v232x].textIndex_41];
+					if (Str_E9C38_smalltit[v232x].triangleFeatures_38 & 1)
 					{
-						DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[0]);
-						DrawTriangleInProjectionSpace_B6253(&v248x[0], &v248x[12], &v248x[6]);
+						DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint4);
+						DrawTriangleInProjectionSpace_B6253(&rPoint4, &rPoint2, &rPoint3);
 					}
 					else
 					{
-						DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[12], &v248x[6]);
-						DrawTriangleInProjectionSpace_B6253(&v248x[18], &v248x[6], &v248x[0]);
+						DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint2, &rPoint3);
+						DrawTriangleInProjectionSpace_B6253(&rPoint1, &rPoint3, &rPoint4);
 					}
 				}
-				if (Str_E9C38_smalltit[v232x].word36)//adress 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
+				if (Str_E9C38_smalltit[v232x].haveBillboard_36)//adress 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
 					DrawParticles_3E360(/*v217,*/ v232x);
 				v232x--;
 			} while (v232x >= v231x);
 		}
-		v217x -= 40;
+		v217x -= textRows;
 		v289--;
 	} while (v289);
 }
@@ -1863,7 +1600,7 @@ uint16_t GameRenderNG::sub_3FD60(int a2x)
 	//add_compare(0x297272, CommandLineParams.DoDebugafterload());
 
 
-	result = Str_E9C38_smalltit[a2x].word36;
+	result = Str_E9C38_smalltit[a2x].haveBillboard_36;
 	do
 	{
 		//debug
@@ -1908,20 +1645,15 @@ uint16_t GameRenderNG::sub_3FD60(int a2x)
 					v9x = &str_WORD_D951C[v41x->word_0x5A_90];
 					v10 = v6 * str_F2C20ar.dword0x18 / v40;
 					v11 = str_F2C20ar.dword0x18 * v42 / v40 + str_F2C20ar.dword0x22;
-					str_F2C20ar.dword0x04_screenY = ((v10 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * v11) >> 16) + str_F2C20ar.dword0x24;
-					str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.dword0x0d * v10 + v11 * str_F2C20ar.dword0x11) >> 16);
+					str_F2C20ar.dword0x04_screenY = ((v10 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v11) >> 16) + str_F2C20ar.dword0x24;
+					str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * v10 + v11 * str_F2C20ar.cos_0x11) >> 16);
 					v12 = v9x->byte_12;
 					x_BYTE_F2CC6 = 0;
 					switch (v12)
 					{
 					case 0:
-						if (str_DWORD_F66F0x[v9x->word_0])
+						if ((str_DWORD_F66F0x[v9x->word_0])||(MainInitTmaps_71520(v9x->word_0)))
 						{
-							goto LABEL_16;
-						}
-						if (MainInitTmaps_71520(v9x->word_0))
-						{
-						LABEL_16:
 							x_DWORD_F5730[str_TMAPS00TAB_BEGIN_BUFFER[v9x->word_0].word_8] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1x = *str_DWORD_F66F0x[v9x->word_0];
 							goto LABEL_47;
@@ -3096,7 +2828,7 @@ void GameRenderNG::DrawParticles_3E360(int a2x)//21f360
 		}*/
 	}
 
-	result = Str_E9C38_smalltit[a2x].word36;
+	result = Str_E9C38_smalltit[a2x].haveBillboard_36;
 	do
 	{
 		//adress 21f370
@@ -3110,7 +2842,7 @@ void GameRenderNG::DrawParticles_3E360(int a2x)//21f360
 			v97 = (signed __int16)(x_WORD_F2CC2 - v4);
 			if (shadows_F2CC7)
 			{
-				if (!Str_E9C38_smalltit[a2x].byte43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
+				if (!Str_E9C38_smalltit[a2x].textAtyp_43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
 				{
 					//adress 21f40c
 					v98 = sub_B5C60_getTerrainAlt2(v3x->axis_0x4C_76.x, v4) - str_F2C20ar.dword0x20;
@@ -3128,8 +2860,8 @@ void GameRenderNG::DrawParticles_3E360(int a2x)//21f360
 						{
 							v8 = v5 * str_F2C20ar.dword0x18 / v99;
 							v9 = str_F2C20ar.dword0x18 * v98 / v99 + str_F2C20ar.dword0x22;
-							str_F2C20ar.dword0x04_screenY = ((v8 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * v9) >> 16) + str_F2C20ar.dword0x24;
-							str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.dword0x0d * v8 + v9 * str_F2C20ar.dword0x11) >> 16);
+							str_F2C20ar.dword0x04_screenY = ((v8 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v9) >> 16) + str_F2C20ar.dword0x24;
+							str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * v8 + v9 * str_F2C20ar.cos_0x11) >> 16);
 							v10 = v7x->byte_12;
 							x_BYTE_F2CC6 = 0;
 							switch (v10)
@@ -3462,8 +3194,8 @@ void GameRenderNG::DrawParticles_3E360(int a2x)//21f360
 				v52x = &str_WORD_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
 				v53 = v49 * str_F2C20ar.dword0x18 / v100;
 				v54 = str_F2C20ar.dword0x18 * (v48 - str_F2C20ar.dword0x20) / v100 + str_F2C20ar.dword0x22;
-				str_F2C20ar.dword0x04_screenY = ((v53 * str_F2C20ar.dword0x11 - str_F2C20ar.dword0x0d * v54) >> 16) + str_F2C20ar.dword0x24;
-				str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.dword0x0d * v53 + v54 * str_F2C20ar.dword0x11) >> 16);
+				str_F2C20ar.dword0x04_screenY = ((v53 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v54) >> 16) + str_F2C20ar.dword0x24;
+				str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * v53 + v54 * str_F2C20ar.cos_0x11) >> 16);
 				v55 = v52x->byte_12;
 				x_BYTE_F2CC6 = 0;
 				switch (v55)
@@ -3977,8 +3709,8 @@ void GameRenderNG::DrawSprite_41BD3(uint32 a1)
 		{
 			if (a1 <= 1)//a1==1
 			{
-				str_F2C20ar.dword0x04_screenY -= ((str_F2C20ar.dword0x11 * str_F2C20ar.dword0x09_realWidth >> 1) + str_F2C20ar.dword0x0d * str_F2C20ar.dword0x0c_realHeight) >> 16;
-				str_F2C20ar.dword0x03_screenX -= (str_F2C20ar.dword0x11 * str_F2C20ar.dword0x0c_realHeight - (str_F2C20ar.dword0x0d * str_F2C20ar.dword0x09_realWidth >> 1)) >> 16;
+				str_F2C20ar.dword0x04_screenY -= ((str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x09_realWidth >> 1) + str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x0c_realHeight) >> 16;
+				str_F2C20ar.dword0x03_screenX -= (str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x0c_realHeight - (str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x09_realWidth >> 1)) >> 16;
 				goto LABEL_126;
 			}
 			if (a1 != 2)//a1 == 0,1
@@ -4870,8 +4602,8 @@ void GameRenderNG::DrawSprite_41BD3(uint32 a1)
 				return;
 			}
 		}
-		str_F2C20ar.dword0x04_screenY -= str_F2C20ar.dword0x11 * str_F2C20ar.dword0x09_realWidth >> 17;
-		str_F2C20ar.dword0x03_screenX -= -(str_F2C20ar.dword0x0d * str_F2C20ar.dword0x09_realWidth) >> 17;
+		str_F2C20ar.dword0x04_screenY -= str_F2C20ar.cos_0x11 * str_F2C20ar.dword0x09_realWidth >> 17;
+		str_F2C20ar.dword0x03_screenX -= -(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x09_realWidth) >> 17;
 		goto LABEL_126;
 	}
 	v138 = (str_F2C20ar.dword0x0c_realHeight + str_F2C20ar.dword0x09_realWidth) >> 2;
@@ -4879,13 +4611,13 @@ void GameRenderNG::DrawSprite_41BD3(uint32 a1)
 	{
 		if (a1 <= 1)
 		{
-			str_F2C20ar.dword0x04_screenY += -(str_F2C20ar.dword0x0d * v138 >> 16) - v138;
-			str_F2C20ar.dword0x03_screenX += -(str_F2C20ar.dword0x11 * v138 >> 16) - v138;
+			str_F2C20ar.dword0x04_screenY += -(str_F2C20ar.sin_0x0d * v138 >> 16) - v138;
+			str_F2C20ar.dword0x03_screenX += -(str_F2C20ar.cos_0x11 * v138 >> 16) - v138;
 		}
 		else if (a1 == 2)
 		{
-			str_F2C20ar.dword0x04_screenY += (str_F2C20ar.dword0x0d * v138 >> 16) - v138;
-			str_F2C20ar.dword0x03_screenX += (str_F2C20ar.dword0x11 * v138 >> 16) - v138;
+			str_F2C20ar.dword0x04_screenY += (str_F2C20ar.sin_0x0d * v138 >> 16) - v138;
+			str_F2C20ar.dword0x03_screenX += (str_F2C20ar.cos_0x11 * v138 >> 16) - v138;
 		}
 	}
 	if ((unsigned __int16)viewPort.Width_DE564 > str_F2C20ar.dword0x04_screenY)
@@ -5265,7 +4997,7 @@ void GameRenderNG::DrawSprite_41BD3(uint32 a1)
 		VGA_Debug_Blit(640, 480, pdwScreenBuffer);*/
 }
 
-void GameRenderNG::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD* vertex2, x_DWORD* vertex3)//sub_B6253 - 297253
+void GameRenderNG::DrawTriangleInProjectionSpace_B6253(Type_RenderPoint* vertex1, Type_RenderPoint* vertex2, Type_RenderPoint* vertex3)//sub_B6253 - 297253
 {
 	x_DWORD* v3; // esi
 	x_DWORD* v4; // edi
@@ -6605,26 +6337,26 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD
 	v1135 = 0;
 	//fix it
 
-	v3 = vertex1;
-	v4 = vertex2;
-	v5 = vertex3;
-	v6 = vertex1[1];
-	v7 = vertex2[1];
-	v8 = vertex3[1];
+	v3 = (x_DWORD*)vertex1;
+	v4 = (x_DWORD*)vertex2;
+	v5 = (x_DWORD*)vertex3;
+	v6 = vertex1->y_1;
+	v7 = vertex2->y_1;
+	v8 = vertex3->y_1;
 	if (v6 == v7)
 	{
 		if (v6 == v8)
 			return;
 		if (v6 >= v8)
 		{
-			if (*vertex1 <= *vertex2)
+			if (*(x_DWORD*)vertex1 <= *(x_DWORD*)vertex2)
 				return;
-			v3 = vertex3;
-			v4 = vertex1;
-			v5 = vertex2;
+			v3 = (x_DWORD*)vertex3;
+			v4 = (x_DWORD*)vertex1;
+			v5 = (x_DWORD*)vertex2;
 			goto LABEL_234;
 		}
-		if (*vertex2 <= *vertex1)
+		if (*(x_DWORD*)vertex2 <= *(x_DWORD*)vertex1)
 			return;
 		goto LABEL_277;
 	}
@@ -6634,9 +6366,9 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD
 		{
 			if (v6 >= v8)
 			{
-				v3 = vertex3;
-				v4 = vertex1;
-				v5 = vertex2;
+				v3 = (x_DWORD*)vertex3;
+				v4 = (x_DWORD*)vertex1;
+				v5 = (x_DWORD*)vertex2;
 			LABEL_24:
 				v9 = v3[1];
 				v1190 = v9;
@@ -7156,7 +6888,7 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD
 					goto LABEL_24;
 				goto LABEL_129;
 			}
-			if (*vertex2 <= *vertex3)
+			if (*(x_DWORD*)vertex2 <= *(x_DWORD*)vertex3)
 				return;
 		LABEL_234:
 			v117 = v3[1];
@@ -7396,11 +7128,11 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD
 				goto LABEL_53;
 			}
 		}
-		if (*vertex1 <= *vertex3)
+		if (*(x_DWORD*)vertex1 <= *(x_DWORD*)vertex3)
 			return;
-		v3 = vertex3;
-		v4 = vertex1;
-		v5 = vertex2;
+		v3 = (x_DWORD*)vertex3;
+		v4 = (x_DWORD*)vertex1;
+		v5 = (x_DWORD*)vertex2;
 	LABEL_277:
 		v143 = v3[1];
 		v1193 = v143;
@@ -7641,39 +7373,39 @@ void GameRenderNG::DrawTriangleInProjectionSpace_B6253(x_DWORD* vertex1, x_DWORD
 	}
 	if (v6 == v8)
 	{
-		if (*vertex3 <= *vertex1)
+		if (*(x_DWORD*)vertex3 <= *(x_DWORD*)vertex1)
 			return;
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		v3 = (x_DWORD*)vertex2;
+		v4 = (x_DWORD*)vertex3;
+		v5 = (x_DWORD*)vertex1;
 		goto LABEL_234;
 	}
 	if (v6 < v8)
 	{
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		v3 = (x_DWORD*)vertex2;
+		v4 = (x_DWORD*)vertex3;
+		v5 = (x_DWORD*)vertex1;
 		goto LABEL_129;
 	}
 	if (v7 == v8)
 	{
-		if (*vertex3 <= *vertex2)
+		if (*(x_DWORD*)vertex3 <= *(x_DWORD*)vertex2)
 			return;
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		v3 = (x_DWORD*)vertex2;
+		v4 = (x_DWORD*)vertex3;
+		v5 = (x_DWORD*)vertex1;
 		goto LABEL_277;
 	}
 	if (v7 < v8)
 	{
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		v3 = (x_DWORD*)vertex2;
+		v4 = (x_DWORD*)vertex3;
+		v5 = (x_DWORD*)vertex1;
 		goto LABEL_24;
 	}
-	v3 = vertex3;
-	v4 = vertex1;
-	v5 = vertex2;
+	v3 = (x_DWORD*)vertex3;
+	v4 = (x_DWORD*)vertex1;
+	v5 = (x_DWORD*)vertex2;
 LABEL_129:
 	v65 = v3[1];
 	v1191 = v65;
