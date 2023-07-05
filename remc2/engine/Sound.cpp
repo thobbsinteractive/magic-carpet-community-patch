@@ -1069,8 +1069,6 @@ void AilRestoreUSE16ISR_91E90(int32_t isr)
 //----- (00099C10) --------------------------------------------------------
 void EndSounds_99C10()//27ac10
 {
-	uint16_t i;
-
 	if (soundLoaded_E379A)
 	{
 		EndSample_8D8F0();
@@ -1082,11 +1080,11 @@ void EndSounds_99C10()//27ac10
 			numOfLoadedSounds_E37A4 = 0;
 		}
 		if (soundBuffer1_E37A8) {
-			for (i = 0; i < hDigSoundEffectsDriver_180B48->n_samples_24; i++) {
-                if (hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz) {
+			for (int i = 0; i < hDigSoundEffectsDriver_180B48->n_samples_24; i++) {
+                if (hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz != nullptr) {
                     free(hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz);
                 }
-                if (hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff) {
+                if (hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff != nullptr) {
                     free(hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff);
                 }
             }
@@ -3120,8 +3118,8 @@ void InitSample_A38E0(HSAMPLE S)//2848e0
 	if (S)
 	{
 		S->status_1 = 2;
-		S->start_2_3[0] = 0;
-		S->start_2_3[1] = 0;
+		S->start_2_3[0] = nullptr;
+		S->start_2_3[1] = nullptr;
 		S->len_4_5[0] = 0;
 		S->len_4_5[1] = 0;
 		S->pos_6_7[0] = 0;
@@ -3141,8 +3139,10 @@ void InitSample_A38E0(HSAMPLE S)//2848e0
 			S->pan_17 = 0;
 		S->sam_var[530] = 0;
 		S->sam_var[531] = 0;
-		S->sam_var532_EOS_ptr = 0;
+		S->sam_var532_EOS_ptr = nullptr;
 		S->id = -1;
+		S->wavbuff = nullptr;
+		S->start_44mhz = nullptr;
 		InitSampleVolume_A2110(S);
 	}
 }
@@ -3202,7 +3202,7 @@ void InitHqsound(HSAMPLE S) {
 
 		if (S->start_44mhz != nullptr) {
 			free(S->start_44mhz);
-			S->start_44mhz = NULL;
+			S->start_44mhz = nullptr;
 		}
 		if (fixspeedsound)
 			S->start_44mhz = malloc(S->len_4_5[0] * 2 * 2 * 2 * 2);
