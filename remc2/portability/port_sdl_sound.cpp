@@ -232,7 +232,7 @@ void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16
     int fd;
     Mix_Chunk chunk = {};
 
-    //Logger->info("SOUND_start_speech  track {}  offset {}  len {}", track, offset, len);
+    Logger->debug("SOUND_start_speech  track {}  offset {}  len {}", track, offset, len);
 
     std::string speech_path = GetSubDirectoryPath(speech_folder);
     track_str_len = speech_path.length() + 13;
@@ -243,7 +243,11 @@ void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16
     }
 
     snprintf(track_filename, track_str_len, "%s/track%02d.cdr", speech_path.c_str(), track);
-    //Logger->info("track: {}", track_filename);
+
+	if (!std::filesystem::exists(track_filename))
+		snprintf(track_filename, track_str_len, "%s/track%02d.wav", speech_path.c_str(), track);
+
+    Logger->debug("track: {}", track_filename);
 
     track_data_len = len * 2360;
     track_offset = offset * 2360;
