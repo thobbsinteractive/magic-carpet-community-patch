@@ -4,6 +4,7 @@
 
 #define SOUND_OPENAL
 
+#include <filesystem>
 #include "mctypes.h"
 
 #define SOUND_SDLMIXER
