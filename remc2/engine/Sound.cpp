@@ -4995,8 +4995,30 @@ void GetMusicSequenceCount()//26fc90 // set index
 		{
 			uint8_t* zero_pointer = 0;
 			musicHeader_E3808->str_8.track_10[m_iNumberOfTracks].xmiData_0 = &musicData_E3810[musicHeader_E3808->str_8.track_10[m_iNumberOfTracks].xmiData_0 - zero_pointer];
+			//WriteMusicTrackToXmi(&musicHeader_E3808->str_8.track_10[m_iNumberOfTracks]);
 		}
 	}
+}
+
+void WriteMusicTrackToXmi(sub2type_E3808_music_header* music)
+{
+	char const* fileName = (char*)music->filename_14;
+
+	char path[255];
+	char dir[] = "BufferOut";
+	FixDir(path, dir);
+
+	if (!std::filesystem::is_directory(path))
+	{
+		std::filesystem::create_directory(path);
+	}
+
+	sprintf(path, "%s/%s", path, fileName);
+	FILE* midiFile = fopen(path, "wb");
+
+	fwrite(music->xmiData_0, sizeof(char), music->xmiSize_8, midiFile);
+
+	fclose(midiFile);
 }
 
 //----- (0008ED00) --------------------------------------------------------

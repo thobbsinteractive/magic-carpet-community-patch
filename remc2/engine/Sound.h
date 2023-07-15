@@ -69,6 +69,7 @@ void sub_8E410_sound_proc16_xmidivolume(int master_volume);
 void sub_8E470_sound_proc17_volume(int volume);
 bool InitMusicBank_8EAD0(int channel);
 void GetMusicSequenceCount();
+void WriteMusicTrackToXmi(sub2type_E3808_music_header* music);
 bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber);
 int sub_8F0AB(FILE* a1, int a3);
 void sub_8F100_sound_proc19(uint32_t a1, __int16 index, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
