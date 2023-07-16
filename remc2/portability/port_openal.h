@@ -58,7 +58,7 @@ void alsound_update_source(event_t *entity);
 void alsound_delete_source(const int16_t ch);
 void alsound_enable_scheduling(void);
 uint8_t alsound_save_chunk(uint8_t *data, const uint32_t len, char *filename);
-
+void alsound_set_master_volume(int32_t volume);
 void alsound_imgui(bool *p_open);
 
 #endif

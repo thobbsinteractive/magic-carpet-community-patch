@@ -107,10 +107,16 @@ openal_config_t oac;            ///< subsystem configuration read from config.in
 // alsound_set_sample_volume for a chunk precedes alsound_play
 // for that particular chunk. so store it's volume in alnv:
 al_next_vol_t alnv = { };
+uint8_t m_volume = -1;
 
 const char *alsound_get_error_str(ALCenum error);
 ALCenum alsound_error_check(const char *msg);
 static ALuint alsound_load_effect(const EFXEAXREVERBPROPERTIES * reverb);
+
+void alsound_set_master_volume(int32_t volume)
+{
+	m_volume = volume;
+}
 
 /// \brief find a chunk_id in the currently playing chunks array
 /// \param chunk_id  identifier
@@ -182,7 +188,7 @@ void alsound_end_sample(const int32_t chunk_id)
 void alsound_set_sample_volume(const int32_t chunk_id, const int32_t volume)
 {
     int16_t ret;
-    float gain = (float)volume / 127.0f;
+	float gain = ((float)m_volume * ((float)volume / 127.0f)) / 100.0f;
 
     if (ale.bank < 3) {
         if (alct[ale.bank][chunk_id].flags & AL_IGNORE_RECODE) {
@@ -194,7 +200,7 @@ void alsound_set_sample_volume(const int32_t chunk_id, const int32_t volume)
     if (ret > -1) {
         alSourcef(alc[ret].alSource, AL_GAIN, gain);
         alsound_error_check("set_sample_volume alSourcef");
-        //Logger->info("alsound_set_sample_volume {} {}", chunk_id, gain);
+        Logger->trace("alsound_set_sample_volume {} {}", chunk_id, gain);
     }
 
     alnv.chunk_id = chunk_id;
@@ -473,10 +479,10 @@ int16_t alsound_create_source(const int16_t chunk_id, al_ssp_t *ssp, event_t *en
 
     mixchunk.abuf = chunk_data;
     mixchunk.alen = chunk_len;
-    mixchunk.volume = 127;
+    mixchunk.volume = m_volume;
 
-    if (ssp == NULL) {
-        ssp_l.gain = 1.0;
+    if (ssp == nullptr) {
+        ssp_l.gain = (float)m_volume / 127.0f;
         ssp_l.reference_distance = 2048.0;
         ssp_l.max_distance = 65535.0;
         ssp_l.rolloff_factor = 1.0;
@@ -537,13 +543,12 @@ void alsound_update_source(event_t *entity)
 
     if ((entity->dist < AL_DIST_MIN_PLAY) && (alcrt[entity->model_0x40_64].chunk_id != -1)) {
         if ((entity->play_ch == -1) && create_new_source) {
-            ssp.gain = 0.8f;
+			ssp.gain = (float)m_volume / 127.0f;
             ssp.reference_distance = 2048.0;
             if (alcrt[entity->model_0x40_64].flags & AL_POWERFUL_SHOUT) {
-                ssp.gain = 1.0f;
                 ssp.reference_distance = 4096.0;
             } else if (alcrt[entity->model_0x40_64].flags & AL_WHISPER) {
-                ssp.gain = 0.7f;
+                ssp.gain = ssp.gain * 0.7f;
                 ssp.reference_distance = 1024.0;
             }
             ssp.max_distance = 65535.0;
@@ -573,17 +578,17 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
     int16_t i;
     int16_t cache_ch = -1;
     int16_t play_ch = -1;
-    float gain = 0.8;           // testing: all sounds produced by recode are at lowered levels
+	float gain = ((float)m_volume / 127.0f);           // testing: all sounds produced by recode are at lowered levels
 
     if (!ale.initialized) {
         return -1;
     }
 
-    //Logger->info("alsound_play requested id {}  sz {}  fmt {}", chunk_id, mixchunk->alen, flags);
+    Logger->trace("alsound_play requested id {}  sz {}  fmt {}", chunk_id, mixchunk->alen, flags);
 
     // check if sample is already playing too many times atm
     if (al_con[chunk_id] > oac.same_chunk_concurrency - 1) {
-        //Logger->info("alsound_play ignored id {}", chunk_id);
+        Logger->trace("alsound_play ignored id {}", chunk_id);
         return -1;
     }
 
@@ -602,7 +607,7 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
         if (alcc[i - 1].id == chunk_id) {
             cache_ch = i - 1;
             if (((uint32_t) alcc[i - 1].size != mixchunk->alen) || (chunk_id == OPENAL_CC_SZ - 1)) {
-                //Logger->warn("cache miss!  new {} cached {}  cache_ch {}", mixchunk->alen, alcc[i - 1].size, i - 1);
+                Logger->warn("cache miss!  new {} cached {}  cache_ch {}", mixchunk->alen, alcc[i - 1].size, i - 1);
                 // replace invalid cache slot
                 alsound_cache(cache_ch, chunk_id, mixchunk, flags);
             }
@@ -640,7 +645,7 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
         return -1;
     }
 
-    //Logger->info("alsound_play playing   id {}  sz {}  cache_ch {}  play_ch {}", chunk_id, alcc[cache_ch].size, cache_ch, play_ch);
+    Logger->trace("alsound_play playing   id {}  sz {}  cache_ch {}  play_ch {}", chunk_id, alcc[cache_ch].size, cache_ch, play_ch);
 
     if ((alnv.chunk_id == chunk_id) || ((uint32_t) alnv.chunk_id == mixchunk->alen)) {
         gain = alnv.gain;
@@ -648,9 +653,9 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
     }
 
     if (flags & AL_TYPE_ENV) {
-        gain = (float) oac.env_volume / 127.0f;
+        gain = ((float)m_volume * ((float)oac.env_volume / 127.0f)) / 100.0f;
     } else if (flags & AL_TYPE_SPEECH) {
-        gain = (float) oac.speech_volume / 127.0f;
+        gain = (float)m_volume / 127.0f;
     }
 
     alGetError();               // reset global error variable

@@ -120,7 +120,7 @@ void SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds)
 {
     if (unitTests)
         return;
-    //Logger->info("SOUND_set_sequence_volume  vol {}  ms {}", volume, milliseconds);
+    Logger->trace("SOUND_set_sequence_volume  vol {}  ms {}", volume, milliseconds);
 #ifdef SOUND_SDLMIXER
 #ifndef __linux__
     if ((milliseconds > 0) && (volume == 0)) {
@@ -150,7 +150,7 @@ void SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds)
 void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *headerx,
                               int32_t track_number)
 {
-    //Logger->info("SOUND_init_MIDI_sequence {}", track_number);
+    Logger->trace("SOUND_init_MIDI_sequence {}", track_number);
     if (unitTests)
         return;
     //uint8_t* acttrack = &header[32 + track_number * 32];
@@ -211,7 +211,7 @@ void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *he
             TranscodeXmiToMid( /*(const uint8_t*)*(uint32_t*)( */ acttrack /* + 18) */ , iXmiLength,
                               &pMidLength);
         SDL_RWops *rwmidi = SDL_RWFromMem(outmidi, pMidLength);
-        //Logger->info("SOUND_init_MIDI_sequence  xmi {}  mid {}", iXmiLength, pMidLength);
+        Logger->trace("SOUND_init_MIDI_sequence  xmi {}  mid {}", iXmiLength, pMidLength);
         //alsound_save_chunk(outmidi, pMidLength, NULL);
         //Timidity_Init();
 #ifdef SOUND_SDLMIXER
@@ -314,7 +314,7 @@ void clean_up_sound()
 
 void playmusic2(int32_t track_number)
 {
-    //Logger->info("playmusic2 {}", track_number);
+    Logger->debug("playmusic2 {}", track_number);
     if (unitTests)
         return;
 #ifdef SOUND_SDLMIXER
@@ -397,20 +397,23 @@ int32_t ac_sound_call_driver(AIL_DRIVER *drvr, int32_t fn, VDI_CALL *out)
 
 void SOUND_set_master_volume(int32_t volume)
 {
-#ifdef SOUND_SDLMIXER
-    master_volume = volume;
+	master_volume = volume;
 
+#ifdef SOUND_SDLMIXER
     for (int i = 0; i < 32; i++)
         Mix_Volume(i, (int)((gamechunk[i].volume * master_volume) / 127));
 #endif
-
+#ifdef SOUND_OPENAL
+	alsound_set_master_volume(volume);
+#endif
+	
     //may be can fix - must analyze
 }
 
 void SOUND_set_sample_volume(HSAMPLE S, int32_t volume)
 {
 #ifdef SOUND_OPENAL
-    //Logger->info("SOUND_set_sample_volume id {}  vol {}", S->id, volume);
+    Logger->trace("SOUND_set_sample_volume id {}  vol {}", S->id, volume);
     alsound_set_sample_volume(S->id, volume);
 #elif defined(SOUND_SDLMIXER)
     if (master_volume == -1)
@@ -492,7 +495,7 @@ void SOUND_end_sample(HSAMPLE S)
 {
 
 #ifdef SOUND_OPENAL
-    //Logger->info("SOUND_end_sample {} {}", S->id, S->len_4_5[0] * 2);
+    Logger->trace("SOUND_end_sample {} {}", S->id, S->len_4_5[0] * 2);
     alsound_end_sample(S->id);
 #elif defined(SOUND_SDLMIXER)
     Mix_HaltChannel(-1);
