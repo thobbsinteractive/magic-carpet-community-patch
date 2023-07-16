@@ -1817,7 +1817,7 @@ char sub_59610(type_event_0x6E8E** a1, __int16 a2);
 bool sub_596C0(axis_3d* a1, __int16 a2);
 void sub_59760(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 void sub_59820();
-int sub_59A50_sound_proc8();
+int ReduceSoundVolume_59A50();
 void sub_59AF0_sound_proc9();
 void sub_59B50_sound_proc10(HMDIDRIVER user);
 void sub_59BF0_sound_proc11_volume();
@@ -44206,7 +44206,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 				 void sub_59760(uint8_t* a1, uint8_t* a2)//23a760
 				 void sub_59820()//23a820
 
-				 int sub_59A50_sound_proc8()//23aa50
+				 int ReduceSoundVolume_59A50()//23aa50
 				 void sub_59AF0_sound_proc9()//23aaf0
 				 void sub_59B50_sound_proc10(HMDIDRIVER user)//23ab50
 				 void sub_59BF0_sound_proc11_volume()//23abf0
@@ -55480,7 +55480,7 @@ void sub_59820()//23a820
 					{
 						x_D41A0_BYTEARRAY_4_struct.byteindex_180 = 8;
 						sub_86F20(D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E4_2BE4_12226);
-						sub_59A50_sound_proc8();
+						ReduceSoundVolume_59A50();
 						return;
 					}
 					if (D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
@@ -55504,7 +55504,7 @@ void sub_59820()//23a820
 						LABEL_30:
 							x_D41A0_BYTEARRAY_4_struct.byteindex_180 = 8;
 							sub_86EB0(v8, v9, 1);
-							sub_59A50_sound_proc8();
+							ReduceSoundVolume_59A50();
 							return;
 						}
 					}
@@ -55532,7 +55532,7 @@ void sub_59820()//23a820
 }
 
 //----- (00059A50) --------------------------------------------------------
-int sub_59A50_sound_proc8()//23aa50
+int ReduceSoundVolume_59A50()//23aa50
 {
 	int result; // eax
 
