@@ -1819,7 +1819,7 @@ void sub_59760(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 void sub_59820();
 int ReduceSoundVolume_59A50();
 void sub_59AF0_sound_proc9();
-void sub_59B50_sound_proc10(HMDIDRIVER user);
+void ResetSoundVolume_59B50(HMDIDRIVER user);
 void sub_59BF0_sound_proc11_volume();
 void sub_59C40_getTerrtoZ(type_event_0x6E8E* a1);
 int sub_59C60(type_event_0x6E8E* a1);
@@ -44208,7 +44208,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 
 				 int ReduceSoundVolume_59A50()//23aa50
 				 void sub_59AF0_sound_proc9()//23aaf0
-				 void sub_59B50_sound_proc10(HMDIDRIVER user)//23ab50
+				 void ResetSoundVolume_59B50(HMDIDRIVER user)//23ab50
 				 void sub_59BF0_sound_proc11_volume()//23abf0
 				 */
 
@@ -55561,7 +55561,7 @@ void sub_59AF0_sound_proc9()//23aaf0
 	//int result; // eax
 
 	sub_86860_speak_Sound(x_WORD_1803EC);
-	//x_DWORD_F4940 = sub_92600_AIL_register_timer(sub_59B50_sound_proc10);
+	//x_DWORD_F4940 = sub_92600_AIL_register_timer(ResetSoundVolume_59B50);
 	//sub_92930_AIL_set_timer_frequency(x_DWORD_F4940, 0x78u);
 	//sub_92BA0_AIL_start_timer(x_DWORD_F4940);
 	x_BYTE_D4B7A = 1;
@@ -55575,7 +55575,7 @@ void sub_59AF0_sound_proc9()//23aaf0
 // 1803EC: using guessed type __int16 x_WORD_1803EC;
 
 //----- (00059B50) --------------------------------------------------------
-void sub_59B50_sound_proc10(HMDIDRIVER  /*user*/)//23ab50
+void ResetSoundVolume_59B50(HMDIDRIVER  /*user*/)//23ab50
 {
 	__int16 v0; // bx
 	__int16 v1; // dx
