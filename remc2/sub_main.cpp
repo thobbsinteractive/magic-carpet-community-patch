@@ -53085,8 +53085,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		spdlog::level::level_enum level = spdlog::level::info;
 
 #ifdef _DEBUG
-		// why is there an ini file to set this option?
-		//level = GetLoggingLevelFromString("Debug");
+		level = GetLoggingLevelFromString("Debug");
 #else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
 #endif
