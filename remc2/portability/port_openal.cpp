@@ -156,11 +156,14 @@ uint8_t alsound_sample_status(const int32_t id)
 /// \param channel_id alc[] array index
 void alsound_delete_source(const int16_t channel_id)
 {
-    //Logger->info("alsound_delete_source {}", channel_id);
+    Logger->trace("alsound_delete_source {}", channel_id);
+	if (alc[channel_id].state == AL_PLAYING) {
+		alSourceStop(alc[channel_id].alSource);
+	}
     alDeleteSources(1, &alc[channel_id].alSource);
     alsound_error_check("alsound_delete_source alDeleteSources");
     if (alc[channel_id].entity) {
-        //Logger->info("delete_source {}", channel_id);
+        Logger->trace("delete_source {}", channel_id);
         alc[channel_id].entity->play_ch = -1;
         alc[channel_id].entity = 0;
     }
@@ -177,7 +180,8 @@ void alsound_end_sample(const int32_t chunk_id)
     int16_t ret;
     ret = alsound_find_alc_sample(chunk_id);
     if (ret > -1) {
-        //Logger->info("alsound_end_sample id {}  ch {}", chunk_id, ret);
+        Logger->trace("alsound_end_sample id {}  ch {}", chunk_id, ret);
+
         alsound_delete_source(ret);
     }
 }
@@ -427,7 +431,7 @@ void alsound_clear_cache(void)
         return;
     }
 
-    //Logger->info("alsound_clear_cache");
+    Logger->trace("alsound_clear_cache");
     for (i = OPENAL_C_SZ; i > 0; i--) {
         if (alc[i - 1].state == AL_PLAYING) {
             alSourceStop(alc[i - 1].alSource);
@@ -438,7 +442,7 @@ void alsound_clear_cache(void)
             alDeleteSources(1, &alc[i - 1].alSource);
             alsound_error_check("clear_cache alDeleteSources");
             alc[i - 1].state = 0;
-            //Logger->info("freed {}", i);
+            Logger->trace("freed {}", i);
         }
     }
 
@@ -538,7 +542,7 @@ void alsound_update_source(event_t *entity)
             entity->play_mark = now + 5000 + (rand() % 4098);
 #endif
         }
-        //Logger->info("sch     {} @{} in {} ms", entity->id_0x1A_26, entity->play_mark, entity->play_mark - now);
+        Logger->trace("sch     {} @{} in {} ms", entity->id_0x1A_26, entity->play_mark, entity->play_mark - now);
     }
 
     if ((entity->dist < AL_DIST_MIN_PLAY) && (alcrt[entity->model_0x40_64].chunk_id != -1)) {
@@ -556,10 +560,10 @@ void alsound_update_source(event_t *entity)
             ssp.coord.x = entity->axis_0x4C_76.x;
             ssp.coord.y = entity->axis_0x4C_76.y;
             ssp.coord.z = entity->axis_0x4C_76.z;
-            //Logger->info("play    {} id {} @{}", creature_name[entity->model_0x40_64], entity->id_0x1A_26, now);
+			Logger->trace("play    {} id {} @{}", creature_name[entity->model_0x40_64], entity->id_0x1A_26, now);
             entity->play_ch = alsound_create_source(alcrt[entity->model_0x40_64].chunk_id, &ssp, entity);
         } else if (entity->play_ch != -1) {
-            //Logger->info("update  {} @{}", entity->id_0x1A_26, now);
+			Logger->trace("update  {} @{}", entity->id_0x1A_26, now);
             alSource3f(alc[entity->play_ch].alSource, AL_POSITION, entity->axis_0x4C_76.x, entity->axis_0x4C_76.y, entity->axis_0x4C_76.z);
             //alsound_error_check("alSource3f update_source AL_POSITION");
         }
@@ -679,7 +683,7 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
         alsound_error_check("alSourcef AL_ROLLOFF_FACTOR");
         alSource3f(alc[play_ch].alSource, AL_POSITION, ale.listener_c.x, ale.listener_c.y, ale.listener_c.z);
         alsound_error_check("alSource3f listener AL_POSITION");
-        //Logger->info("alsound_play source @({},{},{})", ale.listener_c.x, ale.listener_c.y, ale.listener_c.z);
+		Logger->trace("alsound_play source @({},{},{})", ale.listener_c.x, ale.listener_c.y, ale.listener_c.z);
     } else {
         alSourcef(alc[play_ch].alSource, AL_GAIN, ssp->gain);
         alsound_error_check("alSourcef AL_GAIN");
@@ -691,7 +695,7 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
         alsound_error_check("alSourcef AL_ROLLOFF_FACTOR");
         alSource3f(alc[play_ch].alSource, AL_POSITION, ssp->coord.x, ssp->coord.y, ssp->coord.z);
         alsound_error_check("alSource3f alSource AL_POSITION");
-        //Logger->info("alsound_play source @({},{},{})", ssp->coord.x, ssp->coord.y, ssp->coord.z);
+		Logger->trace("alsound_play source @({},{},{})", ssp->coord.x, ssp->coord.y, ssp->coord.z);
     }
 
 //    if (loops == 0xffff) {
