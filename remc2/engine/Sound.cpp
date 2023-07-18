@@ -3094,8 +3094,8 @@ HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig)//284820
 	int i;
 
 	PlusE3FF2_91BD0();
-	for (i = 0; i < dig->n_samples_24 && dig->samples_23[i].status_1 != 1; i++)
-		;
+	for (i = 0; i < dig->n_samples_24 && dig->samples_23[i].status_1 != 1; i++);
+
 	if (i == dig->n_samples_24)
 	{
 		qmemcpy(textBuffer_181C90, (void*)"Out of sample handles\n", 23);
@@ -3175,7 +3175,7 @@ void init_openal_sample(HSAMPLE S)
         }
     }
 
-    //Logger->info("init_openal_sample id {} fmt {} sz {}", S->id, format, S->len_4_5[0]);
+    Logger->trace("init_openal_sample id {} fmt {} sz {}", S->id, format, S->len_4_5[0]);
 }
 
 void InitHqsound(HSAMPLE S) {
