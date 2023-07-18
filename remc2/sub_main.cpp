@@ -38498,6 +38498,18 @@ void intervalsave(int index) {
 	SaveLevel_55080(0, x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, outname);
 };
 
+#ifdef SOUND_OPENAL
+void set_listener_location(void)
+{
+    if (x_DWORD_EA3E4 != nullptr && x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240] != nullptr) {
+        int16_t index = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1;
+        axis_3d player_coord = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].axis_2BDE_11695;
+        axis_4d player_rot = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[index].rotation__2BDE_11701;
+        alsound_set_location(&player_coord, &player_rot);
+    }
+}
+#endif
+
 //long debugcounter_47560_2=0;
 //----- (00047560) --------------------------------------------------------
 void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int a4, __int16 a5)//228560
@@ -38627,6 +38639,10 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	x_D41A0_BYTEARRAY_4_struct.byteindex_196 = x_DWORD_17DB54_game_turn2 - x_D41A0_BYTEARRAY_4_struct.byteindex_196;
 	sub_6FEC0();
 	x_D41A0_BYTEARRAY_4_struct.byteindex_196 = x_DWORD_17DB54_game_turn2;
+
+#ifdef SOUND_OPENAL
+    set_listener_location();
+#endif
 
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_51 >= 3u)
 		sub_40F80();
