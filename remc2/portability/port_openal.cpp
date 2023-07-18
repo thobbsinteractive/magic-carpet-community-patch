@@ -59,41 +59,6 @@ static LPALGETAUXILIARYEFFECTSLOTIV alGetAuxiliaryEffectSlotiv;
 static LPALGETAUXILIARYEFFECTSLOTF alGetAuxiliaryEffectSlotf;
 static LPALGETAUXILIARYEFFECTSLOTFV alGetAuxiliaryEffectSlotfv;
 
-struct al_chunk {
-    int16_t id;                 ///< chunk identifier
-    ALint state;                ///< 0, AL_PLAYING or something in between
-    ALuint alSource;            ///< openal source identifier
-    ALsizei size;               ///< chunk size
-    event_t *entity;            ///< what entity has created the sound source
-};
-typedef struct al_chunk al_chunk_t;     ///< element of the currently playing chunks array
-
-struct al_chunk_cache {
-    int16_t id;                 ///< chunk identifier
-    uint16_t flags;             ///< 0 or OPENAL_FLG_LOADED
-    ALuint bufferName;          ///< openal buffer identifier
-    ALsizei size;               ///< chunk size
-};
-typedef struct al_chunk_cache al_chunk_cache_t; ///< element of the cached chunks array
-
-struct al_env {
-    uint8_t initialized;        ///< '1' if the OpenAL-soft library was properly initialized
-    uint8_t efx_initialized;    ///< '1' if the ALC_EXT_EFX extension is usable
-    uint8_t scheduling_enabled; ///< state of the chunk scheduling
-    int8_t bank;                ///< current sound bank
-    int8_t reverb_type;         ///< should match the current MapType
-    uint32_t frame_cnt;         ///< frame counter
-    axis_3d listener_c;         ///< the listener's coordinates in game space (x, y, z)
-    axis_4d listener_o;         ///< the listener's orientation values (yaw, pitch, roll)
-};
-typedef struct al_env al_env_t; ///< random collection of global variables
-
-struct al_next_vol {            ///< sometimes the volume of a chunk is received before the chunk itself, so keep that info here
-    int16_t chunk_id;           ///< chunk identifier
-    float gain;                 ///< volume (0-127) converted into gain (0-1.0)
-};
-typedef struct al_next_vol al_next_vol_t;
-
 ALCcontext *context;
 ALuint al_slot;                 ///< effect slot
 ALuint al_effect;
@@ -108,6 +73,7 @@ openal_config_t oac;            ///< subsystem configuration read from config.in
 // for that particular chunk. so store it's volume in alnv:
 al_next_vol_t alnv = { };
 uint8_t m_volume = -1;
+std::function<void(int16_t chunkId, uint16_t flags)> m_SampleEndedEventHandler = nullptr;
 
 const char *alsound_get_error_str(ALCenum error);
 ALCenum alsound_error_check(const char *msg);
@@ -124,7 +90,7 @@ void alsound_set_master_volume(int32_t volume)
 int16_t alsound_find_alc_sample(const int32_t id)
 {
     int16_t i;
-    //Logger->info("alsound_sample_status looking for {}", chunk_id);
+    Logger->trace("alsound_sample_status looking for {}", id);
     if (id > 128) {
         for (i = OPENAL_C_SZ; i > 0; i--) {
             if ((alc[i - 1].state == AL_PLAYING) && (alc[i - 1].size == id)) {
@@ -350,6 +316,10 @@ void alsound_update(void)
             if (ret != AL_NO_ERROR) {
                 Logger->error("error during alGetSourcei: {} for i {}", alsound_get_error_str(ret), i - 1);
             }
+			else if (alc[i - 1].state == AL_STOPPED && m_SampleEndedEventHandler != nullptr)
+			{
+				m_SampleEndedEventHandler(i - 1, alcc[i - 1].flags);
+			}
         } else if (alc[i - 1].state != 0) {
             alsound_delete_source(i - 1);
         }
@@ -571,13 +541,18 @@ void alsound_update_source(event_t *entity)
 
 }
 
+int16_t alsound_play(const int16_t chunk_id, Mix_Chunk* mixchunk, event_t* entity, al_ssp_t* ssp, const uint16_t flags)
+{
+	return alsound_play(chunk_id, mixchunk, entity, ssp, flags, nullptr);
+}
+
 /// \brief primary entrypoint for chunks that need to be played
 /// \param chunk_id  chunk identifier
 /// \param mixchunk  SDL2_mixer compatible struct holding chunk data
 /// \param loops 0 for no looping, 0xffff for infinite loop
 /// \param ssp   optional openal parameters to apply to the source. not used by the recode
 /// \return play channel index
-int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entity, al_ssp_t *ssp, const uint16_t flags)
+int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entity, al_ssp_t *ssp, const uint16_t flags, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler)
 {
     int16_t i;
     int16_t cache_ch = -1;
@@ -762,6 +737,9 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
 
     alc[play_ch].entity = entity;
     al_con[chunk_id]++;
+
+	if (sampleEndedEventHandler != nullptr)
+		m_SampleEndedEventHandler = sampleEndedEventHandler;
 
     return play_ch;
 }

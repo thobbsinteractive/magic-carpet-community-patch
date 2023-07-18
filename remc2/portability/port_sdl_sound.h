@@ -217,6 +217,7 @@ void SOUND_set_master_volume(int32_t volume);
 void SOUND_UPDATE();
 
 void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len);
+void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler);
 //void test_midi_play(uint8_t* data, uint8_t* header, int32_t track_number);
 
 #endif                          //PORT_SDL_SOUND

@@ -224,6 +224,11 @@ void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *he
 
 void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len)
 {
+	SOUND_start_speech(track, offset, len, nullptr);
+}
+
+void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler)
+{
     size_t track_str_len;
     char *track_filename = NULL;
     uint8_t *track_data = NULL;
@@ -282,7 +287,7 @@ void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16
     uint16_t format;
 
     format = alsound_get_chunk_flags(OPENAL_CC_SZ - 1);
-    alsound_play(OPENAL_CC_SZ - 1, &chunk, nullptr, nullptr, format | AL_TYPE_SPEECH);
+    alsound_play(OPENAL_CC_SZ - 1, &chunk, nullptr, nullptr, format | AL_TYPE_SPEECH, sampleEndedEventHandler);
     free(track_data);
 
 #elif defined (SOUND_SDLMIXER)
@@ -297,6 +302,8 @@ cleanup:
 cleanup_nofreedata:
     free(track_filename);
 }
+
+
 
 void clean_up_sound()
 {
