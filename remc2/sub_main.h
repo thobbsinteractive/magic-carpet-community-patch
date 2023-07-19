@@ -446,6 +446,7 @@ void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, ui
 
 void sub_49F30();
 
+void SampleEndedEventHandler(int16_t chunkId, uint16_t flags);
 void DrawHelpText_6FC50(__int16 a1);
 
 void sub_6EBF0(filearray_struct* a1);

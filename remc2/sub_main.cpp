@@ -1819,7 +1819,8 @@ void sub_59760(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 void sub_59820();
 int ReduceSoundVolume_59A50();
 void sub_59AF0_sound_proc9();
-void ResetSoundVolume_59B50(HMDIDRIVER user);
+void ResetSoundVolume();
+void IncreaseSoundVolume_59B50(HMDIDRIVER user);
 void sub_59BF0_sound_proc11_volume();
 void sub_59C40_getTerrtoZ(type_event_0x6E8E* a1);
 int sub_59C60(type_event_0x6E8E* a1);
@@ -2566,8 +2567,8 @@ char x_BYTE_D47D9 = 0; // weak
 bool lowDiffHeightmap_D47DC = true;
 char x_BYTE_D4B50 = 0; // weak
 char x_BYTE_D4B51 = 0; // weak
-char SoundVolume_D4B78 = 0; // weak
-char MusicVolume_D4B79 = 0; // weak
+int16_t SoundVolume_D4B78 = 0; // weak
+int16_t MusicVolume_D4B79 = 0; // weak
 char x_BYTE_D4B7A = 0; // weak
 char x_BYTE_D4B80 = 0; // weak
 int x_DWORD_D4B84 = 16; // weak
@@ -44224,7 +44225,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 
 				 int ReduceSoundVolume_59A50()//23aa50
 				 void sub_59AF0_sound_proc9()//23aaf0
-				 void ResetSoundVolume_59B50(HMDIDRIVER user)//23ab50
+				 void IncreaseSoundVolume_59B50(HMDIDRIVER user)//23ab50
 				 void sub_59BF0_sound_proc11_volume()//23abf0
 				 */
 
@@ -55576,7 +55577,7 @@ void sub_59AF0_sound_proc9()//23aaf0
 	//int result; // eax
 
 	sub_86860_speak_Sound(x_WORD_1803EC);
-	//x_DWORD_F4940 = sub_92600_AIL_register_timer(ResetSoundVolume_59B50);
+	//x_DWORD_F4940 = sub_92600_AIL_register_timer(IncreaseSoundVolume_59B50);
 	//sub_92930_AIL_set_timer_frequency(x_DWORD_F4940, 0x78u);
 	//sub_92BA0_AIL_start_timer(x_DWORD_F4940);
 	x_BYTE_D4B7A = 1;
@@ -55590,19 +55591,38 @@ void sub_59AF0_sound_proc9()//23aaf0
 // 1803EC: using guessed type __int16 x_WORD_1803EC;
 
 //----- (00059B50) --------------------------------------------------------
-void ResetSoundVolume_59B50(HMDIDRIVER  /*user*/)//23ab50
+void IncreaseSoundVolume_59B50(HMDIDRIVER  /*user*/)//23ab50
 {
-	__int16 v0; // bx
-	__int16 v1; // dx
-
-	v0 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
-	if ((unsigned __int8)SoundVolume_D4B78 != v0
-		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = MusicVolume_D4B79, v1 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8))
+	if (SoundVolume_D4B78 != x_D41A0_BYTEARRAY_4_struct.soundVolume_6 ||
+		MusicVolume_D4B79 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
 	{
-		if ((signed __int16)(unsigned __int8)SoundVolume_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
-			sub_8E470_sound_proc17_volume((unsigned __int8)++SoundVolume_D4B78);
-		if ((signed __int16)(unsigned __int8)MusicVolume_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
+		if (SoundVolume_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
+			sub_8E470_sound_proc17_volume(++SoundVolume_D4B78);
+		if (MusicVolume_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
 			sub_8E410_sound_proc16_xmidivolume(++MusicVolume_D4B79);
+	}
+	else
+	{
+		x_BYTE_D4B7A = 0;
+		//sub_92DC0_AIL_release_timer_handle(x_DWORD_F4940);
+	}
+}
+
+void ResetSoundVolume()
+{
+	if (SoundVolume_D4B78 != x_D41A0_BYTEARRAY_4_struct.soundVolume_6 ||
+		MusicVolume_D4B79 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
+	{
+		if (SoundVolume_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
+		{
+			SoundVolume_D4B78 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+			sub_8E470_sound_proc17_volume(SoundVolume_D4B78);
+		}
+		if (MusicVolume_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
+		{
+			MusicVolume_D4B79 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+			sub_8E410_sound_proc16_xmidivolume(MusicVolume_D4B79);
+		}
 	}
 	else
 	{
@@ -76597,6 +76617,12 @@ void sub_86EA0(/*int a1, int a2, int a3*/ uint32_t user)//267ea0
 	PaletteChanges_47760(/*a1, */user/*, a3*/);
 }
 
+void SampleEndedEventHandler(int16_t chunkId, uint16_t flags)
+{
+	if (flags & AL_TYPE_SPEECH)
+		ResetSoundVolume();
+}
+
 //----- (00086EB0) --------------------------------------------------------
 void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 {
@@ -76615,7 +76641,7 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 	v6 = str_BYTE_DB080[a1].chunk[a2].offset;
 	v7 = str_BYTE_DB080[a1].chunk[a2].length;
 	if (v4 && v7) {
-		SOUND_start_speech(v4, v6, v7);
+		SOUND_start_speech(v4, v6, v7, SampleEndedEventHandler);
 		//if (a3)
 		//	sub_86F70_sound_proc12(v4, v6, v7);
 		//else
