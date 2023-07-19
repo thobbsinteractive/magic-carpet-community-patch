@@ -2566,8 +2566,8 @@ char x_BYTE_D47D9 = 0; // weak
 bool lowDiffHeightmap_D47DC = true;
 char x_BYTE_D4B50 = 0; // weak
 char x_BYTE_D4B51 = 0; // weak
-char x_BYTE_D4B78 = 0; // weak
-char x_BYTE_D4B79 = 0; // weak
+char SoundVolume_D4B78 = 0; // weak
+char MusicVolume_D4B79 = 0; // weak
 char x_BYTE_D4B7A = 0; // weak
 char x_BYTE_D4B80 = 0; // weak
 int x_DWORD_D4B84 = 16; // weak
@@ -55557,16 +55557,16 @@ int ReduceSoundVolume_59A50()//23aa50
 		x_BYTE_D4B7A = 0;
 	}
 	sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3);
-	x_BYTE_D4B78 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3;
+	SoundVolume_D4B78 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6 / 3;
 	sub_8E410_sound_proc16_xmidivolume((x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3));
 	result = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
-	x_BYTE_D4B79 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
+	MusicVolume_D4B79 = x_D41A0_BYTEARRAY_4_struct.musicVolume_8 / 3;
 	x_D41A0_BYTEARRAY_4_struct.setting_38545 |= 0x40u;
 	return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D4B78: using guessed type char x_BYTE_D4B78;
-// D4B79: using guessed type char x_BYTE_D4B79;
+// D4B78: using guessed type char SoundVolume_D4B78;
+// D4B79: using guessed type char MusicVolume_D4B79;
 // D4B7A: using guessed type char x_BYTE_D4B7A;
 // F4940: using guessed type int x_DWORD_F4940;
 
@@ -55596,13 +55596,13 @@ void ResetSoundVolume_59B50(HMDIDRIVER  /*user*/)//23ab50
 	__int16 v1; // dx
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
-	if ((unsigned __int8)x_BYTE_D4B78 != v0
-		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = x_BYTE_D4B79, v1 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8))
+	if ((unsigned __int8)SoundVolume_D4B78 != v0
+		|| (HIBYTE(v1) = HIBYTE(v0), LOBYTE(v1) = MusicVolume_D4B79, v1 != x_D41A0_BYTEARRAY_4_struct.musicVolume_8))
 	{
-		if ((signed __int16)(unsigned __int8)x_BYTE_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
-			sub_8E470_sound_proc17_volume((unsigned __int8)++x_BYTE_D4B78);
-		if ((signed __int16)(unsigned __int8)x_BYTE_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
-			sub_8E410_sound_proc16_xmidivolume(++x_BYTE_D4B79);
+		if ((signed __int16)(unsigned __int8)SoundVolume_D4B78 < x_D41A0_BYTEARRAY_4_struct.soundVolume_6)
+			sub_8E470_sound_proc17_volume((unsigned __int8)++SoundVolume_D4B78);
+		if ((signed __int16)(unsigned __int8)MusicVolume_D4B79 < x_D41A0_BYTEARRAY_4_struct.musicVolume_8)
+			sub_8E410_sound_proc16_xmidivolume(++MusicVolume_D4B79);
 	}
 	else
 	{
@@ -55611,8 +55611,8 @@ void ResetSoundVolume_59B50(HMDIDRIVER  /*user*/)//23ab50
 	}
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
-// D4B78: using guessed type char x_BYTE_D4B78;
-// D4B79: using guessed type char x_BYTE_D4B79;
+// D4B78: using guessed type char SoundVolume_D4B78;
+// D4B79: using guessed type char MusicVolume_D4B79;
 // D4B7A: using guessed type char x_BYTE_D4B7A;
 // F4940: using guessed type int x_DWORD_F4940;
 
