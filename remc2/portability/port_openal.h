@@ -47,6 +47,7 @@ struct al_chunk {
 	ALuint alSource;            ///< openal source identifier
 	ALsizei size;               ///< chunk size
 	event_t* entity;            ///< what entity has created the sound source
+	uint16_t flags;
 };
 typedef struct al_chunk al_chunk_t;     ///< element of the currently playing chunks array
 

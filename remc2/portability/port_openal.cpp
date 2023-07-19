@@ -318,7 +318,7 @@ void alsound_update(void)
             }
 			else if (alc[i - 1].state == AL_STOPPED && m_SampleEndedEventHandler != nullptr)
 			{
-				m_SampleEndedEventHandler(i - 1, alcc[i - 1].flags);
+				m_SampleEndedEventHandler(i - 1, alc[i - 1].flags);
 			}
         } else if (alc[i - 1].state != 0) {
             alsound_delete_source(i - 1);
@@ -736,6 +736,7 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
     alsound_error_check("alGetSourcei init");
 
     alc[play_ch].entity = entity;
+	alc[play_ch].flags = flags;
     al_con[chunk_id]++;
 
 	if (sampleEndedEventHandler != nullptr)
