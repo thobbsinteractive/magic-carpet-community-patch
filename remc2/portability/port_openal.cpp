@@ -632,9 +632,9 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
     }
 
     if (flags & AL_TYPE_ENV) {
-        gain = ((float)m_volume * ((float)oac.env_volume / 127.0f)) / 100.0f;
+        gain = ((float)m_volume * ((float)oac.env_volume / 100.0f)) / 100.0f;
     } else if (flags & AL_TYPE_SPEECH) {
-        gain = (float)m_volume / 127.0f;
+        gain = ((float)m_volume * ((float)oac.speech_volume / 100.0f)) / 100.0f;
     }
 
     alGetError();               // reset global error variable
