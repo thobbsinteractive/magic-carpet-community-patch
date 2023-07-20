@@ -107,6 +107,24 @@ int16_t alsound_find_alc_sample(const int32_t id)
     return -1;
 }
 
+/// <summary>
+/// Gets the chunkid for the currently playing samples by flag
+/// </summary>
+/// <returns></returns>
+std::vector<int16_t> alsound_get_current_playing_samples_by_flags(uint16_t flags)
+{
+	auto sampleChunkIds = std::vector<int16_t>();
+	Logger->trace("alsound_get_current_playing_samples_by_flags {}", flags);
+
+	for (int16_t i = OPENAL_C_SZ; i > 0; i--) {
+		if ((alc[i - 1].state == AL_PLAYING) && (alc[i - 1].flags & flags)) {
+			sampleChunkIds.push_back(alc[i - 1].id);
+		}
+	}
+
+	return sampleChunkIds;
+}
+
 /// \brief establish the presence of a chunk_id in the currently playing chunks array
 /// \param chunk_id  identifier
 /// \return  1 if sample is playing and 0 otherwise
@@ -570,6 +588,18 @@ int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *mixchunk, event_t *entit
         Logger->trace("alsound_play ignored id {}", chunk_id);
         return -1;
     }
+	//Should only be one speech playing at a time
+	if (flags & AL_TYPE_SPEECH)
+	{
+		auto sampleChunkIds = alsound_get_current_playing_samples_by_flags(AL_TYPE_SPEECH);
+		if (!sampleChunkIds.empty())
+		{
+			for (int s = 0; s < sampleChunkIds.size(); s++)
+			{
+				alsound_end_sample(sampleChunkIds[s]);
+			}
+		}
+	}
 
     if (ale.bank < 3) {
         if ((alct[ale.bank][chunk_id].flags & AL_IGNORE_RECODE) && !(flags & AL_TYPE_POSITIONAL) && 

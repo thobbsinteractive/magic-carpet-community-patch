@@ -86,6 +86,8 @@ void alsound_close(void);
 void alsound_set_env(const int32_t value, const uint8_t flag);
 void alsound_set_location(axis_3d *coordinates, axis_4d *orientation);
 void alsound_end_sample(const int32_t chunk_id);
+int16_t alsound_find_alc_sample(const int32_t id);
+std::vector<int16_t> alsound_get_current_playing_samples_by_flags(uint16_t flags);
 uint8_t alsound_sample_status(const int32_t chunk_id);
 void alsound_set_sample_volume(const int32_t chunk_id, const int32_t volume);
 uint16_t alsound_get_chunk_flags(const int16_t chunk_id);
