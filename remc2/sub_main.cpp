@@ -85,7 +85,7 @@ x_WORD_D93C0_bldgprmbuffer
 x_WORD_D951C - ok, rewrited to str_WORD_D951C, xxx->word_8 mayby must (unsigned __int64)
 x_BYTE_D9F50 - ? used only byte 0x87A,0x5b6,0x126 (error?)
 x_BYTE_DB038 - ok
-x_BYTE_DB080 - ok, rewrited to str_BYTE_DB080
+x_BYTE_DB080 - ok, rewrited to SpeechTracks_DB080
 x_BYTE_DB4EE - ok 
 x_BYTE_DB507 - ok
 x_BYTE_DB520 - ok
@@ -4324,10 +4324,10 @@ typedef struct {//lenght 42
 	//int8_t stub;
 	track_chunk_t chunk[10];
 }
-type_BYTE_DB080;
+type_SpeechTrack_DB080;
 #pragma pack (16)
 
-type_BYTE_DB080 str_BYTE_DB080[29] = {
+type_SpeechTrack_DB080 SpeechTracks_DB080[29] = {
 {0x0001,{{0x0000,0x02EE},{0x0339,0x012C},{0x04B0,0x01C2},{0x06BD,0x01C2},{0x08CA,0x0177},{0x0A8C,0x0177},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0C4E,0x020D}}},
 {0x0002,{{0x0000,0x0465},{0x04B0,0x020D},{0x0708,0x0258},{0x09AB,0x012C},{0x0B22,0x020D},{0x0D7A,0x01C2},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0F87,0x0258}}},
 {0x0003,{{0x0000,0x0384},{0x03CF,0x02A3},{0x06BD,0x0177},{0x087F,0x01C2},{0x0A8C,0x0177},{0x0C4E,0x012C},{0x0000,0x0000},{0x0000,0x0000},{0x0000,0x0000},{0x0DC5,0x0177}}},
@@ -76634,12 +76634,12 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 
 	//v3 = 42 * a1;
 	//v4 = x_BYTE_DB080[v3];
-	v4 = str_BYTE_DB080[a1].track;
+	v4 = SpeechTracks_DB080[a1].track;
 	/*v5 = 4 * a2 + v3;
 	v6 = *(__int16*)((char*)&x_BYTE_DB080[2] + v5);
 	v7 = *(__int16*)((char*)&x_BYTE_DB080[4] + v5);*/
-	v6 = str_BYTE_DB080[a1].chunk[a2].offset;
-	v7 = str_BYTE_DB080[a1].chunk[a2].length;
+	v6 = SpeechTracks_DB080[a1].chunk[a2].offset;
+	v7 = SpeechTracks_DB080[a1].chunk[a2].length;
 	if (v4 && v7) {
 		SOUND_start_speech(v4, v6, v7, SampleEndedEventHandler);
 		//if (a3)
@@ -76664,9 +76664,9 @@ void sub_86F20(char a1)//267f20
 	/*v3 = *(int16_t*)&x_BYTE_DB080[2 + v1 * 2];
 	v4 = *(int16_t*)&x_BYTE_DB080[4 + v1 * 2];*/
 	v1 = ((a1 != 0) + 25);
-	v2 = str_BYTE_DB080[v1].track;
-	v3 = str_BYTE_DB080[v1].chunk[0].offset;
-	v4 = str_BYTE_DB080[v1].chunk[0].length;
+	v2 = SpeechTracks_DB080[v1].track;
+	v3 = SpeechTracks_DB080[v1].chunk[0].offset;
+	v4 = SpeechTracks_DB080[v1].chunk[0].length;
 	if (v2)
 	{
 		if (v4)
