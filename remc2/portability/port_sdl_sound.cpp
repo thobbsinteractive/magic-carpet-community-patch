@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fcntl.h>
 #include "../engine/engine_support.h"
-#include "port_openal.h"
 #include "port_sdl_sound.h"
 
 #ifdef __linux__
@@ -9,145 +8,112 @@
 #define MAX_PATH PATH_MAX
 #endif
 
-/*This source code copyrighted by Lazy Foo' Productions (2004-2013)
-and may not be redistributed without written permission.*/
+port_sdl_sound* m_ptrSoundDevice;
 
-bool debug_first_sound = true;
+port_sdl_sound::port_sdl_sound(bool hqsound, 
+	bool fixspeedsound, 
+	bool oggmusic, 
+	bool oggmusicalternative, 
+	std::string oggmusicFolder, 
+	std::string speech_folder):
+	m_hqsound(hqsound),
+	m_fixspeedsound(fixspeedsound),
+	m_oggmusic(oggmusic),
+	m_oggmusicalternative(oggmusicalternative),
+	m_oggmusicFolder(oggmusicFolder),
+	m_speech_folder(speech_folder)
+{
+	init_sound();
+}
 
-bool hqsound = false;
-bool oggmusic = false;
-bool oggmusicalternative = false;
-char oggmusicFolder[512];
-char speech_folder[512];
+port_sdl_sound::~port_sdl_sound()
+{
+	clean_up_sound();
+}
 
-bool fixspeedsound = false;
-
-int32_t last_sequence_num = 0;
-
-int lastMusicVolume = -1;
-int settingsMusicVolume = 127;
-int num_IO_configurations = 3;
-int service_rate = -1;
-int master_volume = -1;
-
-#ifdef SOUND_SDLMIXER
-Mix_Music *GAME_music[20] =
-    { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-    NULL, NULL, NULL, NULL, NULL
-};
-#endif
-
-Mix_Chunk gamechunk[32];        //OPENAL_CHANNELS];
-HSAMPLE gamechunkHSAMPLE[32];   //OPENAL_CHANNELS];
-
-extern char x_BYTE_E2A28_speech;
-
-uint8_t sound_buffer[4][20000];
-/*
-10
-29
-
-128-0
-0-0
-0-10
-0-29
-0-80
-0-76
-0-78
-0-78
-
- channel 1
- 2
-
-*/
-
-void SOUND_start_sequence(int32_t sequence_num)
+void port_sdl_sound::SOUND_start_sequence(int32_t sequence_num)
 {
     if (unitTests)
         return;
     //3 - menu
     //4 - intro
-#ifdef SOUND_SDLMIXER
-    last_sequence_num = sequence_num;
+
+	m_last_sequence_num = sequence_num;
     //volume fix
-    if (lastMusicVolume == -1) {
+    if (m_lastMusicVolume == -1) {
         SOUND_set_sequence_volume(0x64, 0);
     }
-    if (lastMusicVolume != settingsMusicVolume) {
-        SOUND_set_sequence_volume(settingsMusicVolume, 0);
+    if (m_lastMusicVolume != m_settingsMusicVolume) {
+        SOUND_set_sequence_volume(m_settingsMusicVolume, 0);
     }
     //volume fix
 
     if (Mix_PlayingMusic() == 0) {
-        if (Mix_PlayMusic(GAME_music[sequence_num], -1) == -1)
+        if (Mix_PlayMusic(m_GAME_music[sequence_num], -1) == -1)
             if (Mix_PausedMusic() == 1) {
                 Mix_ResumeMusic();
             } else {
                 Mix_PauseMusic();
             }
     }
-#endif                          //SOUND_SDLMIXER
 };
 
-void SOUND_pause_sequence(int32_t /*sequence_num */ )
+void port_sdl_sound::SOUND_pause_sequence(int32_t /*sequence_num */ )
 {
     if (unitTests)
         return;
-#ifdef SOUND_SDLMIXER
+
     Mix_PauseMusic();
-#endif                          //SOUND_SDLMIXER
+
 };
 
-void SOUND_stop_sequence(int32_t /*sequence_num */ )
+void port_sdl_sound::SOUND_stop_sequence(int32_t /*sequence_num */ )
 {
     if (unitTests)
         return;
-#ifdef SOUND_SDLMIXER
+
     Mix_HaltMusic();
-#endif                          //SOUND_SDLMIXER
 };
 
-void SOUND_resume_sequence(int32_t /*sequence_num */ )
+void port_sdl_sound::SOUND_resume_sequence(int32_t /*sequence_num */ )
 {
     if (unitTests)
         return;
-#ifdef SOUND_SDLMIXER
+
     Mix_ResumeMusic();
-#endif                          //SOUND_SDLMIXER
 };
 
-void SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds)
+void port_sdl_sound::SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds)
 {
     if (unitTests)
         return;
     Logger->trace("SOUND_set_sequence_volume  vol {}  ms {}", volume, milliseconds);
-#ifdef SOUND_SDLMIXER
+
 #ifndef __linux__
     if ((milliseconds > 0) && (volume == 0)) {
-        if (GAME_music[last_sequence_num]) {
-            double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+        if (m_GAME_music[m_last_sequence_num]) {
+            double position = Mix_GetMusicPosition(m_GAME_music[m_last_sequence_num]);
             if (position != 0) {
                 Mix_FadeOutMusic(milliseconds);
                 Mix_SetMusicPosition(position);
             }
         }
-    } else if ((milliseconds > 0) && (lastMusicVolume == 0)) {
-        if (GAME_music[last_sequence_num]) {
-            double position = Mix_GetMusicPosition(GAME_music[last_sequence_num]);
+    } else if ((milliseconds > 0) && (m_lastMusicVolume == 0)) {
+        if (m_GAME_music[m_last_sequence_num]) {
+            double position = Mix_GetMusicPosition(m_GAME_music[m_last_sequence_num]);
             if (position != 0) {
-                Mix_FadeInMusicPos(GAME_music[last_sequence_num], 1, milliseconds, position);
+                Mix_FadeInMusicPos(m_GAME_music[m_last_sequence_num], 1, milliseconds, position);
             }
         }
     } else
 #endif                          //__linux__
         Mix_VolumeMusic(volume);
-    lastMusicVolume = volume;
+	m_lastMusicVolume = volume;
     if (milliseconds == 0)
-        settingsMusicVolume = volume;
-#endif                          //SOUND_SDLMIXER
+		m_settingsMusicVolume = volume;
 }
 
-void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *headerx,
+void port_sdl_sound::SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *headerx,
                               int32_t track_number)
 {
     Logger->trace("SOUND_init_MIDI_sequence {}", track_number);
@@ -164,14 +130,14 @@ void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *he
     size_t pMidLength;
     dirsstruct helpdirsstruct;
 
-    if (oggmusic) {
+    if (m_oggmusic) {
 
-        std::string oggmusicPath = GetSubDirectoryPath(oggmusicFolder);
+        std::string oggmusicPath = GetSubDirectoryPath(m_oggmusicFolder.c_str());
         // FIXME 1024bytes added to the stack
         char alternativeMusicPath[512] = "";
         char selectedTrackPath[512] = "";
         //if (track_number > 1)track_number = 0;
-        if (oggmusicalternative)        ///&&track_number==4
+        if (m_oggmusicalternative)        ///&&track_number==4
         {
             if (track_number == 0) {
                 sprintf(alternativeMusicPath, "%s/alternative/day", oggmusicPath.c_str());
@@ -203,9 +169,9 @@ void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *he
                 sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
         } else
             sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
-#ifdef SOUND_SDLMIXER
-        GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
-#endif                          //SOUND_SDLMIXER
+
+		m_GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
+
     } else {
         uint8_t *outmidi =
             TranscodeXmiToMid( /*(const uint8_t*)*(uint32_t*)( */ acttrack /* + 18) */ , iXmiLength,
@@ -214,20 +180,18 @@ void SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *he
         Logger->trace("SOUND_init_MIDI_sequence  xmi {}  mid {}", iXmiLength, pMidLength);
         //alsound_save_chunk(outmidi, pMidLength, NULL);
         //Timidity_Init();
-#ifdef SOUND_SDLMIXER
-        GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE); // FIXME
-#endif                          //SOUND_SDLMIXER
-        //music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
 
+		m_GAME_music[track_number] = Mix_LoadMUSType_RW(rwmidi, MUS_MID, SDL_TRUE); // FIXME
+        //music2 = Mix_LoadMUSType_RW(rwmidi, MIX_MUSIC_TIMIDITY, SDL_TRUE);
     }
 }
 
-void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len)
+void port_sdl_sound::SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len)
 {
 	SOUND_start_speech(track, offset, len, nullptr);
 }
 
-void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler)
+void port_sdl_sound::SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler)
 {
     size_t track_str_len;
     char *track_filename = NULL;
@@ -239,7 +203,7 @@ void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16
 
     Logger->debug("SOUND_start_speech  track {}  offset {}  len {}", track, offset, len);
 
-    std::string speech_path = GetSubDirectoryPath(speech_folder);
+    std::string speech_path = GetSubDirectoryPath(m_speech_folder.c_str());
     track_str_len = speech_path.length() + 13;
 
     track_filename = (char *) calloc(track_str_len, sizeof(char));
@@ -281,21 +245,7 @@ void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16
     chunk.abuf = track_data;
     chunk.volume = 127;
 
-    //alsound_save_chunk(track_data, track_data_len, NULL);
-
-#ifdef SOUND_OPENAL
-    uint16_t format;
-
-    format = alsound_get_chunk_flags(OPENAL_CC_SZ - 1);
-    alsound_play(OPENAL_CC_SZ - 1, &chunk, nullptr, nullptr, format | AL_TYPE_SPEECH, sampleEndedEventHandler);
-    free(track_data);
-
-#elif defined (SOUND_SDLMIXER)
-
     Mix_PlayChannel(-1, &chunk, 0);
-    // due to chunk.allocated == 1, track_data will be freed by sdlmixer once the chunk has been played
-
-#endif
 
 cleanup: 
     close(fd);
@@ -303,31 +253,27 @@ cleanup_nofreedata:
     free(track_filename);
 }
 
-
-
-void clean_up_sound()
+void port_sdl_sound::clean_up_sound()
 {
     if (unitTests)
         return;
 
-#ifdef SOUND_SDLMIXER
     for (int i = 0; i < 10; i++) {
-        Mix_FreeMusic(GAME_music[i]);
+        Mix_FreeMusic(m_GAME_music[i]);
     }
 
     Mix_CloseAudio();
-#endif
 }
 
-void playmusic2(int32_t track_number)
+void port_sdl_sound::playmusic2(int32_t track_number)
 {
     Logger->debug("playmusic2 {}", track_number);
     if (unitTests)
         return;
-#ifdef SOUND_SDLMIXER
+
     if (Mix_PlayingMusic() == 0) {
         //Play the music
-        if (Mix_PlayMusic(GAME_music[track_number], -1) == -1)
+        if (Mix_PlayMusic(m_GAME_music[track_number], -1) == -1)
             if (Mix_PausedMusic() == 1) {
                 //Resume the music
                 Mix_ResumeMusic();
@@ -338,25 +284,16 @@ void playmusic2(int32_t track_number)
                 Mix_PauseMusic();
             }
     }
-#endif                          //SOUND_SDLMIXER
 }
 
-struct {
-    int a;
-} common_IO_configurations;
-
-struct {
-    int a;
-} environment_string;
-
-int32_t ac_sound_call_driver(AIL_DRIVER *drvr, int32_t fn, VDI_CALL *out)
+int32_t port_sdl_sound::ac_sound_call_driver(AIL_DRIVER *drvr, int32_t fn, VDI_CALL *out)
 {
     switch (fn) {
     case 0x300:{               //AIL_API_install_driver
             drvr->VHDR_4->VDI_HDR_var10 = (void *)&common_IO_configurations;
-            drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
+            drvr->VHDR_4->num_IO_configurations_14 = m_num_IO_configurations;
             drvr->VHDR_4->environment_string_16 = environment_string.a;
-            drvr->VHDR_4->VDI_HDR_var46 = service_rate;
+            drvr->VHDR_4->VDI_HDR_var46 = m_service_rate;
             break;
         }
     case 0x301:{               //AIL_API_install_DIG_driver_file/AIL_API_install_MDI_driver_file          
@@ -402,188 +339,127 @@ int32_t ac_sound_call_driver(AIL_DRIVER *drvr, int32_t fn, VDI_CALL *out)
     return 1;
 };
 
-void SOUND_set_master_volume(int32_t volume)
+void port_sdl_sound::SOUND_set_master_volume(int32_t volume)
 {
-	master_volume = volume;
+	m_master_volume = volume;
 
-#ifdef SOUND_SDLMIXER
     for (int i = 0; i < 32; i++)
-        Mix_Volume(i, (int)((gamechunk[i].volume * master_volume) / 127));
-#endif
-#ifdef SOUND_OPENAL
-	alsound_set_master_volume(volume);
-#endif
-	
-    //may be can fix - must analyze
+        Mix_Volume(i, (int)((m_gamechunk[i].volume * m_master_volume) / 127));
 }
 
-void SOUND_set_sample_volume(HSAMPLE S, int32_t volume)
+void port_sdl_sound::SOUND_set_sample_volume(HSAMPLE S, int32_t volume)
 {
-#ifdef SOUND_OPENAL
-    Logger->trace("SOUND_set_sample_volume id {}  vol {}", S->id, volume);
-    alsound_set_sample_volume(S->id, volume);
-#elif defined(SOUND_SDLMIXER)
-    if (master_volume == -1)
-        master_volume = 127;
-    gamechunk[S->index_sample].volume = volume;
-    Mix_Volume(S->index_sample, (int)((gamechunk[S->index_sample].volume * master_volume) / 127));
-#endif                          //SOUND_SDLMIXER
+    if (m_master_volume == -1)
+		m_master_volume = 127;
+	m_gamechunk[S->index_sample].volume = volume;
+    Mix_Volume(S->index_sample, (int)((m_gamechunk[S->index_sample].volume * m_master_volume) / 127));
 }
 
-void SOUND_start_sample(HSAMPLE S)
+void port_sdl_sound::SOUND_start_sample(HSAMPLE S)
 {
     if (unitTests)
         return;
 
-#ifdef SOUND_OPENAL
-    uint16_t format;
-
-    format = alsound_get_chunk_flags(S->id);
-
-    if (format & AL_FORMAT_STEREO8_22050) {
-        gamechunk[S->index_sample].abuf = (uint8_t *) S->wavbuff;
-        gamechunk[S->index_sample].alen = S->len_4_5[0] * 2;
-    } else {
-        gamechunk[S->index_sample].abuf = (uint8_t *) S->start_2_3[0];
-        gamechunk[S->index_sample].alen = S->len_4_5[0];
-    }
-    gamechunk[S->index_sample].volume = S->volume_16;
-    gamechunkHSAMPLE[S->index_sample] = S;
-
-    alsound_play(S->id, &gamechunk[S->index_sample], nullptr, nullptr, format);
-
-    //alsound_update();
-#elif defined (SOUND_SDLMIXER)
-    if (hqsound) {
-        gamechunk[S->index_sample].abuf = /*sample->abuf;// */ (uint8_t *) S->start_44mhz;
-        if (fixspeedsound)
-            gamechunk[S->index_sample].alen = /*sample->alen;// */ S->len_4_5[0] * 16;
+    if (m_hqsound) {
+		m_gamechunk[S->index_sample].abuf = /*sample->abuf;// */ (uint8_t *) S->start_44mhz;
+        if (m_fixspeedsound)
+			m_gamechunk[S->index_sample].alen = /*sample->alen;// */ S->len_4_5[0] * 16;
         else
-            gamechunk[S->index_sample].alen = /*sample->alen;// */ S->len_4_5[0] * 8;
-        if (debug_first_sound) {
-            Logger->trace("SOUND_start_sample-hq:{}", S->start_44mhz);
-            debug_first_sound = false;
-        }
-    } else {
-        if (debug_first_sound) {
-            Logger->trace("SOUND_start_sample:{}", S->start_44mhz);
-            debug_first_sound = false;
-        }
-        gamechunk[S->index_sample].abuf = (uint8_t *) S->start_2_3[0];
-        gamechunk[S->index_sample].alen = S->len_4_5[0];
+			m_gamechunk[S->index_sample].alen = /*sample->alen;// */ S->len_4_5[0] * 8;
+		Logger->trace("SOUND_start_sample-hq:{}", S->start_44mhz);
+    } 
+	else 
+	{
+        Logger->trace("SOUND_start_sample:{}", S->start_44mhz);
+		m_gamechunk[S->index_sample].abuf = (uint8_t *) S->start_2_3[0];
+		m_gamechunk[S->index_sample].alen = S->len_4_5[0];
     }
 
-    gamechunk[S->index_sample].volume = S->volume_16;
-    gamechunkHSAMPLE[S->index_sample] = S;
+	m_gamechunk[S->index_sample].volume = S->volume_16;
+	m_gamechunkHSAMPLE[S->index_sample] = S;
 
     //alsound_save_chunk(gamechunk[S->index_sample].abuf, gamechunk[S->index_sample].alen, NULL);
 
-    Mix_PlayChannel(S->index_sample, &gamechunk[S->index_sample], 0);
-#endif
+    Mix_PlayChannel(S->index_sample, &m_gamechunk[S->index_sample], 0);
 };
 
-uint32_t SOUND_sample_status(HSAMPLE S)
+uint32_t port_sdl_sound::SOUND_sample_status(HSAMPLE S)
 {
     if (unitTests)
         return 0;
 
-#ifdef SOUND_OPENAL
-    if (alsound_sample_status(S->id) == 0) {
-        return 2;
-    }
-#elif defined(SOUND_SDLMIXER)
     if (Mix_Playing(S->index_sample) == 0)
         return 2;
-#endif                          //SOUND_SDLMIXER
+
     return 0;
 }
 
-void SOUND_end_sample(HSAMPLE S)
+void port_sdl_sound::SOUND_end_sample(HSAMPLE S)
 {
-
-#ifdef SOUND_OPENAL
-    Logger->trace("SOUND_end_sample {} {}", S->id, S->len_4_5[0] * 2);
-    alsound_end_sample(S->id);
-#elif defined(SOUND_SDLMIXER)
     Mix_HaltChannel(-1);
-#endif                          //SOUND_SDLMIXER
-};
-
-void SOUND_finalize(int channel)
-{
-    HSAMPLE S = gamechunkHSAMPLE[channel];
-    if (S) {
-        if (S->status_1 != 1) {
-            if (S->status_1 != 2) {
-                S->status_1 = 2;
-            }
-        }
-        S->vol_scale_18[0][0] = 0;
-        S->flags_14 = 0;
-        S->vol_scale_18[0][2] = 0;
-        S->vol_scale_18[0][3] = 0;
-    }
 }
 
-bool init_sound()
+bool port_sdl_sound::init_sound()
 {
     //#define MUSIC_MID_FLUIDSYNTH
     srand(time(NULL));
-#ifdef SOUND_SDLMIXER
-    if (hqsound) {
-        if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)     //4096
-            //if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)//4096
-            //if (Mix_OpenAudio(11025, AUDIO_S8, 1, 4096) == -1)//4096
+    if (m_hqsound)
+	{
+        if (Mix_OpenAudio(44100, AUDIO_S16, 2, 4096) == -1)
         {
             return false;
         }
-    } else {
-        if (Mix_OpenAudio(22050, AUDIO_U8 /*MIX_DEFAULT_FORMAT */ , 2, 4096) == -1)     //4096
-            //if (Mix_OpenAudio(11025/*22050*/, AUDIO_U8/*MIX_DEFAULT_FORMAT*/, 1, 4096) == -1)//4096
+    } 
+	else 
+	{
+        if (Mix_OpenAudio(22050, AUDIO_U8 /*MIX_DEFAULT_FORMAT */ , 2, 4096) == -1)
         {
             return false;
         }
     }
 
-    //Mix_SetSoundFonts("c:\\prenos\\Magic2\\sf2\\TOM-SF2.sf2");
-    //Mix_SetSoundFonts("touhou.sf2");
-    //load_sound_files();
-    /*if(mp3music)
-       load_music_files(); */
-    /*
-       Mix_HookMusicFinished(void (SDLCALL *music_finished)(void));
-     */
-    Mix_ChannelFinished(SOUND_finalize);
-#endif
-#ifdef SOUND_OPENAL
-    alsound_init();
-#endif
+	//std::function<void(int)> ptr = &port_sdl_sound::SOUND_finalize;
+
+ //   Mix_ChannelFinished(ptr);
+
     return true;
 }
 
-AIL_DRIVER *ac_AIL_API_install_driver(int /*a1 */ , uint8_t * /*a2 */ , int /*a3 */ )   /*driver_image,n_bytes *///27f720
+void port_sdl_sound::SOUND_finalize(int channel)
+{
+	HSAMPLE S = m_gamechunkHSAMPLE[channel];
+	if (S) {
+		if (S->status_1 != 1) {
+			if (S->status_1 != 2) {
+				S->status_1 = 2;
+			}
+		}
+		S->vol_scale_18[0][0] = 0;
+		S->flags_14 = 0;
+		S->vol_scale_18[0][2] = 0;
+		S->vol_scale_18[0][3] = 0;
+	}
+}
+
+AIL_DRIVER * port_sdl_sound::ac_AIL_API_install_driver(int /*a1 */ , uint8_t * /*a2 */ , int /*a3 */ )   /*driver_image,n_bytes *///27f720
 {
 
     //printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
     return 0;
 }
 
-uint16_t actvect[4096];
-
-void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
+void port_sdl_sound::ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
 {
-    actvect[vectnum] = real_ptr;
+	m_actvect[vectnum] = real_ptr;
     //66
 };
 
-uint16_t ac_get_real_vect(uint32_t vectnum)
+uint16_t port_sdl_sound::ac_get_real_vect(uint32_t vectnum)
 {
-    return actvect[vectnum];
+    return m_actvect[vectnum];
 };
 
-void SOUND_UPDATE()
+void port_sdl_sound::SOUND_UPDATE()
 {
-#ifdef SOUND_OPENAL
-    alsound_update();
-#endif
+
 };

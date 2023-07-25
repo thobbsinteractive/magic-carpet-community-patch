@@ -80,7 +80,6 @@ typedef struct {                //length 3090
     shadow_sub1type_E37A0_sound_buffer2 str_8;  //3072 length
     int8_t next_str[10];
 } shadow_type_E37A0_sound_buffer2;
-//shadow type_E37A0_sound_buffer2
 
 typedef struct {                //length 16*6=96
     int32_t dword_0;
@@ -154,70 +153,70 @@ typedef struct {                //length 224
     int8_t byte_7;
     shadow_sub1type_E3808_music_header str_8;   //216 length
 } shadow_type_E3808_music_header;
-//shadow shadow_type_E3808_music_header
 #pragma pack (16)
-
-// Mix_Chunk is defined in SDL_mixer.h
-#ifndef SOUND_SDLMIXER
-typedef struct {
-    int allocated;
-    Uint8 *abuf;
-    Uint32 alen;
-    Uint8 volume;               /* Per-sample volume, 0-128 */
-} Mix_Chunk;
-#endif                          //SOUND_SDLMIXER
 
 #define USE_SDL2
 
 #define DEBUG_SOUND
-extern bool debug_first_sound;
+class port_sdl_sound
+{
 
-extern bool hqsound;
-extern bool oggmusic;
-extern char oggmusicFolder[512];
-extern bool oggmusicalternative;
-extern char speech_folder[512];
-extern bool fixspeedsound;
+private:
+	bool m_hqsound = false;
+	bool m_oggmusic = false;
+	std::string m_oggmusicFolder;
+	bool m_oggmusicalternative;
+	std::string m_speech_folder;
+	bool m_fixspeedsound;
+	int32_t m_last_sequence_num = 0;
+	int m_lastMusicVolume = -1;
+	int m_settingsMusicVolume = 127;
+	int m_num_IO_configurations = 3;
+	int m_service_rate = -1;
+	int m_master_volume = -1;
 
-bool init_sound();
-//bool load_sound_files();
-void clean_up_sound();
-/*int playsound1();
-int playsound2();
-int playsound3();
-int playsound4();
-void playmusic1();
-void stopmusic1();
-*/
-void playmusic2(int32_t track_number);
-extern uint8_t sound_buffer[4][20000];
-//extern HSAMPLE last_sample;
+	uint8_t m_sound_buffer[4][20000];
+	HSAMPLE m_gamechunkHSAMPLE[32];   //OPENAL_CHANNELS];
+	Mix_Chunk m_gamechunk[32];        //OPENAL_CHANNELS];
+	uint16_t m_actvect[4096];
 
-int32_t ac_sound_call_driver(AIL_DRIVER * drvr, int32_t fn, VDI_CALL * out);
+	Mix_Music* m_GAME_music[20] =
+	{ NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+	NULL, NULL, NULL, NULL, NULL
+	};
 
-void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
-uint16_t ac_get_real_vect(uint32_t vectnum);
-AIL_DRIVER *ac_AIL_API_install_driver(int a1, uint8_t * a2, int a3);
+	struct {
+		int a;
+	} common_IO_configurations;
 
-void SOUND_init_MIDI_sequence(uint8_t * datax, type_E3808_music_header * headerx,
-                              int32_t track_number);
+	struct {
+		int a;
+	} environment_string;
 
-void SOUND_start_sample(HSAMPLE S);
-void SOUND_end_sample(HSAMPLE S);
-
-void SOUND_start_sequence(int32_t sequence_num);
-void SOUND_pause_sequence(int32_t sequence_num);
-void SOUND_stop_sequence(int32_t sequence_num);
-void SOUND_resume_sequence(int32_t sequence_num);
-uint32_t SOUND_sample_status(HSAMPLE S);
-
-void SOUND_set_sample_volume(HSAMPLE S, int32_t volume);
-void SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds);
-void SOUND_set_master_volume(int32_t volume);
-void SOUND_UPDATE();
-
-void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len);
-void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler);
-//void test_midi_play(uint8_t* data, uint8_t* header, int32_t track_number);
-
+public:
+	port_sdl_sound(bool hqsound, bool fixspeedsound, bool oggmusic, bool oggmusicalternative, std::string oggmusicFolder, std::string speech_folder);
+	~port_sdl_sound();
+	bool init_sound();
+	void clean_up_sound();
+	void playmusic2(int32_t track_number);
+	int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out);
+	void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
+	uint16_t ac_get_real_vect(uint32_t vectnum);
+	AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
+	void SOUND_init_MIDI_sequence(uint8_t* datax, type_E3808_music_header* headerx, int32_t track_number);
+	void SOUND_start_sample(HSAMPLE S);
+	void SOUND_end_sample(HSAMPLE S);
+	void SOUND_start_sequence(int32_t sequence_num);
+	void SOUND_pause_sequence(int32_t sequence_num);
+	void SOUND_stop_sequence(int32_t sequence_num);
+	void SOUND_resume_sequence(int32_t sequence_num);
+	uint32_t SOUND_sample_status(HSAMPLE S);
+	void SOUND_set_sample_volume(HSAMPLE S, int32_t volume);
+	void SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds);
+	void SOUND_set_master_volume(int32_t volume);
+	void SOUND_UPDATE();
+	void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len);
+	void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler);
+	void SOUND_finalize(int channel);
+};
 #endif                          //PORT_SDL_SOUND

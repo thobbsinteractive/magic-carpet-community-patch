@@ -61,5 +61,6 @@ SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height);
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb
+extern port_sdl_sound* m_ptrSoundDevice;
 
 #endif //PORT_SDL_VGA_MOUSE

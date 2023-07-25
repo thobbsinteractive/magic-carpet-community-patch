@@ -55,6 +55,12 @@ extern bool openGLRender;
 extern bool multiThreadedRender;
 extern int numberOfRenderThreads;
 extern bool assignToSpecificCores;
+extern bool hqsound;
+extern bool oggmusic;
+extern std::string oggmusicFolder;
+extern bool oggmusicalternative;
+extern std::string speech_folder;
+extern bool fixspeedsound;
 
 #define   GAMEPAD_ITEM_DISABLED  0x0
 #define    GAMEPAD_ITEM_ENABLED  0x1

@@ -24,6 +24,12 @@ int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
 bool openGLRender = false;
 gamepad_config_t gpc;
+bool hqsound = true;
+bool oggmusic = false;
+std::string oggmusicFolder = "";
+bool oggmusicalternative = false;
+std::string speech_folder = "";
+bool fixspeedsound = true;
 
 std::string findIniFile() {
 	// find location of inifile and read it
@@ -146,14 +152,12 @@ bool readini() {
 		oggmusicalternative = false;
 	}
 
-	std::string readstr = reader.GetString("sound", "oggmusicFolder", "");
-	strcpy(oggmusicFolder, (char*)readstr.c_str());
+	oggmusicFolder = reader.GetString("sound", "oggmusicFolder", "");
+	speech_folder = reader.GetString("sound", "speech_folder", "");
 
-    std::string speech_folder_str = reader.GetString("sound", "speech_folder", "");
-    strcpy(speech_folder, (char *)speech_folder_str.c_str());
     oac.speech_volume = reader.GetInteger("sound", "openal_speech_volume", 100);
 
-    if ((oac.speech_volume == 0) || (speech_folder_str.length() < 3)) {
+    if ((oac.speech_volume == 0) || (speech_folder.length() < 3)) {
         disable_speech();
     }
 

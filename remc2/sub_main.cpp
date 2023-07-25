@@ -76641,7 +76641,7 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 	v6 = SpeechTracks_DB080[a1].chunk[a2].offset;
 	v7 = SpeechTracks_DB080[a1].chunk[a2].length;
 	if (v4 && v7) {
-		SOUND_start_speech(v4, v6, v7, SampleEndedEventHandler);
+		m_ptrSoundDevice->SOUND_start_speech(v4, v6, v7, SampleEndedEventHandler);
 		//if (a3)
 		//	sub_86F70_sound_proc12(v4, v6, v7);
 		//else

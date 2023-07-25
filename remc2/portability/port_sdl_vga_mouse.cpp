@@ -2,6 +2,7 @@
 #include "port_sdl_joystick.h"
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
+#include "port_sdl_sound.h"
 
 #include <cstdint>
 
@@ -123,8 +124,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		else
 		{
-
-			init_sound();
+			m_ptrSoundDevice = new port_sdl_sound(hqsound, fixspeedsound, oggmusic, oggmusicalternative, oggmusicFolder, speech_folder);
 			gamepad_sdl_init();
 
 			SDL_ShowCursor(0);
@@ -996,7 +996,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
 	SubBlit(m_iOrigw, m_iOrigh);
-	SOUND_UPDATE();
+	m_ptrSoundDevice->SOUND_UPDATE();
 }
 
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
@@ -1105,7 +1105,7 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
-	clean_up_sound();
+	delete m_ptrSoundDevice;
 	gamepad_sdl_close();
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;
