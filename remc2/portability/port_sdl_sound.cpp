@@ -47,7 +47,6 @@ void port_sdl_sound::SOUND_start_sequence(int32_t sequence_num)
         SOUND_set_sequence_volume(m_settingsMusicVolume, 0);
     }
     //volume fix
-
     if (Mix_PlayingMusic() == 0) {
         if (Mix_PlayMusic(m_GAME_music[sequence_num], -1) == -1)
             if (Mix_PausedMusic() == 1) {
@@ -64,7 +63,6 @@ void port_sdl_sound::SOUND_pause_sequence(int32_t /*sequence_num */ )
         return;
 
     Mix_PauseMusic();
-
 };
 
 void port_sdl_sound::SOUND_stop_sequence(int32_t /*sequence_num */ )
@@ -113,8 +111,7 @@ void port_sdl_sound::SOUND_set_sequence_volume(int32_t volume, int32_t milliseco
 		m_settingsMusicVolume = volume;
 }
 
-void port_sdl_sound::SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *headerx,
-                              int32_t track_number)
+void port_sdl_sound::SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_music_header *headerx, int32_t track_number)
 {
     Logger->trace("SOUND_init_MIDI_sequence {}", track_number);
     if (unitTests)
@@ -160,22 +157,18 @@ void port_sdl_sound::SOUND_init_MIDI_sequence(uint8_t * /*datax */ , type_E3808_
             if (helpdirsstruct.number > 0) {
                 int randtrack = rand() % (helpdirsstruct.number + 1);
                 if (randtrack == 0)
-                    sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(),
-                            track_number);
+                    sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
                 else
-                    sprintf(selectedTrackPath, "%s/%s", alternativeMusicPath,
-                            helpdirsstruct.dir[randtrack - 1]);
+                    sprintf(selectedTrackPath, "%s/%s", alternativeMusicPath, helpdirsstruct.dir[randtrack - 1]);
             } else
                 sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
         } else
-            sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
+			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 
 		m_GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
 
     } else {
-        uint8_t *outmidi =
-            TranscodeXmiToMid( /*(const uint8_t*)*(uint32_t*)( */ acttrack /* + 18) */ , iXmiLength,
-                              &pMidLength);
+        uint8_t *outmidi = TranscodeXmiToMid( /*(const uint8_t*)*(uint32_t*)( */ acttrack /* + 18) */ , iXmiLength, &pMidLength);
         SDL_RWops *rwmidi = SDL_RWFromMem(outmidi, pMidLength);
         Logger->trace("SOUND_init_MIDI_sequence  xmi {}  mid {}", iXmiLength, pMidLength);
         //alsound_save_chunk(outmidi, pMidLength, NULL);
@@ -265,27 +258,6 @@ void port_sdl_sound::clean_up_sound()
     Mix_CloseAudio();
 }
 
-void port_sdl_sound::playmusic2(int32_t track_number)
-{
-    Logger->debug("playmusic2 {}", track_number);
-    if (unitTests)
-        return;
-
-    if (Mix_PlayingMusic() == 0) {
-        //Play the music
-        if (Mix_PlayMusic(m_GAME_music[track_number], -1) == -1)
-            if (Mix_PausedMusic() == 1) {
-                //Resume the music
-                Mix_ResumeMusic();
-            }
-        //If the music is playing
-            else {
-                //Pause the music
-                Mix_PauseMusic();
-            }
-    }
-}
-
 int32_t port_sdl_sound::ac_sound_call_driver(AIL_DRIVER *drvr, int32_t fn, VDI_CALL *out)
 {
     switch (fn) {
@@ -360,7 +332,8 @@ void port_sdl_sound::SOUND_start_sample(HSAMPLE S)
     if (unitTests)
         return;
 
-    if (m_hqsound) {
+    if (m_hqsound) 
+	{
 		m_gamechunk[S->index_sample].abuf = /*sample->abuf;// */ (uint8_t *) S->start_44mhz;
         if (m_fixspeedsound)
 			m_gamechunk[S->index_sample].alen = /*sample->alen;// */ S->len_4_5[0] * 16;
