@@ -26,7 +26,6 @@ typedef struct {
 } type_str_32_16; // weak
 #pragma pack (16)
 
-extern bool debug_first_sound;
 extern bool soundActive_E3799;
 extern bool musicActive_E37FD;
 extern bool soundAble_E3798;
