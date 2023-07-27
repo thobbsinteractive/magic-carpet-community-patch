@@ -77,6 +77,7 @@ struct al_next_vol {            ///< sometimes the volume of a chunk is received
 };
 typedef struct al_next_vol al_next_vol_t;
 
+void InitSample(HSAMPLE S);
 void alsound_init(void);
 int16_t alsound_play(const int16_t chunk_id, Mix_Chunk* chunk, event_t* entity, al_ssp_t* ssp, const uint16_t flags);
 int16_t alsound_play(const int16_t chunk_id, Mix_Chunk *chunk, event_t *entity, al_ssp_t *ssp, const uint16_t flags, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler);
@@ -84,7 +85,7 @@ void alsound_update(void);
 void alsound_clear_cache(void);
 void alsound_close(void);
 void alsound_set_env(const int32_t value, const uint8_t flag);
-void alsound_set_location(axis_3d *coordinates, axis_4d *orientation);
+void SetLocation(axis_3d *coordinates, axis_4d *orientation);
 void alsound_end_sample(const int32_t chunk_id);
 int16_t alsound_find_alc_sample(const int32_t id);
 std::vector<int16_t> alsound_get_current_playing_samples_by_flags(uint16_t flags);
@@ -94,7 +95,7 @@ uint16_t alsound_get_chunk_flags(const int16_t chunk_id);
 int16_t alsound_create_source(const int16_t chunk_id, al_ssp_t *ssp, event_t *entity);
 void alsound_update_source(event_t *entity);
 void alsound_delete_source(const int16_t ch);
-void alsound_enable_scheduling(void);
+void EnableScheduling(void);
 uint8_t alsound_save_chunk(uint8_t *data, const uint32_t len, char *filename);
 void alsound_set_master_volume(int32_t volume);
 void alsound_imgui(bool *p_open);

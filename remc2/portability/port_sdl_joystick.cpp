@@ -723,9 +723,8 @@ void set_scene(const uint8_t scene_id)
         gps.max_x = gameResWidth;
         gps.max_y = gameResHeight;
         gps.nav_mode = 0;
-#ifdef SOUND_OPENAL
-        alsound_enable_scheduling();
-#endif
+
+		m_ptrSoundDevice->alsound_enable_scheduling();
         break;
     case SCENE_FLIGHT_MENU:
     case SCENE_SPELL_MENU:

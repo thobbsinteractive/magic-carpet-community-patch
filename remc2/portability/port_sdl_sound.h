@@ -6,6 +6,7 @@
 
 #include <filesystem>
 #include "mctypes.h"
+#include "../engine/global_types.h"
 
 #define SOUND_SDLMIXER
 
@@ -202,6 +203,7 @@ public:
 	void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
 	uint16_t ac_get_real_vect(uint32_t vectnum);
 	AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
+	void InitSample(HSAMPLE S);
 	void SOUND_init_MIDI_sequence(uint8_t* datax, type_E3808_music_header* headerx, int32_t track_number);
 	void SOUND_start_sample(HSAMPLE S);
 	void SOUND_end_sample(HSAMPLE S);
@@ -212,6 +214,8 @@ public:
 	uint32_t SOUND_sample_status(HSAMPLE S);
 	void SOUND_set_sample_volume(HSAMPLE S, int32_t volume);
 	void SOUND_set_sequence_volume(int32_t volume, int32_t milliseconds);
+	void SetLocation(axis_3d* coord, axis_4d* orient);
+	void EnableScheduling(void);
 	void SOUND_set_master_volume(int32_t volume);
 	void SOUND_UPDATE();
 	void SOUND_start_speech(const uint8_t track, const uint16_t offset, const uint16_t len);

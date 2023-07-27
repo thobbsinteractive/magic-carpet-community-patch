@@ -1825,10 +1825,6 @@ bool LoadSound_84300(uint8_t soundIndex)//265300
 				DataFileIO::Close(file);
 				return true;
 			}
-#ifdef SOUND_OPENAL
-            alsound_clear_cache();
-            alsound_set_env(soundIndex, AL_SET_BANK);
-#endif
 			actualSound_E37AD = soundIndex;
 			DataFileIO::Close(file);
 		}
@@ -3148,98 +3144,6 @@ void InitSample_A38E0(HSAMPLE S)//2848e0
 	}
 }
 
-/// \brief prepare the chunk buffer for the openal subsystem 
-/// for chunks that cannot be localized (environment samples) a stereo sample is generated
-/// \param S sample to operate on
-void init_openal_sample(HSAMPLE S)
-{
-    uint8_t actval;
-    uint16_t format;
-
-    format = alsound_get_chunk_flags(S->id);
-
-    if (S->wavbuff != nullptr) {
-        free(S->wavbuff);
-        S->wavbuff = nullptr;
-    }
-
-    if (format & AL_FORMAT_STEREO8_22050) {
-        S->wavbuff = malloc(S->len_4_5[0] * 2);
-        if (!S->wavbuff) {
-            return;
-        }
-
-        for (int i = 0; i < S->len_4_5[0]; i++) {
-            actval = ((uint8_t *) S->start_2_3[0])[i];
-            (*(int8_t *) & ((uint8_t *) S->wavbuff)[0 + i * 2]) = actval;
-            (*(int8_t *) & ((uint8_t *) S->wavbuff)[1 + i * 2]) = actval;
-        }
-    }
-
-    Logger->trace("init_openal_sample id {} fmt {} sz {}", S->id, format, S->len_4_5[0]);
-}
-
-void InitHqsound(HSAMPLE S) {
-	//test mark
-	bool same_mark = true;
-	int comparesize = sample_mark;
-	if (comparesize > S->len_4_5[0])comparesize = S->len_4_5[0];
-	for (int i = 0; i < comparesize; i++)
-	{
-		if (S->mark44mark[i] != ((uint8_t*)S->start_2_3[0])[i])
-		{
-			same_mark = false;
-			break;
-		}
-	}
-	//test mark
-
-	if (!same_mark)
-	{
-		for (int i = 0; i < comparesize; i++)
-		{
-			S->mark44mark[i] = ((uint8_t*)S->start_2_3[0])[i];
-		}
-
-		if (S->start_44mhz != nullptr) {
-			free(S->start_44mhz);
-			S->start_44mhz = nullptr;
-		}
-		if (fixspeedsound)
-			S->start_44mhz = malloc(S->len_4_5[0] * 2 * 2 * 2 * 2);
-		else
-			S->start_44mhz = malloc(S->len_4_5[0] * 2 * 2 * 2);
-
-		uint16_t lastval = ((uint8_t*)S->start_2_3[0])[0] * 256;
-		uint16_t actval;
-		int16_t val1, val3;
-		for (int i = 0; i < S->len_4_5[0]; i++)
-		{
-			actval = ((uint8_t*)S->start_2_3[0])[i] * 256;
-			val1 = lastval - 0x8000;
-			val3 = (lastval * 0.5 + actval * 0.5) - 0x8000;
-			if (fixspeedsound) {
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[0 + i * 16]) = val1;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[2 + i * 16]) = val1;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[4 + i * 16]) = val1;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[6 + i * 16]) = val1;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[8 + i * 16]) = val3;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[10 + i * 16]) = val3;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[12 + i * 16]) = val3;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[14 + i * 16]) = val3;
-			}
-			else {
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[0 + i * 8]) = val1;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[2 + i * 8]) = val1;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[4 + i * 8]) = val3;
-				(*(int16_t*)&((uint8_t*)S->start_44mhz)[6 + i * 8]) = val3;
-			}
-			if (i < S->len_4_5[0] + 1)lastval = actval;
-		}
-		lastval = actval;
-	}
-};
-
 //----- (000A3A30) --------------------------------------------------------
 void SetSampleAddress_A3A30(HSAMPLE S, uint8_t* start, uint32_t len)
 {
@@ -3249,13 +3153,9 @@ void SetSampleAddress_A3A30(HSAMPLE S, uint8_t* start, uint32_t len)
 		S->start_2_3[1] = 0;
 		S->len_4_5[0] = len;
 		S->len_4_5[1] = 0;
-#ifdef SOUND_OPENAL
-        init_openal_sample(S);
-#else
 		if (hqsound) {
-			InitHqsound(S);
+			m_ptrSoundDevice->InitSample(S);
 		}
-#endif
 	}
 }
 

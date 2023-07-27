@@ -295,10 +295,41 @@ void alsound_set_env(const int32_t value, const uint8_t flag)
     }
 }
 
+/// \brief prepare the chunk buffer for the openal subsystem 
+/// for chunks that cannot be localized (environment samples) a stereo sample is generated
+/// \param S sample to operate on
+void InitSample(HSAMPLE S)
+{
+	uint8_t actval;
+	uint16_t format;
+
+	format = alsound_get_chunk_flags(S->id);
+
+	if (S->wavbuff != nullptr) {
+		free(S->wavbuff);
+		S->wavbuff = nullptr;
+	}
+
+	if (format & AL_FORMAT_STEREO8_22050) {
+		S->wavbuff = malloc(S->len_4_5[0] * 2);
+		if (!S->wavbuff) {
+			return;
+		}
+
+		for (int i = 0; i < S->len_4_5[0]; i++) {
+			actval = ((uint8_t*)S->start_2_3[0])[i];
+			(*(int8_t*)&((uint8_t*)S->wavbuff)[0 + i * 2]) = actval;
+			(*(int8_t*)&((uint8_t*)S->wavbuff)[1 + i * 2]) = actval;
+		}
+	}
+
+	Logger->trace("init_openal_sample id {} fmt {} sz {}", S->id, format, S->len_4_5[0]);
+}
+
 /// \brief update the listener's position once every frame
 /// \param coord  cartesian coordinates
 /// \param orient orientation
-void alsound_set_location(axis_3d *coord, axis_4d *orient)
+void SetLocation(axis_3d *coord, axis_4d *orient)
 {
     ale.listener_c.x = coord->x;
     ale.listener_c.y = coord->y;
@@ -881,7 +912,7 @@ static ALuint alsound_load_effect(const EFXEAXREVERBPROPERTIES *reverb)
 }
 
 /// \brief enable scheduling of chunks and thus playing positional audio 
-void alsound_enable_scheduling(void)
+void EnableScheduling(void)
 {
     ale.scheduling_enabled = 1;
 }

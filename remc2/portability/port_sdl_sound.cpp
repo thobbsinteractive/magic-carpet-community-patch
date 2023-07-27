@@ -311,6 +311,78 @@ int32_t port_sdl_sound::ac_sound_call_driver(AIL_DRIVER *drvr, int32_t fn, VDI_C
     return 1;
 };
 
+void port_sdl_sound::InitSample(HSAMPLE S) 
+{
+	//test mark
+	bool same_mark = true;
+	int comparesize = sample_mark;
+	if (comparesize > S->len_4_5[0])comparesize = S->len_4_5[0];
+	for (int i = 0; i < comparesize; i++)
+	{
+		if (S->mark44mark[i] != ((uint8_t*)S->start_2_3[0])[i])
+		{
+			same_mark = false;
+			break;
+		}
+	}
+	//test mark
+
+	if (!same_mark)
+	{
+		for (int i = 0; i < comparesize; i++)
+		{
+			S->mark44mark[i] = ((uint8_t*)S->start_2_3[0])[i];
+		}
+
+		if (S->start_44mhz != nullptr) {
+			free(S->start_44mhz);
+			S->start_44mhz = nullptr;
+		}
+		if (m_fixspeedsound)
+			S->start_44mhz = malloc(S->len_4_5[0] * 2 * 2 * 2 * 2);
+		else
+			S->start_44mhz = malloc(S->len_4_5[0] * 2 * 2 * 2);
+
+		uint16_t lastval = ((uint8_t*)S->start_2_3[0])[0] * 256;
+		uint16_t actval;
+		int16_t val1, val3;
+		for (int i = 0; i < S->len_4_5[0]; i++)
+		{
+			actval = ((uint8_t*)S->start_2_3[0])[i] * 256;
+			val1 = lastval - 0x8000;
+			val3 = (lastval * 0.5 + actval * 0.5) - 0x8000;
+			if (m_fixspeedsound) {
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[0 + i * 16]) = val1;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[2 + i * 16]) = val1;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[4 + i * 16]) = val1;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[6 + i * 16]) = val1;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[8 + i * 16]) = val3;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[10 + i * 16]) = val3;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[12 + i * 16]) = val3;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[14 + i * 16]) = val3;
+			}
+			else {
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[0 + i * 8]) = val1;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[2 + i * 8]) = val1;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[4 + i * 8]) = val3;
+				(*(int16_t*)&((uint8_t*)S->start_44mhz)[6 + i * 8]) = val3;
+			}
+			if (i < S->len_4_5[0] + 1)lastval = actval;
+		}
+		lastval = actval;
+	}
+}
+
+void port_sdl_sound::SetLocation(axis_3d* coord, axis_4d* orient)
+{
+	//Not implemented
+}
+
+void port_sdl_sound::EnableScheduling(void)
+{
+	//Not implemented
+}
+
 void port_sdl_sound::SOUND_set_master_volume(int32_t volume)
 {
 	m_master_volume = volume;
