@@ -124,7 +124,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 		}
 		else
 		{
-			m_ptrSoundDevice = new port_sdl_sound(hqsound, fixspeedsound, oggmusic, oggmusicalternative, oggmusicFolder, speech_folder);
+			m_ptrSoundDevice = std::make_unique<port_sdl_sound>(hqsound, fixspeedsound, oggmusic, oggmusicalternative, oggmusicFolder, speech_folder);
 			gamepad_sdl_init();
 
 			SDL_ShowCursor(0);
@@ -1105,7 +1105,6 @@ void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
 
 void VGA_close()
 {
-	delete m_ptrSoundDevice;
 	gamepad_sdl_close();
 	SDL_FreeSurface(m_surfaceFont);
 	m_surfaceFont = nullptr;
