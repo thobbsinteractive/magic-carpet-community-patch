@@ -423,8 +423,6 @@ void port_sdl_sound::SOUND_start_sample(HSAMPLE S)
 	m_gamechunk[S->index_sample].volume = S->volume_16;
 	m_gamechunkHSAMPLE[S->index_sample] = S;
 
-    //alsound_save_chunk(gamechunk[S->index_sample].abuf, gamechunk[S->index_sample].alen, NULL);
-
     Mix_PlayChannel(S->index_sample, &m_gamechunk[S->index_sample], 0);
 };
 
