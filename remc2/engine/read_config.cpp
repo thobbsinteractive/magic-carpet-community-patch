@@ -29,7 +29,7 @@ bool oggmusic = false;
 std::string oggmusicFolder = "";
 bool oggmusicalternative = false;
 std::string speech_folder = "";
-bool fixspeedsound = true;
+bool fixspeedsound = false;
 
 std::string findIniFile() {
 	// find location of inifile and read it
@@ -131,7 +131,7 @@ bool readini() {
 	else
 		hqsound = false;
 
-	if (reader.GetBoolean("sound", "fixspeedsound", true))
+	if (reader.GetBoolean("sound", "fixspeedsound", false))
 		fixspeedsound = true;
 	else
 		fixspeedsound = false;
