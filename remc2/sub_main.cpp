@@ -26380,8 +26380,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				// FIXME: code not working
-				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 			m_ptrGameRender->DrawWorld_411A0(
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
@@ -76637,7 +76636,7 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 	v6 = SpeechTracks_DB080[a1].chunk[a2].offset;
 	v7 = SpeechTracks_DB080[a1].chunk[a2].length;
 	if (v4 && v7) {
-		m_ptrSoundDevice->SOUND_start_speech(v4, v6, v7, SampleEndedEventHandler);
+		m_ptrSoundDevice->StartSpeech(v4, v6, v7, SampleEndedEventHandler);
 		//if (a3)
 		//	sub_86F70_sound_proc12(v4, v6, v7);
 		//else

@@ -996,7 +996,7 @@ void VGA_Blit(Uint8* srcBuffer) {
 		SDL_UnlockSurface(m_gamePalletisedSurface);
 	}
 	SubBlit(m_iOrigw, m_iOrigh);
-	m_ptrSoundDevice->SOUND_UPDATE();
+	m_ptrSoundDevice->Update();
 }
 
 void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {

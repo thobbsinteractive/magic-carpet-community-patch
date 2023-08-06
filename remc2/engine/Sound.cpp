@@ -1326,7 +1326,7 @@ void AilSetSamplePlaybackRate_93D90(HSAMPLE S, int32_t playback_rate)//274d90
 //----- (00093E30) --------------------------------------------------------
 void AilSetSampleVolume_93E30(HSAMPLE S, int32_t volume)//274e30
 {
-	m_ptrSoundDevice->SOUND_set_sample_volume(S, volume);
+	m_ptrSoundDevice->SetSampleVolume(S, volume);
 }
 
 //----- (00093ED0) --------------------------------------------------------
@@ -1352,12 +1352,12 @@ void AilSetSampleLoopCount_93F70(HSAMPLE S, int loop_count) //274f70
 //----- (00094010) --------------------------------------------------------
 uint32_t AilSampleStatus_94010(HSAMPLE S)
 {
-	return m_ptrSoundDevice->SOUND_sample_status(S);
+	return m_ptrSoundDevice->SampleStatus(S);
 }
 
 void AilDigitalMasterVolume_94650(int master_volume)
 {
-	m_ptrSoundDevice->SOUND_set_master_volume(master_volume);
+	m_ptrSoundDevice->SetMasterVolume(master_volume);
 }
 
 //----- (00094650) --------------------------------------------------------
@@ -1518,7 +1518,7 @@ void AilStartSequence_95D50(HSEQUENCE hSequence, uint32_t track)
 //----- (00095DE0) --------------------------------------------------------
 void AilStopSequence_95DE0(HSEQUENCE hSequence)//AIL_stop_sequence
 {
-	m_ptrSoundDevice->SOUND_stop_sequence(hSequence->sequence_num);
+	m_ptrSoundDevice->StopSequence(hSequence->sequence_num);
 }
 
 //----- (00095DE0) --------------------------------------------------------
@@ -1554,7 +1554,7 @@ void AilEndSequence_95F00(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_end_sequence
 //----- (00096030) --------------------------------------------------------
 void AilSetSequenceVolume_96030(int32_t volume, int32_t  milliseconds)
 {
-	m_ptrSoundDevice->SOUND_set_sequence_volume(volume, milliseconds);
+	m_ptrSoundDevice->SetSequenceVolume(volume, milliseconds);
 }
 
 //----- (00096170) --------------------------------------------------------
@@ -1579,7 +1579,7 @@ int AilSequenceStatus_96170(HSEQUENCE hSequence/*HSEQUENCE S*/)//AIL_sequence_st
 //----- (00096670) --------------------------------------------------------
 void AilSetXMidiMasterVolume_96670(int32_t master_volume)
 {
-	m_ptrSoundDevice->SOUND_set_sequence_volume(master_volume, 0);
+	m_ptrSoundDevice->SetSequenceVolume(master_volume, 0);
 }
 
 //----- (000969A0) --------------------------------------------------------
@@ -3259,7 +3259,7 @@ void ApiAilStartSample_A3CB0(HSAMPLE S)//284cb0
 		if (S->status_1 != 1)
 		{
 			S->status_1 = 4;
-			m_ptrSoundDevice->SOUND_start_sample(S);
+			m_ptrSoundDevice->StartSample(S);
 		}
 	}
 }
@@ -3273,7 +3273,7 @@ void ApiAilEndSample_A3DA0(HSAMPLE S)//284da0
 			if (S->status_1 != 2)
 			{
 				S->status_1 = 2;
-				m_ptrSoundDevice->SOUND_end_sample(S);
+				m_ptrSoundDevice->EndSample(S);
 			}
 		}
 	}
@@ -4290,7 +4290,7 @@ int32_t AilApiInitSequence_A7C20(HSEQUENCE hSequence, void*  /*start*/, int32_t 
 	hSequence->volume_period_17 = 0;
 	hSequence->volume_accum_16 = 0;
 	hSequence->sequence_num = sequence_num;
-	m_ptrSoundDevice->SOUND_init_MIDI_sequence(musicData_E3810, musicHeader_E3808, track - 1);
+	m_ptrSoundDevice->InitMIDISequence(musicData_E3810, musicHeader_E3808, track - 1);
 	return 1;
 }
 
@@ -4302,7 +4302,7 @@ void AilApiStartSequence_A8010(HSEQUENCE hSequence, uint32_t track)//289010
 		if (hSequence->status_1 != 1)
 		{
 			AilStopSequence_95DE0(hSequence);
-			m_ptrSoundDevice->SOUND_start_sequence(track - 1);
+			m_ptrSoundDevice->StartSequence(track - 1);
 			hSequence->status_1 = 4;
 		}
 	}
@@ -4329,7 +4329,7 @@ void sub_A8050_AIL_API_stop_sequence(HSEQUENCE hSequence)//289050
 		if (hSequence->status_1 == 4)
 		{
 			hSequence->status_1 = 8;
-			m_ptrSoundDevice->SOUND_stop_sequence(hSequence->sequence_num);
+			m_ptrSoundDevice->StopSequence(hSequence->sequence_num);
 		}
 	}
 }
@@ -4339,7 +4339,7 @@ void sub_A8180_AIL_API_resume_sequence(HSEQUENCE hSequence)//289180
 	if (hSequence && hSequence->status_1 == 8)
 	{
 		hSequence->status_1 = 4;
-		m_ptrSoundDevice->SOUND_resume_sequence(hSequence->sequence_num);
+		m_ptrSoundDevice->ResumeSequence(hSequence->sequence_num);
 	}
 }
 
@@ -4353,7 +4353,7 @@ void AilApiEndSequence_A8250(HSEQUENCE hSequence)//289250
 		{
 			AilStopSequence_95DE0(hSequence);
 			hSequence->status_1 = 2;
-			m_ptrSoundDevice->SOUND_stop_sequence(hSequence->sequence_num);
+			m_ptrSoundDevice->StopSequence(hSequence->sequence_num);
 		}
 	}
 }
