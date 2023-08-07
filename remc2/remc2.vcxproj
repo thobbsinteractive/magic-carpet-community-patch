@@ -343,6 +343,8 @@
     <ClInclude Include="engine\MapType.h" />
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
+    <ClInclude Include="engine\Type_E37A0_SoundBuffer.h" />
+    <ClInclude Include="engine\Type_E3808_MusicHeader.h" />
     <ClInclude Include="engine\Network.h" />
     <ClInclude Include="engine\ProjectionPolygon.h" />
     <ClInclude Include="engine\TypeConfigDat.h" />
@@ -367,6 +369,7 @@
     <ClInclude Include="engine\XUnk_D4350.h" />
     <ClInclude Include="engine\RenderThread.h" />
     <ClInclude Include="portability\fcaseopen.h" />
+    <ClInclude Include="portability\PortSoundInterface.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="portability\port_openal.h" />
     <ClInclude Include="portability\port_sdl_joystick.h" />

@@ -309,6 +309,15 @@
     <ClInclude Include="portability\port_sound_lut.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
+    <ClInclude Include="portability\PortSoundInterface.h">
+      <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Type_E3808_MusicHeader.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\Type_E37A0_SoundBuffer.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
