@@ -6,9 +6,11 @@
 #include "ail_sound.h"
 #include "Basic.h"
 #include "../utilities/Wave.h"
+#include "../engine/Type_E3808_MusicHeader.h"
+#include "../engine/Type_E37A0_SoundBuffer.h"
 #include "../engine/CommandLineParser.h"
 #include "../portability/port_show_perifery.h"
-#include "../portability/port_sdl_sound.h"
+#include "../portability/PortSoundInterface.h"
 
 #pragma pack (1)
 typedef struct {//lenght 12

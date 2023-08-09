@@ -2,167 +2,22 @@
 #ifndef PORT_SDL_SOUND_H
 #define PORT_SDL_SOUND_H
 
-#define SOUND_OPENAL
-
 #include <filesystem>
-#include "mctypes.h"
-#include "../engine/global_types.h"
-
-#define SOUND_SDLMIXER
-
-#ifdef _MSC_VER
-	#include "SDL2/SDL.h"
-#ifdef SOUND_SDLMIXER
-	#include "SDL2/SDL_mixer.h"
-#endif
-#else
-#include "SDL2/SDL.h"
-#ifdef SOUND_SDLMIXER
-#include "SDL2/SDL_mixer.h"
-#endif
-#endif
-
-//#include "music_timidity.h"
-#include "xmi2mid.h"
-#include <time.h>               /* time */
+#include <fcntl.h>
+#include <time.h>
 #include <string>
-
-#include "../engine/ail_sound.h"
+#include "xmi2mid.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_mixer.h"
+#include "PortSoundInterface.h"
+#include "../engine/Type_E3808_MusicHeader.h"
+#include "../engine/engine_support.h"
 #include "port_filesystem.h"
 
-#pragma pack (1)
-typedef struct {                //length 32
-    int8_t filename_14[18];
-    uint8_t *wavData_0;
-    int8_t stub_4[4];
-    int32_t wavSize_8;
-    int16_t word_12;
-} sub2type_E37A0_sound_buffer2;
 
-typedef struct {                //length 3072
-    sub2type_E37A0_sound_buffer2 wavs_10[96];
-} sub1type_E37A0_sound_buffer2;
-
-typedef struct {                //length 3090
-    int8_t byte_0;
-    int8_t byte_1;
-    int8_t byte_2;
-    int8_t byte_3;
-    int8_t byte_4;
-    int8_t byte_5;
-    int8_t byte_6;
-    int8_t byte_7;
-    sub1type_E37A0_sound_buffer2 str_8; //3072 length
-    int8_t next_str[10];
-} type_E37A0_sound_buffer2;
-
-//shadow type_E37A0_sound_buffer2
-typedef struct {                //length 32
-    int8_t filename_14[18];
-    int32_t wavData_0;
-    int8_t stub_4[4];
-    int32_t wavSize_8;
-    int16_t word_12;
-} shadow_sub2type_E37A0_sound_buffer2;
-
-typedef struct {                //length 3072
-    shadow_sub2type_E37A0_sound_buffer2 wavs_10[96];
-} shadow_sub1type_E37A0_sound_buffer2;
-
-typedef struct {                //length 3090
-    int8_t byte_0;
-    int8_t byte_1;
-    int8_t byte_2;
-    int8_t byte_3;
-    int8_t byte_4;
-    int8_t byte_5;
-    int8_t byte_6;
-    int8_t byte_7;
-    shadow_sub1type_E37A0_sound_buffer2 str_8;  //3072 length
-    int8_t next_str[10];
-} shadow_type_E37A0_sound_buffer2;
-
-typedef struct {                //length 16*6=96
-    int32_t dword_0;
-    int32_t dword_4;
-    int32_t sizeBytes_8;
-    int32_t dword_12;
-} type_v8;
-
-typedef struct {                //length 32 - this is may be format of wav sound file
-    uint8_t *xmiData_0;         //data of wav//18
-    int8_t stub_4[4];           //22
-    int32_t xmiSize_8;          //24
-    int16_t word_12;            //28
-    int8_t filename_14[18];     //first 18 chars - name//30
-} sub2type_E3808_music_header;
-
-typedef struct {                //length 216
-    int8_t stub[10];
-    sub2type_E3808_music_header track_10[6];
-    int8_t stubb[14];
-} sub1type_E3808_music_header;
-
-typedef struct {                //length 224
-    int8_t byte_0;
-    int8_t byte_1;
-    int8_t byte_2;
-    int8_t byte_3;
-    int8_t byte_4;
-    int8_t byte_5;
-    int8_t byte_6;
-    int8_t byte_7;
-    sub1type_E3808_music_header str_8;  //216 length
-} type_E3808_music_header;
-/*
-typedef struct {//length 80656
-	int8_t byte_0;
-	int8_t byte_1;
-	int8_t byte_2;
-	int8_t byte_3;
-	int8_t byte_4;
-	int8_t byte_5;
-	int8_t byte_6;
-	int8_t byte_7;
-	int8_t data_8[];
-}
-type_E3810_music_data;*/
-
-//shadow shadow_type_E3808_music_header
-typedef struct {                //length 32 - this is may be format of wav sound file
-    int32_t xmiData_0;          //data of wav//18
-    int8_t stub_4[4];           //22
-    int32_t xmiSize_8;          //24
-    int16_t word_12;            //28
-    int8_t filename_14[18];     //first 18 chars - name//30
-} shadow_sub2type_E3808_music_header;
-
-typedef struct {                //length 216
-    int8_t stub[10];
-    shadow_sub2type_E3808_music_header track_10[6];
-    int8_t stubb[14];
-} shadow_sub1type_E3808_music_header;
-
-typedef struct {                //length 224
-    int8_t byte_0;
-    int8_t byte_1;
-    int8_t byte_2;
-    int8_t byte_3;
-    int8_t byte_4;
-    int8_t byte_5;
-    int8_t byte_6;
-    int8_t byte_7;
-    shadow_sub1type_E3808_music_header str_8;   //216 length
-} shadow_type_E3808_music_header;
-#pragma pack (16)
-
-#define USE_SDL2
-
-#define DEBUG_SOUND
-class port_sdl_sound
+class port_sdl_sound : public PortSoundInterface
 {
-
-private:
+protected:
 	bool m_hqsound = false;
 	bool m_oggmusic = false;
 	std::string m_oggmusicFolder;
@@ -194,15 +49,15 @@ private:
 		int a;
 	} environment_string;
 
+	bool InitSound();
+	void CleanUpSound();
+
 public:
 	port_sdl_sound(bool hqsound, bool fixspeedsound, bool oggmusic, bool oggmusicalternative, std::string oggmusicFolder, std::string speech_folder);
 	~port_sdl_sound();
-	bool InitSound();
-	void CleanUpSound();
 	int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out);
 	void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
 	uint16_t ac_get_real_vect(uint32_t vectnum);
-	AIL_DRIVER* ac_AIL_API_install_driver(int a1, uint8_t* a2, int a3);
 	void InitSample(HSAMPLE S);
 	void InitMIDISequence(uint8_t* datax, type_E3808_music_header* headerx, int32_t track_number);
 	void StartSample(HSAMPLE S);
@@ -220,6 +75,7 @@ public:
 	void Update();
 	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len);
 	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler);
+	void DeleteSource(uint16_t channel);
 	void Finalize(int channel);
 };
 #endif                          //PORT_SDL_SOUND

@@ -54301,7 +54301,7 @@ void UpdateEntities_57730()//238730
 				if (jx->life_0x8 < 0) {
                     //Logger->error("UpdateEntities_57730 death of class 5 id {}  ch {}", jx->id_0x1A_26, jx->play_ch);
                     if (jx->play_ch > -1) {
-                        alsound_delete_source(jx->play_ch);
+                        m_ptrSoundDevice->DeleteSource(jx->play_ch);
                         jx->play_ch = -1;
                     }
                     continue;

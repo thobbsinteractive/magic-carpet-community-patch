@@ -11,8 +11,8 @@
 
 #include "SDL2/SDL.h"
 
-#include "port_sdl_sound.h"
-#include "port_filesystem.h"
+#include "PortSoundInterface.h"
+#include "port_filesystem.h" 
 
 typedef struct
 {
@@ -61,6 +61,6 @@ SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height);
 
 extern uint8_t LastPressedKey_1806E4; // weak//3516e4
 extern int8_t pressedKeys_180664[128]; // idb
-extern std::unique_ptr<port_sdl_sound> m_ptrSoundDevice;
+extern std::unique_ptr<PortSoundInterface> m_ptrSoundDevice;
 
 #endif //PORT_SDL_VGA_MOUSE

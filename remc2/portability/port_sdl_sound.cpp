@@ -1,14 +1,9 @@
-#include <iostream>
-#include <fcntl.h>
-#include "../engine/engine_support.h"
 #include "port_sdl_sound.h"
 
 #ifdef __linux__
 #include <limits>
 #define MAX_PATH PATH_MAX
 #endif
-
-std::unique_ptr<port_sdl_sound> m_ptrSoundDevice;
 
 port_sdl_sound::port_sdl_sound(bool hqsound, 
 	bool fixspeedsound, 
@@ -479,13 +474,6 @@ void port_sdl_sound::Finalize(int channel)
 	}
 }
 
-AIL_DRIVER * port_sdl_sound::ac_AIL_API_install_driver(int /*a1 */ , uint8_t * /*a2 */ , int /*a3 */ )   /*driver_image,n_bytes *///27f720
-{
-
-    //printf("drvr:%08X, fn:%08X, in:%08X, out:%08X\n", drvr, fn, in, out);
-    return 0;
-}
-
 void port_sdl_sound::ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr)
 {
 	m_actvect[vectnum] = real_ptr;
@@ -499,5 +487,10 @@ uint16_t port_sdl_sound::ac_get_real_vect(uint32_t vectnum)
 
 void port_sdl_sound::Update()
 {
+	//No implemented
+};
 
+void port_sdl_sound::DeleteSource(uint16_t channel)
+{
+	//No implemented
 };
