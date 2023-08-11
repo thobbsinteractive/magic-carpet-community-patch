@@ -47,6 +47,8 @@ int oldWidth;
 
 bool subBlitLock = false;
 
+std::unique_ptr<PortSoundInterface> m_ptrSoundDevice;
+
 // Initalize Color Masks.
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 Uint32 redMask = 0xff000000;

@@ -30,6 +30,7 @@ std::string oggmusicFolder = "";
 bool oggmusicalternative = false;
 std::string speech_folder = "";
 bool fixspeedsound = false;
+openal_config_t oac;
 
 std::string findIniFile() {
 	// find location of inifile and read it
