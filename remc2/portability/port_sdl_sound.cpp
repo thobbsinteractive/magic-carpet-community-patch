@@ -5,6 +5,11 @@
 #define MAX_PATH PATH_MAX
 #endif
 
+port_sdl_sound::port_sdl_sound()
+{
+
+}
+
 port_sdl_sound::port_sdl_sound(bool hqsound, 
 	bool fixspeedsound, 
 	bool oggmusic, 

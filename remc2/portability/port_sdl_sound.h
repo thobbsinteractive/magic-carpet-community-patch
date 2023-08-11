@@ -49,33 +49,33 @@ protected:
 		int a;
 	} environment_string;
 
-	bool InitSound();
-	void CleanUpSound();
-
 public:
+	port_sdl_sound();
 	port_sdl_sound(bool hqsound, bool fixspeedsound, bool oggmusic, bool oggmusicalternative, std::string oggmusicFolder, std::string speech_folder);
 	~port_sdl_sound();
-	int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out);
-	void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr);
-	uint16_t ac_get_real_vect(uint32_t vectnum);
-	void InitSample(HSAMPLE S);
-	void InitMIDISequence(uint8_t* datax, type_E3808_music_header* headerx, int32_t track_number);
-	void StartSample(HSAMPLE S);
-	void EndSample(HSAMPLE S);
-	void StartSequence(int32_t sequence_num);
-	void PauseSequence(int32_t sequence_num);
-	void StopSequence(int32_t sequence_num);
-	void ResumeSequence(int32_t sequence_num);
-	uint32_t SampleStatus(HSAMPLE S);
-	void SetSampleVolume(HSAMPLE S, int32_t volume);
-	void SetSequenceVolume(int32_t volume, int32_t milliseconds);
-	void SetLocation(axis_3d* coord, axis_4d* orient);
-	void EnableScheduling(void);
-	void SetMasterVolume(int32_t volume);
-	void Update();
-	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len);
-	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler);
-	void DeleteSource(uint16_t channel);
+	bool InitSound() override;
+	void CleanUpSound() override;
+	int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) override;
+	void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr) override;
+	uint16_t ac_get_real_vect(uint32_t vectnum) override;
+	void InitSample(HSAMPLE S) override;
+	void InitMIDISequence(uint8_t* datax, type_E3808_music_header* headerx, int32_t track_number) override;
+	void StartSample(HSAMPLE S) override;
+	void EndSample(HSAMPLE S) override;
+	void StartSequence(int32_t sequence_num) override;
+	void PauseSequence(int32_t sequence_num) override;
+	void StopSequence(int32_t sequence_num) override;
+	void ResumeSequence(int32_t sequence_num) override;
+	uint32_t SampleStatus(HSAMPLE S) override;
+	void SetSampleVolume(HSAMPLE S, int32_t volume) override;
+	void SetSequenceVolume(int32_t volume, int32_t milliseconds) override;
+	void SetLocation(axis_3d* coord, axis_4d* orient) override;
+	void EnableScheduling(void) override;
+	void SetMasterVolume(int32_t volume) override;
+	void Update() override;
+	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len) override;
+	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler) override;
+	void DeleteSource(uint16_t channel) override;
 	void Finalize(int channel);
 };
 #endif                          //PORT_SDL_SOUND

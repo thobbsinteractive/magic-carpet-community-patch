@@ -39,6 +39,8 @@ public:
 	virtual int32_t ac_sound_call_driver(AIL_DRIVER* drvr, int32_t fn, VDI_CALL* out) = 0;
 	virtual void ac_set_real_vect(uint32_t vectnum, uint16_t real_ptr) = 0;
 	virtual uint16_t ac_get_real_vect(uint32_t vectnum) = 0;
+	virtual bool InitSound() = 0;
+	virtual void CleanUpSound() = 0;
 	virtual void InitSample(HSAMPLE S) = 0;
 	virtual void InitMIDISequence(uint8_t* /*datax */, type_E3808_music_header* headerx, int32_t track_number) = 0;
 	virtual void StartSample(HSAMPLE S) = 0;
