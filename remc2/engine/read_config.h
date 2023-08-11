@@ -60,6 +60,7 @@ extern bool oggmusic;
 extern std::string oggmusicFolder;
 extern bool oggmusicalternative;
 extern std::string speech_folder;
+extern bool openal_sound;
 extern bool fixspeedsound;
 
 #define   GAMEPAD_ITEM_DISABLED  0x0

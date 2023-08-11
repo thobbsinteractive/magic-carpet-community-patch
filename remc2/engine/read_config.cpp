@@ -29,6 +29,7 @@ bool oggmusic = false;
 std::string oggmusicFolder = "";
 bool oggmusicalternative = false;
 std::string speech_folder = "";
+bool openal_sound = false;
 bool fixspeedsound = false;
 openal_config_t oac;
 
@@ -156,15 +157,19 @@ bool readini() {
 	oggmusicFolder = reader.GetString("sound", "oggmusicFolder", "");
 	speech_folder = reader.GetString("sound", "speech_folder", "");
 
-    oac.speech_volume = reader.GetInteger("sound", "openal_speech_volume", 100);
+	openal_sound = reader.GetBoolean("sound", "openal_sound", false);
+	if (openal_sound)
+	{
+		oac.speech_volume = reader.GetInteger("sound", "openal_speech_volume", 100);
 
-    if ((oac.speech_volume == 0) || (speech_folder.length() < 3)) {
-        disable_speech();
-    }
+		if ((oac.speech_volume == 0) || (speech_folder.length() < 3)) {
+			disable_speech();
+		}
 
-    oac.env_volume = reader.GetInteger("sound", "openal_environment_volume", 40);
-    oac.efx_enabled = reader.GetBoolean("sound", "openal_efx", false);
-    oac.same_chunk_concurrency = reader.GetInteger("sound", "openal_same_chunk_concurrency", 5);
+		oac.env_volume = reader.GetInteger("sound", "openal_environment_volume", 40);
+		oac.efx_enabled = reader.GetBoolean("sound", "openal_efx", false);
+		oac.same_chunk_concurrency = reader.GetInteger("sound", "openal_same_chunk_concurrency", 5);
+	}
 
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");
 	strcpy(bigGraphicsFolder, (char*)readstr3.c_str());
