@@ -14,6 +14,7 @@
 #include "../engine/engine_support.h"
 #include "port_filesystem.h"
 
+void ChannelFinishedCallBack(int channel);
 
 class port_sdl_sound : public PortSoundInterface
 {
@@ -49,6 +50,8 @@ protected:
 		int a;
 	} environment_string;
 
+	void ChannelFinished(int channel);
+
 public:
 	port_sdl_sound();
 	port_sdl_sound(bool hqsound, bool fixspeedsound, bool oggmusic, bool oggmusicalternative, std::string oggmusicFolder, std::string speech_folder);
@@ -76,6 +79,5 @@ public:
 	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len) override;
 	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler) override;
 	void DeleteSource(uint16_t channel) override;
-	void Finalize(int channel);
 };
 #endif                          //PORT_SDL_SOUND

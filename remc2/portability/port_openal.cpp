@@ -70,15 +70,13 @@ port_openal::port_openal(bool hqsound,
 	bool oggmusic,
 	bool oggmusicalternative,
 	std::string oggmusicFolder,
-	std::string speech_folder)
+	std::string speech_folder): port_sdl_sound(hqsound,
+	fixspeedsound,
+	oggmusic,
+	oggmusicalternative,
+	oggmusicFolder,
+	speech_folder)
 {
-	m_hqsound = hqsound;
-	m_fixspeedsound = fixspeedsound;
-	m_oggmusic = oggmusic;
-	m_oggmusicalternative = oggmusicalternative;
-	m_oggmusicFolder = oggmusicFolder;
-	m_speech_folder = speech_folder;
-
 	InitSound();
 }
 

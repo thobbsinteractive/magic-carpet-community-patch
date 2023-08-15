@@ -5,6 +5,8 @@
 #define MAX_PATH PATH_MAX
 #endif
 
+std::function<void(int)> channelFinishedCallBack;
+
 port_sdl_sound::port_sdl_sound()
 {
 
@@ -164,6 +166,7 @@ void port_sdl_sound::InitMIDISequence(uint8_t * /*datax */ , type_E3808_music_he
 			sprintf(selectedTrackPath, "%s/music%d.ogg", oggmusicPath.c_str(), track_number);
 
 		m_GAME_music[track_number] = Mix_LoadMUS(selectedTrackPath);
+		const char* error = SDL_GetError();
 
     } else {
         uint8_t *outmidi = TranscodeXmiToMid( /*(const uint8_t*)*(uint32_t*)( */ acttrack /* + 18) */ , iXmiLength, &pMidLength);
@@ -456,14 +459,19 @@ bool port_sdl_sound::InitSound()
         }
     }
 
-	//std::function<void(int)> ptr = &port_sdl_sound::Finalize;
+	channelFinishedCallBack = std::bind(&port_sdl_sound::ChannelFinished, this, std::placeholders::_1);
 
- //   Mix_ChannelFinished(ptr);
+	Mix_ChannelFinished(&ChannelFinishedCallBack);
 
     return true;
 }
 
-void port_sdl_sound::Finalize(int channel)
+void ChannelFinishedCallBack(int channel)
+{
+	channelFinishedCallBack(channel);
+}
+
+void port_sdl_sound::ChannelFinished(int channel)
 {
 	HSAMPLE S = m_gamechunkHSAMPLE[channel];
 	if (S) {
