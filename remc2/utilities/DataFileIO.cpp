@@ -234,9 +234,15 @@ FILE* DataFileIO::CreateOrOpenFile(const char* pathname, int __pmode)
 
 	if (__pmode == 0x222)
 	{
+#ifdef _MSC_VER
+		file = CreateFile(pathname, GENERIC_ALL);
+#else
 		file = CreateFile(pathname, 0x1c0);
+#endif
 		//x_setmode(v2, 0x200);
-		Close(file);
+		if (file) {
+			Close(file);
+		}
 	}
 	return Open(pathname, __pmode, 0x40);
 }

@@ -50,7 +50,6 @@ int count_begin = 1;//1
 //int debugnextlevel = 0;
 
 bool config_EDITOR = false;
-bool config_LOAD_EDITED_LEVEL = false;
 
 /*
 fix sub_3C080_draw_terrain_and_particles_old
@@ -642,7 +641,10 @@ x_DWORD settextposition(x_DWORD x, x_DWORD y) {
 	#endif*/
 	return 0;
 };// weak
-void outtext(const char* text) { myWriteOut(text);};// weak
+void outtext(const char* text) 
+{ 
+	myWriteOut(text);
+};// weak
 
 POSITION gettextposition(/*x_DWORD, x_DWORD, x_DWORD*/) {
 	return VGA_WhereXY();
@@ -1468,10 +1470,10 @@ signed int sub_48EC0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
 signed int sub_48EF0(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4);
 signed int sub_48F20(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
 signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t* a5x);
-void sub_49090(type_str_2FECE* a1, type_str_2FECE* a2);
-void sub_49270_generate_level_features(type_str_2FECE* terrain);
+void sub_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2);
+void sub_49270_generate_level_features(Type_Level_2FECE* terrain);
 //void sub_49290(type_str_2FECE* a1, char a2);
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity);
+void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 //void sub_49830(type_str_2FECE* a1);
 void ApplyEvents_498A0();
 void CopyEventVar0408_49A20(type_event_0x6E8E* event);
@@ -1730,7 +1732,7 @@ void sub_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
 void sub_53120();
 void sub_53160();
 //char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
-void sub_53590(type_str_2FECE* a1);
+void sub_53590(Type_Level_2FECE* a1);
 char sub_53770_test_open_moviegam(uint16_t a1);
 char sub_53950_test_open_moviemap(uint16_t a1);
 void sub_539A0_load_bldgprm();
@@ -1773,7 +1775,7 @@ void sub_56210_process_command_line(int a1, char** a2);
 int sub_56730_clean_memory();
 void ClearSettings_567C0();
 // char sub_56A30_init_game_level(unsigned int a1);
-void sub_56C00_sound_proc2(type_str_2FECE* a1);
+void sub_56C00_sound_proc2(Type_Level_2FECE* a1);
 // char sub_56D60(unsigned int a1, char a2);
 bool sub_56EE0(uaxis_2d a1);
 char sub_56F10(__int16 a1, __int16 a2, __int16 a3, char a4);
@@ -4654,7 +4656,7 @@ void begin_plugin() {
 int16_t x_WORD_E29D6_not_movex = 0; // weak
 int16_t x_WORD_E29D8 = 0; // weak//2b39d8
 __int16 x_WORD_E29DA_type_resolution = 0; // weak
-int16_t x_WORD_E29DC = 0; // weak
+int16_t m_ExitMenuLoop_E29DC = 0; // weak
 char x_BYTE_E29DF_skip_screen = 0; // weak
 char x_BYTE_E29E0 = 1; // weak
 char x_BYTE_E29E8 = 1; // weak
@@ -27498,6 +27500,7 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 		v9 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
 		v10 = a3.data;
 		v17 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
+#ifdef _MSC_VER // pointer offset fuckery going on here which later crashes during dereferencing
 		if (a3.height_5)
 		{
 			do
@@ -27508,7 +27511,7 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 					{
 						if (++(*v10))
 							break;
-						v9 = &screenWidth_18062C[v17];
+						v9 = &screenWidth_18062C[v17]; // FIXME no way this is correct
 						v17 += screenWidth_18062C;
 						if (!--v18)
 							return;
@@ -27522,15 +27525,18 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 				v11 = a4;
 				v12 = (char)screenWidth_18062C;
 				v15 = (char)screenWidth_18062C;
+#ifdef _MSC_VER // keep this disabled until v9's address is corrected
 				do
 				{
 					BYTE1(v11) = *v9;
 					*v9++ = x_BYTE_F6EE0_tablesx[0x4000 + v11];
 					--v12;
 				} while (v12);
+#endif
 				v10 += v15;
 			} while (v18);
 		}
+#endif
 	}
 }
 
@@ -27689,6 +27695,7 @@ void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t col
 	}
 }
 
+// spellbook menu
 //----- (0002ECC0) --------------------------------------------------------
 void DrawBottomMenu_2ECC0()//20fcc0
 {
@@ -28056,6 +28063,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		//result = sub_2BB40_draw_bitmap(x_DWORD_1805B0_mouse.x, x_DWORD_1805B0_mouse.y, (uint8_t**)(**filearray_2aa18c[0] + 6 * (unsigned __int8)x_BYTE_D419E));
 		/*result = */sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+	set_scene(SCENE_SPELL_MENU);
 	//return result;
 }
 // D419E: using guessed type char x_BYTE_D419E;
@@ -28318,6 +28326,7 @@ void DrawChatMenu_2F6B0()//2106b0
 		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
 	//return result;
+	set_scene(SCENE_FLIGHT_MENU);
 }
 // 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
 // D419E: using guessed type char x_BYTE_D419E;
@@ -28397,6 +28406,7 @@ void DrawPauseMenu_2FD90()//210d90
 			}
 			posY += heigth;
 			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178]);//Settings button
+			set_scene(SCENE_FLIGHT_MENU);
 		}
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 			|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
@@ -28411,6 +28421,7 @@ void DrawPauseMenu_2FD90()//210d90
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
 			sub_30870();
 	}
+
 }
 
 //----- (0002FFE0) --------------------------------------------------------
@@ -28579,6 +28590,8 @@ void DrawInGameOptionsMenu_30050()//211050
 	else
 		DrawText_2BC10((char*)"OK", (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + 33, 379, v12);	
 
+	set_scene(SCENE_FLIGHT_MENU);
+
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
 		|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
@@ -28589,6 +28602,7 @@ void DrawInGameOptionsMenu_30050()//211050
 	{
 		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 	}
+
 }
 
 //----- (000303D0) --------------------------------------------------------
@@ -28838,6 +28852,7 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY)//211a60
 			sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
 		}
 	}
+	set_scene(SCENE_FLIGHT_MENU);
 }
 
 //----- (00030BE0) --------------------------------------------------------
@@ -37763,6 +37778,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
   //int8_t* v4; // eax
 	int v5; // edx
 	bool isSecretLevel; // al
+	bool skipMenus = false;
+	int16_t setLevel = -1;
+	std::string customLevelPath = "";
 	//unsigned __int8 v8; // dl
 	unsigned __int8 v9; // al
 	unsigned __int8 v10; // al
@@ -37786,6 +37804,12 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234 = 0;
 	//	  * (_BYTE *)(2124 * *(signed __int16 *)(dword_D41A0 + 12) + dword_D41A0 + 11234) = 0;
 	//x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_0xc + 11234] = 0;//fix it
+
+	setLevel = CommandLineParams.GetSetLevel();
+	customLevelPath = CommandLineParams.GetCustomLevelPath();
+	if (setLevel > -1 || customLevelPath.length() > 0)
+		skipMenus = true;
+
 	while (1)
 	{
 		//result = (int)x_D41A0_BYTEARRAY_0;
@@ -37803,7 +37827,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 		int comp12 = compare_with_snapshot_D41A0((char*)"0160-0022787A", x_D41A0_BYTEARRAY_0, 0x356038, 224790, &origbyte3, &remakebyte3);
 		*/
 		//!!!!test area1
-		MenusAndIntros_76930(v5, 0/*a1*/);//set language, intro, menu, atd. //257930
+
+		MenusAndIntros_76930(v5, 0, skipMenus /*a1*/);//set language, intro, menu, atd. //257930
+
 		if (!D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
 		{
 			Logger->debug("sub_46830_main_loop:before load scr");
@@ -37813,7 +37839,7 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 
 			Logger->debug("sub_46830_main_loop:load scr passed");
 
-			sub_56A30_init_game_level(a3);
+			sub_56A30_init_game_level(a3, setLevel, customLevelPath);
 
 			Logger->debug("sub_46830_main_loop:init game level passed");
 
@@ -37959,6 +37985,9 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 				}
 			}
 			x_WORD_E29D8 = 4;
+			skipMenus = false;
+			setLevel = -1;
+			customLevelPath = "";
 		}
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0
@@ -38881,6 +38910,7 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 			x_D41A0_BYTEARRAY_4_struct.byteindex_181 = 1;
 			break;
 		case 7:
+			//Black and White
 			v23 = 1;
 			while (v23 < 256)
 			{
@@ -40071,7 +40101,7 @@ signed int sub_48FD0(char a1, char a2, __int16 a3, unsigned __int16 a4, uint8_t*
 }
 
 //----- (00049090) --------------------------------------------------------
-void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
+void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 {
 	type_entity_0x30311* tempEntity; // ebx
 	int16_t tempSubtype; // si
@@ -40175,7 +40205,7 @@ void sub_49090(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a090
 }
 
 //----- (00049270) --------------------------------------------------------
-void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
+void sub_49270_generate_level_features(Type_Level_2FECE* terrain)//22a270
 {
 	SetStagetagForTermod_49830(terrain);
 	//adress 22A27D
@@ -40189,7 +40219,7 @@ void sub_49270_generate_level_features(type_str_2FECE* terrain)//22a270
 }
 
 //----- (00049290) --------------------------------------------------------
-void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
+void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, uint16_t height)//22a290
 {
 	int ix;
 	int jx;
@@ -40324,7 +40354,7 @@ void GenerateEvents_49290(type_str_2FECE* terrain, char a2, uint16_t width, uint
 int debugcounter_22a540 = 0;
 
 //----- (00049540) --------------------------------------------------------
-void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//22a540
+void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a540
 {
 	int16_t z_temp; // ax
 	type_event_0x6E8E* event; // eax
@@ -40445,7 +40475,7 @@ void PrepareEvents_49540(type_str_2FECE* terrain, type_entity_0x30311* entity)//
 }
 
 //----- (00049830) --------------------------------------------------------
-void SetStagetagForTermod_49830(type_str_2FECE* terrain)//22a830 //set v1x->word_12
+void SetStagetagForTermod_49830(Type_Level_2FECE* terrain)//22a830 //set v1x->word_12
 {
 	type_entity_0x30311* entity = &terrain->entity_0x30311[1];
 	do
@@ -44149,7 +44179,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x234590: {
-		sub_53590((type_str_2FECE*)a1_6E8E);
+		sub_53590((Type_Level_2FECE*)a1_6E8E);
 		break;
 	}
 
@@ -50343,6 +50373,7 @@ void GameEvents_51BB0()//232bb0
 		{
 			sub_53A40(&D41A0_0.array_0x6E3E[i]);
 		}
+
 		switch (D41A0_0.array_0x6E3E[i].str_0x6E3E_byte0)
 		{
 		case 1:
@@ -51133,7 +51164,7 @@ void sub_53160()//234160
 // D93A0: using guessed type const char *off_D93A0_wizards_names2;
 
 //----- (000533B0) --------------------------------------------------------
-char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
+char sub_533B0_decompress_levels(__int16 a1, Type_Level_2FECE* a2x, std::string customLevelPath)//2343b0
 {
 	uint8_t* v2; // edi
 	FILE* levelsdatfile; // ebx
@@ -51179,41 +51210,36 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 			DataFileIO::Read(levelsdatfile, (uint8_t*)x_DWORD_E9C38_smalltit, v9);
 			if (DataFileIO::Decompress((uint8_t*)x_DWORD_E9C38_smalltit, (uint8_t*)x_DWORD_E9C38_smalltit) < 0)
 			{
-				myprintf("ERROR decompressing LEVELS.DAT\n");
+				Logger->error("ERROR decompressing LEVELS.DAT\n");
 				return 0;
 			}
 			/*
 			qmemcpy(a2x, (type_str_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(type_str_2FECE));//0x6604
 			memset((type_str_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(type_str_2FECE));//0x6604
 			*/
-			type_shadow_str_2FECE shadow_a2x;
-			qmemcpy(&shadow_a2x, (type_shadow_str_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(type_shadow_str_2FECE));//0x6604
-			memset((type_shadow_str_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(type_shadow_str_2FECE));//0x6604
-			Convert_from_shadow_str_2FECE(&shadow_a2x, a2x);
+			Type_CompressedLevel_2FECE shadow_a2x;
+			qmemcpy(&shadow_a2x, (Type_CompressedLevel_2FECE*)(const void*)x_DWORD_E9C38_smalltit, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			memset((Type_CompressedLevel_2FECE*)x_DWORD_E9C38_smalltit, 0, sizeof(Type_CompressedLevel_2FECE));//0x6604
+			DecompressLevel_2FECE(&shadow_a2x, a2x);
 			//type_shadow_str_2FECE
 		}
 		DataFileIO::Close(levelsdatfile);
 
 		//if exist editor generated level
-		#if !defined(IS_EDITOR)
-			if (CommandLineParams.DoLoadEditedLevel()) {
-				if (config_LOAD_EDITED_LEVEL) {
-					char path2[512];
-					FixDir(path2, (char*)"../remc2/editor/Debug/testsave.sav");
-					FILE* file = fopen(path2, "rb");
-					if (file)
-					{
-						type_shadow_str_2FECE shadow_2FECE;
-						fread(&shadow_2FECE, sizeof(type_shadow_str_2FECE), 1, file);
-						/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
-							if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
-								allert_error();*/
-						Convert_from_shadow_str_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
-					}
-					fclose(file);
-				}
+		if (customLevelPath.length() > 0)
+		{
+			FILE* file = fopen(customLevelPath.c_str(), "rb");
+			if (file)
+			{
+				Type_CompressedLevel_2FECE shadow_2FECE;
+				fread(&shadow_2FECE, sizeof(Type_CompressedLevel_2FECE), 1, file);
+				/*for (int i = 0; i < sizeof(type_shadow_str_2FECE); i++)
+					if(((int8_t*)&shadow_2FECE)[i]!=((int8_t*)&D41A0_BYTESTR_0.terrain_2FECE)[i])
+						allert_error();*/
+				DecompressLevel_2FECE(&shadow_2FECE, &D41A0_0.terrain_2FECE);
 			}
-		#endif //!IS_EDITOR
+			fclose(file);
+		}
 		//if exist editor generated level
 
 		sub_56C00_sound_proc2(a2x);
@@ -51228,7 +51254,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00053590) --------------------------------------------------------
-void sub_53590(type_str_2FECE* a1x)//234590
+void sub_53590(Type_Level_2FECE* a1x)//234590
 {
 	//int result; // eax
 
@@ -51521,7 +51547,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 	sprintf(printbuffer, "%s/%s.TAB", cdPath, fileName);//234FCA - 269F3D5
 	sprintf(printbuffer2, "%s/%s.TAB", gamePath, fileName);//234FE3 - 269F3D5
 	file1 = DataFileIO::CreateOrOpenFile(printbuffer, 0x200);//234FF7 - 279817
-	if (file1 == NULL)//tady asi bude nerovnost
+	if (file1 == NULL)//there will probably be inequality here
 		return 3;
 	file2 = DataFileIO::CreateOrOpenFile(printbuffer2, 0x222);//235012 - 279817
 	if (file2 == NULL)
@@ -51866,10 +51892,16 @@ void sub_54800_read_and_decompress_tables(MapType_t a1)//235800
 }
 
 //----- (000548B0) --------------------------------------------------------
+// returns viewport from menu to flight mode
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
 	if (a1x->word_0x007_2BE4_11237 == D41A0_0.LevelIndex_0xc)
-		SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+	{
+		//SetMousePositionInMemory_5BDC0(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
+		// if a joystick is used, do not set that random resting point from above
+		SetMousePositionInMemory_5BDC0(320, 240);
+		set_scene(SCENE_FLIGHT);
+	}
 }
 
 //----- (000548F0) --------------------------------------------------------
@@ -53040,7 +53072,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		level = GetLoggingLevelFromString("Debug");
 #else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
-#endif // _DEBUG
+#endif
 		InitializeLogging(level);
 
 		if (assignToSpecificCores)
@@ -53066,57 +53098,22 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 
 		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
 		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+		gamepad_init(gameResWidth, gameResHeight);
 
-		//char maindir[1024];
 		Logger->info("Finding Game Data...");
 		if (std::string mainfile = GetSubDirectoryFile(gameFolder, "CDATA", "TMAPS0-0.DAT"); !file_exists(mainfile.c_str()))//test original file
 		{
-			//myprintf("Original Game Data Not Found, find GOG iso file\n");
-			/*char locexepath[1024];
-			get_exe_path(locexepath);
-			for (int i = 0;i < strlen(locexepath);i++)
+			if (std::filesystem::is_directory(gameDataPath))
 			{
-				if (locexepath[i] == '\\')
-					locexepath[i] = '/';
-			}
-			sprintf(mainfile, "%s/%s%s", locexepath,gamepath, "/MC2.dat");
-			sprintf(maindir, "%s/%s%s", locexepath, gamepath, "/extracted-game-files");
-			//sprintf(mainfile, "%s", (char*)"c:\\prenos\\gparted-live-0.27.0-1-i686");*/
-			//sprintf(maindir, "%s", (char*)"c:\\prenos\\ex");
-			//if (!file_exists(mainfile))//test existing GOG cd iso file
-			{
-				Logger->error("Original game not found in {} folder", gameDataPath.c_str());
-				mydelay(20000);
-				exit(1);//iso not found
-			}
-			/*myprintf("GOG game iso cd founded!\n");
-			sprintf(mainfile, "%s%s", gamepath, "/extracted-game-files\\data\\tmaps0-0.dat");
-			if (file_exists(mainfile))
-			{
-				myprintf("I found extracted GOG game files!\n");
-				sprintf(gamepath, "%s", maindir);
+				Logger->info("Original game not found in {0} sub folder ", gameFolder);
+				Logger->info("Installing game data from CD_Files...");
 			}
 			else
 			{
-				myprintf("Extracting GOG iso cd...\n");
-				sprintf(mainfile, "%s/%s%s", locexepath, gamepath, "/MC2.dat");
-
-				cd_iso_extract(mainfile, maindir);
-				//cd_iso_extract((char*)"c:\\prenos\\MC2.dat.bin", maindir);
-
-				//sprintf(mainfile, "%s%s", gamepath, "\\data\\tmaps0-0.dat");
-				if (file_exists(mainfile))
-				{
-					myprintf("GOG iso cd extracted!\n");
-					sprintf(gamepath, "%s", maindir);
-				}
-				else
-				{
-					myprintf("Any problem with GOG iso cd extracting\n");
-					mydelay(3000);
-					exit(1);//problem with file extracting
-				}
-			}	*/
+				Logger->error("Sub folder {0} does not exist!", gameFolder);
+				mydelay(5000);
+				exit(1);//iso not found
+			}
 		}
 		else
 		{
@@ -53293,10 +53290,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			if (!_stricmp("editor", (char*)actarg))
 			{
 				config_EDITOR = true;
-			}
-			else if (!_stricmp("testlevel", (char*)actarg))
-			{
-				config_LOAD_EDITED_LEVEL = true;
 			}
 			else if (!_stricmp("reglevel", (char*)actarg))
 			{
@@ -53542,11 +53535,11 @@ void ClearSettings_567C0()//2377c0 // clean level
 // E9C38: using guessed type int x_DWORD_E9C38_smalltit;
 
 //----- (00056A30) --------------------------------------------------------
-void sub_56A30_init_game_level(unsigned int a1)//237a30
+void sub_56A30_init_game_level(unsigned int a1, int16_t level, std::string customLevelPath)//237a30
 {
 	if (CommandLineParams.DoMouseOff()) { mouseturnoff = true; }
-	if (CommandLineParams.DoSetLevel()) {
-		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = 1;
+	if (level > -1) {
+		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = (uint16_t)level;
 	}
 	Logger->debug("sub_56A30_init_game_level:before sub_6EB90");
 	//fixing
@@ -53563,7 +53556,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 
 		Logger->debug("sub_56A30_init_game_level:before sub_533B0_decompress_levels");
 
-		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE);
+		sub_533B0_decompress_levels(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w, &D41A0_0.terrain_2FECE, customLevelPath);
 
 		Logger->debug("sub_56A30_init_game_level:sub_533B0_decompress_levels passed");
 
@@ -53634,7 +53627,7 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 }
 
 //----- (00056C00) --------------------------------------------------------
-void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
+void sub_56C00_sound_proc2(Type_Level_2FECE* a1x)//237c00
 {
 	MapType_t v1; // al
 	//int v2; // eax
@@ -54959,7 +54952,7 @@ LABEL_5:
 //----- (00058940) --------------------------------------------------------
 void InitStages_58940()//239940 //init games objectives
 {
-	type_str_2FECE* terrain = &D41A0_0.terrain_2FECE;
+	Type_Level_2FECE* terrain = &D41A0_0.terrain_2FECE;
 	D41A0_0.stageIndex_0x36E01 = 0;
 	memset(D41A0_0.struct_0x3659C, 0, sizeof(type_str_3654C)*8);
 	memset(D41A0_0.stages_0x3654C, 0, sizeof(type_str_3654C)*8);
@@ -59325,6 +59318,7 @@ void AddPlayer03_00_5E010(type_event_0x6E8E* a1x)//23f010
 		a1x->state_0x45_69 = 2;
 		a1x->word_0x2C_44 = 0;
 		PrepareEventSound_6E450(a1x - D41A0_0.struct_0x6E8E, -1, 16);
+		set_scene(SCENE_DEAD);
 	}
 }
 
@@ -71301,20 +71295,25 @@ void sub_6EBF0(filearray_struct* a1)//24FBF0
 //----- (0006EDB0) --------------------------------------------------------
 void SetCenterScreenForFlyAssistant_6EDB0()//24FDB0
 {
-	if (x_WORD_180660_VGA_type_resolution == 1)
-		SetMousePosition_6EDE0(320, 200);
-	else
-	{
-		if (!DefaultResolutions())
-			SetMousePosition_6EDE0(320, 200);
-		else
-			SetMousePosition_6EDE0(320, 240);
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+	if (x_WORD_180660_VGA_type_resolution & 1) {
+		// 640x480 virtual screen
+		display_w = 640;
+		display_h = 480;
 	}
+
+	new_x = display_w >> 1;
+	new_y = display_h >> 1;
+
+	VGA_Set_mouse(new_x, new_y);
 }
 
 //----- (0006EDE0) --------------------------------------------------------
 void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 {
+#if 0
 	int locScreenWidth;
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
@@ -71378,11 +71377,31 @@ void SetMousePosition_6EDE0(int16_t posX, int16_t posY)//24fde0
 					posY *= 8;
 				}
 				//320x200 fix
-
+				//Logger->info("set wonky center {} {} for {},{} {},{}", posX / 8, posY / 8, posX, posY, screenHeight_180624, screenWidth_18062C);
 				VGA_Set_mouse(posX / 8, posY / 8);
 			}
 		}
 	}
+#else
+
+	uint32_t display_w = screenWidth_18062C, display_h = screenHeight_180624;
+	uint32_t new_x, new_y;
+
+
+	// we get in posX, posY the location of the pointer for a 640x480 display
+	// so recalculate the position based on what we actually have
+
+	if (x_WORD_180660_VGA_type_resolution & 1) {
+		// 320x240 virtual screen
+		display_w = 320;
+		display_h = 240;
+	}
+
+	new_x = display_w * posX / 640;
+	new_y = display_h * posY / 480;
+
+	VGA_Set_mouse(new_x, new_y);
+#endif
 }
 
 //----- (0006F030) --------------------------------------------------------
@@ -78392,11 +78411,13 @@ int16_t sub_89B60_aplicate_setting(uint8_t a1)//26ab60
 	switch (a1)
 	{
 	case 1u:
+		// i_Glasses (Virtual I-O) joystick
 		v1 = sub_8B600(unk_18058Cstr);//fix it
 		if ((signed __int16)v1 != -1)
 			goto LABEL_3;
 		break;
 	case 2u:
+		// VFX1 CyberPuck joystick
 		if (sub_75650())//fix it
 		{
 			v1 = 1;
@@ -81041,7 +81062,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
-	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+ 	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{

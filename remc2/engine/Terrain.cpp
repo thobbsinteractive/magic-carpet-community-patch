@@ -153,7 +153,7 @@ void add_compare2(uint32_t adress, uint8_t* memadress,uint32_t dosmemadress, uin
 
 int debugcounter_224959 = 0;
 //----- (00043830) --------------------------------------------------------
-void GenerateLevelMap_43830(type_str_2FECE* a2x)//224830
+void GenerateLevelMap_43830(Type_Level_2FECE* a2x)//224830
 {
 	x_WORD_17B4E0 = a2x->seed_0x2FEE5;
 	D41A0_0.rand_0x8 = a2x->seed_0x2FEE5;

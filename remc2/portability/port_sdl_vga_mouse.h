@@ -9,14 +9,16 @@
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
 
-#ifdef _MSC_VER
-	#include "SDL.h"
-#else
-    #include "SDL2/SDL.h"
-#endif
+#include "SDL2/SDL.h"
 
 #include "port_sdl_sound.h"
 #include "port_filesystem.h"
+
+#define  SCENE_PREAMBLE_MENU  0x1
+#define         SCENE_FLIGHT  0x2
+#define    SCENE_FLIGHT_MENU  0x3
+#define     SCENE_SPELL_MENU  0x4
+#define           SCENE_DEAD  0x5
 
 typedef struct
 {
