@@ -159,8 +159,8 @@ extern __int16 x_WORD_180660_VGA_type_resolution;
 extern uint8_t x_BYTE_E88E0x[32];
 extern uint8_t unk_F0A20x[1024];//2c1a20
 extern char isCaveLevel_D41B6;
-extern __int16 x_WORD_D4B7C; // weak
-extern __int16 x_WORD_D4B7E; // weak
+extern uint8_t keyColor1_D4B7C; // weak
+extern uint8_t keyColor2_D4B7E; // weak
 extern type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
 extern uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
@@ -188,11 +188,11 @@ extern std::string bigGraphicsPath;
 
 extern long oldmillis;
 
-extern std::chrono::time_point<std::chrono::steady_clock> frameStart;
-extern std::chrono::duration<double> timeDelta;
-extern int frameCount;
-extern int fps;
-
+extern std::chrono::time_point<std::chrono::system_clock> m_frameStart;
+extern std::chrono::time_point<std::chrono::system_clock> m_lastFrameEnd;
+extern float m_fTimeElapsed; // The time that has elapsed so far
+extern int m_iFrameCount; // The number of frames that have occurred.
+extern float m_fFps; // The frames rendered per second. Needs to be stored to be shown every frame.
 
 extern int readFileStatus_E3E2C;
 
@@ -516,6 +516,8 @@ extern __int16 x_WORD_E36D4; // weak
 
 extern type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 
+extern uint8_t* Zero_pointer;
+
 bool DefaultResolutions();
 
 void FreeMem_83E80(uint8_t* a1);
@@ -524,7 +526,7 @@ int sub_84000(int a1);
 x_DWORD x_outp(x_DWORD, char);// weak
 x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
-void* sub_83CD0_malloc2(size_t a1);
+void* Malloc_83CD0(size_t a1);
 void qmemcpy(void* a, void* b, size_t c);
 int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
@@ -546,8 +548,8 @@ void dbgfprintf(FILE* file, const char* format, ...);
 
 x_DWORD dos_read(FILE*, char, x_DWORD, x_DWORD, char*);
 
-signed int GetFileLenght_9DE20(char* a1);
-uint8_t* sub_9DEA0_read_file(char* a1, uint8_t* a2);
+long GetFileLenght_9DE20(char* filename);
+uint8_t* ReadFile_9DEA0(char* filename, uint8_t* buffer);
 
 FILE* x_open(char* path, int pmodex);
 
@@ -569,8 +571,8 @@ void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t 
 void sub_41A90_VGA_Palette_install(TColor* a1x);
 void sub_2EC90(char a1);
 uint32_t sub_7FAE0_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
-void sub_90478_VGA_Blit320();
-void sub_75200_VGA_Blit640(uint16_t height);
+void sub_90478_VGA_Blit320(uint8_t maxFps = 0);
+void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps = 0);
 uint8_t sub_6FC30_get34_height();
 void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
 
@@ -580,7 +582,12 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 void sub_75D70(uint8_t* a1, uint32_t a2);
 void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16_t posEndY, uint8_t colorIdx);
 void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color);//20cc10
-void VGA_CalculateAndPrintFPS(int x, int y);
+void SetFrameStart(std::chrono::system_clock::time_point frameStart);
+std::chrono::duration<double, std::milli> CalculateTimeDelta();
+void VGA_CalculateAndPrintFps(int x, int y, float timeDelta);
+void VGA_DrawPlayerCoordData(int x, int y);
+void VGA_BlitAny(uint8_t maxFps = 0);
+void LockFps(uint8_t maxFps);
 void sub_6EF10_set_mouse_minmax(__int16 a1, signed __int16 a2, __int16 a3, signed __int16 a4);
 void sub_7FB90_draw_text(char* a1, int16_t a2, int16_t a3, uint8_t a4);
 void sub_8CACD_draw_cursor2();
