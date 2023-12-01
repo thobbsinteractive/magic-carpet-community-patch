@@ -2144,7 +2144,25 @@ std::vector<int> SetValidMc2LevelIndexes()
 	for (int i = 105; i < 118; i++)
 		mc2validLevelIndexes.push_back(i);
 
-	for (int i = 120; i < 128; i++)
+	for (int i = 120; i < 129; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 132; i < 138; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 141; i < 142; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 146; i < 155; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 157; i < 162; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 164; i < 165; i++)
+		mc2validLevelIndexes.push_back(i);
+
+	for (int i = 167; i < 199; i++)
 		mc2validLevelIndexes.push_back(i);
 
 	return mc2validLevelIndexes;
@@ -3201,7 +3219,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_selectbutton_new(&select4, &window1, select3.rect.x + 20, labelSel.rect.y);
 
 	m_mc2validLevelIndexes = SetValidMc2LevelIndexes();
-	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 0, 127, 250, 230);
+	kiss_dec1edit_new(&levelSel, &window1, &actlevel, (char*)"Level:", 0, 199, 250, 230);
 
 	kiss_label_new(&labelXY, &window1, (char*)"", 900, 760);
 
