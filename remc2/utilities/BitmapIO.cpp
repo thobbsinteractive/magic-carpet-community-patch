@@ -144,10 +144,10 @@ void BitmapIO::WritePaletteAsImageBMP(const char* path, int numColors, uint8_t* 
 {
 	int widthInBytes = (numColors * BitmapIO::TRUECOLOR_BYTES_PER_PIXEL);
 
-	unsigned char padding[3] = { 0, 0, 0 };
+	unsigned char padding[3] = { 255, 255, 255 };
 	int paddingSize = (4 - (widthInBytes) % 4) % 4;
 
-	int stride = widthInBytes + paddingSize;
+	int stride = (widthInBytes)+paddingSize;
 
 	FILE* imageFile = fopen(path, "wb");
 
@@ -161,7 +161,11 @@ void BitmapIO::WritePaletteAsImageBMP(const char* path, int numColors, uint8_t* 
 
 	for (int x = 0; x < widthInBytes; x++)
 	{
-		truColorBuffer[x] = (unsigned char)(4 * ptrPalette[x]);
+		int truColorIdx = (x * 3);
+
+		truColorBuffer[truColorIdx] = (unsigned char)(4 * ptrPalette[(x * 3) + 2]); //Blue
+		truColorBuffer[truColorIdx + 1] = (unsigned char)(4 * ptrPalette[(x * 3) + 1]); //Green
+		truColorBuffer[truColorIdx + 2] = (unsigned char)(4 * ptrPalette[(x * 3)]); //Red
 	}
 
 	for (int i = 0; i < 100; i++) {
@@ -172,7 +176,7 @@ void BitmapIO::WritePaletteAsImageBMP(const char* path, int numColors, uint8_t* 
 			fwrite(padding, 1, paddingSize, imageFile);
 		}
 	}
-
+	
 	delete[] truColorBuffer;
 
 	fclose(imageFile);
