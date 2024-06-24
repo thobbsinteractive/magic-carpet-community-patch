@@ -2301,7 +2301,7 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
-		str_F2C20ar.dword0x23 = -1;
+		str_F2C20ar.dword0x23_stride = -1;
 		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Width_DE564 - v28;
 		str_F2C20ar.pbyte0x1a = (4 * (v28 - 1) + &x_DWORD_E9C38_smalltit[59360]);
 		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
@@ -2480,7 +2480,7 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
-		str_F2C20ar.dword0x23 = 1;
+		str_F2C20ar.dword0x23_stride = 1;
 		str_F2C20ar.Height_0x19 = (unsigned __int16)viewPort.Width_DE564 + str_F2C20ar.dword0x21;
 		str_F2C20ar.pbyte0x1a = (4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
 		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
@@ -2526,7 +2526,7 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 		str_F2C20ar.width0x25 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x1c = (unsigned __int16)viewPort.Height_DE568 + (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.height0x26 = (unsigned __int16)viewPort.Height_DE568;
-		str_F2C20ar.dword0x23 = 1;
+		str_F2C20ar.dword0x23_stride = 1;
 		str_F2C20ar.pbyte0x1a = (4 * (v68 - 1) + &x_DWORD_E9C38_smalltit[59360]);
 		v95 = (unsigned __int16)viewPort.Height_DE568 - 1;
 		resultx = m_str_F0E20x;
@@ -2603,7 +2603,7 @@ void GameRenderNG::SetBillboards_3B560(int16_t roll)
 	LABEL_65:
 		str_F2C20ar.pbyte0x1a = v42x;
 	LABEL_66:
-		str_F2C20ar.dword0x23 = v9;
+		str_F2C20ar.dword0x23_stride = v9;
 		break;
 	default:
 		break;
@@ -4437,7 +4437,7 @@ void GameRenderNG::DrawSprite_41BD3(uint32 a1)
 									}
 								}
 								str_F2C20ar.dword0x0a_actIdx += v135;
-								v123 += str_F2C20ar.dword0x23;
+								v123 += str_F2C20ar.dword0x23_stride;
 								v165 += 3;
 							}
 						}
