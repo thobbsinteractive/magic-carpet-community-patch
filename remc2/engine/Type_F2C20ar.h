@@ -44,7 +44,7 @@ typedef struct {
 	int32_t dword0x20;
 	int32_t dword0x21;
 	int32_t dword0x22;
-	int32_t dword0x23;
+	int32_t dword0x23_stride;
 	int32_t dword0x24;
 	int32_t width0x25;
 	int32_t height0x26;
