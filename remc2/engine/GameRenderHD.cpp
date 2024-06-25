@@ -3872,7 +3872,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	int v156; // [esp+44h] [ebp-20h]
 	int v157; // [esp+48h] [ebp-1Ch]
 	int v158; // [esp+48h] [ebp-1Ch]
-	int v159; // [esp+4Ch] [ebp-18h]
+	int scaledHeight; // [esp+4Ch] [ebp-18h]
 	int v160; // [esp+50h] [ebp-14h]
 	int v161; // [esp+50h] [ebp-14h]
 	int* v162; // [esp+54h] [ebp-10h]
@@ -3929,28 +3929,28 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / v159;
+						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v162 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v157 = str_F2C20ar.dword0x04_screenY << 16;
 						v170 = str_F2C20ar.dword0x03_screenX - (str_F2C20ar.dword0x1f * str_F2C20ar.dword0x04_screenY >> 16);
 						if (str_F2C20ar.dword0x03_screenX - (str_F2C20ar.dword0x1f * str_F2C20ar.dword0x04_screenY >> 16) >= str_F2C20ar.dword0x21)
 							goto LABEL_136;
 						v139 = str_F2C20ar.dword0x21 - v170;
-						v159 -= str_F2C20ar.dword0x21 - v170;
-						if (v159 > 0)
+						scaledHeight -= str_F2C20ar.dword0x21 - v170;
+						if (scaledHeight > 0)
 						{
 							str_F2C20ar.dword0x0a_actIdx += v139 * v135;
 							v157 -= v139 * v160;
@@ -3964,20 +3964,20 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / v159;
+						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v166 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v158 = str_F2C20ar.dword0x03_screenX << 16;
 						v171 = str_F2C20ar.dword0x04_screenY - (str_F2C20ar.dword0x1f * str_F2C20ar.dword0x03_screenX >> 16);
@@ -3989,8 +3989,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						else
 						{
 							v141 = v171 - str_F2C20ar.width0x25;
-							v159 -= v171 - str_F2C20ar.width0x25;
-							if (v159 > 0)
+							scaledHeight -= v171 - str_F2C20ar.width0x25;
+							if (scaledHeight > 0)
 							{
 								str_F2C20ar.dword0x0a_actIdx += v141 * v135;
 								v158 += v141 * v161;
@@ -4005,28 +4005,28 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / v159;
+						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v162 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v157 = str_F2C20ar.dword0x03_screenX << 16;
 						v170 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x04_screenY - (str_F2C20ar.dword0x1f * str_F2C20ar.dword0x03_screenX >> 16);
 						if (v170 >= str_F2C20ar.dword0x21)
 							goto LABEL_329;
 						v147 = str_F2C20ar.dword0x21 - v170;
-						v159 -= str_F2C20ar.dword0x21 - v170;
-						if (v159 <= 0)
+						scaledHeight -= str_F2C20ar.dword0x21 - v170;
+						if (scaledHeight <= 0)
 							break;
 						str_F2C20ar.dword0x0a_actIdx += v147 * v135;
 						v157 -= v147 * v160;
@@ -4038,20 +4038,20 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / v159;
+						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v166 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v158 = (str_F2C20ar.height0x26 - str_F2C20ar.dword0x04_screenY) << 16;
 						v171 = str_F2C20ar.dword0x03_screenX - (str_F2C20ar.dword0x1f * (str_F2C20ar.height0x26 - str_F2C20ar.dword0x04_screenY) >> 16);
@@ -4063,8 +4063,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						else
 						{
 							v148 = v171 - str_F2C20ar.width0x25;
-							v159 -= v171 - str_F2C20ar.width0x25;
-							if (v159 <= 0)
+							scaledHeight -= v171 - str_F2C20ar.width0x25;
+							if (scaledHeight <= 0)
 								break;
 							str_F2C20ar.dword0x0a_actIdx += v148 * v135;
 							v158 += v148 * v161;
@@ -4076,28 +4076,28 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / v159;
+						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v162 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v157 = (str_F2C20ar.height0x26 - str_F2C20ar.dword0x04_screenY) << 16;
 						v170 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x03_screenX - (str_F2C20ar.dword0x1f * (str_F2C20ar.height0x26 - str_F2C20ar.dword0x04_screenY) >> 16);
 						if (v170 >= str_F2C20ar.dword0x21)
 							goto LABEL_348;
 						v149 = str_F2C20ar.dword0x21 - v170;
-						v159 -= str_F2C20ar.dword0x21 - v170;
-						if (v159 <= 0)
+						scaledHeight -= str_F2C20ar.dword0x21 - v170;
+						if (scaledHeight <= 0)
 							break;
 						str_F2C20ar.dword0x0a_actIdx += v149 * v135;
 						v157 -= v149 * v160;
@@ -4109,20 +4109,20 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / v159;
+						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v166 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v158 = (str_F2C20ar.height0x26 - str_F2C20ar.dword0x03_screenX) << 16;
 						v113 = str_F2C20ar.dword0x1f * (str_F2C20ar.height0x26 - str_F2C20ar.dword0x03_screenX) >> 16;
@@ -4135,8 +4135,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						else
 						{
 							v150 = v171 - str_F2C20ar.width0x25;
-							v159 -= v171 - str_F2C20ar.width0x25;
-							if (v159 <= 0)
+							scaledHeight -= v171 - str_F2C20ar.width0x25;
+							if (scaledHeight <= 0)
 								break;
 							str_F2C20ar.dword0x0a_actIdx += v150 * v135;
 							v158 += v150 * v161;
@@ -4148,28 +4148,28 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x1b;
+						if (scaledHeight <= 0)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / v159;
+						v160 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v162 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v157 = (str_F2C20ar.height0x26 - str_F2C20ar.dword0x03_screenX) << 16;
 						v170 = str_F2C20ar.dword0x04_screenY - (str_F2C20ar.dword0x1f * (str_F2C20ar.height0x26 - str_F2C20ar.dword0x03_screenX) >> 16);
 						if (str_F2C20ar.dword0x04_screenY - (str_F2C20ar.dword0x1f * (str_F2C20ar.height0x26 - str_F2C20ar.dword0x03_screenX) >> 16) >= str_F2C20ar.dword0x21)
 							goto LABEL_367;
 						v151 = str_F2C20ar.dword0x21 - v170;
-						v159 -= str_F2C20ar.dword0x21 - v170;
-						if (v159 <= 0)
+						scaledHeight -= str_F2C20ar.dword0x21 - v170;
+						if (scaledHeight <= 0)
 							break;
 						str_F2C20ar.dword0x0a_actIdx += v151 * v135;
 						v157 -= v151 * v160;
@@ -4180,17 +4180,17 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v140 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
 						if (v170 <= 0)
 						{
-							if (v159 > v140)
-								v159 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
+							if (scaledHeight > v140)
+								scaledHeight = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
 						}
-						else if (v170 + v159 > v140)
+						else if (v170 + scaledHeight > v140)
 						{
-							v159 = v140 - v170;
+							scaledHeight = v140 - v170;
 							if (v140 - v170 <= 0)
 								break;
 						}
 						v116 = 9999999;
-						v124 = v159;
+						v124 = scaledHeight;
 						while (2)
 						{
 							if (!v124)
@@ -4222,21 +4222,21 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								v116 = v173;
 							goto LABEL_151;
 						}
-						v159 -= v124;
+						scaledHeight -= v124;
 					LABEL_154:
-						if (v170 + v159 > str_F2C20ar.Height_0x19)
+						if (v170 + scaledHeight > str_F2C20ar.Height_0x19)
 						{
 							if (str_F2C20ar.Height_0x19 - v170 <= 0)
 							{
 								v163 = (x_DWORD*)(&x_DWORD_E9C38_smalltit[45920]);
 								v117 = (x_DWORD*)(4 * (str_F2C20ar.Height_0x19 - v170) + str_F2C20ar.pbyte0x1a);
-								v125 = v159;
+								v125 = scaledHeight;
 							}
 							else
 							{
 								v163 = (x_DWORD*)(12 * (str_F2C20ar.Height_0x19 - v170) + &x_DWORD_E9C38_smalltit[45920]);
 								v117 = (x_DWORD*)str_F2C20ar.pbyte0x1a;
-								v125 = v170 + v159 - str_F2C20ar.Height_0x19;
+								v125 = v170 + scaledHeight - str_F2C20ar.Height_0x19;
 							}
 							while (v125)
 							{
@@ -4244,7 +4244,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								{
 									if (*v163 >= *v117)
 									{
-										v159 -= v125;
+										scaledHeight -= v125;
 										break;
 									}
 									v163[1] = *v117 - *v163;
@@ -4300,7 +4300,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								v132--;
 							}
 							v165 = (x_DWORD*)(&x_DWORD_E9C38_smalltit[45920]);
-							for (i = v159; i; i--)
+							for (i = scaledHeight; i; i--)
 							{
 								v133 = v165[1];
 								if ((v133 > 0) && (*v165 > 0))
@@ -4651,22 +4651,22 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v156 = str_F2C20ar.dword0x27 * str_F2C20ar.dword0x09_realWidth >> 16;
 						if (v156 <= 0)
 							break;
-						v159 = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
-						if (v159 <= 0)
+						scaledHeight = (str_F2C20ar.dword0x0c_realHeight << 16) / str_F2C20ar.dword0x27;
+						if (scaledHeight <= 0)
 							break;
 						if (str_F2C20ar.dword0x04_screenY >= str_F2C20ar.height0x26)
 							break;
-						v135 = (str_F2C20ar.dword0x06_height << 16) / v159;
+						v135 = (str_F2C20ar.dword0x06_height << 16) / scaledHeight;
 						if (a1 == 1)
 						{
 							str_F2C20ar.dword0x0a_actIdx = 0;
 						}
 						else
 						{
-							str_F2C20ar.dword0x0a_actIdx = (v159 - 1) * v135;
+							str_F2C20ar.dword0x0a_actIdx = (scaledHeight - 1) * v135;
 							v135 = -v135;
 						}
-						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / v159;
+						v161 = str_F2C20ar.dword0x1b * str_F2C20ar.dword0x0c_realHeight / scaledHeight;
 						v166 = (int*)(&x_DWORD_E9C38_smalltit[45920]);
 						v158 = str_F2C20ar.dword0x04_screenY << 16;
 						v114 = str_F2C20ar.dword0x1f * str_F2C20ar.dword0x04_screenY >> 16;
@@ -4679,8 +4679,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						else
 						{
 							v152 = v171 - str_F2C20ar.width0x25;
-							v159 -= v171 - str_F2C20ar.width0x25;
-							if (v159 <= 0)
+							scaledHeight -= v171 - str_F2C20ar.width0x25;
+							if (scaledHeight <= 0)
 								break;
 							str_F2C20ar.dword0x0a_actIdx += v152 * v135;
 							v158 += v152 * v161;
@@ -4691,18 +4691,18 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						v142 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
 						if (v171 < str_F2C20ar.width0x25)
 						{
-							if (v159 > v142)
-								v159 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
+							if (scaledHeight > v142)
+								scaledHeight = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
 						}
-						else if (v171 + v159 - str_F2C20ar.width0x25 > v142)
+						else if (v171 + scaledHeight - str_F2C20ar.width0x25 > v142)
 						{
-							v159 = v142 - v171 + str_F2C20ar.width0x25;
-							if (v159 <= 0)
+							scaledHeight = v142 - v171 + str_F2C20ar.width0x25;
+							if (scaledHeight <= 0)
 								break;
 						}
 						//adress 223d83
 						v116 = 9999999;
-						for (jy = v159; jy; jy--)
+						for (jy = scaledHeight; jy; jy--)
 						{
 							v174 = v158 >> 16;
 							if (v158 >> 16 < 0)
@@ -4746,15 +4746,15 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								v119--;
 							}
 						}
-						if (v171 - v159 < 0)
+						if (v171 - scaledHeight < 0)
 						{
-							v129 = v159 - v171;
+							v129 = scaledHeight - v171;
 							v168 = (x_DWORD*)(12 * v171 + &x_DWORD_E9C38_smalltit[45920]);
 							v120 = (x_DWORD*)(x_DWORD_E9C38_smalltit + 59360);
-							v145 = v171 - v159 - str_F2C20ar.dword0x21;
+							v145 = v171 - scaledHeight - str_F2C20ar.dword0x21;
 							if (v145 < 0)
 							{
-								v159 = v171 - str_F2C20ar.dword0x21;
+								scaledHeight = v171 - str_F2C20ar.dword0x21;
 								if (v171 - str_F2C20ar.dword0x21 <= 0)
 									break;
 								v129 += v145;
