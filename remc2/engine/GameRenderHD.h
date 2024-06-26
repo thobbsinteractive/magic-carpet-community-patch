@@ -57,8 +57,6 @@ private:
 
 	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
 	uint8_t* m_ptrColorPalette = nullptr;
-	uint16_t m_uiScreenWidth_18062C = 0;
-	uint16_t m_uiScreenHeight_180624 = 0;
 
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
@@ -106,7 +104,7 @@ private:
 	void WaitForRenderFinish();
 
 public:
-	GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores);
+	GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores);
 	~GameRenderHD();
 	
 	void SetRenderThreads(uint8_t renderThreads);

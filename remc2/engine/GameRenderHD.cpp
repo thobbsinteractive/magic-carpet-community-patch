@@ -1,8 +1,7 @@
 #include "GameRenderHD.h"
 
-GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint16_t screenWidth, uint16_t screenHeight, uint8_t renderThreads, bool assignToSpecificCores) : 
-	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_uiScreenWidth_18062C(screenWidth), m_uiScreenHeight_180624(screenHeight), 
-	m_assignToSpecificCores(assignToSpecificCores)
+GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores) : 
+	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_assignToSpecificCores(assignToSpecificCores)
 {
 	SetRenderThreads(renderThreads);
 }
@@ -109,14 +108,14 @@ void GameRenderHD::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 	vPosX = x_DWORD_D4794 + posX;
 	vPosY = x_DWORD_D4798 + posY;
 
-	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && m_uiScreenWidth_18062C == 640)
+	if (D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193 && D41A0_0.m_GameSettings.m_Display.m_uiScreenSize && screenWidth_18062C == 640)
 	{
 		//VR interlaced render
 		viewPort.SetRenderViewPortSize_BCD45(
 			m_ptrScreenBuffer_351628,
-			2 * m_uiScreenWidth_18062C,
-			m_uiScreenWidth_18062C / 2 - 8,
-			m_uiScreenHeight_180624 / 2 - 40);
+			2 * screenWidth_18062C,
+			screenWidth_18062C / 2 - 8,
+			screenHeight_180624 / 2 - 40);
 		v22 = Maths::sin_DB750[vYaw];
 		x_DWORD_D4790 = 20;
 		v23 = 5 * v22;
@@ -125,11 +124,11 @@ void GameRenderHD::DrawWorld_411A0(int posX, int posY, int16_t yaw, int16_t posZ
 		v25 = 4 * v23 >> 16;
 		v26 = 20 * (signed int)v24 >> 16;
 		DrawTerrainAndParticles_3C080(vPosX - v26, vPosY - v25, vYaw, posZ, pitch, roll, fov);
-		viewPort.SetRenderViewPortSize_BCD45(m_ptrScreenBuffer_351628 + (m_uiScreenWidth_18062C / 2), 0, 0, 0);
+		viewPort.SetRenderViewPortSize_BCD45(m_ptrScreenBuffer_351628 + (screenWidth_18062C / 2), 0, 0, 0);
 		x_DWORD_D4324 = 5;
 		DrawTerrainAndParticles_3C080(vPosX + v26, vPosY + v25, vYaw, posZ, pitch, roll, fov);
 		x_DWORD_D4324 = 0;
-		viewPort.SetRenderViewPortSize_BCD45(m_ptrScreenBuffer_351628, m_uiScreenWidth_18062C, m_uiScreenWidth_18062C, m_uiScreenHeight_180624);
+		viewPort.SetRenderViewPortSize_BCD45(m_ptrScreenBuffer_351628, screenWidth_18062C, screenWidth_18062C, screenHeight_180624);
 	}
 	else if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize != 1 || D41A0_0.m_GameSettings.str_0x2192.xxxx_0x2193)
 	{
@@ -269,10 +268,12 @@ void GameRenderHD::WriteWorldToBMP()
 		mymkdir(path.c_str());
 	}
 
-	path = GetSubDirectoryPath("BufferOut/PaletteOut.bmp");
+	path = GetSubDirectoryPath("BufferOut");
+	path.append("/PaletteOut.bmp");
 	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_ptrColorPalette);
-	path = GetSubDirectoryPath("BufferOut/BufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), m_uiScreenWidth_18062C, m_uiScreenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
+	path = GetSubDirectoryPath("BufferOut");
+	path.append("/BufferOut.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), screenWidth_18062C, screenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
 }
 
 void GameRenderHD::ClearGraphicsBuffer(uint8_t colorIdx)
@@ -281,7 +282,7 @@ void GameRenderHD::ClearGraphicsBuffer(uint8_t colorIdx)
 	{
 		colorIdx = 255;
 	}
-	memset32(m_ptrScreenBuffer_351628, colorIdx, m_uiScreenWidth_18062C * m_uiScreenHeight_180624);
+	memset32(m_ptrScreenBuffer_351628, colorIdx, screenWidth_18062C * screenHeight_180624);
 }
 
 void GameRenderHD::DrawSky_40950_TH(int16_t roll)
