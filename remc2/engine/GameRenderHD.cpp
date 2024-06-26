@@ -4302,7 +4302,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 							}
 							v165 = (x_DWORD*)(&x_DWORD_E9C38_smalltit[45920]);
 
-							//Draw Sprite to Render Buffer
+							//Draw Sprite to Render Buffer (rotated and scaled)
 							for (i = scaledHeight; i; i--)
 							{
 								v133 = v165[1];
