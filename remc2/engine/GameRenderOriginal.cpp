@@ -897,7 +897,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 								}
 							}
 							if (Str_E9C38_smalltit[jx].haveBillboard_36)
-								DrawParticles_3E360(jx);
+								DrawSprites_3E360(jx);
 						}
 						v58 = v293 - 1;
 					}
@@ -1023,7 +1023,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 									}
 								}
 								if (Str_E9C38_smalltit[v83x].haveBillboard_36)
-									DrawParticles_3E360(v83x);
+									DrawSprites_3E360(v83x);
 					}
 							v83x--;
 				} while (v83x >= v82x);
@@ -1433,7 +1433,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 						}
 					}
 						if (Str_E9C38_smalltit[v161x].haveBillboard_36)
-							DrawParticles_3E360(/*v160,*/ v161x);
+							DrawSprites_3E360(/*v160,*/ v161x);
 						v161x++;
 				}
 					if (ii)
@@ -1527,7 +1527,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 								}
 							}
 							if (Str_E9C38_smalltit[v178x].haveBillboard_36)
-								DrawParticles_3E360(v178x);
+								DrawSprites_3E360(v178x);
 							v178x--;
 						} while (v178x >= v177x);
 					}
@@ -1772,7 +1772,7 @@ LABEL_259:
 				}
 			}
 			if (Str_E9C38_smalltit[v218x].haveBillboard_36)
-				DrawParticles_3E360(v218x);//21f01b
+				DrawSprites_3E360(v218x);//21f01b
 			v218x++;
 		}
 		//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
@@ -1838,7 +1838,7 @@ LABEL_259:
 					}
 				}
 				if (Str_E9C38_smalltit[v232x].haveBillboard_36)//adress 21f1b5 aex 360000 ebx 3f78a0 ecx 0 edx 414eb0
-					DrawParticles_3E360(/*v217,*/ v232x);
+					DrawSprites_3E360(/*v217,*/ v232x);
 				v232x--;
 			} while (v232x >= v231x);
 		}
@@ -3047,7 +3047,7 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a
 	}
 }
 
-void GameRenderOriginal::DrawParticles_3E360(int a2x)//21f360
+void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 {
 	unsigned __int16 result; // ax
 	type_event_0x6E8E* v3x; // eax
