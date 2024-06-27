@@ -284,10 +284,19 @@ void GameRenderHD::WriteWholeBufferToBmp()
 		mymkdir(path.c_str());
 	}
 
-	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_ptrColorPalette);
+	int stride = (screenWidth_18062C * screenHeight_180624);
+
 	path = GetSubDirectoryPath("BufferOut");
-	path.append("/WholeBufferOut.bmp");
-	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), GAME_RES_MAX_WIDTH * 3, GAME_RES_MAX_HEIGHT * 3, m_ptrColorPalette, m_ptrScreenBuffer_351628 - (GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT) * 4);
+	path.append("/WholeBufferOutLeft.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), screenWidth_18062C, screenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628 - (stride / 2));
+
+	path = GetSubDirectoryPath("BufferOut");
+	path.append("/WholeBufferOutMiddle.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), screenWidth_18062C, screenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
+
+	path = GetSubDirectoryPath("BufferOut");
+	path.append("/WholeBufferOutRight.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), screenWidth_18062C, screenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628 + (stride / 2));
 }
 
 void GameRenderHD::ClearGraphicsBuffer(uint8_t colorIdx)
