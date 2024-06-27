@@ -276,6 +276,20 @@ void GameRenderHD::WriteWorldToBMP()
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), screenWidth_18062C, screenHeight_180624, m_ptrColorPalette, m_ptrScreenBuffer_351628);
 }
 
+void GameRenderHD::WriteWholeBufferToBmp()
+{
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
+	{
+		mymkdir(path.c_str());
+	}
+
+	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, m_ptrColorPalette);
+	path = GetSubDirectoryPath("BufferOut");
+	path.append("/WholeBufferOut.bmp");
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), GAME_RES_MAX_WIDTH * 3, GAME_RES_MAX_HEIGHT * 3, m_ptrColorPalette, m_ptrScreenBuffer_351628 - (GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT) * 4);
+}
+
 void GameRenderHD::ClearGraphicsBuffer(uint8_t colorIdx)
 {
 	if (colorIdx > 255)
