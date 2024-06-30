@@ -3791,7 +3791,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	int v49; // ecx
 	int v50; // ST4C_4
 	int8_t* v51x; // ebx
-	x_BYTE* v52; // edx
+	uint8_t* v52; // edx
 	x_DWORD* v53; // esi
 	type_unk_F0E20x* v54x; // edi
 	int v55; // ecx
@@ -3803,49 +3803,49 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	char v61; // al
 	int8_t* v62x; // ebx
 	int v63; // eax
-	int8_t* v64; // edx
+	uint8_t* v64; // edx
 	x_DWORD* v65; // esi
 	type_unk_F0E20x* v66x; // edi
 	int v67; // ecx
 	int8_t* v68x; // ebx
-	x_BYTE* v69; // edx
+	uint8_t* v69; // edx
 	x_DWORD* v70; // esi
 	type_unk_F0E20x* v71x; // edi
 	int v72; // eax
 	int v73; // ecx
 	int8_t* v74x; // ebx
-	x_BYTE* v75; // edx
+	uint8_t* v75; // edx
 	x_DWORD* v76; // esi
 	type_unk_F0E20x* v77x; // edi
 	int v78; // eax
 	int v79; // ecx
 	int8_t* v80x; // ebx
-	x_BYTE* v81; // edx
+	uint8_t* v81; // edx
 	x_DWORD* v82; // esi
 	type_unk_F0E20x* v83x; // edi
 	int v84; // eax
 	int v85; // ecx
 	int8_t* v86x; // ebx
 	int v87; // eax
-	x_BYTE* v88; // edx
+	uint8_t* v88; // edx
 	x_DWORD* v89; // esi
 	type_unk_F0E20x* v90x; // edi
 	int v91; // ecx
 	int v92; // ecx
 	int8_t* v93x; // ebx
-	x_BYTE* v94; // edx
+	uint8_t* v94; // edx
 	int v95; // eax
 	x_DWORD* v96; // esi
 	type_unk_F0E20x* v97x; // edi
 	int v98; // ecx
 	int8_t* v99x; // ebx
-	x_BYTE* v100; // edx
+	uint8_t* v100; // edx
 	int v101; // eax
 	x_DWORD* v102; // esi
 	type_unk_F0E20x* v103x; // edi
 	int8_t* v104x; // ebx
 	int v105; // eax
-	x_BYTE* v106; // edx
+	uint8_t* v106; // edx
 	x_DWORD* v107; // esi
 	type_unk_F0E20x* v108x; // edi
 	int v109; // ecx
@@ -3915,6 +3915,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	int v175; // [esp+60h] [ebp-4h]
 
 	int jy;
+
+	int maxRenderBufferSize = screenWidth_18062C * screenHeight_180624 * 4;
 
 	/*uint8_t origbyte2y[100];
 	uint8_t remakebyte2y[100];
@@ -4342,7 +4344,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										{
 										case 0:
 											v51x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v52 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v52 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v52 < ViewPortRenderBufferStart_DE558 || v52 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v53 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);
 											v54x = &m_str_F0E20x[*v165];
 											v55 = v133 >> 1;
@@ -4372,23 +4378,35 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											}
 											while (1)
 											{
+												if (v52 < ViewPortRenderBufferStart_DE558 || v52 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v59 = v51x[0];
 												v51x += v53[2];
 												if (v59)
 													*v52 = v59;
 												v52 += v54x[1].dword_0;
+												if (v52 < ViewPortRenderBufferStart_DE558 || v52 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 											LABEL_197:
 												v60 = v51x[0];
 												v51x += v53[4];
 												if (v60)
 													*v52 = v60;
 												v52 += v54x[2].dword_0;
+												if (v52 < ViewPortRenderBufferStart_DE558 || v52 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 											LABEL_200:
 												v61 = v51x[0];
 												v51x += v53[6];
 												if (v61)
 													*v52 = v61;
 												v52 += v54x[3].dword_0;
+												if (v52 < ViewPortRenderBufferStart_DE558 || v52 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v53 += 8;
 												v54x += 4;
 												if (!--v56)
@@ -4404,7 +4422,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										case 1:
 											v62x = &v121x[*(x_DWORD*)(v155 + 4)];
 											v63 = str_F2C20ar.dword0x00;
-											v64 = (int8_t*)(v169x->dword_1 + ptrRenderBuffer);
+											v64 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v64 < ViewPortRenderBufferStart_DE558 || v64 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v65 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);
 											v66x = &m_str_F0E20x[*v165];
 											v67 = v133 >> 1;
@@ -4417,11 +4439,17 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											v67++;
 											while (1)
 											{
+												if (v64 < ViewPortRenderBufferStart_DE558 || v64 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												LOBYTE(v63) = v62x[0];
 												v62x += v65[2];
 												if ((x_BYTE)v63)
 													*v64 = x_BYTE_F6EE0_tablesx[v63];
 												v64 += v66x[1].dword_0;
+												if (v64 < ViewPortRenderBufferStart_DE558 || v64 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v65 += 4;
 												v66x += 2;
 												if (!--v67)
@@ -4436,7 +4464,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											break;
 										case 2:
 											v68x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v69 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v69 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v69 < ViewPortRenderBufferStart_DE558 || v69 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v70 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);
 											v71x = &m_str_F0E20x[*v165];
 											HIWORD(v72) = 0;
@@ -4450,6 +4482,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											v73++;
 											while (1)
 											{
+												if (v69 < ViewPortRenderBufferStart_DE558 || v69 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												HIBYTE(v72) = v68x[0];
 												v68x += v70[2];
 												if (HIBYTE(v72))
@@ -4458,6 +4493,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													*v69 = x_BYTE_F6EE0_tablesx[16384 + v72];
 												}
 												v69 += v71x[1].dword_0;
+												if (v69 < ViewPortRenderBufferStart_DE558 || v69 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v70 += 4;
 												v71x += 2;
 												if (!--v73)
@@ -4475,7 +4513,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											break;
 										case 3:
 											v74x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v75 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v75 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v75 < ViewPortRenderBufferStart_DE558 || v75 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v76 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);//to position
 											v77x = &m_str_F0E20x[v165[0]];//from position
 											HIWORD(v78) = 0;
@@ -4489,6 +4531,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											v79++;
 											while (1)
 											{
+												if (v75 < ViewPortRenderBufferStart_DE558 || v75 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												LOBYTE(v78) = v74x[0];
 												v74x += v76[2];
 												if ((x_BYTE)v78)
@@ -4497,6 +4542,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													*v75 = x_BYTE_F6EE0_tablesx[16384 + v78];
 												}
 												v75 += v77x[1].dword_0;
+												if (v75 < ViewPortRenderBufferStart_DE558 || v75 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v76 += 4;
 												v77x += 2;
 												if (!--v79)
@@ -4515,7 +4563,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										case 4:
 											v80x = &v121x[*(x_DWORD*)(v155 + 4)];
 											HIWORD(v84) = HIWORD(str_F2C20ar.dword0x07);
-											v81 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v81 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v81 < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || v81 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v82 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);
 											v83x = &m_str_F0E20x[*v165];
 											BYTE1(v84) = str_F2C20ar.dword0x07;
@@ -4529,11 +4581,17 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											v85++;
 											while (1)
 											{
+												if (v81 < ViewPortRenderBufferStart_DE558 || v81 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												LOBYTE(v84) = v80x[0];
 												v80x += v82[2];
 												if ((x_BYTE)v84)
 													*v81 = x_BYTE_F6EE0_tablesx[16384 + v84];
 												v81 += v83x[1].dword_0;
+												if (v81 < ViewPortRenderBufferStart_DE558 || v81 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v82 += 4;
 												v83x += 2;
 												if (!--v85)
@@ -4549,7 +4607,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										case 5:
 											v86x = &v121x[*(x_DWORD*)(v155 + 4)];
 											v87 = str_F2C20ar.dword0x07;
-											v88 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v88 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v88 < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || v88 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v89 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);
 											v90x = &m_str_F0E20x[*v165];
 											v91 = v133 >> 1;
@@ -4562,11 +4624,17 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											v91++;
 											while (1)
 											{
+												if (v88 < ViewPortRenderBufferStart_DE558 || v88 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												BYTE1(v87) = v86x[0];
 												v86x += v89[2];
 												if (BYTE1(v87))
 													*v88 = x_BYTE_F6EE0_tablesx[16384 + v87];
 												v88 += v90x[1].dword_0;
+												if (v88 < ViewPortRenderBufferStart_DE558 || v88 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v89 += 4;
 												v90x += 2;
 												if (!--v91)
@@ -4582,12 +4650,19 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										case 6:
 											v92 = str_F2C20ar.dword0x00;
 											v93x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v94 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v94 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v94 < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || v94 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											HIWORD(v95) = 0;
 											v96 = (x_DWORD*)(v155 + 8);
 											v97x = &v169x[1];
 											do
 											{
+												if (v94 < ViewPortRenderBufferStart_DE558 || v94 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												BYTE1(v95) = v93x[0];
 												v93x += *v96;
 												if (BYTE1(v95))
@@ -4605,12 +4680,19 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										case 7:
 											v98 = str_F2C20ar.dword0x00;
 											v99x = &v121x[*(x_DWORD*)(v155 + 4)];
-											v100 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v100 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v100 < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || v100 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											HIWORD(v101) = 0;
 											v102 = (x_DWORD*)(v155 + 8);
 											v103x = &v169x[1];
 											do
 											{
+												if (v100 < ViewPortRenderBufferStart_DE558 || v100 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												LOBYTE(v101) = v99x[0];
 												v99x += *v102;
 												if ((x_BYTE)v101)
@@ -4628,7 +4710,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 										case 8:
 											v104x = &v121x[*(x_DWORD*)(v155 + 4)];
 											v105 = str_F2C20ar.dword0x00;
-											v106 = (x_BYTE*)(v169x->dword_1 + ptrRenderBuffer);
+											v106 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
+
+											if (v106 < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || v106 > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+												break;
+
 											v107 = (x_DWORD*)(8 * (v165[2] - v116) + &x_DWORD_E9C38_smalltit[36960]);
 											v108x = &m_str_F0E20x[*v165];
 											v109 = v133 >> 1;
@@ -4641,6 +4727,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											v109++;
 											while (1)
 											{
+												if (v106 < ViewPortRenderBufferStart_DE558 || v106 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v111 = v104x[0];
 												v104x += v107[2];
 												if (v111)
@@ -4649,6 +4738,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													*v106 = x_BYTE_F6EE0_tablesx[v105];
 												}
 												v106 += v108x[3].dword_0;
+												if (v106 < ViewPortRenderBufferStart_DE558 || v106 >(ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+													break;
+
 												v107 += 4;
 												v108x += 2;
 												if (!--v109)
@@ -4669,6 +4761,10 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								}
 								str_F2C20ar.dword0x0a_actIdx += v135;
 								ptrRenderBuffer += str_F2C20ar.dword0x23_stride;
+
+								if (ptrRenderBuffer < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || ptrRenderBuffer > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+									return;
+
 								v165 += 3;
 							}
 						}
@@ -4713,6 +4809,10 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 							v171 = str_F2C20ar.width0x25;
 						}
 						ptrRenderBuffer = iScreenWidth_DE560 * (str_F2C20ar.width0x25 - 1 - v171) + ViewPortRenderBufferStart_DE558;
+
+						if (ptrRenderBuffer < ViewPortRenderBufferStart_DE558 || ptrRenderBuffer > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
+							break;
+
 					LABEL_285:
 						v142 = str_F2C20ar.width0x25 - str_F2C20ar.dword0x21;
 						if (v171 < str_F2C20ar.width0x25)
