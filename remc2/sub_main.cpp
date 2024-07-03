@@ -2269,8 +2269,8 @@ void sub_88D40();
 void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
-void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, const char* text);
-void DrawTextbox2_89690(type_textbox_sub1804B0* textbox);
+void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text);
+void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
@@ -28666,7 +28666,7 @@ void sub_30630()//211630
 	int result; // eax
 	unsigned __int16 v2; // cx
 	char* v5; // ebx
-	type_textbox_sub1804B0 v6z;
+	type_textbox_sub1804B0 textbox;
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 	result = 0;
@@ -28712,31 +28712,32 @@ void sub_30630()//211630
 			v5 = (char*)x_DWORD_E9C4C_langindexbuffer[result];
 			/*"Fly towards my beacon."*/
 
-			v6z.charWidth_0x10 = 8;
-			v6z.maxTextboxHeight2_0xe = 400;
-			v6z.minWidth_0x14 = 40;
-			v6z.maxWidth_0x16 = 600;
-			v6z.charHeight_0x12 = 14;
-			v6z.maxHeight_0x1a = 260;
-			v6z.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
-			v6z.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
-			v6z.minHeight_0x18 = 80;
-			v6z.maxTextboxWidth_0x0 = 320;
-			v6z.maxTextboxHeight_0x2 = 300;
-			v6z.maxTextboxWidth2_0xc = 320;
+			textbox.charWidth_0x10 = 8;
+			textbox.maxTextboxHeight2_0xe = 400;
+			textbox.minWidth_0x14 = 40;
+			textbox.maxWidth_0x16 = 600;
+			textbox.charHeight_0x12 = 14;
+			textbox.maxHeight_0x1a = 260;
+			textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
+			textbox.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
+			textbox.minHeight_0x18 = 80;
+			textbox.maxTextboxWidth_0x0 = 320;
+			textbox.maxTextboxHeight_0x2 = 300;
+			textbox.maxTextboxWidth2_0xc = 320;
 			if (!DefaultResolutions())
 			{
-				v6z.maxTextboxWidth_0x0 = screenWidth_18062C / 2;
-				v6z.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 100;
-				v6z.maxTextboxWidth2_0xc = screenWidth_18062C / 2;
-				v6z.maxTextboxHeight2_0xe = screenHeight_180624 / 2;
+				textbox.maxWidth_0x16 = screenWidth_18062C - 40;
+				textbox.maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+				textbox.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 100;
+				textbox.maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+				textbox.maxTextboxHeight2_0xe = screenHeight_180624 / 2;
 			}
-			ComputeTextboxSizesFromTextWords_89420(&v6z, v5);
-			ComputeTextboxSizes_89520(&v6z);
-			ComputeFrameSizes_89980(&v6z);
-			ColorizeScreen_2E790(v6z.framePosX_0x24, v6z.framePosY_0x26, v6z.frameWidth_0x28, v6z.frameHeight_0x2a, v6z.color2_0x31);
-			DrawTextbox_895D0(&v6z, v5);
-			DrawTextbox2_89690(&v6z);
+			ComputeTextboxSizesFromTextWords_89420(&textbox, v5);
+			ComputeTextboxSizes_89520(&textbox);
+			ComputeFrameSizes_89980(&textbox);
+			ColorizeScreen_2E790(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, textbox.color2_0x31);
+			DrawTextboxText_895D0(&textbox, v5);
+			DrawTextboxFrame_89690(&textbox);
 		}
 	}
 }
@@ -28747,7 +28748,7 @@ void sub_30870()//211870
 	char* v0; // ebx
 	__int16 v1; // ax
 	//char v3; // [esp+0h] [ebp-32h]
-	type_textbox_sub1804B0 v4y; // [esp+80h] [ebp+4Eh]
+	type_textbox_sub1804B0 textbox; // [esp+80h] [ebp+4Eh]
 	//__int16 v5; // [esp+82h] [ebp+50h]//v4x[1]
 	//__int16 v6; // [esp+8Ch] [ebp+5Ah]//v4x[6]
 	//__int16 v7; // [esp+8Eh] [ebp+5Ch]//v4x[7]
@@ -28763,28 +28764,29 @@ void sub_30870()//211870
 	DrawLine_2BC80(4, 286, 632, 190, 0);
 	sprintf(printbuffer, "%d", x_WORD_D41D4);
 	DrawText_2BC10(printbuffer, 10, 300, (*xadataclrd0dat.colorPalette_var28)[4095]);
-	v4y.maxTextboxHeight2_0xe = 400;
-	v4y.minWidth_0x14 = 4;
-	v4y.charWidth_0x10 = 8;
-	v4y.charHeight_0x12 = 14;
-	v4y.maxWidth_0x16 = 636;
+	textbox.maxTextboxHeight2_0xe = 400;
+	textbox.minWidth_0x14 = 4;
+	textbox.charWidth_0x10 = 8;
+	textbox.charHeight_0x12 = 14;
+	textbox.maxWidth_0x16 = 636;
 	v0 = x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
-	v4y.maxTextboxWidth2_0xc = 600;
-	v4y.maxTextboxWidth_0x0 = 320;
-	v4y.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
-	v4y.color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-	v4y.minHeight_0x18 = 310;
-	v4y.maxHeight_0x1a = 630;
-	v4y.maxTextboxHeight_0x2 = 310;
+	textbox.maxTextboxWidth2_0xc = 600;
+	textbox.maxTextboxWidth_0x0 = 320;
+	textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
+	textbox.color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+	textbox.minHeight_0x18 = 310;
+	textbox.maxHeight_0x1a = 630;
+	textbox.maxTextboxHeight_0x2 = 310;
 	if (!DefaultResolutions())
 	{
-		v4y.maxTextboxWidth_0x0 = screenWidth_18062C / 2;
-		v4y.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 90;
+		textbox.maxWidth_0x16 = screenWidth_18062C - 40;
+		textbox.maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+		textbox.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 90;
 	}
-	ComputeTextboxSizesFromTextWords_89420(&v4y, v0);
-	ComputeTextboxSizes_89520(&v4y);
-	ComputeFrameSizes_89980(&v4y);
-	DrawTextbox_895D0(&v4y, v0);
+	ComputeTextboxSizesFromTextWords_89420(&textbox, v0);
+	ComputeTextboxSizes_89520(&textbox);
+	ComputeFrameSizes_89980(&textbox);
+	DrawTextboxText_895D0(&textbox, v0);
 	switch (LastPressedKey_1806E4)
 	{
 	case 0x48:
@@ -76966,6 +76968,7 @@ void sub_87610()//268610
 			{
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+				str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
 			}
 			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
 			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
@@ -76977,8 +76980,8 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		DrawTextbox_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
-		DrawTextbox2_89690(str_unk_1804B0ar.type_sub_0);
+		DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -77007,9 +77010,9 @@ void sub_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		DrawTextbox_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+		DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
 		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-		DrawTextbox2_89690(str_unk_1804B0ar.type_sub_0);
+		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -77047,7 +77050,7 @@ void sub_87610()//268610
 			posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
 		}
 		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-		DrawTextbox2_89690(str_unk_1804B0ar.type_sub_0);
+		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
 		str_unk_1804B0ar.byte_0x9e &= 0xF7;
 		break;
 	}
@@ -77077,9 +77080,9 @@ void sub_87860()//268860
 		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
-		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
+		DrawTextboxText_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
 		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
-		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
+		DrawTextboxFrame_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
 }
 
@@ -77121,9 +77124,9 @@ void sub_87A30()//268a30
 		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
-		DrawTextbox_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
+		DrawTextboxText_895D0(&str_unk_1804B0ar.type_sub_0[1], (char*)x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
 		DrawTextboxLine_89A30(&str_unk_1804B0ar.type_sub_0[1]);
-		DrawTextbox2_89690(&str_unk_1804B0ar.type_sub_0[1]);
+		DrawTextboxFrame_89690(&str_unk_1804B0ar.type_sub_0[1]);
 	}
 }
 
@@ -78268,8 +78271,8 @@ void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
 
 	textBoxWidth = textbox->textBoxWidth_0x4;
 	textboxHeight = textbox->textboxHeight_0x6;
-	centerToMaxWidth = textbox->maxTextboxWidth_0x0 - textBoxWidth / 2;
-	centerToMaxHeight = textbox->maxTextboxHeight_0x2 - textboxHeight / 2;
+	centerToMaxWidth = textbox->maxTextboxWidth_0x0 - (textBoxWidth / 2);
+	centerToMaxHeight = textbox->maxTextboxHeight_0x2 - (textboxHeight / 2);
 	if (centerToMaxWidth < textbox->minWidth_0x14)
 		centerToMaxWidth = textbox->minWidth_0x14;
 	if (centerToMaxHeight < textbox->minHeight_0x18)
@@ -78285,7 +78288,7 @@ void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
 }
 
 //----- (000895D0) --------------------------------------------------------
-void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, const char* text)//26a5d0
+void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text)//26a5d0
 {
 	int i;
 	unsigned __int8 color;
@@ -78313,7 +78316,7 @@ void DrawTextbox_895D0(type_textbox_sub1804B0* textbox, const char* text)//26a5d
 }
 
 //----- (00089690) --------------------------------------------------------
-void DrawTextbox2_89690(type_textbox_sub1804B0* textbox)//26a690
+void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox)//26a690
 {
 	int width1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4;
 	int width2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4;
