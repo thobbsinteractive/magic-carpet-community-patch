@@ -4331,7 +4331,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 							for (i = scaledHeight; i; i--)
 							{
 								v133 = v165[1];
-								if ((v133 > 0) && (*v165 > 0))
+								if (v133 > 0)
 								{
 									//adress 2237d3
 
