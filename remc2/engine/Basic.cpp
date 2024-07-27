@@ -544,8 +544,8 @@ void* Malloc_83CD0(size_t a1)//264cd0
 	return malloc(a1);
 }
 
-void qmemcpy(void* a, void* b, size_t c) {
-	memcpy(a, b, c);
+void qmemcpy(void* dest, void* src, size_t size) {
+	memcpy(dest, src, size);
 };
 
 //----- (0009D490) --------------------------------------------------------
