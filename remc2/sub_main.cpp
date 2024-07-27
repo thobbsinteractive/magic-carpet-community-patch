@@ -13227,14 +13227,14 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		//v4 = *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8586) ^ 1;
 		D41A0_0.m_GameSettings.m_Graphics.m_wReflections ^= 1;
-		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[D41A0_0.m_GameSettings.m_Graphics.m_wReflections + 359], 3u, 50);
+		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[-D41A0_0.m_GameSettings.m_Graphics.m_wReflections + 360], 3u, 50);
 		//	Reflections On / Reflections Off
 		return;
 	case 10:
 		if (!D41A0_0.str_0x21AA.csky_0x21AC || !off_D41A8_sky)
 			return;
 		D41A0_0.m_GameSettings.m_Graphics.m_wSky ^= 1u;
-		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[D41A0_0.m_GameSettings.m_Graphics.m_wSky + 363], 3u, 50);
+		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[-D41A0_0.m_GameSettings.m_Graphics.m_wSky + 364], 3u, 50);
 		// Sky On / Sky Off
 		return;
 	case 11:
@@ -13242,7 +13242,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		//v6 = *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8587) ^ 1;
 		D41A0_0.m_GameSettings.m_Graphics.m_wShadows ^= 1;
-		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[D41A0_0.m_GameSettings.m_Graphics.m_wShadows + 357], 3u, 50);
+		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[-D41A0_0.m_GameSettings.m_Graphics.m_wShadows + 358], 3u, 50);
 		// Shadows On / Shadows Off
 		return;
 	case 12:
@@ -13250,7 +13250,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		//v7 = *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8598) == 1;
 		D41A0_0.m_GameSettings.str_0x2196.m_wDynamicLighting ^= 1;
-		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[D41A0_0.m_GameSettings.str_0x2196.m_wDynamicLighting + 395], 3u, 50);
+		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[-D41A0_0.m_GameSettings.str_0x2196.m_wDynamicLighting + 396], 3u, 50);
 		//Light Sources On / Light Sources Off
 		return;
 	case 13:
@@ -13277,7 +13277,7 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 			return;
 		//v11 = *(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 8601) ^ 1;
 		D41A0_0.m_GameSettings.str_0x2196.flat_0x2199 ^= 1;
-		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[D41A0_0.m_GameSettings.str_0x2196.flat_0x2199 + 442], 3u, 50);
+		sub_19760_set_message(x_DWORD_E9C4C_langindexbuffer[-D41A0_0.m_GameSettings.str_0x2196.flat_0x2199 + 443], 3u, 50);
 		// Flat Shading On / Flat Shading Off
 		return;
 	case 16://change resolution
@@ -53071,7 +53071,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		spdlog::level::level_enum level = spdlog::level::info;
 
 #ifdef _DEBUG
-		level = GetLoggingLevelFromString("Debug");
+		level = GetLoggingLevelFromString("Trace");
 #else
 		level = GetLoggingLevelFromString(loggingLevel.c_str());
 #endif
@@ -57851,6 +57851,7 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 	D41A0_0.str_0x21B6.cflat_0x21B9 = 1;
 
 	GetSystemSpeed();//265050 //get computer speed
+
 	//if (x_D41A0_BYTEARRAY_0[34])//0x22
 	if (x_D41A0_BYTEARRAY_4_struct.m_wHighSpeedSystem)//0x22
 	{
@@ -57869,6 +57870,11 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 		D41A0_0.m_GameSettings.m_Graphics.m_wSky = 0;
 		//x_D41A0_BYTEARRAY_0[8598] = 0;//0x2196
 		D41A0_0.m_GameSettings.str_0x2196.m_wDynamicLighting = 0;
+
+		//Disable options
+		D41A0_0.str_0x21AA.creflections_0x21AA = 0;
+		D41A0_0.str_0x21AA.csky_0x21AC = 0;
+		D41A0_0.str_0x21B6.clights_0x21B6 = 0;
 	}
 	//x_D41A0_BYTEARRAY_0[8587] = 1;//0x218b
 	D41A0_0.m_GameSettings.m_Graphics.m_wShadows = 1;
