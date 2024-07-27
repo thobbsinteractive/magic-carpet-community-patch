@@ -77495,8 +77495,8 @@ void sub_87CF0()//268cf0
 		v28x = 1;
 		while (v27 <= str_unk_1804B0ar.dword_0x66)
 		{
-			if (str_E2A74[v22x].axis_2[0] & 0x2ff)
-				str_E2A74[v22x].axis_2[0] &= 0xFEu;
+			if (str_E2A74[v28x].axis_2[0] & 0x2ff)
+				str_E2A74[v28x].axis_2[0] &= 0xFEu;
 			v27++;
 			v28x++;
 		}
