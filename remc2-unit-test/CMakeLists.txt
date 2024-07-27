@@ -128,6 +128,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 	findfirst
 	ADLMIDI_static
 	Boost::system
+	fmt::fmt
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
 gtest_add_tests(
