@@ -544,8 +544,8 @@ void* Malloc_83CD0(size_t a1)//264cd0
 	return malloc(a1);
 }
 
-void qmemcpy(void* a, void* b, size_t c) {
-	memcpy(a, b, c);
+void qmemcpy(void* dest, void* src, size_t size) {
+	memcpy(dest, src, size);
 };
 
 //----- (0009D490) --------------------------------------------------------
@@ -1698,7 +1698,7 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 		else
 			DrawLineHighRes_901E4(posStartX, posStartY, posEndX, posEndY, colorIdx);
 
-		pdwScreenBuffer_351628 = (uint8_t*)temp_screen_buffer;
+		pdwScreenBuffer_351628 = temp_screen_buffer;
 	}
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -3161,7 +3161,7 @@ void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tile
 			v21_buffer_temp_index1 = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
 
 			//v21 = (char *)(dword_18062C * a2 + a3 + v6);
-			int8_t v22_loc = 0;
+			int8_t size = 0;
 			int8_t v23_loc = -1;
 			int8_t* v25_loc = 0;
 			int8_t v26_loc = 0;
@@ -3180,19 +3180,21 @@ void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t tile
 						v25_loc = (int8_t*)&v21_buffer_temp_index1[-v23_loc];
 						v26_loc = texture[0];
 						v27_loc = (int8_t*)(texture + 1);
-						v22_loc = v26_loc;
-						qmemcpy(v25_loc, v27_loc, v22_loc);
-						texture = (uint8_t*)&v27_loc[v22_loc];
-						v21_buffer_temp_index1 = (uint8_t*)&v25_loc[v22_loc];
-						v22_loc = 0;
+						size = v26_loc;
+						if (size < 1)
+							break;
+						qmemcpy(v25_loc, v27_loc, size);
+						texture = (uint8_t*)&v27_loc[size];
+						v21_buffer_temp_index1 = (uint8_t*)&v25_loc[size];
+						size = 0;
 					}
-					if (!v23_loc)
+					if (v23_loc < 1)
 						break;
-					v22_loc = v23_loc;
-					qmemcpy(v21_buffer_temp_index1, texture, v22_loc);
-					texture += v22_loc;
-					v21_buffer_temp_index1 += v22_loc;
-					v22_loc = 0;
+					size = v23_loc;
+					qmemcpy(v21_buffer_temp_index1, texture, size);
+					texture += size;
+					v21_buffer_temp_index1 += size;
+					size = 0;
 				}
 				v24_loc += screenWidth_18062C;
 				v21_buffer_temp_index1 = (uint8_t*)v24_loc;
