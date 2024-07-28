@@ -55,6 +55,7 @@ private:
 
 	type_unk_F0E20x m_str_F0E20x[GAME_RES_MAX_WIDTH]; // Originally 640
 
+	uint8_t* m_ptrDWORD_E9C38_smalltit = nullptr;
 	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
 	uint8_t* m_ptrColorPalette = nullptr;
 
