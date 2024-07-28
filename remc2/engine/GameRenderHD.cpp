@@ -4883,6 +4883,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 		str_F2C20ar.dword0x03_screenX -= -(str_F2C20ar.sin_0x0d * str_F2C20ar.dword0x09_realWidth) >> 17;
 		goto LABEL_126;
 	}
+
+	//Draw Sprite to Render buffer
 	v138 = (str_F2C20ar.dword0x0c_realHeight + str_F2C20ar.dword0x09_realWidth) >> 2;
 	if (a1 >= 1)
 	{
