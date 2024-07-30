@@ -31,6 +31,12 @@ class GameRenderHD : public GameRenderInterface
 
 private:
 
+	//The sprite render uses hardcoded offsets of the buffer. This have been adjusted to the new buffer size of
+	//m_ptrDWORD_E9C38_smalltit otherwise at higher resolutions sprite data they writes over each other
+	const int m_bufferOffset_E9C38_1 = 995328; // 12%
+	const int m_bufferOffset_E9C38_2 = 1161216; // 14%
+	const int m_bufferOffset_E9C38_3 = 1658880; // 20%
+
 	uint8_t unk_D4328x[40] = {
 		0xED,0x01,0x00,0x00,0x00,0xFF,0xD8,0xFF,0x01,0x00,0x00,0xED,0xFF,0x00,0x01,0x00,
 		0x01,0xD8,0x00,0x01,0x13,0x00,0xFF,0xFF,0x00,0x01,0x28,0x01,0xFF,0x00,0x01,0x13,
