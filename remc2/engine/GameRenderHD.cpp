@@ -4339,11 +4339,18 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 									v169x = &m_str_F0E20x[*v165];
 									v155 = 8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[36960];
 									v121x = &str_F2C20ar.dword0x02_data[str_F2C20ar.dword0x08_width * (str_F2C20ar.dword0x0a_actIdx >> 16)];
+
+									int size = str_F2C20ar.dword0x08_width * str_F2C20ar.dword0x06_height;
+									int8_t *dataEnd = str_F2C20ar.dword0x02_data + size;
+
 									if ((unsigned int)str_F2C20ar.dword0x01_rotIdx <= 8)
 									{
 										switch (str_F2C20ar.dword0x01_rotIdx)
 										{
 										case 0:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v51x = &v121x[*(x_DWORD*)(v155 + 4)];
 											ptrSpriteRenderDest_v52 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
 											v53 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[36960]);
@@ -4376,6 +4383,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												v59 = ptrSpriteRenderSrc_v51x[0];
+
+												if ((ptrSpriteRenderSrc_v51x + v53[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v51x += v53[2];
 
 												if (v59)
@@ -4385,7 +4395,11 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											LABEL_197:
 
 												v60 = ptrSpriteRenderSrc_v51x[0];
+
+												if ((ptrSpriteRenderSrc_v51x + v53[4]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v51x += v53[4];
+
 												if (v60)
 													*ptrSpriteRenderDest_v52 = v60;
 												ptrSpriteRenderDest_v52 += v54x[2].dword_0;
@@ -4393,6 +4407,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											LABEL_200:
 
 												v61 = ptrSpriteRenderSrc_v51x[0];
+
+												if ((ptrSpriteRenderSrc_v51x + v53[6]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v51x += v53[6];
 
 												if (v61)
@@ -4406,6 +4423,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											LABEL_191:
 
 												v58 = ptrSpriteRenderSrc_v51x[0];
+
+												if ((ptrSpriteRenderSrc_v51x + *v53) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v51x += *v53;
 
 												if (v58)
@@ -4414,6 +4434,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											}
 											break;
 										case 1:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v62x = &v121x[*(x_DWORD*)(v155 + 4)];
 
 											v63 = str_F2C20ar.dword0x00;
@@ -4432,6 +4455,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												LOBYTE(v63) = ptrSpriteRenderSrc_v62x[0];
+
+												if ((ptrSpriteRenderSrc_v62x + v65[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v62x += v65[2];
 
 												if ((x_BYTE)v63)
@@ -4444,6 +4470,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													break;
 											LABEL_207:
 												LOBYTE(v63) = ptrSpriteRenderSrc_v62x[0];
+
+												if ((ptrSpriteRenderSrc_v62x + *v65) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v62x += *v65;
 
 												if ((x_BYTE)v63)
@@ -4452,6 +4481,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											}
 											break;
 										case 2:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v68x = &v121x[*(x_DWORD*)(v155 + 4)];
 											ptrSpriteRenderDest_v69 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
 											v70 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[36960]);
@@ -4468,6 +4500,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												HIBYTE(v72) = ptrSpriteRenderSrc_v68x[0];
+
+												if ((ptrSpriteRenderSrc_v68x + v70[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v68x += v70[2];
 
 												if (HIBYTE(v72))
@@ -4483,6 +4518,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													break;
 											LABEL_217:
 												HIBYTE(v72) = ptrSpriteRenderSrc_v68x[0];
+
+												if ((ptrSpriteRenderSrc_v68x + *v70) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v68x += *v70;
 
 												if (HIBYTE(v72))
@@ -4494,6 +4532,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											}
 											break;
 										case 3:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v74x = &v121x[*(x_DWORD*)(v155 + 4)];
 											ptrSpriteRenderDest_v75 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
 											v76 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[36960]);//to position
@@ -4510,6 +4551,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												LOBYTE(v78) = ptrSpriteRenderSrc_v74x[0];
+
+												if ((ptrSpriteRenderSrc_v74x + v76[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v74x += v76[2];
 
 												if ((x_BYTE)v78)
@@ -4525,6 +4569,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													break;
 											LABEL_227:
 												LOBYTE(v78) = ptrSpriteRenderSrc_v74x[0];
+
+												if ((ptrSpriteRenderSrc_v74x + *v76) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v74x += *v76;
 
 												if ((x_BYTE)v78)
@@ -4536,6 +4583,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											}
 											break;
 										case 4:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v80x = &v121x[*(x_DWORD*)(v155 + 4)];
 
 											HIWORD(v84) = HIWORD(str_F2C20ar.dword0x07);
@@ -4555,6 +4605,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												LOBYTE(v84) = ptrSpriteRenderSrc_v80x[0];
+
+												if ((ptrSpriteRenderSrc_v80x + v82[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v80x += v82[2];
 
 												if ((x_BYTE)v84)
@@ -4567,6 +4620,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													break;
 											LABEL_237:
 												LOBYTE(v84) = ptrSpriteRenderSrc_v80x[0];
+
+												if ((ptrSpriteRenderSrc_v80x + *v82) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v80x += *v82;
 
 												if ((x_BYTE)v84)
@@ -4575,6 +4631,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											}
 											break;
 										case 5:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v86x = &v121x[*(x_DWORD*)(v155 + 4)];
 
 											v87 = str_F2C20ar.dword0x07;
@@ -4593,6 +4652,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												BYTE1(v87) = ptrSpriteRenderSrc_v86x[0];
+
+												if ((ptrSpriteRenderSrc_v86x + v89[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v86x += v89[2];
 
 												if (BYTE1(v87))
@@ -4605,6 +4667,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													break;
 											LABEL_247:
 												BYTE1(v87) = ptrSpriteRenderSrc_v86x[0];
+
+												if ((ptrSpriteRenderSrc_v86x + *v89) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v86x += *v89;
 
 												if (BYTE1(v87))
@@ -4614,6 +4679,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											break;
 										case 6:
 											v92 = str_F2C20ar.dword0x00;
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v93x = &v121x[*(x_DWORD*)(v155 + 4)];
 											ptrSpriteRenderDest_v94 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
 
@@ -4623,6 +4691,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											do
 											{
 												BYTE1(v95) = ptrSpriteRenderSrc_v93x[0];
+
+												if ((ptrSpriteRenderSrc_v93x + *v96) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v93x += *v96;
 
 												if (BYTE1(v95))
@@ -4639,6 +4710,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											break;
 										case 7:
 											v98 = str_F2C20ar.dword0x00;
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v99x = &v121x[*(x_DWORD*)(v155 + 4)];
 											ptrSpriteRenderDest_v100 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
 											HIWORD(v101) = 0;
@@ -4647,6 +4721,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											do
 											{
 												LOBYTE(v101) = ptrSpriteRenderSrc_v99x[0];
+
+												if ((ptrSpriteRenderSrc_v99x + *v102) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v99x += *v102;
 
 												if ((x_BYTE)v101)
@@ -4662,6 +4739,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											} while (v133);
 											break;
 										case 8:
+											if (&v121x[*(x_DWORD*)(v155 + 4)] > dataEnd)
+												break;
+
 											ptrSpriteRenderSrc_v104x = &v121x[*(x_DWORD*)(v155 + 4)];
 
 											v105 = str_F2C20ar.dword0x00;
@@ -4680,6 +4760,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											while (1)
 											{
 												v111 = ptrSpriteRenderSrc_v104x[0];
+
+												if ((ptrSpriteRenderSrc_v104x + v107[2]) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v104x += v107[2];
 
 												if (v111)
@@ -4695,6 +4778,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													break;
 											LABEL_267:
 												v110 = ptrSpriteRenderSrc_v104x[0];
+
+												if ((ptrSpriteRenderSrc_v104x + *v107) > dataEnd)
+													break;
 												ptrSpriteRenderSrc_v104x += *v107;
 
 												if (v110)
