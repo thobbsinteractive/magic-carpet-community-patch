@@ -4578,7 +4578,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											ptrSpriteRenderSrc_v86x = &v121x[*(x_DWORD*)(v155 + 4)];
 											v87 = str_F2C20ar.dword0x07;
 											ptrSpriteRenderDest_v88 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-
 											v89 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
 											v90x = &m_str_F0E20x[*v165];
 											v91 = v133 >> 1;
@@ -4638,7 +4637,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											break;
 										case 7:
 											v98 = str_F2C20ar.dword0x00;
-
 											ptrSpriteRenderSrc_v99x = &v121x[*(x_DWORD*)(v155 + 4)];
 											ptrSpriteRenderDest_v100 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
 											HIWORD(v101) = 0;
@@ -4665,7 +4663,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											ptrSpriteRenderSrc_v104x = &v121x[*(x_DWORD*)(v155 + 4)];
 											v105 = str_F2C20ar.dword0x00;
 											ptrSpriteRenderDest_v106 = (uint8_t*)(v169x->dword_1 + ptrRenderBuffer);
-
 											v107 = (x_DWORD*)(8 * (v165[2] - v116) + &m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_1]);
 											v108x = &m_str_F0E20x[*v165];
 											v109 = v133 >> 1;
@@ -4687,7 +4684,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 													*ptrSpriteRenderDest_v106 = x_BYTE_F6EE0_tablesx[v105];
 												}
 												ptrSpriteRenderDest_v106 += v108x[3].dword_0;
-
 												v107 += 4;
 												v108x += 2;
 												if (!--v109)
@@ -4695,7 +4691,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 											LABEL_267:
 												v110 = ptrSpriteRenderSrc_v104x[0];
 												ptrSpriteRenderSrc_v104x += *v107;
-
 												if (v110)
 												{
 													LOBYTE(v105) = *ptrSpriteRenderDest_v106;
@@ -4709,10 +4704,6 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 								}
 								str_F2C20ar.dword0x0a_actIdx += v135;
 								ptrRenderBuffer += str_F2C20ar.dword0x23_stride;
-
-								if (ptrRenderBuffer < ViewPortRenderBufferStart_DE558 - maxRenderBufferSize || ptrRenderBuffer > (ViewPortRenderBufferStart_DE558 + maxRenderBufferSize))
-									return;
-
 								v165 += 3;
 							}
 						}
