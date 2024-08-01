@@ -9,6 +9,8 @@ GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uin
 
 GameRenderHD::~GameRenderHD()
 {
+	delete m_ptrDWORD_E9C38_smalltit;
+
 	if (m_renderThreads.size() > 0)
 	{
 		StopWorkerThreads();
