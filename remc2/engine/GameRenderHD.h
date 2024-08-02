@@ -64,6 +64,8 @@ private:
 	uint8_t* m_ptrDWORD_E9C38_smalltit = nullptr;
 	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
 	uint8_t* m_ptrColorPalette = nullptr;
+	uint8_t* m_preBlurBuffer_E9C3C = nullptr;
+	uint8_t* m_ptrBlurBuffer_E9C3C = nullptr;
 
 	std::vector<RenderThread*> m_renderThreads;
 	bool m_multiThreadRender = false;
