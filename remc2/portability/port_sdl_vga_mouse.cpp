@@ -102,7 +102,7 @@ SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height)
 	std::vector<SDL_Rect> displayBounds = GetDisplays();
 
 	for (int i = 0; i < displayBounds.size(); i++) {
-		if (displayBounds[i].w <= width && displayBounds[i].h <= height)
+		if (width <= displayBounds[i].w && height <= displayBounds[i].h)
 			return displayBounds[i];
 	}
 	return display;

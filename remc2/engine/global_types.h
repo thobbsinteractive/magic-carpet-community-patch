@@ -3,6 +3,9 @@
 #include <array>
 #include <cstdint>
 
+const uint16_t GAME_RES_MAX_WIDTH = 3840;
+const uint16_t GAME_RES_MAX_HEIGHT = 2160;
+
 typedef union {
 	uint8_t byte[4];
 	uint16_t word[2];

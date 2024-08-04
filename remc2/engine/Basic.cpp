@@ -114,8 +114,8 @@ int16_t x_WORD_180660_VGA_type_resolution; // weak
 uint8_t x_BYTE_E88E0x[32];
 uint8_t unk_F0A20x[1024];
 char isCaveLevel_D41B6 = 1;
-__int16 x_WORD_D4B7C = 254; // some key color?
-__int16 x_WORD_D4B7E = 0; // some key color?
+uint8_t keyColor1_D4B7C = 0xfe; // some key color?
+uint8_t keyColor2_D4B7E = 0x00; // some key color?
 type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
 uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
@@ -404,7 +404,7 @@ Pathstruct xadatapald0dat = { "DATA/PALD-0.DAT\0",&PALD0DAT_BEGIN_BUFFER,NULL,0,
 //#define psxazero7 27
 Pathstruct xawscreen_351628 = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_BUFFER,0x04b100,0 };
 //#define psxawscreen_351628 28
-Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER,0x11170/*0x011508*/,0 };
+Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER, 0x011508,0 };
 //#define psxabscreen2 29
 
 Pathstruct xadatapald0dat2 = { "DATA/PALD-0.DAT\0",&PALD0DAT2_BEGIN_BUFFER,NULL,0,0 };
