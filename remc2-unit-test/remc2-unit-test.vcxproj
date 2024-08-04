@@ -71,9 +71,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-	<CopyFileToFolders Include="..\asan\clang_rt.asan_dynamic-x86_64.dll" />
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
 	<CopyFileToFolders Include="..\asan\clang_rt.asan_dynamic-i386.dll" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+	<CopyFileToFolders Include="..\asan\clang_rt.asan_dynamic-x86_64.dll" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
