@@ -861,6 +861,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				{
 					SubDrawInverseTerrainAndParticles(projectedVertexBuffer, pitch);
 				}
+				//Draw rest of terrain
 				SubDrawTerrainAndParticles(projectedVertexBuffer, pitch);
 				return;
 			}
@@ -1053,7 +1054,6 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 	char v66; // ch
 	char v67; // dl
 	int v68x;
-	int v69; // eax
 	char v71; // dl
 	char v72; // dh
 	char v73; // ch
@@ -1138,11 +1138,7 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 				}
 				if (!(v67 & 2))
 				{
-					v69 = 0;
-					if (!(v69 & 0xF00))
-					{
-						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v68x, x_DWORD_DDF50_texture_adresses.at(1));
-					}
+					DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v68x, x_DWORD_DDF50_texture_adresses.at(1));
 				}
 			}
 			projectedVertexBuffer[18] = Str_E9C38_smalltit[v68x].pnt1_16;
@@ -1301,7 +1297,6 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 	char v142; // ch
 	int v143x;
 	char v144; // dl
-	int v145; // eax
 	int v147x;
 	char v148; // dl
 	char v149; // dl
@@ -1312,7 +1307,6 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 	int v154; // eax
 	int v155x;
 	char v156; // dl
-	int v157; // eax
 	char m; // [esp+B0h] [ebp+4Eh]
 	char n; // [esp+B8h] [ebp+56h]
 
@@ -1360,11 +1354,7 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 				}
 				if (!(v144 & 2))
 				{
-					v145 = 0;
-					if (!(v145 & 0xF00))
-					{
-						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v143x);
-					}
+					DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v143x);
 				}
 			}
 			if (Str_E9C38_smalltit[v143x].haveBillboard_36)
@@ -1415,11 +1405,7 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 					}
 					if (!(v156 & 2))
 					{
-						v157 = 0;
-						if (!(v157 & 0xF00))
-						{
-							DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v155x);
-						}
+						DrawInverseSquareInProjectionSpace(&projectedVertexBuffer[0], v155x);
 					}
 				}
 				if (Str_E9C38_smalltit[v155x].haveBillboard_36)
