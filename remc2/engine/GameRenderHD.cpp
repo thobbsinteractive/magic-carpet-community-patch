@@ -807,12 +807,15 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v124x = 0;
 				while (v123)
 				{
-					//Transformation to View Space
+					//Rotation X
 					v125 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
 					projectedVertexBuffer[25] = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+
+					//Rotation Y
 					v126 = Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d;
 					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt2_20) >> 16);
 					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt4_28) >> 16);
+
 					Str_E9C38_smalltit[v124x].pnt1_16 = v125;
 					v128 = v127;
 					v129 = projectedVertexBuffer[24];
