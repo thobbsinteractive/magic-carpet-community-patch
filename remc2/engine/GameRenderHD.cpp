@@ -665,6 +665,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		{
 			if (!i)
 			{
+				//Geometry tiles Distance 0 = near player
 				v46 = 840;
 				v47x = 0;
 				while (v46)
@@ -796,10 +797,12 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	//Draw Terrain with Reflections
 	if (D41A0_0.m_GameSettings.m_Graphics.m_wReflections)
 	{
+		Logger->trace("Start Drawing Terrain Frame with Reflection");
 		for (l = 21; ; l--)
 		{
 			if (!l)
 			{
+				//Geometry tiles Distance 0 = near player
 				v123 = 840;
 				v124x = 0;
 				while (v123)
@@ -863,6 +866,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				}
 				//Draw rest of terrain
 				SubDrawTerrainAndParticles(projectedVertexBuffer, pitch);
+				Logger->trace("Finished Drawing Terrain Frame with Reflection");
 				return;
 			}
 
@@ -998,6 +1002,8 @@ LABEL_259:
 		goto LABEL_254;
 	}//21edb7 nothing changed
 	v208 = roll & 0x7FF;//21edb7
+
+	//Geometry tiles Distance 0 = near player
 	v209 = 840;
 	v210 = Maths::sin_DB750[v208];
 	v211 = Maths::sin_DB750[512 + v208];
@@ -1310,9 +1316,12 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 	char m; // [esp+B0h] [ebp+4Eh]
 	char n; // [esp+B8h] [ebp+56h]
 
+	Logger->trace("Start Drawing Reflection");
+
 	for (m = 20; m; --m)
 	{
 		//Draw Left Side of Reflection
+		Logger->trace("Start Drawing Left Side of Reflection");
 		v134x = v133x;
 		for (n = 39; n; --n)
 		{
@@ -1362,6 +1371,7 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 			v134x = v143x + 1;
 		}
 		//Draw Right Side of Reflection
+		Logger->trace("Start Drawing Right Side of Reflection");
 		if (n)
 		{
 			v25z = v134x - 1;
@@ -2913,6 +2923,13 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	auto vertex6 = ProjectionPolygon(&vertexs[6]);
 	auto vertex12 = ProjectionPolygon(&vertexs[12]);
 	auto vertex18 = ProjectionPolygon(&vertexs[18]);
+
+	Logger->trace("--------------------------------------");
+	Logger->trace("{}", vertex0.Print());
+	Logger->trace("{}", vertex6.Print());
+	Logger->trace("{}", vertex12.Print());
+	Logger->trace("{}", vertex18.Print());
+	Logger->trace("--------------------------------------");
 
 	uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 
