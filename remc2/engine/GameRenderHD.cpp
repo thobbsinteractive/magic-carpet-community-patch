@@ -807,6 +807,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v124x = 0;
 				while (v123)
 				{
+					//Transformation to View Space
 					v125 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
 					projectedVertexBuffer[25] = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
 					v126 = Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d;
@@ -1325,27 +1326,42 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 		v134x = v133x;
 		for (n = 39; n; --n)
 		{
+			//ProjectionPolygon 4: X
 			projectedVertexBuffer[18] = Str_E9C38_smalltit[v134x].pnt3_24;
+			//ProjectionPolygon 4: Y
 			projectedVertexBuffer[19] = Str_E9C38_smalltit[v134x].pnt4_28;
+
 			v135 = Str_E9C38_smalltit[v134x].pnt5_32;
 			v134x++;
 			projectedVertexBuffer[22] = v135;
 			v136 = Str_E9C38_smalltit[v134x - 1].triangleFeatures_38;
 			if (Str_E9C38_smalltit[v134x].triangleFeatures_38 & 4)
 				break;
+
+			//ProjectionPolygon 3: X
 			projectedVertexBuffer[12] = Str_E9C38_smalltit[v134x].pnt3_24;
+			//ProjectionPolygon 3: Y
 			projectedVertexBuffer[13] = Str_E9C38_smalltit[v134x].pnt4_28;
+
 			projectedVertexBuffer[16] = Str_E9C38_smalltit[v134x].pnt5_32;
 			v137 = Str_E9C38_smalltit[v134x].triangleFeatures_38;
+
+			//ProjectionPolygon 2: X
 			projectedVertexBuffer[6] = Str_E9C38_smalltit[v134x - 40].pnt3_24;
+			//ProjectionPolygon 2: Y
 			projectedVertexBuffer[7] = Str_E9C38_smalltit[v134x - 40].pnt4_28;
+
 			projectedVertexBuffer[10] = Str_E9C38_smalltit[v134x - 40].pnt5_32;
 			v138 = Str_E9C38_smalltit[v134x - 40].triangleFeatures_38 | v137 | v136;
+
+			//ProjectionPolygon 1: X
 			projectedVertexBuffer[0] = Str_E9C38_smalltit[v134x - 41].pnt3_24;
 			v139 = Str_E9C38_smalltit[v134x - 41].pnt4_28;
 			v140x = v134x - 40;
 			v140x--;
+			//ProjectionPolygon 1: Y
 			projectedVertexBuffer[1] = v139;
+
 			projectedVertexBuffer[4] = Str_E9C38_smalltit[v140x].pnt5_32;
 			v142 = Str_E9C38_smalltit[v140x].triangleFeatures_38;
 			v143x = v140x + 40;
@@ -1378,26 +1394,41 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 			v147x = v133x + 38;
 			do
 			{
+				//ProjectionPolygon 4: X
 				projectedVertexBuffer[18] = Str_E9C38_smalltit[v147x].pnt3_24;
+				//ProjectionPolygon 4: Y
 				projectedVertexBuffer[19] = Str_E9C38_smalltit[v147x].pnt4_28;
+
 				projectedVertexBuffer[22] = Str_E9C38_smalltit[v147x].pnt5_32;
 				v148 = Str_E9C38_smalltit[v147x].triangleFeatures_38;
+
+				//ProjectionPolygon 3: X
 				projectedVertexBuffer[12] = Str_E9C38_smalltit[v147x + 1].pnt3_24;
+				//ProjectionPolygon 3: Y
 				projectedVertexBuffer[13] = Str_E9C38_smalltit[v147x + 1].pnt4_28;
+
 				projectedVertexBuffer[16] = Str_E9C38_smalltit[v147x + 1].pnt5_32;
 				v149 = Str_E9C38_smalltit[v147x + 1].triangleFeatures_38 | v148;
+
+				//ProjectionPolygon 2: X
 				projectedVertexBuffer[6] = Str_E9C38_smalltit[v147x - 39].pnt3_24;
 				v150 = Str_E9C38_smalltit[v147x - 39].pnt4_28;
 				v151x = v147x + 1;
+				//ProjectionPolygon 2: Y
 				projectedVertexBuffer[7] = v150;
 				v152 = Str_E9C38_smalltit[v151x - 40].pnt5_32;
+
 				v151x -= 40;
 				projectedVertexBuffer[10] = v152;
 				v153 = Str_E9C38_smalltit[v151x].triangleFeatures_38;
+
+				//ProjectionPolygon 1: X
 				projectedVertexBuffer[0] = Str_E9C38_smalltit[v151x - 1].pnt3_24;
 				v154 = Str_E9C38_smalltit[v151x - 1].pnt4_28;
 				v151x--;
+				//ProjectionPolygon 1: Y
 				projectedVertexBuffer[1] = v154;
+
 				projectedVertexBuffer[4] = Str_E9C38_smalltit[v151x].pnt5_32;
 				LOBYTE(v154) = Str_E9C38_smalltit[v151x].triangleFeatures_38;
 				v155x = v151x + 40;
