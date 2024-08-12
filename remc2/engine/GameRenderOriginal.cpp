@@ -665,7 +665,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 		a2 += 256;
 		v17--;
 	}
-	str_F2C20ar.dword0x15 = 26214400;//21d2df not drawing
+	str_F2C20ar.dword0x15_tileRenderCutOffDistance = 26214400;//21d2df not drawing
 	v278x = 0;
 	str_F2C20ar.dword0x12 = 8912896;
 	v22 = v277[0];
@@ -1039,7 +1039,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 				v34 = Str_E9C38_smalltit[v278x].y_12;
 				v35 = v34 * v34 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
-				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15)
+				if (v34 <= -256 || v35 >= str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				{
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 					goto LABEL_46;
@@ -1542,7 +1542,7 @@ void GameRenderOriginal::DrawTerrainAndParticles_3C080(__int16 posX, __int16 pos
 				v109 = Str_E9C38_smalltit[v278x].y_12;
 				v110 = v109 * v109 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 				Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
-				if (v109 <= -256 || v110 >= str_F2C20ar.dword0x15)
+				if (v109 <= -256 || v110 >= str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				{
 					Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 					goto LABEL_140;
@@ -1625,7 +1625,7 @@ LABEL_259:
 			v198 = Str_E9C38_smalltit[v278x].y_12;
 			v199 = v198 * v198 + Str_E9C38_smalltit[v278x].x_0 * Str_E9C38_smalltit[v278x].x_0;
 			Str_E9C38_smalltit[v278x].haveBillboard_36 = 0;
-			if (v198 > -256 && v199 < str_F2C20ar.dword0x15)
+			if (v198 > -256 && v199 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				break;
 			Str_E9C38_smalltit[v278x].triangleFeatures_38 |= 2u;
 		LABEL_256:
@@ -1942,7 +1942,7 @@ uint16_t GameRenderOriginal::sub_3FD60(int a2x)
 				v40 = (str_F2C20ar.dword0x17 * v4 + str_F2C20ar.dword0x0f * v5) >> 16;
 				v7 = (str_F2C20ar.dword0x17 * v4 + str_F2C20ar.dword0x0f * v5) >> 16;
 				v8 = v40 * v40 + v6 * v6;
-				if (v7 > 64 && v8 < str_F2C20ar.dword0x15)
+				if (v7 > 64 && v8 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				{
 					if (v8 <= str_F2C20ar.dword0x13)
 					{
@@ -3168,7 +3168,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 					v5 = (str_F2C20ar.dword0x0f * v96 - str_F2C20ar.dword0x17 * v97) >> 16;
 					v99 = (str_F2C20ar.dword0x17 * v96 + str_F2C20ar.dword0x0f * v97) >> 16;
 					v6 = v99 * v99 + v5 * v5;
-					if (v99 > 64 && v6 < str_F2C20ar.dword0x15)
+					if (v99 > 64 && v6 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 					{
 						if (v6 <= str_F2C20ar.dword0x13)
 							str_F2C20ar.dword0x00 = 0x2000;
@@ -3496,7 +3496,7 @@ void GameRenderOriginal::DrawSprites_3E360(int a2x)//21f360
 				}
 			}
 			v51 = v100 * v100 + v49 * v49;
-			if (v100 > 64 && v51 < str_F2C20ar.dword0x15)
+			if (v100 > 64 && v51 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 			{
 				if (v51 <= str_F2C20ar.dword0x13)
 				{
