@@ -517,12 +517,12 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	//uint8_t* v278;
 	int v278x;
 	unsigned __int16 v279; // [esp+8Ch] [ebp+2Ah]
-	char l; // [esp+90h] [ebp+2Eh]
+	int l; // [esp+90h] [ebp+2Eh]
 	char v283; // [esp+9Ch] [ebp+3Ah]
 	char k; // [esp+A0h] [ebp+3Eh]
 	char v285; // [esp+A4h] [ebp+42h]
 	char i; // [esp+A8h] [ebp+46h]
-	char jj; // [esp+ACh] [ebp+4Ah]
+	int jj; // [esp+ACh] [ebp+4Ah]
 
 	int a1 = 0;
 	int a2 = 0;
@@ -1318,8 +1318,8 @@ void GameRenderHD::SubDrawInverseTerrainAndParticles(std::vector<int>& projected
 	int v154; // eax
 	int v155x;
 	char v156; // dl
-	char m; // [esp+B0h] [ebp+4Eh]
-	char n; // [esp+B8h] [ebp+56h]
+	int m; // [esp+B0h] [ebp+4Eh]
+	int n; // [esp+B8h] [ebp+56h]
 
 	Logger->trace("Start Drawing Reflection");
 
