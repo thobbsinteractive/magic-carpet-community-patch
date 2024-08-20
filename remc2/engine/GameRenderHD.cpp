@@ -576,6 +576,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 
 	v14 = 40;//21d231
 	v15x = 0;
+	
+	Logger->trace("------DrawTerrainAndParticles_3C080: {}-------", viewPort.Width_DE564);
 	do//filling first pointer of m_ptrDWORD_E9C38_smalltit(3f52a4)//prepare billboards
 	{
 		projectedVertexBuffer[29] = a1 * v13 >> 16;
