@@ -9,7 +9,7 @@
 typedef struct {//lenght 44
 	int32_t x_0;
 	int32_t alt_4;//altitude
-	int32_t alt2_8;//?
+	int32_t inverse_alt_8;//inverse altitude
 	int32_t y_12;//?
 	int32_t pnt1_16;//triangleB
 	int32_t pnt2_20;//triangleB

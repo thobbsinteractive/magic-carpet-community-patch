@@ -815,7 +815,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 						tempY = 128;
 					Str_E9C38_smalltit[index2].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].x_0 / tempY;
 					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
-					Str_E9C38_smalltit[index2].alt2_8 = (x_BYTE_14B4E0_second_heightmap[yawXY.word] << 15 >> 10) - posZ;
+					Str_E9C38_smalltit[index2].inverse_alt_8 = (x_BYTE_14B4E0_second_heightmap[yawXY.word] << 15 >> 10) - posZ;
 					tempSinXSin = 0;
 					if (!mapTerrainType_10B4E0[yawXY.word])
 					{
@@ -836,7 +836,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					if (mapAngle_13B4E0[yawXY.word] & 8)
 						Str_E9C38_smalltit[index2].triangleFeatures_38 |= 0x80u;
 					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
-					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt2_8 / tempY;
+					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].inverse_alt_8 / tempY;
 					uaxis_2d tempYawXY = yawXY;
 					tempYawXY._axis_2d.x += yawQuartal[2];
 					tempYawXY._axis_2d.y += yawQuartal[3];
@@ -1262,7 +1262,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
 					//v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 					tempSinXSin = pow((Maths::sin_DB750[((D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6)+(yawXY._axis_2d.y << 7)) & 0x7FF] >> 8), 2);
-					Str_E9C38_smalltit[index2].alt2_8 = -(mapHeightmap_11B4E0[yawXY.word] * ((tempSinXSin >> 4) + 0x8000) >> 10) - posZ;
+					Str_E9C38_smalltit[index2].inverse_alt_8 = -(mapHeightmap_11B4E0[yawXY.word] * ((tempSinXSin >> 4) + 0x8000) >> 10) - posZ;
 					tempSinXSin = 0;
 					allert_error();//test  next ifs
 					if ((mapAngle_13B4E0[yawXY.word] & 8)!=0)
@@ -1280,7 +1280,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					else
 						Str_E9C38_smalltit[index2].pnt5_32 = 0;
 					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
-					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt2_8 / tempY;
+					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].inverse_alt_8 / tempY;
 					uaxis_2d tempYawXY = yawXY;
 					tempYawXY._axis_2d.x += yawQuartal[2];
 					tempYawXY._axis_2d.y += yawQuartal[3];
