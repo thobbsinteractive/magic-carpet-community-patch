@@ -418,6 +418,7 @@ void GameRenderHD::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEv
 */
 void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
+	int sinIdx = 0;
 	int v9; // eax
 	int v10; // edx
 	int v11; // ecx
@@ -478,13 +479,11 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	unsigned __int8 v119; // al
 	int v120x;
 	uint8_t* v121; // eax
-	char v122; // bh
+	int v122; // bh
 	signed int v123; // ebx
 	int v124x;
-	int v125; // esi
-	int v126; // ecx
-	int v127; // ecx
-	int v128; // edx
+	int pnt1_16; // esi
+	int pnt4_28; // ecx
 	int v129; // ecx
 	int v130; // edx
 	signed int v131; // esi
@@ -809,18 +808,15 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				while (v123)
 				{
 					//Rotation and Translation X
-					v125 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					pnt1_16 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
 					projectedVertexBuffer[25] = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
 
 					//Rotation and Translation Y
-					v126 = Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d;
-					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt2_20) >> 16);
-					v127 = str_F2C20ar.dword0x10 - ((v126 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt4_28) >> 16);
-
-					Str_E9C38_smalltit[v124x].pnt1_16 = v125;
-					v128 = v127;
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt2_20) >> 16);
+					pnt4_28 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt4_28) >> 16);
+					Str_E9C38_smalltit[v124x].pnt1_16 = pnt1_16;
 					v129 = projectedVertexBuffer[24];
-					Str_E9C38_smalltit[v124x].pnt4_28 = v128;
+					Str_E9C38_smalltit[v124x].pnt4_28 = pnt4_28;
 					Str_E9C38_smalltit[v124x].pnt2_20 = v129;
 					v130 = Str_E9C38_smalltit[v124x].pnt1_16;
 					Str_E9C38_smalltit[v124x].pnt3_24 = projectedVertexBuffer[25];
@@ -893,7 +889,8 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v111 = v279;
 				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v279] - posZ;
 				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-				projectedVertexBuffer[26] = Maths::sin_DB750[(v112 + (HIBYTE(v279) << 7)) & 0x7FF] >> 8;
+				sinIdx = (v112 + (HIBYTE(v279) << 7)) & 0x7FF;
+				projectedVertexBuffer[26] = Maths::sin_DB750[sinIdx] >> 8;
 				v113 = projectedVertexBuffer[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
 				projectedVertexBuffer[26] = mapHeightmap_11B4E0[v111];
 				Str_E9C38_smalltit[v278x].inverse_alt_8 = -(projectedVertexBuffer[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
