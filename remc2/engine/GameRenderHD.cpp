@@ -469,7 +469,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	signed int v109; // esi
 	int v110; // ebx
 	unsigned __int16 v111; // dx
-	__int16 v112; // ax
+	__int16 tickIdx; // ax
 	int v113; // eax
 	//int v114x;
 	//signed int v115; // edx
@@ -888,10 +888,11 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				Str_E9C38_smalltit[v278x].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[v278x].x_0 / v109;
 				v111 = v279;
 				Str_E9C38_smalltit[v278x].alt_4 = 32 * mapHeightmap_11B4E0[v279] - posZ;
-				v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
-				sinIdx = (v112 + (HIBYTE(v279) << 7)) & 0x7FF;
+				//Used for Reflection Wave Index.
+				tickIdx = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
+				sinIdx = (tickIdx + (HIBYTE(v279) << 7)) & 0x7FF;
 				projectedVertexBuffer[26] = Maths::sin_DB750[sinIdx] >> 8;
-				v113 = projectedVertexBuffer[26] * (Maths::sin_DB750[(((unsigned __int8)v279 << 7) + v112) & 0x7FF] >> 8);
+				v113 = projectedVertexBuffer[26] * (Maths::sin_DB750[sinIdx] >> 8);
 				projectedVertexBuffer[26] = mapHeightmap_11B4E0[v111];
 				Str_E9C38_smalltit[v278x].inverse_alt_8 = -(projectedVertexBuffer[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
 				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].alt_4 -= v113 >> 10, projectedVertexBuffer[31] >= 14464))
