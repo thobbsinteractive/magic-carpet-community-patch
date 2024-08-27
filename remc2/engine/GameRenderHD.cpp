@@ -672,11 +672,11 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				v47x = 0;
 				while (v46)
 				{
-					v48 = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v47x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
-					projectedVertexBuffer[25] = ((Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v47x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+					v48 = (((long)Str_E9C38_smalltit[v47x].pnt1_16 * (long)str_F2C20ar.cos_0x11 - (long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v47x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					projectedVertexBuffer[25] = (((long)Str_E9C38_smalltit[v47x].pnt1_16 * (long)str_F2C20ar.cos_0x11 - (long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v47x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
 					v49 = Str_E9C38_smalltit[v47x].pnt1_16 * str_F2C20ar.sin_0x0d;
-					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v47x].pnt2_20) >> 16);
-					v50 = str_F2C20ar.dword0x10 - ((v49 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v47x].pnt4_28) >> 16);
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - (((long)v49 + (long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v47x].pnt2_20) >> 16);
+					v50 = str_F2C20ar.dword0x10 - (((long)v49 + (long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v47x].pnt4_28) >> 16);
 					Str_E9C38_smalltit[v47x].pnt1_16 = v48;
 					v51 = v50;
 					v52 = projectedVertexBuffer[24];
@@ -810,12 +810,12 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				while (v123)
 				{
 					//Rotation and Translation X
-					pnt1_16 = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
-					projectedVertexBuffer[25] = ((str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt1_16 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v124x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
+					pnt1_16 = (((long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v124x].pnt1_16 - (long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v124x].pnt2_20) >> 16) + str_F2C20ar.dword0x24;
+					projectedVertexBuffer[25] = (((long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v124x].pnt1_16 - (long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v124x].pnt4_28) >> 16) + str_F2C20ar.dword0x24;
 
 					//Rotation and Translation Y
-					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt2_20) >> 16);
-					pnt4_28 = str_F2C20ar.dword0x10 - ((Str_E9C38_smalltit[v124x].pnt1_16 * str_F2C20ar.sin_0x0d + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v124x].pnt4_28) >> 16);
+					projectedVertexBuffer[24] = str_F2C20ar.dword0x10 - (((long)Str_E9C38_smalltit[v124x].pnt1_16 * (long)str_F2C20ar.sin_0x0d + (long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v124x].pnt2_20) >> 16);
+					pnt4_28 = str_F2C20ar.dword0x10 - (((long)Str_E9C38_smalltit[v124x].pnt1_16 * (long)str_F2C20ar.sin_0x0d + (long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v124x].pnt4_28) >> 16);
 					Str_E9C38_smalltit[v124x].pnt1_16 = pnt1_16;
 					v129 = projectedVertexBuffer[24];
 					Str_E9C38_smalltit[v124x].pnt4_28 = pnt4_28;
@@ -1018,8 +1018,8 @@ LABEL_259:
 	while (v209)
 	{
 		v212 = str_F2C20ar.dword0x10;
-		v213 = (str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v56x].pnt1_16 + str_F2C20ar.cos_0x11 * Str_E9C38_smalltit[v56x].pnt2_20) >> 16;
-		Str_E9C38_smalltit[v56x].pnt1_16 = ((Str_E9C38_smalltit[v56x].pnt1_16 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * Str_E9C38_smalltit[v56x].pnt2_20) >> 16)
+		v213 = ((long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v56x].pnt1_16 + (long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v56x].pnt2_20) >> 16;
+		Str_E9C38_smalltit[v56x].pnt1_16 = (((long)Str_E9C38_smalltit[v56x].pnt1_16 * (long)str_F2C20ar.cos_0x11 - (long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v56x].pnt2_20) >> 16)
 			+ str_F2C20ar.dword0x24;
 		v214 = v212 - v213;
 		v215 = Str_E9C38_smalltit[v56x].pnt1_16;
