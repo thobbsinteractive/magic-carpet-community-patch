@@ -123,6 +123,9 @@ public:
 	void WriteWorldToBMP();
 	void WriteWholeBufferToBmp();
 	void ClearGraphicsBuffer(uint8_t colorIdx);
+
+	static int32_t CalculateRotationTranslationX(int64_t cos_0x11, int64_t pnt1, int64_t sin_0x0d, int64_t pnt2);
+	static int32_t CalculateRotationTranslationY(int64_t pnt1, int64_t sin_0x0d, int64_t cos_0x11, int64_t pnt2);
 };
 
 #endif //GAME_RENDER_HD
