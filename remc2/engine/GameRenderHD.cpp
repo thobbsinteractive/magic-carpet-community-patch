@@ -2968,12 +2968,12 @@ void GameRenderHD::DrawInverseSquareInProjectionSpace(int* vertexs, int index, u
 	auto vertex12 = ProjectionPolygon(&vertexs[12]);
 	auto vertex18 = ProjectionPolygon(&vertexs[18]);
 
-	Logger->trace("--------------------------------------");
-	Logger->trace("{}", vertex0.Print());
-	Logger->trace("{}", vertex6.Print());
-	Logger->trace("{}", vertex12.Print());
-	Logger->trace("{}", vertex18.Print());
-	Logger->trace("--------------------------------------");
+	//Logger->trace("--------------------------------------");
+	//Logger->trace("{}", vertex0.Print());
+	//Logger->trace("{}", vertex6.Print());
+	//Logger->trace("{}", vertex12.Print());
+	//Logger->trace("{}", vertex18.Print());
+	//Logger->trace("--------------------------------------");
 
 	uint8_t drawEveryNthLine = m_renderThreads.size() + 1;
 
