@@ -30,7 +30,8 @@ int8_t pressedKeys_180664[128]; // idb
 uint16_t m_iOrigw = 640;
 uint16_t m_iOrigh = 480;
 
-
+uint16_t m_iWindowWidth = 640;
+uint16_t m_iWindowHeight = 480;
 
 bool m_bMaintainAspectRatio = true;
 
@@ -108,9 +109,11 @@ SDL_Rect FindDisplayByResolution(uint32_t width, uint32_t height)
 	return display;
 }
 
-void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio, int displayIndex)
+void VGA_Init(Uint32  /*flags*/, int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex)
 {
 	m_bMaintainAspectRatio = maintainAspectRatio;
+	m_iWindowWidth = windowWidth;
+	m_iWindowHeight = windowHeight;
 
 	if (!inited)
 	{
@@ -143,14 +146,14 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			if (forceWindow)//window
 			{
-				m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width/*dm.w*/, height/*dm.h*/, test_fullscr);
+				m_window = SDL_CreateWindow(default_caption, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth/*dm.w*/, windowHeight/*dm.h*/, test_fullscr);
 			}
 			else
 			{
 				SDL_Rect display = GetDisplayByIndex(displayIndex);
-				if (width > display.w || height > display.h)
+				if (windowWidth > display.w || windowHeight > display.h)
 				{
-					display = FindDisplayByResolution(width, height);
+					display = FindDisplayByResolution(windowWidth, windowHeight);
 				}
 				m_window = SDL_CreateWindow(default_caption, display.x, display.y, display.w, display.h, test_fullscr);
 			}
@@ -169,7 +172,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			m_gamePalletisedSurface =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 24,
+					SDL_SWSURFACE, gameResWidth, gameResHeight, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			m_gamePalletisedSurface =
@@ -178,7 +181,7 @@ void VGA_Init(Uint32  /*flags*/, int width, int height, bool maintainAspectRatio
 
 			m_gameRGBASurface =
 				SDL_CreateRGBSurface(
-					SDL_SWSURFACE, width, height, 24,
+					SDL_SWSURFACE, gameResWidth, gameResHeight, 24,
 					redMask, greenMask, blueMask, alphaMask);
 
 			m_gameRGBASurface =
@@ -556,12 +559,12 @@ void VGA_Draw_stringXYtoBuffer(const char* wrstring, int x, int y, uint8_t* buff
 	}
 }
 
-void VGA_Init(int width, int height, bool maintainAspectRatio, int displayIndex) {
+void VGA_Init(int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex) {
 	if (unitTests)return;
 	m_bMaintainAspectRatio = maintainAspectRatio;
 
 #define SDL_HWPALETTE 0
-	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, width, height, maintainAspectRatio, displayIndex);
+	VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO, windowWidth, windowHeight, gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 }
 
 SDL_Rect dst;
@@ -1012,14 +1015,14 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 	SDL_Rect dscrect;
 	if (m_bMaintainAspectRatio)
 	{
-		float widthRatio = (float)m_gameRGBASurface->w / (float)originalResWidth;
-		float heightRatio = (float)m_gameRGBASurface->h / (float)originalResHeight;
+		float widthRatio = (float)m_iWindowWidth / (float)originalResWidth;
+		float heightRatio = (float)m_iWindowHeight / (float)originalResHeight;
 
 		if (widthRatio >= heightRatio)
 		{
 			dscrect.w = (int)((float)originalResWidth * heightRatio);
 			dscrect.h = (int)((float)originalResHeight * heightRatio);
-			dscrect.x = (m_gameRGBASurface->w - dscrect.w) / 2;
+			dscrect.x = (m_iWindowWidth - dscrect.w) / 2;
 			dscrect.y = 0;
 		}
 		else
@@ -1027,13 +1030,13 @@ void SubBlit(uint16_t originalResWidth, uint16_t originalResHeight) {
 			dscrect.w = (int)((float)originalResWidth * widthRatio);
 			dscrect.h = (int)((float)originalResHeight * widthRatio);
 			dscrect.x = 0;
-			dscrect.y = (m_gameRGBASurface->h - dscrect.h) / 2;
+			dscrect.y = (m_iWindowHeight - dscrect.h) / 2;
 		}
 	}
 	else
 	{
-		dscrect.w = m_gameRGBASurface->w;
-		dscrect.h = m_gameRGBASurface->h;
+		dscrect.w = m_iWindowWidth;
+		dscrect.h = m_iWindowHeight;
 		dscrect.x = 0;
 		dscrect.y = 0;
 	}
