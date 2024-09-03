@@ -1052,12 +1052,14 @@ LABEL_259:
 
 int32_t GameRenderHD::CalculateRotationTranslationX(int64_t cos_0x11, int64_t pnt1, int64_t sin_0x0d, int64_t pnt2)
 {
-	return ((cos_0x11 * pnt1 - sin_0x0d * pnt2) >> 16) + str_F2C20ar.dword0x24;
+	int64_t rotation = ((cos_0x11 * pnt1 - sin_0x0d * pnt2) >> 16);
+	return rotation + str_F2C20ar.dword0x24;
 }
 
 int32_t GameRenderHD::CalculateRotationTranslationY(int64_t pnt1, int64_t sin_0x0d, int64_t cos_0x11, int64_t pnt2)
 {
-	return str_F2C20ar.dword0x10 - ((pnt1 * sin_0x0d + cos_0x11 * pnt2) >> 16);
+	int64_t rotation = ((pnt1 * sin_0x0d + cos_0x11 * pnt2) >> 16);
+	return str_F2C20ar.dword0x10 - rotation;
 }
 
 void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVertexBuffer, int pitch)
