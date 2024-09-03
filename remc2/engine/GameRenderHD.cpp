@@ -2135,7 +2135,7 @@ LABEL_48:
 void GameRenderHD::SetBillboards_3B560(int16_t roll)
 {
 	int v1; // edx
-	type_unk_F0E20x* v2x; // edi
+	int v2idx;
 	signed int* v3; // esi
 	int32_t v4; // eax
 	__int16 v5; // bx
@@ -2145,37 +2145,37 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 	int v9; // eax
 	int v10; // esi
 	uint32_t v11; // eax
-	type_unk_F0E20x* v12x; // edi
+	int v12idx;
 	signed int* v13; // esi
 	int v14; // eax
 	signed int v15; // ecx
 	int v16; // edx
-	type_unk_F0E20x* v17x; // edi
+	int v17idx;
 	signed int* v18; // esi
 	int v19; // eax
 	__int16 v20; // bx
 	signed int v21; // ecx
 	int v22; // edx
-	type_unk_F0E20x* v23x; // edi
+	int v23idx;
 	signed int* v24; // esi
 	int v25; // eax
 	__int16 v26; // bx
 	signed int v27; // ecx
 	int v28; // edx
-	type_unk_F0E20x* resultx; // eax
+	type_unk_F0E20x* resultx;
 	signed int* v31; // esi
-	type_unk_F0E20x* v32x; // edi
+	int v32idx;
 	int v33; // eax
 	signed int v34; // ecx
 	int v35; // edx
-	type_unk_F0E20x* v36x; // edi
+	int v36idx;
 	signed int* v37; // esi
 	int v38; // eax
 	__int16 v39; // bx
 	signed int v40; // ecx
 	int v41; // edx
 	uint8_t* v42x; // edx
-	type_unk_F0E20x* v43x; // edi
+	int v43idx;
 	signed int* v44; // esi
 	int v45; // eax
 	__int16 v46; // bx
@@ -2184,17 +2184,17 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 	int v49; // edx
 	int v50; // esi
 	signed int* v52; // esi
-	type_unk_F0E20x* v53x; // edi
+	int v53idx;
 	int v54; // eax
 	signed int v55; // ecx
 	int v56; // edx
-	type_unk_F0E20x* v57x; // edi
+	int v57idx;
 	signed int* v58; // esi
 	int v59; // eax
 	__int16 v60; // bx
 	signed int v61; // ecx
 	int v62; // edx
-	type_unk_F0E20x* v63x; // edi
+	int v63idx;
 	signed int* v64; // esi
 	int v65; // eax
 	__int16 v66; // bx
@@ -2202,12 +2202,12 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 	int v68; // edx
 	int v69; // esi
 	int v70; // eax
-	type_unk_F0E20x* v71x; // edi
+	int v71idx;
 	signed int* v72; // esi
 	int v73; // eax
 	signed int v74; // ecx
 	int v75; // edx
-	type_unk_F0E20x* v76x; // edi
+	int v76idx;
 	signed int* v77; // esi
 	int v78; // eax
 	__int16 v79; // bx
@@ -2253,7 +2253,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v92 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v101 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
-		v2x = m_str_F0E20x;
+		v2idx = 0;
 		v3 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 		v4 = 0;
 		v5 = 0;
@@ -2261,8 +2261,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v7 = 0;
 		do
 		{
-			v2x->dword_1 = v4;
-			v2x->dword_2 = v7;
+			m_str_F0E20x[v2idx].dword_1 = v4;
+			m_str_F0E20x[v2idx].dword_2 = v7;
 			v8 = __CFADD__(v101, v5);
 			v5 += v101;
 			if (v8)
@@ -2272,7 +2272,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 				*v3 = v6;
 				++v3;
 			}
-			v2x++;
+			v2idx++;
 			++v4;
 			++v6;
 			--v92;
@@ -2297,18 +2297,18 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		if (v1 == 256)
 		{
 			str_F2C20ar.dword0x1f = 0x10000;
-			v12x = m_str_F0E20x;
+			v12idx = 0;
 			v13 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 			v14 = 0;
 			v15 = 1;
 			v16 = 0;
 			do
 			{
-				v12x->dword_1 = v14;
-				v12x->dword_2 = v16++;
+				m_str_F0E20x[v12idx].dword_1 = v14;
+				m_str_F0E20x[v12idx].dword_2 = v16++;
 				*v13 = v15;
 				++v13;
-				v12x++;
+				v12idx++;
 				v14 += v84 + 1;
 				++v15;
 				--v93;
@@ -2320,7 +2320,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		{
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (v10 >> 8);
 			v102 = (str_F2C20ar.dword0x1b << 8) / (v10 >> 8);
-			v17x = m_str_F0E20x;
+			v17idx = 0;
 			v18 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 			v19 = 0;
 			v20 = 0;
@@ -2328,8 +2328,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 			v22 = 0;
 			do
 			{
-				v17x->dword_1 = v19;
-				v17x->dword_2 = v22;
+				m_str_F0E20x[v17idx].dword_1 = v19;
+				m_str_F0E20x[v17idx].dword_2 = v22;
 				v8 = __CFADD__(v102, v20);
 				v20 += v102;
 				if (v8)
@@ -2339,7 +2339,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 					*v18 = v21;
 					v18++;
 				}
-				v17x++;
+				v17idx++;
 				v19 += v84;
 				v21++;
 				v93--;
@@ -2362,7 +2362,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v94 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v103 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
-		v23x = m_str_F0E20x;
+		v23idx = 0;
 		v24 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 		v25 = 0;
 		v26 = 0;
@@ -2370,8 +2370,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v28 = 0;
 		do
 		{
-			v23x->dword_1 = v25;
-			v23x->dword_2 = v28;
+			m_str_F0E20x[v23idx].dword_1 = v25;
+			m_str_F0E20x[v23idx].dword_2 = v28;
 			v8 = __CFADD__(v103, v26);
 			v26 += v103;
 			if (v8)
@@ -2381,7 +2381,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 				*v24 = v27;
 				v24++;
 			}
-			v23x++;
+			v23idx++;
 			v25 += v85;
 			v27++;
 			v94--;
@@ -2409,17 +2409,17 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		{
 			str_F2C20ar.dword0x1f = 0x10000;
 			v31 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
-			v32x = m_str_F0E20x;
+			v32idx = 0;
 			v33 = 0;
 			v34 = 1;
 			v35 = 0;
 			do
 			{
-				v32x->dword_1 = v33;
-				v32x->dword_2 = v35++;
+				m_str_F0E20x[v32idx].dword_1 = v33;
+				m_str_F0E20x[v32idx].dword_2 = v35++;
 				*v31 = v34;
 				v31++;
-				v32x++;
+				v32idx++;
 				v33 = v89 + v33 - 1;
 				v34++;
 				v96--;
@@ -2431,7 +2431,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		{
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v104 = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
-			v36x = m_str_F0E20x;
+			v36idx = 0;
 			v37 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 			v38 = 0;
 			v39 = 0;
@@ -2439,8 +2439,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 			v41 = 0;
 			do
 			{
-				v36x->dword_1 = v38;
-				v36x->dword_2 = v41;
+				m_str_F0E20x[v36idx].dword_1 = v38;
+				m_str_F0E20x[v36idx].dword_2 = v41;
 				v8 = __CFADD__(v104, v39);
 				v39 += v104;
 				if (v8)
@@ -2450,7 +2450,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 					*v37 = v40;
 					v37++;
 				}
-				v36x++;
+				v36idx++;
 				v38--;
 				v40++;
 				v96--;
@@ -2473,7 +2473,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v97 = (unsigned __int16)viewPort.Width_DE564;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v105 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
-		v43x = m_str_F0E20x;
+		v43idx = 0;
 		v44 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 		v45 = 0;
 		v46 = 0;
@@ -2481,8 +2481,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v48 = 0;
 		do
 		{
-			v43x->dword_1 = v45;
-			v43x->dword_2 = v48;
+			m_str_F0E20x[v43idx].dword_1 = v45;
+			m_str_F0E20x[v43idx].dword_2 = v48;
 			v8 = __CFADD__(v105, v46);
 			v46 += v105;
 			if (v8)
@@ -2492,7 +2492,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 				*v44 = v47;
 				v44++;
 			}
-			v43x++;
+			v43idx++;
 			v45--;
 			v47++;
 			v97--;
@@ -2518,17 +2518,17 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		{
 			str_F2C20ar.dword0x1f = 0x10000;
 			v52 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
-			v53x = m_str_F0E20x;
+			v53idx = 0;
 			v54 = 0;
 			v55 = 1;
 			v56 = 0;
 			do
 			{
-				v53x->dword_1 = v54;
-				v53x->dword_2 = v56++;
+				m_str_F0E20x[v53idx].dword_1 = v54;
+				m_str_F0E20x[v53idx].dword_2 = v56++;
 				*v52 = v55;
 				++v52;
-				v53x++;
+				v53idx++;
 				v54 = v86 + v54 - 1;
 				++v55;
 				--v98;
@@ -2540,7 +2540,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		{
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
 			v106 = (str_F2C20ar.dword0x1b << 8) / (str_F2C20ar.dword0x27 >> 8);
-			v57x = m_str_F0E20x;
+			v57idx = 0;
 			v58 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 			v59 = 0;
 			v60 = 0;
@@ -2548,8 +2548,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 			v62 = 0;
 			do
 			{
-				v57x->dword_1 = v59;
-				v57x->dword_2 = v62;
+				m_str_F0E20x[v57idx].dword_1 = v59;
+				m_str_F0E20x[v57idx].dword_2 = v62;
 				v8 = __CFADD__(v106, v60);
 				v60 += v106;
 				if (v8)
@@ -2559,7 +2559,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 					*v58 = v61;
 					v58++;
 				}
-				v57x++;
+				v57idx++;
 				v59 += v86;
 				v61++;
 				v98--;
@@ -2586,7 +2586,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v99 = (unsigned __int16)viewPort.Height_DE568;
 		str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
 		v107 = (str_F2C20ar.dword0x27 << 8) / (str_F2C20ar.dword0x1b >> 8);
-		v63x = m_str_F0E20x;
+		v63idx = 0;
 		v64 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 		v65 = 0;
 		v66 = 0;
@@ -2594,8 +2594,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v68 = 0;
 		do
 		{
-			v63x->dword_1 = v65;
-			v63x->dword_2 = v68;
+			m_str_F0E20x[v63idx].dword_1 = v65;
+			m_str_F0E20x[v63idx].dword_2 = v68;
 			v8 = __CFADD__(v107, v66);
 			v66 += v107;
 			if (v8)
@@ -2605,7 +2605,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 				*v64 = v67;
 				v64++;
 			}
-			v63x++;
+			v63idx++;
 			v65 += v87;
 			v67++;
 			v99--;
@@ -2633,7 +2633,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		v100 = (unsigned __int16)viewPort.Width_DE564;
 		if (v1 == 1792)
 		{
-			v71x = m_str_F0E20x;
+			v71idx = 0;
 			v72 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 			str_F2C20ar.dword0x1f = 0x10000;
 			v73 = 0;
@@ -2641,11 +2641,11 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 			v75 = 0;
 			do
 			{
-				v71x->dword_1 = v73;
-				v71x->dword_2 = v75++;
+				m_str_F0E20x[v71idx].dword_1 = v73;
+				m_str_F0E20x[v71idx].dword_2 = v75++;
 				v72[0] = v74;
 				v72++;
-				v71x++;
+				v71idx++;
 				v73 += v91 + 1;
 				v74++;
 				v100--;
@@ -2657,7 +2657,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 		{
 			str_F2C20ar.dword0x1f = (str_F2C20ar.dword0x1b << 8) / (v69 >> 8);
 			v108 = (str_F2C20ar.dword0x1b << 8) / (v69 >> 8);
-			v76x = m_str_F0E20x;
+			v76idx = 0;
 			v77 = (signed int*)&m_ptrDWORD_E9C38_smalltit[m_bufferOffset_E9C38_3];
 			v78 = 0;
 			v79 = 0;
@@ -2665,8 +2665,8 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 			v81 = 0;
 			do
 			{
-				v76x->dword_1 = v78;
-				v76x->dword_2 = v81;
+				m_str_F0E20x[v76idx].dword_1 = v78;
+				m_str_F0E20x[v76idx].dword_2 = v81;
 				v8 = __CFADD__(v108, v79);
 				v79 += v108;
 				if (v8)
@@ -2676,7 +2676,7 @@ void GameRenderHD::SetBillboards_3B560(int16_t roll)
 					*v77 = v80;
 					v77++;
 				}
-				v76x++;
+				v76idx++;
 				v78++;
 				v80++;
 				v100--;
