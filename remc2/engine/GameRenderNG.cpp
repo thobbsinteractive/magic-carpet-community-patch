@@ -495,7 +495,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 		}
 		yawX += 256;
 	}
-	str_F2C20ar.dword0x15 = 26214400;//21d2df not drawing
+	str_F2C20ar.dword0x15_tileRenderCutOffDistance = 26214400;//21d2df not drawing
 	int index2 = 0;
 	str_F2C20ar.dword0x12 = 8912896;
 	str_F2C20ar.dword0x22 = (pitch * viewPort.Width_DE564) >> 8;
@@ -805,7 +805,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				int tempY = Str_E9C38_smalltit[index2].y_12;
 				int powXY = pow(tempY,2) + pow(Str_E9C38_smalltit[index2].x_0,2);
 				Str_E9C38_smalltit[index2].haveBillboard_36 = 0;
-				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15)
+				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				{
 					Str_E9C38_smalltit[index2].triangleFeatures_38 |= 2u;
 				}
@@ -815,7 +815,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 						tempY = 128;
 					Str_E9C38_smalltit[index2].pnt1_16 = str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].x_0 / tempY;
 					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
-					Str_E9C38_smalltit[index2].alt2_8 = (x_BYTE_14B4E0_second_heightmap[yawXY.word] << 15 >> 10) - posZ;
+					Str_E9C38_smalltit[index2].inverse_alt_8 = (x_BYTE_14B4E0_second_heightmap[yawXY.word] << 15 >> 10) - posZ;
 					tempSinXSin = 0;
 					if (!mapTerrainType_10B4E0[yawXY.word])
 					{
@@ -836,7 +836,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					if (mapAngle_13B4E0[yawXY.word] & 8)
 						Str_E9C38_smalltit[index2].triangleFeatures_38 |= 0x80u;
 					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
-					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt2_8 / tempY;
+					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].inverse_alt_8 / tempY;
 					uaxis_2d tempYawXY = yawXY;
 					tempYawXY._axis_2d.x += yawQuartal[2];
 					tempYawXY._axis_2d.y += yawQuartal[3];
@@ -1252,7 +1252,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				int tempY = Str_E9C38_smalltit[index2].y_12;
 				int powXY = pow(tempY,2) + pow(Str_E9C38_smalltit[index2].x_0,2);
 				Str_E9C38_smalltit[index2].haveBillboard_36 = 0;
-				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15)
+				if (tempY <= -256 || powXY >= str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 					Str_E9C38_smalltit[index2].triangleFeatures_38 |= 2u;
 				else
 				{
@@ -1262,7 +1262,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					Str_E9C38_smalltit[index2].alt_4 = 32 * mapHeightmap_11B4E0[yawXY.word] - posZ;
 					//v112 = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 					tempSinXSin = pow((Maths::sin_DB750[((D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6)+(yawXY._axis_2d.y << 7)) & 0x7FF] >> 8), 2);
-					Str_E9C38_smalltit[index2].alt2_8 = -(mapHeightmap_11B4E0[yawXY.word] * ((tempSinXSin >> 4) + 0x8000) >> 10) - posZ;
+					Str_E9C38_smalltit[index2].inverse_alt_8 = -(mapHeightmap_11B4E0[yawXY.word] * ((tempSinXSin >> 4) + 0x8000) >> 10) - posZ;
 					tempSinXSin = 0;
 					allert_error();//test  next ifs
 					if ((mapAngle_13B4E0[yawXY.word] & 8)!=0)
@@ -1280,7 +1280,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 					else
 						Str_E9C38_smalltit[index2].pnt5_32 = 0;
 					Str_E9C38_smalltit[index2].pnt2_20 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt_4 / tempY;
-					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].alt2_8 / tempY;
+					Str_E9C38_smalltit[index2].pnt4_28 = str_F2C20ar.dword0x22 + str_F2C20ar.dword0x18 * Str_E9C38_smalltit[index2].inverse_alt_8 / tempY;
 					uaxis_2d tempYawXY = yawXY;
 					tempYawXY._axis_2d.x += yawQuartal[2];
 					tempYawXY._axis_2d.y += yawQuartal[3];
@@ -1327,7 +1327,7 @@ void GameRenderNG::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				int tempY = Str_E9C38_smalltit[index2].y_12;
 				int powXY = pow(tempY,2) + pow(Str_E9C38_smalltit[index2].x_0,2);
 				Str_E9C38_smalltit[index2].haveBillboard_36 = 0;
-				if (tempY > -256 && powXY < str_F2C20ar.dword0x15)
+				if (tempY > -256 && powXY < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				{
 					if (tempY < 128)
 						tempY = 128;
@@ -1628,7 +1628,7 @@ uint16_t GameRenderNG::sub_3FD60(int a2x)
 				v40 = (str_F2C20ar.dword0x17 * v4 + str_F2C20ar.dword0x0f * v5) >> 16;
 				v7 = (str_F2C20ar.dword0x17 * v4 + str_F2C20ar.dword0x0f * v5) >> 16;
 				v8 = v40 * v40 + v6 * v6;
-				if (v7 > 64 && v8 < str_F2C20ar.dword0x15)
+				if (v7 > 64 && v8 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 				{
 					if (v8 <= str_F2C20ar.dword0x13)
 					{
@@ -2849,7 +2849,7 @@ void GameRenderNG::DrawSprites_3E360(int a2x)//21f360
 					v5 = (str_F2C20ar.dword0x0f * v96 - str_F2C20ar.dword0x17 * v97) >> 16;
 					v99 = (str_F2C20ar.dword0x17 * v96 + str_F2C20ar.dword0x0f * v97) >> 16;
 					v6 = v99 * v99 + v5 * v5;
-					if (v99 > 64 && v6 < str_F2C20ar.dword0x15)
+					if (v99 > 64 && v6 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 					{
 						if (v6 <= str_F2C20ar.dword0x13)
 							str_F2C20ar.dword0x00 = 0x2000;
@@ -3177,7 +3177,7 @@ void GameRenderNG::DrawSprites_3E360(int a2x)//21f360
 				}
 			}
 			v51 = v100 * v100 + v49 * v49;
-			if (v100 > 64 && v51 < str_F2C20ar.dword0x15)
+			if (v100 > 64 && v51 < str_F2C20ar.dword0x15_tileRenderCutOffDistance)
 			{
 				if (v51 <= str_F2C20ar.dword0x13)
 				{

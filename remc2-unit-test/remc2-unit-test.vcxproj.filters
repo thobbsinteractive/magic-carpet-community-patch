@@ -20,6 +20,9 @@
     <ClCompile Include="utilities\MathUT.cpp">
       <Filter>utilities</Filter>
     </ClCompile>
+    <ClCompile Include="GameRenderHD.cpp">
+      <Filter>engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -49,5 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\asan\clang_rt.asan_dynamic-x86_64.dll" />
   </ItemGroup>
 </Project>

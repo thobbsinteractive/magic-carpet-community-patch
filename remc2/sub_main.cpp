@@ -53099,7 +53099,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		bigGraphicsPath = GetSubDirectoryPath(bigGraphicsFolder);
 
 		Logger->debug("Initializing graphics Width: {} Height: {}", windowResWidth, windowResHeight);
-		VGA_Init(windowResWidth, windowResHeight, maintainAspectRatio, displayIndex);
+		VGA_Init(windowResWidth, windowResHeight, gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 		gamepad_init(gameResWidth, gameResHeight);
 
 		Logger->info("Finding Game Data...");
@@ -81071,7 +81071,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 
 	TColor zero_bufferx[256];
 
- 	VGA_Init(gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
+ 	VGA_Init(windowResWidth, windowResHeight, gameResWidth, gameResHeight, maintainAspectRatio, displayIndex);
 
 	if (singlestep)
 	{
