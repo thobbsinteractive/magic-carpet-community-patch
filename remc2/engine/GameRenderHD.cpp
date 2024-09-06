@@ -480,6 +480,7 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	int v124x;
 	int pnt1_16; // esi
 	int pnt4_28; // ecx
+	int pnt2_20; // ecx
 	int v129; // ecx
 	int v130; // edx
 	signed int v131; // esi
@@ -502,9 +503,6 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 	signed int v209; // ebx
 	int v210; // edx
 	uint32_t v211; // eax
-	int v212; // ecx
-	int v213; // edx
-	int v214; // ecx
 	int v215; // edx
 	signed int v216; // esi
 	std::vector<int> projectedVertexBuffer(33);  //[33]; // [esp+0h] [ebp-62h]//v248x[0]
@@ -1016,14 +1014,16 @@ LABEL_259:
 	v56x = 0;
 	while (v209)
 	{
-		v212 = str_F2C20ar.dword0x10;
-		v213 = ((long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v56x].pnt1_16 + (long)str_F2C20ar.cos_0x11 * (long)Str_E9C38_smalltit[v56x].pnt2_20) >> 16;
-		Str_E9C38_smalltit[v56x].pnt1_16 = (((long)Str_E9C38_smalltit[v56x].pnt1_16 * (long)str_F2C20ar.cos_0x11 - (long)str_F2C20ar.sin_0x0d * (long)Str_E9C38_smalltit[v56x].pnt2_20) >> 16)
-			+ str_F2C20ar.dword0x24;
-		v214 = v212 - v213;
-		v215 = Str_E9C38_smalltit[v56x].pnt1_16;
-		Str_E9C38_smalltit[v56x].pnt2_20 = v214;
-		if (v215 >= 0)
+		//Rotation and Translation X
+		pnt1_16 = CalculateRotationTranslationX(str_F2C20ar.cos_0x11, Str_E9C38_smalltit[v56x].pnt1_16, str_F2C20ar.sin_0x0d, Str_E9C38_smalltit[v56x].pnt2_20);
+
+		//Rotation and Translation Y
+		pnt2_20 = CalculateRotationTranslationY(Str_E9C38_smalltit[v56x].pnt1_16, str_F2C20ar.sin_0x0d, str_F2C20ar.cos_0x11, Str_E9C38_smalltit[v56x].pnt2_20);
+
+		Str_E9C38_smalltit[v56x].pnt2_20 = pnt2_20;
+		Str_E9C38_smalltit[v56x].pnt1_16 = pnt1_16;
+
+		if (Str_E9C38_smalltit[v56x].pnt1_16 >= 0)
 		{
 			if ((signed int)(unsigned __int16)viewPort.Width_DE564 <= Str_E9C38_smalltit[v56x].pnt1_16)
 				Str_E9C38_smalltit[v56x].triangleFeatures_38 |= 0x10u;
