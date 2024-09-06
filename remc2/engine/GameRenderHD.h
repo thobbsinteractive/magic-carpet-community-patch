@@ -59,7 +59,7 @@ private:
 		0x04,0x05,0x06,0x07,0x08,0x09,0x0A,0x0B,0x0C,0x0C,0x0C,0x0C
 	};
 
-	type_unk_F0E20x m_str_F0E20x[GAME_RES_MAX_WIDTH]; // Originally 640
+	type_unk_F0E20x m_str_F0E20x[GAME_RES_MAX_WIDTH + 100]; // Originally 640
 
 	uint8_t* m_ptrDWORD_E9C38_smalltit = nullptr;
 	uint8_t* m_ptrScreenBuffer_351628 = nullptr;
