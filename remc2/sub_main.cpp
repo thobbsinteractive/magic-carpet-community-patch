@@ -37287,7 +37287,9 @@ void sub_417D0_install_pal_and_mouse_minmax2()//2227d0
 
 void sub_41A90_VGA_Palette_install(TColor* bufferx)//222a90
 {
-	if (CommandLineParams.DoShowDebugPerifery())ShowPerifery();
+	if (CommandLineParams.DoShowDebugPerifery())
+		ShowPerifery();
+
 	//354f24 - 000000 00002a 002a00 002a2a 2a0000
 	//debug
 	//loadfromsnapshot((char*)"0160-00222A90-x", a1, 0x1a7358, 0x300);//4c
@@ -38783,16 +38785,18 @@ void PaletteChanges_47760(/*int a1,*/uint32_t  /*user*//* int a2, int a3*/)//228
 		switch (x_D41A0_BYTEARRAY_4_struct.byteindex_180)
 		{
 		case 1:
+			//Fade back
 			//v8 = (char*)*xadatapald0dat2.colorPalette_var28;
 			x_D41A0_BYTEARRAY_4_struct.byteindex_181 = 1;
 			///*LOWORD(v3) = */sub_90B27_VGA_pal_fadein_fadeout((uint8_t*)v8, 4u, 1);
-			if (sub_90B27_VGA_pal_fadein_fadeout(*DefaultPal, 4u, 1) == 4)
+			if (sub_90B27_VGA_pal_fadein_fadeout(*DefaultPal, 4u, 1, 0) == 4)
 			{
 				//LOBYTE(v3) = (uint8)x_D41A0_BYTEARRAY_4;
 				x_D41A0_BYTEARRAY_4_struct.byteindex_180 = 0;
 			}
 			break;
 		case 2:
+			//Hit (red flash)
 			v11 = 1;
 			while (v11 < 256)
 			{
@@ -81058,7 +81062,7 @@ int sub_906B4()//fix bios graphics//2716b4
 	return result;
 }*/
 // E3908: using guessed type __int16 x_WORD_E3908;
-int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_levels, bool singlestep)//271B27 init and nightfall
+int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_levels, bool singlestep, int32_t frameDelay)//271B27 init and nightfall
 {
 	//uint8_t *v3; // eax
 	//uint16_t v4; // edx
@@ -81105,7 +81109,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 		}
 		//sub_9A0FC_wait_to_screen_beam();
 		sub_41A90_VGA_Palette_install(outbufferx);
-		fix_sub_9A0FC_wait_to_screen_beam();
+		fix_sub_9A0FC_wait_to_screen_beam(frameDelay);
 		//return j;
 	}
 	else
@@ -81144,7 +81148,7 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 			}
 			//sub_9A0FC_wait_to_screen_beam();
 			sub_41A90_VGA_Palette_install(outbufferx);
-			fix_sub_9A0FC_wait_to_screen_beam();
+			fix_sub_9A0FC_wait_to_screen_beam(frameDelay);
 			//mydelay(10);
 		}
 		x_BYTE_E390C_VGA_pal_not_begin = 0;
@@ -81156,6 +81160,13 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 	//return 0;
 	return x_WORD_181B44;
 }
+
+void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay)//27B0fc
+{
+	VGA_Blit(nullptr);
+	mydelay(delay);
+}
+
 //----- (00090B27) --------------------------------------------------------
 __int16 sub_90B27_VGA_pal_fadein_fadeout_orig(char*  /*a1*/, unsigned __int8  /*a2*/, char  /*a3*/)
 {
