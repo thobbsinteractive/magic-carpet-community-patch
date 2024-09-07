@@ -358,7 +358,7 @@ void /*__fastcall*/ sub_75E70()//256e70
 			v19 = getPaletteIndex_5BE80(unk_17D838x, 0x3Fu, 0x3Fu, 0x3Fu);
 			sub_2EC90(v19);//20fc90 -zde se prekresli texty
 		}
-		fix_sub_9A0FC_wait_to_screen_beam();
+		sub_9A0FC_wait_to_screen_beam();
 	}
 
 	if (x_BYTE_D41C1)
@@ -633,12 +633,6 @@ void sub_9A0FC_wait_to_screen_beam()//27B0fc
 	  result = __inx_BYTE(0x3DAu);
 	while ( !(result & 8) );
 	return result;*/
-	VGA_Blit(nullptr);
-	mydelay(10);
-}
-
-void fix_sub_9A0FC_wait_to_screen_beam()//27B0fc
-{
 	VGA_Blit(nullptr);
 	mydelay(10);
 }
