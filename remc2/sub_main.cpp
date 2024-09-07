@@ -61752,19 +61752,19 @@ signed int sub_61810(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//242810
 }
 
 //----- (00061880) --------------------------------------------------------
-void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//242880
+void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling)//242880
 {
 	//char *result; // eax
 	// 0 0 4d80 ffffde80 80 0 0 100 c0 0
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
-		sub_627F0_draw_minimap_entites_a(x, y, posX, posY, width, height, yaw, a8);
+		sub_627F0_draw_minimap_entites_a(x, y, posX, posY, width, height, yaw, scaling);
 	else
-		sub_61A00_draw_minimap_entites_b(x, y, posX, posY, width, height, yaw, a8);
+		sub_61A00_draw_minimap_entites_b(x, y, posX, posY, width, height, yaw, scaling);
 }
 
 int debugcounter2 = 0;
 //----- (00061A00) --------------------------------------------------------
-void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//242a00
+void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling)//242a00
 {
 	int v8; // edx
 	int v9; // esi
@@ -61888,14 +61888,21 @@ void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_
 	{
 		v8 = x >> 1;
 		v9 = y >> 1;
-		a8 *= 2;
+		scaling *= 2;
 		width >>= 1;
 		height >>= 1;
 	}
+	else if ((screenWidth_18062C >= 1920) && (screenHeight_180624 >= 1080))
+	{
+		scaling /= 2;
+		//width = width * scale;
+		//height = height * scale;
+	}
+
 	v84 = v9 * screenWidth_18062C + pdwScreenBuffer_351628 + v8;
 	LODWORD(v12) = 0x10000;
 	HIDWORD(v12) = 0x10000 >> 31;
-	v13 = v12 / a8;
+	v13 = v12 / scaling;
 	v82 = width / 2;
 	v14 = v13 * Maths::sin_DB750[yaw & 0x7FF];
 	v76 = height / 2;
@@ -62352,7 +62359,7 @@ void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_
 }
 
 //----- (000627F0) --------------------------------------------------------
-void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//2437f0
+void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling)//2437f0
 {//
 	int v8; // edx
 	int v9; // esi
@@ -62460,7 +62467,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 
 	v8 = x;
 	v9 = y;
-	v10 = a8;
+	v10 = scaling;
 	v11 = D41A0_0.terrain_2FECE.MapType;
 	v93 = 0;
 	if (v11 == MapType_t::Day)
@@ -62491,7 +62498,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 	{
 		v8 = x >> 1;
 		v9 = y >> 1;
-		v10 = 2 * a8;
+		v10 = 2 * scaling;
 		width >>= 1;
 		height >>= 1;
 	}
@@ -63018,16 +63025,16 @@ char sub_63570(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//244570
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00063600) --------------------------------------------------------
-void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244600
+void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244600
 {
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
-		sub_63670_draw_minimap_a(x, y, posX, posY, width, height, yaw, a8, a10);
+		sub_63670_draw_minimap_a(x, y, posX, posY, width, height, yaw, scaling, a10);
 	else
-		sub_63C90_draw_minimap_b(x, y, posX, posY, width, height, yaw, a8, a10);
+		sub_63C90_draw_minimap_b(x, y, posX, posY, width, height, yaw, scaling, a10);
 }
 
 //----- (00063670) --------------------------------------------------------
-void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244670
+void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244670
 {
 	int v10; // eax
 	int v11; // esi
@@ -63121,7 +63128,7 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		v11 = y >> 1;
 		v12 = width >> 1;
 		v13 = height >> 1;
-		a8 *= 2;
+		scaling *= 2;
 	}
 	v70x = &pdwScreenBuffer_351628[v11 * screenWidth_18062C + v10];
 	v71x = &x_DWORD_E9C3C[v11 * screenWidth_18062C + v10];
@@ -63164,9 +63171,9 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		}
 	}
 	v23 = yaw & 0x7FF;
-	v24 = v13 * (a8 * Maths::sin_DB750[v23] >> 16);
-	v25 = a8 * (signed int)Maths::sin_DB750[0x200 + v23] >> 16;
-	v80 = a8 * Maths::sin_DB750[v23] >> 16;
+	v24 = v13 * (scaling * Maths::sin_DB750[v23] >> 16);
+	v25 = scaling * (signed int)Maths::sin_DB750[0x200 + v23] >> 16;
+	v80 = scaling * Maths::sin_DB750[v23] >> 16;
 	v81y = v25;
 	v67 = v24 / v12;
 	v26 = v13 * v25;
@@ -63367,7 +63374,7 @@ void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 }
 
 //----- (00063C90) --------------------------------------------------------
-void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244c90
+void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10)//244c90
 {
 	//bool v14; // al
 	__int16* v15; // ebx
@@ -63439,8 +63446,15 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		y = y >> 1;
 		width = width >> 1;
 		height = height >> 1;
-		a8 *= 2;
+		scaling *= 2;
 	}
+	else if ((screenWidth_18062C >= 1920) && (screenHeight_180624 <= 1080))
+	{
+		scaling /= 2;
+		//width = width * scale;
+		//height = height * scale;
+	}
+
 	ptrScreenBuffer = &pdwScreenBuffer_351628[screenWidth_18062C * y + x];
 	if (a10)
 	{
@@ -63475,9 +63489,9 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 		}
 	}
 	v20 = yaw & 0x7FF;
-	v21 = height * (a8 * Maths::sin_DB750[v20] >> 16);
-	v22 = a8 * (signed int)Maths::sin_DB750[0x200 + v20] >> 16;
-	v70 = a8 * Maths::sin_DB750[v20] >> 16;
+	v21 = height * (scaling * Maths::sin_DB750[v20] >> 16);
+	v22 = scaling * (signed int)Maths::sin_DB750[0x200 + v20] >> 16;
+	v70 = scaling * Maths::sin_DB750[v20] >> 16;
 	v69 = v22;
 	v59 = v21 / width;
 	v23 = height * v22;
@@ -63665,7 +63679,7 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 int debugcounter_644F0 = 0;
 
 //----- (000644F0) --------------------------------------------------------
-void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//2454f0
+void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling)//2454f0
 {
 	signed int v8; // ebx
 	//__int64 v9; // rtt
@@ -63791,17 +63805,24 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 	v81 = 0;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		a1 >>= 1;
-		a2 >>= 1;
+		x >>= 1;
+		y >>= 1;
 		width >>= 1;
 		height >>= 1;
-		a8 *= 2;
+		scaling *= 2;
 	}
-	v51x.v53xdw_6 = screenWidth_18062C * a2 + pdwScreenBuffer_351628 + a1;
+	else if ((screenWidth_18062C >= 1920) && (screenHeight_180624 >= 1080))
+	{
+		scaling /= 2;
+		//width = width * scale;
+		//height = height * scale;
+	}
+
+	v51x.v53xdw_6 = screenWidth_18062C * y + pdwScreenBuffer_351628 + x;
 	//LODWORD(v9) = 0x10000;
 	//HIDWORD(v9) = 0x10000 >> 31;
 	v9x = 0x10000;
-	v83 = v9x / a8;
+	v83 = v9x / scaling;
 	v51x.v56xdw_18 = posX;
 	v51x.v57xdw_22 = posY;
 	v51x.v58xdw_26 = width;
@@ -64005,9 +64026,9 @@ void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t
 				while (v31 < 7)
 				{
 					v32 = 3 * v31;
-					v37x[2 * v32] = v25 + a1 + v37x[6 * v31];
+					v37x[2 * v32] = v25 + x + v37x[6 * v31];
 					v33 = v37x[1 + (6 * v31++)];
-					v37x[1 + 2 * v32] = v77 + a2 + v33;
+					v37x[1 + 2 * v32] = v77 + y + v33;
 				}
 				//adress 245be1
 				//v34 = v30;
