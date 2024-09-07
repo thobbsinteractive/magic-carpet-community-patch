@@ -61752,23 +61752,22 @@ signed int sub_61810(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//242810
 }
 
 //----- (00061880) --------------------------------------------------------
-void DrawMinimapEntites_61880(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//242880
+void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//242880
 {
 	//char *result; // eax
 	// 0 0 4d80 ffffde80 80 0 0 100 c0 0
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
-		sub_627F0_draw_minimap_entites_a(a1, a2, posX, posY, width, height, yaw, a8);
+		sub_627F0_draw_minimap_entites_a(x, y, posX, posY, width, height, yaw, a8);
 	else
-		sub_61A00_draw_minimap_entites_b(a1, a2, posX, posY, width, height, yaw, a8);
+		sub_61A00_draw_minimap_entites_b(x, y, posX, posY, width, height, yaw, a8);
 }
 
 int debugcounter2 = 0;
 //----- (00061A00) --------------------------------------------------------
-void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//242a00
+void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//242a00
 {
 	int v8; // edx
 	int v9; // esi
-	int v10; // ebx
 	MapType_t v11; // al
 	__int64 v12; // rtt
 	int v13; // ebx
@@ -61860,9 +61859,8 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 	}
 	debugcounter2++;
 
-	v8 = a1;
-	v9 = a2;
-	v10 = a8;
+	v8 = x;
+	v9 = y;
 	v11 = D41A0_0.terrain_2FECE.MapType;
 	v83 = 0;
 	if (v11 == MapType_t::Day)
@@ -61888,16 +61886,16 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 	}
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		v8 = a1 >> 1;
-		v9 = a2 >> 1;
-		v10 = 2 * a8;
+		v8 = x >> 1;
+		v9 = y >> 1;
+		a8 *= 2;
 		width >>= 1;
 		height >>= 1;
 	}
 	v84 = v9 * screenWidth_18062C + pdwScreenBuffer_351628 + v8;
 	LODWORD(v12) = 0x10000;
 	HIDWORD(v12) = 0x10000 >> 31;
-	v13 = v12 / v10;
+	v13 = v12 / a8;
 	v82 = width / 2;
 	v14 = v13 * Maths::sin_DB750[yaw & 0x7FF];
 	v76 = height / 2;
@@ -62354,7 +62352,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY
 }
 
 //----- (000627F0) --------------------------------------------------------
-void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//2437f0
+void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8)//2437f0
 {//
 	int v8; // edx
 	int v9; // esi
@@ -62460,8 +62458,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 	char v109; // [esp+78h] [ebp+5Ah]
 	char v110; // [esp+7Ch] [ebp+5Eh]
 
-	v8 = a1;
-	v9 = a2;
+	v8 = x;
+	v9 = y;
 	v10 = a8;
 	v11 = D41A0_0.terrain_2FECE.MapType;
 	v93 = 0;
@@ -62491,8 +62489,8 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		v8 = a1 >> 1;
-		v9 = a2 >> 1;
+		v8 = x >> 1;
+		v9 = y >> 1;
 		v10 = 2 * a8;
 		width >>= 1;
 		height >>= 1;
@@ -63020,16 +63018,16 @@ char sub_63570(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//244570
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00063600) --------------------------------------------------------
-void DrawMinimap_63600(int16_t posX, int16_t posY, int16_t x, int16_t y, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244600
+void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244600
 {
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
-		sub_63670_draw_minimap_a(posX, posY, x, y, width, height, yaw, a8, a10);
+		sub_63670_draw_minimap_a(x, y, posX, posY, width, height, yaw, a8, a10);
 	else
-		sub_63C90_draw_minimap_b(posX, posY, x, y, width, height, yaw, a8, a10);
+		sub_63C90_draw_minimap_b(x, y, posX, posY, width, height, yaw, a8, a10);
 }
 
 //----- (00063670) --------------------------------------------------------
-void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244670
+void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244670
 {
 	int v10; // eax
 	int v11; // esi
@@ -63111,16 +63109,16 @@ void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16
 	__int16* v86; // [esp+58h] [ebp-8h]
 	bool v87; // [esp+5Ch] [ebp-4h]
 
-	v10 = a1;
-	v11 = a2;
+	v10 = x;
+	v11 = y;
 	v12 = width;
 	v13 = height;
 	v14 = !D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_0.terrain_2FECE.MapType != MapType_t::Cave;
 	v87 = v14;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		v10 = a1 >> 1;
-		v11 = a2 >> 1;
+		v10 = x >> 1;
+		v11 = y >> 1;
 		v12 = width >> 1;
 		v13 = height >> 1;
 		a8 *= 2;
@@ -63369,7 +63367,7 @@ void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16
 }
 
 //----- (00063C90) --------------------------------------------------------
-void sub_63C90_draw_minimap_b(int16_t posX, int16_t posY, int16_t x, int16_t y, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244c90
+void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244c90
 {
 	//bool v14; // al
 	__int16* v15; // ebx
@@ -63437,13 +63435,13 @@ void sub_63C90_draw_minimap_b(int16_t posX, int16_t posY, int16_t x, int16_t y, 
 	//v75 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		posX = posX >> 1;
-		posY = posY >> 1;
+		x = x >> 1;
+		y = y >> 1;
 		width = width >> 1;
 		height = height >> 1;
 		a8 *= 2;
 	}
-	ptrScreenBuffer = &pdwScreenBuffer_351628[screenWidth_18062C * posY + posX];
+	ptrScreenBuffer = &pdwScreenBuffer_351628[screenWidth_18062C * y + x];
 	if (a10)
 	{
 		v15 = x_WORD_F4960;
@@ -63484,9 +63482,9 @@ void sub_63C90_draw_minimap_b(int16_t posX, int16_t posY, int16_t x, int16_t y, 
 	v59 = v21 / width;
 	v23 = height * v22;
 	v58 = v23 / width;
-	v72 = x - (width * (v23 / width) - v21) / 2;
+	v72 = posX - (width * (v23 / width) - v21) / 2;
 	v74 = x_WORD_F4960;
-	v24 = y - (v23 + width * (v21 / width)) / 2;
+	v24 = posY - (v23 + width * (v21 / width)) / 2;
 	v73 = v24;
 	if (isCaveLevel_D41B6)//adress 244e53
 	{
