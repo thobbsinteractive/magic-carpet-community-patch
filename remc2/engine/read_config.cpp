@@ -176,10 +176,10 @@ bool readini() {
 	gameResWidth = reader.GetInteger("graphics", "gameResWidth", 640);
 	gameResHeight = reader.GetInteger("graphics", "gameResHeight", 480);
 
-	if (gameResWidth < 640 || gameResHeight < 480)
+	if (gameResWidth < 320 || gameResHeight < 200)
 	{
-		gameResWidth = 640;
-		gameResHeight = 480;
+		gameResWidth = 320;
+		gameResHeight = 200;
 	}
 
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
