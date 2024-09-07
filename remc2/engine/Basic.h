@@ -598,7 +598,7 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color);//250940
 void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void sub_8C635_draw_cursor();
-void sub_8F935_bitmap_draw_final(uint8_t a1byte1, uint8_t a1byte2, uint16_t a2, int a3, uint8_t* a4, uint8_t setbyte, char a6);
+void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6);
 void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6);
 
 void sub_99A77_create_index_dattab_div(uint8_t* a1, uint8_t* a2, uint8_t* a3, posistruct_t* a4);
