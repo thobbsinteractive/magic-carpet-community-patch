@@ -1895,14 +1895,7 @@ char sub_61620(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
 signed int sub_616D0(signed int a1);
 //signed int sub_61790(signed int a1);
 signed int sub_61810(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
-void DrawMinimapEntites_61880(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
-void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
-void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
 char sub_63570(type_event_0x6E8E* a1, type_event_0x6E8E* a2);
-void DrawMinimap_63600(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
-void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
-void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
-void DrawMinimapMarks_644F0(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
 char sub_64CE0_draw_follow_rectangle(v51x_struct* a1);
 uint32_t AddTree02_00_64E20(type_event_0x6E8E* a1);
 uint32_t sub_64F60(type_event_0x6E8E* a1);
@@ -63376,12 +63369,8 @@ void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16
 }
 
 //----- (00063C90) --------------------------------------------------------
-void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244c90
+void sub_63C90_draw_minimap_b(int16_t posX, int16_t posY, int16_t x, int16_t y, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244c90
 {
-	int v10; // ebx
-	int v11; // edx
-	int v12; // edi
-	int v13; // ecx
 	//bool v14; // al
 	__int16* v15; // ebx
 	int v16; // edx
@@ -63428,7 +63417,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 	int v57; // edx
 	int v58; // [esp+4h] [ebp-50h]
 	int v59; // [esp+8h] [ebp-4Ch]
-	uint8_t* v60; // [esp+14h] [ebp-40h]
+	uint8_t* ptrScreenBuffer; // [esp+14h] [ebp-40h]
 	int m; // [esp+18h] [ebp-3Ch]
 	int l; // [esp+1Ch] [ebp-38h]
 	int k; // [esp+20h] [ebp-34h]
@@ -63439,46 +63428,41 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 	__int16* v68; // [esp+34h] [ebp-20h]
 	int v69; // [esp+38h] [ebp-1Ch]
 	int v70; // [esp+3Ch] [ebp-18h]
-	uint8_t* v71; // [esp+40h] [ebp-14h]
 	int v72; // [esp+44h] [ebp-10h]
 	int v73; // [esp+48h] [ebp-Ch]
 	__int16* v74; // [esp+4Ch] [ebp-8h]
 	//bool v75; // [esp+50h] [ebp-4h]
 
-	v10 = a1;
-	v11 = a2;
-	v12 = width;
-	v13 = height;
 	//v14 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
 	//v75 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
-		v10 = a1 >> 1;
-		v11 = a2 >> 1;
-		v12 = width >> 1;
-		v13 = height >> 1;
+		posX = posX >> 1;
+		posY = posY >> 1;
+		width = width >> 1;
+		height = height >> 1;
 		a8 *= 2;
 	}
-	v60 = &pdwScreenBuffer_351628[screenWidth_18062C * v11 + v10];
+	ptrScreenBuffer = &pdwScreenBuffer_351628[screenWidth_18062C * posY + posX];
 	if (a10)
 	{
 		v15 = x_WORD_F4960;
-		v16 = v13;
+		v16 = height;
 		while (v16)
 		{
 			v15 += 2;
 			*(v15 - 1) = 0;
 			v16--;
-			*(v15 - 2) = v12;
+			*(v15 - 2) = width;
 		}
 	}
 	else
 	{
-		v67 = v13 / 2;//adress 244d1b
-		v17 = &x_WORD_F4960[2 * (v13 / 2)];
+		v67 = height / 2;//adress 244d1b
+		v17 = &x_WORD_F4960[2 * (height / 2)];
 		v68 = v17 - 2;
 		v64 = 0;
-		v18 = v12 >> 1;
+		v18 = width >> 1;
 		while (v67)
 		{
 			v19 = v18 * x_BYTE_F6EE0_tablesx[0x14300 + (v64 >> 16)] >> 8;
@@ -63488,33 +63472,32 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 			v68[1] = v18 - v19;
 			v68 -= 2;
 			v17 += 2;
-			v64 += 0x1000000 / (v13 >> 1);
+			v64 += 0x1000000 / (height >> 1);
 			v67--;
 		}
 	}
 	v20 = yaw & 0x7FF;
-	v21 = v13 * (a8 * Maths::sin_DB750[v20] >> 16);
+	v21 = height * (a8 * Maths::sin_DB750[v20] >> 16);
 	v22 = a8 * (signed int)Maths::sin_DB750[0x200 + v20] >> 16;
 	v70 = a8 * Maths::sin_DB750[v20] >> 16;
 	v69 = v22;
-	v59 = v21 / v12;
-	v23 = v13 * v22;
-	v58 = v23 / v12;
-	v72 = posX - (v12 * (v23 / v12) - v21) / 2;
+	v59 = v21 / width;
+	v23 = height * v22;
+	v58 = v23 / width;
+	v72 = x - (width * (v23 / width) - v21) / 2;
 	v74 = x_WORD_F4960;
-	v24 = posY - (v23 + v12 * (v21 / v12)) / 2;
+	v24 = y - (v23 + width * (v21 / width)) / 2;
 	v73 = v24;
-	v71 = v60;
 	if (isCaveLevel_D41B6)//adress 244e53
 	{
 		if (a10)
 		{
-			for (i = v13; i; v73 += v69)
+			for (i = height; i; v73 += v69)
 			{
 				v31 = v74[1];
 				v26 = v72 + v31 * v58;
 				v27 = v73 + v31 * v59;
-				v28 = (char*)(v31 + v71);
+				v28 = (char*)(v31 + ptrScreenBuffer);
 				v29 = *v74 - v31;
 				v30 = 0;
 				HIWORD(v31) = 0;
@@ -63535,7 +63518,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 					LOWORD(v27) = v59 + v27;
 					v29--;
 				} while (v29);
-				v71 += screenWidth_18062C;
+				ptrScreenBuffer += screenWidth_18062C;
 				v74 += 2;
 				//index = v69;
 				i--;
@@ -63544,12 +63527,12 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 		}
 		else if (!D41A0_0.m_GameSettings.str_0x2196.transparency_0x2198 && D41A0_0.terrain_2FECE.MapType != MapType_t::Cave)
 		{
-			for (j = v13; j; v73 += v69)
+			for (j = height; j; v73 += v69)
 			{
 				v38 = v74[1];
 				v33 = v72 + v38 * v58;
 				v34 = v73 + v38 * v59;
-				v35 = (x_BYTE*)(v38 + v71);
+				v35 = (x_BYTE*)(v38 + ptrScreenBuffer);
 				v36 = *v74 - v38;
 				v37 = 0;
 				HIWORD(v38) = 0;
@@ -63571,7 +63554,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 					LOWORD(v34) = v59 + v34;
 					v36--;
 				} while (v36);
-				v71 += screenWidth_18062C;
+				ptrScreenBuffer += screenWidth_18062C;
 				v74 += 2;
 				//index = v69;
 				j--;
@@ -63580,12 +63563,12 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 		}
 		else
 		{
-			for (k = v13; k; v73 += v69)
+			for (k = height; k; v73 += v69)
 			{
 				v44 = v74[1];
 				v39 = v72 + v44 * v58;
 				v40 = v73 + v44 * v59;
-				v41 = (char*)(v44 + v71);
+				v41 = (char*)(v44 + ptrScreenBuffer);
 				v42 = *v74 - v44;
 				v43 = 0;
 				HIWORD(v44) = 0;
@@ -63609,7 +63592,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 					LOWORD(v40) = v59 + v40;
 					v42--;
 				} while (v42);
-				v71 += screenWidth_18062C;
+				ptrScreenBuffer += screenWidth_18062C;
 				v74 += 2;
 				//index = v69;
 				k--;
@@ -63619,12 +63602,12 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 	}
 	else if (a10)
 	{
-		for (l = v13; l; v73 += v69)
+		for (l = height; l; v73 += v69)
 		{
 			v51 = v74[1];
 			v46 = v72 + v51 * v58;
 			v47 = v73 + v51 * v59;
-			v48 = (x_BYTE*)(v51 + v71);
+			v48 = (x_BYTE*)(v51 + ptrScreenBuffer);
 			v49 = *v74 - v51;
 			v50 = 0;
 			HIWORD(v51) = 0;
@@ -63640,7 +63623,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 				v47 += v59;
 				v49--;
 			} while (v49);
-			v71 += screenWidth_18062C;
+			ptrScreenBuffer += screenWidth_18062C;
 			v74 += 2;
 			//index = v69;
 			l--;
@@ -63649,12 +63632,12 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 	}
 	else
 	{//adress 245156
-		for (m = v13; m; v73 += v69)
+		for (m = height; m; v73 += v69)
 		{//0x2580=v71-pdwScreenBuffer_351628
 			v57 = v74[1];//adress 245185 mem edx 3ac764
 			v52 = v72 + v57 * v58;
 			v53 = v73 + v57 * v59;
-			v54 = &v71[v57];
+			v54 = &ptrScreenBuffer[v57];
 			v55 = v74[0] - v57;
 			v56 = 0;
 			HIWORD(v57) = 0;
@@ -63672,7 +63655,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int16_t posX, int16_t posY, uint16
 				v53 += v59;
 				v55--;
 			} while (v55);
-			v71 += screenWidth_18062C;
+			ptrScreenBuffer += screenWidth_18062C;
 			v74 += 2;
 			//index = v69;
 			m--;
