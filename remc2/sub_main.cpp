@@ -63020,12 +63020,12 @@ char sub_63570(type_event_0x6E8E* a1x, type_event_0x6E8E* a2x)//244570
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 
 //----- (00063600) --------------------------------------------------------
-void DrawMinimap_63600(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244600
+void DrawMinimap_63600(int16_t posX, int16_t posY, int16_t x, int16_t y, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10)//244600
 {
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
-		sub_63670_draw_minimap_a(a1, a2, posX, posY, width, height, yaw, a8, a10);
+		sub_63670_draw_minimap_a(posX, posY, x, y, width, height, yaw, a8, a10);
 	else
-		sub_63C90_draw_minimap_b(a1, a2, posX, posY, width, height, yaw, a8, a10);
+		sub_63C90_draw_minimap_b(posX, posY, x, y, width, height, yaw, a8, a10);
 }
 
 //----- (00063670) --------------------------------------------------------

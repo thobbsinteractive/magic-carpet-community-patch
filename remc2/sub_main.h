@@ -573,7 +573,7 @@ char sub_8B980(int a1, int a2, char* a3, int a4);
 signed int sub_8BBE0(uint8_t* a1);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
-void DrawMinimap_63600(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
+void DrawMinimap_63600(int16_t posX, int16_t posY, int16_t x, int16_t y, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
 void DrawMinimapEntites_61880(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8);
 void sub_63670_draw_minimap_a(int a1, int a2, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
 void sub_63C90_draw_minimap_b(int16_t posX, int16_t posY, int16_t x, int16_t y, uint16_t width, uint16_t height, int16_t yaw, int a8, int a10);
