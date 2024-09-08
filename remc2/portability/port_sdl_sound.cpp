@@ -185,8 +185,8 @@ void port_sdl_sound::StartSpeech(const uint8_t track, const uint16_t offset, con
 void port_sdl_sound::StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler)
 {
     size_t track_str_len;
-    char *track_filename = NULL;
-    uint8_t *track_data = NULL;
+    char *track_filename = nullptr;
+    uint8_t *track_data = nullptr;
     uint32_t track_data_len;
     uint32_t track_offset;
     int fd;
@@ -197,10 +197,7 @@ void port_sdl_sound::StartSpeech(const uint8_t track, const uint16_t offset, con
     std::string speech_path = GetSubDirectoryPath(m_speech_folder.c_str());
     track_str_len = speech_path.length() + 13;
 
-    track_filename = (char *) calloc(track_str_len, sizeof(char));
-    if (!track_filename) {
-        return;
-    }
+    track_filename = (char*)calloc(track_str_len, sizeof(char));
 
     snprintf(track_filename, track_str_len, "%s/track%02d.cdr", speech_path.c_str(), track);
 
