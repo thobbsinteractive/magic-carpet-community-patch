@@ -215,6 +215,7 @@ if (UNIX)
         SDL2::Mixer
         ${PNG_LIBRARY}
         findfirst
+        ADLMIDI_static
         Boost::system
         spdlog
         fmt

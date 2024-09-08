@@ -537,6 +537,7 @@ int sub_812D0_drawDotBitmap(__int16 a1, __int16 a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
 bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
+void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
 
@@ -573,7 +574,7 @@ char sub_8B980(int a1, int a2, char* a3, int a4);
 signed int sub_8BBE0(uint8_t* a1);
 void sub_8CD27_set_cursor(posistruct_t a2);
 signed int sub_8CEDF_install_mouse();
-int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3);
+int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3, int32_t frameDelay = 10);
 void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
 void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);

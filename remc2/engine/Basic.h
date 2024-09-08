@@ -159,8 +159,8 @@ extern __int16 x_WORD_180660_VGA_type_resolution;
 extern uint8_t x_BYTE_E88E0x[32];
 extern uint8_t unk_F0A20x[1024];//2c1a20
 extern char isCaveLevel_D41B6;
-extern __int16 x_WORD_D4B7C; // weak
-extern __int16 x_WORD_D4B7E; // weak
+extern uint8_t keyColor1_D4B7C; // weak
+extern uint8_t keyColor2_D4B7E; // weak
 extern type_event_0x6E8E* x_DWORD_EA3E4[1001];//2bb3e4
 
 extern uint8_t x_BYTE_F6EE0_tablesx[83456];// (uint8_t*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
@@ -527,7 +527,7 @@ x_DWORD x_outp(x_DWORD, char);// weak
 x_DWORD x_inp(x_DWORD);// weak
 void stub_fix_it();
 void* Malloc_83CD0(size_t a1);
-void qmemcpy(void* a, void* b, size_t c);
+void qmemcpy(void* dest, void* src, size_t size);
 int FreeMem_9D490(void* a1, int a2);
 int x_free(void* ptr);
 void* Malloc_83D70(int a1);

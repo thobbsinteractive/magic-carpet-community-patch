@@ -20,8 +20,10 @@ typedef struct
 	int32_t y;
 } POSITION;
 
-void VGA_Init(int width, int height, bool maintainAspectRatio, int displayIndex);
-void VGA_Init(Uint32 flags, int width, int height, bool maintainAspectRatio, int displayIndex);
+
+
+void VGA_Init(int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex);
+void VGA_Init(Uint32 flags, int windowWidth, int windowHeight, int gameResWidth, int gameResHeight, bool maintainAspectRatio, int displayIndex);
 bool VGA_LoadFont();
 void VGA_close();
 void VGA_Resize(int width, int height);

@@ -65,18 +65,34 @@ namespace remc2_installer
 									}
 								 },
 #if WIN64
-								 new File(@"..\x64\Release\libfreetype-6.dll"),
-								 new File(@"..\x64\Release\libpng16-16.dll"),
+								 new File(@"..\x64\Release\brotlicommon.dll"),
+								 new File(@"..\x64\Release\brotlidec.dll"),
+								 new File(@"..\x64\Release\bz2.dll"),
+								 new File(@"..\x64\Release\fmt.dll"),
+								 new File(@"..\x64\Release\freetype.dll"),
+								 new File(@"..\x64\Release\libpng16.dll"),
+								 new File(@"..\x64\Release\ogg.dll"),
 								 new File(@"..\x64\Release\SDL2.dll"),
 								 new File(@"..\x64\Release\SDL2_image.dll"),
+								 new File(@"..\x64\Release\SDL2_mixer.dll"),
 								 new File(@"..\x64\Release\SDL2_ttf.dll"),
+								 new File(@"..\x64\Release\vorbis.dll"),
+								 new File(@"..\x64\Release\vorbisfile.dll"),
 								 new File(@"..\x64\Release\zlib1.dll"),
 #else
-                                 new File(@"..\Release\libfreetype-6.dll"),
-								 new File(@"..\Release\libpng16-16.dll"),
+								 new File(@"..\Release\brotlicommon.dll"),
+								 new File(@"..\Release\brotlidec.dll"),
+								 new File(@"..\Release\bz2.dll"),
+								 new File(@"..\Release\fmt.dll"),
+								 new File(@"..\Release\freetype.dll"),
+								 new File(@"..\Release\libpng16.dll"),
+								 new File(@"..\Release\ogg.dll"),
 								 new File(@"..\Release\SDL2.dll"),
 								 new File(@"..\Release\SDL2_image.dll"),
+								 new File(@"..\Release\SDL2_mixer.dll"),
 								 new File(@"..\Release\SDL2_ttf.dll"),
+								 new File(@"..\Release\vorbis.dll"),
+								 new File(@"..\Release\vorbisfile.dll"),
 								 new File(@"..\Release\zlib1.dll"),
 #endif
 								 new File(@"Extract.bat"),
@@ -102,7 +118,7 @@ namespace remc2_installer
             project.Platform = Platform.x64;
 #endif
             project.GUID = new Guid("d945f1c4-cbe4-445c-9674-07de64692857");
-			project.Version = new Version(0, 9, 4, 0);
+			project.Version = new Version(0, 9, 7, 0);
 
 			//project.ManagedUI = ManagedUI.Empty;    //no standard UI dialogs
 			//project.ManagedUI = ManagedUI.Default;  //all standard UI dialogs
