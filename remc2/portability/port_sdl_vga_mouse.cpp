@@ -3,7 +3,6 @@
 #include "port_sdl_vga_mouse.h"
 #include "port_time.h"
 #include "port_sdl_sound.h"
-#include "port_openal.h"
 
 #include <cstdint>
 
@@ -130,14 +129,7 @@ void VGA_Init(Uint32  /*flags*/, int windowWidth, int windowHeight, int gameResW
 		}
 		else
 		{
-			if (openal_sound)
-			{
-				m_ptrSoundDevice = std::make_unique<port_openal>(hqsound, fixspeedsound, oggmusic, oggmusicalternative, oggmusicFolder, speech_folder);
-			}
-			else
-			{
-				m_ptrSoundDevice = std::make_unique<port_sdl_sound>(hqsound, fixspeedsound, oggmusic, oggmusicalternative, oggmusicFolder, speech_folder);
-			}
+			m_ptrSoundDevice = std::make_unique<port_sdl_sound>(hqsound, fixspeedsound, oggmusic, oggmusicalternative, oggmusicFolder, speech_folder);
 			
 			gamepad_sdl_init();
 

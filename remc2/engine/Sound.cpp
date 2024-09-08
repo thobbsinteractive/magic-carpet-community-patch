@@ -5502,7 +5502,7 @@ uint8_t get_sample_ptr(const uint8_t index, uint8_t **data, int32_t *len)
     *data = &pWaveData[i + 8];
     *len = *(int32_t *) & pWaveData[i + 4];
 
-    //Logger->info("get_sample_ptr  id {}  sz {}", index, *len);
+    Logger->info("get_sample_ptr  id {}  sz {}", index, *len);
     return EXIT_SUCCESS;
 }
 

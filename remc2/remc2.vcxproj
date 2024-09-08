@@ -385,7 +385,6 @@
     <ClInclude Include="portability\fcaseopen.h" />
     <ClInclude Include="portability\PortSoundInterface.h" />
     <ClInclude Include="portability\port_net.h" />
-    <ClInclude Include="portability\port_openal.h" />
     <ClInclude Include="portability\port_sdl_joystick.h" />
     <ClInclude Include="portability\port_show_perifery.h" />
     <ClInclude Include="portability\port_sound_lut.h" />
@@ -458,7 +457,6 @@
     <ClCompile Include="portability\dirent.c" />
     <ClCompile Include="portability\fcaseopen.cpp" />
     <ClCompile Include="portability\port_net.cpp" />
-    <ClCompile Include="portability\port_openal.cpp" />
     <ClCompile Include="portability\port_sdl_joystick.cpp" />
     <ClCompile Include="portability\port_show_perifery.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
