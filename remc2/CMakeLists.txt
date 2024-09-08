@@ -132,7 +132,6 @@ set(SOURCE_FILES__portability
     "portability/port_inputs.h"
     "portability/port_outputs.cpp"
     "portability/port_outputs.h"
-    "portability/port_sound_lut.h"
     "portability/port_sdl_sound.cpp"
     "portability/port_sdl_sound.h"
     "portability/port_sdl_vga_mouse.cpp"
@@ -215,7 +214,7 @@ if (UNIX)
         findfirst
         ADLMIDI_static
         Boost::system
-        fmt::fmt
+		fmt::fmt
     )
     target_link_directories(${PROJECT_NAME} PUBLIC
     )
