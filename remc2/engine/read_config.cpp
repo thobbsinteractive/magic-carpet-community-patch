@@ -29,9 +29,7 @@ bool oggmusic = false;
 std::string oggmusicFolder = "";
 bool oggmusicalternative = false;
 std::string speech_folder = "";
-bool openal_sound = false;
 bool fixspeedsound = false;
-openal_config_t oac;
 
 std::string findIniFile() {
 	// find location of inifile and read it
@@ -157,18 +155,9 @@ bool readini() {
 	oggmusicFolder = reader.GetString("sound", "oggmusicFolder", "");
 	speech_folder = reader.GetString("sound", "speech_folder", "");
 
-	openal_sound = reader.GetBoolean("sound", "openal_sound", false);
-	if (openal_sound)
+	if (speech_folder.empty())
 	{
-		oac.speech_volume = reader.GetInteger("sound", "openal_speech_volume", 100);
-
-		if ((oac.speech_volume == 0) || (speech_folder.length() < 3)) {
-			disable_speech();
-		}
-
-		oac.env_volume = reader.GetInteger("sound", "openal_environment_volume", 40);
-		oac.efx_enabled = reader.GetBoolean("sound", "openal_efx", false);
-		oac.same_chunk_concurrency = reader.GetInteger("sound", "openal_same_chunk_concurrency", 5);
+		disable_speech();
 	}
 
 	std::string readstr3 = reader.GetString("graphics", "bigGraphicsFolder", "");

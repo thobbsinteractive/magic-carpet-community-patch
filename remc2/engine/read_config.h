@@ -60,7 +60,6 @@ extern bool oggmusic;
 extern std::string oggmusicFolder;
 extern bool oggmusicalternative;
 extern std::string speech_folder;
-extern bool openal_sound;
 extern bool fixspeedsound;
 
 #define   GAMEPAD_ITEM_DISABLED  0x0
@@ -113,14 +112,5 @@ struct gamepad_config {
 
 typedef struct gamepad_config gamepad_config_t;
 extern gamepad_config_t gpc;
-
-struct openal_config {
-    bool efx_enabled;
-    uint16_t speech_volume;
-    uint16_t env_volume;
-    uint16_t same_chunk_concurrency;
-};
-typedef struct openal_config openal_config_t;
-extern openal_config_t oac;
 
 #endif                          //READ_CONFIG

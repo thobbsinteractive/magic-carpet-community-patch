@@ -303,9 +303,6 @@
     <ClInclude Include="portability\port_sdl_joystick.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="portability\port_sound_lut.h">
-      <Filter>Header Files\portability</Filter>
-    </ClInclude>
     <ClInclude Include="portability\PortSoundInterface.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>

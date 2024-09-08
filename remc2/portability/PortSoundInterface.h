@@ -8,10 +8,6 @@
 #include "../engine/ail_sound.h"
 #include "../engine/Type_E3808_MusicHeader.h"
 
-#define	OPENAL_CHANNELS				24
-#define	OPENAL_C_SZ	OPENAL_CHANNELS     ///< number of chunks that can play at the same time (aka number of voices)
-#define	OPENAL_CC_SZ				128     ///< number of chunks the cache can hold
-
 ////< flags used by alsound_set_env()
 #define	AL_SET_BANK					0x1
 
