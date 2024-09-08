@@ -1897,10 +1897,11 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
 	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_4, 0);
 	DataFileIO::Read(file, soundBuffer1_E37A8, 8);
-	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C') 
+	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C')//R N C
 	{
 		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBank2[soundIndex2].dword_12 - 8);
-	} else 
+	} 
+	else
 	{
 		DataFileIO::Read(file, (soundBuffer1_E37A8 + 8), soundBuffer1_E37A8[7] + ((soundBuffer1_E37A8[6] + ((soundBuffer1_E37A8[5] + (soundBuffer1_E37A8[4] << 8)) << 8)) << 8) - 8);
 		DataFileIO::Decompress(soundBuffer1_E37A8, soundBuffer1_E37A8);
