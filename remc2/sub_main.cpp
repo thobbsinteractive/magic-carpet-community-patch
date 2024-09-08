@@ -81164,7 +81164,8 @@ int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* newpalbufferx, uint8_t shadow_l
 void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay)//27B0fc
 {
 	VGA_Blit(nullptr);
-	mydelay(delay);
+	if (delay > 0)
+		mydelay(delay);
 }
 
 //----- (00090B27) --------------------------------------------------------
