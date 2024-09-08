@@ -26380,7 +26380,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (uint16_t)screenWidth_18062C, (uint16_t)screenHeight_180624, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 			m_ptrGameRender->DrawWorld_411A0(
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
