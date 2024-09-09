@@ -80,4 +80,4 @@ public:
 	void StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler) override;
 	void DeleteSource(uint16_t channel) override;
 };
-#endif                          //PORT_SDL_SOUND
+#endif //PORT_SDL_SOUND

@@ -184,38 +184,37 @@ void port_sdl_sound::StartSpeech(const uint8_t track, const uint16_t offset, con
 
 void port_sdl_sound::StartSpeech(const uint8_t track, const uint16_t offset, const uint16_t len, std::function<void(int16_t chunkId, uint16_t flags)> sampleEndedEventHandler)
 {
-    size_t track_str_len;
-    char *track_filename = nullptr;
+	char trackNum[3];
     uint8_t *track_data = nullptr;
     uint32_t track_data_len;
     uint32_t track_offset;
     int fd;
-    Mix_Chunk chunk = {};
 
-    Logger->debug("StartSpeech track {}  offset {}  len {}", track, offset, len);
+	Logger->debug("StartSpeech track {}  offset {}  len {}", track, offset, len);
 
-    std::string speech_path = GetSubDirectoryPath(m_speech_folder.c_str());
-    track_str_len = speech_path.length() + 13;
+	snprintf(trackNum, sizeof(trackNum), "%02d", track);
 
-    track_filename = (char*)calloc(track_str_len, sizeof(char));
-
-    snprintf(track_filename, track_str_len, "%s/track%02d.cdr", speech_path.c_str(), track);
+	std::string speech_path = GetSubDirectoryPath(m_speech_folder.c_str());
+	std::string track_filename = speech_path.c_str() + std::string("/track") + trackNum + ".cdr";
 
 	if (!std::filesystem::exists(track_filename))
-		snprintf(track_filename, track_str_len, "%s/track%02d.wav", speech_path.c_str(), track);
+		track_filename = speech_path.c_str() + std::string("/track") + trackNum + ".wav";
 
-    Logger->debug("track: {}", track_filename);
+	if (!std::filesystem::exists(track_filename))
+	{
+		return;
+	}
 
     track_data_len = len * 2360;
     track_offset = offset * 2360;
     track_data = (uint8_t *) calloc(track_data_len, sizeof(uint8_t));
     if (!track_data) {
-        goto cleanup_nofreedata;
+        return;
     }
 
-    if ((fd = open(track_filename, O_RDONLY)) < 0) {
+    if ((fd = open(track_filename.c_str(), O_RDONLY)) < 0) {
         Logger->warn("unable to open speech file {}", track_filename);
-        goto cleanup_nofreedata;
+        return;
     }
 
     if (lseek(fd, track_offset, SEEK_SET) != track_offset) {
@@ -228,17 +227,15 @@ void port_sdl_sound::StartSpeech(const uint8_t track, const uint16_t offset, con
         goto cleanup;
     }
 
-    chunk.allocated = 1;
-    chunk.alen = track_data_len;
-    chunk.abuf = track_data;
-    chunk.volume = 127;
+	m_gamechunk[31].allocated = 1;
+	m_gamechunk[31].alen = track_data_len;
+	m_gamechunk[31].abuf = track_data;
+	m_gamechunk[31].volume = 127;
 
-    Mix_PlayChannel(-1, &chunk, 0);
+    Mix_PlayChannel(31, &m_gamechunk[31], 0);
 
 cleanup: 
     close(fd);
-cleanup_nofreedata:
-    free(track_filename);
 }
 
 void port_sdl_sound::CleanUpSound()
