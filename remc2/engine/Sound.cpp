@@ -1085,9 +1085,6 @@ void EndSounds_99C10()//27ac10
                 if (hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz != nullptr) {
                     free(hDigSoundEffectsDriver_180B48->samples_23[i].start_44mhz);
                 }
-                if (hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff != nullptr) {
-                    free(hDigSoundEffectsDriver_180B48->samples_23[i].wavbuff);
-                }
             }
 			FreeMem_83E80(soundBuffer1_E37A8);
 		}
@@ -3141,8 +3138,6 @@ void InitSample_A38E0(HSAMPLE S)//2848e0
 		S->sam_var[530] = 0;
 		S->sam_var[531] = 0;
 		S->sam_var532_EOS_ptr = nullptr;
-		S->id = -1;
-		S->wavbuff = nullptr;
 		S->start_44mhz = nullptr;
 		InitSampleVolume_A2110(S);
 	}
@@ -5143,7 +5138,6 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 		for (int i = 0; i < 100; i++)
 			Logger->trace("{}", debug_sound_buff[i]);
 		
-		(*soundBuffer1)->id = index;
 		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->str_8.wavs_10[index].wavData_0, 1);
 	}
 	AilSetSampleVolume_93E30(*soundBuffer1, volume);
