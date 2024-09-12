@@ -33,8 +33,8 @@ protected:
 	int m_master_volume = -1;
 
 	uint8_t m_sound_buffer[4][20000];
-	HSAMPLE m_gamechunkHSAMPLE[32];   //OPENAL_CHANNELS];
-	Mix_Chunk m_gamechunk[32];        //OPENAL_CHANNELS];
+	HSAMPLE m_gamechunkHSAMPLE[32];
+	Mix_Chunk m_gamechunk[32];
 	uint16_t m_actvect[4096];
 
 	Mix_Music* m_GAME_music[20] =
@@ -69,7 +69,7 @@ public:
 	void PauseSequence(int32_t sequence_num) override;
 	void StopSequence(int32_t sequence_num) override;
 	void ResumeSequence(int32_t sequence_num) override;
-	uint32_t SampleStatus(HSAMPLE S) override;
+	SampleStatus GetSampleStatus(HSAMPLE S) override;
 	void SetSampleVolume(HSAMPLE S, int32_t volume) override;
 	void SetSequenceVolume(int32_t volume, int32_t milliseconds) override;
 	void SetLocation(axis_3d* coord, axis_4d* orient) override;

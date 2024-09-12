@@ -418,15 +418,15 @@ void port_sdl_sound::StartSample(HSAMPLE S)
     Mix_PlayChannel(S->index_sample, &m_gamechunk[S->index_sample], 0);
 };
 
-uint32_t port_sdl_sound::SampleStatus(HSAMPLE S)
+SampleStatus port_sdl_sound::GetSampleStatus(HSAMPLE S)
 {
     if (unitTests)
-        return 0;
+        return SampleStatus::PLAYING;
 
     if (Mix_Playing(S->index_sample) == 0)
-        return 2;
+        return SampleStatus::STOPPED;
 
-    return 0;
+    return SampleStatus::PLAYING;
 }
 
 void port_sdl_sound::EndSample(HSAMPLE S)

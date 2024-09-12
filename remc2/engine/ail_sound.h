@@ -7,6 +7,11 @@
 
 #define MSS_STRUCT struct
 
+enum class SampleStatus {
+	PLAYING = 0,
+	STOPPED = 2
+};
+
 typedef MSS_STRUCT                     // VDI interface register structure
 {
 	int16_t AX;

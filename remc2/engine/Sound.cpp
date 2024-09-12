@@ -1347,9 +1347,9 @@ void AilSetSampleLoopCount_93F70(HSAMPLE S, int loop_count) //274f70
 }
 
 //----- (00094010) --------------------------------------------------------
-uint32_t AilSampleStatus_94010(HSAMPLE S)
+SampleStatus AilSampleStatus_94010(HSAMPLE S)
 {
-	return m_ptrSoundDevice->SampleStatus(S);
+	return m_ptrSoundDevice->GetSampleStatus(S);
 }
 
 void AilDigitalMasterVolume_94650(int master_volume)
@@ -5064,7 +5064,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 			soundBuffer1 = NULL;
 			for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 			{
-				if (AilSampleStatus_94010(SoundBuffer3_180750[i]) == 2)
+				if (AilSampleStatus_94010(SoundBuffer3_180750[i]) == SampleStatus::STOPPED)
 				{
 					soundBuffer1 = &SoundBuffer3_180750[i];
 					soundBuffer2 = nullptr;
@@ -5078,7 +5078,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 			soundBuffer2 = nullptr;
 			for (int j = 0; j < x_DWORD_180B4C_end_sound_buffer3_endindex; j++)
 			{
-				if (SoundBuffer3_180750[j]->flags_14 == flags && SoundBuffer3_180750[j]->vol_scale_18[0][0] == index && AilSampleStatus_94010(SoundBuffer3_180750[j]) != 2)
+				if (SoundBuffer3_180750[j]->flags_14 == flags && SoundBuffer3_180750[j]->vol_scale_18[0][0] == index && AilSampleStatus_94010(SoundBuffer3_180750[j]) != SampleStatus::STOPPED)
 				{
 					soundBuffer2 = &SoundBuffer3_180750[j];
 					break;
@@ -5089,7 +5089,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 				soundBuffer1 = nullptr;
 				for (int k = 0; k < x_DWORD_180B4C_end_sound_buffer3_endindex; k++)
 				{
-					if (AilSampleStatus_94010(SoundBuffer3_180750[k]) == 2)
+					if (AilSampleStatus_94010(SoundBuffer3_180750[k]) == SampleStatus::STOPPED)
 					{
 						soundBuffer1 = &SoundBuffer3_180750[k];
 						break;
@@ -5116,7 +5116,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 				soundBuffer1 = nullptr;
 				for (int m = 0; m < x_DWORD_180B4C_end_sound_buffer3_endindex; m++)
 				{
-					if (AilSampleStatus_94010(SoundBuffer3_180750[m]) == 2)
+					if (AilSampleStatus_94010(SoundBuffer3_180750[m]) == SampleStatus::STOPPED)
 					{
 						soundBuffer1 = &SoundBuffer3_180750[m];
 						soundBuffer2 = nullptr;
@@ -5164,7 +5164,7 @@ void sub_8F420_sound_proc20(int a1, __int16 a2)//270420
 	{
 		for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 		{
-			if (SoundBuffer3_180750[i]->flags_14 == a1 && SoundBuffer3_180750[i]->vol_scale_18[0][0] == a2 && AilSampleStatus_94010(SoundBuffer3_180750[i]) != 2)
+			if (SoundBuffer3_180750[i]->flags_14 == a1 && SoundBuffer3_180750[i]->vol_scale_18[0][0] == a2 && AilSampleStatus_94010(SoundBuffer3_180750[i]) != SampleStatus::STOPPED)
 			{
 				AilEndSample_93D00(SoundBuffer3_180750[i]);
 				return;
@@ -5180,7 +5180,7 @@ void sub_8F710_sound_proc21(int flags, __int16 index, int loopCount, unsigned __
 	{
 		for (int i = 0; i < x_DWORD_180B4C_end_sound_buffer3_endindex; i++)
 		{
-			if (SoundBuffer3_180750[i]->flags_14 == flags && SoundBuffer3_180750[i]->vol_scale_18[0][0] == index && AilSampleStatus_94010(SoundBuffer3_180750[i]) != 2)
+			if (SoundBuffer3_180750[i]->flags_14 == flags && SoundBuffer3_180750[i]->vol_scale_18[0][0] == index && AilSampleStatus_94010(SoundBuffer3_180750[i]) != SampleStatus::STOPPED)
 			{
 				if (loopCount > 127)
 					loopCount = 127;
@@ -5458,6 +5458,12 @@ void SetSoundFreq_9A230(int freq)//27B230
 		default:
 			soundFreqType2_E37B4 = 0;
 	};
+}
+
+wav_t* GetWaveFromBuffer(uint8_t* buffer)
+{
+	wav_t* wave = (wav_t*)(buffer);
+	return wave;
 }
 
 void WriteWaveToFile(wav_t* wav, const char* name)

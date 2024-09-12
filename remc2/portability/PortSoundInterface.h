@@ -45,7 +45,7 @@ public:
 	virtual void PauseSequence(int32_t sequence_num) = 0;
 	virtual void StopSequence(int32_t sequence_num) = 0;
 	virtual void ResumeSequence(int32_t sequence_num) = 0;
-	virtual uint32_t SampleStatus(HSAMPLE S) = 0;
+	virtual SampleStatus GetSampleStatus(HSAMPLE S) = 0;
 	virtual void SetSampleVolume(HSAMPLE S, int32_t volume) = 0;
 	virtual void SetSequenceVolume(int32_t volume, int32_t milliseconds) = 0;
 	virtual void SetLocation(axis_3d* coord, axis_4d* orient) = 0;
