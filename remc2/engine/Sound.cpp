@@ -13,7 +13,7 @@ bool soundLoaded_E379A = true; // weak
 bool autoScanForSoundHardware_E379B = true; // weak
 char x_BYTE_E379C = 1; // weak
 
-type_E37A0_sound_buffer2* soundIndex_E37A0 = 0;
+type_E37A0_sound_buffer* soundIndex_E37A0 = 0;
 //uint8_t* x_DWORD_E37A0_sound_buffer2 = 0; // weak
 //replace str2_E37A4_sound_buffer3 and x_DWORD_E380C with equvivalent index_E37A4_MaxSound and index_E380C_MaxMusic
 int numOfLoadedSounds_E37A4 = 0;
@@ -1838,10 +1838,10 @@ void LoadSoundDataFromBuffer_844A0(uint16_t count)//2654a0
 		for (index = 0; index < count; index++)
 		{
 #ifdef x32_BIT_ENVIRONMENT
-			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + soundBuffer1_E37A8;
+			soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0 = reinterpret_cast<uint32_t>(soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0) + soundBuffer1_E37A8;
 #endif //x32_BIT_ENVIRONMENT
 #ifdef x64_BIT_ENVIRONMENT
-			soundIndex_E37A0->str_8.wavs_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavs_10[index].wavData_0) + soundBuffer1_E37A8;
+			soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0 = reinterpret_cast<uint64_t>(soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0) + soundBuffer1_E37A8;
 #endif //x64_BIT_ENVIRONMENT
 		}
 	}
@@ -1853,7 +1853,7 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 {
 	type_v8 soundBank2[6];
 	
-	shadow_type_E37A0_sound_buffer2* shadow_str_E37A0_sound_buffer2=0;//64x fix
+	type_32bit_E37A0_sound_buffer* shadow_str_E37A0_sound_buffer = nullptr;//64x fix
 
 	myftell(file);
 	//3550d8
@@ -1864,7 +1864,7 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	if (!soundActiveH_E2A14)
 	{
 		soundBuffer1_E37A8 = (uint8_t*)Malloc_83CD0(soundBank2[soundIndex2].dword_12 + 256);
-		soundIndex_E37A0 = (type_E37A0_sound_buffer2*)Malloc_83CD0(sizeof(type_E37A0_sound_buffer2));
+		soundIndex_E37A0 = (type_E37A0_sound_buffer*)Malloc_83CD0(sizeof(type_E37A0_sound_buffer));
 		soundActiveL_E2A14 = 1;
 		if (!soundBuffer1_E37A8 || !soundIndex_E37A0)
 		{
@@ -1883,15 +1883,15 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	memset((void*)soundBuffer1_E37A8, 0, soundBufferLen_E2A18);
 
 	//64xfix
-	shadow_str_E37A0_sound_buffer2 = (shadow_type_E37A0_sound_buffer2*)Malloc_83CD0(sizeof(shadow_type_E37A0_sound_buffer2));
-	if (!shadow_str_E37A0_sound_buffer2)
+	shadow_str_E37A0_sound_buffer = (type_32bit_E37A0_sound_buffer*)Malloc_83CD0(sizeof(type_E37A0_sound_buffer));
+	if (!shadow_str_E37A0_sound_buffer)
 	{
-		FreeMem_83E80((uint8_t*)shadow_str_E37A0_sound_buffer2);
+		FreeMem_83E80((uint8_t*)shadow_str_E37A0_sound_buffer);
 		return false;
 	}
 
-	memset((void*)shadow_str_E37A0_sound_buffer2, 0, sizeof(shadow_type_E37A0_sound_buffer2));
-	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(shadow_sub2type_E37A0_sound_buffer2);
+	memset((void*)shadow_str_E37A0_sound_buffer, 0, sizeof(type_32bit_E37A0_sound_buffer));
+	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(sub2type_32bit_E37A0_sound_buffer);
 	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_4, 0);
 	DataFileIO::Read(file, soundBuffer1_E37A8, 8);
 	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C')
@@ -1904,41 +1904,41 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 		DataFileIO::Decompress(soundBuffer1_E37A8, soundBuffer1_E37A8);
 	}
 	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_0, 0);
-	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer2, 8);
-	if (shadow_str_E37A0_sound_buffer2->byte_0 != 'R' || shadow_str_E37A0_sound_buffer2->byte_1 != 'N' || shadow_str_E37A0_sound_buffer2->byte_2 != 'C')//R N C
+	DataFileIO::Read(file, (uint8_t*)shadow_str_E37A0_sound_buffer, 8);
+	if (shadow_str_E37A0_sound_buffer->byte_0 != 'R' || shadow_str_E37A0_sound_buffer->byte_1 != 'N' || shadow_str_E37A0_sound_buffer->byte_2 != 'C')//R N C
 	{
 		// go back to the start of the bank, since this block has no header
 		DataFileIO::Seek(file, soundBank2[soundIndex2].dword_0, 0);
-		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, soundBank2[soundIndex2].sizeBytes_8 - 8);
+		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer->str_8, soundBank2[soundIndex2].sizeBytes_8 - 8);
 	}
 	else
 	{
-		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer2->str_8, shadow_str_E37A0_sound_buffer2->byte_7 + ((shadow_str_E37A0_sound_buffer2->byte_6 + ((shadow_str_E37A0_sound_buffer2->byte_5 + (shadow_str_E37A0_sound_buffer2->byte_4 << 8)) << 8)) << 8) - 8);
-		DataFileIO::Decompress((uint8_t*)shadow_str_E37A0_sound_buffer2, (uint8_t*)shadow_str_E37A0_sound_buffer2);
+		DataFileIO::Read(file, (uint8_t*)&shadow_str_E37A0_sound_buffer->str_8, shadow_str_E37A0_sound_buffer->byte_7 + ((shadow_str_E37A0_sound_buffer->byte_6 + ((shadow_str_E37A0_sound_buffer->byte_5 + (shadow_str_E37A0_sound_buffer->byte_4 << 8)) << 8)) << 8) - 8);
+		DataFileIO::Decompress((uint8_t*)shadow_str_E37A0_sound_buffer, (uint8_t*)shadow_str_E37A0_sound_buffer);
 	}
-	soundIndex_E37A0->byte_0 = shadow_str_E37A0_sound_buffer2->byte_0;
-	soundIndex_E37A0->byte_1 = shadow_str_E37A0_sound_buffer2->byte_1;
-	soundIndex_E37A0->byte_2 = shadow_str_E37A0_sound_buffer2->byte_2;
-	soundIndex_E37A0->byte_3 = shadow_str_E37A0_sound_buffer2->byte_3;
-	soundIndex_E37A0->byte_4 = shadow_str_E37A0_sound_buffer2->byte_4;
-	soundIndex_E37A0->byte_5 = shadow_str_E37A0_sound_buffer2->byte_5;
-	soundIndex_E37A0->byte_6 = shadow_str_E37A0_sound_buffer2->byte_6;
-	soundIndex_E37A0->byte_7 = shadow_str_E37A0_sound_buffer2->byte_7;
+	soundIndex_E37A0->byte_0 = shadow_str_E37A0_sound_buffer->byte_0;
+	soundIndex_E37A0->byte_1 = shadow_str_E37A0_sound_buffer->byte_1;
+	soundIndex_E37A0->byte_2 = shadow_str_E37A0_sound_buffer->byte_2;
+	soundIndex_E37A0->byte_3 = shadow_str_E37A0_sound_buffer->byte_3;
+	soundIndex_E37A0->byte_4 = shadow_str_E37A0_sound_buffer->byte_4;
+	soundIndex_E37A0->byte_5 = shadow_str_E37A0_sound_buffer->byte_5;
+	soundIndex_E37A0->byte_6 = shadow_str_E37A0_sound_buffer->byte_6;
+	soundIndex_E37A0->byte_7 = shadow_str_E37A0_sound_buffer->byte_7;
 
 	for (int i = 0; i < numOfLoadedSounds_E37A4; i++)
 	{
-		soundIndex_E37A0->str_8.wavs_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavData_0;
-		soundIndex_E37A0->str_8.wavs_10[i].wavSize_8 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].wavSize_8;
-		soundIndex_E37A0->str_8.wavs_10[i].word_12 = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].word_12;
+		soundIndex_E37A0->str_8.wavDataList_10[i].wavData_0 = (uint8_t*)shadow_str_E37A0_sound_buffer->str_8.wavDataList_10[i].wavData_0;
+		soundIndex_E37A0->str_8.wavDataList_10[i].wavSize_8 = shadow_str_E37A0_sound_buffer->str_8.wavDataList_10[i].wavSize_8;
+		soundIndex_E37A0->str_8.wavDataList_10[i].word_12 = shadow_str_E37A0_sound_buffer->str_8.wavDataList_10[i].word_12;
 		for (int j = 0; j < 18; j++)
 		{
-			soundIndex_E37A0->str_8.wavs_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer2->str_8.wavs_10[i].filename_14[j];
+			soundIndex_E37A0->str_8.wavDataList_10[i].filename_14[j] = shadow_str_E37A0_sound_buffer->str_8.wavDataList_10[i].filename_14[j];
 		}
 	}
 	
 	for (int i = 0; i < 10; i++)
-		soundIndex_E37A0->next_str[i] = shadow_str_E37A0_sound_buffer2->next_str[i];
-	FreeMem_83E80((uint8_t*)shadow_str_E37A0_sound_buffer2);
+		soundIndex_E37A0->next_str[i] = shadow_str_E37A0_sound_buffer->next_str[i];
+	FreeMem_83E80((uint8_t*)shadow_str_E37A0_sound_buffer);
 	//64xfix
 
 	LoadSoundDataFromBuffer_844A0(numOfLoadedSounds_E37A4);
@@ -2163,7 +2163,7 @@ int sub_9EE70()
 	{
 		AilInitSample_93830(mainSample_181E10);
 		AilRegisterEosCallback_95140(mainSample_181E10, sub_9EE70);
-		AilSetSampleFile_938C0(mainSample_181E10, soundIndex_E37A0->str_8.wavs_10[AilSampleUserData_95480(mainSample_181E10, x_DWORD_E3E40)].wavData_0, 1);
+		AilSetSampleFile_938C0(mainSample_181E10, soundIndex_E37A0->str_8.wavDataList_10[AilSampleUserData_95480(mainSample_181E10, x_DWORD_E3E40)].wavData_0, 1);
 		x_DWORD_E3E40++;
 		AilStartSample_93B50(mainSample_181E10);
 	}
@@ -4960,7 +4960,7 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	}
 	//64xbit fix
 	
-	countOfMusicTracks_E380C = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer2);
+	countOfMusicTracks_E380C = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer);
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
 	DataFileIO::Read(filehandle, musicData_E3810, 8);
 	if (musicData_E3810[0] == 'R' && musicData_E3810[1] == 'N' && musicData_E3810[2] == 'C')//RNC
@@ -5052,7 +5052,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	if (!soundAble_E3798
 		|| !soundActive_E3799
 		|| index > (signed int)indexLoadedSound_180B50
-		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavs_10[index].filename_14, "null.wav"))
+		|| !_stricmp((const char*)&soundIndex_E37A0->str_8.wavDataList_10[index].filename_14, "null.wav"))
 	{
 		return;
 	}
@@ -5133,12 +5133,12 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	{
 		AilInitSample_93830(*soundBuffer1);
 
-		uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
+		uint8_t* debug_sound_buff = soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0;
 		Logger->trace("sub_8F100_sound_proc19:buff:");
 		for (int i = 0; i < 100; i++)
 			Logger->trace("{}", debug_sound_buff[i]);
 		
-		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->str_8.wavs_10[index].wavData_0, 1);
+		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0, 1);
 	}
 	AilSetSampleVolume_93E30(*soundBuffer1, volume);
 	AilSetSampleVolumePan_93ED0(*soundBuffer1, volumePan);
@@ -5462,8 +5462,7 @@ void SetSoundFreq_9A230(int freq)//27B230
 
 wav_t* GetWaveFromBuffer(uint8_t* buffer)
 {
-	wav_t* wave = (wav_t*)(buffer);
-	return wave;
+	return (wav_t*)(buffer);
 }
 
 void WriteWaveToFile(wav_t* wav, const char* name)
@@ -5496,7 +5495,7 @@ uint8_t get_sample_ptr(const uint8_t index, uint8_t **data, int32_t *len)
     *len = 0;
     *data = NULL;
     int i;
-    uint8_t *pWaveData = soundIndex_E37A0->str_8.wavs_10[index].wavData_0;
+    uint8_t *pWaveData = soundIndex_E37A0->str_8.wavDataList_10[index].wavData_0;
 
     i = 12;
     for (int j = _strnicmp((const char *)&pWaveData[12], "data", 4); j; j = _strnicmp((const char *)&pWaveData[i], "data", 4)) {
