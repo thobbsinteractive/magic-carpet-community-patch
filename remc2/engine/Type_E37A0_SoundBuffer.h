@@ -13,9 +13,6 @@ typedef struct {                //length 32
 	int16_t word_12;
 } sub2type_E37A0_sound_buffer;
 
-typedef struct {                //length 3072
-	sub2type_E37A0_sound_buffer wavDataList_10[96];
-} sub1type_E37A0_sound_buffer;
 
 typedef struct {                //length 3090
 	int8_t byte_0;
@@ -26,7 +23,7 @@ typedef struct {                //length 3090
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
-	sub1type_E37A0_sound_buffer str_8; //3072 length
+	sub2type_E37A0_sound_buffer wavDataList_10[96]; //3072 length
 	int8_t next_str[10];
 } type_E37A0_sound_buffer;
 
@@ -38,9 +35,6 @@ typedef struct {                //length 32
 	int16_t word_12;
 } sub2type_32bit_E37A0_sound_buffer;
 
-typedef struct {                //length 3072
-	sub2type_32bit_E37A0_sound_buffer wavDataList_10[96];
-} sub1type_32bit_E37A0_sound_buffer;
 
 typedef struct {                //length 3090
 	int8_t byte_0;
@@ -51,7 +45,7 @@ typedef struct {                //length 3090
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
-	sub1type_32bit_E37A0_sound_buffer str_8;  //3072 length
+	sub2type_32bit_E37A0_sound_buffer wavDataList_10[96];  //3072 length
 	int8_t next_str[10];
 } type_32bit_E37A0_sound_buffer;
 
