@@ -1891,7 +1891,7 @@ bool ReadAndDecompressSound(FILE* file, uint8_t soundIndex2)//2654f0
 	}
 
 	memset((void*)shadow_str_E37A0_sound_buffer, 0, sizeof(type_32bit_E37A0_sound_buffer));
-	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(sub2type_32bit_E37A0_sound_buffer);
+	numOfLoadedSounds_E37A4 = (soundBank2[soundIndex2].sizeBytes_8) / sizeof(WavSample_32bit_E37A0);
 	DataFileIO::Seek(file, soundBank2[soundIndex2].dword_4, 0);
 	DataFileIO::Read(file, soundBuffer1_E37A8, 8);
 	if (soundBuffer1_E37A8[0] != 'R' || soundBuffer1_E37A8[1] != 'N' || soundBuffer1_E37A8[2] != 'C')
@@ -4960,7 +4960,7 @@ bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber)//26fd00
 	}
 	//64xbit fix
 	
-	countOfMusicTracks_E380C = (headerx[drivernumber].sizeBytes_8) / sizeof(sub2type_E37A0_sound_buffer);
+	countOfMusicTracks_E380C = (headerx[drivernumber].sizeBytes_8) / sizeof(WavSample_8bit_E37A0);
 	DataFileIO::Seek(filehandle, headerx[drivernumber].dword_4, 0);
 	DataFileIO::Read(filehandle, musicData_E3810, 8);
 	if (musicData_E3810[0] == 'R' && musicData_E3810[1] == 'N' && musicData_E3810[2] == 'C')//RNC
