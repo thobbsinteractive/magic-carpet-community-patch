@@ -5042,7 +5042,7 @@ int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 }
 
 //----- (0008F100) --------------------------------------------------------
-void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volumePan, unsigned __int16 playRate, char loopCount, unsigned __int8 playType)//270100
+void sub_8F100_sound_proc19(uint32_t flags, int16_t wavListIndex, int volume, int volumePan, unsigned __int16 playRate, char loopCount, unsigned __int8 playType)//270100
 {
 	bool bool1; // [esp+0h] [ebp-18h]
 
@@ -5051,8 +5051,8 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 
 	if (!soundAble_E3798
 		|| !soundActive_E3799
-		|| index > (signed int)indexLoadedSound_180B50
-		|| !_stricmp((const char*)&soundIndex_E37A0->wavDataList_10[index].filename_14, "null.wav"))
+		|| wavListIndex > (signed int)indexLoadedSound_180B50
+		|| !_stricmp((const char*)&soundIndex_E37A0->wavDataList_10[wavListIndex].filename_14, "null.wav"))
 	{
 		return;
 	}
@@ -5078,7 +5078,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 			soundBuffer2 = nullptr;
 			for (int j = 0; j < x_DWORD_180B4C_end_sound_buffer3_endindex; j++)
 			{
-				if (SoundBuffer3_180750[j]->flags_14 == flags && SoundBuffer3_180750[j]->vol_scale_18[0][0] == index && AilSampleStatus_94010(SoundBuffer3_180750[j]) != SampleStatus::STOPPED)
+				if (SoundBuffer3_180750[j]->flags_14 == flags && SoundBuffer3_180750[j]->vol_scale_18[0][0] == wavListIndex && AilSampleStatus_94010(SoundBuffer3_180750[j]) != SampleStatus::STOPPED)
 				{
 					soundBuffer2 = &SoundBuffer3_180750[j];
 					break;
@@ -5103,7 +5103,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 			bool1 = false;
 			for (int l = 0; l < x_DWORD_180B4C_end_sound_buffer3_endindex; l++)
 			{
-				if (SoundBuffer3_180750[l]->flags_14 == flags && SoundBuffer3_180750[l]->vol_scale_18[0][0] == index)
+				if (SoundBuffer3_180750[l]->flags_14 == flags && SoundBuffer3_180750[l]->vol_scale_18[0][0] == wavListIndex)
 				{
 					soundBuffer1 = &SoundBuffer3_180750[l];
 					soundBuffer2 = nullptr;
@@ -5133,12 +5133,12 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 	{
 		AilInitSample_93830(*soundBuffer1);
 
-		uint8_t* debug_sound_buff = soundIndex_E37A0->wavDataList_10[index].wavData_0;
+		uint8_t* debug_sound_buff = soundIndex_E37A0->wavDataList_10[wavListIndex].wavData_0;
 		Logger->trace("sub_8F100_sound_proc19:buff:");
 		for (int i = 0; i < 100; i++)
 			Logger->trace("{}", debug_sound_buff[i]);
 		
-		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->wavDataList_10[index].wavData_0, 1);
+		AilSetSampleFile_938C0(*soundBuffer1, soundIndex_E37A0->wavDataList_10[wavListIndex].wavData_0, 1);
 	}
 	AilSetSampleVolume_93E30(*soundBuffer1, volume);
 	AilSetSampleVolumePan_93ED0(*soundBuffer1, volumePan);
@@ -5150,7 +5150,7 @@ void sub_8F100_sound_proc19(uint32_t flags, __int16 index, int volume, int volum
 
 	AilStartSample_93B50(*soundBuffer1);
 	(*soundBuffer1)->flags_14 = flags;
-	(*soundBuffer1)->vol_scale_18[0][0] = index;
+	(*soundBuffer1)->vol_scale_18[0][0] = wavListIndex;
 	(*soundBuffer1)->status_1 = volume;
 	(*soundBuffer1)->len_4_5[1] = volumePan;
 	(*soundBuffer1)->vol_scale_18[0][2] = 0;

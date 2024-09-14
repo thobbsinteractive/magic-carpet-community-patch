@@ -76619,13 +76619,13 @@ void SampleEndedEventHandler(int16_t chunkId, uint16_t flags)
 }
 
 //----- (00086EB0) --------------------------------------------------------
-void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
+void sub_86EB0(uint8_t trackIdx, uint8_t chunkIdx, char a3)//267eb0
 {
 	//int v3; // eax
-	unsigned __int8 v4; // dl
+	int8_t track = SpeechTracks_DB080[trackIdx].track;
 	//int v5; // eax
-	__int16 v6; // bx
-	__int16 v7; // ax
+	int16_t offset = SpeechTracks_DB080[trackIdx].chunk[chunkIdx].offset;
+	int16_t length = SpeechTracks_DB080[trackIdx].chunk[chunkIdx].length;
 
 	//v3 = 42 * a1;
 	//v4 = x_BYTE_DB080[v3];
@@ -76633,10 +76633,10 @@ void sub_86EB0(unsigned __int8 a1, unsigned __int8 a2, char a3)//267eb0
 	/*v5 = 4 * a2 + v3;
 	v6 = *(__int16*)((char*)&x_BYTE_DB080[2] + v5);
 	v7 = *(__int16*)((char*)&x_BYTE_DB080[4] + v5);*/
-	v6 = SpeechTracks_DB080[a1].chunk[a2].offset;
-	v7 = SpeechTracks_DB080[a1].chunk[a2].length;
-	if (v4 && v7) {
-		m_ptrSoundDevice->StartSpeech(v4, v6, v7, SampleEndedEventHandler);
+
+	if (track && length) {
+		//PlaySpeech(0, track, length, offset, 127, 64, 0x64u, 0);
+		//m_ptrSoundDevice->StartSpeech(v4, v6, v7, SampleEndedEventHandler);
 		//if (a3)
 		//	sub_86F70_sound_proc12(v4, v6, v7);
 		//else
