@@ -6,7 +6,7 @@
 
 #pragma pack (1)
 typedef struct {                //length 32
-	int8_t filename_14[18];
+	char filename_14[18];
 	uint8_t* wavData_0;
 	int8_t stub_4[4];
 	int32_t wavSize_8;
@@ -27,7 +27,7 @@ typedef struct {                //length 3090
 } type_E37A0_sound_buffer;
 
 typedef struct {                //length 32
-	int8_t filename_14[18];
+	char filename_14[18];
 	int32_t wavData_0;
 	int8_t stub_4[4];
 	int32_t wavSize_8;
