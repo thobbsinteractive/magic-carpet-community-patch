@@ -76629,7 +76629,6 @@ void sub_86EB0(uint8_t trackIdx, uint8_t chunkIdx, char a3)//267eb0
 
 	//v3 = 42 * a1;
 	//v4 = x_BYTE_DB080[v3];
-	v4 = SpeechTracks_DB080[a1].track;
 	/*v5 = 4 * a2 + v3;
 	v6 = *(__int16*)((char*)&x_BYTE_DB080[2] + v5);
 	v7 = *(__int16*)((char*)&x_BYTE_DB080[4] + v5);*/
