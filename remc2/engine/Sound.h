@@ -75,7 +75,7 @@ void GetMusicSequenceCount();
 void WriteMusicTrackToXmi(sub2type_E3808_music_header* music);
 bool LoadMusicTrack(FILE* filehandle, uint8_t drivernumber);
 int sub_8F0AB(FILE* a1, int a3);
-void sub_8F100_sound_proc19(uint32_t a1, int16_t wavListIndex, int volume, int a4, unsigned __int16 a5, char a6, unsigned __int8 a7);
+void sub_8F100_sound_proc19(uint32_t flags, int16_t wavListIndex, int32_t volume, int32_t volumePan, uint16_t playRate, char loopCount, uint8_t playType);
 void sub_8F420_sound_proc20(int a1, __int16 a2);
 void sub_8F710_sound_proc21(int flags, __int16 index, int loopCount, unsigned __int8 initTimers, char volScale);
 void StopTimer_8F850();

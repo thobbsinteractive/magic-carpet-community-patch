@@ -5042,7 +5042,7 @@ int sub_8F0AB(FILE* a1, /*int a2,*/ int a3)//26f0ab
 }
 
 //----- (0008F100) --------------------------------------------------------
-void sub_8F100_sound_proc19(uint32_t flags, int16_t wavListIndex, int volume, int volumePan, unsigned __int16 playRate, char loopCount, unsigned __int8 playType)//270100
+void sub_8F100_sound_proc19(uint32_t flags, int16_t wavListIndex, int32_t volume, int32_t volumePan, uint16_t playRate, char loopCount, uint8_t playType)//270100
 {
 	bool bool1; // [esp+0h] [ebp-18h]
 
