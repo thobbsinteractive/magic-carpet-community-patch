@@ -22,6 +22,7 @@ typedef struct {                //length 3090
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
+	int8_t stub[10];
 	WavSample_8bit_E37A0 wavDataList_10[96]; //3072 length
 	int8_t next_str[10];
 } type_E37A0_sound_buffer;
@@ -43,6 +44,7 @@ typedef struct {                //length 3090
 	int8_t byte_5;
 	int8_t byte_6;
 	int8_t byte_7;
+	int8_t stub[10];
 	WavSample_32bit_E37A0 wavDataList_10[96];  //3072 length
 	int8_t next_str[10];
 } type_32bit_E37A0_sound_buffer;
