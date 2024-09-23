@@ -84,6 +84,8 @@ set(SOURCE_FILES_ENGINE
     "sub_main.h"
     "engine/ProjectionPolygon.cpp"
     "engine/ProjectionPolygon.h"
+    "engine/SoundDataFile.cpp"
+    "engine/SoundDataFile.h"
     "engine/Sound.cpp"
     "engine/Sound.h"
     "engine/Network.cpp"
