@@ -357,6 +357,7 @@
     <ClInclude Include="engine\MapType.h" />
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
+    <ClInclude Include="engine\SoundDataFile.h" />
     <ClInclude Include="engine\Type_E37A0_SoundBuffer.h" />
     <ClInclude Include="engine\Type_E3808_MusicHeader.h" />
     <ClInclude Include="engine\Network.h" />
@@ -440,6 +441,7 @@
     <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
+    <ClCompile Include="engine\SoundDataFile.cpp" />
     <ClCompile Include="engine\Terrain.cpp" />
     <ClCompile Include="engine\TextureMaps.cpp" />
     <ClCompile Include="engine\Type_D404C.cpp" />
