@@ -1262,14 +1262,14 @@ signed int sub_2B9A0(type_event_0x6E8E* a1x);
 void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 // int _wcpp_1_unwind_leave__62(void); weak
 //void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
-void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3);
+void sub_2BBB0(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale = 1);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void DrawGameFrame_2BE30();
 void sub_2CE30_pause_end_level(int a1, int a2);
 void sub_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void DrawSorcererScores_2D1D0();
-void DrawTopStatusBar_2D710(type_event_0x6E8E* a1);
-void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3);
+void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
+void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale = 1);
 void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
@@ -5284,8 +5284,8 @@ TColor x_DWORD_EA3B8x[256]; // weak?x_DWORD_E9C4C_langindexbuffer[475]
 axis_3d x_WORD_EB398ar; // weak
 uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
 uint8_t uiBackGroundColorIdx_EB3A8;
-void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, posistruct_t); // eax
-void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, posistruct_t); // eax
+void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, posistruct_t, uint8_t scale); // eax
+void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, posistruct_t, uint8_t scale); // eax
 char x_BYTE_F01FEx[34]; // fix it -  weak
 char x_BYTE_F0220[256]; // idb
 char x_BYTE_F0320[256]; // idb
@@ -26167,18 +26167,18 @@ void sub_2BA50(type_event_0x6E8E* a1x, unsigned __int8 a2)//20ca50
 }
 
 //----- (0002BBB0) --------------------------------------------------------
-void sub_2BBB0(__int16 a1, __int16 a2, posistruct_t a3)//20cbb0
+void sub_2BBB0(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20cbb0
 {
 	//int result; // eax
 	uint8_t* temp_screen_buffer; // edi
 
-	ptrDrawBitmap_F01EC(a1, a2, a3);
+	ptrDrawBitmap_F01EC(posX, posY, a3, scale);
 	//result = (int)x_D41A0_BYTEARRAY_0;
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)
 	{
 		temp_screen_buffer = pdwScreenBuffer_351628;
 		pdwScreenBuffer_351628 = (uint8_t*)x_DWORD_E9C3C;
-		/*result = */ptrDrawBitmap_F01EC(a1, a2, a3);
+		/*result = */ptrDrawBitmap_F01EC(posX, posY, a3, scale);
 		pdwScreenBuffer_351628 = temp_screen_buffer;
 	}
 	//return result;
@@ -26260,7 +26260,7 @@ void DrawGameFrame_2BE30()//20CE30
 {
 	int8_t scale = 1;
 	//char v0; // dl
-	void (*v1)(int16_t, int16_t, posistruct_t); // eax
+	void (*v1)(int16_t, int16_t, posistruct_t, uint8_t scaling); // eax
 	char v2; // bh
 	type_event_0x6E8E* v3x; // esi
 	signed int v6; // edi
@@ -26304,7 +26304,7 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 	else
 	{
-		ptrDrawBitmap_F01E8 = DrawMenuBitmap_2DE80;//(0, 0, 0);
+		ptrDrawBitmap_F01E8 = DrawTransparentBitmap_2DE80;//(0, 0, 0);
 	}
 	ptrDrawBitmap_F01EC = ptrDrawBitmap_F01E8;
 	v2 = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
@@ -26519,7 +26519,7 @@ void DrawGameFrame_2BE30()//20CE30
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x453_1107]],
 					0);
 
-				DrawTopStatusBar_2D710(v3x);
+				DrawTopStatusBar_2D710(v3x, scale);
 			}
 			switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 			{
@@ -27131,7 +27131,7 @@ void DrawSorcererScores_2D1D0()//20e1d0
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002D710) --------------------------------------------------------
-void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
+void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 {
 	__int16 v1; // bx
 	type_event_0x6E8E* v2x; // ecx
@@ -27161,9 +27161,12 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 	v27 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(a1x->dword_0xA4_164x->word_0x38_56)];
 	v26 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(a1x->dword_0xA4_164x->word_0x38_56) + x_D41A0_BYTEARRAY_4_struct.byteindex_121[2]];
 	//ptrDrawBitmap_F01E8(2, 2, **filearray_2aa18c[6] + 240);
-	ptrDrawBitmap_F01E8(2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40]);
+
+	//Panel around MiniMap
+	ptrDrawBitmap_F01E8(2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40], scale);
+
 	//v1 = *(unsigned __int8 *)(*filearray_2aa18c[6] + 244) + 2;
-	v1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40].width_4 + 2;
+	v1 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40].width_4 * scale) + 2;
 	//adress 20e7db
 	v18 = x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4;
 	//v20 = a1x->dword_0xA4_164;
@@ -27174,13 +27177,13 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 		if (a1x->dword_0xA4_164x->byte_0x195_405 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 		{
 			//ptrDrawBitmap_F01E8(v1, 2, **filearray_2aa18c[6] + 330);
-			ptrDrawBitmap_F01E8(v1, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55]);
+			ptrDrawBitmap_F01E8(v1, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55], 1);
 			a1x->dword_0xA4_164x->byte_0x195_405--;
 		}
 		else
 		{
 			//ptrDrawBitmap_F01E8(v1, 2, **filearray_2aa18c[6] + 246);
-			ptrDrawBitmap_F01E8(v1, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41]);
+			ptrDrawBitmap_F01E8(v1, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41], 1);
 		}
 		//sub_2BB40_draw_bitmap(v1 + 2, 2, (uint8_t**)(6 * (v23[4] + 43) + **filearray_2aa18c[6]));
 		sub_2BB40_draw_bitmap(v1 + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->dword_0x10_16 + 43]);
@@ -27226,7 +27229,8 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 	}
 	else
 	{
-		ptrDrawBitmap_F01E8(v1, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[54]);
+		//Panel Next to MiniMap
+		ptrDrawBitmap_F01E8(v1, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[54], 1);
 	}
 	//v8 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 250) + v1;
 	//adress 20eaa0
@@ -27235,19 +27239,19 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 	{
 		//20eca6
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
-		ptrDrawBitmap_F01E8(v8, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[54]);
+		ptrDrawBitmap_F01E8(v8, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[54], 1);
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	}
 	else
 	{
 		if (a1x->dword_0xA4_164x->byte_0x197_407 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 		{
-			ptrDrawBitmap_F01E8(v8, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55]);
+			ptrDrawBitmap_F01E8(v8, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55], 1);
 			a1x->dword_0xA4_164x->byte_0x197_407--;
 		}
 		else
 		{
-			ptrDrawBitmap_F01E8(v8, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41]);
+			ptrDrawBitmap_F01E8(v8, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41], 1);
 		}
 		switch (v23x->dword_0x10_16)
 		{
@@ -27291,17 +27295,17 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 	v12 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41].width_4 + v8;
 	if (a1x->dword_0xA4_164x->byte_0x196_406 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 	{
-		ptrDrawBitmap_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55]);
+		ptrDrawBitmap_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55], 1);
 		a1x->dword_0xA4_164x->byte_0x196_406--;
 	}
 	else
 	{//adress 20ed35
-		ptrDrawBitmap_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41]);
+		ptrDrawBitmap_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41], 1);
 	}
 	if ((a1x->struct_byte_0xc_12_15.byte[0] & 0x20 || a1x->dword_0xA4_164x->word_0x159_345) && x_D41A0_BYTEARRAY_4_struct.byteindex_121[2])
 	{
-		DrawMenuBitmap_2DE80(v12 + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[43]);
-		DrawMenuBitmap_2DE80(v12 + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42]);
+		DrawTransparentBitmap_2DE80(v12 + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[43], scale);
+		DrawTransparentBitmap_2DE80(v12 + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42], scale);
 	}
 	else
 	{
@@ -27327,7 +27331,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x)//20e710
 
 //----- (0002DE80) --------------------------------------------------------
 int debugcounter_sub_2DE80 = 0;
-void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
+void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
 {
 	__int16 v3; // bx
 	int32_t startOffsetX; // eax
@@ -27335,14 +27339,14 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 	uint8_t* v6; // edx
 	uint8_t* v7; // esi
 	int v8; // ecx
-	int16_t bitmapWidth; // bx
-	uint8_t* v10; // edi
+	int16_t posHeight; // bx
+	uint8_t* ptrScreenBufferPos;
 	uint8_t* bitmapData; // edx
 	uint8_t* v12; // esi
-	int v13; // ecx
+	int32_t posWidth; // ecx
 	int v15; // [esp+0h] [ebp-Ch]
 	int v16; // [esp+0h] [ebp-Ch]
-	uint8_t* v17; // [esp+4h] [ebp-8h]
+	uint8_t* ptrScreenHeightBufferPos; // [esp+4h] [ebp-8h]
 	uint8_t* i; // [esp+8h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
@@ -27397,10 +27401,10 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 	else
 	{
 		startOffsetX = posX + screenWidth_18062C * posY;
-		bitmapWidth = a3.height_5;
-		v10 = (startOffsetX + pdwScreenBuffer_351628);
+		posHeight = a3.height_5;
+		ptrScreenBufferPos = (startOffsetX + pdwScreenBuffer_351628);
 		bitmapData = a3.data;
-		v17 = startOffsetX + pdwScreenBuffer_351628;
+		ptrScreenHeightBufferPos = startOffsetX + pdwScreenBuffer_351628;
 		if (a3.height_5)
 		{
 			do
@@ -27412,34 +27416,37 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 						LOBYTE(startOffsetX) = *bitmapData++;
 						if ((x_BYTE)startOffsetX)
 							break;
-						bitmapWidth--;
-						v17 += screenWidth_18062C;
-						v10 = v17;
-						if (!bitmapWidth)
+						posHeight--;
+						ptrScreenHeightBufferPos += screenWidth_18062C;
+						ptrScreenBufferPos = ptrScreenHeightBufferPos;
+						if (!posHeight)
 							return;
 					}
 					if ((startOffsetX & 0x80u) == 0)
 						break;
-					v10 -= (char)startOffsetX;
-					if (!bitmapWidth)
+					ptrScreenBufferPos -= (char)startOffsetX;
+					if (!posHeight)
 						return;
 				}
 				startOffsetX = (char)startOffsetX;
 				v12 = bitmapData;
-				v13 = startOffsetX;
+				posWidth = startOffsetX;
 				v16 = (char)startOffsetX;
 				HIWORD(startOffsetX) = 0;
 				//Draw Row
 				do
 				{
 					LOBYTE(startOffsetX) = *v12++;
-					HIBYTE(startOffsetX) = *v10;
+					HIBYTE(startOffsetX) = *ptrScreenBufferPos;
 					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
-					*v10++ = startOffsetX;
-					v13--;
-				} while (v13);
+
+					for (int i = 0; i < scale; i++)
+						*ptrScreenBufferPos++ = startOffsetX;
+
+					posWidth--;
+				} while (posWidth);
 				bitmapData += v16;
-			} while (bitmapWidth);
+			} while (posHeight);
 		}
 	}
 	//return v4;
@@ -27600,7 +27607,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 					else
 						//v9 = **filearray_2aa18c[6] + 6;
 						v9 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1];
-					ptrDrawBitmap_F01E8(posX, posY, v9);
+					ptrDrawBitmap_F01E8(posX, posY, v9, 1);
 				}//20f38d
 				//a6757c+2e8=a67864->a60a57
 				sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[(a3x->model_0x40_64 + 123)]);
@@ -27809,7 +27816,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		if (!iconYIdx)
 		{
 			//Draw left frame
-			ptrDrawBitmap_F01E8(posX, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88]);
+			ptrDrawBitmap_F01E8(posX, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88], 1);
 		}
 
 		v6 = v41;
@@ -27825,7 +27832,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 			if (!v8)
 			{
 				//ptrDrawBitmap_F01E8(v6, v5, **filearray_2aa18c[6] + 534);
-				ptrDrawBitmap_F01E8(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89]);
+				ptrDrawBitmap_F01E8(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89], 1);
 				goto LABEL_54;
 			}
 			v9x = x_DWORD_EA3E4[v37x->dword_0xA4_164x->str_611.array_0x333_819x.word[x_BYTE_D94FF_spell_index[v54]]];
@@ -27883,18 +27890,18 @@ void DrawBottomMenu_2ECC0()//20fcc0
 						if (v55)
 							sub_2BB40_draw_bitmap(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);//top left2 spell1 and top left5 spell2
 						else
-							DrawMenuBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);
+							DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);
 					LABEL_43:
 						v14 = v37x->dword_0xA4_164x->str_611.array_0x3B5_949x.byte[v44];
 						if (v14 >= 1u)
 						{
 							if (v14 <= 1u)
 							{
-								DrawMenuBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[149]);
+								DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[149]);
 							}
 							else if (v14 == 2)
 							{
-								DrawMenuBitmap_2DE80(posX + v6 + v45, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[150]);
+								DrawTransparentBitmap_2DE80(posX + v6 + v45, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[150]);
 							}
 						}
 						goto LABEL_54;
@@ -27907,11 +27914,11 @@ void DrawBottomMenu_2ECC0()//20fcc0
 					//v13 = **filearray_2aa18c[6] + 546;//fix it
 					v13 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[91];//FIX IT!
 				}
-				ptrDrawBitmap_F01E8(posX + v6, v5, v13);
+				ptrDrawBitmap_F01E8(posX + v6, v5, v13, 1);
 				goto LABEL_40;
 			}
 			//ptrDrawBitmap_F01E8(v6, v5, **filearray_2aa18c[6] + 534);
-			ptrDrawBitmap_F01E8(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89]);//top left 3 and 4 and 5 frame
+			ptrDrawBitmap_F01E8(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89], 1);//top left 3 and 4 and 5 frame
 			//v15 = v44 + v37x->dword_0xA4_164;
 			/*if ( *(x_BYTE *)(v15 + 1001) || *(x_BYTE *)(v15 + 1027) )
 			  sub_2DFD0(v6, v5, **filearray_2aa18c[6] + 6 * (v44 + 97), 0xA6u);*/
@@ -27929,7 +27936,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		if (!iconYIdx)
 		{
 			//Draw right part for frame
-			ptrDrawBitmap_F01E8(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88]);
+			ptrDrawBitmap_F01E8(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88], 1);
 		}
 
 		v5 += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5;
@@ -28001,7 +28008,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 				if (v58)
 					sub_2BB40_draw_bitmap(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
 				else
-					DrawMenuBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
+					DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
 			}
 			//if ( (x_WORD)v20 == *(char *)(v36 + 502) )
 			//sub_2BB40_draw_bitmap(v19, v50, (uint8_t**)(**filearray_2aa18c[6] + 984));

@@ -1971,7 +1971,7 @@ void sub_8CACD_draw_cursor2()//26dacd
 
 //----- (0008F8B0) --------------------------------------------------------
 //void sub_8F8B0_draw_bitmap320(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
-void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr)//2708B0
+void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr, uint8_t scale)//2708B0
 {
 	//int v4; // [esp+4h] [ebp-4h]
 
@@ -1986,7 +1986,7 @@ void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr)
 
 //----- (0008F8E8) --------------------------------------------------------
 //void sub_8F8E8_draw_bitmap640(__int16 a1, __int16 a2, uint8_t* a3)//2708e8
-void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr)//2708e8
+void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr, uint8_t scale)//2708e8
 {
 	//int v4; // [esp+4h] [ebp-4h]
 
