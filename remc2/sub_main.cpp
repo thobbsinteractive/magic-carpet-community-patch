@@ -27330,14 +27330,14 @@ int debugcounter_sub_2DE80 = 0;
 void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 {
 	__int16 v3; // bx
-	int v4; // eax
+	int32_t startOffsetX; // eax
 	uint8_t* v5; // edi
 	uint8_t* v6; // edx
 	uint8_t* v7; // esi
 	int v8; // ecx
-	__int16 v9; // bx
+	int16_t bitmapWidth; // bx
 	uint8_t* v10; // edi
-	uint8_t* v11; // edx
+	uint8_t* bitmapData; // edx
 	uint8_t* v12; // esi
 	int v13; // ecx
 	int v15; // [esp+0h] [ebp-Ch]
@@ -27348,17 +27348,17 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
 		v3 = a3.height_5 / 2;
-		v4 = posY / 2 * screenWidth_18062C + posX / 2;
-		v5 = (v4 + pdwScreenBuffer_351628);
+		startOffsetX = posY / 2 * screenWidth_18062C + posX / 2;
+		v5 = (startOffsetX + pdwScreenBuffer_351628);
 		v6 = a3.data;
-		for (i = v4 + pdwScreenBuffer_351628; v3; v6 += v15)
+		for (i = startOffsetX + pdwScreenBuffer_351628; v3; v6 += v15)
 		{
 			while (1)
 			{
 				while (1)
 				{
-					LOBYTE(v4) = *v6++;
-					if ((x_BYTE)v4)
+					LOBYTE(startOffsetX) = *v6++;
+					if ((x_BYTE)startOffsetX)
 						break;
 					v3--;
 					i += screenWidth_18062C;
@@ -27366,17 +27366,17 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 					if (!v3)
 						return;
 				}
-				if ((v4 & 0x80u) == 0)
+				if ((startOffsetX & 0x80u) == 0)
 					break;
-				v5 -= (char)v4;
+				v5 -= (char)startOffsetX;
 				if (!v3)
 					return;
 			}
-			v4 = (char)v4;//20ef1f
+			startOffsetX = (char)startOffsetX;//20ef1f
 			v7 = v6;
-			v8 = v4;
-			v15 = (char)v4;
-			HIWORD(v4) = 0;
+			v8 = startOffsetX;
+			v15 = (char)startOffsetX;
+			HIWORD(startOffsetX) = 0;
 			do
 			{
 				debugcounter_sub_2DE80++;
@@ -27386,21 +27386,21 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 					debugcounter_sub_2DE80--;
 				}
 
-				LOBYTE(v4) = *v7++;
-				HIBYTE(v4) = *v5;
-				LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v4];
-				*v5++ = v4;
+				LOBYTE(startOffsetX) = *v7++;
+				HIBYTE(startOffsetX) = *v5;
+				LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+				*v5++ = startOffsetX;
 				v8--;
 			} while (v8);
 		}
 	}
 	else
 	{
-		v4 = posX + screenWidth_18062C * posY;
-		v9 = a3.height_5;
-		v10 = (v4 + pdwScreenBuffer_351628);
-		v11 = a3.data;
-		v17 = v4 + pdwScreenBuffer_351628;
+		startOffsetX = posX + screenWidth_18062C * posY;
+		bitmapWidth = a3.height_5;
+		v10 = (startOffsetX + pdwScreenBuffer_351628);
+		bitmapData = a3.data;
+		v17 = startOffsetX + pdwScreenBuffer_351628;
 		if (a3.height_5)
 		{
 			do
@@ -27409,36 +27409,37 @@ void DrawMenuBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3)//20ee80
 				{
 					while (1)
 					{
-						LOBYTE(v4) = *v11++;
-						if ((x_BYTE)v4)
+						LOBYTE(startOffsetX) = *bitmapData++;
+						if ((x_BYTE)startOffsetX)
 							break;
-						v9--;
+						bitmapWidth--;
 						v17 += screenWidth_18062C;
 						v10 = v17;
-						if (!v9)
+						if (!bitmapWidth)
 							return;
 					}
-					if ((v4 & 0x80u) == 0)
+					if ((startOffsetX & 0x80u) == 0)
 						break;
-					v10 -= (char)v4;
-					if (!v9)
+					v10 -= (char)startOffsetX;
+					if (!bitmapWidth)
 						return;
 				}
-				v4 = (char)v4;
-				v12 = v11;
-				v13 = v4;
-				v16 = (char)v4;
-				HIWORD(v4) = 0;
+				startOffsetX = (char)startOffsetX;
+				v12 = bitmapData;
+				v13 = startOffsetX;
+				v16 = (char)startOffsetX;
+				HIWORD(startOffsetX) = 0;
+				//Draw Row
 				do
 				{
-					LOBYTE(v4) = *v12++;
-					HIBYTE(v4) = *v10;
-					LOBYTE(v4) = x_BYTE_F6EE0_tablesx[0x4000 + v4];
-					*v10++ = v4;
+					LOBYTE(startOffsetX) = *v12++;
+					HIBYTE(startOffsetX) = *v10;
+					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+					*v10++ = startOffsetX;
 					v13--;
 				} while (v13);
-				v11 += v16;
-			} while (v9);
+				bitmapData += v16;
+			} while (bitmapWidth);
 		}
 	}
 	//return v4;
