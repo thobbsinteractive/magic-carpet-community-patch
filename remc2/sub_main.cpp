@@ -27341,11 +27341,11 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	int v8; // ecx
 	int16_t posHeight; // bx
 	uint8_t* ptrScreenBufferPos;
-	uint8_t* bitmapData; // edx
-	uint8_t* v12; // esi
+	uint8_t* ptrBitmapData; // edx
+	uint8_t* ptrBitmapPixel; // esi
 	int32_t posWidth; // ecx
 	int v15; // [esp+0h] [ebp-Ch]
-	int v16; // [esp+0h] [ebp-Ch]
+	int32_t width; // [esp+0h] [ebp-Ch]
 	uint8_t* ptrScreenHeightBufferPos; // [esp+4h] [ebp-8h]
 	uint8_t* i; // [esp+8h] [ebp-4h]
 
@@ -27401,9 +27401,9 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	else
 	{
 		startOffsetX = posX + screenWidth_18062C * posY;
-		posHeight = a3.height_5;
+		posHeight = a3.height_5 * scale;
 		ptrScreenBufferPos = (startOffsetX + pdwScreenBuffer_351628);
-		bitmapData = a3.data;
+		ptrBitmapData = a3.data;
 		ptrScreenHeightBufferPos = startOffsetX + pdwScreenBuffer_351628;
 		if (a3.height_5)
 		{
@@ -27413,7 +27413,7 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				{
 					while (1)
 					{
-						LOBYTE(startOffsetX) = *bitmapData++;
+						LOBYTE(startOffsetX) = *ptrBitmapData++;
 						if ((x_BYTE)startOffsetX)
 							break;
 						posHeight--;
@@ -27428,24 +27428,21 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 					if (!posHeight)
 						return;
 				}
-				startOffsetX = (char)startOffsetX;
-				v12 = bitmapData;
-				posWidth = startOffsetX;
-				v16 = (char)startOffsetX;
+				posWidth = (char)startOffsetX;
+				width = (char)startOffsetX;
+				ptrBitmapPixel = ptrBitmapData;
 				HIWORD(startOffsetX) = 0;
 				//Draw Row
 				do
 				{
-					LOBYTE(startOffsetX) = *v12++;
+					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
 					HIBYTE(startOffsetX) = *ptrScreenBufferPos;
 					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
-
-					for (int i = 0; i < scale; i++)
-						*ptrScreenBufferPos++ = startOffsetX;
+					*ptrScreenBufferPos++ = startOffsetX;
 
 					posWidth--;
 				} while (posWidth);
-				bitmapData += v16;
+				ptrBitmapData += width;
 			} while (posHeight);
 		}
 	}
