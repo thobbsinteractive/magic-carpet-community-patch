@@ -27401,7 +27401,7 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	else
 	{
 		startOffsetX = posX + screenWidth_18062C * posY;
-		posHeight = a3.height_5 * scale;
+		posHeight = a3.height_5;
 		ptrScreenBufferPos = (startOffsetX + pdwScreenBuffer_351628);
 		ptrBitmapData = a3.data;
 		ptrScreenHeightBufferPos = startOffsetX + pdwScreenBuffer_351628;
