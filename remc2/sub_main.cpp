@@ -27340,13 +27340,13 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	uint8_t* v7; // esi
 	int v8; // ecx
 	int16_t posHeight; // bx
-	uint8_t* ptrScreenBufferPos;
+	uint8_t* ptrScreenBuffer;
 	uint8_t* ptrBitmapData; // edx
 	uint8_t* ptrBitmapPixel; // esi
 	int32_t posWidth; // ecx
 	int v15; // [esp+0h] [ebp-Ch]
 	int32_t width; // [esp+0h] [ebp-Ch]
-	uint8_t* ptrScreenHeightBufferPos; // [esp+4h] [ebp-8h]
+	uint8_t* ptrScreenWidthBufferPos; // [esp+4h] [ebp-8h]
 	uint8_t* i; // [esp+8h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
@@ -27402,9 +27402,10 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	{
 		startOffsetX = posX + screenWidth_18062C * posY;
 		posHeight = a3.height_5;
-		ptrScreenBufferPos = (startOffsetX + pdwScreenBuffer_351628);
+		ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
 		ptrBitmapData = a3.data;
-		ptrScreenHeightBufferPos = startOffsetX + pdwScreenBuffer_351628;
+		ptrScreenBufferPos = startOffsetX + pdwScreenBuffer_351628;
+		
 		if (a3.height_5)
 		{
 			do
@@ -27413,18 +27414,19 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				{
 					while (1)
 					{
+			            //Move row
 						LOBYTE(startOffsetX) = *ptrBitmapData++;
 						if ((x_BYTE)startOffsetX)
 							break;
 						posHeight--;
-						ptrScreenHeightBufferPos += screenWidth_18062C;
-						ptrScreenBufferPos = ptrScreenHeightBufferPos;
+						ptrScreenBufferPos += screenWidth_18062C;
+						ptrScreenBuffer = ptrScreenBufferPos;
 						if (!posHeight)
 							return;
 					}
 					if ((startOffsetX & 0x80u) == 0)
 						break;
-					ptrScreenBufferPos -= (char)startOffsetX;
+					ptrScreenBuffer -= (char)startOffsetX;
 					if (!posHeight)
 						return;
 				}
@@ -27436,9 +27438,9 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				do
 				{
 					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
-					HIBYTE(startOffsetX) = *ptrScreenBufferPos;
+					HIBYTE(startOffsetX) = *ptrScreenBuffer;
 					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
-					*ptrScreenBufferPos++ = startOffsetX;
+					*ptrScreenBuffer++ = startOffsetX;
 
 					posWidth--;
 				} while (posWidth);
