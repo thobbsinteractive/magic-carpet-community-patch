@@ -27333,7 +27333,6 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 int debugcounter_sub_2DE80 = 0;
 void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
 {
-	__int16 v3; // bx
 	int32_t startOffsetX; // eax
 	uint8_t* v5; // edi
 	uint8_t* v6; // edx
@@ -27346,16 +27345,16 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	int32_t posWidth; // ecx
 	int v15; // [esp+0h] [ebp-Ch]
 	int32_t width; // [esp+0h] [ebp-Ch]
-	uint8_t* ptrScreenWidthBufferPos; // [esp+4h] [ebp-8h]
+	uint8_t* ptrScreenBufferPos; // [esp+4h] [ebp-8h]
 	uint8_t* i; // [esp+8h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		v3 = a3.height_5 / 2;
+		posHeight = a3.height_5 / 2;
 		startOffsetX = posY / 2 * screenWidth_18062C + posX / 2;
 		v5 = (startOffsetX + pdwScreenBuffer_351628);
 		v6 = a3.data;
-		for (i = startOffsetX + pdwScreenBuffer_351628; v3; v6 += v15)
+		for (i = startOffsetX + pdwScreenBuffer_351628; posHeight; v6 += v15)
 		{
 			while (1)
 			{
@@ -27364,16 +27363,16 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 					LOBYTE(startOffsetX) = *v6++;
 					if ((x_BYTE)startOffsetX)
 						break;
-					v3--;
+					posHeight--;
 					i += screenWidth_18062C;
 					v5 = i;
-					if (!v3)
+					if (!posHeight)
 						return;
 				}
 				if ((startOffsetX & 0x80u) == 0)
 					break;
 				v5 -= (char)startOffsetX;
-				if (!v3)
+				if (!posHeight)
 					return;
 			}
 			startOffsetX = (char)startOffsetX;//20ef1f
