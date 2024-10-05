@@ -27399,53 +27399,154 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	}
 	else
 	{
-		startOffsetX = posX + screenWidth_18062C * posY;
-		posHeight = a3.height_5;
-		ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
-		ptrBitmapData = a3.data;
-		ptrScreenBufferPos = startOffsetX + pdwScreenBuffer_351628;
-		
+		uint8_t* ptrImageBuffer = nullptr;
+
 		if (a3.height_5)
 		{
+			//int32_t pixelValue = 0;
+			//for (int y = 0; y < a3.height_5; y++)
+			//{
+			//	for (int x = 0; x < a3.width_4; x++)
+			//	{
+			//		LOBYTE(pixelValue) = *ptrBitmapData++;
+			//		if ((x_BYTE)pixelValue)
+			//		{
+
+			//			//HIBYTE(pixelValue) = *ptrScreenBuffer;
+			//			//LOBYTE(pixelValue) = x_BYTE_F6EE0_tablesx[0x4000 + (x + (a3.width_4 * y))];
+			//			if ((pixelValue & 0x80u) != 0)
+			//				*ptrScreenBuffer = pixelValue;
+			//		}
+			//		ptrScreenBuffer++;
+
+			//	}
+			//	ptrBitmapData += 3;
+			//	ptrScreenBuffer += screenWidth_18062C - a3.width_4;
+			//}
+			if (scale > 1)
+				scale = 1;
+
+			startOffsetX = posX + screenWidth_18062C * posY;
+			posHeight = a3.height_5 * scale;
+			ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
+			ptrScreenBufferPos = startOffsetX + pdwScreenBuffer_351628;
+			
+			if (scale == 1)
+			{
+				int originalSize = (a3.width_4 * 2) * (a3.height_5 * 2) + (a3.height_5 * 2);
+				/*ptrBitmapData = new uint8_t[arraySize];*/
+				std::vector<uint8_t> vImageBuffer;
+
+				int rowStartIdx = 0;
+				int index = 0;
+				int count = 0;
+
+				int32_t pixel = 0;
+				bool rowStarted = false;
+
+				std::vector<uint8_t> vRowData;
+
+				while (index < originalSize)
+				{
+					LOBYTE(pixel) = a3.data[index];
+
+					if ((x_BYTE)pixel)
+					{
+						if ((pixel & 0x80u) == 0 && rowStarted == false)
+						{
+							rowStartIdx = index;
+							rowStarted = true;
+							vRowData.push_back(pixel* scale);
+							count++;
+						}
+						else
+						{
+							for (int i = 0; i < scale; i++)
+							{
+								vRowData.push_back(a3.data[index]);
+								count++;
+							}
+						}
+						index++;
+					}
+					else
+					{
+						//Row ended
+						rowStarted = false;
+						vRowData.push_back(0);
+						index++;
+
+						for (int i = 0; i < scale; i++)
+						{
+							vImageBuffer.insert(vImageBuffer.end(), vRowData.begin(), vRowData.end());
+						}
+
+						vRowData.clear();
+					}
+				}
+
+				ptrBitmapData = new uint8_t[vImageBuffer.size()];
+				std::copy(vImageBuffer.begin(), vImageBuffer.end(), ptrBitmapData);
+			}
+			else
+			{
+				ptrBitmapData = a3.data;
+			}
+
+			int countx = 0;
+			int county = 0;
 			do
 			{
 				while (1)
 				{
 					while (1)
 					{
-			            //Move row
 						LOBYTE(startOffsetX) = *ptrBitmapData++;
+						countx++;
+						//If it has value
 						if ((x_BYTE)startOffsetX)
 							break;
+
+						//Move row
+						county++;
 						posHeight--;
 						ptrScreenBufferPos += screenWidth_18062C;
 						ptrScreenBuffer = ptrScreenBufferPos;
 						if (!posHeight)
 							return;
 					}
+
+					//Is width byte
 					if ((startOffsetX & 0x80u) == 0)
+					{
+						//Start Drawing
 						break;
+					}
 					ptrScreenBuffer -= (char)startOffsetX;
 					if (!posHeight)
 						return;
 				}
-				posWidth = (char)startOffsetX;
-				width = (char)startOffsetX;
+				posWidth = LOBYTE(startOffsetX);
+				width = LOBYTE(startOffsetX);
+
 				ptrBitmapPixel = ptrBitmapData;
 				HIWORD(startOffsetX) = 0;
 				//Draw Row
 				do
 				{
 					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
-					HIBYTE(startOffsetX) = *ptrScreenBuffer;
-					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+					//HIBYTE(startOffsetX) = *ptrScreenBuffer;
+					//LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
-
+					countx++;
 					posWidth--;
 				} while (posWidth);
 				ptrBitmapData += width;
 			} while (posHeight);
 		}
+
+		if (scale == 1)
+			delete ptrImageBuffer;
 	}
 	//return v4;
 }
