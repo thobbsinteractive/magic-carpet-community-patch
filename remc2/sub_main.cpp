@@ -27454,8 +27454,8 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				do
 				{
 					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
-					//HIBYTE(startOffsetX) = *ptrScreenBuffer;
-					//LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+						HIBYTE(startOffsetX) = *ptrScreenBuffer;
+						LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
 					countx++;
 					posWidth--;
