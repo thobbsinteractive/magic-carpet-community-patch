@@ -73023,6 +73023,65 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrBuffer);
 }
 
+void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+{
+	std::string path = GetSubDirectoryPath("BufferOut");
+	if (myaccess(path.c_str(), 0) < 0)
+	{
+		std::string exepath = get_exe_path();
+		mymkdir((exepath + "/" + "BufferOut").c_str());
+	}
+
+	path = GetSubDirectoryFilePath("BufferOut", "PaletteOut.bmp");
+	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, ptrPalette);
+	path = GetSubDirectoryFilePath("BufferOut", "MenuGraphic.bmp");
+
+	uint8_t* ptrImage = new uint8_t[width * height];
+	int lineCount = 0;
+	int index = 0;
+	int lineStartIndex = 0;
+	int byteCount = 0;
+	int32_t pixel = 0;
+
+	while (lineCount < height)
+	{
+		while (lineCount < height)
+		{
+			LOBYTE(pixel) = ptrBuffer[index];
+			index++;
+			if ((char)pixel)
+				break;
+
+			//line ended, move row
+			lineStartIndex += width;
+			byteCount = lineStartIndex;
+			lineCount++;
+		}
+
+		if (lineCount < height)
+		{
+			if ((pixel & 0x80u) == 0)
+			{
+				int lnWidth = pixel;
+				//Draw line
+				for (int x = 0; x < lnWidth; x++)
+				{
+					ptrImage[byteCount] = ptrBuffer[index];
+					byteCount++;
+					index++;
+				}
+			}
+			else
+			{
+				byteCount -= (char)pixel;
+			}
+		}
+	
+	}
+
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrImage);
+}
+
 
 //----- (00072CB0) --------------------------------------------------------
 /*int sub_72CB0(unsigned __int8* a1, int a2)
