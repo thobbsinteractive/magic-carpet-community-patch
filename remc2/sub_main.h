@@ -441,7 +441,7 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, uint8_t* ptrDest);
-void ScaleMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, std::vector<uint8_t> ptrDest, uint8_t scale);
+void ScaleMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, std::vector<uint8_t>* ptrDest, uint8_t scale);
 
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
 

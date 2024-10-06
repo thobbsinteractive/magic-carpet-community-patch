@@ -72953,6 +72953,14 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette,
 	path = GetSubDirectoryFilePath("BufferOut", "MenuGraphic.bmp");
 
 	uint8_t* ptrImage = new uint8_t[width * height];
+	DrawMenuGraphic(width, height, ptrBuffer, ptrImage);
+
+	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrImage);
+	delete ptrImage;
+}
+
+void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, uint8_t* ptrDest)
+{
 	int lineCount = 0;
 	int index = 0;
 	int lineStartIndex = 0;
@@ -72963,7 +72971,7 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette,
 	{
 		while (lineCount < height)
 		{
-			LOBYTE(pixel) = ptrBuffer[index];
+			LOBYTE(pixel) = ptrSrc[index];
 			index++;
 			if ((char)pixel)
 				break;
@@ -72982,7 +72990,7 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette,
 				//Draw line
 				for (int x = 0; x < lnWidth; x++)
 				{
-					ptrImage[byteCount] = ptrBuffer[index];
+					ptrDest[byteCount] = ptrSrc[index];
 					byteCount++;
 					index++;
 				}
@@ -72992,11 +73000,51 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette,
 				byteCount -= (char)pixel;
 			}
 		}
+	}
+}
 	
+void ScaleMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, std::vector<uint8_t>* ptrDest, uint8_t scale)
+{
+	int lineCount = 0;
+	int index = 0;
+	int32_t pixel = 0;
+
+	while (lineCount < height)
+	{
+		while (lineCount < height)
+		{
+			LOBYTE(pixel) = ptrSrc[index];
+			index++;
+			if ((char)pixel)
+				break;
+
+			//line ended, move row
+			ptrDest->push_back((char)pixel);
+			lineCount++;
 	}
 
-	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrImage);
-	delete ptrImage;
+		if (lineCount < height)
+		{
+			if ((pixel & 0x80u) == 0)
+			{
+				int lnWidth = (char)pixel;
+				ptrDest->push_back(lnWidth * scale);
+				//Draw line
+				for (int x = 0; x < lnWidth; x++)
+				{
+					for (int s = 0; s < scale; s++)
+					{
+						ptrDest->push_back(ptrSrc[index]);
+					}
+					index++;
+				}
+			}
+			else
+			{
+				ptrDest->push_back(pixel);
+			}
+		}
+	}
 }
 
 
