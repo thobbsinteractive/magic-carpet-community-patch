@@ -27399,17 +27399,24 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	}
 	else
 	{
-		uint8_t* ptrImageBuffer = nullptr;
-
 		if (a3.height_5)
 		{
-
-
 			startOffsetX = posX + screenWidth_18062C * posY;
 			posHeight = a3.height_5;
 			ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
 			ptrScreenBufferLineStart = (startOffsetX + pdwScreenBuffer_351628);
+		
+			if (scale > 1)
+			{
+				ptrBitmapData = new uint8_t[((a3.width_4 * scale) * (a3.height_5 * scale)) + (a3.width_4 * 2 * scale)];
+				ScaleMenuGraphic(a3.height_5, scale, a3.data, ptrBitmapData);
+				//WriteMenuGraphicToBMP(a3.width_4, a3.height_5, scale, *xadatapald0dat2.colorPalette_var28, ptrBitmapData);
+				posHeight = posHeight * scale;
+			}
+			else
+			{
 				ptrBitmapData = a3.data;
+			}
 
 			int bytesRead = 0;
 
@@ -27426,7 +27433,6 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 							break;
 
 						//Move row
-						county++;
 						posHeight--;
 						ptrScreenBufferLineStart += screenWidth_18062C;
 						ptrScreenBuffer = ptrScreenBufferLineStart;
@@ -27441,12 +27447,19 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 						break;
 					}
 					//Is a change of start coordinate
-					ptrScreenBuffer -= (char)startOffsetX;
+					int offset = (char)startOffsetX;
+					ptrScreenBuffer -= offset * scale;
 					if (!posHeight)
 						return;
 				}
 				posWidth = LOBYTE(startOffsetX);
 				width = LOBYTE(startOffsetX);
+
+				if (scale > 1)
+				{
+					posWidth = posWidth * scale;
+					width = width * scale;
+				}
 
 				ptrBitmapPixel = ptrBitmapData;
 				HIWORD(startOffsetX) = 0;
@@ -27455,15 +27468,17 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				{
 					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
 					bytesRead++;
-						HIBYTE(startOffsetX) = *ptrScreenBuffer;
-						LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
+					HIBYTE(startOffsetX) = *ptrScreenBuffer;
+					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
-					countx++;
 					posWidth--;
 				} while (posWidth);
 				ptrBitmapData += width;
 			} while (posHeight);
 		}
+
+		if (scale > 1)
+			delete ptrBitmapData;
 	}
 	//return v4;
 }
@@ -73007,7 +73022,7 @@ void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale, uint8_t* pt
 		}
 	}
 }
-	
+
 void ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest)
 {
 	int lineCount = 0;
@@ -73038,7 +73053,7 @@ void ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* 
 				countBytes += lineLength;
 			}
 			lineStartXIndex = countBytes;
-	}
+		}
 
 		if (lineCount < height)
 		{
