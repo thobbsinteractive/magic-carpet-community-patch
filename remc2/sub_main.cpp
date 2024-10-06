@@ -27333,15 +27333,15 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 int debugcounter_sub_2DE80 = 0;
 void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
 {
-	int32_t startOffsetX; // eax
+	int16_t startOffsetX; // eax
 	uint8_t* v5; // edi
 	uint8_t* v6; // edx
 	uint8_t* v7; // esi
 	int v8; // ecx
 	int16_t posHeight; // bx
 	uint8_t* ptrScreenBuffer;
-	uint8_t* ptrBitmapData; // edx
-	uint8_t* ptrBitmapPixel; // esi
+	uint8_t* ptrBitmapData = nullptr; // edx
+	uint8_t* ptrBitmapPixel = nullptr; // esi
 	int32_t posWidth; // ecx
 	int v15; // [esp+0h] [ebp-Ch]
 	int32_t width; // [esp+0h] [ebp-Ch]
@@ -27411,8 +27411,8 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 			ptrScreenBufferLineStart = (startOffsetX + pdwScreenBuffer_351628);
 				ptrBitmapData = a3.data;
 
-			int countx = 0;
-			int county = 0;
+			int bytesRead = 0;
+
 			do
 			{
 				while (1)
@@ -27420,7 +27420,7 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 					while (1)
 					{
 						LOBYTE(startOffsetX) = *ptrBitmapData++;
-						countx++;
+						bytesRead++;
 						//If it has value
 						if ((x_BYTE)startOffsetX)
 							break;
@@ -27454,6 +27454,7 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				do
 				{
 					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
+					bytesRead++;
 						HIBYTE(startOffsetX) = *ptrScreenBuffer;
 						LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
@@ -72939,8 +72940,11 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrBuffer);
 }
 
-void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrPalette, uint8_t* ptrBuffer)
 {
+	width = width * scale;
+	height = height * scale;
+
 	std::string path = GetSubDirectoryPath("BufferOut");
 	if (myaccess(path.c_str(), 0) < 0)
 	{
@@ -72953,19 +72957,19 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette,
 	path = GetSubDirectoryFilePath("BufferOut", "MenuGraphic.bmp");
 
 	uint8_t* ptrImage = new uint8_t[width * height];
-	DrawMenuGraphic(width, height, ptrBuffer, ptrImage);
+	DrawMenuGraphic(width, height, scale, ptrBuffer, ptrImage);
 
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrImage);
 	delete ptrImage;
 }
 
-void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, uint8_t* ptrDest)
+void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest)
 {
 	int lineCount = 0;
 	int index = 0;
 	int lineStartIndex = 0;
 	int byteCount = 0;
-	int32_t pixel = 0;
+	int16_t pixel = 0;
 
 	while (lineCount < height)
 	{
@@ -72986,7 +72990,8 @@ void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, uint8_t* 
 		{
 			if ((pixel & 0x80u) == 0)
 			{
-				int lnWidth = pixel;
+				uint16_t lnWidth = (char)pixel * scale;
+
 				//Draw line
 				for (int x = 0; x < lnWidth; x++)
 				{
@@ -72997,17 +73002,19 @@ void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, uint8_t* 
 			}
 			else
 			{
-				byteCount -= (char)pixel;
+				byteCount -= (char)pixel * scale;
 			}
 		}
 	}
 }
 	
-void ScaleMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, std::vector<uint8_t>* ptrDest, uint8_t scale)
+void ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest)
 {
 	int lineCount = 0;
 	int index = 0;
-	int32_t pixel = 0;
+	int16_t pixel = 0;
+	int countBytes = 0;
+	int lineStartXIndex = 0;
 
 	while (lineCount < height)
 	{
@@ -73019,34 +73026,47 @@ void ScaleMenuGraphic(uint16_t width, uint16_t height, uint8_t* ptrSrc, std::vec
 				break;
 
 			//line ended, move row
-			ptrDest->push_back((char)pixel);
+			ptrDest[countBytes] = (char)pixel;
+			countBytes++;
 			lineCount++;
+
+			int lineLength = countBytes - lineStartXIndex;
+
+			for (int s = 0; s < scale - 1; s++)
+			{
+				std::memcpy(&ptrDest[countBytes], &ptrDest[lineStartXIndex], lineLength);
+				countBytes += lineLength;
+			}
+			lineStartXIndex = countBytes;
 	}
 
 		if (lineCount < height)
 		{
 			if ((pixel & 0x80u) == 0)
 			{
-				int lnWidth = (char)pixel;
-				ptrDest->push_back(lnWidth * scale);
+				int32_t lnWidth = (char)pixel;
+				ptrDest[countBytes] = (char)pixel;
+				countBytes++;
+
 				//Draw line
 				for (int x = 0; x < lnWidth; x++)
 				{
 					for (int s = 0; s < scale; s++)
 					{
-						ptrDest->push_back(ptrSrc[index]);
+						ptrDest[countBytes] = ptrSrc[index];
+						countBytes++;
 					}
 					index++;
 				}
 			}
 			else
 			{
-				ptrDest->push_back(pixel);
+				ptrDest[countBytes] = (char)pixel;
+				countBytes++;
 			}
 		}
 	}
 }
-
 
 //----- (00072CB0) --------------------------------------------------------
 /*int sub_72CB0(unsigned __int8* a1, int a2)
