@@ -27333,7 +27333,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 int debugcounter_sub_2DE80 = 0;
 void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
 {
-	int16_t startOffsetX; // eax
+	int32_t startOffsetX; // eax
 	uint8_t* v5; // edi
 	uint8_t* v6; // edx
 	uint8_t* v7; // esi
@@ -27418,8 +27418,6 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				ptrBitmapData = a3.data;
 			}
 
-			int bytesRead = 0;
-
 			do
 			{
 				while (1)
@@ -27427,7 +27425,6 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 					while (1)
 					{
 						LOBYTE(startOffsetX) = *ptrBitmapData++;
-						bytesRead++;
 						//If it has value
 						if ((x_BYTE)startOffsetX)
 							break;
@@ -27467,7 +27464,6 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				do
 				{
 					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
-					bytesRead++;
 					HIBYTE(startOffsetX) = *ptrScreenBuffer;
 					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
@@ -72984,7 +72980,7 @@ void DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale, uint8_t* pt
 	int index = 0;
 	int lineStartIndex = 0;
 	int byteCount = 0;
-	int16_t pixel = 0;
+	int32_t pixel = 0;
 
 	while (lineCount < height)
 	{
@@ -73027,7 +73023,7 @@ void ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* 
 {
 	int lineCount = 0;
 	int index = 0;
-	int16_t pixel = 0;
+	int32_t pixel = 0;
 	int countBytes = 0;
 	int lineStartXIndex = 0;
 
