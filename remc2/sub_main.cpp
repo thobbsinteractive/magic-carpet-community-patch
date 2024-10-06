@@ -1266,7 +1266,6 @@ void sub_2BBB0(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale = 1);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void DrawGameFrame_2BE30();
 void sub_2CE30_pause_end_level(int a1, int a2);
-void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx);
 void DrawSorcererScores_2D1D0();
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
 void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale = 1);
@@ -27139,10 +27138,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 	//int v4; // edx
 	int v5; // eax
 	//__int64 v6; // rtt
-	__int16 v8; // bx
 	type_event_0x6E8E* v9x; // eax
-	__int16 v12; // bx
-	__int16 v14; // bx
 	unsigned __int8 v16; // [esp-4h] [ebp-4Ch]
 	int v17; // [esp+0h] [ebp-48h]
 	int v18; // [esp+8h] [ebp-40h]
