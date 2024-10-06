@@ -73080,6 +73080,7 @@ void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette,
 	}
 
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrImage);
+	delete ptrImage;
 }
 
 
