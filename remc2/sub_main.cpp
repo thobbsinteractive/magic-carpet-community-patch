@@ -27404,20 +27404,13 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 		{
 			startOffsetX = posX + screenWidth_18062C * posY;
 			posHeight = a3.height_5;
+
 			ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
 			ptrScreenBufferLineStart = (startOffsetX + pdwScreenBuffer_351628);
-		
-			if (scale > 1)
-			{
-				ptrBitmapData = new uint8_t[((a3.width_4 * scale) * (a3.height_5 * scale)) + (a3.width_4 * 2 * scale)];
-				ScaleMenuGraphic(a3.height_5, scale, a3.data, ptrBitmapData);
-				//WriteMenuGraphicToBMP(a3.width_4, a3.height_5, scale, *xadatapald0dat2.colorPalette_var28, ptrBitmapData);
-				posHeight = posHeight * scale;
-			}
-			else
-			{
 				ptrBitmapData = a3.data;
-			}
+			int lineStartBytes = 0;
+			int countBytes = 0;
+			int scaledLinesDrawn = 0;
 
 			do
 			{
@@ -27426,12 +27419,27 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 					while (1)
 					{
 						LOBYTE(startOffsetX) = *ptrBitmapData++;
+						countBytes++;
+
 						//If it has value
 						if ((x_BYTE)startOffsetX)
 							break;
 
 						//Move row
+						if (scaledLinesDrawn < scale - 1)
+						{
+							int lineLengthBytes = countBytes - lineStartBytes;
+							ptrBitmapData -= lineLengthBytes;
+							countBytes -= lineLengthBytes;
+							scaledLinesDrawn++;
+						}
+						else
+						{
 						posHeight--;
+							scaledLinesDrawn = 0;
+							lineStartBytes = countBytes;
+						}
+
 						ptrScreenBufferLineStart += screenWidth_18062C;
 						ptrScreenBuffer = ptrScreenBufferLineStart;
 						if (!posHeight)
@@ -27452,30 +27460,25 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 				}
 				posWidth = LOBYTE(startOffsetX);
 				width = LOBYTE(startOffsetX);
-
-				if (scale > 1)
-				{
-					posWidth = posWidth * scale;
-					width = width * scale;
-				}
-
 				ptrBitmapPixel = ptrBitmapData;
 				HIWORD(startOffsetX) = 0;
 				//Draw Row
 				do
 				{
-					LOBYTE(startOffsetX) = *ptrBitmapPixel++;
+					for (int s = 0; s < scale; s++)
+					{
+						LOBYTE(startOffsetX) = *ptrBitmapPixel;
 					HIBYTE(startOffsetX) = *ptrScreenBuffer;
 					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
 					*ptrScreenBuffer++ = startOffsetX;
+					}
+					ptrBitmapPixel++;
+					countBytes++;
 					posWidth--;
 				} while (posWidth);
 				ptrBitmapData += width;
 			} while (posHeight);
 		}
-
-		if (scale > 1)
-			delete ptrBitmapData;
 	}
 	//return v4;
 }
