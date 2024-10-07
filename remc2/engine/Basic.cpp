@@ -1621,7 +1621,7 @@ uint8_t sub_6FC30_get34_height()//250c30
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0002BB40) --------------------------------------------------------
-void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)//20cb40
+void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr, uint8_t scale)//20cb40
 {
 	//a3=48c80f-> 48ae47002633
 
@@ -1642,7 +1642,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_8F8B0_draw_bitmap320(posx, posy, tempposstr);
 	else
-		sub_8F8E8_draw_bitmap640(posx, posy, tempposstr);
+		sub_8F8E8_draw_bitmap640(posx, posy, tempposstr, scale);
 	//v6 = v3;
 	//v3(a1, a2, a3);
 	//result = (int)x_D41A0_BYTEARRAY_0;
@@ -1653,7 +1653,7 @@ void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr)/
 		if (x_WORD_180660_VGA_type_resolution & 1)
 			sub_8F8B0_draw_bitmap320(posx, posy, tempposstr);
 		else
-			sub_8F8E8_draw_bitmap640(posx, posy, tempposstr);
+			sub_8F8E8_draw_bitmap640(posx, posy, tempposstr, scale);
 		pdwScreenBuffer_351628 = temp_screen_buffer;
 	}
 	//return result;
