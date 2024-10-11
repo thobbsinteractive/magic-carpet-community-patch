@@ -1268,7 +1268,6 @@ void DrawGameFrame_2BE30();
 void sub_2CE30_pause_end_level(int a1, int a2);
 void DrawSorcererScores_2D1D0();
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
-void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale = 1);
 void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
@@ -26303,7 +26302,7 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 	else
 	{
-		ptrDrawBitmap_F01E8 = DrawTransparentBitmap_2DE80;//(0, 0, 0);
+		ptrDrawBitmap_F01E8 = GameOverlay::DrawTransparentBitmap_2DE80;//(0, 0, 0);
 	}
 	ptrDrawBitmap_F01EC = ptrDrawBitmap_F01E8;
 	v2 = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
@@ -27303,8 +27302,8 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 
 	if ((a1x->struct_byte_0xc_12_15.byte[0] & 0x20 || a1x->dword_0xA4_164x->word_0x159_345) && x_D41A0_BYTEARRAY_4_struct.byteindex_121[2])
 	{
-		DrawTransparentBitmap_2DE80(posX + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[43], 1);
-		DrawTransparentBitmap_2DE80(posX + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42], 1);
+		GameOverlay::DrawTransparentBitmap_2DE80(posX + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[43], scale);
+		GameOverlay::DrawTransparentBitmap_2DE80(posX + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42], scale);
 	}
 	else
 	{
