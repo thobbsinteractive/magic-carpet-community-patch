@@ -27143,7 +27143,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 	//type_str_0x6E8E* v19x; // [esp+Ch] [ebp-3Ch]
 	//int v20; // [esp+10h] [ebp-38h]
 	__int16 v21; // [esp+1Ch] [ebp-2Ch]
-	__int16 v22; // [esp+24h] [ebp-24h]
+	int16_t barStartXPos; // [esp+24h] [ebp-24h]
 	type_event_0x6E8E* v23x; // [esp+28h] [ebp-20h]
 	signed __int16 v24; // [esp+2Ch] [ebp-1Ch]
 	signed __int16 v25; // [esp+30h] [ebp-18h]
@@ -27157,10 +27157,10 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 	//ptrDrawBitmap_F01E8(2, 2, **filearray_2aa18c[6] + 240);
 
 	//Panel around MiniMap
-	ptrDrawBitmap_F01E8(2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40], scale);
+	ptrDrawBitmap_F01E8(2, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL], scale);
 
 	//v1 = *(unsigned __int8 *)(*filearray_2aa18c[6] + 244) + 2;
-	posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[40].width_4 * scale) + 2;
+	posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL].width_4 * scale) + 2;
 	//adress 20e7db
 	v18 = x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4;
 	//v20 = a1x->dword_0xA4_164;
@@ -27171,18 +27171,21 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 		if (a1x->dword_0xA4_164x->byte_0x195_405 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 		{
 			//ptrDrawBitmap_F01E8(v1, 2, **filearray_2aa18c[6] + 330);
-			ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55], 1);
+			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], 1);
 			a1x->dword_0xA4_164x->byte_0x195_405--;
 		}
 		else
 		{
-			//ptrDrawBitmap_F01E8(v1, 2, **filearray_2aa18c[6] + 246);
-			ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41], 1);
+			//Draw Castle Health Panel
+			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], 1);
 		}
 		//sub_2BB40_draw_bitmap(v1 + 2, 2, (uint8_t**)(6 * (v23[4] + 43) + **filearray_2aa18c[6]));
-		sub_2BB40_draw_bitmap(posX + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->dword_0x10_16 + 43]);
-		sub_2BB40_draw_bitmap(posX + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42]);
-		v22 = posX + 58;
+		
+		//Castle Icon
+		sub_2BB40_draw_bitmap(posX + 2, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->dword_0x10_16 + 43]);
+		//Castle Health And Mana Icon
+		sub_2BB40_draw_bitmap(posX + 38, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS]);
+		barStartXPos = posX + (58 * scale);
 		DrawBar_2D190(posX + 58, 10, 64, 10, (v23x->life_0x8 << 6) / v23x->maxLife_0x4, 0x7Bu);
 		v17 = (v23x->mana_0x90_144 + a1x->dword_0xA4_164x->dword_0x13C_316) << 6;
 		if (v23x->mana_0x90_144 + a1x->dword_0xA4_164x->dword_0x13C_316 == v23x->maxMana_0x8C_140)
@@ -27204,7 +27207,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 		}
 		else
 		{
-			DrawBar_2D190(v22, 28, 64, 10, (v23x->maxMana_0x8C_140 << 6) / v18, manaMaxColourIdx);
+			DrawBar_2D190(barStartXPos, 28 * scale, 64 * scale, 10 * scale, ((v23x->maxMana_0x8C_140 << 6) / v18) * scale, manaMaxColourIdx);
 			v16 = manaColourIdx;
 			v5 = v17;
 			//v4 = v17;
@@ -27212,41 +27215,41 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 		}
 		//LODWORD(v6) = v5;
 		//HIDWORD(v6) = v4 >> 31;
-		DrawBar_2D190(v22, 28, 64, 10, /*v6*/v5 / v3, v16);
+		DrawBar_2D190(barStartXPos, 28 * scale, 64 * scale, 10 * scale, /*v6*/(v5 / v3) * scale, v16);
 
 		//Draw Mana Goal Lines
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && D41A0_0.terrain_2FECE.word_0x2FED5)
 		{
-			DrawLine_2BC80(v22 + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 26, 2, 2, v26);
-			DrawLine_2BC80(v22 + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 38, 2, 2, v26);
+			DrawLine_2BC80(barStartXPos + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 26 * scale, 2 * scale, 2 * scale, v26);
+			DrawLine_2BC80(barStartXPos + (D41A0_0.terrain_2FECE.word_0x2FED5 << 6) / 100, 38 * scale, 2 * scale, 2 * scale, v26);
 		}
 	}
 	else
 	{
 		//Panel Next to MiniMap
-		ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[54], 1);
+		ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PANEL], scale);
 	}
 	//v8 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 250) + v1;
 	//adress 20eaa0
-	posX = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41].width_4 + posX;
+	posX = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL].width_4 * scale + posX;
 	if (x_DWORD_EA3E4[0] >= v23x)
 	{
 		//20eca6
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	    //2nd Panel 
-		ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[54], 1);
+		ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PANEL], scale);
 		//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 	}
 	else
 	{
 		if (a1x->dword_0xA4_164x->byte_0x197_407 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 		{
-			ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55], 1);
+			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
 			a1x->dword_0xA4_164x->byte_0x197_407--;
 		}
 		else
 		{
-			ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41], 1);
+			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
 		}
 		switch (v23x->dword_0x10_16)
 		{
@@ -27267,59 +27270,61 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 			v25 = 0;
 			break;
 		}
-		sub_2BB40_draw_bitmap(posX + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v25 + 50]);
+		sub_2BB40_draw_bitmap(posX + 2, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v25 + 50]);
 		v24 = 0;
-		sub_2BB40_draw_bitmap(posX + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42]);
+		sub_2BB40_draw_bitmap(posX + 38, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS]);
 		if (v25 > 0)
 		{
 			do
 			{
-				v21 = posX + 58;
+				v21 = posX + (58 * scale);
 				v9x = x_DWORD_EA3E4[a1x->dword_0xA4_164x->array_0x3C_60[v24]];
 				//v19x = v9x;
 				if (v9x > x_DWORD_EA3E4[0])
 				{
 					if (v9x->life_0x8 >= 0)
-						DrawBar_2D190(v21, 2 * v24 + 12, 64, 2, (v9x->life_0x8 << 6) / v9x->maxLife_0x4, 0x7Bu);
-					DrawBar_2D190(v21, 2 * v24 + 30, 64, 2, (v9x->mana_0x90_144 << 6) / v9x->maxMana_0x8C_140, manaColourIdx);
+						DrawBar_2D190(v21, 2 * v24 + 12 * scale, 64 * scale, 2 * scale, ((v9x->life_0x8 << 6) / v9x->maxLife_0x4) * scale, 0x7Bu);
+					DrawBar_2D190(v21, 2 * v24 + 30 * scale, 64 * scale, 2 * scale, ((v9x->mana_0x90_144 << 6) / v9x->maxMana_0x8C_140) * scale, manaColourIdx);
 				}
 				v24++;
 			} while (v24 < v25);
 		}
 	}
-	posX = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41].width_4 + posX;
+	posX = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL].width_4 * scale + posX;
 
 	if (a1x->dword_0xA4_164x->byte_0x196_406 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 	{
-		ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[55], 1);
+		//Player Health Panel on Hit
+		ptrDrawBitmap_F01E8(posX, 2 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
 		a1x->dword_0xA4_164x->byte_0x196_406--;
 	}
 	else
 	{//adress 20ed35
 		//Health Mana Panel
-		ptrDrawBitmap_F01E8(posX, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[41], 1);
+		ptrDrawBitmap_F01E8(posX, 2 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
 	}
 
 	if ((a1x->struct_byte_0xc_12_15.byte[0] & 0x20 || a1x->dword_0xA4_164x->word_0x159_345) && x_D41A0_BYTEARRAY_4_struct.byteindex_121[2])
 	{
-		GameOverlay::DrawTransparentBitmap_2DE80(posX + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[43], scale);
-		GameOverlay::DrawTransparentBitmap_2DE80(posX + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42], scale);
+		//Draw Player Health and Mana flickering
+		GameOverlay::DrawTransparentBitmap_2DE80(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
+		GameOverlay::DrawTransparentBitmap_2DE80(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 	}
 	else
 	{
 		//Draw Player Health and Mana
-		sub_2BB40_draw_bitmap(posX + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[43], 1);
-		sub_2BB40_draw_bitmap(posX + 38, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[42], 1);
+		sub_2BB40_draw_bitmap(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
+		sub_2BB40_draw_bitmap(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 	}
 	//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
-	posX = posX + 58;
-	DrawBar_2D190(posX, 10, 64, 10, (a1x->life_0x8 << 6) / a1x->maxLife_0x4, 0x7Bu);
+	posX = posX + (58 * scale);
+	DrawBar_2D190(posX, 10 * scale, 64 * scale, 10 * scale, ((a1x->life_0x8 << 6) / a1x->maxLife_0x4) * scale, 0x7Bu);
 	//adress 20ee1a
 	//1b8 1c 40 0a 03 aa
 	//0xfa00/4c79=3
 	//v18=0x4c79
-	DrawBar_2D190(posX, 28, 64, 10, (a1x->maxMana_0x8C_140 << 6) / v18, manaMaxColourIdx);
-	DrawBar_2D190(posX, 28, 64, 10, (a1x->mana_0x90_144 << 6) / v18, manaColourIdx);
+	DrawBar_2D190(posX, 28 * scale, 64 * scale, 10 * scale, ((a1x->maxMana_0x8C_140 << 6) / v18) * scale, manaMaxColourIdx);
+	DrawBar_2D190(posX, 28 * scale, 64 * scale, 10 * scale, ((a1x->mana_0x90_144 << 6) / v18) * scale, manaColourIdx);
 	//VGA_Debug_Blit(640, 480, pdwScreenBuffer_351628);
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
@@ -27337,7 +27342,6 @@ void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, ui
 	uint8_t* v6; // edx
 	uint8_t* v7; // esi
 	int v8; // ecx
-	int16_t posHeight; // bx
 	uint8_t* ptrScreenBuffer;
 	uint8_t* ptrBitmapData = nullptr; // edx
 	uint8_t* ptrBitmapPixel = nullptr; // esi
@@ -27919,18 +27923,18 @@ void DrawBottomMenu_2ECC0()//20fcc0
 						if (v55)
 							sub_2BB40_draw_bitmap(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);//top left2 spell1 and top left5 spell2
 						else
-							DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);
+							GameOverlay::DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);
 					LABEL_43:
 						v14 = v37x->dword_0xA4_164x->str_611.array_0x3B5_949x.byte[v44];
 						if (v14 >= 1u)
 						{
 							if (v14 <= 1u)
 							{
-								DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[149]);
+								GameOverlay::DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[149]);
 							}
 							else if (v14 == 2)
 							{
-								DrawTransparentBitmap_2DE80(posX + v6 + v45, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[150]);
+								GameOverlay::DrawTransparentBitmap_2DE80(posX + v6 + v45, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[150]);
 							}
 						}
 						goto LABEL_54;
@@ -28037,7 +28041,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 				if (v58)
 					sub_2BB40_draw_bitmap(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
 				else
-					DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
+					GameOverlay::DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
 			}
 			//if ( (x_WORD)v20 == *(char *)(v36 + 502) )
 			//sub_2BB40_draw_bitmap(v19, v50, (uint8_t**)(**filearray_2aa18c[6] + 984));
