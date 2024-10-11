@@ -27157,10 +27157,10 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 	//ptrDrawBitmap_F01E8(2, 2, **filearray_2aa18c[6] + 240);
 
 	//Panel around MiniMap
-	ptrDrawBitmap_F01E8(2, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL], scale);
+	ptrDrawBitmap_F01E8((2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL], scale);
 
 	//v1 = *(unsigned __int8 *)(*filearray_2aa18c[6] + 244) + 2;
-	posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL].width_4 * scale) + 2;
+	posX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MINI_MAP_PANEL].width_4 * scale) + (2 * scale);
 	//adress 20e7db
 	v18 = x_D41A0_BYTEARRAY_4_struct.str_index_242ar.dword_4;
 	//v20 = a1x->dword_0xA4_164;
@@ -27171,22 +27171,22 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 		if (a1x->dword_0xA4_164x->byte_0x195_405 > 0 && x_D41A0_BYTEARRAY_4_struct.byteindex_121[1])
 		{
 			//ptrDrawBitmap_F01E8(v1, 2, **filearray_2aa18c[6] + 330);
-			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], 1);
+			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL_HIT], scale);
 			a1x->dword_0xA4_164x->byte_0x195_405--;
 		}
 		else
 		{
 			//Draw Castle Health Panel
-			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], 1);
+			ptrDrawBitmap_F01E8(posX, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_PANEL], scale);
 		}
 		//sub_2BB40_draw_bitmap(v1 + 2, 2, (uint8_t**)(6 * (v23[4] + 43) + **filearray_2aa18c[6]));
 		
 		//Castle Icon
-		sub_2BB40_draw_bitmap(posX + 2, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->dword_0x10_16 + 43]);
+		sub_2BB40_draw_bitmap(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v23x->dword_0x10_16 + 43]);
 		//Castle Health And Mana Icon
-		sub_2BB40_draw_bitmap(posX + 38, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS]);
+		sub_2BB40_draw_bitmap(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS]);
 		barStartXPos = posX + (58 * scale);
-		DrawBar_2D190(posX + 58, 10, 64, 10, (v23x->life_0x8 << 6) / v23x->maxLife_0x4, 0x7Bu);
+		DrawBar_2D190(posX + (58 * scale), 10 * scale, 64 * scale, 10 * scale, (v23x->life_0x8 << 6) / v23x->maxLife_0x4, 0x7Bu);
 		v17 = (v23x->mana_0x90_144 + a1x->dword_0xA4_164x->dword_0x13C_316) << 6;
 		if (v23x->mana_0x90_144 + a1x->dword_0xA4_164x->dword_0x13C_316 == v23x->maxMana_0x8C_140)
 		{
@@ -27270,9 +27270,9 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 			v25 = 0;
 			break;
 		}
-		sub_2BB40_draw_bitmap(posX + 2, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v25 + 50]);
+		sub_2BB40_draw_bitmap(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v25 + 50]);
 		v24 = 0;
-		sub_2BB40_draw_bitmap(posX + 38, (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS]);
+		sub_2BB40_draw_bitmap(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS]);
 		if (v25 > 0)
 		{
 			do
