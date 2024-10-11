@@ -26939,11 +26939,10 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 // EA2F0: using guessed type int x_DWORD_EA2F0;
 
 //----- (0002D190) --------------------------------------------------------
-void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int a3, int16_t posEndY, int a5, uint8 colorIdx)//20e190
+void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx)//20e190
 {
-	int16_t posEndX = a5;
-	if (a5 >= a3)
-		posEndX = a3;
+	if (posEndX >= maxPosEndX)
+		posEndX = maxPosEndX;
 	if (posEndX >= 2)
 		DrawLine_2BC80(posStartX, posStartY, posEndX, posEndY, colorIdx);
 }
