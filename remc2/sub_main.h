@@ -29,6 +29,7 @@
 #include "engine/GameRenderNG.h"
 #include "engine/GameRenderGL.h"
 #include "engine/GameOverlay.h"
+#include "engine/GameOverlayIndexes.h"
 
 #include "engine/Terrain.h"
 
