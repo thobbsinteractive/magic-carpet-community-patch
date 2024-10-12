@@ -3,7 +3,6 @@
 void GameOverlay::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
 {
 	int32_t startOffsetX; // eax
-	uint8_t* v5; // edi
 	int16_t posHeight; // bx
 	uint8_t* ptrScreenBuffer;
 	uint8_t* ptrBitmapData = nullptr; // edx
@@ -12,15 +11,14 @@ void GameOverlay::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posist
 	int v15; // [esp+0h] [ebp-Ch]
 	int32_t width; // [esp+0h] [ebp-Ch]
 	uint8_t* ptrScreenBufferLineStart; // [esp+4h] [ebp-8h]
-	uint8_t* i; // [esp+8h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
 		posHeight = a3.height_5 / 2;
 		startOffsetX = posY / 2 * screenWidth_18062C + posX / 2;
-		v5 = (startOffsetX + pdwScreenBuffer_351628);
+		ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
 		ptrBitmapData = a3.data;
-		for (i = startOffsetX + pdwScreenBuffer_351628; posHeight; ptrBitmapData += v15)
+		for (ptrScreenBufferLineStart = startOffsetX + pdwScreenBuffer_351628; posHeight; ptrBitmapData += v15)
 		{
 			while (1)
 			{
@@ -30,14 +28,14 @@ void GameOverlay::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posist
 					if ((x_BYTE)startOffsetX)
 						break;
 					posHeight--;
-					i += screenWidth_18062C;
-					v5 = i;
+					ptrScreenBufferLineStart += screenWidth_18062C;
+					ptrScreenBuffer = ptrScreenBufferLineStart;
 					if (!posHeight)
 						return;
 				}
 				if ((startOffsetX & 0x80u) == 0)
 					break;
-				v5 -= (char)startOffsetX;
+				ptrScreenBuffer -= (char)startOffsetX;
 				if (!posHeight)
 					return;
 			}
@@ -49,9 +47,9 @@ void GameOverlay::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posist
 			do
 			{
 				LOBYTE(startOffsetX) = *ptrBitmapPixel++;
-				HIBYTE(startOffsetX) = *v5;
+				HIBYTE(startOffsetX) = *ptrScreenBuffer;
 				LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
-				*v5++ = startOffsetX;
+				*ptrScreenBuffer++ = startOffsetX;
 				posWidth--;
 			} while (posWidth);
 		}
