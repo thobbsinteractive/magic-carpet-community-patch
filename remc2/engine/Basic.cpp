@@ -2315,25 +2315,20 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	uint8_t* pixel_buffer_index; // edi
 	int32_t startOffsetX;
 	int32_t posWidth;
+	uint8_t pixel; // al
 
-	int v8; // ecx
-	signed int v9; // eax
-	char v11; // al
 	char v12; // al
 	char v13; // al
 	int v15; // ecx
-	signed int v16; // eax
 	char v18; // al
 	char v19; // al
 	char v20; // al
 	unsigned int v29; // ecx
-	signed int v30; // eax
 	uint8_t* v32; // edi
 	char v33; // al
 	char* v34; // esi
 	int v35; // ebp
 	int v37; // ecx
-	unsigned __int8 v39; // al
 	int v40; // eax
 	int v42; // ecx
 	unsigned __int8 i; // dl
@@ -2363,20 +2358,15 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	char v78; // al
 	int v79; // ebx
 	int v81; // ecx
-	signed int v82; // eax
 	char v84; // al
 	int v85; // ebx
 	x_BYTE* v86; // edi
 	int v87; // ecx
-	signed int v88; // eax
-	x_BYTE* v89; // ebx
 	int v92; // ecx
 	int v93; // ebx
-	signed int v94; // eax
 	char v96; // al
 	int v106; // ecx
 	int v107; // ebx
-	signed int v109; // eax
 	char v110; // al
 	int v112; // ecx
 	int v113; // ebx
@@ -2391,7 +2381,6 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	char v124; // al
 	int v125; // eax
 	int v126; // edi
-	int v127; // eax
 	int v128; // eax
 	int v129; // eax
 	int v130; // eax
@@ -2458,16 +2447,16 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			v125 = height + tiley + 1 - x_DWORD_180644_map_resolution2_y;
 			height = x_DWORD_180644_map_resolution2_y - (tiley + 1);
 			v126 = v125;
-			v127 = 0;
+			startOffsetX = 0;
 			do
 			{
 				while (1)
 				{
-					v127 = *texture++;
-					if (!v127)
+					startOffsetX = *texture++;
+					if (!startOffsetX)
 						break;
-					if ((v127 & 0x80u) == 0)
-						texture += v127;
+					if ((startOffsetX & 0x80u) == 0)
+						texture += startOffsetX;
 				}
 				--v126;
 			} while (v126);
@@ -2498,7 +2487,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							v79 = x_DWORD_180634_screen_width - v79 - 2;
 							width = v79;
 							v133 = v79;
-							v82 = -1;
+							startOffsetX = -1;
 							ptrScreenBufferLineStart = ptrScreenBuffer;
 							do
 							{
@@ -2506,15 +2495,15 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								{
 									while (1)
 									{
-										v82 = *texture++;
-										if ((v82 & 0x80u) == 0)
+										startOffsetX = *texture++;
+										if ((startOffsetX & 0x80u) == 0)
 											break;
-										ptrScreenBuffer += v82;
-										width = width - v82;
+										ptrScreenBuffer += startOffsetX;
+										width = width - startOffsetX;
 									}
-									if (!v82)
+									if (!startOffsetX)
 										break;
-									v81 = v82;
+									v81 = startOffsetX;
 									do
 									{
 										v84 = *texture++;
@@ -2539,8 +2528,6 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v85 = x_DWORD_180634_screen_width - v85 - 2;
 						width = v85;
 						v134 = v85;
-						v88 = -1;
-						v89 = v86;
 						DrawBitmap(texture, (screenWidth_18062C* tiley + v85 + pixel_buffer_index), width, height, v134);
 					}
 				}
@@ -2553,7 +2540,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					{
 						width = v93;
 						v135 = v93;
-						v94 = -1;
+						startOffsetX = -1;
 						ptrScreenBufferLineStart = ptrScreenBuffer;
 						do
 						{
@@ -2561,15 +2548,15 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							{
 								while (1)
 								{
-									v94 = *texture++;
-									if ((v94 & 0x80u) == 0)
+									startOffsetX = *texture++;
+									if ((startOffsetX & 0x80u) == 0)
 										break;
-									ptrScreenBuffer -= v94;
-									width = v94 + width;
+									ptrScreenBuffer -= startOffsetX;
+									width = startOffsetX + width;
 								}
-								if (!v94)
+								if (!startOffsetX)
 									break;
-								v92 = v94;
+								v92 = startOffsetX;
 								do
 								{
 									v96 = *texture++;
@@ -2650,8 +2637,8 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			if (x_WORD_E36D4 & 2)
 			{
 				ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + width + tilex + pixel_buffer_index);
-				v8 = 0;
-				v9 = -1;
+				posWidth = 0;
+				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
 				do
 				{
@@ -2659,28 +2646,33 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					{
 						while (1)
 						{
-							v9 = *texture++;
-							if ((v9 & 0x80u) == 0)
+							startOffsetX = *texture++;
+
+							//Is width byte
+							if ((startOffsetX & 0x80u) == 0)
+							{
+								//Start Drawing
 								break;
-							ptrScreenBuffer += v9;
+							}
+							ptrScreenBuffer += startOffsetX;
 							v12 = *texture++;
-							v8 = v12;
+							posWidth = v12;
 							do
 							{
 								v13 = *texture++;
 								*ptrScreenBuffer-- = v13;
-								--v8;
-							} while (v8);
+								--posWidth;
+							} while (posWidth);
 						}
-						if (!v9)
+						if (!startOffsetX)
 							break;
-						v8 = v9;
+						posWidth = startOffsetX;
 						do
 						{
-							v11 = *texture++;
-							*ptrScreenBuffer-- = v11;
-							--v8;
-						} while (v8);
+							pixel = *texture++;
+							*ptrScreenBuffer-- = pixel;
+							--posWidth;
+						} while (posWidth);
 					}
 					ptrScreenBufferLineStart -= screenWidth_18062C;
 					ptrScreenBuffer = ptrScreenBufferLineStart;
@@ -2691,7 +2683,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			{
 				ptrScreenBuffer = (screenWidth_18062C * tiley + width + tilex + pixel_buffer_index);
 				v15 = 0;
-				v16 = -1;
+				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
 				do
 				{
@@ -2699,10 +2691,13 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					{
 						while (1)
 						{
-							v16 = *texture++;
-							if ((v16 & 0x80u) == 0)
+							startOffsetX = *texture++;
+							if ((startOffsetX & 0x80u) == 0)
+							{
+								//Start Drawing
 								break;
-							ptrScreenBuffer += v16;
+							}
+							ptrScreenBuffer += startOffsetX;
 							v19 = *texture++;
 							v15 = v19;
 							do
@@ -2712,9 +2707,9 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 								--v15;
 							} while (v15);
 						}
-						if (!v16)
+						if (!startOffsetX)
 							break;
-						v15 = v16;
+						v15 = startOffsetX;
 						do
 						{
 							v18 = *texture++;
@@ -2734,7 +2729,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			{
 				ptrScreenBuffer = (screenWidth_18062C * (height + tiley) + tilex + pixel_buffer_index);
 				v29 = 0;
-				v30 = -1;
+				startOffsetX = -1;
 				ptrScreenBufferLineStart = ptrScreenBuffer;
 				do
 				{
@@ -2742,10 +2737,13 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					{
 						while (1)
 						{
-							v30 = *texture++;
-							if ((v30 & 0x80u) == 0)
+							startOffsetX = *texture++;
+							if ((startOffsetX & 0x80u) == 0)
+							{
+								//Start Drawing
 								break;
-							v32 = &ptrScreenBuffer[-v30];
+							}
+							v32 = &ptrScreenBuffer[-startOffsetX];
 							v33 = *texture;
 							v34 = (char*)(texture + 1);
 							v29 = v33;
@@ -2754,9 +2752,9 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 							ptrScreenBuffer = &v32[v29];
 							v29 = 0;
 						}
-						if (!v30)
+						if (!startOffsetX)
 							break;
-						v29 = v30;
+						v29 = startOffsetX;
 						qmemcpy(ptrScreenBuffer, texture, v29);
 						texture += v29;
 						ptrScreenBuffer += v29;
@@ -2779,15 +2777,18 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					{
 						while (1)
 						{
-							v39 = *texture++;
-							if ((v39 & 0x80u) == 0)
+							startOffsetX = *texture++;
+							if ((startOffsetX & 0x80u) == 0)
+							{
+								//Start Drawing
 								break;
-							ptrScreenBuffer -= (char)v39;
+							}
+							ptrScreenBuffer -= (char)startOffsetX;
 						}
-						if (!v39)
+						if (!startOffsetX)
 							break;
-						v37 = v39;
-						v40 = v39;
+						v37 = startOffsetX;
+						v40 = startOffsetX;
 						do
 						{
 							v40 = *texture++;
@@ -2960,7 +2961,10 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						{
 							startOffsetX = *texture++;
 							if ((startOffsetX & 0x80u) == 0)
+							{
+								//Start Drawing
 								break;
+							}
 							v65 = &ptrScreenBuffer[-startOffsetX];
 							v66 = *texture;
 							v67 = (char*)(texture + 1);
@@ -3104,22 +3108,25 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			width = v107;
 			v137 = v107;
 			ptrScreenBufferLineStart = ptrScreenBuffer;
-			v109 = -1;
+			startOffsetX = -1;
 			do
 			{
 				while (1)
 				{
 					while (1)
 					{
-						v109 = *texture++;
-						if ((v109 & 0x80u) == 0)
+						startOffsetX = *texture++;
+						if ((startOffsetX & 0x80u) == 0)
+						{
+							//Start Drawing
 							break;
-						ptrScreenBuffer += v109;
-						width = v109 + width;
+						}
+						ptrScreenBuffer += startOffsetX;
+						width = startOffsetX + width;
 					}
-					if (!v109)
+					if (!startOffsetX)
 						break;
-					v106 = v109;
+					v106 = startOffsetX;
 					do
 					{
 						v110 = *texture++;
@@ -3155,7 +3162,10 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 					{
 						startOffsetX = *texture++;
 						if ((startOffsetX & 0x80u) == 0)
+						{
+							//Start Drawing
 							break;
+						}
 						ptrScreenBuffer += startOffsetX;
 						width = startOffsetX + width;
 					}
@@ -3180,7 +3190,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	}
 }
 
-void DrawBitmap(uint8_t* ptrBitmapData, uint8_t * ptrScreenBuffer, uint16_t width, uint16_t height, uint8_t v134)
+void DrawBitmap(uint8_t* ptrBitmapData, uint8_t * ptrScreenBuffer, uint32_t width, uint16_t height, uint8_t v134)
 {
 	uint8_t pixel;
 	int32_t startOffsetX;
