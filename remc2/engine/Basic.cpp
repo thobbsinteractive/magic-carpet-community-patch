@@ -1979,7 +1979,7 @@ void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr,
 	//v4 = 0;
 	//fix it
 
-	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0);//270935 // a2 je 86
+	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0, 1);//270935 // a2 je 86
 	//return v4;
 }
 // 180628: using guessed type int pdwScreenBuffer_351628;
@@ -2017,7 +2017,7 @@ void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr,
 	  //x_DWORD_180628b
 	  //xasearchd_2bac30.colorPalette_var28
 	  //sub_8F935_bitmap_draw_final(doublebyte_conv(xasearchd_2bac30.colorPalette_var28, a2, a1, a3, 0, 0);//270935
-	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0);//270935
+	sub_8F935_bitmap_draw_final(temppstr.width_4, temppstr.height_5, posy, posx, temppstr.data, 0, 0, scale);//270935
   //return v4;
 }
 // 180628: using guessed type int pdwScreenBuffer_351628;
@@ -2228,7 +2228,7 @@ void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, posistruct_t
 			/*doublebyte tempdblbyte;
 			tempdblbyte.byte1 = a3.sizex;
 			tempdblbyte.byte2 = a3.sizey;*/
-			sub_8F935_bitmap_draw_final(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0);
+			sub_8F935_bitmap_draw_final(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0, 1);
 		}
 		//result = v7;
 	}
@@ -2308,7 +2308,7 @@ void sub_8C635_draw_cursor()//26d635
 // 18073A: using guessed type int x_DWORD_18073A;
 
 //----- (0008F935) --------------------------------------------------------
-void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6)//270935
+void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, int tilex, uint8_t* texture, uint8_t setbyte, char a6, uint8_t scale)//270935
 {
 	uint8_t* ptrScreenBuffer;
 	uint8_t* ptrScreenBufferLineStart;
@@ -3248,7 +3248,7 @@ void DrawBitmap(uint8_t* ptrBitmapData, uint8_t * ptrScreenBuffer, uint32_t widt
 //----- (0008F920) --------------------------------------------------------
 void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uint8_t* a4, unsigned __int8 a5, char a6)//270920
 {
-	sub_8F935_bitmap_draw_final(a1byte1, a1byte2, posx, posy, a4, a5, a6);//270935
+	sub_8F935_bitmap_draw_final(a1byte1, a1byte2, posx, posy, a4, a5, a6, 1);//270935
 }
 
 //----- (00098709) --------------------------------------------------------
