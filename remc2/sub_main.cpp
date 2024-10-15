@@ -52824,7 +52824,7 @@ void write_pngs()
 			screenWidth_18062C = actposistruct.width_4;
 			pdwScreenBuffer_351628 = buffer;
 
-			sub_8F935_bitmap_draw_final(actposistruct.width_4, actposistruct.height_5, 0, 0, actposistruct.data, 0, 0);
+			sub_8F935_bitmap_draw_final(actposistruct.width_4, actposistruct.height_5, 0, 0, actposistruct.data, 0, 0, 1);
 
 			pdwScreenBuffer_351628 = temp_screen;
 			screenWidth_18062C = temp_screen_x;

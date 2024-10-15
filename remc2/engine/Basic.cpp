@@ -2988,49 +2988,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 		}
 		else
 		{
-			//Seems to be called most when drawing stuff
-			ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
-			int8_t size = 0;
-			int8_t v23_loc = -1;
-			int8_t* v25_loc = 0;
-			int8_t v26_loc = 0;
-			int8_t* v27_loc = 0;
-			ptrScreenBufferLineStart = ptrScreenBuffer;
-			do
-			{
-				while (1)
-				{
-					while (1)
-					{
-						v23_loc = *texture++;
-						if ((v23_loc & 0x80u) == 0)
-						{
-							//Start Drawing
-							break;
-						}
-						v25_loc = (int8_t*)&ptrScreenBuffer[-v23_loc];
-						v26_loc = texture[0];
-						v27_loc = (int8_t*)(texture + 1);
-						size = v26_loc;
-						if (size < 1)
-							break;
-						qmemcpy(v25_loc, v27_loc, size);
-						texture = (uint8_t*)&v27_loc[size];
-						ptrScreenBuffer = (uint8_t*)&v25_loc[size];
-						size = 0;
-					}
-					if (v23_loc < 1)
-						break;
-					size = v23_loc;
-					qmemcpy(ptrScreenBuffer, texture, size);
-					texture += size;
-					ptrScreenBuffer += size;
-					size = 0;
-				}
-				ptrScreenBufferLineStart += screenWidth_18062C;
-				ptrScreenBuffer = (uint8_t*)ptrScreenBufferLineStart;
-				height--;
-			} while (height);
+			DrawBitmap(texture, (screenWidth_18062C* tiley + tilex + pixel_buffer_index), height, scale);
 		}
 		return;
 	}
@@ -3189,6 +3147,96 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			} while (height);
 		}
 	}
+}
+
+void DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint8_t height, uint8_t scale)
+{
+	int8_t width = 0;
+	int8_t posWidth = 0;
+	int8_t startOffsetX = -1;
+	uint8_t pixel = 0;
+	uint8_t* ptrScreenBufferLineStart = ptrScreenBuffer;
+
+	int scaledLinesDrawn = 0;
+
+	do
+	{
+		while (1)
+		{
+			while (1)
+			{
+				startOffsetX = *ptrBitmapData++;
+
+				//Is width byte
+				if ((startOffsetX & 0x80u) == 0)
+				{
+					//Start Drawing
+					break;
+				}
+
+				//Get start location using Offset byte
+				int offset = (char)startOffsetX;
+				uint8_t* ptrCurrentScreenLineStart = ptrScreenBuffer - (offset * scale);
+				width = *ptrBitmapData;
+				posWidth = *ptrBitmapData;
+				uint8_t* ptrCurrentBitmapLineStart = (ptrBitmapData + 1);
+
+				if (width < 1)
+					break;
+
+				if (scale > 1)
+				{
+					do
+					{
+						pixel = *ptrCurrentBitmapLineStart++;
+						for (int s = 0; s < scale; s++)
+						{
+							*ptrCurrentScreenLineStart++ = pixel;
+						}
+						posWidth--;
+					} while (posWidth);
+					ptrBitmapData = ptrCurrentBitmapLineStart;
+					ptrScreenBuffer = ptrCurrentScreenLineStart;
+				}
+				else
+				{
+					qmemcpy(ptrCurrentScreenLineStart, ptrCurrentBitmapLineStart, width);
+					ptrBitmapData = ptrCurrentBitmapLineStart + width;
+					ptrScreenBuffer = ptrCurrentScreenLineStart + width;
+				}
+			}
+
+			//If null byte move to next row...
+			if (startOffsetX < 1)
+				break;
+
+			//Draw line
+			width = startOffsetX;
+			posWidth = startOffsetX;
+
+			if (scale > 1)
+			{
+				do
+				{
+					pixel = *ptrBitmapData++;
+					for (int s = 0; s < scale; s++)
+					{
+						*ptrScreenBuffer++ = pixel;
+					}
+					posWidth--;
+				} while (posWidth);
+			}
+			else
+			{
+				qmemcpy(ptrScreenBuffer, ptrBitmapData, width);
+				ptrBitmapData += width;
+				ptrScreenBuffer += width;
+			}
+		}
+		ptrScreenBufferLineStart += screenWidth_18062C;
+		ptrScreenBuffer = ptrScreenBufferLineStart;
+		height--;
+	} while (height);
 }
 
 void DrawBitmap(uint8_t* ptrBitmapData, uint8_t * ptrScreenBuffer, uint32_t width, uint16_t height, uint8_t v134)
