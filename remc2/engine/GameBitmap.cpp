@@ -1,13 +1,14 @@
 #include "GameBitmap.h"
 
-void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint8_t height, uint8_t scale)
+void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint8_t posHeight, uint8_t scale)
 {
 	int8_t width = 0;
 	int8_t posWidth = 0;
 	int8_t startOffsetX = -1;
 	uint8_t pixel = 0;
 	uint8_t* ptrScreenBufferLineStart = ptrScreenBuffer;
-
+	int lineStartBytes = 0;
+	int countBytes = 0;
 	int scaledLinesDrawn = 0;
 
 	do
@@ -17,77 +18,72 @@ void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, ui
 			while (1)
 			{
 				startOffsetX = *ptrBitmapData++;
+				countBytes++;
 
 				//Is width byte
-				if ((startOffsetX & 0x80u) == 0)
-				{
-					//Start Drawing
-					break;
-				}
-
-				//Get start location using Offset byte
-				int offset = (char)startOffsetX;
-				uint8_t* ptrCurrentScreenLineStart = ptrScreenBuffer - (offset * scale);
-				width = *ptrBitmapData;
-				posWidth = *ptrBitmapData;
-				uint8_t* ptrCurrentBitmapLineStart = (ptrBitmapData + 1);
-
-				if (width < 1)
+				if (startOffsetX)
 					break;
 
-				if (scale > 1)
+				//Move row
+				if (scaledLinesDrawn < scale - 1)
 				{
-					do
-					{
-						pixel = *ptrCurrentBitmapLineStart++;
-						for (int s = 0; s < scale; s++)
-						{
-							*ptrCurrentScreenLineStart++ = pixel;
-						}
-						posWidth--;
-					} while (posWidth);
-					ptrBitmapData = ptrCurrentBitmapLineStart;
-					ptrScreenBuffer = ptrCurrentScreenLineStart;
+					int lineLengthBytes = countBytes - lineStartBytes;
+					ptrBitmapData -= lineLengthBytes;
+					countBytes -= lineLengthBytes;
+					scaledLinesDrawn++;
 				}
 				else
 				{
-					qmemcpy(ptrCurrentScreenLineStart, ptrCurrentBitmapLineStart, width);
-					ptrBitmapData = ptrCurrentBitmapLineStart + width;
-					ptrScreenBuffer = ptrCurrentScreenLineStart + width;
+					posHeight--;
+					scaledLinesDrawn = 0;
+					lineStartBytes = countBytes;
 				}
+
+				ptrScreenBufferLineStart += screenWidth_18062C;
+				ptrScreenBuffer = ptrScreenBufferLineStart;
+				if (!posHeight)
+					return;
 			}
 
-			//If null byte move to next row...
-			if (startOffsetX < 1)
+			//Is width byte
+			if ((startOffsetX & 0x80u) == 0)
+			{
+				//Start Drawing
 				break;
-
-			//Draw line
-			width = startOffsetX;
-			posWidth = startOffsetX;
-
-			if (scale > 1)
-			{
-				do
-				{
-					pixel = *ptrBitmapData++;
-					for (int s = 0; s < scale; s++)
-					{
-						*ptrScreenBuffer++ = pixel;
-					}
-					posWidth--;
-				} while (posWidth);
 			}
-			else
-			{
-				qmemcpy(ptrScreenBuffer, ptrBitmapData, width);
-				ptrBitmapData += width;
-				ptrScreenBuffer += width;
-			}
+			//Is a change of start coordinate
+			int offset = (char)startOffsetX;
+			ptrScreenBuffer -= offset * scale;
+			if (!posHeight)
+				return;
 		}
-		ptrScreenBufferLineStart += screenWidth_18062C;
-		ptrScreenBuffer = ptrScreenBufferLineStart;
-		height--;
-	} while (height);
+
+		posWidth = startOffsetX;
+		width = startOffsetX;
+
+		//Draw line
+		if (scale > 1)
+		{
+			do
+			{
+				pixel = *ptrBitmapData++;
+				countBytes++;
+
+				for (int s = 0; s < scale; s++)
+				{
+					*ptrScreenBuffer++ = pixel;
+				}
+				posWidth--;
+			} while (posWidth);
+		}
+		else
+		{
+			qmemcpy(ptrScreenBuffer, ptrBitmapData, width);
+			ptrBitmapData += width;
+			ptrScreenBuffer += width;
+			countBytes += width;
+		}
+	} while (posHeight);
 };
 
 void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint32_t width, uint16_t height, uint8_t v134)

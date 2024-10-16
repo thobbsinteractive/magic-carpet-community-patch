@@ -28,8 +28,8 @@
 #include "engine/GameRenderHD.h"
 #include "engine/GameRenderNG.h"
 #include "engine/GameRenderGL.h"
-#include "engine/GameOverlay.h"
-#include "engine/GameOverlayIndexes.h"
+#include "engine/GameBitmap.h"
+#include "engine/GameBitmapIndexes.h"
 
 #include "engine/Terrain.h"
 
