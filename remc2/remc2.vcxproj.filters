@@ -303,10 +303,10 @@
     <ClInclude Include="portability\port_sdl_joystick.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="engine\GameOverlay.h">
+    <ClInclude Include="engine\GameBitmap.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\GameOverlayIndexes.h">
+    <ClInclude Include="engine\GameBitmapIndexes.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
@@ -497,7 +497,7 @@
     <ClCompile Include="portability\port_sdl_joystick.cpp">
       <Filter>Source Files\portability</Filter>
     </ClCompile>
-    <ClCompile Include="engine\GameOverlay.cpp">
+    <ClCompile Include="engine\GameBitmap.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>

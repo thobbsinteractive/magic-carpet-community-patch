@@ -2526,7 +2526,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v85 = x_DWORD_180634_screen_width - v85 - 2;
 						width = v85;
 						v134 = v85;
-						DrawBitmap(texture, (screenWidth_18062C* tiley + v85 + pixel_buffer_index), width, height, v134);
+						GameBitmap::DrawBitmap(texture, (screenWidth_18062C* tiley + v85 + pixel_buffer_index), width, height, v134);
 					}
 				}
 				else if (x_WORD_E36D4 & 2)
@@ -2988,7 +2988,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 		}
 		else
 		{
-			DrawBitmap(texture, (screenWidth_18062C* tiley + tilex + pixel_buffer_index), height, scale);
+			GameBitmap::DrawBitmap(texture, (screenWidth_18062C* tiley + tilex + pixel_buffer_index), height, scale);
 		}
 		return;
 	}
@@ -3149,140 +3149,6 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 	}
 }
 
-void DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint8_t height, uint8_t scale)
-{
-	int8_t width = 0;
-	int8_t posWidth = 0;
-	int8_t startOffsetX = -1;
-	uint8_t pixel = 0;
-	uint8_t* ptrScreenBufferLineStart = ptrScreenBuffer;
-
-	int scaledLinesDrawn = 0;
-
-	do
-	{
-		while (1)
-		{
-			while (1)
-			{
-				startOffsetX = *ptrBitmapData++;
-
-				//Is width byte
-				if ((startOffsetX & 0x80u) == 0)
-				{
-					//Start Drawing
-					break;
-				}
-
-				//Get start location using Offset byte
-				int offset = (char)startOffsetX;
-				uint8_t* ptrCurrentScreenLineStart = ptrScreenBuffer - (offset * scale);
-				width = *ptrBitmapData;
-				posWidth = *ptrBitmapData;
-				uint8_t* ptrCurrentBitmapLineStart = (ptrBitmapData + 1);
-
-				if (width < 1)
-					break;
-
-				if (scale > 1)
-				{
-					do
-					{
-						pixel = *ptrCurrentBitmapLineStart++;
-						for (int s = 0; s < scale; s++)
-						{
-							*ptrCurrentScreenLineStart++ = pixel;
-						}
-						posWidth--;
-					} while (posWidth);
-					ptrBitmapData = ptrCurrentBitmapLineStart;
-					ptrScreenBuffer = ptrCurrentScreenLineStart;
-				}
-				else
-				{
-					qmemcpy(ptrCurrentScreenLineStart, ptrCurrentBitmapLineStart, width);
-					ptrBitmapData = ptrCurrentBitmapLineStart + width;
-					ptrScreenBuffer = ptrCurrentScreenLineStart + width;
-				}
-			}
-
-			//If null byte move to next row...
-			if (startOffsetX < 1)
-				break;
-
-			//Draw line
-			width = startOffsetX;
-			posWidth = startOffsetX;
-
-			if (scale > 1)
-			{
-				do
-				{
-					pixel = *ptrBitmapData++;
-					for (int s = 0; s < scale; s++)
-					{
-						*ptrScreenBuffer++ = pixel;
-					}
-					posWidth--;
-				} while (posWidth);
-			}
-			else
-			{
-				qmemcpy(ptrScreenBuffer, ptrBitmapData, width);
-				ptrBitmapData += width;
-				ptrScreenBuffer += width;
-			}
-		}
-		ptrScreenBufferLineStart += screenWidth_18062C;
-		ptrScreenBuffer = ptrScreenBufferLineStart;
-		height--;
-	} while (height);
-}
-
-void DrawBitmap(uint8_t* ptrBitmapData, uint8_t * ptrScreenBuffer, uint32_t width, uint16_t height, uint8_t v134)
-{
-	uint8_t pixel;
-	int32_t startOffsetX;
-	int32_t posWidth;
-	uint8_t* ptrScreenBufferLineStart = ptrScreenBuffer;
-
-	do
-	{
-		while (1)
-		{
-			while (1)
-			{
-				startOffsetX = *ptrBitmapData++;
-
-				//Is width byte
-				if ((startOffsetX & 0x80u) == 0)
-				{
-					//Start Drawing
-					break;
-				}
-				ptrScreenBuffer += startOffsetX;
-				width = width - startOffsetX;
-			}
-			if (!startOffsetX)
-				break;
-			posWidth = startOffsetX;
-
-			//Draw Line
-			do
-			{
-				pixel = *ptrBitmapData++;
-				width = width + 1;
-				if ((width & 0x80u) == 0)
-					*ptrScreenBuffer = pixel;
-				--ptrScreenBuffer;
-				--posWidth;
-			} while (posWidth);
-		}
-		ptrScreenBufferLineStart += screenWidth_18062C;
-		ptrScreenBuffer = ptrScreenBufferLineStart;
-		width = __PAIR__(height, v134) - 256;
-	} while (height);
-}
 // E36D4: using guessed type __int16 x_WORD_E36D4;
 // E3890: using guessed type int x_DWORD_E3890;
 // 180628: using guessed type int pdwScreenBuffer_351628;

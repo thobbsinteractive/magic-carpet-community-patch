@@ -26302,7 +26302,7 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 	else
 	{
-		ptrDrawBitmap_F01E8 = GameOverlay::DrawTransparentBitmap_2DE80;//(0, 0, 0);
+		ptrDrawBitmap_F01E8 = GameBitmap::DrawTransparentBitmap_2DE80;//(0, 0, 0);
 	}
 	ptrDrawBitmap_F01EC = ptrDrawBitmap_F01E8;
 	v2 = x_D41A0_BYTEARRAY_4_struct.byteindex_10;
@@ -27307,8 +27307,8 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 	if ((a1x->struct_byte_0xc_12_15.byte[0] & 0x20 || a1x->dword_0xA4_164x->word_0x159_345) && x_D41A0_BYTEARRAY_4_struct.byteindex_121[2])
 	{
 		//Draw Player Health and Mana flickering
-		GameOverlay::DrawTransparentBitmap_2DE80(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
-		GameOverlay::DrawTransparentBitmap_2DE80(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
+		GameBitmap::DrawTransparentBitmap_2DE80(posX + (2 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[PLAYER_ICON], scale);
+		GameBitmap::DrawTransparentBitmap_2DE80(posX + (38 * scale), (2 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[HEALTH_MANA_ICONS], scale);
 	}
 	else
 	{
@@ -27332,158 +27332,6 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 // EA3DC: using guessed type int **filearray_2aa18c[6];
 // EA3E4: using guessed type int x_DWORD_EA3E4[];
 // F01E8: using guessed type int (*ptrDrawBitmap_F01E8)(x_DWORD, x_DWORD, x_DWORD);
-
-//----- (0002DE80) --------------------------------------------------------
-int debugcounter_sub_2DE80 = 0;
-void DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
-{
-	int32_t startOffsetX; // eax
-	uint8_t* v5; // edi
-	uint8_t* v6; // edx
-	uint8_t* v7; // esi
-	int v8; // ecx
-	uint8_t* ptrScreenBuffer;
-	uint8_t* ptrBitmapData = nullptr; // edx
-	uint8_t* ptrBitmapPixel = nullptr; // esi
-	int32_t posWidth; // ecx
-	int v15; // [esp+0h] [ebp-Ch]
-	int32_t width; // [esp+0h] [ebp-Ch]
-	uint8_t* ptrScreenBufferLineStart; // [esp+4h] [ebp-8h]
-	uint8_t* i; // [esp+8h] [ebp-4h]
-
-	if (x_WORD_180660_VGA_type_resolution == 1)
-	{
-		posHeight = a3.height_5 / 2;
-		startOffsetX = posY / 2 * screenWidth_18062C + posX / 2;
-		v5 = (startOffsetX + pdwScreenBuffer_351628);
-		v6 = a3.data;
-		for (i = startOffsetX + pdwScreenBuffer_351628; posHeight; v6 += v15)
-		{
-			while (1)
-			{
-				while (1)
-				{
-					LOBYTE(startOffsetX) = *v6++;
-					if ((x_BYTE)startOffsetX)
-						break;
-					posHeight--;
-					i += screenWidth_18062C;
-					v5 = i;
-					if (!posHeight)
-						return;
-				}
-				if ((startOffsetX & 0x80u) == 0)
-					break;
-				v5 -= (char)startOffsetX;
-				if (!posHeight)
-					return;
-			}
-			startOffsetX = (char)startOffsetX;//20ef1f
-			v7 = v6;
-			v8 = startOffsetX;
-			v15 = (char)startOffsetX;
-			HIWORD(startOffsetX) = 0;
-			do
-			{
-				debugcounter_sub_2DE80++;
-				if (0x30f == debugcounter_sub_2DE80)
-				{
-					debugcounter_sub_2DE80++;
-					debugcounter_sub_2DE80--;
-				}
-
-				LOBYTE(startOffsetX) = *v7++;
-				HIBYTE(startOffsetX) = *v5;
-				LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
-				*v5++ = startOffsetX;
-				v8--;
-			} while (v8);
-		}
-	}
-	else
-	{
-		if (a3.height_5)
-		{
-			startOffsetX = posX + screenWidth_18062C * posY;
-			posHeight = a3.height_5;
-
-			ptrScreenBuffer = (startOffsetX + pdwScreenBuffer_351628);
-			ptrScreenBufferLineStart = (startOffsetX + pdwScreenBuffer_351628);
-				ptrBitmapData = a3.data;
-			int lineStartBytes = 0;
-			int countBytes = 0;
-			int scaledLinesDrawn = 0;
-
-			do
-			{
-				while (1)
-				{
-					while (1)
-					{
-						LOBYTE(startOffsetX) = *ptrBitmapData++;
-						countBytes++;
-
-						//If it has value
-						if ((x_BYTE)startOffsetX)
-							break;
-
-						//Move row
-						if (scaledLinesDrawn < scale - 1)
-						{
-							int lineLengthBytes = countBytes - lineStartBytes;
-							ptrBitmapData -= lineLengthBytes;
-							countBytes -= lineLengthBytes;
-							scaledLinesDrawn++;
-						}
-						else
-						{
-						posHeight--;
-							scaledLinesDrawn = 0;
-							lineStartBytes = countBytes;
-						}
-
-						ptrScreenBufferLineStart += screenWidth_18062C;
-						ptrScreenBuffer = ptrScreenBufferLineStart;
-						if (!posHeight)
-							return;
-					}
-
-					//Is width byte
-					if ((startOffsetX & 0x80u) == 0)
-					{
-						//Start Drawing
-						break;
-					}
-					//Is a change of start coordinate
-					int offset = (char)startOffsetX;
-					ptrScreenBuffer -= offset * scale;
-					if (!posHeight)
-						return;
-				}
-				posWidth = LOBYTE(startOffsetX);
-				width = LOBYTE(startOffsetX);
-				ptrBitmapPixel = ptrBitmapData;
-				HIWORD(startOffsetX) = 0;
-				//Draw Row
-				do
-				{
-					for (int s = 0; s < scale; s++)
-					{
-						LOBYTE(startOffsetX) = *ptrBitmapPixel;
-					HIBYTE(startOffsetX) = *ptrScreenBuffer;
-					LOBYTE(startOffsetX) = x_BYTE_F6EE0_tablesx[0x4000 + startOffsetX];
-					*ptrScreenBuffer++ = startOffsetX;
-					}
-					ptrBitmapPixel++;
-					countBytes++;
-					posWidth--;
-				} while (posWidth);
-				ptrBitmapData += width;
-			} while (posHeight);
-		}
-	}
-	//return v4;
-}
 // 180628: using guessed type int pdwScreenBuffer_351628;
 // 18062C: using guessed type int screenWidth_18062C;
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
@@ -27923,18 +27771,18 @@ void DrawBottomMenu_2ECC0()//20fcc0
 						if (v55)
 							sub_2BB40_draw_bitmap(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);//top left2 spell1 and top left5 spell2
 						else
-							GameOverlay::DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);
+							GameBitmap::DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97]);
 					LABEL_43:
 						v14 = v37x->dword_0xA4_164x->str_611.array_0x3B5_949x.byte[v44];
 						if (v14 >= 1u)
 						{
 							if (v14 <= 1u)
 							{
-								GameOverlay::DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[149]);
+								GameBitmap::DrawTransparentBitmap_2DE80(posX + v6, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[149]);
 							}
 							else if (v14 == 2)
 							{
-								GameOverlay::DrawTransparentBitmap_2DE80(posX + v6 + v45, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[150]);
+								GameBitmap::DrawTransparentBitmap_2DE80(posX + v6 + v45, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[150]);
 							}
 						}
 						goto LABEL_54;
@@ -28041,7 +27889,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 				if (v58)
 					sub_2BB40_draw_bitmap(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
 				else
-					GameOverlay::DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
+					GameBitmap::DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
 			}
 			//if ( (x_WORD)v20 == *(char *)(v36 + 502) )
 			//sub_2BB40_draw_bitmap(v19, v50, (uint8_t**)(**filearray_2aa18c[6] + 984));
