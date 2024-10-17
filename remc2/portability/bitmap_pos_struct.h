@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ENGINE_TYPES_H
-#define ENGINE_TYPES_H
+#ifndef BITMAP_POS_STRUCT_H
+#define BITMAP_POS_STRUCT_H
 
 #include <string>
 #include <cstdint>
@@ -32,4 +32,4 @@ typedef struct {
 } bitmap_pos_struct2_t;
 #pragma pack (16)
 
-#endif //ENGINE_TYPES_H
+#endif //BITMAP_POS_STRUCT_H

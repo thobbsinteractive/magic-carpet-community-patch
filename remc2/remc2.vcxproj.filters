@@ -144,7 +144,7 @@
     <ClInclude Include="portability\port_sdl_vga_mouse.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="portability\mctypes.h">
+    <ClInclude Include="portability\bitmap_pos_struct.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="engine\defs.h">

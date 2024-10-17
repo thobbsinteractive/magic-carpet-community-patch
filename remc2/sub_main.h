@@ -578,7 +578,7 @@ void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
 char sub_8B980(int a1, int a2, char* a3, int a4);
 signed int sub_8BBE0(uint8_t* a1);
-void sub_8CD27_set_cursor(posistruct_t a2);
+void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
 void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);

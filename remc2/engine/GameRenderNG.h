@@ -10,7 +10,7 @@
 
 #include "../utilities/Maths.h"
 #include "../utilities/BitmapIO.h"
-#include "../portability/mctypes.h"
+#include "../portability/bitmap_pos_struct.h"
 #include "../utilities/SafeQueue.h"
 #include "Terrain.h"
 #include "Type_F2C20ar.h"
