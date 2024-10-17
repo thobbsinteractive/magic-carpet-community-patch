@@ -26278,16 +26278,19 @@ void DrawGameFrame_2BE30()//20CE30
 
 	int16_t spellLeftPosX = 510;
 	int16_t spellRightPosX = 574;
-	if (x_WORD_180660_VGA_type_resolution != 1)
-		if (!DefaultResolutions())
-		{
-			spellLeftPosX = screenWidth_18062C - 130;
-			spellRightPosX = screenWidth_18062C - 66;
-		}
 
 	if (screenWidth_18062C >= 1920 && screenHeight_180624 >= 1080)
 	{
 		scale = 2;
+	}
+
+	if (x_WORD_180660_VGA_type_resolution != 1)
+	{
+		if (!DefaultResolutions())
+		{
+			spellLeftPosX = screenWidth_18062C - (130 * scale);
+			spellRightPosX = screenWidth_18062C - (66 * scale);
+		}
 	}
 
 	//v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
@@ -26506,16 +26509,18 @@ void DrawGameFrame_2BE30()//20CE30
 				//Left
 				DrawSpellIcon_2E260(
 					spellLeftPosX,
-					2,
+					2 * scale,
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x451_1105]],
-					0);
+					0,
+					scale);
 
 				//Right
 				DrawSpellIcon_2E260(
 					spellRightPosX,
-					2,
+					2 * scale,
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x453_1107]],
-					0);
+					0,
+					scale);
 
 				DrawTopStatusBar_2D710(v3x, scale);
 			}
@@ -26712,13 +26717,15 @@ void DrawGameFrame_2BE30()//20CE30
 				spellLeftPosX,
 				2,
 				x_DWORD_EA3E4[v14x->dword_0xA4_164x->str_611.array_0x333_819x.word[v14x->dword_0xA4_164x->str_611.word_0x451_1105]],
-				0);
+				0, 
+				scale);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 			DrawSpellIcon_2E260(
 				spellRightPosX,
 				2,
 				x_DWORD_EA3E4[v14x->dword_0xA4_164x->str_611.array_0x333_819x.word[v14x->dword_0xA4_164x->str_611.word_0x453_1107]],
-				0);
+				0,
+				scale);
 		break;
 	default:
 		break;
@@ -27478,7 +27485,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 					else
 						//v8 = (uint8_t**)(**filearray_2aa18c[6] + 6);
 						v8 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1];
-					sub_2BB40_draw_bitmap(posX, posY, v8);
+					sub_2BB40_draw_bitmap(posX, posY, v8, scale);
 				}
 				else
 				{
@@ -27488,31 +27495,31 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 					else
 						//v9 = **filearray_2aa18c[6] + 6;
 						v9 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1];
-					ptrDrawBitmap_F01E8(posX, posY, v9, 1);
+					ptrDrawBitmap_F01E8(posX, posY, v9, scale);
 				}//20f38d
 				//a6757c+2e8=a67864->a60a57
-				sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[(a3x->model_0x40_64 + 123)]);
+				sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[(a3x->model_0x40_64 + 123)], scale);
 				//20f3b8
 				//"I" 0x234 a6757c->a5b3b0    0xc
 				//adress 20f37a
 				DrawText_2BC10((char*)off_DB06C[a3x->byte_0x46_70],
-					(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 + posX - 8 * strlen((const char*)*(&off_DB06C[a3x->byte_0x46_70])) - 2,//test and fix
+					(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 * scale + posX - (8 * scale) * strlen((const char*)*(&off_DB06C[a3x->byte_0x46_70])) - (2 * scale),//test and fix
 					posY,
 					(*xadataclrd0dat.colorPalette_var28)[0]);//x_BYTE_E8900//20f3bd//2b9900
 				if (a3x->maxMana_0x8C_140)
 				{
 					DrawLine_2BC80(
-						posX + 4,
-						posY + 36,
-						56 * (v15x->mana_0x90_144 % a3x->maxMana_0x8C_140) / a3x->maxMana_0x8C_140,
-						4,
+						posX + (4 * scale),
+						posY + (36 * scale),
+						(56 * scale) * (v15x->mana_0x90_144 % a3x->maxMana_0x8C_140) / a3x->maxMana_0x8C_140,
+						(4 * scale),
 						v16);
 					v10 = v15x->mana_0x90_144 / a3x->maxMana_0x8C_140;
 					for (i = 0; i < 27 && v10; i++)
 					{
 						for (j = 0; j < 2 && v10; j++)
 						{
-							DrawLine_2BC80(posX + 2 * (i + 2), posY + 2 * (j + 18), 2, 2, v17);
+							DrawLine_2BC80(posX + (2 * (i + 2) * scale), posY + (2 * (j + 18) * scale), 2 * scale, 2 * scale, v17);
 							v10--;
 						}
 					}
