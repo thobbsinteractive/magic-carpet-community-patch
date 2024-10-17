@@ -1,7 +1,8 @@
 #include "GameBitmap.h"
 
-void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint8_t posHeight, uint8_t scale)
+void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint32_t stride, int16_t posX, int16_t posY, uint8_t posHeight, uint8_t scale)
 {
+	ptrScreenBuffer = (stride * posY + posX + ptrScreenBuffer);
 	int8_t width = 0;
 	int8_t posWidth = 0;
 	int8_t startOffsetX = -1;
@@ -39,7 +40,7 @@ void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, ui
 					lineStartBytes = countBytes;
 				}
 
-				ptrScreenBufferLineStart += screenWidth_18062C;
+				ptrScreenBufferLineStart += stride;
 				ptrScreenBuffer = ptrScreenBufferLineStart;
 				if (!posHeight)
 					return;
@@ -86,8 +87,9 @@ void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, ui
 	} while (posHeight);
 };
 
-void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint32_t width, uint16_t height, uint8_t v134)
+void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint32_t stride, int16_t posX, int16_t posY, uint16_t width, uint16_t height, uint8_t v134)
 {
+	ptrScreenBuffer = (stride * posY + posX + ptrScreenBuffer);
 	uint8_t pixel;
 	int32_t startOffsetX;
 	int32_t posWidth;
@@ -125,7 +127,7 @@ void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, ui
 				--posWidth;
 			} while (posWidth);
 		}
-		ptrScreenBufferLineStart += screenWidth_18062C;
+		ptrScreenBufferLineStart += stride;
 		ptrScreenBuffer = ptrScreenBufferLineStart;
 		width = __PAIR__(height, v134) - 256;
 	} while (height);

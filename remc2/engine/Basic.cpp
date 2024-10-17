@@ -2526,7 +2526,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 						v85 = x_DWORD_180634_screen_width - v85 - 2;
 						width = v85;
 						v134 = v85;
-						GameBitmap::DrawBitmap(texture, (screenWidth_18062C* tiley + v85 + pixel_buffer_index), width, height, v134);
+						GameBitmap::DrawBitmap(texture, pixel_buffer_index, screenWidth_18062C, v85, tiley, width, height, v134);
 					}
 				}
 				else if (x_WORD_E36D4 & 2)
@@ -2988,7 +2988,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 		}
 		else
 		{
-			GameBitmap::DrawBitmap(texture, (screenWidth_18062C* tiley + tilex + pixel_buffer_index), height, scale);
+			GameBitmap::DrawBitmap(texture, pixel_buffer_index, screenWidth_18062C, tilex, tiley, height, scale);
 		}
 		return;
 	}
