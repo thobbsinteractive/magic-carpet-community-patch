@@ -823,8 +823,8 @@ void Intros_76D10(char a1)//257d10
 
 	//x_DWORD_17DE48c = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
 	x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[301787];
-	x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[308527];
-	x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[310159];
+	x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[308527];
+	x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[310159];
 
 	sprintf(dataPath, "%s/%s", cdDataPath.c_str(), "DATA/SCREENS/HSCREEN0.DAT");
 	sub_7AA70_load_and_decompres_dat_file(dataPath, &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[301787], 0x164FCD, 0x35C);
@@ -1323,8 +1323,8 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 	_finddata_t langFileD;
 	type_E24BCx textBoxStr[2];
 	int actualTime;
-	posistruct2_t* tabBufferEnd;
-	posistruct2_t* tabBuffer;
+	bitmap_pos_struct2_t* tabBufferEnd;
+	bitmap_pos_struct2_t* tabBuffer;
 
 	uint8_t* tempSmalltit = nullptr;
 
@@ -1378,7 +1378,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		else
 			langFilename = (char*)langFileD.name;//both are assigned the case "D2.TXT", address 3550d2
 
-		posistruct_t langDatTab[1000];
+		bitmap_pos_struct_t langDatTab[1000];
 		x_D41A0_BYTEARRAY_4_struct.SelectedLangIndex = LoadLanguageFile(&tabBuffer, &tabBufferEnd, langBuffer, langFilename, langDatTab);//2607d0
 		unknown_libname_4_find_close(&langFileD, langdhandle);//27b1b3
 		if (langlhandle == 0)
@@ -2724,8 +2724,8 @@ signed int sub_7E320_draw_bitmaps_and_play_sounds(/*__int16 a1, int a2*/)//25f32
 	int ky;
 	int v9; // edx
 	int v11y;
-	posistruct_t* v12; // edi
-	posistruct2_t* v13x; // esi
+	bitmap_pos_struct_t* v12; // edi
+	bitmap_pos_struct2_t* v13x; // esi
 	type_E24BCx v14x[2];
 
 	for (ix = 0; str_E23E0[ix].byte_25; ix++)//draw buttons
@@ -3204,10 +3204,10 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 	//__int16 v35; // [esp+32h] [ebp-22h]//v33x[14]
 	//int v36; // [esp+34h] [ebp-20h]//v33x[16]
 
-	posistruct2_t* v37x; // [esp+3Ch] [ebp-18h]
+	bitmap_pos_struct2_t* v37x; // [esp+3Ch] [ebp-18h]
 	//uint8_t* v38; // [esp+40h] [ebp-14h]
-	posistruct2_t* v38x; // [esp+40h] [ebp-14h]
-	posistruct_t* v38s;
+	bitmap_pos_struct2_t* v38x; // [esp+40h] [ebp-14h]
+	bitmap_pos_struct_t* v38s;
 	int v39; // [esp+44h] [ebp-10h]
 	//x_WORD *v40; // [esp+48h] [ebp-Ch]
 	//char *v41; // [esp+4Ch] [ebp-8h]
@@ -3355,9 +3355,9 @@ void sub_7D400_draw_texts_and_play_sounds(int  /*a1*/, __int16 a2, __int16 a3, c
 		v38s = xy_DWORD_17DEC0_spritestr;//fixed
 		xy_DWORD_17DEC0_spritestr = xy_DWORD_17DEC8_spritestr;//fixed
 		/*
-		posistruct_t* xy_DWORD_17DED4_spritestr;
-posistruct_t* xy_DWORD_17DEC0_spritestr;
-posistruct_t* xy_DWORD_17DEC8_spritestr;
+		bitmap_pos_struct_t* xy_DWORD_17DED4_spritestr;
+bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr;
+bitmap_pos_struct_t* xy_DWORD_17DEC8_spritestr;
 		*/
 
 		//HIWORD(v16) = HIWORD(x_DWORD_17DECC);
@@ -4046,7 +4046,7 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 }
 
 //----- (0007F7D0) --------------------------------------------------------
-int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char* langfilename, posistruct_t* a3dattabindex)//2607d0
+int LoadLanguageFile(bitmap_pos_struct2_t** a1x, bitmap_pos_struct2_t** a2x, uint8_t* a3, char* langfilename, bitmap_pos_struct_t* a3dattabindex)//2607d0
 {
 	//int v4; // edi
 	FILE* langfile; // eax
@@ -4098,14 +4098,14 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 		languageFilePath = std::string(updatedLanguagePath);
 
 	}
-	*a1x = (posistruct2_t*)(a3 + 4773);//35513c
+	*a1x = (bitmap_pos_struct2_t*)(a3 + 4773);//35513c
 	//v10 = x_WORD_180660_VGA_type_resolution;
-	*a2x = (posistruct2_t*)(a3 + 4785);
-	//posistruct_t a3dattab[1000];
+	*a2x = (bitmap_pos_struct2_t*)(a3 + 4785);
+	//bitmap_pos_struct_t a3dattab[1000];
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_98709_create_index_dattab_power(*a1x, (posistruct2_t*)(a3 + 4785), a3, a3dattabindex);
+		sub_98709_create_index_dattab_power(*a1x, (bitmap_pos_struct2_t*)(a3 + 4785), a3, a3dattabindex);
 	else
-		sub_9874D_create_index_dattab(*a1x, (posistruct2_t*)(a3 + 4785), a3, a3dattabindex);
+		sub_9874D_create_index_dattab(*a1x, (bitmap_pos_struct2_t*)(a3 + 4785), a3, a3dattabindex);
 	sub_5B870_copy_sentence(x_DWORD_D41BC_langbuffer, x_DWORD_E9C4C_langindexbuffer, 471);//fix it //2a51bc //Exit Game
 	return atoi(langfilename + 1);
 }
@@ -4118,8 +4118,8 @@ int LoadLanguageFile(posistruct2_t** a1x, posistruct2_t** a2x, uint8_t* a3, char
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0007F960) --------------------------------------------------------
-int sub_7F960(posistruct2_t* a1x, posistruct2_t* a2x, uint8_t* a3, char* langcountstring, posistruct_t* a3dattabindex)
-//int sub_7F7D0(uint8_t** a1, uint8_t** a2, uint8_t* a3, char* langfilename, posistruct_t* a3dattabindex)//2607d0
+int sub_7F960(bitmap_pos_struct2_t* a1x, bitmap_pos_struct2_t* a2x, uint8_t* a3, char* langcountstring, bitmap_pos_struct_t* a3dattabindex)
+//int sub_7F7D0(uint8_t** a1, uint8_t** a2, uint8_t* a3, char* langfilename, bitmap_pos_struct_t* a3dattabindex)//2607d0
 {
 	uint16_t langcount; // esi
 	FILE* langfile; // eax
@@ -4475,10 +4475,10 @@ void sub_82510(/*__int16 a1*//*, int *a2*/)//263510
 	//char v10[36]; // [esp+0h] [ebp-2Ch]
 	type_E24BCx v10x[2];
 	//char v11[2]; // [esp+10h] [ebp-1Ch]
-	posistruct2_t* v12x; // [esp+24h] [ebp-8h]
+	bitmap_pos_struct2_t* v12x; // [esp+24h] [ebp-8h]
 	//uint8_t* v13; // [esp+28h] [ebp-4h]
-	posistruct2_t* v13x; // [esp+28h] [ebp-4h]
-	posistruct_t* v13s;
+	bitmap_pos_struct2_t* v13x; // [esp+28h] [ebp-4h]
+	bitmap_pos_struct_t* v13s;
 
 	uint8_t switchbit = 0;
 
@@ -4588,8 +4588,8 @@ void sub_82670()//263670
 			x_BYTE_D41C1 = 0;
 			x_DWORD_17DE38str.x_DWORD_17DE48c = v2;
 			x_DWORD_17DE38str.x_DWORD_17DE54 = (uint8_t*)v2 + 301787;
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)((uint8_t*)v2 + 308527);
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)((uint8_t*)v2 + 310159);
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)((uint8_t*)v2 + 308527);
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)((uint8_t*)v2 + 310159);
 			sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)(v2 + 301787), 0x164FCD, 860);
 			sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 548);
 
@@ -4682,9 +4682,9 @@ void sub_82670()//263670
 						sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 					}
 					/*if (x_WORD_180660_VGA_type_resolution & 1)
-						sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, (new posistruct_t));
+						sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, (new bitmap_pos_struct_t));
 					else
-						sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, (new posistruct_t));*/
+						sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, (new bitmap_pos_struct_t));*/
 
 					if (x_WORD_180660_VGA_type_resolution & 1)
 					{
@@ -4833,17 +4833,17 @@ void sub_833C0()//2643c0
 	sub_7B5D0();
 
 	x_DWORD_17DE38str.x_DWORD_17DE54 = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x49ADB;
-	x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4D313);
+	x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4D313);
 	x_DWORD_17DE38str.x_DWORD_17DE58 = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4D313;
-	x_DWORD_17DE38str.x_DWORD_17DEC8 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4ECC2);
-	x_DWORD_17DE38str.x_DWORD_17DECC = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4F31C);
-	x_DWORD_17DE38str.x_DWORD_17DED4 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4F31C);
-	x_DWORD_17DE38str.x_DWORD_17DED8 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4FA72);
+	x_DWORD_17DE38str.x_DWORD_17DEC8 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4ECC2);
+	x_DWORD_17DE38str.x_DWORD_17DECC = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4F31C);
+	x_DWORD_17DE38str.x_DWORD_17DED4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4F31C);
+	x_DWORD_17DE38str.x_DWORD_17DED8 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4FA72);
 	x_DWORD_17DE38str.x_DWORD_17DE60 = x_DWORD_17DE38str.x_DWORD_17DE44;
 	x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4FA72;
 	//v1 = (0x12C000 + x_DWORD_17DE48c + 326258);//fix it
 	x_DWORD_17DE38str.x_DWORD_17DE3C = (TcolNext*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x17BA72);
-	x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4CCAD);
+	x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 0x4CCAD);
 	x_DWORD_17DE38str.x_DWORD_17DE5C_border_bitmap = x_DWORD_17DE38str.x_DWORD_17DE48c + 0x17FA72;
 	v3 = j___clock();
 	v4 = v3;
@@ -4861,9 +4861,9 @@ void sub_833C0()//2643c0
 	sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, 0x16554D, 79378);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 	/*if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_98709_create_index_dattab_power((uint8_t*)(int)x_DWORD_17DEC0, (uint8_t*)(int)x_DWORD_17DEC4, (uint8_t*)(int)x_DWORD_17DE54, (new posistruct_t));
+		sub_98709_create_index_dattab_power((uint8_t*)(int)x_DWORD_17DEC0, (uint8_t*)(int)x_DWORD_17DEC4, (uint8_t*)(int)x_DWORD_17DE54, (new bitmap_pos_struct_t));
 	else
-		sub_9874D_create_index_dattab((uint8_t*)(int)x_DWORD_17DEC0, (uint8_t*)(int)x_DWORD_17DEC4, (uint8_t*)(int)x_DWORD_17DE54, (new posistruct_t));
+		sub_9874D_create_index_dattab((uint8_t*)(int)x_DWORD_17DEC0, (uint8_t*)(int)x_DWORD_17DEC4, (uint8_t*)(int)x_DWORD_17DE54, (new bitmap_pos_struct_t));
 	*/
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
@@ -4875,9 +4875,9 @@ void sub_833C0()//2643c0
 	}
 
 	/*if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_98709_create_index_dattab_power((uint8_t*)x_DWORD_17DEC8, (uint8_t*)x_DWORD_17DECC, (uint8_t*)x_DWORD_17DE58, (new posistruct_t));
+		sub_98709_create_index_dattab_power((uint8_t*)x_DWORD_17DEC8, (uint8_t*)x_DWORD_17DECC, (uint8_t*)x_DWORD_17DE58, (new bitmap_pos_struct_t));
 	else
-		sub_9874D_create_index_dattab((uint8_t*)x_DWORD_17DEC8, (uint8_t*)x_DWORD_17DECC, (uint8_t*)x_DWORD_17DE58, (new posistruct_t));*/
+		sub_9874D_create_index_dattab((uint8_t*)x_DWORD_17DEC8, (uint8_t*)x_DWORD_17DECC, (uint8_t*)x_DWORD_17DE58, (new bitmap_pos_struct_t));*/
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC8, x_DWORD_17DE38str.x_DWORD_17DECC, x_DWORD_17DE38str.x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);

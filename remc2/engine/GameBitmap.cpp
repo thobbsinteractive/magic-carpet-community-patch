@@ -133,7 +133,7 @@ void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, ui
 	} while (height);
 };
 
-void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20ee80
+void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale)//20ee80
 {
 	int32_t startOffsetX; // eax
 	int16_t posHeight; // bx

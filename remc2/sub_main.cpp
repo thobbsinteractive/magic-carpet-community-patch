@@ -394,7 +394,7 @@ return true;
 */
 
 
-//posistruct_t var_2BB3E0_x_DWORD_EA3D4_14[0x3e9];
+//bitmap_pos_struct_t var_2BB3E0_x_DWORD_EA3D4_14[0x3e9];
 
 static unsigned long int    _RWD_randnext = 1;
 
@@ -445,23 +445,23 @@ typedef struct {
 } v51x_struct;
 #pragma pack (16)
 
-//posistruct_t* x_DWORD_EA3D4; // weak
-//posistruct_t x_DWORD_EA3D4[1700];//fix it
+//bitmap_pos_struct_t* x_DWORD_EA3D4; // weak
+//bitmap_pos_struct_t x_DWORD_EA3D4[1700];//fix it
 
 void initposistruct() {//fix it
-	posistruct1 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct2 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct3 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct4 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct5 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct6 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct7 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct8 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct9 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct10 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
-	posistruct11 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
+	posistruct1 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct2 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct3 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct4 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct5 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct6 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct7 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct8 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct9 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct10 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
+	posistruct11 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
 
-	x_DWORD_EA3D4 = (posistruct_t*)malloc(sizeof(posistruct_t) * 1700);
+	x_DWORD_EA3D4 = (bitmap_pos_struct_t*)malloc(sizeof(bitmap_pos_struct_t) * 1700);
 };
 
 Pathstruct pstr[100] = {
@@ -1261,15 +1261,15 @@ void sub_2B860(type_event_0x6E8E* a1, unsigned __int8 a2);
 signed int sub_2B9A0(type_event_0x6E8E* a1x);
 void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 // int _wcpp_1_unwind_leave__62(void); weak
-//void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t temposstr);
-void sub_2BBB0(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale = 1);
+//void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr);
+void sub_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 void DrawGameFrame_2BE30();
 void sub_2CE30_pause_end_level(int a1, int a2);
 void DrawSorcererScores_2D1D0();
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
-void sub_2DFD0(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
-void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4);
+void sub_2DFD0(__int16 a1, __int16 a2, bitmap_pos_struct_t a3, unsigned __int8 a4);
+void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4, uint8_t scale = 1);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
 //void sub_2EB60();
@@ -2146,7 +2146,7 @@ void sub_72550(type_E9C08** a1);
 void sub_727F0(unsigned __int8 a1, unsigned __int8 a2, unsigned __int8 a3, unsigned __int8 a4);
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer320(int a1, void *a2, unsigned __int16 a3, char a4);
 // void /*__spoils<ecx>*/ ClearGraphicsBuffer640(int a1, void *a2, unsigned __int16 a3, char a4);
-//void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, posistruct_t a3, unsigned __int8 a4);
+//void sub_72C40_draw_bitmap_640_setcolor(__int16 a1, __int16 a2, bitmap_pos_struct_t a3, unsigned __int8 a4);
 //int sub_72CB0(unsigned __int8* a1, int a2);//not used
 
 void sub_75110(__int16 a1, __int16 a2, __int16 a3, unsigned __int16 a4, __int16 a5);
@@ -2187,7 +2187,7 @@ __int16 sub_7678D();
 int sub_76840();
 //char sub_7A060_get_mouse_and_keyboard_events();
 signed int /*__fastcall*/ sub_7C050_get_keyboard_keys1();
-//void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr);
+//void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr);
 //void sub_7C140_draw_text_background(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 //int32_t sub_A7C20_AIL_API_init_sequence(HSEQUENCE hSequence, void* start, int32_t sequence_num, uint32_t track);
 // signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, int a5, __int16 a6, __int16 a7);
@@ -2296,8 +2296,8 @@ void sub_8CB1F();
 void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32_t mouse_posy);
 // int sub_8D12F_set_mouse_viewport();
 //-------------
-//void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr);
-//void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr);
+//void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr);
+//void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr);
 // void sub_8F920(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 // void sub_8F935_bitmap_draw_final(__int16 a1, signed int a2, int a3, char *a4, unsigned __int8 a5, char a6);
 //void sub_90164(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
@@ -2524,9 +2524,9 @@ int32_t xx_DWORD_D40BC[17][3] =  // weak//min 16*3 //2a50bc
 {0x000001C6, 0x0000009C, 0x00000000},
 {0x00000000, 0x00000000, 0x00000000} };
 
-posistruct2_t* x_DWORD_D4188 = 0; // weak
-posistruct2_t* x_DWORD_D418C = 0; // weak
-posistruct2_t* x_DWORD_D4190 = 0; // weak
+bitmap_pos_struct2_t* x_DWORD_D4188 = 0; // weak
+bitmap_pos_struct2_t* x_DWORD_D418C = 0; // weak
+bitmap_pos_struct2_t* x_DWORD_D4190 = 0; // weak
 char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
 char x_BYTE_D419E = 0; // weak//2a519e
@@ -5282,8 +5282,8 @@ TColor x_DWORD_EA3B8x[256]; // weak?x_DWORD_E9C4C_langindexbuffer[475]
 axis_3d x_WORD_EB398ar; // weak
 uint8_t x_BYTE_EB39E_keys[10]; // weak 0 - setting keys
 uint8_t uiBackGroundColorIdx_EB3A8;
-void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, posistruct_t, uint8_t scale); // eax
-void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, posistruct_t, uint8_t scale); // eax
+void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale); // eax
+void(*ptrDrawBitmap_F01EC)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale); // eax
 char x_BYTE_F01FEx[34]; // fix it -  weak
 char x_BYTE_F0220[256]; // idb
 char x_BYTE_F0320[256]; // idb
@@ -26165,7 +26165,7 @@ void sub_2BA50(type_event_0x6E8E* a1x, unsigned __int8 a2)//20ca50
 }
 
 //----- (0002BBB0) --------------------------------------------------------
-void sub_2BBB0(int16_t posX, int16_t posY, posistruct_t a3, uint8_t scale)//20cbb0
+void sub_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale)//20cbb0
 {
 	//int result; // eax
 	uint8_t* temp_screen_buffer; // edi
@@ -26258,7 +26258,7 @@ void DrawGameFrame_2BE30()//20CE30
 {
 	int8_t scale = 1;
 	//char v0; // dl
-	void (*v1)(int16_t, int16_t, posistruct_t, uint8_t scaling); // eax
+	void (*v1)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scaling); // eax
 	char v2; // bh
 	type_event_0x6E8E* v3x; // esi
 	signed int v6; // edi
@@ -27337,7 +27337,7 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002DFD0) --------------------------------------------------------
-void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)//20efd0
+void sub_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, unsigned __int8 a4)//20efd0
 {
 	uint8_t* v5; // edi
 	uint8_t* v6=0; // edx
@@ -27436,14 +27436,14 @@ void sub_2DFD0(int16_t posX, int16_t posY, posistruct_t a3, unsigned __int8 a4)/
 }
 
 //----- (0002E260) --------------------------------------------------------
-void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, char a4)//20f260
+void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, char a4, uint8_t scale)//20f260
 {
 	type_event_0x6E8E* v4x; // eax
 	signed int v5; // eax
 	//__int16 v6; // t1
 	__int16 v7; // cx
-	posistruct_t v8; // eax
-	posistruct_t v9; // eax
+	bitmap_pos_struct_t v8; // eax
+	bitmap_pos_struct_t v9; // eax
 	int v10; // edi
 	unsigned __int16 v11; // di
 	unsigned __int8 v12; // al
@@ -27605,7 +27605,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 	__int16 v10; // ax
 	__int16 v11; // ax
 	unsigned __int16 v12; // dx
-	posistruct_t v13; // eax
+	bitmap_pos_struct_t v13; // eax
 	unsigned __int8 v14; // al
 	//int v15; // eax
 	int v16; // eax
@@ -27997,15 +27997,15 @@ void DrawChatMenu_2F6B0()//2106b0
 	__int16 v16; // bx
 	__int16 v17; // si
 	__int16 v18; // bx
-	posistruct_t v19; // eax
+	bitmap_pos_struct_t v19; // eax
 	int v20; // ebx
 	__int16 v21; // si
-	posistruct_t v22; // eax
+	bitmap_pos_struct_t v22; // eax
 	signed int v23; // eax
 	int v24; // ebx
 	int v25; // esi
 	char v26; // al
-	posistruct_t v27; // eax
+	bitmap_pos_struct_t v27; // eax
 	__int16 v28; // si
 	__int16 v29; // bx
 	__int16 v30; // si
@@ -33331,7 +33331,7 @@ int debugcounter_218240 = 0;
 //----- (00037240) --------------------------------------------------------
 void ApplyTerrainModification_37240(type_event_0x6E8E* event)//218240
 {
-	posistruct_t v2; // esi
+	bitmap_pos_struct_t v2; // esi
 	unsigned int v3; // edi
 	unsigned int v4; // esi
 	uint16_t v7; // dx
@@ -37629,7 +37629,7 @@ void write_pngs2()
 				char outname[MAX_PATH];
 				sprintf(outname, "test-%03d.bmp", k);
 				std::string path = GetSubDirectoryFilePath("outimg", outname);
-				write_posistruct_to_png((uint8_t*)&actimg->textureBuffer, width, height, path.c_str());//test write
+				write_bitmap_pos_struct_to_png((uint8_t*)&actimg->textureBuffer, width, height, path.c_str());//test write
 			}
 		}
 	}
@@ -37646,7 +37646,7 @@ void write_pngs2()
 			if ((width > 0) && (width < 1024) && (width != 0xcdcd) && (height < 768))
 			{
 				sprintf(outname, "c:\\prenos\\remc2\\outimg\\testB-%03d.png", k);
-				write_posistruct_to_png(actimg + 6, width, height, outname);//test write
+				write_bitmap_pos_struct_to_png(actimg + 6, width, height, outname);//test write
 			}
 		}
 	}*/
@@ -38079,7 +38079,7 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 	//int v4; // eax
 	//char* v5; // ebx
 	//unsigned int v6; // esi
-	//posistruct2_t* v7x; // esi
+	//bitmap_pos_struct2_t* v7x; // esi
 	//int v8; // [esp+0h] [ebp-2h]
 	//int v9; // [esp+4h] [ebp+2h]
 	//int v10; // [esp+8h] [ebp+6h]
@@ -38152,14 +38152,14 @@ void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* text
 			//v6 = file2lenght+file1Lenght;
 			//filearray1 = (char*)sub_83CD0_malloc2(file2lenght + file1Lenght);
 			//x_DWORD_D4188 = (uint8_t*)filearray1;
-			x_DWORD_D4188 = (posistruct2_t*)Malloc_83CD0(file2lenght + file1Lenght);
+			x_DWORD_D4188 = (bitmap_pos_struct2_t*)Malloc_83CD0(file2lenght + file1Lenght);
 			if (x_DWORD_D4188)
 			{
 				qmemcpy(x_DWORD_D4188, (void*)textureBuffer, file2lenght + file1Lenght);
-				x_DWORD_D418C = (posistruct2_t*)((int8_t*)x_DWORD_D4188+file1Lenght);
-				//x_DWORD_D418C = &x_DWORD_D4188[file1Lenght / sizeof(posistruct2_t)];
-				x_DWORD_D4190 = (posistruct2_t*)((int8_t*)x_DWORD_D4188+file2lenght+file1Lenght);
-				//x_DWORD_D4190 = &x_DWORD_D4188[(file2lenght + file1Lenght) / sizeof(posistruct2_t)];
+				x_DWORD_D418C = (bitmap_pos_struct2_t*)((int8_t*)x_DWORD_D4188+file1Lenght);
+				//x_DWORD_D418C = &x_DWORD_D4188[file1Lenght / sizeof(bitmap_pos_struct2_t)];
+				x_DWORD_D4190 = (bitmap_pos_struct2_t*)((int8_t*)x_DWORD_D4188+file2lenght+file1Lenght);
+				//x_DWORD_D4190 = &x_DWORD_D4188[(file2lenght + file1Lenght) / sizeof(bitmap_pos_struct2_t)];
 				if (vgaTypeResolution & 1)
 					sub_98709_create_index_dattab_power(x_DWORD_D418C, x_DWORD_D4190, (uint8_t*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
 				else
@@ -40552,7 +40552,7 @@ void CopyEventVar0408_49A20(type_event_0x6E8E* event)//22aa20
 //----- (00049A30) --------------------------------------------------------
 void sub_49A30(type_event_0x6E8E* a1x, unsigned __int16 a2)//22aa30
 {
-	posistruct_t v2; // eax
+	bitmap_pos_struct_t v2; // eax
 	__int16 v3; // dx
 	//int v4; // eax
 	char v5; // dl
@@ -40681,7 +40681,7 @@ void SetEntityShiftRot_49EA0(type_event_0x6E8E* event, int16_t shift, int16_t fo
 //----- (00049EC0) --------------------------------------------------------
 void SetShiftByCastle_49EC0(type_event_0x6E8E* event, int16_t a2)//22aec0 // get castle data
 {
-	posistruct_t posistruct = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2];
+	bitmap_pos_struct_t posistruct = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB].posistruct)[a2];
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
 		posistruct.height_5 >>= 1;
@@ -43515,12 +43515,12 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 				 /*case 0x20cb40: {
-					 sub_2BB40_draw_bitmap((int16_t)a1,0,(posistruct_t)0);
+					 sub_2BB40_draw_bitmap((int16_t)a1,0,(bitmap_pos_struct_t)0);
 
 					 break;
 				 }*/
 				 /*case 0x20cbb0: {
-					 sub_2BBB0((short)a1,0, (posistruct_t)0);
+					 sub_2BBB0((short)a1,0, (bitmap_pos_struct_t)0);
 
 					 break;
 				 }*/
@@ -52657,14 +52657,14 @@ void write_pngs()
 
 	for (int k = 0; k < 100; k++)
 	{
-		posistruct_t actposistruct = xy_DWORD_17DED4_spritestr[k];
+		bitmap_pos_struct_t actposistruct = xy_DWORD_17DED4_spritestr[k];
 		if (actposistruct.width_4 > 0)
 		{
 			for (int i = 0; i < 10000; i++) {
 				buffer[i] = 0xff;
 			}
 
-			//posistruct_t actposistruct = *filearray_2aa18c[0].posistruct[1];
+			//bitmap_pos_struct_t actposistruct = *filearray_2aa18c[0].posistruct[1];
 
 			uint8_t* temp_screen = pdwScreenBuffer_351628;
 			int temp_screen_x = screenWidth_18062C;
@@ -52678,7 +52678,7 @@ void write_pngs()
 			screenWidth_18062C = temp_screen_x;
 
 			sprintf(outname, "c:\\prenos\\remc2\\outimg\\test-%d.png", k);
-			write_posistruct_to_png(buffer, actposistruct.width_4, actposistruct.height_5, outname);//test write
+			write_bitmap_pos_struct_to_png(buffer, actposistruct.width_4, actposistruct.height_5, outname);//test write
 		}
 	}
 }
@@ -73777,13 +73777,13 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 		switch (a2)
 		{
 		case 4:
-			x_DWORD_17DE38str.x_DWORD_17DED8 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c;
-			x_DWORD_17DE38str.x_DWORD_17DED4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36c44];//(uint8_t*)&loc_36CAA + x_DWORD_17DE48c;
+			x_DWORD_17DE38str.x_DWORD_17DED8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c;
+			x_DWORD_17DE38str.x_DWORD_17DED4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36c44];//(uint8_t*)&loc_36CAA + x_DWORD_17DE48c;
 			x_DWORD_17DE38str.x_DWORD_17DE4C = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 2];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 2;
 			x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 16386];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 16386;
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
 			x_DWORD_17DE38str.x_DWORD_17DE50 = (char*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 24631;
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 22999];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 22999;
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 22999];//(uint8_t*)&loc_36F44 + x_DWORD_17DE48c + 22999;
 			qmemcpy(&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x36f44 + 24631],
 				//(char *)&loc_36F44 + x_DWORD_17DE48c + 24631,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].array_0x39f_2BFA_12157,//wizard name
@@ -73812,16 +73812,16 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			break;
 		case 6://adress 25b533
 			x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 301787];//(uint8_t*)x_DWORD_17DE48c + 301787;//49adb * //44ffef
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//(uint8_t*)x_DWORD_17DE48c + 316179;//4d313 //453827
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//(uint8_t*)x_DWORD_17DE48c + 316179;//4d313 //453827
 			x_DWORD_17DE38str.x_DWORD_17DE58 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 316179];//x_DWORD_17DE48c + 316179; * //453827
-			x_DWORD_17DE38str.x_DWORD_17DEC8 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 322754];//x_DWORD_17DE48c + 322754; * //4551d6
-			x_DWORD_17DE38str.x_DWORD_17DECC = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//x_DWORD_17DE48c + 324380; //455830
-			x_DWORD_17DE38str.x_DWORD_17DED4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//(uint8_t*)x_DWORD_17DE48c + 324380; *//455830
-			x_DWORD_17DE38str.x_DWORD_17DED8 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//(uint8_t*)x_DWORD_17DE48c + 326258; //455f86
+			x_DWORD_17DE38str.x_DWORD_17DEC8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 322754];//x_DWORD_17DE48c + 322754; * //4551d6
+			x_DWORD_17DE38str.x_DWORD_17DECC = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//x_DWORD_17DE48c + 324380; //455830
+			x_DWORD_17DE38str.x_DWORD_17DED4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 324380];//(uint8_t*)x_DWORD_17DE48c + 324380; *//455830
+			x_DWORD_17DE38str.x_DWORD_17DED8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//(uint8_t*)x_DWORD_17DE48c + 326258; //455f86
 			x_DWORD_17DE38str.x_DWORD_17DE60 = x_DWORD_17DE38str.x_DWORD_17DE44;//* //3f52a4
 			x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 326258];//x_DWORD_17DE48c + 326258; * //455f86
 			x_DWORD_17DE38str.x_DWORD_17DE3C = (TcolNext*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x12C000 + 326258];//(uint8_t*)&unk_12C000 + x_DWORD_17DE48c + 326258;//* //581f86
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 314541];//(uint8_t*)x_DWORD_17DE48c + 314541; * //4531c1
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 314541];//(uint8_t*)x_DWORD_17DE48c + 314541; * //4531c1
 			x_DWORD_17DE38str.x_DWORD_17DE5C_border_bitmap = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 0x12C000 + 326258 + 0x4000];//x_DWORD_17DE3C + 0x4000;//ok *//585f86
 			sub_7AA70_load_and_decompres_dat_file(dataPath, x_DWORD_17DE38str.x_DWORD_17DE54, 0x1641FC, 1214);//*
 			sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x1646BA, 589);
@@ -73861,12 +73861,12 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 		case 7:
 			x_DWORD_17DE38str.x_DWORD_17DE48c += 371200;
 			x_DWORD_17DE38str.x_DWORD_17DE54 = x_DWORD_17DE38str.x_DWORD_17DE48c + 42428;
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50673);
-			x_DWORD_17DE38str.x_DWORD_17DED4 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50673);
-			x_DWORD_17DE38str.x_DWORD_17DED8 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50871);
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50673);
+			x_DWORD_17DE38str.x_DWORD_17DED4 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50673);
+			x_DWORD_17DE38str.x_DWORD_17DED8 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50871);
 			x_DWORD_17DE38str.x_DWORD_17DE3C = (TcolNext*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 50871);
 			x_DWORD_17DE38str.x_DWORD_17DE4C = x_DWORD_17DE38str.x_DWORD_17DE48c + 51639;
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 49041);
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)(x_DWORD_17DE38str.x_DWORD_17DE48c + 49041);
 			x_DWORD_17DE38str.x_DWORD_17DE50 = (char*)x_DWORD_17DE38str.x_DWORD_17DE48c + 68023;
 			sub_7AA70_load_and_decompres_dat_file(dataPath, (uint8_t*)x_DWORD_17DE38str.x_DWORD_17DE38x, 0x42471, 768);
 			sub_7AA70_load_and_decompres_dat_file(dataPath, x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226, x_DWORD_17DE38str.x_DWORD_17DEDC, 82233);
@@ -73897,12 +73897,12 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			//[x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226+0x4D54A]
 
 			x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 224426];
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
-			x_DWORD_17DE38str.x_DWORD_17DED4 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
-			x_DWORD_17DE38str.x_DWORD_17DED8 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 233337];
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
+			x_DWORD_17DE38str.x_DWORD_17DED4 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 232671];
+			x_DWORD_17DE38str.x_DWORD_17DED8 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 233337];
 			x_DWORD_17DE38str.x_DWORD_17DE4C = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 233339];
 			x_DWORD_17DE38str.x_DWORD_17DE50 = (char*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 249723];
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = (posistruct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 231039];
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = (bitmap_pos_struct2_t*)&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 231039];
 			qmemcpy(
 				&x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4D54A + 249723],
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].array_0x39f_2BFA_12157,//wizard name
@@ -80514,16 +80514,16 @@ void UpdateMouseEventData_8CB3A(uint32_t mouse_states, int32_t mouse_posx, int32
 // 18074A: using guessed type __int16 x_WORD_18074A_mouse_right2_button;
 // 18074C: using guessed type __int16 x_WORD_18074C_mouse_left2_button;
 
-posistruct_t pathstr_to_posistr(Pathstruct in)
+bitmap_pos_struct_t pathstr_to_posistr(Pathstruct in)
 {
-	posistruct_t out;
+	bitmap_pos_struct_t out;
 	out.data = *in.colorPalette_var28;
 	out.width_4 = *in.colorPalette_var28[4];
 	out.height_5 = *in.colorPalette_var28[5];
 	return out;
 };
 //----- (0008CD27) --------------------------------------------------------
-void sub_8CD27_set_cursor(posistruct_t a2)//26dd27
+void sub_8CD27_set_cursor(bitmap_pos_struct_t a2)//26dd27
 {
 	//a2
 	// 446f1a00 80 52 35 00 e0 9e 2b

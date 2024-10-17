@@ -149,22 +149,22 @@ int filearrayindex_ZERO4 = 9;
 uint8_t* SEARCH_BEGIN_BUFFER = 0;
 uint8_t* SEARCH_END_BUFFER = 0;
 uint8_t* FONTS0DAT_BEGIN_BUFFER = 0;
-posistruct2_t* FONTS0TAB_BEGIN_BUFFER = 0;
-posistruct2_t* FONTS0TAB_END_BUFFER = 0;
+bitmap_pos_struct2_t* FONTS0TAB_BEGIN_BUFFER = 0;
+bitmap_pos_struct2_t* FONTS0TAB_END_BUFFER = 0;
 uint8_t* FONTS1DAT_BEGIN_BUFFER = 0;//2baa94
-posistruct2_t* FONTS1TAB_BEGIN_BUFFER = 0;//2bab24
-posistruct2_t* FONTS1TAB_END_BUFFER = 0;//2bab04
+bitmap_pos_struct2_t* FONTS1TAB_BEGIN_BUFFER = 0;//2bab24
+bitmap_pos_struct2_t* FONTS1TAB_END_BUFFER = 0;//2bab04
 type_TMAPS00TAB_BEGIN_BUFFER* str_TMAPS00TAB_BEGIN_BUFFER;
 //uint8_t* TMAPS00TAB_BEGIN_BUFFER = 0;//2c7ed0
 TColor* str_PALDATA_BEGIN_BUFFER = 0;//2bb3c8
 TColor* str_PALMEM_BEGIN_BUFFER = 0;//6d654d
 uint8_t* POINTERSDAT_BEGIN_BUFFER = 0;//2bc390
-posistruct2_t* POINTERSTAB_BEGIN_BUFFER = 0;//2bc394
-posistruct2_t* POINTERSTAB_END_BUFFER = 0;//2bc388*/
+bitmap_pos_struct2_t* POINTERSTAB_BEGIN_BUFFER = 0;//2bc394
+bitmap_pos_struct2_t* POINTERSTAB_END_BUFFER = 0;//2bc388*/
 
 uint8_t* BUILD00DAT_BEGIN_BUFFER = 0;
-posistruct2_t* BUILD00TAB_BEGIN_BUFFER = 0;
-posistruct2_t* BUILD00TAB_END_BUFFER = 0;
+bitmap_pos_struct2_t* BUILD00TAB_BEGIN_BUFFER = 0;
+bitmap_pos_struct2_t* BUILD00TAB_END_BUFFER = 0;
 
 uint8_t* ETEXT_BEGIN_BUFFER = 0;
 uint8_t* FTEXT_BEGIN_BUFFER = 0;
@@ -187,35 +187,35 @@ uint8_t* WSCREEN_END_BUFFER = 0;
 uint8_t* BSCREEN2_END_BUFFER = 0;
 
 uint8_t* MSPRD00DAT_BEGIN_BUFFER = 0;
-posistruct2_t* MSPRD00TAB_BEGIN_BUFFER = 0;
-posistruct2_t* MSPRD00TAB_END_BUFFER = 0;
+bitmap_pos_struct2_t* MSPRD00TAB_BEGIN_BUFFER = 0;
+bitmap_pos_struct2_t* MSPRD00TAB_END_BUFFER = 0;
 
 uint8_t* HSPRD00DAT_BEGIN_BUFFER = 0;
-posistruct2_t* HSPRD00TAB_BEGIN_BUFFER = 0;
-posistruct2_t* HSPRD00TAB_END_BUFFER = 0;
+bitmap_pos_struct2_t* HSPRD00TAB_BEGIN_BUFFER = 0;
+bitmap_pos_struct2_t* HSPRD00TAB_END_BUFFER = 0;
 
 uint8_t* HFONT3DAT_BEGIN_BUFFER = 0;
-posistruct2_t* HFONT3TAB_BEGIN_BUFFER = 0;
-posistruct2_t* HFONT3TAB_END_BUFFER = 0;
+bitmap_pos_struct2_t* HFONT3TAB_BEGIN_BUFFER = 0;
+bitmap_pos_struct2_t* HFONT3TAB_END_BUFFER = 0;
 
 uint8_t* CLRD0DAT_BEGIN_BUFFER = 0;
 
-posistruct_t* posistruct1;//fix it
-posistruct_t* posistruct2;//fix it
-posistruct_t* posistruct3;//fix it
-posistruct_t* posistruct4;//fix it
-posistruct_t* posistruct5;//fix it
-posistruct_t* posistruct6;//fix it
-posistruct_t* posistruct7;//fix it
-posistruct_t* posistruct8;//fix it
-posistruct_t* posistruct9;//fix it
-posistruct_t* posistruct10;//fix it
-posistruct_t* posistruct11;//fix it
+bitmap_pos_struct_t* posistruct1;//fix it
+bitmap_pos_struct_t* posistruct2;//fix it
+bitmap_pos_struct_t* posistruct3;//fix it
+bitmap_pos_struct_t* posistruct4;//fix it
+bitmap_pos_struct_t* posistruct5;//fix it
+bitmap_pos_struct_t* posistruct6;//fix it
+bitmap_pos_struct_t* posistruct7;//fix it
+bitmap_pos_struct_t* posistruct8;//fix it
+bitmap_pos_struct_t* posistruct9;//fix it
+bitmap_pos_struct_t* posistruct10;//fix it
+bitmap_pos_struct_t* posistruct11;//fix it
 
 uint8_t* ZERO_BUFFER = 0;
-posistruct2_t* ZERO_BUFFER_PST2 = 0;
+bitmap_pos_struct2_t* ZERO_BUFFER_PST2 = 0;
 
-posistruct_t* x_DWORD_EA3D4; // weak
+bitmap_pos_struct_t* x_DWORD_EA3D4; // weak
 
 filearray_struct filearray_2aa18c[] = {
 	{ &POINTERSTAB_BEGIN_BUFFER,&POINTERSTAB_END_BUFFER,&POINTERSDAT_BEGIN_BUFFER,&posistruct1 },
@@ -1305,7 +1305,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 }
 
 //----- (0007C120) --------------------------------------------------------
-void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, posistruct_t tempstr)//25d120
+void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, bitmap_pos_struct_t tempstr)//25d120
 {
 	sub_2BB40_draw_bitmap(posx, posy, tempstr);//ebp
 }
@@ -1422,7 +1422,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 void DrawHelpText_6FC50(__int16 a1)//250c50 //font and graphics init
 {
 	//int result; // eax
-	posistruct_t* v2; // edx
+	bitmap_pos_struct_t* v2; // edx
 
 	//result = a1;
 	v2 = *x_DWORD_E9B20[a1].posistruct;
@@ -1621,7 +1621,7 @@ uint8_t sub_6FC30_get34_height()//250c30
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0002BB40) --------------------------------------------------------
-void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, posistruct_t tempposstr, uint8_t scale)//20cb40
+void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, bitmap_pos_struct_t tempposstr, uint8_t scale)//20cb40
 {
 	//a3=48c80f-> 48ae47002633
 
@@ -1971,7 +1971,7 @@ void sub_8CACD_draw_cursor2()//26dacd
 
 //----- (0008F8B0) --------------------------------------------------------
 //void sub_8F8B0_draw_bitmap320(__int16 a1, __int16 a2, Pathstruct a3)//2708B0
-void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr, uint8_t scale)//2708B0
+void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale)//2708B0
 {
 	//int v4; // [esp+4h] [ebp-4h]
 
@@ -1986,7 +1986,7 @@ void sub_8F8B0_draw_bitmap320(int16_t posx, int16_t posy, posistruct_t temppstr,
 
 //----- (0008F8E8) --------------------------------------------------------
 //void sub_8F8E8_draw_bitmap640(__int16 a1, __int16 a2, uint8_t* a3)//2708e8
-void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, posistruct_t temppstr, uint8_t scale)//2708e8
+void sub_8F8E8_draw_bitmap640(int16_t posx, int16_t posy, bitmap_pos_struct_t temppstr, uint8_t scale)//2708e8
 {
 	//int v4; // [esp+4h] [ebp-4h]
 
@@ -2171,7 +2171,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 			goto LABEL_14;
 		//v8 = 6 * (v4[0] + 1);
 		//similar as:sub_7C120_draw_bitmap_640(tempposx, tempposy, xy_DWORD_17DEC0_spritestr[temptextbuffer[0]]);
-		//posistruct_t tempposistruct;//fixed
+		//bitmap_pos_struct_t tempposistruct;//fixed
 		//tempposistruct.pointer = new uint8_t[1];//fixed
 		/*
 		19f990->59361a00 0407 70361a00 04 07 85361a00
@@ -2189,7 +2189,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 			sub_72C40_draw_bitmap_640_setcolor(v5, posy, posistruct7[v4[0] + 1], color);//fixed 2509d1
 			v9 = posistruct7[v4[0] + 1].width_4;
 		}
-		//sub_72C40_draw_bitmap_640_setcolor(v5, a3, *(new posistruct_t)/*(uint8_t*)(v8 + x_DWORD_EA3D4)*/, a4);
+		//sub_72C40_draw_bitmap_640_setcolor(v5, a3, *(new bitmap_pos_struct_t)/*(uint8_t*)(v8 + x_DWORD_EA3D4)*/, a4);
 
 	LABEL_15:
 		v5 += v9;
@@ -2203,7 +2203,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (00072C40) --------------------------------------------------------
-void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, posistruct_t a3, uint8_t color)//253c40
+void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color)//253c40
 {
 	//uint16_t v4; // dx
 	//uint8_t* v5; // esi
@@ -3167,7 +3167,7 @@ void sub_8F920(uint8_t a1byte1, uint8_t a1byte2, int16_t posx, int16_t posy, uin
 }
 
 //----- (00098709) --------------------------------------------------------
-void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//279709
+void sub_98709_create_index_dattab_power(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_struct2_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex)//279709
 {
 	//int length = (tabbufferend - ((uint8_t*)tabbuffer)) / 6;
 	//int length = tabbufferend - tabbuffer;
@@ -3180,7 +3180,7 @@ void sub_98709_create_index_dattab_power(posistruct2_t* tabbuffer, posistruct2_t
 	}
 }
 
-void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//279709
+void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex, int add)//279709
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
@@ -3196,7 +3196,7 @@ void sub_98709_create_index_dattab_power_add(uint8_t* tabbuffer, uint8_t* tabbuf
 }
 
 //----- (0009874D) --------------------------------------------------------
-void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex)//27974d
+void sub_9874D_create_index_dattab(bitmap_pos_struct2_t* tabbuffer, bitmap_pos_struct2_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex)//27974d
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -3233,7 +3233,7 @@ void sub_9874D_create_index_dattab(posistruct2_t* tabbuffer, posistruct2_t* tabb
 	}
 }
 
-void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, posistruct_t* dattabindex, int add)//27974d
+void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t* datbuffer, bitmap_pos_struct_t* dattabindex, int add)//27974d
 {
 	for (uint32_t i = 0; i < (tabbufferend - (tabbuffer + add)) / 6; i++)
 	{
@@ -3249,7 +3249,7 @@ void sub_9874D_create_index_dattab_add(uint8_t* tabbuffer, uint8_t* tabbufferend
 }
 
 //----- (00099A77) --------------------------------------------------------
-void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, posistruct_t* dattabindex)//280a77
+void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, bitmap_pos_struct_t* dattabindex)//280a77
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)
@@ -3275,7 +3275,7 @@ void sub_99A77_create_index_dattab_div(uint8_t* tabbuffer, uint8_t* tabbufferend
 }
 
 //----- (00099AEB) --------------------------------------------------------
-void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, posistruct_t* dattabindex)//280aeb
+void sub_99AEB_create_index_dattab_minus(uint8_t* tabbuffer, uint8_t* tabbufferend, uint8_t*  /*datbuffer*/, bitmap_pos_struct_t* dattabindex)//280aeb
 {
 	//uint32_t testadr = *(uint32_t*)tabbuffer;
 	/*if (testadr == 0x9999)

@@ -573,11 +573,11 @@ extern int16_t x_D41A0_WORDARRAY[];
 
 //xx extern uint8_t* dword_E9C30[]; // weak
 
-extern posistruct_t* xy_DWORD_17DED4_spritestr;
-extern posistruct_t* xy_DWORD_17DEC0_spritestr;
-extern posistruct_t* xy_DWORD_17DEC8_spritestr;
+extern bitmap_pos_struct_t* xy_DWORD_17DED4_spritestr;
+extern bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr;
+extern bitmap_pos_struct_t* xy_DWORD_17DEC8_spritestr;
 
-extern posistruct_t* x_DWORD_D4188t_spritestr;
+extern bitmap_pos_struct_t* x_DWORD_D4188t_spritestr;
 
 /*extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
 extern x_BYTE x_BYTE_355234_hardisknumber;//harddrive//3551CE+66 BYTE
@@ -1691,7 +1691,7 @@ extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
-void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename);
+void write_bitmap_pos_struct_to_png(uint8_t* buffer, int width, int height, const char* filename);
 
 int my_sign32(int32_t var);
 int my_sign16(int16_t var);

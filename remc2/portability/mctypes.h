@@ -23,13 +23,13 @@ typedef struct {
 	uint8_t* data;
 	uint8_t width_4;
 	uint8_t height_5;
-} posistruct_t;
+} bitmap_pos_struct_t;
 
 typedef struct {
 	uint32_t data_0;
 	uint8_t width_4;
 	uint8_t height_5;
-} posistruct2_t;
+} bitmap_pos_struct2_t;
 #pragma pack (16)
 
 #endif //ENGINE_TYPES_H
