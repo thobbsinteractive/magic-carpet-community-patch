@@ -5300,7 +5300,7 @@ int x_DWORD_F42A0; // weak
 type_str_164 unk_F42B0x[1136]; // weak//2c52b0
 
 POSITION x_DWORD_F4720; // weak
-__int16 x_WORD_F4960[1664]; // fix it -  weak
+__int16 x_WORD_F4960[1664 * 4]; // Was 1664. Seems to be used in rendering the map 2x indexes ar a time. fix it -  weak
 type_F4FE0 str_F4FE0[70];
 //__int16 x_WORD_F4FE0[424]; // fix it -  weak
 uint8_t x_BYTE_F5538[504]; // idb
@@ -26577,11 +26577,16 @@ void DrawGameFrame_2BE30()//20CE30
 			if (locMinimapHeight > 400)
 				locMinimapHeight = 400;
 
-			if ((screenWidth_18062C >= 1920) && (screenHeight_180624 >= 1080))
+			if (gameUiScale > 1)
 			{
-				locViewportPosx *= 2;
-				locMinimapHeight *= 2;
+				locViewportPosx *= gameUiScale;
+				locMinimapHeight *= gameUiScale;
 				locViewportWidth = screenWidth_18062C - locViewportPosx;
+
+				if (locMinimapHeight > screenHeight_180624)
+				{
+					locMinimapHeight = screenHeight_180624;
+				}
 			}
 		}
 

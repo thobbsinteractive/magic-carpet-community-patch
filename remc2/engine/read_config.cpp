@@ -188,6 +188,9 @@ bool readini() {
 	if (gameUiScale < 1)
 		gameUiScale = 1;
 
+	if (gameUiScale > 4)
+		gameUiScale = 4;
+
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);
 	forceWindow = reader.GetBoolean("graphics", "forceWindow", false);
 	sky = reader.GetBoolean("graphics", "sky", true);
