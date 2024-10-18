@@ -26277,13 +26277,15 @@ void DrawGameFrame_2BE30()//20CE30
 
 	int16_t spellLeftPosX = 510;
 	int16_t spellRightPosX = 574;
+	uint8_t scale = 1;
 
 	if (x_WORD_180660_VGA_type_resolution != 1)
 	{
+		scale = gameUiScale;
 		if (!DefaultResolutions())
 		{
-			spellLeftPosX = screenWidth_18062C - (130 * gameUiScale);
-			spellRightPosX = screenWidth_18062C - (66 * gameUiScale);
+			spellLeftPosX = screenWidth_18062C - (130 * scale);
+			spellRightPosX = screenWidth_18062C - (66 * scale);
 		}
 	}
 
@@ -26470,10 +26472,10 @@ void DrawGameFrame_2BE30()//20CE30
 					0,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
-					128 * gameUiScale,
-					128 * gameUiScale,
+					128 * scale,
+					128 * scale,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
-					256 / gameUiScale,
+					256 / scale,
 					//x_DWORD_180648_map_resolution2_x - 2 * (x_DWORD_180648_map_resolution2_x / 5u),
 					0);
 				DrawMinimapEntites_61880(//draw entites in minimap
@@ -26481,19 +26483,19 @@ void DrawGameFrame_2BE30()//20CE30
 					0,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
-					128 * gameUiScale,
-					128 * gameUiScale,
+					128 * scale,
+					128 * scale,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
-					256 / gameUiScale);
+					256 / scale);
 				DrawMinimapMarks_644F0(
 					0,
 					0,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].axis_2BDE_11695.x,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].axis_2BDE_11695.y,
-					128 * gameUiScale,
-					128 * gameUiScale,
+					128 * scale,
+					128 * scale,
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00e_2BDE_11244 + 1].rotation__2BDE_11701.yaw,
-					256 / gameUiScale);
+					256 / scale);
 			}
 
 			DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
@@ -26503,20 +26505,20 @@ void DrawGameFrame_2BE30()//20CE30
 				//Left
 				DrawSpellIcon_2E260(
 					spellLeftPosX,
-					2 * gameUiScale,
+					2 * scale,
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x451_1105]],
 					0,
-					gameUiScale);
+					scale);
 
 				//Right
 				DrawSpellIcon_2E260(
 					spellRightPosX,
-					2 * gameUiScale,
+					2 * scale,
 					x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[v3x->dword_0xA4_164x->str_611.word_0x453_1107]],
 					0,
-					gameUiScale);
+					scale);
 
-				DrawTopStatusBar_2D710(v3x, gameUiScale);
+				DrawTopStatusBar_2D710(v3x, scale);
 			}
 			switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 			{
@@ -26577,10 +26579,10 @@ void DrawGameFrame_2BE30()//20CE30
 			if (locMinimapHeight > 400)
 				locMinimapHeight = 400;
 
-			if (gameUiScale > 1)
+			if (scale > 1)
 			{
-				locViewportPosx *= gameUiScale;
-				locMinimapHeight *= gameUiScale;
+				locViewportPosx *= scale;
+				locMinimapHeight *= scale;
 				locViewportWidth = screenWidth_18062C - locViewportPosx;
 
 				if (locMinimapHeight > screenHeight_180624)
@@ -26598,7 +26600,7 @@ void DrawGameFrame_2BE30()//20CE30
 			locViewportPosx - 2,
 			locMinimapHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
-			204 / gameUiScale,
+			204 / scale,
 			//x_DWORD_180648_map_resolution2_x - 192,
 			1);
 
@@ -26610,7 +26612,7 @@ void DrawGameFrame_2BE30()//20CE30
 			locViewportPosx - 2,
 			locMinimapHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
-			204 / gameUiScale);
+			204 / scale);
 
 		viewPort.SetRenderViewPortSize_40BF0(locViewportPosx, 0, locViewportWidth, locViewportHeight);
 
@@ -26686,7 +26688,7 @@ void DrawGameFrame_2BE30()//20CE30
 			locViewportPosx - 2,
 			locMinimapHeight,
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yaw,
-			204 / gameUiScale);
+			204 / scale);
 		switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 		{
 		case 7:
@@ -26717,14 +26719,14 @@ void DrawGameFrame_2BE30()//20CE30
 				2,
 				x_DWORD_EA3E4[v14x->dword_0xA4_164x->str_611.array_0x333_819x.word[v14x->dword_0xA4_164x->str_611.word_0x451_1105]],
 				0, 
-				gameUiScale);
+				scale);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 			DrawSpellIcon_2E260(
 				spellRightPosX,
 				2,
 				x_DWORD_EA3E4[v14x->dword_0xA4_164x->str_611.array_0x333_819x.word[v14x->dword_0xA4_164x->str_611.word_0x453_1107]],
 				0,
-				gameUiScale);
+				scale);
 		break;
 	default:
 		break;
