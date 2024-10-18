@@ -270,3 +270,108 @@ void GameBitmap::DrawTransparentBitmap_2DE80(int16_t posX, int16_t posY, bitmap_
 		}
 	}
 };
+
+void GameBitmap::DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest)
+{
+	int lineCount = 0;
+	int index = 0;
+	int lineStartIndex = 0;
+	int byteCount = 0;
+	int32_t pixel = 0;
+
+	while (lineCount < height)
+	{
+		while (lineCount < height)
+		{
+			LOBYTE(pixel) = ptrSrc[index];
+			index++;
+			if ((char)pixel)
+				break;
+
+			//line ended, move row
+			lineStartIndex += width;
+			byteCount = lineStartIndex;
+			lineCount++;
+		}
+
+		if (lineCount < height)
+		{
+			if ((pixel & 0x80u) == 0)
+			{
+				uint16_t lnWidth = (char)pixel * scale;
+
+				//Draw line
+				for (int x = 0; x < lnWidth; x++)
+				{
+					ptrDest[byteCount] = ptrSrc[index];
+					byteCount++;
+					index++;
+				}
+			}
+			else
+			{
+				byteCount -= (char)pixel * scale;
+			}
+		}
+	}
+};
+
+void GameBitmap::ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest)
+{
+	int lineCount = 0;
+	int index = 0;
+	int32_t pixel = 0;
+	int countBytes = 0;
+	int lineStartXIndex = 0;
+
+	while (lineCount < height)
+	{
+		while (lineCount < height)
+		{
+			LOBYTE(pixel) = ptrSrc[index];
+			index++;
+			if ((char)pixel)
+				break;
+
+			//line ended, move row
+			ptrDest[countBytes] = (char)pixel;
+			countBytes++;
+			lineCount++;
+
+			int lineLength = countBytes - lineStartXIndex;
+
+			for (int s = 0; s < scale - 1; s++)
+			{
+				std::memcpy(&ptrDest[countBytes], &ptrDest[lineStartXIndex], lineLength);
+				countBytes += lineLength;
+			}
+			lineStartXIndex = countBytes;
+		}
+
+		if (lineCount < height)
+		{
+			if ((pixel & 0x80u) == 0)
+			{
+				int32_t lnWidth = (char)pixel;
+				ptrDest[countBytes] = (char)pixel;
+				countBytes++;
+
+				//Draw line
+				for (int x = 0; x < lnWidth; x++)
+				{
+					for (int s = 0; s < scale; s++)
+					{
+						ptrDest[countBytes] = ptrSrc[index];
+						countBytes++;
+					}
+					index++;
+				}
+			}
+			else
+			{
+				ptrDest[countBytes] = (char)pixel;
+				countBytes++;
+			}
+		}
+	}
+};
