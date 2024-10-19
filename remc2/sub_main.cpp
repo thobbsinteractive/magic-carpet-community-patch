@@ -27622,10 +27622,10 @@ void DrawBottomMenu_2ECC0()//20fcc0
 	bitmap_pos_struct_t v13; // eax
 	unsigned __int8 v14; // al
 	//int v15; // eax
-	int v16; // eax
+	int16_t selectedSpellIndex; // eax
 	unsigned __int8 v17; // dl
 	__int16 v18; // cx
-	int v19; // esi
+	int16_t posSubMenuSpellX; // esi
 	int v20; // ebx
 	//char *v21; // edi
 	int v22; // eax
@@ -27658,7 +27658,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 	//__int16 v49; // [esp+48h] [ebp-28h]
 	__int16 v50; // [esp+4Ch] [ebp-24h]
 	int v51; // [esp+50h] [ebp-20h]
-	__int16 v52; // [esp+54h] [ebp-1Ch]
+	int16_t posSubMenuIconWidth; // [esp+54h] [ebp-1Ch]
 	__int16 v53; // [esp+58h] [ebp-18h]
 	int16_t spellIconIndex; // [esp+5Ch] [ebp-14h]
 	char v55; // [esp+60h] [ebp-10h]
@@ -27827,29 +27827,30 @@ void DrawBottomMenu_2ECC0()//20fcc0
 	//Frame of selected spell
 	sub_2BB40_draw_bitmap(posX + posIconsXStart + spellIconWidth * (v37x->dword_0xA4_164x->str_611.byte_0x458_1112 % 13), v37x->dword_0xA4_164x->str_611.byte_0x458_1112 / 13 * spellIconHeight + v51, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_FRAME], scale);
 
-	v16 = x_D41A0_BYTEARRAY_4_struct.byteindex_50;
-	if (v16 != -1)
+	//Draw spell selection
+	selectedSpellIndex = x_D41A0_BYTEARRAY_4_struct.byteindex_50;
+	if (selectedSpellIndex != -1)
 	{
-		v17 = x_BYTE_D94FF_spell_index[v16];
+		v17 = x_BYTE_D94FF_spell_index[selectedSpellIndex];
 		v43 = v17;
 		v47 = v37x->dword_0xA4_164x->str_611.array_0x41D_1053z.byte[v17];
 		/*v18 = 3 * *(unsigned __int8 *)(**filearray_2aa18c[6] + 982);
 		v50 = v51 - *(unsigned __int8 *)(**filearray_2aa18c[6] + 983);*/
-		v18 = 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
-		v50 = v51 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
-		v19 = spellIconWidth / 2 + spellIconWidth * (v37x->dword_0xA4_164x->str_611.byte_0x458_1112 % 13) + posIconsXStart - v18 / 2;
-		if ((signed __int16)v19 <= 640 - v18)
+		v18 = 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+		v50 = v51 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale);
+		posSubMenuSpellX = spellIconWidth / 2 + spellIconWidth * (v37x->dword_0xA4_164x->str_611.byte_0x458_1112 % 13) + posIconsXStart - v18 / 2;
+		if ((signed __int16)posSubMenuSpellX <= 640 - v18)
 		{
-			if ((v19 & 0x8000u) != 0)
-				LOWORD(v19) = 0;
+			if ((posSubMenuSpellX & 0x8000u) != 0)
+				LOWORD(posSubMenuSpellX) = 0;
 		}
 		else
 		{
-			LOWORD(v19) = 640 - v18;
+			LOWORD(posSubMenuSpellX) = 640 - v18;
 		}
 		v20 = 0;
-		//v52 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 982);
-		v52 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
+
+		posSubMenuIconWidth = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale;
 		while (2)
 		{
 			if ((signed __int16)v20 >= 3)
@@ -27868,7 +27869,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 			if ((signed __int16)v20 > v47)
 			{
 				//sub_2BB40_draw_bitmap(v19, v50, (uint8_t**)(**filearray_2aa18c[6] + 978));
-				sub_2BB40_draw_bitmap(posX + v19, v50, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163]);
+				sub_2BB40_draw_bitmap(posX + posSubMenuSpellX, v50, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163], scale);
 			}
 			else
 			{
@@ -27878,24 +27879,24 @@ void DrawBottomMenu_2ECC0()//20fcc0
 					v24 = 162;
 				/*sub_2BB40_draw_bitmap(v19, v50, (uint8_t**)(**filearray_2aa18c[6] + 6 * v24));
 				sub_2BB40_draw_bitmap(v19 + 6, v50 + 10, (uint8_t**)(**filearray_2aa18c[6] + 6 * (signed __int16)(v20 + 165)));*/
-				sub_2BB40_draw_bitmap(posX + v19, v50, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v24]);
-				sub_2BB40_draw_bitmap(posX + v19 + 6, v50 + 10, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v20 + 165]);
-				v53 = v19 + 18;
-				v25 = v50 + 6;
+				sub_2BB40_draw_bitmap(posX + posSubMenuSpellX, v50, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v24], scale);
+				sub_2BB40_draw_bitmap(posX + posSubMenuSpellX + 6, v50 + 10, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v20 + 165], scale);
+				v53 = posSubMenuSpellX + (18 * scale);
+				v25 = v50 + (6 * scale);
 				v26 = v20 + 3 * v43 + 179;
 				/*if ( v58 )
 					sub_2BB40_draw_bitmap(v53, v25, (uint8_t**)(**filearray_2aa18c[6] + 6 * (signed __int16)v26));
 				else
 					sub_2DE80_draw_bitmapxx(v53, v25, (uint8_t**)(6 * (signed __int16)v26 + **filearray_2aa18c[6]));*/
 				if (v58)
-					sub_2BB40_draw_bitmap(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
+					sub_2BB40_draw_bitmap(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26], scale);
 				else
-					GameBitmap::DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26]);
+					GameBitmap::DrawTransparentBitmap_2DE80(posX + v53, v25, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v26], scale);
 			}
 			//if ( (x_WORD)v20 == *(char *)(v36 + 502) )
 			//sub_2BB40_draw_bitmap(v19, v50, (uint8_t**)(**filearray_2aa18c[6] + 984));
 			if ((x_WORD)v20 == v37x->dword_0xA4_164x->str_611.byte_0x459_1113)
-				sub_2BB40_draw_bitmap(posX + v19, v50, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[164]);
+				sub_2BB40_draw_bitmap(posX + posSubMenuSpellX, v50, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[164], scale);
 
 			if ((signed __int16)v20 <= v47 && (signed __int16)v20 < 2)
 			{
@@ -27938,12 +27939,12 @@ void DrawBottomMenu_2ECC0()//20fcc0
 					LOWORD(v32) = 0;
 				if ((signed __int16)v32 > 54)
 					LOWORD(v32) = 54;
-				DrawLine_2BC80(posX + v19 + 6, v50 + 28, 54, 2, (*xadataclrd0dat.colorPalette_var28)[0]);
+				DrawLine_2BC80(posX + posSubMenuSpellX + (6 * scale), v50 + (28 * scale), (54 * scale), (2 * scale), (*xadataclrd0dat.colorPalette_var28)[0]);
 				if ((x_WORD)v32)
-					DrawLine_2BC80(posX + v19 + 6, v50 + 28, v32, 2, (*xadataclrd0dat.colorPalette_var28)[3840]);
+					DrawLine_2BC80(posX + posSubMenuSpellX + (6 * scale), v50 + (28 * scale), v32, (2 * scale), (*xadataclrd0dat.colorPalette_var28)[3840]);
 			}
 			v20++;
-			LOWORD(v19) = v52 + v19;
+			LOWORD(posSubMenuSpellX) = posSubMenuIconWidth + posSubMenuSpellX;
 			continue;
 		}
 	}
