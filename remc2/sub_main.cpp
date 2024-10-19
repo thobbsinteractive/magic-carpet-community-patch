@@ -27511,7 +27511,8 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 				DrawText_2BC10((char*)off_DB06C[a3x->byte_0x46_70],
 					(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 * scale + posX - (8 * scale) * strlen((const char*)*(&off_DB06C[a3x->byte_0x46_70])) - (2 * scale),//test and fix
 					posY,
-					(*xadataclrd0dat.colorPalette_var28)[0]);//x_BYTE_E8900//20f3bd//2b9900
+					(*xadataclrd0dat.colorPalette_var28)[0],
+					scale);//x_BYTE_E8900//20f3bd//2b9900
 				if (a3x->maxMana_0x8C_140)
 				{
 					DrawLine_2BC80(

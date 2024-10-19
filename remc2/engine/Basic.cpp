@@ -1707,14 +1707,14 @@ void DrawLine_2BC80(int16_t posStartX, int16_t posStartY, int16_t posEndX, int16
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002BC10) --------------------------------------------------------
-void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color)//20cc10
+void DrawText_2BC10(const char* textbuffer, int16_t posx, int16_t posy, uint8_t color, uint8_t scale)//20cc10
 {
-	sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
+	sub_6F940_sub_draw_text(textbuffer, posx, posy, color, scale);
 	if (D41A0_0.m_GameSettings.m_Display.m_uiScreenSize == 1)//shifted graphics
 	{
 		uint8_t* temp_screen_buffer = pdwScreenBuffer_351628;
 		pdwScreenBuffer_351628 = x_DWORD_E9C3C;
-		sub_6F940_sub_draw_text(textbuffer, posx, posy, color);
+		sub_6F940_sub_draw_text(textbuffer, posx, posy, color, scale);
 		pdwScreenBuffer_351628 = temp_screen_buffer;
 	}	
 }
@@ -2118,7 +2118,7 @@ void DrawLineHighRes_901E4(int16_t posStartX, int16_t posStartY, int16_t posEndX
 // 180628: using guessed type int pdwScreenBuffer_351628;
 
 //----- (0006F940) --------------------------------------------------------
-void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color)//250940
+void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t color, uint8_t scale)//250940
 {
 	uint8_t* v4; // esi
 	int v5; // ebx
@@ -2129,6 +2129,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 	//int result; // eax
 
 	int helpWidth = 640;
+
 	if (x_WORD_180660_VGA_type_resolution != 1)
 		if (!DefaultResolutions())
 			helpWidth = screenWidth_18062C;
@@ -2150,7 +2151,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 		{
 			if (v6 <= 0xAu)
 			{
-				LOWORD(v7) = sub_6FC30_get34_height();
+				LOWORD(v7) = sub_6FC30_get34_height() * scale;
 				v5 = posx;
 				posy += v7;
 				goto LABEL_16;
@@ -2162,7 +2163,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 				if (v6 == 32)
 				{
 				LABEL_14:
-					LOWORD(v9) = sub_6FC10_letter_width();
+					LOWORD(v9) = sub_6FC10_letter_width() * scale;
 					goto LABEL_15;
 				}
 			}
@@ -2181,13 +2182,13 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 		tempposistruct.sizey = 0;*/
 		if (help_VGA_type_resolution != 8)//fixed
 		{
-			sub_72C40_draw_bitmap_640_setcolor(v5, posy, x_DWORD_EA3D4[v4[0] + 1], color);//fixed 2509d1
-			v9 = x_DWORD_EA3D4[v4[0] + 1].width_4;
+			sub_72C40_draw_bitmap_640_setcolor(v5, posy, x_DWORD_EA3D4[v4[0] + 1], color, scale);//fixed 2509d1
+			v9 = x_DWORD_EA3D4[v4[0] + 1].width_4 * scale;
 		}
 		else
 		{
-			sub_72C40_draw_bitmap_640_setcolor(v5, posy, posistruct7[v4[0] + 1], color);//fixed 2509d1
-			v9 = posistruct7[v4[0] + 1].width_4;
+			sub_72C40_draw_bitmap_640_setcolor(v5, posy, posistruct7[v4[0] + 1], color, scale);//fixed 2509d1
+			v9 = posistruct7[v4[0] + 1].width_4 * scale;
 		}
 		//sub_72C40_draw_bitmap_640_setcolor(v5, a3, *(new bitmap_pos_struct_t)/*(uint8_t*)(v8 + x_DWORD_EA3D4)*/, a4);
 
@@ -2203,7 +2204,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (00072C40) --------------------------------------------------------
-void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color)//253c40
+void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_struct_t a3, uint8_t color, uint8_t scale)//253c40
 {
 	//uint16_t v4; // dx
 	//uint8_t* v5; // esi
@@ -2228,7 +2229,7 @@ void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_s
 			/*doublebyte tempdblbyte;
 			tempdblbyte.byte1 = a3.sizex;
 			tempdblbyte.byte2 = a3.sizey;*/
-			sub_8F935_bitmap_draw_final(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0, 1);
+			sub_8F935_bitmap_draw_final(a3.width_4, a3.height_5, posy, posx, a3.data, color, 0, scale);
 		}
 		//result = v7;
 	}
@@ -2909,41 +2910,7 @@ void sub_8F935_bitmap_draw_final(uint8_t width, uint8_t height, uint16_t tiley, 
 			}
 			else if (x_WORD_E36D4 & 0x40)
 			{
-				//v56 = (char *)(dword_18062C * a2 + a3 + v6);
-				ptrScreenBuffer = (screenWidth_18062C * tiley + tilex + pixel_buffer_index);
-				int8_t v57_loc = 0;
-				int8_t v58_loc = -1;
-				ptrScreenBufferLineStart = ptrScreenBuffer;
-				int8_t* v60loc = 0;
-				do
-				{
-					while (1)
-					{
-						while (1)
-						{
-							v58_loc = texture[0];
-							texture++;
-							if ((v58_loc & 0x80u) == 0)
-								break;
-							v60loc = (int8_t*)&ptrScreenBuffer[-v58_loc];
-							v57_loc = texture[0];
-							texture += v57_loc + 1;
-							memset(v60loc, setbyte, v57_loc);
-							ptrScreenBuffer = (uint8_t*)&v60loc[v57_loc];
-							v57_loc = 0;
-						}
-						if (!v58_loc)
-							break;
-						v57_loc = v58_loc;
-						texture += v57_loc;
-						memset(ptrScreenBuffer, setbyte, v57_loc);
-						ptrScreenBuffer += v57_loc;
-						v57_loc = 0;
-					}
-					ptrScreenBufferLineStart += screenWidth_18062C;
-					ptrScreenBuffer = (uint8_t*)ptrScreenBufferLineStart;
-					--height;
-				} while (height);
+				GameBitmap::DrawColourizedBitmap(texture, setbyte, pixel_buffer_index, screenWidth_18062C, tilex, tiley, height, scale);
 			}
 			else
 			{

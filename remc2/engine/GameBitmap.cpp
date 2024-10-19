@@ -1,5 +1,92 @@
 #include "GameBitmap.h"
 
+void GameBitmap::DrawColourizedBitmap(uint8_t* ptrBitmapData, uint8_t colour, uint8_t* ptrScreenBuffer, uint32_t stride, int16_t posX, int16_t posY, uint8_t posHeight, uint8_t scale)
+{
+	ptrScreenBuffer = (stride * posY + posX + ptrScreenBuffer);
+	int8_t width = 0;
+	int8_t posWidth = 0;
+	int8_t startOffsetX = -1;
+	uint8_t pixel = 0;
+	uint8_t* ptrScreenBufferLineStart = ptrScreenBuffer;
+	int lineStartBytes = 0;
+	int countBytes = 0;
+	int scaledLinesDrawn = 0;
+
+	do
+	{
+		while (1)
+		{
+			while (1)
+			{
+				startOffsetX = *ptrBitmapData++;
+				countBytes++;
+
+				//Is width byte
+				if (startOffsetX)
+					break;
+
+				//Move row
+				if (scaledLinesDrawn < scale - 1)
+				{
+					int lineLengthBytes = countBytes - lineStartBytes;
+					ptrBitmapData -= lineLengthBytes;
+					countBytes -= lineLengthBytes;
+					scaledLinesDrawn++;
+				}
+				else
+				{
+					posHeight--;
+					scaledLinesDrawn = 0;
+					lineStartBytes = countBytes;
+				}
+
+				ptrScreenBufferLineStart += stride;
+				ptrScreenBuffer = ptrScreenBufferLineStart;
+				if (!posHeight)
+					return;
+			}
+
+			//Is width byte
+			if ((startOffsetX & 0x80u) == 0)
+			{
+				//Start Drawing
+				break;
+			}
+			//Is a change of start coordinate
+			int offset = (char)startOffsetX;
+			ptrScreenBuffer -= offset * scale;
+			if (!posHeight)
+				return;
+		}
+
+		posWidth = startOffsetX;
+		width = startOffsetX;
+
+		//Draw line
+		if (scale > 1)
+		{
+			do
+			{
+				pixel = *ptrBitmapData++;
+				countBytes++;
+
+				for (int s = 0; s < scale; s++)
+				{
+					*ptrScreenBuffer++ = colour;
+				}
+				posWidth--;
+			} while (posWidth);
+		}
+		else
+		{
+			memset(ptrScreenBuffer, colour, width);
+			ptrBitmapData += width;
+			ptrScreenBuffer += width;
+			countBytes += width;
+		}
+	} while (posHeight);
+};
+
 void GameBitmap::DrawBitmap(uint8_t* ptrBitmapData, uint8_t* ptrScreenBuffer, uint32_t stride, int16_t posX, int16_t posY, uint8_t posHeight, uint8_t scale)
 {
 	ptrScreenBuffer = (stride * posY + posX + ptrScreenBuffer);
