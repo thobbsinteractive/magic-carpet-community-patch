@@ -27759,14 +27759,14 @@ void DrawBottomMenu_2ECC0()//20fcc0
 						if (v35 > 0)
 						{
 							sub_2BB40_draw_bitmap(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[87], scale);//draw top 2 left frame
-							DrawLine_2BC80(posX + posIconsX + 6, posIconsY + 28, 36 * (v37x->mana_0x90_144 % v35) / v35, 4, v56);
+							DrawLine_2BC80(posX + posIconsX + (6 * scale), posIconsY + (28 * scale), (36 * scale) * (v37x->mana_0x90_144 % v35) / v35, (4 * scale), v56);
 							v34 = v37x->mana_0x90_144 / v35;
 							for (i = 0; i < 36 && v34 > 0; i += 2)
 							{
 								v40 = 0;
 								while (v40 < 4 && v34 > 0)
 								{
-									DrawLine_2BC80(i + posX + posIconsX + 6, v40 + posIconsY + 28, 2, 2, v57);//mana fo top left 2 frame
+									DrawLine_2BC80(i + posX + posIconsX + (6 * scale), v40 + posIconsY + (28 * scale), (2 * scale), (2 * scale), v57);//mana fo top left 2 frame
 									v40 += 2;
 									v34--;
 								}
