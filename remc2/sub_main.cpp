@@ -26281,9 +26281,9 @@ void DrawGameFrame_2BE30()//20CE30
 
 	if (x_WORD_180660_VGA_type_resolution != 1)
 	{
-		scale = gameUiScale;
 		if (!DefaultResolutions())
 		{
+			scale = gameUiScale;
 			spellLeftPosX = screenWidth_18062C - (130 * scale);
 			spellRightPosX = screenWidth_18062C - (66 * scale);
 		}

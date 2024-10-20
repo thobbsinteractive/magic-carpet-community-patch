@@ -2241,9 +2241,18 @@ void sub_72C40_draw_bitmap_640_setcolor(int16_t posx, int16_t posy, bitmap_pos_s
 //----- (0008C635) --------------------------------------------------------
 void sub_8C635_draw_cursor()//26d635
 {
-	uint8_t scale = gameUiScale;
+	uint8_t scale = 1;
 	uint8_t* v1; // eax
 	uint8_t* v2; // edx
+
+
+	if (x_WORD_180660_VGA_type_resolution != 1)
+	{
+		if (!DefaultResolutions())
+		{
+			scale = gameUiScale;
+		}
+	}
 
 	x_DWORD_1806F8_mousex = x_WORD_E3760_mouse.x;
 	//x_DWORD_1806E8_mousex = x_WORD_E3760_mouse.x;
