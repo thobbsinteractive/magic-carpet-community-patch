@@ -69980,20 +69980,20 @@ void MoveCursorToSelectedSpell_6D200(type_str_0x2BDE* a1x)//24e200
 //----- (0006D420) --------------------------------------------------------
 int SelectSpellCategory_6D420(int16_t posX, int16_t posY)//24e420
 {
-	signed __int16 v2; // ax
 	int16_t posXOffSet = 0;
 	int spellPosY; // ebx
 	int spellPosX; // eax
 	uint8_t scale = 1;
+	int16_t spellMenuPosY;
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		v2 = 400;
+		spellMenuPosY = 400;
 	else
-		v2 = 480;
+		spellMenuPosY = 480;
 	if (x_WORD_180660_VGA_type_resolution != 1)
 		if (!DefaultResolutions())
 		{
-			v2 = screenHeight_180624;
+			spellMenuPosY = screenHeight_180624;
 			if (screenWidth_18062C > 640)
 			{
 				scale = gameUiScale;
@@ -70001,8 +70001,8 @@ int SelectSpellCategory_6D420(int16_t posX, int16_t posY)//24e420
 			}
 		}
 
-	spellPosY = (posY - (v2 - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale)) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale;
-	spellPosX = ((posX - posXOffSet) - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale;
+	spellPosY = (posY - (spellMenuPosY - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale)) / ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].height_5 * scale);
+	spellPosX = ((posX - posXOffSet) - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[EDGE_PANEL].width_4 * scale) / ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL].width_4 * scale);
 	if ((spellPosY & 0x8000u) == 0)
 	{
 		if (spellPosY > 1)
