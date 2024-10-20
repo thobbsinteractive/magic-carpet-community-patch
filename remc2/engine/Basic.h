@@ -478,8 +478,8 @@ extern type_SPELLS_BEGIN_BUFFER_str SPELLS_BEGIN_BUFFER_str[];
 
 extern int16_t x_WORD_1806EE; // weak
 
-extern uint8_t* x_DWORD_180708; // weak
-extern uint8_t* x_DWORD_18070C; // weak
+extern uint8_t* ptrScreenPos_180708; // weak
+extern uint8_t* ptrCursorBitmapPos_18070C; // weak
 extern uint8_t* x_DWORD_180714; // weak
 extern uint8_t* x_DWORD_180718; // weak
 
