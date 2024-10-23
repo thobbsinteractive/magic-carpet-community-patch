@@ -2286,24 +2286,38 @@ void sub_8C635_draw_cursor()//26d635
 	{
 		for (x_DWORD_18073A = 0; x_DWORD_18073A < x_DWORD_1806FC_mouse_invx; x_DWORD_18073A++)
 		{
+			v1 = x_DWORD_180714++;//address1
+			v1[0] = ptrScreenPos_180708[0];//save to address
+			v2 = x_DWORD_180718++;//address2
+			v2[0] = ptrScreenPos_180708[0];//save to address
 
-				v1 = x_DWORD_180714++;//address1
-				v1[0] = ptrScreenPos_180708[0];//save to address
-				v2 = x_DWORD_180718++;//address2
-				v2[0] = ptrScreenPos_180708[0];//save to address
-
+			for (int s = 0; s < scale; s++)
+			{
 				if (ptrCursorBitmapPos_18070C[0] != 0xfe)
 					ptrScreenPos_180708[0] = ptrCursorBitmapPos_18070C[0];
 
-				ptrScreenPos_180708++;//351708 - 
-				countBytes++;
-			
+				ptrScreenPos_180708++;
+			}
 
-			ptrCursorBitmapPos_18070C++;//35170c - kurzor
+			ptrCursorBitmapPos_18070C++;
+			countBytes++;
 		}
 		//move row
-		ptrCursorBitmapPos_18070C += x_DWORD_180734 - x_DWORD_1806FC_mouse_invx;
-		ptrScreenPos_180708 += screenWidth_18062C - x_DWORD_1806FC_mouse_invx;
+		if (scaledLinesDrawn < scale - 1)
+		{
+			int lineLengthBytes = countBytes - lineStartBytes;
+			countBytes -= lineLengthBytes;
+			scaledLinesDrawn++;
+			ptrCursorBitmapPos_18070C -= lineLengthBytes;
+			x_WORD_180738--;
+		}
+		else
+		{
+			scaledLinesDrawn = 0;
+			lineStartBytes = countBytes;
+			ptrCursorBitmapPos_18070C += x_DWORD_180734 - x_DWORD_1806FC_mouse_invx;
+		}
+		ptrScreenPos_180708 += screenWidth_18062C - (x_DWORD_1806FC_mouse_invx * scale);
 	}
 }
 // E3760: using guessed type int x_DWORD_E3760;
