@@ -395,7 +395,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	uint16_t langIndex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
 	uint16_t soundVolume_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
 	uint16_t musicVolume_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
-	uint8_t byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
+	uint8_t showHelp_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
 	int8_t brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
 	int8_t brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
 	int8_t brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13

@@ -4911,7 +4911,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 					{
 						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
 					}
-					if (x_D41A0_BYTEARRAY_4_struct.byteindex_10)
+					if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 						sub_88740(
 							str_F2C20ar.dword0x14x,
 							(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
@@ -4993,7 +4993,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 				str_F2C20ar.dword0x0b += v136;
 				v153 += 2;
 			}
-			if (a1 == 1 && x_D41A0_BYTEARRAY_4_struct.byteindex_10)
+			if (a1 == 1 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 				sub_88740(
 					str_F2C20ar.dword0x14x,
 					(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
