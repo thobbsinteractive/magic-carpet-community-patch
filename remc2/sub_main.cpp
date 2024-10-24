@@ -27540,7 +27540,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 							v12 = 16;
 						else
 							v12 = 48;
-						ColorizeScreen_2E850(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].height_5, v12);
+						ColorizeScreen_2E850(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].width_4 * scale, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[1].height_5 * scale, v12);
 					}
 				}
 			}
@@ -28552,7 +28552,7 @@ void sub_30630()//211630
 	char v0; // dl
 	int result; // eax
 	unsigned __int16 v2; // cx
-	char* v5; // ebx
+	std::string text; // ebx
 	type_textbox_sub1804B0 textbox;
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
@@ -28596,7 +28596,7 @@ void sub_30630()//211630
 		}
 		if (result)
 		{
-			v5 = (char*)x_DWORD_E9C4C_langindexbuffer[result];
+			text = (char*)x_DWORD_E9C4C_langindexbuffer[result];
 			/*"Fly towards my beacon."*/
 
 			textbox.charWidth_0x10 = 8;
@@ -28619,11 +28619,11 @@ void sub_30630()//211630
 				textbox.maxTextboxWidth2_0xc = screenWidth_18062C / 2;
 				textbox.maxTextboxHeight2_0xe = screenHeight_180624 / 2;
 			}
-			ComputeTextboxSizesFromTextWords_89420(&textbox, v5);
+			ComputeTextboxSizesFromTextWords_89420(&textbox, text.c_str());
 			ComputeTextboxSizes_89520(&textbox);
 			ComputeFrameSizes_89980(&textbox);
 			ColorizeScreen_2E790(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, textbox.color2_0x31);
-			DrawTextboxText_895D0(&textbox, v5);
+			DrawTextboxText_895D0(&textbox, text.c_str());
 			DrawTextboxFrame_89690(&textbox);
 		}
 	}
