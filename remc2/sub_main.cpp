@@ -27839,14 +27839,14 @@ void DrawBottomMenu_2ECC0()//20fcc0
 		v18 = 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
 		v50 = v51 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale);
 		posSubMenuSpellX = spellIconWidth / 2 + spellIconWidth * (v37x->dword_0xA4_164x->str_611.byte_0x458_1112 % 13) + posIconsXStart - v18 / 2;
-		if ((signed __int16)posSubMenuSpellX <= 640 - v18)
+		if ((signed __int16)posSubMenuSpellX <= (640 * scale) - v18)
 		{
 			if ((posSubMenuSpellX & 0x8000u) != 0)
 				LOWORD(posSubMenuSpellX) = 0;
 		}
 		else
 		{
-			LOWORD(posSubMenuSpellX) = 640 - v18;
+			LOWORD(posSubMenuSpellX) = (640 * scale) - v18;
 		}
 		v20 = 0;
 
