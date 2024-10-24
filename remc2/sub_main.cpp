@@ -70037,7 +70037,7 @@ char sub_6D4C0(type_str_611* a1x)//24e4c0
 //----- (0006D4F0) --------------------------------------------------------
 int SelectSpell_6D4F0(type_str_611* a1x, int16_t mouseX)//24e4f0
 {
-	uint8_t subCategoryTotalWidth; // cx
+	uint16_t subCategoryTotalWidth; // cx
 	int spellMenuXPos; // esi
 	int16_t spellMenuXPos16;
 	int subCategoryIdx; // eax
