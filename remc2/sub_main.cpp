@@ -27352,52 +27352,51 @@ void DrawTopStatusBar_2D710(type_event_0x6E8E* a1x, uint8_t scale)//20e710
 //----- (0002DFD0) --------------------------------------------------------
 void sub_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, unsigned __int8 a4)//20efd0
 {
-	uint8_t* v5; // edi
-	uint8_t* v6=0; // edx
+	uint8_t* ptrScreenBuffer; // edi
+	uint8_t* data=0; // edx
 	int v7; // ebx
 	int v8; // ecx
 	uint8_t* v9=0; // edi
 	uint8_t* v10=0; // edx
 	int v11; // ebx
 	int v12; // ecx
-	int v14; // [esp+0h] [ebp-14h]
+	uint16_t stride; // [esp+0h] [ebp-14h]
 	int v15; // [esp+0h] [ebp-14h]
-	uint8_t* i; // [esp+4h] [ebp-10h]
+	uint8_t* ptrScreenBufferLineStart; // [esp+4h] [ebp-10h]
 	uint8_t* v17=0; // [esp+8h] [ebp-Ch]
 	__int16 v18; // [esp+Ch] [ebp-8h]
-	__int16 v19; // [esp+10h] [ebp-4h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		v19 = a3.height_5 / 2;
-		v5 = &pdwScreenBuffer_351628[posY / 2 * screenWidth_18062C + posX / 2];
-		v6 = a3.data;
-		for (i = v5; v19; v6 += v14)
+		uint16_t height = a3.height_5 / 2;
+		ptrScreenBuffer = &pdwScreenBuffer_351628[posY / 2 * screenWidth_18062C + posX / 2];
+		data = a3.data;
+		for (ptrScreenBufferLineStart = ptrScreenBuffer; height; data += stride)
 		{
 			while (1)
 			{
 				while (1)
 				{
-					if (++(*v6))
+					if (++(*data))
 						break;
-					i += screenWidth_18062C;
-					v5 = i;
-					if (!--v19)
+					ptrScreenBufferLineStart += screenWidth_18062C;
+					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (!--height)
 						return;
 				}
 				if ((screenWidth_18062C & 0x80u) == 0)
 					break;
-				v5 -= (char)screenWidth_18062C;
-				if (!v19)
+				ptrScreenBuffer -= (char)screenWidth_18062C;
+				if (!height)
 					return;
 			}
 			v7 = a4;
 			v8 = (char)screenWidth_18062C;
-			v14 = (char)screenWidth_18062C;
+			stride = (char)screenWidth_18062C;
 			do
 			{
-				BYTE1(v7) = *v5;
-				*v5++ = x_BYTE_F6EE0_tablesx[0x4000 + v7];
+				BYTE1(v7) = *ptrScreenBuffer;
+				*ptrScreenBuffer++ = x_BYTE_F6EE0_tablesx[0x4000 + v7];
 				--v8;
 			} while (v8);
 		}
