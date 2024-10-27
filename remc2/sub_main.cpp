@@ -27706,7 +27706,10 @@ void DrawBottomMenu_2ECC0()//20fcc0
 			ptrDrawBitmap_F01E8(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SPELL_ICON_PANEL], scale);//top left 3 and 4 and 5 frame
 
 			if (v37x->dword_0xA4_164x->str_611.array_0x3E9_1001x.byte[v44] || v37x->dword_0xA4_164x->str_611.array_0x403_1027x.byte[v44])
+			{
+				//Draw disabled/stolen spells
 				GameBitmap::DrawColourizedBitmap(posX + posIconsX, posIconsY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v44 + 97], 0xA6u, scale);
+			}
 
 		LABEL_54:
 			iconXIdx++;
