@@ -403,6 +403,108 @@ void GameBitmap::DrawMenuGraphic(uint16_t width, uint16_t height, uint8_t scale,
 	}
 };
 
+void GameBitmap::DrawHighlightBitmap_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t a4)
+{
+	uint8_t* ptrScreenBuffer; // edi
+	uint8_t* data = 0; // edx
+	int v7; // ebx
+	int v8; // ecx
+	uint8_t* v9 = 0; // edi
+	int v11; // ebx
+	int v12; // ecx
+	uint16_t stride; // [esp+0h] [ebp-14h]
+	int v15; // [esp+0h] [ebp-14h]
+	uint8_t* ptrScreenBufferLineStart; // [esp+4h] [ebp-10h]
+	uint8_t* v17 = 0; // [esp+8h] [ebp-Ch]
+
+	if (x_WORD_180660_VGA_type_resolution == 1)
+	{
+		uint16_t height = a3.height_5 / 2;
+		ptrScreenBuffer = &pdwScreenBuffer_351628[posY / 2 * screenWidth_18062C + posX / 2];
+		data = a3.data;
+		for (ptrScreenBufferLineStart = ptrScreenBuffer; height; data += stride)
+		{
+			while (1)
+			{
+				while (1)
+				{
+					if (++(*data))
+						break;
+					ptrScreenBufferLineStart += screenWidth_18062C;
+					ptrScreenBuffer = ptrScreenBufferLineStart;
+					if (!--height)
+						return;
+				}
+				if ((screenWidth_18062C & 0x80u) == 0)
+					break;
+				ptrScreenBuffer -= (char)screenWidth_18062C;
+				if (!height)
+					return;
+			}
+			v7 = a4;
+			v8 = (char)screenWidth_18062C;
+			stride = (char)screenWidth_18062C;
+			do
+			{
+				BYTE1(v7) = *ptrScreenBuffer;
+				*ptrScreenBuffer++ = x_BYTE_F6EE0_tablesx[0x4000 + v7];
+				--v8;
+			} while (v8);
+		}
+	}
+	else
+	{
+		uint16_t height = a3.height_5;
+		v9 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
+		data = a3.data;
+		v17 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
+#ifdef _MSC_VER // pointer offset fuckery going on here which later crashes during dereferencing
+		if (a3.height_5)
+		{
+			do
+			{
+				while (1)
+				{
+					while (1)
+					{
+						if (++(*data))
+							break;
+						v9 = &screenWidth_18062C[v17]; // FIXME no way this is correct
+						v17 += screenWidth_18062C;
+						if (!--height)
+							return;
+					}
+					if ((screenWidth_18062C & 0x80u) == 0)
+						break;
+					v9 -= (char)screenWidth_18062C;
+					if (!height)
+						return;
+				}
+				v11 = a4;
+				v12 = (char)screenWidth_18062C;
+				v15 = (char)screenWidth_18062C;
+#ifdef _MSC_VER // keep this disabled until v9's address is corrected
+				do
+				{
+					BYTE1(v11) = *v9;
+					*v9++ = x_BYTE_F6EE0_tablesx[0x4000 + v11];
+					--v12;
+				} while (v12);
+#endif
+				data += v15;
+			} while (height);
+		}
+#endif
+	}
+}
+
+/// <summary>
+/// Utility method, not currently used
+/// </summary>
+/// <param name="height"></param>
+/// <param name="scale"></param>
+/// <param name="ptrSrc"></param>
+/// <param name="ptrDest"></param>
 void GameBitmap::ScaleMenuGraphic(uint16_t height, uint8_t scale, uint8_t* ptrSrc, uint8_t* ptrDest)
 {
 	int lineCount = 0;
