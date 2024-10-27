@@ -27357,14 +27357,12 @@ void sub_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, unsigned __in
 	int v7; // ebx
 	int v8; // ecx
 	uint8_t* v9=0; // edi
-	uint8_t* v10=0; // edx
 	int v11; // ebx
 	int v12; // ecx
 	uint16_t stride; // [esp+0h] [ebp-14h]
 	int v15; // [esp+0h] [ebp-14h]
 	uint8_t* ptrScreenBufferLineStart; // [esp+4h] [ebp-10h]
 	uint8_t* v17=0; // [esp+8h] [ebp-Ch]
-	__int16 v18; // [esp+Ch] [ebp-8h]
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
@@ -27403,9 +27401,9 @@ void sub_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, unsigned __in
 	}
 	else
 	{
-		v18 = a3.height_5;
+		uint16_t height = a3.height_5;
 		v9 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
-		v10 = a3.data;
+		data = a3.data;
 		v17 = &pdwScreenBuffer_351628[posX + screenWidth_18062C * posY];
 #ifdef _MSC_VER // pointer offset fuckery going on here which later crashes during dereferencing
 		if (a3.height_5)
@@ -27416,17 +27414,17 @@ void sub_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, unsigned __in
 				{
 					while (1)
 					{
-						if (++(*v10))
+						if (++(*data))
 							break;
 						v9 = &screenWidth_18062C[v17]; // FIXME no way this is correct
 						v17 += screenWidth_18062C;
-						if (!--v18)
+						if (!--height)
 							return;
 					}
 					if ((screenWidth_18062C & 0x80u) == 0)
 						break;
 					v9 -= (char)screenWidth_18062C;
-					if (!v18)
+					if (!height)
 						return;
 				}
 				v11 = a4;
@@ -27440,8 +27438,8 @@ void sub_2DFD0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, unsigned __in
 					--v12;
 				} while (v12);
 #endif
-				v10 += v15;
-			} while (v18);
+				data += v15;
+			} while (height);
 		}
 #endif
 	}
