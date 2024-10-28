@@ -2235,7 +2235,7 @@ char sub_871E0();
 void DrawHelpPopUps_871F0();
 void sub_872A0();
 void sub_87580();
-void sub_87610();
+void DrawGameHelp_87610();
 void sub_87860();
 void sub_87970();
 void sub_87A30();
@@ -76538,7 +76538,7 @@ void DrawHelpPopUps_871F0()//2681f0
 		{
 			if (str_unk_1804B0ar.word_0x86)
 			{
-				sub_87610();
+				DrawGameHelp_87610();
 				sub_87B30();
 			}
 			else if (--str_unk_1804B0ar.dword_0x72 <= 0)
@@ -76677,7 +76677,7 @@ void sub_87580()//268580
 }
 
 //----- (00087610) --------------------------------------------------------
-void sub_87610()//268610
+void DrawGameHelp_87610()//268610
 {
 	char* textForDraw; // edi
 	signed int v4; // esi
@@ -76695,108 +76695,110 @@ void sub_87610()//268610
 	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 	str_unk_1804B0ar.type_sub_0[0].color3_0x32 = (*xadataclrd0dat.colorPalette_var28)[3840];
 
-	switch (str_unk_1804B0ar.drawTextType_0xa3) {
-	case 1: {//draw hint
-		if (str_unk_1804B0ar.byte_0x9e & 8)
+	switch (str_unk_1804B0ar.drawTextType_0xa3) 
+	{
+		case 1: // Draw in the top middle
 		{
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
+			if (str_unk_1804B0ar.byte_0x9e & 8)
+			{
+				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
+				str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
+				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
+				if (!DefaultResolutions())
+				{
+					str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+					str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+					str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
+				}
+				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
+				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
+				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+			}
+			ColorizeScreen_2E790(
+				str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
+				str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
+				str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
+				str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+				str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
+			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			break;
+		}
+		case 2: // Draws Mini Map Help
+		{
+			str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
+			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220;
+			str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 			if (!DefaultResolutions())
 			{
-				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
-				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2 - 100;
+				str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 / 2;
 				str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
 			}
-			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
+			if (str_unk_1804B0ar.byte_0x9e & 0x8)
+			{
+				ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);//here
+				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
+				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
+				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+			}
+			ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
+			ColorizeScreen_2E790(
+				str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
+				str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
+				str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
+				str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+				str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+			DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
+			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
+			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			break;
+		}
+		case 3: //Draw Spell Menu Help
+		{
+			str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
+			str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
+			if (!DefaultResolutions())
+			{
+				if (str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e - 50 > str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa)
+					str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa = str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e - 50;
+				str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa - 42;
+			}
+			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);
+			ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
 			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
 			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+			ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
+			v4 = 0;
+			ColorizeScreen_2E790(
+				str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
+				str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
+				str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
+				str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
+				str_unk_1804B0ar.type_sub_0[0].color2_0x31);
+			posY = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa;
+			while (v4 < str_unk_1804B0ar.byte_0xa0)
+			{
+				if (v4 == str_unk_1804B0ar.byte_0xa1)
+					color = str_unk_1804B0ar.type_sub_0[0].color3_0x32;
+				else
+					color = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
+				//FireBall,Rapid Fire,Fire Storm
+				DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, posY, color);
+				posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
+			}
+			DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
+			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
+			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			break;
 		}
-		ColorizeScreen_2E790(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
-		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
-		str_unk_1804B0ar.byte_0x9e &= 0xF7;
-		break;
-	}
-	case 2:
-	{
-		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
-		str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220;
-		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
-		if (!DefaultResolutions())
+		default:
 		{
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2 - 100;
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 / 2;
-			str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
+			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			break;
 		}
-		if (str_unk_1804B0ar.byte_0x9e & 0x8)
-		{
-			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);//here
-			ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
-			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
-			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
-		}
-		ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
-		ColorizeScreen_2E790(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
-		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
-		str_unk_1804B0ar.byte_0x9e &= 0xF7;
-		break;
-	}
-	case 3:
-	{
-		str_unk_1804B0ar.type_sub_0[0].lineX1_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
-		str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
-		if (!DefaultResolutions())
-		{
-			if (str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e - 50 > str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa)
-				str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa = str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e - 50;
-			str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa - 42;
-		}
-		ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);
-		ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
-		ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
-		ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
-		ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
-		v4 = 0;
-		ColorizeScreen_2E790(
-			str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
-			str_unk_1804B0ar.type_sub_0[0].framePosY_0x26,
-			str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
-			str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
-			str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-		posY = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa;
-		while (v4 < str_unk_1804B0ar.byte_0xa0)
-		{
-			if (v4 == str_unk_1804B0ar.byte_0xa1)
-				color = str_unk_1804B0ar.type_sub_0[0].color3_0x32;
-			else
-				color = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
-			//FireBall,Rapid Fire,Fire Storm
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, posY, color);
-			posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
-		}
-		DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-		DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
-		str_unk_1804B0ar.byte_0x9e &= 0xF7;
-		break;
-	}
-	default:
-	{
-		str_unk_1804B0ar.byte_0x9e &= 0xF7;
-		break;
-	}
 	}
 }
 
