@@ -2254,7 +2254,7 @@ void sub_88B20();
 void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
-void sub_88D40();
+void GetSpellHelpCoordinates_88D40();
 void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
@@ -76598,7 +76598,7 @@ void sub_872A0()//2682a0
 			if ((unsigned __int8)str_unk_1804B0ar.byte_0xa4 > 1u || !v2x->dword_0xA4_164x->str_611.array_0x333_819x.word[v7] || !isCaveLevel_D41B6 && v7 == 25)
 				sub_87C10();
 			str_unk_1804B0ar.byte_0xa4 = 0;
-			sub_88D40();
+			GetSpellHelpCoordinates_88D40();
 			str_unk_1804B0ar.dword_0x76 = 0;
 		}
 		str_unk_1804B0ar.byte_0xa5 = v2x->dword_0xA4_164x->str_611.byte_0x458_1112;
@@ -76662,7 +76662,7 @@ void sub_87580()//268580
 	}
 	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
 	{
-		sub_88D40();
+		GetSpellHelpCoordinates_88D40();
 	}
 	else if (str_unk_1804B0ar.byte_0x9f & 0x8)
 	{
@@ -77729,7 +77729,7 @@ void sub_88D00()//269d00
 }
 
 //----- (00088D40) --------------------------------------------------------
-void sub_88D40()
+void GetSpellHelpCoordinates_88D40()
 {
 	int maxScreenHeight;
 	int spellPos;
