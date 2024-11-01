@@ -955,7 +955,7 @@ void OptionMenuEvents_19AB0();
 void ChangeSoundLevel_19CA0(uint8_t option);
 // int SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, int a2);
 void sub_19E00();
-void sub_1A030();
+void SetOkayCancelButtonsCursorPosition_1A030();
 // void sub_1A070(signed int a1, __int16 a2);
 void sub_1A280();
 int sub_1A4A0();
@@ -12360,7 +12360,7 @@ void sub_19E00()//1fae00
 }
 
 //----- (0001A030) --------------------------------------------------------
-void sub_1A030()//1fb030
+void SetOkayCancelButtonsCursorPosition_1A030()//1fb030
 {
 	int16_t posX;
 	int16_t posY;
@@ -42049,7 +42049,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x1fb030: {
-		sub_1A030();
+		SetOkayCancelButtonsCursorPosition_1A030();
 		break;
 	}
 	case 0x1fb070: {
@@ -50771,7 +50771,7 @@ void sub_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound)//233e90
 	case 0xD:
 	case 0xE:
 		sub_548F0(playStr);
-		sub_1A030();
+		SetOkayCancelButtonsCursorPosition_1A030();
 		break;
 	default:
 		break;
