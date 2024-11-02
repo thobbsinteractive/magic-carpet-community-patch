@@ -1264,7 +1264,7 @@ void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 //void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr);
 void sub_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void sub_2CE30_pause_end_level(int a1, int a2);
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
 //void sub_2EB60();
@@ -26545,7 +26545,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawPauseMenu_2FD90();
 				break;
 			}
-			sub_2CE30_pause_end_level(132, 50);
+			DrawTextPauseEndOfLevel_2CE30(132, 50);
 			if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 5)
 				DrawBottomMenu_2ECC0();
 		}
@@ -26718,7 +26718,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawPauseMenu_2FD90();
 			break;
 		}
-		sub_2CE30_pause_end_level(6, 6);
+		DrawTextPauseEndOfLevel_2CE30(6, 6);
 		if (x_D41A0_BYTEARRAY_4_struct.byteindex_38400)
 			DrawSpellIcon_2E260(
 				spellLeftPosX,
@@ -26807,12 +26807,10 @@ void DrawGameFrame_2BE30()//20CE30
 }
 
 //----- (0002CE30) --------------------------------------------------------
-void sub_2CE30_pause_end_level(int a1, int a2)//20de30
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY)//20de30
 {
-	int v2; // esi
-	//int result; // eax
-	//unsigned int v4; // edi
-	int16_t v4x;
+	int16_t textPosX;
+	int16_t textPosY;
 	unsigned __int8 indexedColor; // bl
 	int v6; // eax
 	//uint8_t* v7; // ebx
@@ -26833,26 +26831,26 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 	//uint8_t* v21; // [esp+80h] [ebp+72h]
 	int v22; // [esp+84h] [ebp+76h]
 
-	v2 = a2;
+	textPosY = posY;
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	v4x = a1;
+	textPosX = posX;
 	indexedColor = (*xadataclrd0dat.colorPalette_var28)[3840];
 	if (!x_D41A0_BYTEARRAY_4_struct.byteindex_205 && !x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546)
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], a1, a2, (*xadataclrd0dat.colorPalette_var28)[240]);//Paused!
-			v4x = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + a1;//Paused!
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], posX, posY, (*xadataclrd0dat.colorPalette_var28)[240]);//Paused!
+			textPosX = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + posX;//Paused!
 		}
 
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			DrawText_2BC10(printbuffer, v4x, a2, indexedColor);
-			v4x = a1;
+			DrawText_2BC10(printbuffer, textPosX, posY, indexedColor);
+			textPosX = posX;
 			LOWORD(v6) = sub_6FC30_get34_height();
-			v2 = v6 + a2;
+			textPosY = v6 + posY;
 		}
 		v22 = 0;
 		//v7 = x_D41A0_BYTEARRAY_0 + 11230;
@@ -26874,10 +26872,10 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 					if (D41A0_0.array_0x2BDE[v7y].word_0x04d_2C2B_11307 + 1 <= 0)
 						goto LABEL_24;
 					sprintf(printbuffer, "%s %s", D41A0_0.array_0x2BDE[v7y].array_0x39f_2BFA_12157, D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);//wizard name
-					DrawText_2BC10(printbuffer, v4x, v2, (*xadataclrd0dat.colorPalette_var28)[3840]);
-					v4x = a1;
+					DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840]);
+					textPosX = posX;
 					LOWORD(v10) = sub_6FC30_get34_height();
-					v2 += v10;
+					textPosY += v10;
 					break;
 				case 1u:
 					//v13 = *(x_WORD *)(v7x + x_D41A0_BYTEARRAY_0 + 11230 + 77);
@@ -26894,10 +26892,10 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 						v14 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
 						v15 = (*xadataclrd0dat.colorPalette_var28)[256 * ((signed int)(v14 - (__CFSHL__(HIDWORD(v14), 8) + (HIDWORD(v14) << 8))) >> 8)];
 					}
-					DrawText_2BC10(printbuffer, v4x, v2, v15);
+					DrawText_2BC10(printbuffer, textPosX, textPosY, v15);
 					LOWORD(v16) = sub_6FC30_get34_height();
-					v4x = a1;
-					v2 += v16;
+					textPosX = posX;
+					textPosY += v16;
 					break;
 				case 2u:
 				case 4u:
@@ -26908,10 +26906,10 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 					if (D41A0_0.array_0x2BDE[v7y].word_0x04f_2C2D_11309 == 3 || v22 == D41A0_0.LevelIndex_0xc)
 					{
 						sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);
-						DrawText_2BC10(printbuffer, v4x, v2, (*xadataclrd0dat.colorPalette_var28)[3840]);
-						v4x = a1;
+						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840]);
+						textPosX = posX;
 						LOWORD(v12) = sub_6FC30_get34_height();
-						v2 += v12;
+						textPosY += v12;
 					}
 					break;
 				case 3u:
@@ -26926,10 +26924,10 @@ void sub_2CE30_pause_end_level(int a1, int a2)//20de30
 					{
 						sprintf(printbuffer, "[%s] %s", D41A0_0.array_0x2BDE[v7y].array_0x39f_2BFA_12157, D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);//wizard name
 						v18 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
-						DrawText_2BC10(printbuffer, v4x, v2, (*xadataclrd0dat.colorPalette_var28)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
-						v4x = a1;
+						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
+						textPosX = posX;
 						LOWORD(v19) = sub_6FC30_get34_height();
-						v2 += v19;
+						textPosY += v19;
 					}
 					break;
 				}
