@@ -946,7 +946,7 @@ void sub_18B30();
 void sub_18BB0();
 char sub_18DA0(type_event_0x6E8E* a1, char a2, char a3);
 void sub_18F80(type_event_0x6E8E* a1);
-void SelectSpell_191B0(__int16 a1, char a2);
+void HandleButtonClick_191B0(__int16 a1, char a2);
 void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3);
 void PauseMenuEvents_197F0();
 void sub_19A50();
@@ -10593,47 +10593,47 @@ void sub_17190_process_keyboard()//1f8190
 					switch (LastPressedKey_1806E4)
 					{
 					case 0x3c: {//f2
-						SelectSpell_191B0(30, 2);
+						HandleButtonClick_191B0(30, 2);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x3d: {//f3
-						SelectSpell_191B0(30, 3);
+						HandleButtonClick_191B0(30, 3);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x3e: {//f4
-						SelectSpell_191B0(30, 4);
+						HandleButtonClick_191B0(30, 4);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x3f: {//f5
-						SelectSpell_191B0(30, 5);
+						HandleButtonClick_191B0(30, 5);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x40: {//f6
-						SelectSpell_191B0(30, 6);
+						HandleButtonClick_191B0(30, 6);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x41: {//f7
-						SelectSpell_191B0(30, 7);
+						HandleButtonClick_191B0(30, 7);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x42: {//f8
-						SelectSpell_191B0(30, 8);
+						HandleButtonClick_191B0(30, 8);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x43: {//f9
-						SelectSpell_191B0(30, 9);
+						HandleButtonClick_191B0(30, 9);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x44: {//f10
-						SelectSpell_191B0(30, 10);
+						HandleButtonClick_191B0(30, 10);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
@@ -10650,12 +10650,12 @@ void sub_17190_process_keyboard()//1f8190
 					}
 					case 0x2f: {//v
 						if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 < 0)
-							SelectSpell_191B0(4, 8);
+							HandleButtonClick_191B0(4, 8);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x3b: {//f1
-						SelectSpell_191B0(30, 1);
+						HandleButtonClick_191B0(30, 1);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
@@ -10665,7 +10665,7 @@ void sub_17190_process_keyboard()//1f8190
 							if (pressedKeys_180664[54])
 								sub_70940();
 							else
-								SelectSpell_191B0(4, 64);
+								HandleButtonClick_191B0(4, 64);
 						}
 						LastPressedKey_1806E4 = 0;
 						break;
@@ -10700,13 +10700,13 @@ void sub_17190_process_keyboard()//1f8190
 					switch (LastPressedKey_1806E4)
 					{
 					case 0x10: {//q
-						SelectSpell_191B0(2, 0);
+						HandleButtonClick_191B0(2, 0);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
 					case 0x12: {//e
 						if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 < 0)
-							SelectSpell_191B0(26, 0);
+							HandleButtonClick_191B0(26, 0);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
@@ -10743,7 +10743,7 @@ void sub_17190_process_keyboard()//1f8190
 					}
 					case 0x26: {//l remove castle stage
 						if (event->dword_0xA4_164x->word_0x3A_58)
-							SelectSpell_191B0(42, 0);
+							HandleButtonClick_191B0(42, 0);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
@@ -10751,7 +10751,7 @@ void sub_17190_process_keyboard()//1f8190
 						if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 < 0)
 						{
 							D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0 = 1;
-							SelectSpell_191B0(27, 0);
+							HandleButtonClick_191B0(27, 0);
 						}
 						LastPressedKey_1806E4 = 0;
 						break;
@@ -10824,7 +10824,7 @@ void sub_17190_process_keyboard()//1f8190
 						break;
 					}
 					case 0x39: {//space
-						SelectSpell_191B0(15, 0);
+						HandleButtonClick_191B0(15, 0);
 						LastPressedKey_1806E4 = 0;
 						break;
 					}
@@ -10964,7 +10964,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			if (unk_18058Cstr.x_DWORD_18059C & 0x10)
 			{
 				if (v8x->life_0x8 >= 0)
-					SelectSpell_191B0(20, 5);
+					HandleButtonClick_191B0(20, 5);
 			}
 			else if (pressedKeys_180664[56] || pressedKeys_180664[x_BYTE_EB39E_keys[9]])
 			{
@@ -10976,7 +10976,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					break;
 				}
 				case 0x21: {//f
-					SelectSpell_191B0(4, 32);
+					HandleButtonClick_191B0(4, 32);
 					LastPressedKey_1806E4 = 0;
 					break;
 				}
@@ -11041,7 +11041,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					{
 						v11 = v8x->state_0x45_69;
 						if (v11 != 2 && v11 != 3)
-							SelectSpell_191B0(16, 0);
+							HandleButtonClick_191B0(16, 0);
 					}
 					LastPressedKey_1806E4 = 0;
 					goto LABEL_296;
@@ -11051,27 +11051,27 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					sub_1A7A0_fly_asistant();
 					goto LABEL_306;
 				case 0x39://space
-					SelectSpell_191B0(15, 0);
+					HandleButtonClick_191B0(15, 0);
 					LastPressedKey_1806E4 = 0;
 					break;
 				}
 				if (unk_18058Cstr.x_DWORD_18059C & 1 && unk_18058Cstr.x_DWORD_18059C & 2)
 				{
 					if (v8x->life_0x8 >= 0)
-						SelectSpell_191B0(20, 6);
+						HandleButtonClick_191B0(20, 6);
 					unk_18058Cstr.x_DWORD_18059C &= 0xFC;
 				}
 				if (LastPressedKey_1806E4 == x_BYTE_EB39E_keys[4])
 				{
 					if (v8x->life_0x8 >= 0)
-						SelectSpell_191B0(20, 6);
+						HandleButtonClick_191B0(20, 6);
 					LastPressedKey_1806E4 = 0;
 				}
 				if ((unsigned __int8)LastPressedKey_1806E4 >= 2u)//2-9
 				{
 					if ((unsigned __int8)LastPressedKey_1806E4 <= 9u)
 					{
-						SelectSpell_191B0(43, LastPressedKey_1806E4 - 2);
+						HandleButtonClick_191B0(43, LastPressedKey_1806E4 - 2);
 						LastPressedKey_1806E4 = 0;
 					}
 					else if (LastPressedKey_1806E4 == 0x20)//d
@@ -11093,7 +11093,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			}
 			if (LastPressedKey_1806E4 && x_BYTE_E36DC[(unsigned __int8)LastPressedKey_1806E4] == 8)
 			{
-				SelectSpell_191B0(39, 1);
+				HandleButtonClick_191B0(39, 1);
 				LastPressedKey_1806E4 = 0;
 			}
 			sub_1A8A0();
@@ -11106,7 +11106,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 				goto LABEL_296;
 			LastPressedKey_1806E4 = 0;
 			unk_18058Cstr.x_DWORD_18059C &= 0xFC;
-			SelectSpell_191B0(20, 0);
+			HandleButtonClick_191B0(20, 0);
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 3:
@@ -11116,14 +11116,14 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			{
 				if (LastPressedKey_1806E4 == 1)
 				{
-					SelectSpell_191B0(18, 0);
+					HandleButtonClick_191B0(18, 0);
 					goto LABEL_215;
 				}
 				goto LABEL_206;
 			}
 			if ((unsigned __int8)LastPressedKey_1806E4 <= 0x1Cu)
 			{
-				SelectSpell_191B0(19, 0);
+				HandleButtonClick_191B0(19, 0);
 				goto LABEL_215;
 			}
 			if ((unsigned __int8)LastPressedKey_1806E4 < 0x3Bu)
@@ -11132,7 +11132,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			{
 				if (pressedKeys_180664[42] || pressedKeys_180664[54]) //LShift or RShift
 				{
-					SelectSpell_191B0(35, LastPressedKey_1806E4 - 59);
+					HandleButtonClick_191B0(35, LastPressedKey_1806E4 - 59);
 				}
 				else if (LastPressedKey_1806E4 == 0x3b) //F1
 				{
@@ -11152,7 +11152,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 						|| v27 == 8
 						|| v27 == 32)
 					{
-						SelectSpell_191B0(17, x_BYTE_E36DC[(unsigned __int8)LastPressedKey_1806E4]);
+						HandleButtonClick_191B0(17, x_BYTE_E36DC[(unsigned __int8)LastPressedKey_1806E4]);
 					}
 					goto LABEL_215;
 				}
@@ -11161,7 +11161,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 				//v26 = D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x3E1_2BE4_12223;
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E1_2BE4_12223 >= 4)
 					D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E1_2BE4_12223 = 0;
-				SelectSpell_191B0(36, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E1_2BE4_12223);
+				HandleButtonClick_191B0(36, D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E1_2BE4_12223);
 			}
 		LABEL_215:
 			LastPressedKey_1806E4 = 0;
@@ -11187,17 +11187,17 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 									&& v29 + 22 > unk_18058Cstr.x_DWORD_1805B0_mouse.y
 									&& unk_18058Cstr.x_DWORD_18059C & 1)
 								{
-									SelectSpell_191B0(18, 0);
+									HandleButtonClick_191B0(18, 0);
 								}
 							}
 							else if (unk_18058Cstr.x_DWORD_18059C & 1)
 							{
-								SelectSpell_191B0(44, 0);
+								HandleButtonClick_191B0(44, 0);
 							}
 						}
 						else if (unk_18058Cstr.x_DWORD_18059C & 1)
 						{
-							SelectSpell_191B0(19, 0);
+							HandleButtonClick_191B0(19, 0);
 						}
 						goto LABEL_292;
 					}
@@ -11208,7 +11208,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 							if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 								str_unk_1804B0ar.byte_0xa9 = 99;
 							if (unk_18058Cstr.x_DWORD_18059C & 1)
-								SelectSpell_191B0(36, 1);
+								HandleButtonClick_191B0(36, 1);
 							goto LABEL_292;
 						}
 						if (unk_18058Cstr.x_DWORD_1805B0_mouse.x >= 222 && unk_18058Cstr.x_DWORD_1805B0_mouse.x < 290 && v29 + 32 <= unk_18058Cstr.x_DWORD_1805B0_mouse.y && v29 + 60 > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
@@ -11216,7 +11216,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 							if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 								str_unk_1804B0ar.byte_0xa9 = 100;
 							if (unk_18058Cstr.x_DWORD_18059C & 1)
-								SelectSpell_191B0(36, 2);
+								HandleButtonClick_191B0(36, 2);
 							goto LABEL_292;
 						}
 						if (unk_18058Cstr.x_DWORD_1805B0_mouse.x < 310 || unk_18058Cstr.x_DWORD_1805B0_mouse.x >= 378 || v29 + 32 > unk_18058Cstr.x_DWORD_1805B0_mouse.y || v29 + 60 <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
@@ -11235,7 +11235,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 							goto LABEL_292;
 						v32 = 0;
 					}
-					SelectSpell_191B0(36, v32);
+					HandleButtonClick_191B0(36, v32);
 					goto LABEL_292;
 				}
 				if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
@@ -11245,7 +11245,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					v30 = (unk_18058Cstr.x_DWORD_1805B0_mouse.x - 384) / 34;
 					if (v30 >= D41A0_0.LevelIndex_0xc)
 						v30++;
-					SelectSpell_191B0(37, v30);
+					HandleButtonClick_191B0(37, v30);
 				}
 			}
 			else
@@ -11253,7 +11253,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 				if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 					str_unk_1804B0ar.byte_0xa9 = 97;
 				if (unk_18058Cstr.x_DWORD_18059C & 1)
-					SelectSpell_191B0(
+					HandleButtonClick_191B0(
 						35,
 						4 * ((unk_18058Cstr.x_DWORD_1805B0_mouse.y - (v29 + 28)) / 20)
 						+ ((unk_18058Cstr.x_DWORD_1805B0_mouse.x - 4 - (__CFSHL__((unk_18058Cstr.x_DWORD_1805B0_mouse.x - 4) >> 31, 4) + 16 * ((unk_18058Cstr.x_DWORD_1805B0_mouse.x - 4) >> 31))) >> 4));
@@ -11285,7 +11285,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 						{
 							v23 = SelectSpell_6D4F0(&v12x->dword_0xA4_164x->str_611, unk_18058Cstr.x_DWORD_1805B0_mouse.x);
 							v12x->dword_0xA4_164x->str_611.byte_0x459_1113 = v23;
-							SelectSpell_191B0(41, v23);
+							HandleButtonClick_191B0(41, v23);
 						}
 						else
 						{
@@ -11318,7 +11318,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 						goto LABEL_122;
 					if (pressedKeys_180664[42] || pressedKeys_180664[x_BYTE_EB39E_keys[7]])
 					{
-						SelectSpell_191B0(38, v18);
+						HandleButtonClick_191B0(38, v18);
 						//v20 = (int)x_D41A0_BYTEARRAY_0;
 						D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte2 = 0;
 						v21 = v12x->dword_0xA4_164x->str_611.array_0x3B5_949x.byte[v18];
@@ -11343,14 +11343,14 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					}
 					if (unk_18058Cstr.x_DWORD_18059C & 1 && unk_18058Cstr.x_DWORD_18059C & 2)
 					{
-						SelectSpell_191B0(6, 64);
+						HandleButtonClick_191B0(6, 64);
 						D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte1 = v12x->dword_0xA4_164x->str_611.byte_0x458_1112;
 					}
 					else
 					{
 						v12x->dword_0xA4_164x->str_611.byte_0x457_1111 = ((unk_18058Cstr.x_DWORD_18059C & 1) == 0) + 1;
 						MoveCursorToSelectedSpell_6D200(&D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc]);
-						SelectSpell_191B0(40, v12x->dword_0xA4_164x->str_611.byte_0x458_1112);
+						HandleButtonClick_191B0(40, v12x->dword_0xA4_164x->str_611.byte_0x458_1112);
 						D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte2 = v12x->dword_0xA4_164x->str_611.byte_0x457_1111;
 					}
 				}
@@ -11361,28 +11361,28 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			if (v33)
 			{
 				if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 5)
-					SelectSpell_191B0(20, 0);
+					HandleButtonClick_191B0(20, 0);
 				else
-					SelectSpell_191B0(20, 6);
+					HandleButtonClick_191B0(20, 6);
 			}
 			else
 			{
 				if (v12x->life_0x8 >= 0)
 				{
 					if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 1)
-						SelectSpell_191B0(6, 1);
+						HandleButtonClick_191B0(6, 1);
 					if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 2)
-						SelectSpell_191B0(6, 2);
+						HandleButtonClick_191B0(6, 2);
 					if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 4)
-						SelectSpell_191B0(6, 4);
+						HandleButtonClick_191B0(6, 4);
 					if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 8)
-						SelectSpell_191B0(6, 8);
+						HandleButtonClick_191B0(6, 8);
 				}
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 2
 					&& v34
 					&& !D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte0)
 				{
-					SelectSpell_191B0(40, v12x->dword_0xA4_164x->str_611.byte_0x458_1112);
+					HandleButtonClick_191B0(40, v12x->dword_0xA4_164x->str_611.byte_0x458_1112);
 					D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte2 = 0;
 				}
 			}
@@ -11399,7 +11399,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			sub_17190_process_keyboard();
 			if (unk_18058Cstr.x_DWORD_18059C & 1 && unk_18058Cstr.x_DWORD_18059C & 2 || LastPressedKey_1806E4 == x_BYTE_EB39E_keys[4] || v24x->life_0x8 < 0)
 			{
-				SelectSpell_191B0(20, 0);
+				HandleButtonClick_191B0(20, 0);
 			}
 			else if (LastPressedKey_1806E4 == 1)
 			{
@@ -11410,7 +11410,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			{
 				if (unk_18058Cstr.x_DWORD_18059C & 0x10)
 				{
-					SelectSpell_191B0(20, 8);
+					HandleButtonClick_191B0(20, 8);
 				}
 				else if (pressedKeys_180664[56] || pressedKeys_180664[x_BYTE_EB39E_keys[9]] || pressedKeys_180664[x_BYTE_EB39E_keys[6]])
 				{
@@ -11426,7 +11426,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					}
 					else if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 != 7)
 					{
-						SelectSpell_191B0(20, 7);
+						HandleButtonClick_191B0(20, 7);
 					}
 				}
 				else if (pressedKeys_180664[42] || pressedKeys_180664[x_BYTE_EB39E_keys[8]])
@@ -11444,7 +11444,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 				}
 				else if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 != 6)
 				{
-					SelectSpell_191B0(20, 6);
+					HandleButtonClick_191B0(20, 6);
 				}
 				sub_18F80(v24x);
 			}
@@ -11464,7 +11464,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			}
 			if (LastPressedKey_1806E4 && x_BYTE_E36DC[(unsigned __int8)LastPressedKey_1806E4] == 8)
 			{
-				SelectSpell_191B0(39, 1);
+				HandleButtonClick_191B0(39, 1);
 				LastPressedKey_1806E4 = 0;
 			}
 			sub_1A8A0();
@@ -11596,16 +11596,16 @@ void sub_18B30()//1f9b30
 		if (v1 != 13 && v1 != 14)
 		{
 			if (v1 < 6u || v1 > 8u && (v1 < 0xBu || v1 > 0xCu))
-				SelectSpell_191B0(20, 13);
+				HandleButtonClick_191B0(20, 13);
 			else
-				SelectSpell_191B0(20, 14);
+				HandleButtonClick_191B0(20, 14);
 			//LOBYTE(v0) = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
 			x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 1;
 		}
 		else
 		{
-			SelectSpell_191B0(29, 0);
-			/*LOBYTE(v0) = */SelectSpell_191B0(27, 0);
+			HandleButtonClick_191B0(29, 0);
+			/*LOBYTE(v0) = */HandleButtonClick_191B0(27, 0);
 		}
 	}
 	//return v0;
@@ -11804,13 +11804,13 @@ void sub_18F80(type_event_0x6E8E* a1x)//1f9f80
 	int v5; // edx
 
 	if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 1)
-		SelectSpell_191B0(6, 1);
+		HandleButtonClick_191B0(6, 1);
 	if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 2)
-		SelectSpell_191B0(6, 2);
+		HandleButtonClick_191B0(6, 2);
 	if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 4)
-		SelectSpell_191B0(6, 4);
+		HandleButtonClick_191B0(6, 4);
 	if (unk_18058Cstr.x_WORD_1805C0_arrow_keys & 8)
-		SelectSpell_191B0(6, 8);
+		HandleButtonClick_191B0(6, 8);
 	//v1 = a1x->dword_0xA4_164;
 	v2 = a1x->dword_0xA4_164x->str_611.word_0x451_1105;
 	if (v2 == -1)
@@ -11824,13 +11824,13 @@ void sub_18F80(type_event_0x6E8E* a1x)//1f9f80
 		{
 			if (unk_18058Cstr.x_DWORD_18059C & 1)
 			{
-				SelectSpell_191B0(6, 16);
+				HandleButtonClick_191B0(6, 16);
 				unk_18058Cstr.x_DWORD_18059C &= 0xFE;
 			}
 		}
 		else if (unk_18058Cstr.x_DWORD_18059C & 1 || unk_18058Cstr.x_DWORD_18059C & 4 && v3x->word_0x2E_46 > 0)
 		{
-			SelectSpell_191B0(6, 16);
+			HandleButtonClick_191B0(6, 16);
 			unk_18058Cstr.x_DWORD_18059C &= 0xFE;
 		}
 	}
@@ -11847,13 +11847,13 @@ void sub_18F80(type_event_0x6E8E* a1x)//1f9f80
 		{
 			if (unk_18058Cstr.x_DWORD_18059C & 2)
 			{
-				/*LOBYTE(v4) = */SelectSpell_191B0(6, 32);
+				/*LOBYTE(v4) = */HandleButtonClick_191B0(6, 32);
 				unk_18058Cstr.x_DWORD_18059C &= 0xFD;
 			}
 		}
 		else if (unk_18058Cstr.x_DWORD_18059C & 2 || unk_18058Cstr.x_DWORD_18059C & 8 && a1x->dword_0xA4_164x->word_0x26_38[4] > 0)
 		{
-			/*LOBYTE(v4) = */SelectSpell_191B0(6, 32);
+			/*LOBYTE(v4) = */HandleButtonClick_191B0(6, 32);
 			unk_18058Cstr.x_DWORD_18059C &= 0xFD;
 		}
 	}
@@ -11864,7 +11864,7 @@ void sub_18F80(type_event_0x6E8E* a1x)//1f9f80
 // 1805C0: using guessed type __int16 x_WORD_1805C0_arrow_keys;
 
 //----- (000191B0) --------------------------------------------------------
-void SelectSpell_191B0(__int16 a1, char a2)//1fa1b0 //set spell, destroy castle sub_191B0(0x2a, 0x00)
+void HandleButtonClick_191B0(__int16 a1, char a2)//1fa1b0 //set spell, destroy castle sub_191B0(0x2a, 0x00)
 {
 	//uint8_t* v2; // edx
 	//char result; // al
@@ -12096,9 +12096,9 @@ void PauseMenuEvents_197F0()//1fa7f0
 							case 0:
 								v4 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 								if (v4 < 6u || v4 > 8u)
-									SelectSpell_191B0(20, 13);
+									HandleButtonClick_191B0(20, 13);
 								else
-									SelectSpell_191B0(20, 14);
+									HandleButtonClick_191B0(20, 14);
 								x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 3;
 								sub_19A50();
 								return;
@@ -12107,9 +12107,9 @@ void PauseMenuEvents_197F0()//1fa7f0
 									break;
 								v5 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 								if (v5 < 6u || v5 > 8u)
-									SelectSpell_191B0(20, 13);
+									HandleButtonClick_191B0(20, 13);
 								else
-									SelectSpell_191B0(20, 14);
+									HandleButtonClick_191B0(20, 14);
 								x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 2;
 								sub_19A50();
 								return;
@@ -12147,9 +12147,9 @@ void sub_19A50()//1faa50
 void sub_19A70()//1faa70
 {
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 > 8u)
-		SelectSpell_191B0(20, 9);
+		HandleButtonClick_191B0(20, 9);
 	else
-		SelectSpell_191B0(20, 11);
+		HandleButtonClick_191B0(20, 11);
 }
 
 //----- (00019AB0) --------------------------------------------------------
@@ -12191,9 +12191,9 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 	{
 		x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 0;
 		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 9)
-			SelectSpell_191B0(20, 0);
+			HandleButtonClick_191B0(20, 0);
 		else
-			SelectSpell_191B0(20, 6);
+			HandleButtonClick_191B0(20, 6);
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 		LastPressedKey_1806E4 = 0;
 		sub_19A50();
@@ -12243,9 +12243,9 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 		D41A0_0.byte_0x36E04 = 0;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 > 8u)
-			SelectSpell_191B0(20, 10);
+			HandleButtonClick_191B0(20, 10);
 		else
-			SelectSpell_191B0(20, 12);
+			HandleButtonClick_191B0(20, 12);
 	}
 }
 
@@ -12355,7 +12355,7 @@ void ReadOkayCancelButtonEvents_19E00()//1fae00
 	{
 		x_D41A0_BYTEARRAY_4_struct.SelectedMenuItem_38546 = 0;
 		if (selectSpell)
-			SelectSpell_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
+			HandleButtonClick_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
 	}
 }
 
@@ -12457,7 +12457,7 @@ LABEL_12:
 	else
 	{
 		x_D41A0_BYTEARRAY_4_struct.byte_38591 = pressedKeys_180664[47];
-		SelectSpell_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
+		HandleButtonClick_191B0(20, x_D41A0_BYTEARRAY_4_struct.byte_38544);
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);//fix it
 		SetMousePositionInMemory_5BDC0(posX + a2, posY + 5 * height / 2);
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
@@ -12888,7 +12888,7 @@ void sub_1A7A0_fly_asistant()//1fb7a0 // fly asistant
 					D41A0_0.word_0x36DEE_mousey = unk_18058Cstr.x_DWORD_1805BC_mouse_position_y;
 					return;// result;
 				}
-				SelectSpell_191B0(39, 0);
+				HandleButtonClick_191B0(39, 0);
 				//v5 = (int)x_D41A0_BYTEARRAY_0;
 			}
 			D41A0_0.word_0x36DF0_mousexx = 0;
@@ -12917,7 +12917,7 @@ void sub_1A8A0()//1fb8a0
 		{
 			//v0 = x_D41A0_BYTEARRAY_4_struct.byteindex_183;
 			if (!(x_D41A0_BYTEARRAY_4_struct.byteindex_183 & 1) && !(x_D41A0_BYTEARRAY_4_struct.byteindex_183 & 2))
-				SelectSpell_191B0(6, 128);
+				HandleButtonClick_191B0(6, 128);
 		}
 	}
 	//result = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
@@ -42008,7 +42008,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 #ifdef __linux__ // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		SelectSpell_191B0((short)a1_6E8E, 0);
+		HandleButtonClick_191B0((short)a1_6E8E, 0);
 		stub_fix_it();//bad retyping
 #endif
 		break;
