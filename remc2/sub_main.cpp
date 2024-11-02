@@ -951,7 +951,7 @@ void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3);
 void PauseMenuEvents_197F0();
 void sub_19A50();
 void sub_19A70();
-void OptionMenuEvents_19AB0();
+void ReadOptionMenuEvents_19AB0();
 void ChangeSoundLevel_19CA0(uint8_t option);
 // int SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, int a2);
 void ReadOkayCancelButtonEvents_19E00();
@@ -11475,7 +11475,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			goto LABEL_306;
 		case 9:
 		case 0xB:
-			OptionMenuEvents_19AB0();
+			ReadOptionMenuEvents_19AB0();
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 0xA:
@@ -12153,7 +12153,7 @@ void sub_19A70()//1faa70
 }
 
 //----- (00019AB0) --------------------------------------------------------
-void OptionMenuEvents_19AB0()//1faab0
+void ReadOptionMenuEvents_19AB0()//1faab0
 {
 	int v0; // eax
 	signed int v1; // ebx
@@ -12161,9 +12161,14 @@ void OptionMenuEvents_19AB0()//1faab0
 	signed int v3; // eax
 
 	int helpWidth = 640;
+	uint8_t scale = 1;
+
 	if (x_WORD_180660_VGA_type_resolution != 1)
-		if(!DefaultResolutions())
+		if (!DefaultResolutions())
+		{
 			helpWidth = screenWidth_18062C;
+			scale = gameUiScale;
+		}
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[x_BYTE_D419E]); //fix it
@@ -12179,8 +12184,8 @@ void OptionMenuEvents_19AB0()//1faab0
 		sub_19A50();
 		return;
 	}
-	v0 = (helpWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2;
-	if (v0 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && v0 + 82 > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= 377 && unk_18058Cstr.x_DWORD_1805B0_mouse.y < 395
+	v0 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) - (82 * scale)) / 2;
+	if (v0 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && v0 + (82 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (377 * scale) && unk_18058Cstr.x_DWORD_1805B0_mouse.y < (395 * scale)
 		|| LastPressedKey_1806E4 == 0x1c
 		|| LastPressedKey_1806E4 == 0x20)
 	{
@@ -12195,14 +12200,14 @@ void OptionMenuEvents_19AB0()//1faab0
 		return;
 	}
 	v1 = 0;
-	v2 = (helpWidth - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
-	v3 = 67;
+	v2 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
+	v3 = (67 * scale);
 	do
 	{
 		if (v2 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
-			&& v2 + x_D41A0_BYTEARRAY_4_struct.byteindex_186 > unk_18058Cstr.x_DWORD_1805B0_mouse.x
+			&& v2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x
 			&& v3 <= unk_18058Cstr.x_DWORD_1805B0_mouse.y
-			&& v3 + 18 > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
+			&& v3 + (18 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
 		{
 			sub_1A970_change_game_settings(v1 + 1, (unk_18058Cstr.x_DWORD_18059C & 1) == 0, 1);
 			sub_1A280();
@@ -12210,7 +12215,7 @@ void OptionMenuEvents_19AB0()//1faab0
 			return;
 		}
 		v1++;
-		v3 += 18;
+		v3 += (18 * scale);
 	} while (v1 < 17);
 	sub_19A50();
 	return;
@@ -28317,7 +28322,7 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 		sub_2BB40_draw_bitmap(v20, optionMenuYPos, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
 		while (v6 < v20)
 		{
-			sub_2BB40_draw_bitmap(v6, v0, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
+			sub_2BB40_draw_bitmap(v6, optionMenuYPos, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
 			v6 += v17;
 		}
 		if (v19 & x_D41A0_BYTEARRAY_4_struct.dwordindex_192)
@@ -42024,7 +42029,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 		break;
 	}
 	case 0x1faab0: {
-		OptionMenuEvents_19AB0();
+		ReadOptionMenuEvents_19AB0();
 		break;
 	}
 	case 0x1faca0: {
