@@ -1277,7 +1277,6 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width,
 void sub_30630();
 void sub_30870();
 void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint8_t scale = 1);
-void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2);
 void sub_30D50(type_event_0x6E8E* a1/*, uint8_t v2, uint8_t v4*/);
 void AddQuickfair0A_01_30F60(type_event_0x6E8E* a1);
 void CastSpeedSpell_31100(type_event_0x6E8E* a1);
@@ -28250,7 +28249,6 @@ void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width,
 //----- (00030050) --------------------------------------------------------
 void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 {
-	signed int v0; // esi
 	int v1; // edx
 	int v3; // eax
 	int v4; // eax
