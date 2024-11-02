@@ -449,7 +449,6 @@ void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, ui
 
 void sub_49F30();
 
-void DrawHelpText_6FC50(__int16 a1);
 
 void sub_6EBF0(filearray_struct* a1);
 
@@ -474,8 +473,6 @@ void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*t
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
-void DrawVolumeSettings_303D0();
-void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx);
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 signed int sub_36A50(/*signed int a1, */char a2);
@@ -497,7 +494,6 @@ void NetworkUpdateConnections2_74374();
 int16_t GetIndexNetwork2_74515();
 void sub_7A060_get_mouse_and_keyboard_events();
 void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
-void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(type_str_0x2BDE* loc0x2BDE);
@@ -577,9 +573,29 @@ char sub_8B980(int a1, int a2, char* a3, int a4);
 signed int sub_8BBE0(uint8_t* a1);
 void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
+
+void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
+void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx);
+void DrawBottomMenu_2ECC0();
+void DrawChatMenu_2F6B0();
+void DrawGameFrame_2BE30();
+void DrawGameHelp_87610();
+void DrawHelpPopUps_871F0();
+void DrawHelpText_6FC50(__int16 a1);
+void DrawInGameOptionsMenu_30050();
 void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
 void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
+void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint8_t scale = 1);
+void DrawPauseMenu_2FD90();
+void DrawSorcererScores_2D1D0();
+void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4, uint8_t scale = 1);
+void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox);
+void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox);
+void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text);
+void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
+void DrawVolumeSettings_303D0();
+
 void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
@@ -591,6 +607,7 @@ void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int
 size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
 signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
+
 /*
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
 char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4);
