@@ -12162,10 +12162,9 @@ void sub_19A70()//1faa70
 //----- (00019AB0) --------------------------------------------------------
 void ReadOptionMenuEvents_19AB0()//1faab0
 {
-	int v0; // eax
-	signed int v1; // ebx
-	int v2; // edx
-	signed int v3; // eax
+	int okayBtnPosX; // eax
+	int menuBtnPosX; // edx
+	int menuBtnPosY; // eax
 
 	int helpWidth = 640;
 	uint8_t scale = 1;
@@ -12193,8 +12192,8 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 	}
 
 	//Ok button
-	v0 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (82 * scale)) / 2;
-	if (v0 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && v0 + (82 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (377 * scale) && unk_18058Cstr.x_DWORD_1805B0_mouse.y < (395 * scale)
+	okayBtnPosX = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (82 * scale)) / 2;
+	if (okayBtnPosX <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && okayBtnPosX + (82 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (377 * scale) && unk_18058Cstr.x_DWORD_1805B0_mouse.y < (395 * scale)
 		|| LastPressedKey_1806E4 == 0x1c
 		|| LastPressedKey_1806E4 == 0x20)
 	{
@@ -12208,27 +12207,30 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 		sub_19A50();
 		return;
 	}
-	v1 = 0;
-	v2 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
-	v3 = (67 * scale);
+
+	int btnIndex = 0;
+	menuBtnPosX = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
+	menuBtnPosY = (67 * scale);
 
 	//Menu Options
 	do
 	{
-		if (v2 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
-			&& v2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x
-			&& v3 <= unk_18058Cstr.x_DWORD_1805B0_mouse.y
-			&& v3 + (18 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
+		if (menuBtnPosX <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
+			&& menuBtnPosX + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x
+			&& menuBtnPosY <= unk_18058Cstr.x_DWORD_1805B0_mouse.y
+			&& menuBtnPosY + (18 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.y)
 		{
-			sub_1A970_change_game_settings(v1 + 1, (unk_18058Cstr.x_DWORD_18059C & 1) == 0, 1);
+			sub_1A970_change_game_settings(btnIndex + 1, (unk_18058Cstr.x_DWORD_18059C & 1) == 0, 1);
 			sub_1A280();
 			sub_19A50();
 			return;
 		}
-		v1++;
-		v3 += (18 * scale);
-	} while (v1 < 17);
+		btnIndex++;
+		menuBtnPosY += (18 * scale);
+	} while (btnIndex < 17);
+
 	sub_19A50();
+
 	return;
 }
 
