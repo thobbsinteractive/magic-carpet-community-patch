@@ -28343,7 +28343,7 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 			if (optionMenuXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x
 				|| optionMenuXPos + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
 				|| menuBtnPosY > unk_18058Cstr.x_DWORD_1805B0_mouse.y
-				|| menuBtnPosY + (18 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
+				|| menuBtnPosY + (OPTIONS_MENU_BTN_HEIGHT * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
 			{
 				textColour = (*xadataclrd0dat.colorPalette_var28)[4095];
 			}
