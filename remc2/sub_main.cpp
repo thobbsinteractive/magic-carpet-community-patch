@@ -1272,7 +1272,7 @@ void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t col
 //void sub_2EC30_clear_img_mem();
 //void sub_2EC60();
 //void sub_2EC90(char a1);
-void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height);
+void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height, uint8_t scale = 1);
 // int sub_303D0(signed int a1);
 void sub_30630();
 void sub_30870();
@@ -26429,7 +26429,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawOkCancelMenu_30A60(6, 6, scale);
 				break;
 			}
-			DrawPauseMenu_2FD90();
+			DrawPauseMenu_2FD90(scale);
 		}
 		else
 		{
@@ -26545,7 +26545,7 @@ void DrawGameFrame_2BE30()//20CE30
 				break;
 			default:
 			LABEL_41:
-				DrawPauseMenu_2FD90();
+				DrawPauseMenu_2FD90(scale);
 				break;
 			}
 			DrawTextPauseEndOfLevel_2CE30(132, 50);
@@ -26704,7 +26704,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawSorcererScores_2D1D0();
 			break;
 		case 8:
-			DrawPauseMenu_2FD90();
+			DrawPauseMenu_2FD90(scale);
 			DrawBottomMenu_2ECC0();
 			break;
 		case 0xB:
@@ -26718,7 +26718,7 @@ void DrawGameFrame_2BE30()//20CE30
 			break;
 		default:
 		LABEL_73:
-			DrawPauseMenu_2FD90();
+			DrawPauseMenu_2FD90(scale);
 			break;
 		}
 		DrawTextPauseEndOfLevel_2CE30(6, 6);
@@ -28150,7 +28150,7 @@ void DrawChatMenu_2F6B0()//2106b0
 // 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
 
 //----- (0002FD90) --------------------------------------------------------
-void DrawPauseMenu_2FD90()//210d90
+void DrawPauseMenu_2FD90(uint8_t scale)//210d90
 {
 	signed int v1; // ebx
 	signed int v2; // ebx
@@ -28159,28 +28159,28 @@ void DrawPauseMenu_2FD90()//210d90
 	int16_t width; // [esp+4h] [ebp-10h]
 	int16_t posX; // [esp+8h] [ebp-Ch]
 	int16_t posY; // [esp+Ch] [ebp-8h]
-	unsigned __int8 v8; // [esp+10h] [ebp-4h]
+	uint8_t colour; // [esp+10h] [ebp-4h]
 
-	v8 = (*xadataclrd0dat.colorPalette_var28)[0];
+	colour = (*xadataclrd0dat.colorPalette_var28)[0];
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 	{
 		if (!x_D41A0_BYTEARRAY_4_struct.byteindex_206)
 		{
-			GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &heigth);
-			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[174]);//Save Dialog
+			GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &heigth, scale);
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[174], scale);//Save Dialog
 			posY += heigth;
-			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[175]);//Load Dialog
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[175], scale);//Load Dialog
 			if (!x_D41A0_BYTEARRAY_4_struct.byteindex_208)
 			{
 				v1 = 0;
 				while (v1 < 2)
 				{
 					v1++;
-					ColorizeScreen_2E790(posX, posY, width - 2, heigth, v8);//Shade Load Dialog
+					ColorizeScreen_2E790(posX, posY, width - 2, heigth, colour);//Shade Load Dialog
 				}
 			}
 			posY += heigth;
-			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176]);//Sound button
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176], scale);//Sound button
 			if (!soundAble_E3798)
 			{
 				v2 = 0;
@@ -28190,12 +28190,12 @@ void DrawPauseMenu_2FD90()//210d90
 					ColorizeScreen_2E790(
 						posX,
 						posY,
-						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4,
-						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].height_5,
-						v8);
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4 * scale,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].height_5 * scale,
+						colour);
 				}
 			}
-			sub_2BB40_draw_bitmap(posX + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177]);//Music button
+			sub_2BB40_draw_bitmap(posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4 * scale), posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177], scale);//Music button
 			if (!musicAble_E37FC)
 			{
 				v3 = 0;
@@ -28207,11 +28207,11 @@ void DrawPauseMenu_2FD90()//210d90
 						posY,
 						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177].width_4,
 						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177].height_5,
-						v8);
+						colour);
 				}
 			}
 			posY += heigth;
-			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178]);//Settings button
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178], scale);//Settings button
 			set_scene(SCENE_FLIGHT_MENU);
 		}
 		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
@@ -28222,7 +28222,7 @@ void DrawPauseMenu_2FD90()//210d90
 			|| unk_18058Cstr.x_WORD_1805C2_joystick == 11
 			|| unk_18058Cstr.x_WORD_1805C2_joystick == 5)
 		{
-			sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
+			sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E], scale);
 		}
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
 			sub_30870();
@@ -28231,16 +28231,16 @@ void DrawPauseMenu_2FD90()//210d90
 }
 
 //----- (0002FFE0) --------------------------------------------------------
-void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height)//210fe0
+void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height, uint8_t scale)//210fe0
 {
-	*width = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].width_4 + 2;
-	*height = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].height_5;
+	*width = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].width_4 * scale) + (2 * scale);
+	*height = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178].height_5 * scale);
 	int32_t locHeight = (400 - 4 * *height) / 2 - 60;
 	int32_t locWidth = (640 - *width) / 2;
 	if (x_WORD_180660_VGA_type_resolution != 1)
 		if (!DefaultResolutions())
 		{
-			locHeight = (screenHeight_180624 - 4 * *height) / 2 - 60;
+			locHeight = ((screenHeight_180624 - (4 * *height)) / 2) - (60 * scale);
 			locWidth = (screenWidth_18062C - *width) / 2;
 		}
 
