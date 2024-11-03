@@ -12183,7 +12183,9 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 		sub_19A50();
 		return;
 	}
-	v0 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) - (82 * scale)) / 2;
+
+	//Ok button
+	v0 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (82 * scale)) / 2;
 	if (v0 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && v0 + (82 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (377 * scale) && unk_18058Cstr.x_DWORD_1805B0_mouse.y < (395 * scale)
 		|| LastPressedKey_1806E4 == 0x1c
 		|| LastPressedKey_1806E4 == 0x20)
@@ -12201,6 +12203,8 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 	v1 = 0;
 	v2 = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
 	v3 = (67 * scale);
+
+	//Menu Options
 	do
 	{
 		if (v2 <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
