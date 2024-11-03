@@ -594,7 +594,7 @@ void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox);
 void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox);
 void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text);
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
-void DrawVolumeSettings_303D0();
+void DrawVolumeSettings_303D0(uint8_t scale = 1);
 
 void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
 void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);

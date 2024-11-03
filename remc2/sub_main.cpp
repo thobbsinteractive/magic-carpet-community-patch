@@ -26546,7 +26546,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawInGameOptionsMenu_30050(scale);
 				break;
 			case 10:
-				DrawVolumeSettings_303D0();
+				DrawVolumeSettings_303D0(scale);
 				goto LABEL_41;
 			case 13:
 				DrawOkCancelMenu_30A60(132, 50, scale);
@@ -28419,7 +28419,7 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 }
 
 //----- (000303D0) --------------------------------------------------------
-void DrawVolumeSettings_303D0()//2113d0
+void DrawVolumeSettings_303D0(uint8_t scale)//2113d0
 {
 	int16_t height;
 	int16_t width;
@@ -28432,7 +28432,7 @@ void DrawVolumeSettings_303D0()//2113d0
 	unsigned __int8 color2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
 	unsigned __int8 color3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
 
-	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
 	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
 	case 1:
@@ -28444,23 +28444,23 @@ void DrawVolumeSettings_303D0()//2113d0
 		index = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
 		break;
 	}
-	width -= 2;
+	width -= (2 * scale);
 	posY += 4 * height;
-	DrawLine_2BC80(posX, posY, width, 24, color1);
-	DrawLine_2BC80(posX, posY, width, 2, color2);
-	DrawLine_2BC80(posX, posY + 22, width, 2, color3);
-	DrawLine_2BC80(posX, posY, 2, 22, color2);
-	DrawLine_2BC80(width + posX - 2, posY, 2, 24, color3);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 16, color1);
-	DrawLine_2BC80(posX + 4, posY + 4, width - 8, 2, color3);
-	DrawLine_2BC80(posX + 4, posY + 18, width - 8, 2, color2);
-	DrawLine_2BC80(posX + 4, posY + 4, 2, 14, color3);
-	DrawLine_2BC80(posX + 4 + width - 8 - 2, posY + 4, 2, 16, color2);
-	posY += 6;
-	posX += 6;
-	DrawLine_2BC80(posX, posY, width - 12, 12, (*xadataclrd0dat.colorPalette_var28)[0]);
+	DrawLine_2BC80(posX, posY, width, (24 * scale), color1);
+	DrawLine_2BC80(posX, posY, width, (2 * scale), color2);
+	DrawLine_2BC80(posX, posY + (22 * scale), width, (2 * scale), color3);
+	DrawLine_2BC80(posX, posY, (2 * scale), (22 * scale), color2);
+	DrawLine_2BC80(width + posX - (2 * scale), posY, (2 * scale), (24 * scale), color3);
+	DrawLine_2BC80(posX + (4 * scale), posY + (4 * scale), width - (8 * scale), (16 * scale), color1);
+	DrawLine_2BC80(posX + (4 * scale), posY + (4 * scale), width - (8 * scale), (2 * scale), color3);
+	DrawLine_2BC80(posX + (4 * scale), posY + (18 * scale), width - (8 * scale), (2 * scale), color2);
+	DrawLine_2BC80(posX + (4 * scale), posY + (4 * scale), (2 * scale), (14 * scale), color3);
+	DrawLine_2BC80(posX + (4 * scale) + width - (8 * scale) - (2 * scale), posY + (4 * scale), (2 * scale), (16 * scale), color2);
+	posY += (6 * scale);
+	posX += (6 * scale);
+	DrawLine_2BC80(posX, posY, width - (12 * scale), (12 * scale), (*xadataclrd0dat.colorPalette_var28)[0]);
 	if (volume > 0) {
-		DrawLine_2BC80(posX, posY, (index * (width - 12)) / volume, 12, (*xadataclrd0dat.colorPalette_var28)[240]);
+		DrawLine_2BC80(posX, posY, (index * (width - (12 * scale))) / volume, (12 * scale), (*xadataclrd0dat.colorPalette_var28)[240]);
 	}
 }
 
