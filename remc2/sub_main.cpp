@@ -948,7 +948,7 @@ char sub_18DA0(type_event_0x6E8E* a1, char a2, char a3);
 void sub_18F80(type_event_0x6E8E* a1);
 void HandleButtonClick_191B0(__int16 a1, char a2);
 void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3);
-void PauseMenuEvents_197F0();
+void ReadPauseMenuEvents_197F0();
 void sub_19A50();
 void sub_19A70();
 void ReadOptionMenuEvents_19AB0();
@@ -10950,7 +10950,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			if (D41A0_0.array_0x6E3E[D41A0_0.LevelIndex_0xc].str_0x6E3E_byte0)
 				goto LABEL_292;
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-				PauseMenuEvents_197F0();
+				ReadPauseMenuEvents_197F0();
 			sub_17190_process_keyboard();//test FnX
 			//v5 = x_D41A0_BYTEARRAY_0;
 			//v6 = D41A0_BYTESTR_0.word_0xc;
@@ -11394,7 +11394,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 		case 7:
 			v24x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-				PauseMenuEvents_197F0();
+				ReadPauseMenuEvents_197F0();
 			sub_17190_process_keyboard();
 			if (unk_18058Cstr.x_DWORD_18059C & 1 && unk_18058Cstr.x_DWORD_18059C & 2 || LastPressedKey_1806E4 == x_BYTE_EB39E_keys[4] || v24x->life_0x8 < 0)
 			{
@@ -12036,7 +12036,7 @@ void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3)//1fa7
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
 
 //----- (000197F0) --------------------------------------------------------
-void PauseMenuEvents_197F0()//1fa7f0
+void ReadPauseMenuEvents_197F0()//1fa7f0
 {
 	char v1; // bl
 	signed int v2; // ebx
@@ -12047,6 +12047,14 @@ void PauseMenuEvents_197F0()//1fa7f0
 	int16_t height; // [esp+4h] [ebp-Ch]
 	int16_t posX;
 	int16_t posY; // [esp+Ch] [ebp-4h]
+
+	uint8_t scale = 1;
+
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			scale = gameUiScale;
+		}
 
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 	{
@@ -12064,7 +12072,7 @@ void PauseMenuEvents_197F0()//1fa7f0
 			}
 			if (!x_D41A0_BYTEARRAY_4_struct.byteindex_206)
 			{
-				GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
+				GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
 				if (unk_18058Cstr.x_DWORD_1805B0_mouse.x >= posX && posX + width > unk_18058Cstr.x_DWORD_1805B0_mouse.x)
 				{
 					v2 = -1;
@@ -42021,7 +42029,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 	}
 
 	case 0x1fa7f0: {
-		PauseMenuEvents_197F0();
+		ReadPauseMenuEvents_197F0();
 		break;
 	}
 	case 0x1faa50: {
