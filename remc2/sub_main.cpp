@@ -12163,9 +12163,9 @@ void sub_19A70()//1faa70
 void ReadOptionMenuEvents_19AB0()//1faab0
 {
 	int okayBtnPosX; // eax
+	int okayBtnPosY = 377;
 	int menuBtnPosX; // edx
-	int menuBtnPosY; // eax
-
+	int menuBtnPosY = 67; // eax
 	int helpWidth = 640;
 	uint8_t scale = 1;
 
@@ -12174,6 +12174,8 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 		{
 			helpWidth = screenWidth_18062C;
 			scale = gameUiScale;
+			menuBtnPosY = (screenHeight_180624 / 2) - ((17 * (18 * scale)) / 2);
+			okayBtnPosY = menuBtnPosY + ((18 * scale) * 17) + 4;
 		}
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
@@ -12193,7 +12195,7 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 
 	//Ok button
 	okayBtnPosX = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (82 * scale)) / 2;
-	if (okayBtnPosX <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && okayBtnPosX + (82 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (377 * scale) && unk_18058Cstr.x_DWORD_1805B0_mouse.y < (395 * scale)
+	if (okayBtnPosX <= unk_18058Cstr.x_DWORD_1805B0_mouse.x && okayBtnPosX + (82 * scale) > unk_18058Cstr.x_DWORD_1805B0_mouse.x && unk_18058Cstr.x_DWORD_1805B0_mouse.y >= okayBtnPosY && unk_18058Cstr.x_DWORD_1805B0_mouse.y < (okayBtnPosY + (18 * scale))
 		|| LastPressedKey_1806E4 == 0x1c
 		|| LastPressedKey_1806E4 == 0x20)
 	{
@@ -12210,7 +12212,6 @@ void ReadOptionMenuEvents_19AB0()//1faab0
 
 	int btnIndex = 0;
 	menuBtnPosX = (helpWidth - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
-	menuBtnPosY = (67 * scale);
 
 	//Menu Options
 	do
@@ -28281,13 +28282,13 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 	int v19; // [esp+14h] [ebp-Ch]
 	int v20; // [esp+18h] [ebp-8h]
 	int v21; // [esp+1Ch] [ebp-4h]
+	int okayBtnPosY = 377;
+	int menuBtnPosY = 67;
 
 	//fix
 	v9 = 0;
 	v10 = 0;
 	//fix
-
-	int optionMenuYPos = (67 * scale);
 	v1 = 0;
 	
 	int optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
@@ -28295,6 +28296,8 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 		if (!DefaultResolutions())
 		{
 			optionMenuXPos = (screenWidth_18062C - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
+		    menuBtnPosY = (screenHeight_180624 / 2) - ((17 * (18 * scale)) / 2);
+			okayBtnPosY = menuBtnPosY + ((18 * scale) * 17) + (4 * scale);
 		}
 
 	while (1)
@@ -28327,20 +28330,20 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 		v5 = optionMenuXPos + v4 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170].width_4 * scale);
 		v17 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169].width_4 * scale;
 		v20 = v5;
-		sub_2BB40_draw_bitmap(optionMenuXPos, optionMenuYPos, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168], scale);
+		sub_2BB40_draw_bitmap(optionMenuXPos, menuBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168], scale);
 		v6 = v16;
-		sub_2BB40_draw_bitmap(v20, optionMenuYPos, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
+		sub_2BB40_draw_bitmap(v20, menuBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
 		while (v6 < v20)
 		{
-			sub_2BB40_draw_bitmap(v6, optionMenuYPos, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
+			sub_2BB40_draw_bitmap(v6, menuBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
 			v6 += v17;
 		}
 		if (v19 & x_D41A0_BYTEARRAY_4_struct.dwordindex_192)
 		{
 			if (optionMenuXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x
 				|| optionMenuXPos + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
-				|| optionMenuYPos > unk_18058Cstr.x_DWORD_1805B0_mouse.y
-				|| optionMenuYPos + (18 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
+				|| menuBtnPosY > unk_18058Cstr.x_DWORD_1805B0_mouse.y
+				|| menuBtnPosY + (18 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
 			{
 				textColour = (*xadataclrd0dat.colorPalette_var28)[4095];
 			}
@@ -28353,8 +28356,8 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 		{
 			textColour = (*xadataclrd0dat.colorPalette_var28)[0x888];
 		}
-		DrawText_2BC10((char*)v18, optionMenuXPos + (((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (8 * scale) * strlen(v18)) >> 1), optionMenuYPos + (2 * scale), textColour, scale);
-		optionMenuYPos += (18 * scale);
+		DrawText_2BC10((char*)v18, optionMenuXPos + (((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (8 * scale) * strlen(v18)) >> 1), menuBtnPosY + (2 * scale), textColour, scale);
+		menuBtnPosY += (18 * scale);
 		v1 = v21 + 1;
 	}
 
@@ -28379,12 +28382,12 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 	v16 = okayBtnXPos + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168].width_4 * scale;
 	v9 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169].width_4 * scale;
 	v20 = okayBtnXPos + (82 * scale) - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170].width_4 * scale;
-	sub_2BB40_draw_bitmap(okayBtnXPos, (377 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168], scale);
+	sub_2BB40_draw_bitmap(okayBtnXPos, okayBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168], scale);
 	v10 = v16;
-	sub_2BB40_draw_bitmap(v20, (377 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
+	sub_2BB40_draw_bitmap(v20, okayBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
 	while (v10 < v20)
 	{
-		sub_2BB40_draw_bitmap(v10, (377 * scale), (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
+		sub_2BB40_draw_bitmap(v10, okayBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
 		v10 += v9;
 	}
 
@@ -28395,13 +28398,13 @@ void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
 			okayBtnTextXPos = (screenWidth_18062C - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (82 * scale)) / 2;
 		}
 
-	if (okayBtnTextXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x || okayBtnTextXPos + (82 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.x || unk_18058Cstr.x_DWORD_1805B0_mouse.y < (377 * scale) || unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (395 * scale))
+	if (okayBtnTextXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x || okayBtnTextXPos + (82 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.x || unk_18058Cstr.x_DWORD_1805B0_mouse.y < okayBtnPosY || unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (okayBtnPosY + (18 * scale)))
 		v12 = (*xadataclrd0dat.colorPalette_var28)[4095];
 	else
 		v12 = (*xadataclrd0dat.colorPalette_var28)[3840];
 		
 	if ((!DefaultResolutions())&& (x_WORD_180660_VGA_type_resolution != 1))
-		DrawText_2BC10((char*)"OK", okayBtnTextXPos + (33 * scale), (379 * scale), v12, scale);
+		DrawText_2BC10((char*)"OK", okayBtnTextXPos + (33 * scale), okayBtnPosY + (2 * scale), v12, scale);
 	else
 		DrawText_2BC10((char*)"OK", (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - 82) / 2 + 33, 379, v12);	
 
