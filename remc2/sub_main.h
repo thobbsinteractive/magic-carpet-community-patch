@@ -30,6 +30,7 @@
 #include "engine/GameRenderGL.h"
 #include "engine/GameBitmap.h"
 #include "engine/GameBitmapIndexes.h"
+#include "engine/GameUiConstants.h"
 
 #include "engine/Terrain.h"
 

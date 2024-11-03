@@ -82,6 +82,7 @@ set(SOURCE_FILES_ENGINE
     "engine/GameBitmap.cpp"
     "engine/GameBitmap.h"
     "engine/GameBitmapIndexes.h"
+    "engine/GameUiConstants.h"
     "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"

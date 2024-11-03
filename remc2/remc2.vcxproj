@@ -349,6 +349,7 @@
     <ClInclude Include="engine\CommandLineParser.h" />
     <ClInclude Include="engine\Compare.h" />
     <ClInclude Include="engine\GameBitmap.h" />
+    <ClInclude Include="engine\GameUiConstants.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
