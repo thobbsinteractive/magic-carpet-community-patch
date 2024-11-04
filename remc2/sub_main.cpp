@@ -1264,7 +1264,7 @@ void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 //void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr);
 void sub_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY);
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
 //void sub_2EB60();
@@ -26559,7 +26559,7 @@ void DrawGameFrame_2BE30()//20CE30
 				DrawPauseMenu_2FD90(scale);
 				break;
 			}
-			DrawTextPauseEndOfLevel_2CE30(132, 50);
+			DrawTextPauseEndOfLevel_2CE30(132 * scale, 50 * scale, scale);
 			if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 5)
 				DrawBottomMenu_2ECC0();
 		}
@@ -26821,7 +26821,7 @@ void DrawGameFrame_2BE30()//20CE30
 }
 
 //----- (0002CE30) --------------------------------------------------------
-void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY)//20de30
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//20de30
 {
 	int16_t textPosX;
 	int16_t textPosY;
@@ -26854,8 +26854,8 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY)//20de30
 	{
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
 		{
-			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], posX, posY, (*xadataclrd0dat.colorPalette_var28)[240]);//Paused!
-			textPosX = 8 * (strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) + posX;//Paused!
+			DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[425], posX, posY, (*xadataclrd0dat.colorPalette_var28)[240], scale);//Paused!
+			textPosX = (8 * scale) * ((strlen((const char*)x_DWORD_E9C4C_langindexbuffer[425]) + 2) * scale) + posX;//Paused!
 		}
 
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
@@ -28191,7 +28191,7 @@ void DrawPauseMenu_2FD90(uint8_t scale)//210d90
 				}
 			}
 			posY += heigth;
-			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176], scale);//Sound button
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON], scale);//Sound button
 			if (!soundAble_E3798)
 			{
 				v2 = 0;
@@ -28201,12 +28201,12 @@ void DrawPauseMenu_2FD90(uint8_t scale)//210d90
 					ColorizeScreen_2E790(
 						posX,
 						posY,
-						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4 * scale,
-						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].height_5 * scale,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON].width_4 * scale,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON].height_5 * scale,
 						colour);
 				}
 			}
-			sub_2BB40_draw_bitmap(posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4 * scale), posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177], scale);//Music button
+			sub_2BB40_draw_bitmap(posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].width_4 * scale), posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON], scale);//Music button
 			if (!musicAble_E37FC)
 			{
 				v3 = 0;
@@ -28214,10 +28214,10 @@ void DrawPauseMenu_2FD90(uint8_t scale)//210d90
 				{
 					v3++;
 					ColorizeScreen_2E790(
-						posX + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[176].width_4,
+						posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].width_4 * scale),
 						posY,
-						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177].width_4,
-						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[177].height_5,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].width_4 * scale,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].height_5 * scale,
 						colour);
 				}
 			}

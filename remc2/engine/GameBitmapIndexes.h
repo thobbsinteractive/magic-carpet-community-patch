@@ -14,5 +14,7 @@ const uint16_t HEALTH_PANEL_HIT = 55;
 const uint16_t EDGE_PANEL = 88;
 const uint16_t SPELL_ICON_PANEL = 89;
 const uint16_t SPELL_ICON_FRAME = 90;
+const uint16_t SOUND_ICON = 176;
+const uint16_t MUSIC_ICON = 177;
 
 #endif //GAME_BITMAP_INDEXES
