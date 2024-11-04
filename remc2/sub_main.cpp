@@ -950,7 +950,7 @@ void HandleButtonClick_191B0(__int16 a1, char a2);
 void sub_19760_set_message(const char* a1, unsigned __int8 a2, __int16 a3);
 void ReadPauseMenuEvents_197F0();
 void sub_19A50();
-void sub_19A70();
+void HandleOptionsMenuButtonClick_19A70();
 void ReadOptionMenuEvents_19AB0();
 void ChangeSoundLevel_19CA0(uint8_t option);
 // int SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, int a2);
@@ -11075,7 +11075,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 					}
 					else if (LastPressedKey_1806E4 == 0x20)//d
 					{
-						sub_19A70();
+						HandleOptionsMenuButtonClick_19A70();
 						LastPressedKey_1806E4 = 0;
 					}
 				}
@@ -11449,7 +11449,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			}
 			if (LastPressedKey_1806E4 == 0x20)
 			{
-				sub_19A70();
+				HandleOptionsMenuButtonClick_19A70();
 				LastPressedKey_1806E4 = 0;
 			}
 			if (!pressedKeys_180664[47] || x_D41A0_BYTEARRAY_4_struct.byte_38591)
@@ -12129,7 +12129,7 @@ void ReadPauseMenuEvents_197F0()//1fa7f0
 								sub_19A50();
 								return;
 							case 4:
-								sub_19A70();
+								HandleOptionsMenuButtonClick_19A70();
 								break;
 							default:
 								break;
@@ -12151,7 +12151,7 @@ void sub_19A50()//1faa50
 }
 
 //----- (00019A70) --------------------------------------------------------
-void sub_19A70()//1faa70
+void HandleOptionsMenuButtonClick_19A70()//1faa70
 {
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 > 8u)
 		HandleButtonClick_191B0(20, 9);
