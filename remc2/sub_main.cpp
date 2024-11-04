@@ -2225,7 +2225,7 @@ void sub_87090();
 char sub_871E0();
 void sub_872A0();
 void sub_87580();
-void sub_87860();
+void DrawPauseMenuPopUps_87860();
 void sub_87970();
 void sub_87A30();
 void sub_87B30();
@@ -76579,7 +76579,7 @@ void DrawHelpPopUps_871F0()//2681f0
 			}
 			if (str_unk_1804B0ar.byte_0x9f & 0x20)
 			{
-				sub_87860();
+				DrawPauseMenuPopUps_87860();
 				return;
 			}
 		}
@@ -76826,7 +76826,7 @@ void DrawGameHelp_87610()//268610
 }
 
 //----- (00087860) --------------------------------------------------------
-void sub_87860()//268860
+void DrawPauseMenuPopUps_87860()//268860
 {
 	if (str_unk_1804B0ar.byte_0xaa >= 0)
 	{
