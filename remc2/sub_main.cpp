@@ -2235,9 +2235,9 @@ void sub_87BE0();
 void sub_87C10();
 void sub_87CF0();
 int sub_88450();
-void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5);
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5);
 void sub_88580();
-void sub_885E0(type_event_0x6E8E* a1, int a2, int a3, unsigned __int16 a4);
+void sub_885E0(type_event_0x6E8E* a1, int16_t posX, int16_t posY, unsigned __int16 a4);
 void sub_889F0(uint16_t a1);
 void sub_88B20();
 void sub_88B60();
@@ -76681,7 +76681,7 @@ void sub_87580()//268580
 	sub_87BE0();
 	if (str_unk_1804B0ar.byte_0x9f & 0x4)
 	{
-		sub_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0);
+		SetHelpPopupTextAndCoords_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0);
 	}
 	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
 	{
@@ -76695,7 +76695,7 @@ void sub_87580()//268580
 	{
 		sub_87CF0();
 		int v0 = sub_88450();
-		sub_884D0(v0, 1, &str_E2A74[v0].axis_2[1], ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
+		SetHelpPopupTextAndCoords_884D0(v0, 1, &str_E2A74[v0].axis_2[1], ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
 	}
 }
 
@@ -77402,13 +77402,13 @@ int sub_88450()//269450
 // 180538: using guessed type __int16 x_WORD_180538;
 
 //----- (000884D0) --------------------------------------------------------
-void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5)//2694d0
 {
-	if (a1)
+	if (helpIdx)
 	{
-		str_unk_1804B0ar.dword_0x7a = str_E2A74[a1].axis_2[2];
+		str_unk_1804B0ar.dword_0x7a = str_E2A74[helpIdx].axis_2[2];
 		str_unk_1804B0ar.drawTextType_0xa3 = a4;
-		str_unk_1804B0ar.word_0x86 = a1;
+		str_unk_1804B0ar.word_0x86 = helpIdx;
 		str_unk_1804B0ar.byte_0x9e |= 8;
 		str_unk_1804B0ar.byte_0xa1 = a5;
 		str_unk_1804B0ar.dword_0x76 = 0;
@@ -77425,12 +77425,12 @@ void sub_884D0(int a1, __int16 a2, int16_t* a3x, char a4, char a5)//2694d0
 			}
 		}
 
-		str_E2A74[a1].axis_2[0] |= 3;
-		if (str_E2A74[a1].axis_2[0] & 8)
+		str_E2A74[helpIdx].axis_2[0] |= 3;
+		if (str_E2A74[helpIdx].axis_2[0] & 8)
 		{
 			str_unk_1804B0ar.byte_0x9e |= 0x20;
 		}
-		else if (str_E2A74[a1].axis_2[0] & 0x10)
+		else if (str_E2A74[helpIdx].axis_2[0] & 0x10)
 		{
 			str_unk_1804B0ar.byte_0x9f |= 1u;
 		}
@@ -77471,7 +77471,7 @@ void sub_88580()//269580
 int debugcounter_2695e0 = 0;
 
 //----- (000885E0) --------------------------------------------------------
-void sub_885E0(type_event_0x6E8E* a1x, int a2, int a3, unsigned __int16 a4)//2695e0
+void sub_885E0(type_event_0x6E8E* a1x, int16_t posX, int16_t posY, unsigned __int16 a4)//2695e0
 {
 	signed int v4; // eax
 	int v5; // edx
@@ -77497,8 +77497,8 @@ void sub_885E0(type_event_0x6E8E* a1x, int a2, int a3, unsigned __int16 a4)//269
 		{
 			if (x_WORD_180660_VGA_type_resolution & 1)
 			{
-				a2 *= 2;
-				a3 *= 2;
+				posX *= 2;
+				posY *= 2;
 			}
 			//LOBYTE(v4) = a4;
 			//v6 = 30 * (signed __int16)a4;
@@ -77507,11 +77507,11 @@ void sub_885E0(type_event_0x6E8E* a1x, int a2, int a3, unsigned __int16 a4)//269
 				if (a1x == str_E2A74[a4].dword_12 && !(*(int16_t*)&str_unk_1804B0ar.byte_0x9e & 0x20))
 				{
 					//v9 = array_E2A74[0x2 + 30 * a4] | 0x10;
-					str_E2A74[a4].axis_2[3] = a2;
+					str_E2A74[a4].axis_2[3] = posX;
 					str_E2A74[a4].axis_2[0] |= 0x10;
 					//LOBYTE(v4) = a3;
 					//v10 = HIBYTE(*(int16_t*)&str_unk_1804B0ar.byte_0x9e) | 2;
-					str_E2A74[a4].axis_2[4] = a3;
+					str_E2A74[a4].axis_2[4] = posY;
 					str_unk_1804B0ar.byte_0x9f |= 2;
 				}
 			}
@@ -77931,7 +77931,7 @@ void GetSpellHelpCoordinates_88D40()
 				str_unk_1804B0ar.byte_0xa4 = 0;
 		}
 		if (hintIndex)
-			sub_884D0(hintIndex, typeC, hintText, typeA, typeB);
+			SetHelpPopupTextAndCoords_884D0(hintIndex, typeC, hintText, typeA, typeB);
 	}
 }
 
@@ -77968,7 +77968,7 @@ void sub_89360()//26a360
 	}
 	if (v1)
 	{
-		sub_884D0(v1, 1, &str_E2A74[v1].axis_2[1], 2, 0);
+		SetHelpPopupTextAndCoords_884D0(v1, 1, &str_E2A74[v1].axis_2[1], 2, 0);
 	}
 }
 
