@@ -71,6 +71,7 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
     "engine/TextureMaps.h"
+    "engine/HelpPopupIndexes.h"
     "engine/GameRenderOriginal.cpp"
     "engine/GameRenderOriginal.h"
     "engine/GameRenderNG.cpp"

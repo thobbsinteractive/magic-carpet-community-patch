@@ -31,6 +31,7 @@
 #include "engine/GameBitmap.h"
 #include "engine/GameBitmapIndexes.h"
 #include "engine/GameUiConstants.h"
+#include "engine/HelpPopupIndexes.h"
 
 #include "engine/Terrain.h"
 

@@ -2235,7 +2235,7 @@ void sub_87BE0();
 void sub_87C10();
 void sub_87CF0();
 int16_t GetHelpPopupIndex_88450();
-void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5, uint8_t scale = 1);
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
 void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
 void sub_88580();
 void sub_885E0(type_event_0x6E8E* a1, int16_t posX, int16_t posY, unsigned __int16 a4);
@@ -77409,7 +77409,7 @@ int16_t GetHelpPopupIndex_88450()//269450
 // 180538: using guessed type __int16 x_WORD_180538;
 
 //----- (000884D0) --------------------------------------------------------
-void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5, uint8_t scale)//2694d0
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale)//2694d0
 {
 	if (helpIdx)
 	{
@@ -77421,14 +77421,16 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, 
 		str_unk_1804B0ar.dword_0x76 = 0;
 		str_unk_1804B0ar.byte_0xa0 = a2;
 		for (int i = 0; i < a2; i++)
-			str_unk_1804B0ar.uni_0x8a.word[i + 2] = a3x[i];
+			str_unk_1804B0ar.uni_0x8a.word[i + 2] = popupSrcPos[i];
 
 		if (!DefaultResolutions())
 		{
-			if ((str_E2A74[10].axis_2[1] == a3x[0]) || (str_E2A74[11].axis_2[1] == a3x[0]) || (str_E2A74[12].axis_2[1] == a3x[0]) ||
-				(str_E2A74[38].axis_2[1] == a3x[0]) || (str_E2A74[39].axis_2[1] == a3x[0]) || (str_E2A74[40].axis_2[1] == a3x[0]))
+			if ((str_E2A74[10].axis_2[1] == popupSrcPos[0]) || (str_E2A74[11].axis_2[1] == popupSrcPos[0]) || (str_E2A74[12].axis_2[1] == popupSrcPos[0]) ||
+				(str_E2A74[38].axis_2[1] == popupSrcPos[0]) || (str_E2A74[39].axis_2[1] == popupSrcPos[0]) || (str_E2A74[40].axis_2[1] == popupSrcPos[0]))
 			{
-				a3x[2] += screenWidth_18062C - 640;
+				int posXFromRight = (640 - popupSrcPos[2]) * scale;
+				popupSrcPos[2] = screenWidth_18062C - posXFromRight;
+				popupSrcPos[3] *= scale;
 			}
 		}
 
@@ -77441,7 +77443,14 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, 
 		{
 			str_unk_1804B0ar.byte_0x9f |= 1u;
 		}
+
+		if (helpIdx == POPUP_YOU_ARE_HERE)
+		{
+			popupSrcPos[2] *= scale;
+			popupSrcPos[3] *= scale;
 	}
+
+}
 }
 
 //----- (00088580) --------------------------------------------------------
