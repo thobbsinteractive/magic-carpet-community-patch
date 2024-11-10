@@ -2221,12 +2221,12 @@ void sub_86EA0(/*int a1, int a2, int a3*/uint32_t user);
 void sub_86F20(char a1);
 void sub_86F70_sound_proc12(unsigned __int8 a1, __int16 a2, __int16 a3);
 void sub_86FF0(unsigned __int8 a1, __int16 a2, __int16 a3);
-void sub_87090();
+void SetTextboxMinMaxSizes_87090();
 char sub_871E0();
 void sub_872A0();
 void sub_87580();
 void DrawPauseMenuPopUps_87860();
-void sub_87970();
+void SetPauseMenuCoordinates_87970();
 void sub_87A30();
 void sub_87B30();
 void sub_87B70();
@@ -11557,7 +11557,7 @@ void sub_18AA0()//1f9aa0
 	}
 	else
 	{
-		sub_87090();
+		SetTextboxMinMaxSizes_87090();
 		if (str_unk_1804B0ar.byte_0xa2)
 		{
 			//result = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
@@ -57727,7 +57727,7 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;
 	if (v6 >= v7)
 		x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v7 - 1;
-	sub_87090();
+	SetTextboxMinMaxSizes_87090();
 	if (str_unk_1804B0ar.byte_0xa2)
 		x_D41A0_BYTEARRAY_4_struct.showHelp_10 = 1;
 	//sub_2CA90(x_D41A0_BYTEARRAY_0[8589]);//268090//0x218d
@@ -76843,7 +76843,7 @@ void DrawPauseMenuPopUps_87860()//268860
 {
 	if (str_unk_1804B0ar.byte_0xaa >= 0)
 	{
-		sub_87970();
+		SetPauseMenuCoordinates_87970();
 		//Options | Load Level | Save Level | Music Volume | Sound Volume
 		str_unk_1804B0ar.type_sub_0[1].lineX1_0x1c = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[3];
 		str_unk_1804B0ar.type_sub_0[1].lineY1_0x1e = str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[4];
@@ -76863,14 +76863,21 @@ void DrawPauseMenuPopUps_87860()//268860
 }
 
 //----- (00087970) --------------------------------------------------------
-void sub_87970()//268970
+void SetPauseMenuCoordinates_87970()//268970
 {
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+{
+		scale = gameUiScale;
+	}
+
 	int16_t height; // [esp+0h] [ebp-10h]
 	int16_t width; // [esp+4h] [ebp-Ch]
 	int16_t posY; // [esp+8h] [ebp-8h]
 	int16_t posX; // [esp+Ch] [ebp-4h]
 
-	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
 	str_E2A74[0x56].axis_2[3] = width + posX - 12;//0x56 tj 0xa14 8
 	str_E2A74[0x56].axis_2[4] = posY + 6;//0x56 tj 0xa14 a
 	str_E2A74[0x57].axis_2[3] = width + posX - 12;//0x57 tj 0xa32 8
