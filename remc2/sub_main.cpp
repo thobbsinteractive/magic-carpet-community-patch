@@ -76594,6 +76594,12 @@ void sub_872A0()//2682a0
 	char v3; // dh
 	int v5; // edx
 	int v7; // eax
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
 
 	v1 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 	v2x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
@@ -76621,7 +76627,7 @@ void sub_872A0()//2682a0
 			if ((unsigned __int8)str_unk_1804B0ar.byte_0xa4 > 1u || !v2x->dword_0xA4_164x->str_611.array_0x333_819x.word[v7] || !isCaveLevel_D41B6 && v7 == 25)
 				sub_87C10();
 			str_unk_1804B0ar.byte_0xa4 = 0;
-			SetSpellHelpPopupCoordinates_88D40();
+			SetSpellHelpPopupCoordinates_88D40(scale);
 			str_unk_1804B0ar.dword_0x76 = 0;
 		}
 		str_unk_1804B0ar.byte_0xa5 = v2x->dword_0xA4_164x->str_611.byte_0x458_1112;
@@ -77801,44 +77807,45 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 		if ((x_WORD_180660_VGA_type_resolution & 1) != 0)
 			maxScreenHeight = 400;
 		else
+		{
 			maxScreenHeight = 480;
-		sizeFromYEnd = maxScreenHeight - 2 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5;
+			if (!DefaultResolutions())
+				maxScreenHeight = screenHeight_180624;
+		}
+		sizeFromYEnd = maxScreenHeight - 2 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale);
 		spellIndex = x_BYTE_D94FF_spell_index[locEvent1->dword_0xA4_164x->str_611.byte_0x458_1112];
 		isStandardSpell = locEvent1->dword_0xA4_164x->str_611.array_0x333_819x.word[spellIndex] != 0;
 		if (D41A0_0.terrain_2FECE.MapType != MapType_t::Cave && spellIndex == 25)
 			isStandardSpell = false;
 		spellType = locEvent1->dword_0xA4_164x->str_611.array_0x41D_1053z.byte[spellIndex];
 		spellPos = locEvent1->dword_0xA4_164x->str_611.byte_0x458_1112;
-		posX1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 / 2 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * (spellPos % 13) + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4;
-		sizeFromYEndPlus = sizeFromYEnd - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5;
-		posY1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 / 2 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * (spellPos / 13) + sizeFromYEnd;
-		posX2 = posX1 - 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 / 2;
-		if (posX2 <= 640 - 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4)
+		posX1 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * scale) / 2 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].width_4 * scale) * (spellPos % 13) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[88].width_4 * scale);
+		sizeFromYEndPlus = sizeFromYEnd - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale);
+		posY1 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) / 2 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) * (spellPos / 13) + sizeFromYEnd;
+		posX2 = posX1 - 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2;
+		if (posX2 <= (640 * scale) - 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4) * scale)
 		{
 			if (posX2 < 0)
 				posX2 = 0;
 		}
 		else
 		{
-			posX2 = 640 - 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
+			posX2 = (640 * scale) - 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
 		}
 		bool endLoop = 0;
-		int posX3 = posX2 + 3 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 / 2;
+		int posX3 = posX2 + 3 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2;
 		if (!DefaultResolutions())
 		{
-			int xKoef = (screenWidth_18062C - 640) / 2;
-			int yKoef = screenHeight_180624 - 480;
+			int xKoef = (screenWidth_18062C - (640 * scale)) / 2;
 			posX3 += xKoef;
 			posX2 += xKoef;
 			posX1 += xKoef;
-			posY1 += yKoef;
-			sizeFromYEndPlus += yKoef;
 		}
 		for (int i = 0; i < 8 && !endLoop; i++)
 		{
 			typeA = 2;
 			typeC = 1;
-			posY2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 / 2 + sizeFromYEndPlus;
+			posY2 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale) / 2 + sizeFromYEndPlus;
 			switch (str_unk_1804B0ar.byte_0xa4)
 			{
 			case 0:
@@ -77862,10 +77869,10 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 					hintIndex = 69;
 					hintText[0] = str_E2A74[69].axis_2[1];
 					endLoop = true;
-					str_E2A74[69].axis_2[3] = posX2 + 33;
+					str_E2A74[69].axis_2[3] = posX2 + (33 * scale);
 					if (spellType > 0)
-						str_E2A74[69].axis_2[3] = posX2 + 33 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
-					str_E2A74[69].axis_2[4] = sizeFromYEndPlus + 29;
+						str_E2A74[69].axis_2[3] = posX2 + (33 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+					str_E2A74[69].axis_2[4] = sizeFromYEndPlus + (29 * scale);
 				}
 				break;
 			case 2:
@@ -77877,9 +77884,9 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 						{
 							hintIndex = 70;
 							hintText[0] = str_E2A74[70].axis_2[1];
-							str_E2A74[70].axis_2[3] = posX2 + j * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 / 2;
+							str_E2A74[70].axis_2[3] = posX2 + j * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2;
 							endLoop = true;
-							str_E2A74[70].axis_2[4] = sizeFromYEndPlus + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 / 2;
+							str_E2A74[70].axis_2[4] = sizeFromYEndPlus + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale) / 2;
 						}
 					}
 				}
@@ -77889,7 +77896,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 				{
 					hintIndex = 71;
 					hintText[0] = str_E2A74[71].axis_2[1];
-					str_E2A74[71].axis_2[3] = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 / 2 + posX2 + spellType * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
+					str_E2A74[71].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2) + posX2 + spellType * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
 					endLoop = true;
 					str_E2A74[71].axis_2[4] = posY2;
 				}
@@ -77902,7 +77909,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 						hintIndex = 40;
 						hintText[0] = str_E2A74[40].axis_2[1];
 						str_E2A74[40].axis_2[3] = posX1;
-						str_E2A74[40].axis_2[4] = posY1 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 - (my_sign32((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5) * 8)) >> 2;
+						str_E2A74[40].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale)) * 8)) >> 2;
 					}
 				}
 				break;
@@ -77911,7 +77918,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 				{
 					hintIndex = 42;
 					hintText[0] = str_E2A74[42].axis_2[1];
-					str_E2A74[42].axis_2[3] = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 / 2 + posX2 + locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4;
+					str_E2A74[42].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2) + posX2 + locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
 					endLoop = true;
 					str_E2A74[42].axis_2[4] = posY2;
 				}
@@ -77935,7 +77942,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 							hintIndex = 41;
 							hintText[0] = str_E2A74[41].axis_2[1];
 							str_E2A74[41].axis_2[3] = posX1;
-							str_E2A74[41].axis_2[4] = posY1 + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 - (my_sign32((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5) * 8)) >> 2;
+							str_E2A74[41].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale)) * 8)) >> 2;
 						}
 					}
 				}
