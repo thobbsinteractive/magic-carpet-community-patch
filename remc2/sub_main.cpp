@@ -2234,7 +2234,7 @@ void sub_87B70();
 void sub_87BE0();
 void sub_87C10();
 void sub_87CF0();
-int sub_88450();
+int16_t GetHelpPopupIndex_88450();
 void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5);
 void sub_88580();
 void sub_885E0(type_event_0x6E8E* a1, int16_t posX, int16_t posY, unsigned __int16 a4);
@@ -2243,7 +2243,7 @@ void sub_88B20();
 void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
-void GetSpellHelpCoordinates_88D40();
+void SetSpellHelpPopupCoordinates_88D40();
 void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
@@ -76621,7 +76621,7 @@ void sub_872A0()//2682a0
 			if ((unsigned __int8)str_unk_1804B0ar.byte_0xa4 > 1u || !v2x->dword_0xA4_164x->str_611.array_0x333_819x.word[v7] || !isCaveLevel_D41B6 && v7 == 25)
 				sub_87C10();
 			str_unk_1804B0ar.byte_0xa4 = 0;
-			GetSpellHelpCoordinates_88D40();
+			SetSpellHelpPopupCoordinates_88D40();
 			str_unk_1804B0ar.dword_0x76 = 0;
 		}
 		str_unk_1804B0ar.byte_0xa5 = v2x->dword_0xA4_164x->str_611.byte_0x458_1112;
@@ -76685,7 +76685,7 @@ void sub_87580()//268580
 	}
 	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
 	{
-		GetSpellHelpCoordinates_88D40();
+		SetSpellHelpPopupCoordinates_88D40();
 	}
 	else if (str_unk_1804B0ar.byte_0x9f & 0x8)
 	{
@@ -76694,8 +76694,8 @@ void sub_87580()//268580
 	else
 	{
 		sub_87CF0();
-		int v0 = sub_88450();
-		SetHelpPopupTextAndCoords_884D0(v0, 1, &str_E2A74[v0].axis_2[1], ((str_E2A74[v0].axis_2[0] & 4) == 0) + 1, 0);
+		int16_t helpIdx = GetHelpPopupIndex_88450();
+		SetHelpPopupTextAndCoords_884D0(helpIdx, 1, &str_E2A74[helpIdx].axis_2[1], ((str_E2A74[helpIdx].axis_2[0] & 4) == 0) + 1, 0);
 	}
 }
 
@@ -77320,7 +77320,7 @@ void sub_87CF0()//268cf0
 }
 
 //----- (00088450) --------------------------------------------------------
-int sub_88450()//269450
+int16_t GetHelpPopupIndex_88450()//269450
 {
 	signed int v0; // ebx
 	int v1; // edx
@@ -77334,8 +77334,8 @@ int sub_88450()//269450
 	uint8_t origbyte2y[100];
 	uint8_t remakebyte2y[100];
 	int remakepos2y[100];
-	int comp15 = compare_with_sequence((char*)"00269450", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_sub_88450, 0xb0, &origbyte2z, &remakebyte2z);
-	int comp16 = compare_with_sequence_array_E2A74((char*)"00269450-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_sub_88450, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
+	int comp15 = compare_with_sequence((char*)"00269450", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_GetHelpPopupIndex_88450, 0xb0, &origbyte2z, &remakebyte2z);
+	int comp16 = compare_with_sequence_array_E2A74((char*)"00269450-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_GetHelpPopupIndex_88450, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
 	//int comp16 = compare_with_sequence_array_E2A74((char*)"00269450", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter11, 0x1000, origbyte2y, remakebyte2y, remakepos2y);
 	//debugcounter_sub_87580++;
 	if (comp15 < 0xb0)
@@ -77343,9 +77343,9 @@ int sub_88450()//269450
 	if (comp16 < 0xc4e)
 		comp16 = comp16;*/
 
-		/*if (debugcounter_sub_88450 >= 0x10)
+		/*if (debugcounter_GetHelpPopupIndex_88450 >= 0x10)
 		{
-			//myprintf("i:%d,", debugcounter_sub_88450);
+			//myprintf("i:%d,", debugcounter_GetHelpPopupIndex_88450);
 		}*/
 
 	if (str_unk_1804B0ar.word_0x88)
@@ -77386,15 +77386,15 @@ int sub_88450()//269450
 		//v1 = v1;//fix
 	/*
 	//adress 2694bc
-	int comp17 = compare_with_sequence((char*)"002694BC", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_sub_88450, 0xb0, &origbyte2z, &remakebyte2z);
-	int comp18 = compare_with_sequence_array_E2A74((char*)"002694BC-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_sub_88450, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
+	int comp17 = compare_with_sequence((char*)"002694BC", (uint8_t*)unk_1804B0ar, 0x3514b0, debugcounter_GetHelpPopupIndex_88450, 0xb0, &origbyte2z, &remakebyte2z);
+	int comp18 = compare_with_sequence_array_E2A74((char*)"002694BC-2", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter_GetHelpPopupIndex_88450, 0xc4e, origbyte2y, remakebyte2y, remakepos2y);
 	//int comp16 = compare_with_sequence_array_E2A74((char*)"00269450", (uint8_t*)array_E2A74, 0x2b3a74, debugcounter11, 0x1000, origbyte2y, remakebyte2y, remakepos2y);
 	//debugcounter_sub_87580++;
 	if (comp17 < 0xb0)
 		comp17 = comp17;
 	if (comp18 < 0xc4e)
 		comp18 = comp18;
-	debugcounter_sub_88450++;*/
+	debugcounter_GetHelpPopupIndex_88450++;*/
 	return v1;
 }
 // E2A92: using guessed type void *off_E2A92;
@@ -77752,7 +77752,7 @@ void sub_88D00()//269d00
 }
 
 //----- (00088D40) --------------------------------------------------------
-void GetSpellHelpCoordinates_88D40()
+void SetSpellHelpPopupCoordinates_88D40()
 {
 	int maxScreenHeight;
 	int spellPos;
