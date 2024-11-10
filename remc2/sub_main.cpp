@@ -2235,7 +2235,8 @@ void sub_87BE0();
 void sub_87C10();
 void sub_87CF0();
 int16_t GetHelpPopupIndex_88450();
-void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5);
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5, uint8_t scale = 1);
+void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
 void sub_88580();
 void sub_885E0(type_event_0x6E8E* a1, int16_t posX, int16_t posY, unsigned __int16 a4);
 void sub_889F0(uint16_t a1);
@@ -2243,7 +2244,6 @@ void sub_88B20();
 void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
-void SetSpellHelpPopupCoordinates_88D40();
 void sub_89360();
 void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text);
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
@@ -76678,14 +76678,21 @@ void sub_872A0()//2682a0
 //----- (00087580) --------------------------------------------------------
 void sub_87580()//268580
 {
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
 	sub_87BE0();
 	if (str_unk_1804B0ar.byte_0x9f & 0x4)
 	{
-		SetHelpPopupTextAndCoords_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0);
+		SetHelpPopupTextAndCoords_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0, scale);
 	}
 	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
 	{
-		SetSpellHelpPopupCoordinates_88D40();
+		SetSpellHelpPopupCoordinates_88D40(scale);
 	}
 	else if (str_unk_1804B0ar.byte_0x9f & 0x8)
 	{
@@ -76695,7 +76702,7 @@ void sub_87580()//268580
 	{
 		sub_87CF0();
 		int16_t helpIdx = GetHelpPopupIndex_88450();
-		SetHelpPopupTextAndCoords_884D0(helpIdx, 1, &str_E2A74[helpIdx].axis_2[1], ((str_E2A74[helpIdx].axis_2[0] & 4) == 0) + 1, 0);
+		SetHelpPopupTextAndCoords_884D0(helpIdx, 1, &str_E2A74[helpIdx].axis_2[1], ((str_E2A74[helpIdx].axis_2[0] & 4) == 0) + 1, 0, scale);
 	}
 }
 
@@ -77402,7 +77409,7 @@ int16_t GetHelpPopupIndex_88450()//269450
 // 180538: using guessed type __int16 x_WORD_180538;
 
 //----- (000884D0) --------------------------------------------------------
-void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5)//2694d0
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* a3x, char a4, char a5, uint8_t scale)//2694d0
 {
 	if (helpIdx)
 	{
@@ -77752,7 +77759,7 @@ void sub_88D00()//269d00
 }
 
 //----- (00088D40) --------------------------------------------------------
-void SetSpellHelpPopupCoordinates_88D40()
+void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 {
 	int maxScreenHeight;
 	int spellPos;
