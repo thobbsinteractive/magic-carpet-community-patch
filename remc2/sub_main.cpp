@@ -26861,9 +26861,9 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20) && D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.IsLevelEnd_0)
 		{
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
-			DrawText_2BC10(printbuffer, textPosX, posY, indexedColor);
+			DrawText_2BC10(printbuffer, textPosX, posY, indexedColor, scale);
 			textPosX = posX;
-			LOWORD(v6) = sub_6FC30_get34_height();
+			LOWORD(v6) = sub_6FC30_get34_height() * scale;
 			textPosY = v6 + posY;
 		}
 		v22 = 0;
@@ -26886,9 +26886,9 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 					if (D41A0_0.array_0x2BDE[v7y].word_0x04d_2C2B_11307 + 1 <= 0)
 						goto LABEL_24;
 					sprintf(printbuffer, "%s %s", D41A0_0.array_0x2BDE[v7y].array_0x39f_2BFA_12157, D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);//wizard name
-					DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840]);
+					DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
 					textPosX = posX;
-					LOWORD(v10) = sub_6FC30_get34_height();
+					LOWORD(v10) = sub_6FC30_get34_height() * scale;
 					textPosY += v10;
 					break;
 				case 1u:
@@ -26906,8 +26906,8 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 						v14 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
 						v15 = (*xadataclrd0dat.colorPalette_var28)[256 * ((signed int)(v14 - (__CFSHL__(HIDWORD(v14), 8) + (HIDWORD(v14) << 8))) >> 8)];
 					}
-					DrawText_2BC10(printbuffer, textPosX, textPosY, v15);
-					LOWORD(v16) = sub_6FC30_get34_height();
+					DrawText_2BC10(printbuffer, textPosX, textPosY, v15, scale);
+					LOWORD(v16) = sub_6FC30_get34_height() * scale;
 					textPosX = posX;
 					textPosY += v16;
 					break;
@@ -26919,10 +26919,11 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 						goto LABEL_24;
 					if (D41A0_0.array_0x2BDE[v7y].word_0x04f_2C2D_11309 == 3 || v22 == D41A0_0.LevelIndex_0xc)
 					{
+						//Draw Selected Spell Name
 						sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);
-						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840]);
+						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
 						textPosX = posX;
-						LOWORD(v12) = sub_6FC30_get34_height();
+						LOWORD(v12) = sub_6FC30_get34_height() * scale;
 						textPosY += v12;
 					}
 					break;
@@ -26940,7 +26941,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 						v18 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
 						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
 						textPosX = posX;
-						LOWORD(v19) = sub_6FC30_get34_height();
+						LOWORD(v19) = sub_6FC30_get34_height() * scale;
 						textPosY += v19;
 					}
 					break;
