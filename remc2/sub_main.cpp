@@ -26277,7 +26277,7 @@ void debugtestscreen() {
 void DrawGameFrame_2BE30()//20CE30
 {
 	//char v0; // dl
-	void (*v1)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scaling); // eax
+	void (*v1)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale); // eax
 	char v2; // bh
 	type_event_0x6E8E* v3x; // esi
 	signed int v6; // edi
@@ -78082,7 +78082,7 @@ void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
 }
 
 //----- (000895D0) --------------------------------------------------------
-void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text)//26a5d0
+void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale)//26a5d0
 {
 	int i;
 	unsigned __int8 color;
@@ -78110,7 +78110,7 @@ void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text)//2
 }
 
 //----- (00089690) --------------------------------------------------------
-void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox)//26a690
+void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox, uint8_t scale)//26a690
 {
 	int width1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4;
 	int width2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4;

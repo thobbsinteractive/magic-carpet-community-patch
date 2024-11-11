@@ -592,9 +592,9 @@ void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint8_t scale = 
 void DrawPauseMenu_2FD90(uint8_t scale = 1);
 void DrawSorcererScores_2D1D0();
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4, uint8_t scale = 1);
-void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox);
+void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox);
-void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text);
+void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale = 1);
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
 void DrawVolumeSettings_303D0(uint8_t scale = 1);
 
