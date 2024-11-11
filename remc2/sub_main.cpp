@@ -1274,7 +1274,7 @@ void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t col
 //void sub_2EC90(char a1);
 void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height, uint8_t scale = 1);
 // int sub_303D0(signed int a1);
-void sub_30630();
+void DrawCurrentObjectTextbox_30630(uint8_t scale = 1);
 void sub_30870();
 void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint8_t scale = 1);
 void sub_30D50(type_event_0x6E8E* a1/*, uint8_t v2, uint8_t v4*/);
@@ -2245,12 +2245,12 @@ void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
 void sub_89360();
-void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text);
-void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox);
-void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox);
+void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale = 1);
+void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
-void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox);
+void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void GetHintText_89AC0(char* buffer, int typeOfText);
 int ReadGameUserInputs_89D10();
 int sub_8B5A0();
@@ -26758,7 +26758,7 @@ void DrawGameFrame_2BE30()//20CE30
 		} 
 	}
 	if (D41A0_0.byte_0x36E04)
-		sub_30630();
+		DrawCurrentObjectTextbox_30630();
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		return;
@@ -28471,7 +28471,7 @@ void DrawVolumeSettings_303D0(uint8_t scale)//2113d0
 }
 
 //----- (00030630) --------------------------------------------------------
-void sub_30630()//211630
+void DrawCurrentObjectTextbox_30630(uint8_t scale)//211630
 {
 	char v0; // dl
 	int result; // eax
@@ -28543,12 +28543,12 @@ void sub_30630()//211630
 				textbox.maxTextboxWidth2_0xc = screenWidth_18062C / 2;
 				textbox.maxTextboxHeight2_0xe = screenHeight_180624 / 2;
 			}
-			ComputeTextboxSizesFromTextWords_89420(&textbox, text);
-			ComputeTextboxSizes_89520(&textbox);
-			ComputeFrameSizes_89980(&textbox);
+			ComputeTextboxSizesFromTextWords_89420(&textbox, text, scale);
+			ComputeTextboxSizes_89520(&textbox, scale);
+			ComputeFrameSizes_89980(&textbox, scale);
 			ColorizeScreen_2E790(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, textbox.color2_0x31);
-			DrawTextboxText_895D0(&textbox, text);
-			DrawTextboxFrame_89690(&textbox);
+			DrawTextboxText_895D0(&textbox, text, scale);
+			DrawTextboxFrame_89690(&textbox, scale);
 		}
 	}
 }
@@ -78004,7 +78004,7 @@ void sub_89360()//26a360
 }
 
 //----- (00089420) --------------------------------------------------------
-void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text)//26a420
+void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale)//26a420
 {
 	int lineCharWidth; // eax
 	unsigned int textBufferLenght; // kr04_4
@@ -78020,7 +78020,7 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, con
 	textbox->textboxHeight_0x6 = 0;
 	if (textBufferLenght != 1)
 	{
-		textWidth = textbox->charWidth_0x10 * strlen(text);
+		textWidth = (textbox->charWidth_0x10 * scale) * strlen(text);
 		textboxWidth = textbox->maxTextboxWidth2_0xc;
 		if (textWidth <= textboxWidth)
 		{
@@ -78034,12 +78034,12 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, con
 				{
 					if (textWidth % textboxWidth >= textboxWidth / 2 || textboxWidth <= 0)
 						break;
-					textboxWidth -= textbox->charWidth_0x10;
+					textboxWidth -= textbox->charWidth_0x10 * scale;
 				}
 			}
 			if (textboxWidth > 0)
 			{
-				lineCharWidth = (textboxWidth + textbox->charWidth_0x10 - 1) / textbox->charWidth_0x10;
+				lineCharWidth = (textboxWidth + (textbox->charWidth_0x10 * scale) - 1) / (textbox->charWidth_0x10 * scale);
 				countOfLines = 0;
 				lastLineIndex = 0;
 				while (lastLineIndex < textBufferLenght - 1)
@@ -78051,12 +78051,12 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, con
 				textbox->textBoxWidth_0x4 = textboxWidth;
 			}
 		}
-		textbox->textboxHeight_0x6 = textbox->charHeight_0x12 * countOfLines;
+		textbox->textboxHeight_0x6 = (textbox->charHeight_0x12 * scale) * countOfLines;
 	}
 }
 
 //----- (00089520) --------------------------------------------------------
-void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox)//26a520
+void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox, uint8_t scale)//26a520
 {
 	int textboxHeight; // edi
 	int centerToMaxWidth; // ecx
@@ -78103,8 +78103,8 @@ void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, ui
 			color = textbox->color1_0x30;
 			textboxPosX = textbox->textboxPosX_0x8;
 			lastPos = i + 1;
-			DrawText_2BC10(buffer, textboxPosX, posY, color);
-			posY += textbox->charHeight_0x12;
+			DrawText_2BC10(buffer, textboxPosX, posY, color, scale);
+			posY += textbox->charHeight_0x12 * scale;
 		} while (textlen > lastPos);
 	}
 }
@@ -78112,36 +78112,36 @@ void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, ui
 //----- (00089690) --------------------------------------------------------
 void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox, uint8_t scale)//26a690
 {
-	int width1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4;
-	int width2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4;
-	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;
-	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;
+	int width1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 * scale;
+	int width2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4 * scale;
+	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5 * scale;
+	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5 * scale;
 	int beginX = textbox->framePosX_0x24 - width2;
 	int endX = textbox->frameWidth_0x28 + textbox->framePosX_0x24;
-	int beginYPlus = textbox->framePosY_0x26 - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
+	int beginYPlus = textbox->framePosY_0x26 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5 * scale);
 	int endY = textbox->frameHeight_0x2a + textbox->framePosY_0x26;
-	int countYchars = textbox->textboxHeight_0x6 / textbox->charHeight_0x12;
-	sub_2BB40_draw_bitmap(textbox->framePosX_0x24 - width2, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
-	sub_2BB40_draw_bitmap(endX, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	int countYchars = textbox->textboxHeight_0x6 / (textbox->charHeight_0x12 * scale);
+	sub_2BB40_draw_bitmap(textbox->framePosX_0x24 - width2, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171], scale);
+	sub_2BB40_draw_bitmap(endX, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171], scale);
 	int indexY = height1 + beginYPlus;
 	for (int i = 0; i < countYchars; i++)
 	{
-		sub_2BB40_draw_bitmap(beginX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172]);
-		sub_2BB40_draw_bitmap(endX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172]);
+		sub_2BB40_draw_bitmap(beginX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172], scale);
+		sub_2BB40_draw_bitmap(endX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172], scale);
 		indexY += height2;
 	}
-	sub_2BB40_draw_bitmap(beginX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
-	sub_2BB40_draw_bitmap(endX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171]);
+	sub_2BB40_draw_bitmap(beginX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171], scale);
+	sub_2BB40_draw_bitmap(endX, indexY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171], scale);
 
 	for (int i = beginX + width2; i < endX; i += width1)
 	{
-		sub_2BB40_draw_bitmap(i, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173]);
-		sub_2BB40_draw_bitmap(i, endY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173]);
+		sub_2BB40_draw_bitmap(i, beginYPlus, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173], scale);
+		sub_2BB40_draw_bitmap(i, endY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173], scale);
 	}
 }
 
 //----- (00089830) --------------------------------------------------------
-void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox)//26a830
+void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox, uint8_t scale)//26a830
 {
 	int preMaxTextboxWidth = textbox->lineX1_0x1c + 25;
 	if (textbox->maxWidth_0x16 < textbox->lineX1_0x1c + 135)
@@ -78208,15 +78208,15 @@ void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __i
 }
 
 //----- (00089980) --------------------------------------------------------
-void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox)//26a980
+void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox, uint8_t scale)//26a980
 {
-	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5;
-	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5;
-	int height3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5;
-	textbox->frameWidth_0x28 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4
-		* (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 - 1 + textbox->textBoxWidth_0x4 + 8) / (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4);
+	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5 * scale;
+	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5 * scale;
+	int height3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[171].height_5 * scale;
+	textbox->frameWidth_0x28 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 * scale)
+		* ((((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 * scale) - (1 * scale) + textbox->textBoxWidth_0x4 + (8 * scale)) / ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 * scale));
 	textbox->framePosX_0x24 = textbox->textboxPosX_0x8 - (textbox->frameWidth_0x28 - textbox->textBoxWidth_0x4) / 2;
-	textbox->frameHeight_0x2a = (height2 - 1 + textbox->textboxHeight_0x6) / height2 * height2 + 2 * (height3 - height1);
+	textbox->frameHeight_0x2a = (height2 - (1 * scale) + textbox->textboxHeight_0x6) / height2 * height2 + 2 * (height3 - height1);
 	textbox->framePosY_0x26 = textbox->textboxPosY_0xa - (textbox->frameHeight_0x2a - textbox->textboxHeight_0x6) / 2;
 }
 
