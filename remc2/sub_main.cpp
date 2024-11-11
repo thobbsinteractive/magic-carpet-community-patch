@@ -50267,7 +50267,7 @@ void GameEvents_51BB0()//232bb0
 			}
 			if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 			{
-				strcpy(D41A0_0.array_0x2BDE[i].array_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[283]);//has been banished from the realm.
+				strcpy(D41A0_0.array_0x2BDE[i].array_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[HAS_BEEN_BANISHED]);//has been banished from the realm.
 				D41A0_0.array_0x2BDE[i].word_0x04f_2C2D_11309 = 1;
 				D41A0_0.array_0x2BDE[i].word_0x04d_2C2B_11307 = 100;
 				D41A0_0.array_0x2BDE[i].dw_w_b_0_2BDE_11230.word[1] = 8;
@@ -50381,7 +50381,7 @@ void GameEvents_51BB0()//232bb0
 			NetworkEvent_7373D(i);
 			break;
 		case 0x1D://banished
-			strcpy(D41A0_0.array_0x2BDE[i].array_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[283]);//has been banished from the realm.
+			strcpy(D41A0_0.array_0x2BDE[i].array_0x01c_2BFA_11258, x_DWORD_E9C4C_langindexbuffer[HAS_BEEN_BANISHED]);//has been banished from the realm.
 			D41A0_0.array_0x2BDE[i].word_0x04f_2C2D_11309 = 1;
 			D41A0_0.array_0x2BDE[i].word_0x04d_2C2B_11307 = 100;
 			D41A0_0.array_0x2BDE[i].dw_w_b_0_2BDE_11230.word[1] = 8;
@@ -59401,7 +59401,7 @@ void sub_5E7C0_multiplayer_test_banished(type_event_0x6E8E* a1x)//23f7c0
 		{
 			if (D41A0_0.array_0x2BDE[a1x->dword_0xA4_164x->word_0x38_56].byte_0x006_2BE4_11236)
 			{
-				v5 = x_DWORD_E9C4C_langindexbuffer[283];//has been banished from the realm.
+				v5 = x_DWORD_E9C4C_langindexbuffer[HAS_BEEN_BANISHED];//has been banished from the realm.
 				v6 = D41A0_0.array_0x2BDE[a1x->dword_0xA4_164x->word_0x38_56].array_0x01c_2BFA_11258;//&v3[28];
 				strcpy(v6, v5);
 				/*do
@@ -77457,7 +77457,7 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popup
 			str_unk_1804B0ar.byte_0x9f |= 1u;
 		}
 
-		if (helpIdx == POPUP_YOU_ARE_HERE)
+		if (helpIdx == YOU_ARE_HERE)
 		{
 			popupSrcPos[2] *= scale;
 			popupSrcPos[3] *= scale;

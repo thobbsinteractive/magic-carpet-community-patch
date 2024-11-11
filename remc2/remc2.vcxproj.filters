@@ -312,7 +312,7 @@
     <ClInclude Include="engine\GameUiConstants.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\HelpPopupIndexes.h">
+    <ClInclude Include="engine\LangTextIndexes.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
