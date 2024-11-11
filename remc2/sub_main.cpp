@@ -76477,7 +76477,7 @@ void sub_86FF0(unsigned __int8 a1, __int16 a2, __int16 a3)//267ff0
 // 1804A1: using guessed type char x_BYTE_1804A1;
 
 //----- (00087090) --------------------------------------------------------
-void sub_87090()//268090
+void SetTextboxMinMaxSizes_87090()//268090
 {
 	signed int i; // edx
 	uint8_t* result; // al
