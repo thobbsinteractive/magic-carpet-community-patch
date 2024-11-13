@@ -26758,7 +26758,7 @@ void DrawGameFrame_2BE30()//20CE30
 		} 
 	}
 	if (D41A0_0.byte_0x36E04)
-		DrawCurrentObjectTextbox_30630();
+		DrawCurrentObjectTextbox_30630(scale);
 	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		return;
@@ -28528,7 +28528,7 @@ void DrawCurrentObjectTextbox_30630(uint8_t scale)//211630
 			textbox.minWidth_0x14 = 40;
 			textbox.maxWidth_0x16 = 600;
 			textbox.charHeight_0x12 = 14;
-			textbox.maxHeight_0x1a = 260;
+			textbox.maxHeight_0x1a = (260 * scale);
 			textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			textbox.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
 			textbox.minHeight_0x18 = 80;
@@ -78092,7 +78092,7 @@ void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, ui
 	int lastPos = 0;
 	int posY = textbox->textboxPosY_0xa;
 	int textlen = strlen(text);
-	int width = textbox->textBoxWidth_0x4 / textbox->charWidth_0x10;
+	int width = textbox->textBoxWidth_0x4 / (textbox->charWidth_0x10 * scale);
 	if (textlen > 0)
 	{
 		do
