@@ -2249,7 +2249,7 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, con
 void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
-void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines);
+void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
 void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void GetHintText_89AC0(char* buffer, int typeOfText);
 int ReadGameUserInputs_89D10();
@@ -76722,6 +76722,13 @@ void DrawGameHelp_87610()//268610
 	unsigned __int8 color; // al
 	char textBuffer[256]; // [esp+0h] [ebp-80h]
 
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
+
 	textForDraw = x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
 	if (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 0x100)
 	{
@@ -76803,10 +76810,10 @@ void DrawGameHelp_87610()//268610
 					str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa = str_unk_1804B0ar.type_sub_0[0].lineY1_0x1e - 50;
 				str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = str_unk_1804B0ar.type_sub_0[0].textboxPosY_0xa - 42;
 			}
-			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);
-			ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2]);
-			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
-			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);
+			ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2], scale);
+			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
+			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
 			ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
 			v4 = 0;
 			ColorizeScreen_2E790(
@@ -76823,11 +76830,11 @@ void DrawGameHelp_87610()//268610
 				else
 					color = str_unk_1804B0ar.type_sub_0[0].color1_0x30;
 				//FireBall,Rapid Fire,Fire Storm
-				DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, posY, color);
-				posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12;
+				DrawText_2BC10(x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2 + v4++]], str_unk_1804B0ar.type_sub_0[0].textboxPosX_0x8, posY, color, scale);
+				posY += str_unk_1804B0ar.type_sub_0[0].charHeight_0x12 * scale;
 			}
 			DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
+			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
 			str_unk_1804B0ar.byte_0x9e &= 0xF7;
 			break;
 		}
