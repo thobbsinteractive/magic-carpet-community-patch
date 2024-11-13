@@ -78201,7 +78201,7 @@ void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox)//26a8a0
 }
 
 //----- (00089920) --------------------------------------------------------
-void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines)//26a920
+void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale)//26a920
 {
 	int maxTextLenght = 0;
 	int textLenght;
@@ -78212,8 +78212,8 @@ void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __i
 		if ((textLenght - 1) > maxTextLenght)
 			maxTextLenght = textLenght - 1;
 	}
-	textbox->textBoxWidth_0x4 = textbox->charWidth_0x10 * maxTextLenght;
-	textbox->textboxHeight_0x6 = textbox->charHeight_0x12 * countLines;
+	textbox->textBoxWidth_0x4 = (textbox->charWidth_0x10 * scale) * maxTextLenght;
+	textbox->textboxHeight_0x6 = (textbox->charHeight_0x12 * scale) * countLines;
 }
 
 //----- (00089980) --------------------------------------------------------
