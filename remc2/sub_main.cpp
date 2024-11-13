@@ -76753,10 +76753,12 @@ void DrawGameHelp_87610()//268610
 					str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
 					str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
 					str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
+					str_unk_1804B0ar.type_sub_0[0].minHeight_0x18 = screenHeight_180624 / 8;
+					str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = screenHeight_180624 / 2;
 				}
-				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
-				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
-				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
+				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
+				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
 			}
 			ColorizeScreen_2E790(
 				str_unk_1804B0ar.type_sub_0[0].framePosX_0x24,
@@ -76764,8 +76766,8 @@ void DrawGameHelp_87610()//268610
 				str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 				str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 				str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
-			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
+			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
+			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
 			str_unk_1804B0ar.byte_0x9e &= 0xF7;
 			break;
 		}
