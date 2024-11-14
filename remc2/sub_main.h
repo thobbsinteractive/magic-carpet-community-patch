@@ -590,7 +590,7 @@ void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
 void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint8_t scale = 1);
 void DrawPauseMenu_2FD90(uint8_t scale = 1);
-void DrawSorcererScores_2D1D0();
+void DrawSorcererScores_2D1D0(uint8_t scale = 1);
 void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4, uint8_t scale = 1);
 void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
 void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox);

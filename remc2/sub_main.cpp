@@ -26712,7 +26712,7 @@ void DrawGameFrame_2BE30()//20CE30
 		switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 		{
 		case 7:
-			DrawSorcererScores_2D1D0();
+			DrawSorcererScores_2D1D0(scale);
 			break;
 		case 8:
 			DrawPauseMenu_2FD90(scale);
@@ -26974,7 +26974,7 @@ void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int
 }
 
 //----- (0002D1D0) --------------------------------------------------------
-void DrawSorcererScores_2D1D0()//20e1d0
+void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 {
 	signed int v0; // esi
 	int v1; // eax
@@ -26982,21 +26982,15 @@ void DrawSorcererScores_2D1D0()//20e1d0
 	int v2x;
 	int v3; // ebx
 	//signed int v4; // edx
-	int v5; // ebx
+	int16_t posY; // ebx
 	char v6; // cl
-	int v7; // edi
-	unsigned __int8 v8; // si
-	unsigned __int8 v9; // ST10_1
 	int v10; // esi
-	int v11; // eax
-	int v12; // edi
+	int blackBarX; // edi
 	int v13; // eax
 	int v14; // esi
 	signed int v15; // eax
 	unsigned __int16 v16; // cx
 	signed int j; // esi
-	int v18; // eax
-	int v19; // eax
 	int result; // eax
 	//char v21; // [esp+0h] [ebp-124h]
 	int v22; // [esp+100h] [ebp-24h]
@@ -27004,11 +26998,11 @@ void DrawSorcererScores_2D1D0()//20e1d0
 	//uint8_t* i; // [esp+108h] [ebp-1Ch]
 	int ix;
 	int v25; // [esp+10Ch] [ebp-18h]
-	int v26; // [esp+110h] [ebp-14h]
-	int v27; // [esp+114h] [ebp-10h]
-	int v28; // [esp+118h] [ebp-Ch]
-	unsigned __int8 v29; // [esp+11Ch] [ebp-8h]
-	unsigned __int8 v30; // [esp+120h] [ebp-4h]
+	int barY; // [esp+110h] [ebp-14h]
+	int barX; // [esp+114h] [ebp-10h]
+	int16_t posX; // [esp+118h] [ebp-Ch]
+	uint8_t textColourIdx; // [esp+11Ch] [ebp-8h]
+	uint8_t playerColourIdx; // [esp+120h] [ebp-4h]
 
 	int helpWidth = 640;
 	int helpHeight;
@@ -27036,9 +27030,9 @@ void DrawSorcererScores_2D1D0()//20e1d0
 		//v2 += 2124;
 		v2x++;
 	}
-	v3 = v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5;
-	v28 = (helpWidth - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4)) / 2;
-	v5 = (helpHeight - v3) / 2;
+	v3 = v1 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5 * scale);
+	posX = (helpWidth - (v1 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4) * scale)) / 2;
+	posY = (helpHeight - v3) / 2;
 	v25 = 0;
 	//i=x_D41A0_BYTEARRAY_0 + 11230
 	for (ix = 0; ; ix++)
@@ -27050,31 +27044,27 @@ void DrawSorcererScores_2D1D0()//20e1d0
 		v23x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[ix].word_0x00a_2BE4_11240];
 		if (v6 == 1)
 		{
-			v29 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v25)];
-			v30 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v25)];
-			v7 = v28;
-			sub_2BB40_draw_bitmap(v28, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85]);
+			textColourIdx = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(v25)];
+			playerColourIdx = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v25)];
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85], scale);
 			DrawLine_2BC80(
-				v7 + 4,
-				v5 + 4,
-				(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4 - 8,
-				(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5 - 8,
-				v30);
-			v8 = v29;
-			v22 = (signed __int16)(v7 + 8);
-			DrawText_2BC10(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, v7 + 8, v5 + 6, v29);//wizard name
+				posX + (4 * scale),
+				posY + (4 * scale),
+				((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4 * scale) - (8 * scale),
+				((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].height_5 * scale) - (8 * scale),
+				playerColourIdx);
+			v22 = (signed __int16)(posX + (8 * scale));
+			DrawText_2BC10(D41A0_0.array_0x2BDE[ix].array_0x39f_2BFA_12157, posX + (8 * scale), posY + (6 * scale), textColourIdx, scale);//wizard name
 			sprintf(printbuffer, "%d", v23x->maxMana_0x8C_140);
-			v9 = v8;
 			v10 = v25;
-			DrawText_2BC10(printbuffer, v22, v5 + 20, v9);
+			DrawText_2BC10(printbuffer, v22, posY + (20 * scale), textColourIdx, scale);
 			if (!v10 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 			{
-				str_unk_1804B0ar.word_0x96 = v7 + 20;
-				str_unk_1804B0ar.word_0x98 = v5 + 30;
+				str_unk_1804B0ar.word_0x96 = posX + (20 * scale);
+				str_unk_1804B0ar.word_0x98 = posY + (30 * scale);
 			}
 			//HIWORD(v11) = HIWORD(**filearray_2aa18c[6]);
-			v11 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4;
-			v12 = v11 + v7;
+			blackBarX = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[85].width_4 * scale) + posX;
 			if (x_D41A0_BYTEARRAY_4_struct.showHelp_10 && D41A0_0.word_0xe > 1u && !str_unk_1804B0ar.byte_0xa8)
 			{
 				str_unk_1804B0ar.dword_0x82 = 9377 * str_unk_1804B0ar.dword_0x82 + 9439;
@@ -27097,45 +27087,43 @@ void DrawSorcererScores_2D1D0()//20e1d0
 			{
 				if (D41A0_0.array_0x2BDE[j].byte_0x006_2BE4_11236 == 1)
 				{
-					v27 = v12 + 4;
-					v26 = v5 + 4;
+					barX = blackBarX + (4 * scale);
+					barY = posY + (4 * scale);
 					if (j == v25)
 					{
-						sub_2BB40_draw_bitmap(v12, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86]);
+						sub_2BB40_draw_bitmap(blackBarX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86], scale);
 						DrawLine_2BC80(
-							v27,
-							v26,
-							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 - 8,
-							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 - 8,
+							barX,
+							barY,
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 * scale) - (8 * scale),
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 * scale) - (8 * scale),
 							(*xadataclrd0dat.colorPalette_var28)[0]);
 					}
 					else
 					{
-						v29 = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(j)];
-						v30 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(j)];
-						sub_2BB40_draw_bitmap(v12, v5, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86]);
+						textColourIdx = x_BYTE_E88E0x[1 + 3 * GetTrueWizardNumber_61790(j)];
+						playerColourIdx = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(j)];
+						sub_2BB40_draw_bitmap(blackBarX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86], scale);
 						DrawLine_2BC80(
-							v27,
-							v26,
-							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 - 8,
-							(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 - 8,
-							v30);
+							barX,
+							barY,
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 * scale) - (8 * scale),
+							((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 * scale) - (8 * scale),
+							playerColourIdx);
 						sprintf(printbuffer, "%03d", v23x->dword_0xA4_164x->word_0x26_38[j]);
-						DrawText_2BC10(printbuffer, v12 + 8, v5 + 10, v29);
+						DrawText_2BC10(printbuffer, blackBarX + (8 * scale), posY + (10 * scale), textColourIdx, scale);
 						if (x_D41A0_BYTEARRAY_4_struct.showHelp_10 && str_unk_1804B0ar.byte_0xa8 && !v25 && j == (unsigned __int8)str_unk_1804B0ar.byte_0xa8)
 						{
-							str_unk_1804B0ar.word_0x9a = v12 + 20;
-							str_unk_1804B0ar.word_0x9c = v5 + 20;
+							str_unk_1804B0ar.word_0x9a = blackBarX + (20 * scale);
+							str_unk_1804B0ar.word_0x9c = posY + (20 * scale);
 						}
 					}
 					//HIWORD(v18) = HIWORD(**filearray_2aa18c[6]);
-					v18 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4;
-					v12 += v18;
+					blackBarX += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].width_4 * scale;
 				}
 			}
 			//HIWORD(v19) = HIWORD(**filearray_2aa18c[6]);
-			v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5;
-			v5 += v19;
+			posY += (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[86].height_5 * scale;
 		}
 		v25++;
 	}
