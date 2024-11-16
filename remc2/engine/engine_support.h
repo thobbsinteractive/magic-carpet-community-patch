@@ -1422,10 +1422,10 @@ struct {//lenght 0x33
 	int16_t maxWidth_0x16;//16 //11
 	int16_t minHeight_0x18;//18 //12
 	int16_t maxHeight_0x1a;//1a //13
-	int16_t lineX1_0x1c;//1c-4f //14
-	int16_t lineY1_0x1e;//1e-51 //15
-	int16_t lineX2_0x20;//20 //16
-	int16_t lineY2_0x22;//22 //17
+	int16_t lineSrcX_0x1c;//1c-4f //14
+	int16_t lineSrcY_0x1e;//1e-51 //15
+	int16_t lineDestX_0x20;//20 //16
+	int16_t lineDestY_0x22;//22 //17
 	int16_t framePosX_0x24;//24-57 //width 18
 	int16_t framePosY_0x26;//26-59 //19
 	int16_t frameWidth_0x28;//28-5b //20
