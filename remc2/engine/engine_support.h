@@ -1435,7 +1435,7 @@ struct {//lenght 0x33
 	int8_t color2_0x31;//31-64 - color2
 	int8_t color3_0x32;//32-65 - color2
 }
-typedef type_textbox_sub1804B0;
+typedef Type_TextBox_1804B0;
 
 typedef union {//lenght 12
 	int32_t dword[3];
@@ -1444,7 +1444,7 @@ typedef union {//lenght 12
 type_uni_0x8a;
 
 struct {//0xb0 nebo spis 171(0xab)
-	type_textbox_sub1804B0 type_sub_0[2];
+	Type_TextBox_1804B0 type_sub_0[2];
 	/*int16_t word_0xe;//e
 	int16_t word_0x10;//10
 	int16_t word_0x12;//12

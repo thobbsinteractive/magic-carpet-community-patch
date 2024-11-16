@@ -2245,12 +2245,12 @@ void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
 void sub_89360();
-void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale = 1);
-void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
-void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
-void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox);
-void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
-void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
+void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox);
+void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
+void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
 void GetHintText_89AC0(char* buffer, int typeOfText);
 int ReadGameUserInputs_89D10();
 int sub_8B5A0();
@@ -28465,7 +28465,7 @@ void DrawCurrentObjectTextbox_30630(uint8_t scale)//211630
 	int result; // eax
 	unsigned __int16 v2; // cx
 	char* text; // ebx
-	type_textbox_sub1804B0 textbox;
+	Type_TextBox_1804B0 textbox;
 
 	v0 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 	result = 0;
@@ -28547,7 +28547,7 @@ void sub_30870()//211870
 	char* v0; // ebx
 	__int16 v1; // ax
 	//char v3; // [esp+0h] [ebp-32h]
-	type_textbox_sub1804B0 textbox; // [esp+80h] [ebp+4Eh]
+	Type_TextBox_1804B0 textbox; // [esp+80h] [ebp+4Eh]
 	//__int16 v5; // [esp+82h] [ebp+50h]//v4x[1]
 	//__int16 v6; // [esp+8Ch] [ebp+5Ah]//v4x[6]
 	//__int16 v7; // [esp+8Eh] [ebp+5Ch]//v4x[7]
@@ -78001,7 +78001,7 @@ void sub_89360()//26a360
 }
 
 //----- (00089420) --------------------------------------------------------
-void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale)//26a420
+void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale)//26a420
 {
 	int lineCharWidth; // eax
 	unsigned int textBufferLenght; // kr04_4
@@ -78053,7 +78053,7 @@ void ComputeTextboxSizesFromTextWords_89420(type_textbox_sub1804B0* textbox, con
 }
 
 //----- (00089520) --------------------------------------------------------
-void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox, uint8_t scale)//26a520
+void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale)//26a520
 {
 	int textboxHeight; // edi
 	int centerToMaxWidth; // ecx
@@ -78079,7 +78079,7 @@ void ComputeTextboxSizes_89520(type_textbox_sub1804B0* textbox, uint8_t scale)//
 }
 
 //----- (000895D0) --------------------------------------------------------
-void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, uint8_t scale)//26a5d0
+void DrawTextboxText_895D0(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale)//26a5d0
 {
 	int i;
 	unsigned __int8 color;
@@ -78107,7 +78107,7 @@ void DrawTextboxText_895D0(type_textbox_sub1804B0* textbox, const char* text, ui
 }
 
 //----- (00089690) --------------------------------------------------------
-void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox, uint8_t scale)//26a690
+void DrawTextboxFrame_89690(Type_TextBox_1804B0* textbox, uint8_t scale)//26a690
 {
 	int width1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].width_4 * scale;
 	int width2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].width_4 * scale;
@@ -78138,7 +78138,7 @@ void DrawTextboxFrame_89690(type_textbox_sub1804B0* textbox, uint8_t scale)//26a
 }
 
 //----- (00089830) --------------------------------------------------------
-void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox, uint8_t scale)//26a830
+void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale)//26a830
 {
 	int preMaxTextboxWidth = textbox->lineX1_0x1c + 25;
 	if (textbox->maxWidth_0x16 < textbox->lineX1_0x1c + 135)
@@ -78151,7 +78151,7 @@ void ComputeTextboxSizes_89830(type_textbox_sub1804B0* textbox, uint8_t scale)//
 }
 
 //----- (000898A0) --------------------------------------------------------
-void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox)//26a8a0
+void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox)//26a8a0
 {
 	int preLineX2;
 	int preLineY2;
@@ -78189,7 +78189,7 @@ void ComputeTextboxLine_898A0(type_textbox_sub1804B0* textbox)//26a8a0
 }
 
 //----- (00089920) --------------------------------------------------------
-void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale)//26a920
+void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale)//26a920
 {
 	int maxTextLenght = 0;
 	int textLenght;
@@ -78205,7 +78205,7 @@ void ComputeTextboxSizesFromTextLines_89920(type_textbox_sub1804B0* textbox, __i
 }
 
 //----- (00089980) --------------------------------------------------------
-void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox, uint8_t scale)//26a980
+void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale)//26a980
 {
 	int height1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[173].height_5 * scale;
 	int height2 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[172].height_5 * scale;
@@ -78218,7 +78218,7 @@ void ComputeFrameSizes_89980(type_textbox_sub1804B0* textbox, uint8_t scale)//26
 }
 
 //----- (00089A30) --------------------------------------------------------
-void DrawTextboxLine_89A30(const type_textbox_sub1804B0* textbox)//26aa30
+void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox)//26aa30
 {
 	int widthFix = ((x_WORD_180660_VGA_type_resolution & 1) != 0) + 1;
 	if (textbox->lineX2_0x20 != textbox->maxTextboxWidth_0x0 || textbox->lineY2_0x22 != textbox->maxTextboxHeight_0x2)
