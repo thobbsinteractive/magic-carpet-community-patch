@@ -1769,7 +1769,7 @@ char LoadGameDialog_780F0(type_WORD_E1F84* a1x)//0x2590f0
 	{
 		int j = jm + 1;
 		DrawHelpText_6FC50(1);
-		if (a1x->str_26.word_36_5 /**(signed __int16*)(a1 + 36)*/ > 16 * (signed __int16)j + 3 * sub_6FC30_get34_height())
+		if (a1x->str_26.word_36_5 /**(signed __int16*)(a1 + 36)*/ > 16 * (signed __int16)j + 3 * GetLetterHeight_6FC30())
 		{
       std::string savegame = std::to_string(j) + ". " + std::string(&x_DWORD_17DE38str.xx_BYTE_17DF14[(j - 1)][0]);
       int16_t savegame_y_pos = a1x->str_26.y1_28_1 + 16 * (j + 1);
@@ -3014,7 +3014,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 	for (j = 1; j < 9; j++)
 	{
 		DrawHelpText_6FC50(1);
-		if (a1x->str_26.word_36_5 > 16 * j + 3 * sub_6FC30_get34_height())//0160:259AB7
+		if (a1x->str_26.word_36_5 > 16 * j + 3 * GetLetterHeight_6FC30())//0160:259AB7
 		{
 			sprintf(printbuffer, "%d.", j);
 			v62 = 16 * j;
@@ -5757,7 +5757,7 @@ char SetPlayerNameDialog_78E00(/*int a1, int a2, */type_WORD_E1F84* a3x)//259e00
 	v3 = xy_DWORD_17DED4_spritestr[72].width_4;
 	v27 = v29 + v3 - 22;
 	v4 = a3x->str_26.y1_28_1 + a3x->str_26.word_34_4 / 2;
-	v5 = v4 - sub_6FC30_get34_height();
+	v5 = v4 - GetLetterHeight_6FC30();
 	v30 = DrawScrollDialog_7BF20(&a3x->str_26);
 	if (a3x->str_26.word_36_5 <= a3x->str_26.word_34_4 / 2)
 		goto LABEL_15;
@@ -5794,7 +5794,7 @@ char SetPlayerNameDialog_78E00(/*int a1, int a2, */type_WORD_E1F84* a3x)//259e00
 LABEL_13:
 	_strupr(x_DWORD_17DE38str.x_DWORD_17DE50);
 	DrawHelpText_6FC50(1);
-	v9 = sub_6FC30_get34_height() + v5;
+	v9 = GetLetterHeight_6FC30() + v5;
 	v10 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x16u, 0x10u, 9u);
 	v11 = sub_6FC80_pre_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, v29, v27, v9, v10);
 	if ((v26 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
@@ -5956,7 +5956,7 @@ char SetJoystickDialog_79160(type_WORD_E1F84* locEvent)//25a160
 	{
 		locX1 = locEvent->str_26.x1_26_0 + 10;
 		locX2 = locX1 + xy_DWORD_17DED4_spritestr[72].width_4 - 22;
-		locY1 = locEvent->str_26.y1_28_1 + locEvent->str_26.word_34_4 / 2 - 2 * sub_6FC30_get34_height();
+		locY1 = locEvent->str_26.y1_28_1 + locEvent->str_26.word_34_4 / 2 - 2 * GetLetterHeight_6FC30();
 		scrollState = DrawScrollDialog_7BF20(&locEvent->str_26);
 		if (locEvent->str_26.word_36_5 >= locEvent->str_26.word_34_4)
 		{
@@ -5974,12 +5974,12 @@ char SetJoystickDialog_79160(type_WORD_E1F84* locEvent)//25a160
 					DrawHelpText_6FC50(1);
 					sub_6FC80_pre_draw_text(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E2590[i].word_12], locX1, locX2, locY1, color2);
 				}
-				locY1 += sub_6FC30_get34_height();
+				locY1 += GetLetterHeight_6FC30();
 			}
-			locY1 = locEvent->str_26.y1_28_1 + locEvent->str_26.word_34_4 / 2 - 2 * sub_6FC30_get34_height();
+			locY1 = locEvent->str_26.y1_28_1 + locEvent->str_26.word_34_4 / 2 - 2 * GetLetterHeight_6FC30();
 			locRegion.xmin_10 = locX1;
 			locRegion.sizex_14 = xy_DWORD_17DED4_spritestr[72].width_4;
-			locRegion.sizey_16 = sub_6FC30_get34_height();
+			locRegion.sizey_16 = GetLetterHeight_6FC30();
 			for (int i = 0; str_BYTE_E2590[i].word_12; i++)
 			{
 				locRegion.ymin_12 = locY1;
@@ -5994,7 +5994,7 @@ char SetJoystickDialog_79160(type_WORD_E1F84* locEvent)//25a160
 					DrawHelpText_6FC50(1);
 					sub_6FC80_pre_draw_text(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E2590[i].word_12], locX1, locX2, locY1, color1);
 				}
-				locY1 += sub_6FC30_get34_height();
+				locY1 += GetLetterHeight_6FC30();
 			}
 		}
 		if (scrollState)
@@ -6006,7 +6006,7 @@ char SetJoystickDialog_79160(type_WORD_E1F84* locEvent)//25a160
 					lastSelected = i;
 					break;
 				}
-				locY1 += sub_6FC30_get34_height();
+				locY1 += GetLetterHeight_6FC30();
 			}
 			if (scrollState != 1)
 			{
@@ -6263,7 +6263,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 	DrawHelpText_6FC50(1);
 	v22 = a2x->str_26.x1_26_0 + 10;
 	v20 = v22 + xy_DWORD_17DED4_spritestr[72].width_4 - 22;
-	v8 = a2x->str_26.word_34_4 / 2 + a2x->str_26.y1_28_1 - sub_6FC30_get34_height();
+	v8 = a2x->str_26.word_34_4 / 2 + a2x->str_26.y1_28_1 - GetLetterHeight_6FC30();
 	v23 = DrawScrollDialog_7BF20(&a2x->str_26);
 	if (a2x->str_26.word_36_5 > a2x->str_26.word_34_4 / 2)
 	{
@@ -6287,7 +6287,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 		}
 		sprintf(printbuffer, "%d", (unsigned __int8)x_BYTE_E29DF_skip_screen);
 		DrawHelpText_6FC50(1);
-		v12 = sub_6FC30_get34_height() + v8;
+		v12 = GetLetterHeight_6FC30() + v8;
 		v14 = sub_6FC80_pre_draw_text(printbuffer, v22, v20, v12, getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0));
 		if ((v3 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 		{
@@ -6359,7 +6359,7 @@ int DrawScrollDialog_7BF20(type_str_word_26* a1x)//25cf20
 	if (v5 >= 0)
 	{
 	LABEL_14:
-		if (a1x->word_36_5 > sub_6FC30_get34_height() + 10)
+		if (a1x->word_36_5 > GetLetterHeight_6FC30() + 10)
 			v1 = x_DWORD_E9C4C_langindexbuffer[a1x->word_38_6];
 		//160 1a 21 2b2cce? exit game 3
 		v7 = DrawScrollDialog2_7B660(a1x->x1_26_0, a1x->y1_28_1, a1x->word_36_5, a1x, v1, a1x->nocl_42_8 & 0xff);

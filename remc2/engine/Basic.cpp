@@ -1102,7 +1102,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 					}
 					if (a6 && a6 != 4 && a6 != 5)
 					{
-						LOWORD(v44) = sub_6FC30_get34_height();
+						LOWORD(v44) = GetLetterHeight_6FC30();
 						v98 += v44 + 2;
 					}
 					else
@@ -1611,7 +1611,7 @@ void VGA_BlitAny(uint8_t maxFps)//256200
 }
 
 //----- (0006FC30) --------------------------------------------------------
-uint8_t sub_6FC30_get34_height()//250c30
+uint8_t GetLetterHeight_6FC30()//250c30
 {
 	if (help_VGA_type_resolution != 8)//fixed
 		return x_DWORD_EA3D4[34].height_5;
@@ -2151,7 +2151,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 		{
 			if (v6 <= 0xAu)
 			{
-				LOWORD(v7) = sub_6FC30_get34_height() * scale;
+				LOWORD(v7) = GetLetterHeight_6FC30() * scale;
 				v5 = posx;
 				posy += v7;
 				goto LABEL_16;

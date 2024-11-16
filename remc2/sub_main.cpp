@@ -2105,7 +2105,7 @@ type_event_0x6E8E* InitSwitchChainZaxisAndSound_6F850(type_event_0x6E8E* a1, int
 type_event_0x6E8E* sub_6F8E0(type_event_0x6E8E* a1, int a2);
 //void sub_6F940_sub_draw_text(char* a1, int a2, int a3, uint8_t color);
 //uint8_t GetLetterWidth_6FC10();
-//uint8_t sub_6FC30_get34_height();
+//uint8_t GetLetterHeight_6FC30();
 //void sub_6FC50(__int16 a1);
 //unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_6FDA0();
@@ -26802,7 +26802,7 @@ void DrawGameFrame_2BE30()//20CE30
 	while (*off_DB558[v29 + x_D41A0_BYTEARRAY_4_struct.byteindex_214w] != 33)
 	{
 		v29++;
-		v28 -= sub_6FC30_get34_height();
+		v28 -= GetLetterHeight_6FC30();
 	}
 	v30 = 0;
 	v31 = 8;
@@ -26814,7 +26814,7 @@ void DrawGameFrame_2BE30()//20CE30
 			DrawText_2BC10(off_DB558[x_D41A0_BYTEARRAY_4_struct.byteindex_214w], 8, v31, (*xadataclrd0dat.colorPalette_var28)[4095]);
 		v29--;
 		v30++;
-		v31 += sub_6FC30_get34_height();
+		v31 += GetLetterHeight_6FC30();
 	}
 	x_D41A0_BYTEARRAY_4_struct.byteindex_210d--;
 	//return _wcpp_1_unwind_leave__62();
@@ -26863,7 +26863,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 			sprintf(printbuffer, "%s. %s.", x_DWORD_E9C4C_langindexbuffer[378], x_DWORD_E9C4C_langindexbuffer[379]);//Tasks completed,Fly to the exit point.
 			DrawText_2BC10(printbuffer, textPosX, posY, indexedColor, scale);
 			textPosX = posX;
-			LOWORD(v6) = sub_6FC30_get34_height() * scale;
+			LOWORD(v6) = GetLetterHeight_6FC30() * scale;
 			textPosY = v6 + posY;
 		}
 		v22 = 0;
@@ -26888,7 +26888,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 					sprintf(printbuffer, "%s %s", D41A0_0.array_0x2BDE[v7y].array_0x39f_2BFA_12157, D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);//wizard name
 					DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
 					textPosX = posX;
-					LOWORD(v10) = sub_6FC30_get34_height() * scale;
+					LOWORD(v10) = GetLetterHeight_6FC30() * scale;
 					textPosY += v10;
 					break;
 				case 1u:
@@ -26907,7 +26907,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 						v15 = (*xadataclrd0dat.colorPalette_var28)[256 * ((signed int)(v14 - (__CFSHL__(HIDWORD(v14), 8) + (HIDWORD(v14) << 8))) >> 8)];
 					}
 					DrawText_2BC10(printbuffer, textPosX, textPosY, v15, scale);
-					LOWORD(v16) = sub_6FC30_get34_height() * scale;
+					LOWORD(v16) = GetLetterHeight_6FC30() * scale;
 					textPosX = posX;
 					textPosY += v16;
 					break;
@@ -26923,7 +26923,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 						sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[v7y].array_0x01c_2BFA_11258);
 						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[3840], scale);
 						textPosX = posX;
-						LOWORD(v12) = sub_6FC30_get34_height() * scale;
+						LOWORD(v12) = GetLetterHeight_6FC30() * scale;
 						textPosY += v12;
 					}
 					break;
@@ -26941,7 +26941,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 						v18 = 4080 * x_D41A0_BYTEARRAY_4_struct.byteindex_121[2];
 						DrawText_2BC10(printbuffer, textPosX, textPosY, (*xadataclrd0dat.colorPalette_var28)[16 * ((signed int)(v18 - (__CFSHL__(HIDWORD(v18), 8) + (HIDWORD(v18) << 8))) >> 8)]);
 						textPosX = posX;
-						LOWORD(v19) = sub_6FC30_get34_height() * scale;
+						LOWORD(v19) = GetLetterHeight_6FC30() * scale;
 						textPosY += v19;
 					}
 					break;
@@ -71784,51 +71784,51 @@ void sub_6FEC0()//250ec0
 	{
 		DrawHelpText_6FC50(1);
 		DrawText_2BC10((char*)"Product name", 320, 0, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		LOWORD(v3) = sub_6FC30_get34_height();
+		LOWORD(v3) = GetLetterHeight_6FC30();
 		v4 = v3;
 		DrawText_2BC10((char*)"Magic Carpet 2 (Netherworlds)", 320, v3, (*xadataclrd0dat.colorPalette_var28)[15]);
-		LOWORD(v5) = sub_6FC30_get34_height();
+		LOWORD(v5) = GetLetterHeight_6FC30();
 		v6 = v5 + v4;
 		DrawText_2BC10((char*)"Version number", 320, v6, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		LOWORD(v7) = sub_6FC30_get34_height();
+		LOWORD(v7) = GetLetterHeight_6FC30();
 		v8 = v7 + v6;
 		DrawText_2BC10((char*)"Beta", 320, v8, (*xadataclrd0dat.colorPalette_var28)[15]);
-		LOWORD(v9) = sub_6FC30_get34_height();
+		LOWORD(v9) = GetLetterHeight_6FC30();
 		v10 = v9 + v8;
 		DrawText_2BC10((char*)"Version date", 320, v10, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		LOWORD(v11) = sub_6FC30_get34_height();
+		LOWORD(v11) = GetLetterHeight_6FC30();
 		v12 = v11 + v10;
 		sprintf(printbuffer, "%s %s", "03:42:13", "Sep 06 1995");
 		DrawText_2BC10(printbuffer, 320, v12, (*xadataclrd0dat.colorPalette_var28)[15]);
-		LOWORD(v13) = sub_6FC30_get34_height();
+		LOWORD(v13) = GetLetterHeight_6FC30();
 		v14 = v13 + v12;
 		DrawText_2BC10((char*)"Programmer", 320, v14, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		LOWORD(v15) = sub_6FC30_get34_height();
+		LOWORD(v15) = GetLetterHeight_6FC30();
 		v16 = v15 + v14;
 		DrawText_2BC10((char*)"Bullfrog, Alan Wright.", 320, v16, (*xadataclrd0dat.colorPalette_var28)[15]);
-		LOWORD(v17) = sub_6FC30_get34_height();
+		LOWORD(v17) = GetLetterHeight_6FC30();
 		v18 = v17 + v16;
 		DrawText_2BC10((char*)"Supplied to", 320, v18, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		LOWORD(v19) = sub_6FC30_get34_height();
+		LOWORD(v19) = GetLetterHeight_6FC30();
 		v20 = v19 + v18;
 		DrawText_2BC10((char*)"PUBLIC", 320, v20, (*xadataclrd0dat.colorPalette_var28)[15]);
-		LOWORD(v21) = sub_6FC30_get34_height();
+		LOWORD(v21) = GetLetterHeight_6FC30();
 		v22 = v21 + v20;
 		DrawText_2BC10((char*)"Level Number", 320, v22, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		LOWORD(v23) = sub_6FC30_get34_height();
+		LOWORD(v23) = GetLetterHeight_6FC30();
 		v24 = v23 + v22;
 		sprintf(printbuffer, "%d", x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
 		DrawText_2BC10((char*)printbuffer, 320, v24, (*xadataclrd0dat.colorPalette_var28)[15]);
-		LOWORD(v25) = sub_6FC30_get34_height();
+		LOWORD(v25) = GetLetterHeight_6FC30();
 		v26 = v25 + v24;
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 		{
 			DrawText_2BC10((char*)"Transfer rate:", 320, v26, (*xadataclrd0dat.colorPalette_var28)[3840]);
-			LOWORD(v27) = sub_6FC30_get34_height();
+			LOWORD(v27) = GetLetterHeight_6FC30();
 			v28 = v27 + v26;
 			sprintf(printbuffer, "%d", x_D41A0_BYTEARRAY_4_struct.transfer_rate_dwordindex_200);
 			DrawText_2BC10(printbuffer, 320, v28, (*xadataclrd0dat.colorPalette_var28)[15]);
-			LOWORD(v29) = sub_6FC30_get34_height();
+			LOWORD(v29) = GetLetterHeight_6FC30();
 			v26 = v29 + v28;
 		}
 		//v30 = 2124 * D41A0_BYTESTR_0.word_0xc;
@@ -71842,42 +71842,42 @@ void sub_6FEC0()//250ec0
 			x_DWORD_E9C18 = x_DWORD_E9C14;
 		}
 		DrawText_2BC10((char*)"FPS", 320, v26, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v32 = sub_6FC30_get34_height() + v26;
+		v32 = GetLetterHeight_6FC30() + v26;
 		sprintf(printbuffer, "%d", x_DWORD_E9C24_fps);
 		DrawText_2BC10(printbuffer, 320, v32, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v33 = sub_6FC30_get34_height() + v32;
+		v33 = GetLetterHeight_6FC30() + v32;
 		DrawText_2BC10((char*)"Sound Number", 320, v33, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v34 = sub_6FC30_get34_height() + v33;
+		v34 = GetLetterHeight_6FC30() + v33;
 		sprintf(printbuffer, "%d", soundFreqType_E37B6);
 		DrawText_2BC10(printbuffer, 320, v34, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v35 = sub_6FC30_get34_height() + v34;
+		v35 = GetLetterHeight_6FC30() + v34;
 		DrawText_2BC10((char*)"Game turn", 320, v35, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v36 = sub_6FC30_get34_height() + v35;
+		v36 = GetLetterHeight_6FC30() + v35;
 		sprintf(printbuffer, "%d %d", D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248, x_DWORD_17DB54_game_turn2);
 		DrawText_2BC10(printbuffer, 320, v36, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v37 = sub_6FC30_get34_height() + v36;
+		v37 = GetLetterHeight_6FC30() + v36;
 		DrawText_2BC10((char*)"Thing", 320, v37, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v38 = sub_6FC30_get34_height() + v37;
+		v38 = GetLetterHeight_6FC30() + v37;
 		v39 = sub_4A810_get_0x35plus();
 		sprintf(printbuffer, "Thing %d, Active %d", 168, 1000 - v39);
 		DrawText_2BC10(printbuffer, 320, v38, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v40 = sub_6FC30_get34_height() + v38;
+		v40 = GetLetterHeight_6FC30() + v38;
 		sprintf(printbuffer, "Carpet %d", sizeof(type_shadow_D41A0_BYTESTR_0));
 		DrawText_2BC10(printbuffer, 320, v40, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v41 = sub_6FC30_get34_height() + v40;
+		v41 = GetLetterHeight_6FC30() + v40;
 		sprintf(printbuffer, "Tape %d", 38547);
 		DrawText_2BC10(printbuffer, 320, v41, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v42 = sub_6FC30_get34_height() + v41;
+		v42 = GetLetterHeight_6FC30() + v41;
 		sprintf(printbuffer, "Heap %d", x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230);
 		DrawText_2BC10(printbuffer, 320, v42, (*xadataclrd0dat.colorPalette_var28)[15]);
-		v43 = sub_6FC30_get34_height() + v42;
+		v43 = GetLetterHeight_6FC30() + v42;
 		//sub_85350();
 		DrawText_2BC10((char*)"Memory (Used/Free)", 320, v43, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v44 = sub_6FC30_get34_height() + v43;
+		v44 = GetLetterHeight_6FC30() + v43;
 		sprintf(printbuffer, "%d/%d", x_DWORD_17FEA8_mem_used, x_DWORD_17FEA4_mem_free);
 		DrawText_2BC10(printbuffer, 320, v44, (*xadataclrd0dat.colorPalette_var28)[15]);
 		/*v45 = (int*)&x_DWORD_17ECA0;
-		//LOWORD(result) = sub_6FC30_get34_height();
+		//LOWORD(result) = GetLetterHeight_6FC30();
 		v46 = 0;
 		for (i = 0; v45; v45 = (int*)v45[2])
 		{
@@ -71887,10 +71887,10 @@ void sub_6FEC0()//250ec0
 			else
 				v47 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			DrawText_2BC10(printbuffer, i, v46, v47);
-			//LOWORD(v48) = sub_6FC30_get34_height();
-			v46 += sub_6FC30_get34_height();
-			//result = 400 - sub_6FC30_get34_height();
-			if ((signed __int16)v46 > 400 - sub_6FC30_get34_height())
+			//LOWORD(v48) = GetLetterHeight_6FC30();
+			v46 += GetLetterHeight_6FC30();
+			//result = 400 - GetLetterHeight_6FC30();
+			if ((signed __int16)v46 > 400 - GetLetterHeight_6FC30())
 			{
 				//LOWORD(v49) = GetLetterWidth_6FC10();
 				//result = 12 * v49;
@@ -71902,18 +71902,18 @@ void sub_6FEC0()//250ec0
 	}
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 0x40)
 	{
-		v50 = 6 * sub_6FC30_get34_height();
+		v50 = 6 * GetLetterHeight_6FC30();
 		DrawText_2BC10((char*)"THING", 10, v50, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v51 = sub_6FC30_get34_height() + v50;
+		v51 = GetLetterHeight_6FC30() + v50;
 		sprintf(
 			printbuffer,
 			"%ld / %d",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396[0],
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396 - D41A0_0.struct_0x6E8E);
 		DrawText_2BC10(printbuffer, 10, v51, (*xadataclrd0dat.colorPalette_var28)[255]);
-		v52 = sub_6FC30_get34_height() + v51;
+		v52 = GetLetterHeight_6FC30() + v51;
 		DrawText_2BC10((char*)"CLASS / MODEL / STATE", 10, v52, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v53 = sub_6FC30_get34_height() + v52;
+		v53 = GetLetterHeight_6FC30() + v52;
 		sprintf(
 			printbuffer,
 			"%hhd / %hhd / %hhu",
@@ -71921,18 +71921,18 @@ void sub_6FEC0()//250ec0
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->model_0x40_64,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->state_0x45_69);
 		DrawText_2BC10(printbuffer, 10, v53, (*xadataclrd0dat.colorPalette_var28)[255]);
-		v54 = sub_6FC30_get34_height() + v53;
+		v54 = GetLetterHeight_6FC30() + v53;
 		DrawText_2BC10((char*)"LIFE / MAX LIFE", 10, v54, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v55 = sub_6FC30_get34_height() + v54;
+		v55 = GetLetterHeight_6FC30() + v54;
 		sprintf(
 			printbuffer,
 			"%d / %d",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->life_0x8,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->maxLife_0x4);
 		DrawText_2BC10(printbuffer, 10, v55, (*xadataclrd0dat.colorPalette_var28)[255]);
-		v56 = sub_6FC30_get34_height() + v55;
+		v56 = GetLetterHeight_6FC30() + v55;
 		DrawText_2BC10((char*)"SPEED ACTUAL / MINIMUM / MAXIMUM", 10, v56, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v57 = sub_6FC30_get34_height() + v56;
+		v57 = GetLetterHeight_6FC30() + v56;
 		sprintf(
 			printbuffer,
 			"%hd / %hd / %hd",
@@ -71940,9 +71940,9 @@ void sub_6FEC0()//250ec0
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->minSpeed_0x84_132,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->maxSpeed_0x86_134);
 		DrawText_2BC10(printbuffer, 10, v57, (*xadataclrd0dat.colorPalette_var28)[255]);
-		v58 = sub_6FC30_get34_height() + v57;
+		v58 = GetLetterHeight_6FC30() + v57;
 		DrawText_2BC10((char*)"ACTUAL X / Y / Z", 10, v58, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v59 = sub_6FC30_get34_height() + v58;
+		v59 = GetLetterHeight_6FC30() + v58;
 		sprintf(
 			printbuffer,
 			"%hu / %hu / %hu",
@@ -71950,25 +71950,25 @@ void sub_6FEC0()//250ec0
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->axis_0x4C_76.y,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->axis_0x4C_76.z);
 		DrawText_2BC10(printbuffer, 10, v59, (*xadataclrd0dat.colorPalette_var28)[255]);
-		v60 = sub_6FC30_get34_height() + v59;
+		v60 = GetLetterHeight_6FC30() + v59;
 		DrawText_2BC10((char*)"ID / WHO OWNS ME", 10, v60, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v61 = sub_6FC30_get34_height() + v60;
+		v61 = GetLetterHeight_6FC30() + v60;
 		sprintf(
 			printbuffer,
 			"%hu / %hu",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->id_0x1A_26,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->parentId_0x28_40);
 		DrawText_2BC10(printbuffer, 10, v61, (*xadataclrd0dat.colorPalette_var28)[255]);
-		v62 = sub_6FC30_get34_height() + v61;
+		v62 = GetLetterHeight_6FC30() + v61;
 		DrawText_2BC10((char*)"MANA ACTUAL / MAXIMUM", 10, v62, (*xadataclrd0dat.colorPalette_var28)[3840]);
-		v63 = sub_6FC30_get34_height() + v62;
+		v63 = GetLetterHeight_6FC30() + v62;
 		sprintf(
 			printbuffer,
 			"%d / %d",
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->mana_0x90_144,
 			x_D41A0_BYTEARRAY_4_struct.dwordindex_38396->maxMana_0x8C_140);
 		DrawText_2BC10(printbuffer, 10, v63, (*xadataclrd0dat.colorPalette_var28)[255]);
-		//LOWORD(result) = sub_6FC30_get34_height();
+		//LOWORD(result) = GetLetterHeight_6FC30();
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_53 == 16273849)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_52 |= 2u;
