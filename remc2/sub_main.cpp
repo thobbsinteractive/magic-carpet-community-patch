@@ -76759,7 +76759,7 @@ void DrawGameHelp_87610()//268610
 			str_unk_1804B0ar.byte_0x9e &= 0xF7;
 			break;
 		}
-		case 2: // Draws Mini Map and Top Status Bar Help
+		case 2: // Draws Mini Map, Top Status Bar and Control Help
 		{
 			str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220;

@@ -1989,7 +1989,7 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x
 	return result;
 }
 
-void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int a2, int a3)
+void GameRenderHD::sub_88740(type_event_0x6E8E* a1x, int16_t posX, int16_t posY)
 {
 	int v3; // esi
 	type_event_0x6E8E* v4x; // edx
@@ -2102,8 +2102,8 @@ LABEL_48:
 	{
 		if (x_WORD_180660_VGA_type_resolution & 1)
 		{
-			a2 *= 2;
-			a3 *= 2;
+			posX *= 2;
+			posY *= 2;
 		}
 		if (str_E2A74[v3].axis_2[0] & 2)
 		{
@@ -2111,9 +2111,9 @@ LABEL_48:
 			{
 				if (!(str_unk_1804B0ar.byte_0x9f & 0x1))
 				{
-					str_E2A74[v3].axis_2[3] = a2;
+					str_E2A74[v3].axis_2[3] = posX;
 					str_E2A74[v3].axis_2[0] |= 8;
-					str_E2A74[v3].axis_2[4] = a3;
+					str_E2A74[v3].axis_2[4] = posY;
 					str_unk_1804B0ar.byte_0x9f |= 2;
 				}
 			}
