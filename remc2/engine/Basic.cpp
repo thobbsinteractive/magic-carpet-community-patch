@@ -1003,7 +1003,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 				if (a6 && a6 != 4 && a6 != 5)//adress 261091
 				{
 					DrawHelpText_6FC50(1/*v86*/);
-					v25 = sub_6FC10_letter_width();
+					v25 = GetLetterWidth_6FC10();
 				}
 				else
 				{
@@ -1042,7 +1042,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 							a1 += v34;
 							v86 = a7;
 							v35 = v98;
-							v36 = a4 - 2 * sub_6FC10_letter_width();
+							v36 = a4 - 2 * GetLetterWidth_6FC10();
 							sub_6FC80_pre_draw_text(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, v36, v35, a7);
 						}
 						else if (a6 == 5)
@@ -1185,7 +1185,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 				}
 				v86 = a7;
 				v69 = v98;
-				v70 = a4 - 2 * sub_6FC10_letter_width();
+				v70 = a4 - 2 * GetLetterWidth_6FC10();
 				sub_6FC80_pre_draw_text(v87, v99 + xy_DWORD_17DED4_spritestr[275].width_4, v70, v69, a7);
 			}
 			else if (a6 == 5)
@@ -1435,7 +1435,7 @@ void DrawHelpText_6FC50(__int16 a1)//250c50 //font and graphics init
 // EA3D4: using guessed type int x_DWORD_EA3D4;
 
 //----- (0006FC10) --------------------------------------------------------
-uint8_t sub_6FC10_letter_width()//250c10
+uint8_t GetLetterWidth_6FC10()//250c10
 {
 	if (help_VGA_type_resolution != 8)//fixed
 		return x_DWORD_EA3D4[33].width_4;
@@ -1460,10 +1460,10 @@ unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a
 	}
 	else
 	{
-		v6 = a2 + v9 / 2 - (v5 - 1) * sub_6FC10_letter_width() / 2;
+		v6 = a2 + v9 / 2 - (v5 - 1) * GetLetterWidth_6FC10() / 2;
 		DrawText_2BC10(a1, v6, a4, a5);
 	}
-	v7 = sub_6FC10_letter_width();
+	v7 = GetLetterWidth_6FC10();
 	return v6 + v7 * strlen(a1);
 }
 
@@ -2163,7 +2163,7 @@ void sub_6F940_sub_draw_text(const char* textbuffer, int posx, int posy, uint8_t
 				if (v6 == 32)
 				{
 				LABEL_14:
-					LOWORD(v9) = sub_6FC10_letter_width() * scale;
+					LOWORD(v9) = GetLetterWidth_6FC10() * scale;
 					goto LABEL_15;
 				}
 			}

@@ -2104,7 +2104,7 @@ x_BYTE* sub_6F7E0(type_event_0x6E8E* a1);
 type_event_0x6E8E* InitSwitchChainZaxisAndSound_6F850(type_event_0x6E8E* a1, int a2);
 type_event_0x6E8E* sub_6F8E0(type_event_0x6E8E* a1, int a2);
 //void sub_6F940_sub_draw_text(char* a1, int a2, int a3, uint8_t color);
-//uint8_t sub_6FC10_letter_width();
+//uint8_t GetLetterWidth_6FC10();
 //uint8_t sub_6FC30_get34_height();
 //void sub_6FC50(__int16 a1);
 //unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
@@ -71892,9 +71892,9 @@ void sub_6FEC0()//250ec0
 			//result = 400 - sub_6FC30_get34_height();
 			if ((signed __int16)v46 > 400 - sub_6FC30_get34_height())
 			{
-				//LOWORD(v49) = sub_6FC10_letter_width();
+				//LOWORD(v49) = GetLetterWidth_6FC10();
 				//result = 12 * v49;
-				i += 12 * sub_6FC10_letter_width();
+				i += 12 * GetLetterWidth_6FC10();
 				v46 = 0;
 			}
 		}

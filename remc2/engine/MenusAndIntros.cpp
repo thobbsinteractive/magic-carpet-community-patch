@@ -3031,8 +3031,8 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 				DrawText_2BC10(printbuffer, v63, v21 + 16 + v62, v68);//draw number
 				//v22 = v57;
 				//v23 = v58;
-				//v24 = v63 + 3 * sub_6FC10_letter_width();
-				DrawText_2BC10(v16 + 20, v63 + 3 * sub_6FC10_letter_width(), v21 + 16 + v62, v68);//draw text
+				//v24 = v63 + 3 * GetLetterWidth_6FC10();
+				DrawText_2BC10(v16 + 20, v63 + 3 * GetLetterWidth_6FC10(), v21 + 16 + v62, v68);//draw text
 			}
 			else
 			{
@@ -3040,7 +3040,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 				DrawText_2BC10(printbuffer, a1x->str_26.x1_26_0 + 20, v62 + a1x->str_26.y1_28_1 + 16, v67);//draw number
 				//v17 = v67;
 				v18 = v62 + a1x->str_26.y1_28_1 + 16;
-				v19 = a1x->str_26.x1_26_0 + 20 + 3 * sub_6FC10_letter_width();
+				v19 = a1x->str_26.x1_26_0 + 20 + 3 * GetLetterWidth_6FC10();
 				DrawText_2BC10(v16, v19, v18, v67);//draw text
 			}
 		}
@@ -3095,7 +3095,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 					v32 = v68;
 					DrawText_2BC10(printbuffer, a1x->str_26.x1_26_0 + 20, v64 + a1x->str_26.y1_28_1 + 16, v68);
 					v33 = v64 + a1x->str_26.y1_28_1 + 16;
-					v34 = sub_6FC10_letter_width();
+					v34 = GetLetterWidth_6FC10();
 					DrawText_2BC10(&x_DWORD_17DE38str.xx_BYTE_17DF14[(k - 1)][0], a1x->str_26.x1_26_0 + 20 + 3 * v34, v33, v32);
 				}
 			}
@@ -3130,7 +3130,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 			v39 = v38 + 40;
 			v40 = v38 + 20;
 			v41 = v61;
-			v42 = sub_6FC10_letter_width();
+			v42 = GetLetterWidth_6FC10();
 			sub_7F6A0((signed __int16)(v63 + 3 * v42), v43, v63 + 3 * v42, v41, v40, (int8_t*)v39, v37);
 		}
 	}
@@ -4216,8 +4216,8 @@ void DrawText_80C30(__int16 posX, __int16 posY, __int16 a3)//261c30
 		}
 		DrawHelpText_6FC50(1);
 		v7 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
-		v8 = (signed __int16)(posX + a3 - 3 * sub_6FC10_letter_width());
-		v9 = sub_6FC10_letter_width();
+		v8 = (signed __int16)(posX + a3 - 3 * GetLetterWidth_6FC10());
+		v9 = GetLetterWidth_6FC10();
 		sub_7FCB0_draw_text_with_border(/*v3,*/ x_DWORD_E9C4C_langindexbuffer[23 + v3], (signed __int16)(posX + 4 * v9), v8, posY, 5, v7, 1);
 		//"You must explore the outer Netherworlds while you learn its magic. Your first destination is the ancient city of Jahwl."+
 	}
@@ -5920,7 +5920,7 @@ LABEL_16:
 	DrawText_2BC10(a5, a3, a4, a7);
 	if ((v10 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 	{
-		v8 = sub_6FC10_letter_width();
+		v8 = GetLetterWidth_6FC10();
 		DrawText_2BC10((char*)"_", a3 + v8 * strlen(a5), a4, a7);
 		x_DWORD_17DE38str.x_DWORD_17DED0 = v10;
 	}
