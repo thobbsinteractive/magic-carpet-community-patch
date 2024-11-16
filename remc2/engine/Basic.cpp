@@ -1002,7 +1002,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 			{
 				if (a6 && a6 != 4 && a6 != 5)//adress 261091
 				{
-					DrawHelpText_6FC50(1/*v86*/);
+					GetFont_6FC50(1/*v86*/);
 					v25 = GetLetterWidth_6FC10();
 				}
 				else
@@ -1022,7 +1022,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 					{
 						if (a6 == 2)
 						{
-							DrawHelpText_6FC50(1/*v86*/);
+							GetFont_6FC50(1/*v86*/);
 							v31 = &pdwScreenBuffer_351628[v26 + 640 * a1];
 							for (v32 = 0; v32 < xy_DWORD_17DED4_spritestr[274].height_5; v32++)
 							{
@@ -1131,10 +1131,10 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 	{
 		if (a6 && a6 != 4)
 		{
-			DrawHelpText_6FC50(1/*v86*/);
+			GetFont_6FC50(1/*v86*/);
 			if (a6 == 2)
 			{
-				DrawHelpText_6FC50(1/*v86*/);
+				GetFont_6FC50(1/*v86*/);
 				v58x = &pdwScreenBuffer_351628[v99 + 640 * a1];
 				v59y = 0;
 				for (v57 = 0; v57 < xy_DWORD_17DED4_spritestr[274].height_5; v57++)
@@ -1156,7 +1156,7 @@ int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* textString, int32_t a3, in
 				//HIWORD(v62) = HIWORD(xy_DWORD_17DED4_spritestr);
 				v62 = xy_DWORD_17DED4_spritestr[274].height_5;
 				v63 = v62 + a1;
-				DrawHelpText_6FC50(1/*v86*/);
+				GetFont_6FC50(1/*v86*/);
 				v64 = &pdwScreenBuffer_351628[640 * v63 + v61];
 				for (v65 = 0; v65 < xy_DWORD_17DED4_spritestr[274].height_5; v65++)
 				{
@@ -1419,7 +1419,7 @@ void sub_7C140_draw_text_background(int16_t x1, int16_t y1, int16_t x2, int16_t 
 }
 
 //----- (0006FC50) --------------------------------------------------------
-void DrawHelpText_6FC50(__int16 a1)//250c50 //font and graphics init
+void GetFont_6FC50(__int16 a1)//250c50 //font and graphics init
 {
 	//int result; // eax
 	bitmap_pos_struct_t* v2; // edx

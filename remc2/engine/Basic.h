@@ -577,7 +577,7 @@ void sub_75200_VGA_Blit640(uint16_t height, uint8_t maxFps = 0);
 uint8_t GetLetterHeight_6FC30();
 void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr, uint8_t scale = 1);
 
-void DrawHelpText_6FC50(__int16 a1);//250c50
+void GetFont_6FC50(__int16 a1);//250c50
 uint8_t GetLetterWidth_6FC10();
 unsigned int sub_6FC80_pre_draw_text(char* a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void sub_75D70(uint8_t* a1, uint32_t a2);

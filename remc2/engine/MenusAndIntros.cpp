@@ -1768,7 +1768,7 @@ char LoadGameDialog_780F0(type_WORD_E1F84* a1x)//0x2590f0
 	for (int jm = 0; jm < 8; jm++)
 	{
 		int j = jm + 1;
-		DrawHelpText_6FC50(1);
+		GetFont_6FC50(1);
 		if (a1x->str_26.word_36_5 /**(signed __int16*)(a1 + 36)*/ > 16 * (signed __int16)j + 3 * GetLetterHeight_6FC30())
 		{
       std::string savegame = std::to_string(j) + ". " + std::string(&x_DWORD_17DE38str.xx_BYTE_17DF14[(j - 1)][0]);
@@ -3013,7 +3013,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 	}
 	for (j = 1; j < 9; j++)
 	{
-		DrawHelpText_6FC50(1);
+		GetFont_6FC50(1);
 		if (a1x->str_26.word_36_5 > 16 * j + 3 * GetLetterHeight_6FC30())//0160:259AB7
 		{
 			sprintf(printbuffer, "%d.", j);
@@ -3102,7 +3102,7 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 		}
 		if (x_DWORD_17DE38str.x_WORD_17DF04)
 		{
-			DrawHelpText_6FC50(1);
+			GetFont_6FC50(1);
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode != 1 && x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode != 28 && x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode != 14
 				|| /*(v35 = 43 * (x_DWORD_17DE38str.x_WORD_17DF04 - 1),*/ x_DWORD_17DE38str.xx_BYTE_17DF14[(x_DWORD_17DE38str.x_WORD_17DF04 - 1)][42]/*)*/)
 			{
@@ -4214,7 +4214,7 @@ void DrawText_80C30(__int16 posX, __int16 posY, __int16 a3)//261c30
 				return;
 			}
 		}
-		DrawHelpText_6FC50(1);
+		GetFont_6FC50(1);
 		v7 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x3Fu, 0x3Fu, 0x3Fu);
 		v8 = (signed __int16)(posX + a3 - 3 * GetLetterWidth_6FC10());
 		v9 = GetLetterWidth_6FC10();
@@ -5750,7 +5750,7 @@ char SetPlayerNameDialog_78E00(/*int a1, int a2, */type_WORD_E1F84* a3x)//259e00
 
 	v28 = 0;
 	v26 = j___clock();
-	/*v3 = */DrawHelpText_6FC50(1);
+	/*v3 = */GetFont_6FC50(1);
 	//LOWORD(v3) = a3[13];
 	v29 = a3x->str_26.x1_26_0 + 10;
 	//HIWORD(v3) = HIWORD(x_DWORD_17DED4);
@@ -5793,7 +5793,7 @@ char SetPlayerNameDialog_78E00(/*int a1, int a2, */type_WORD_E1F84* a3x)//259e00
 	}
 LABEL_13:
 	_strupr(x_DWORD_17DE38str.x_DWORD_17DE50);
-	DrawHelpText_6FC50(1);
+	GetFont_6FC50(1);
 	v9 = GetLetterHeight_6FC30() + v5;
 	v10 = getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0x16u, 0x10u, 9u);
 	v11 = sub_6FC80_pre_draw_text((char*)x_DWORD_17DE38str.x_DWORD_17DE50, v29, v27, v9, v10);
@@ -5960,18 +5960,18 @@ char SetJoystickDialog_79160(type_WORD_E1F84* locEvent)//25a160
 		scrollState = DrawScrollDialog_7BF20(&locEvent->str_26);
 		if (locEvent->str_26.word_36_5 >= locEvent->str_26.word_34_4)
 		{
-			DrawHelpText_6FC50(1);
+			GetFont_6FC50(1);
 			for (int i = 0; str_BYTE_E2590[i].word_12; i++)
 			{
 				if (str_BYTE_E2590[i].word_14)
 				{
-					DrawHelpText_6FC50(1);
+					GetFont_6FC50(1);
 					sub_6FC80_pre_draw_text(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E2590[i].word_12], locX1, locX2, locY1, color1);
 					lastSelected = i;
 				}
 				else
 				{
-					DrawHelpText_6FC50(1);
+					GetFont_6FC50(1);
 					sub_6FC80_pre_draw_text(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E2590[i].word_12], locX1, locX2, locY1, color2);
 				}
 				locY1 += GetLetterHeight_6FC30();
@@ -5991,7 +5991,7 @@ char SetJoystickDialog_79160(type_WORD_E1F84* locEvent)//25a160
 							str_BYTE_E2590[lastSelected].word_14 = 0;
 						str_BYTE_E2590[i].word_14 = 1;
 					}
-					DrawHelpText_6FC50(1);
+					GetFont_6FC50(1);
 					sub_6FC80_pre_draw_text(x_DWORD_E9C4C_langindexbuffer[str_BYTE_E2590[i].word_12], locX1, locX2, locY1, color1);
 				}
 				locY1 += GetLetterHeight_6FC30();
@@ -6260,7 +6260,7 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 	memset(printbuffer, 0, 10);
 	a2x->dword_4 = 0;
 	v3 = j___clock();
-	DrawHelpText_6FC50(1);
+	GetFont_6FC50(1);
 	v22 = a2x->str_26.x1_26_0 + 10;
 	v20 = v22 + xy_DWORD_17DED4_spritestr[72].width_4 - 22;
 	v8 = a2x->str_26.word_34_4 / 2 + a2x->str_26.y1_28_1 - GetLetterHeight_6FC30();
@@ -6286,12 +6286,12 @@ char MultiplayerMenu_7DE80(type_WORD_E1F84* a2x)//25ee80
 			}
 		}
 		sprintf(printbuffer, "%d", (unsigned __int8)x_BYTE_E29DF_skip_screen);
-		DrawHelpText_6FC50(1);
+		GetFont_6FC50(1);
 		v12 = GetLetterHeight_6FC30() + v8;
 		v14 = sub_6FC80_pre_draw_text(printbuffer, v22, v20, v12, getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0));
 		if ((v3 - x_DWORD_17DE38str.x_DWORD_17DED0) / 0xCu >= 1)
 		{
-			DrawHelpText_6FC50(1);
+			GetFont_6FC50(1);
 			DrawText_2BC10((char*)"_", v14 - 2, v12, getPaletteIndex_5BE80(x_DWORD_17DE38str.x_DWORD_17DE38x, 0, 0, 0));
 			x_DWORD_17DE38str.x_DWORD_17DED0 = v3;
 		}
@@ -6337,7 +6337,7 @@ int DrawScrollDialog_7BF20(type_str_word_26* a1x)//25cf20
 		return 0;
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10 == 1)
 		x_DWORD_17DE38str.x_BYTE_17DF13 = 0;
-	DrawHelpText_6FC50(1);
+	GetFont_6FC50(1);
 	if (!a1x->click_40_7)
 	{
 		v4 = a1x->word_36_5;
@@ -6593,7 +6593,7 @@ int DrawScrollDialog2_7B660(int a1, int a2, __int16 a3, type_str_word_26* a4x, c
 			}
 		}
 	}
-	DrawHelpText_6FC50(1);
+	GetFont_6FC50(1);
 	//v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].pointer;
 	v30 = a1 + 10 + xy_DWORD_17DED4_spritestr[x_DWORD_17DE38str.x_WORD_17DF06].width_4 - 22;
 	//v29 = xy_DWORD_17DED4_spritestr[x_WORD_17DF06].sizey;
@@ -7213,7 +7213,7 @@ void CleanRecByColor_85C42(uint8_t* a1, int a2, int a3, int a4, int a5, unsigned
 void DrawNetworkLevelName_7D380()//25e380
 {
 	CleanRecByColor_85C42(pdwScreenBuffer_351628, 246, 14, 109, 14, 0x9Fu);
-	DrawHelpText_6FC50(1);
+	GetFont_6FC50(1);
 	int v0 = x_DWORD_17DE38str.array_BYTE_17DE68x[x_DWORD_17DE38str.serverIndex_17DEFC].selectedLevel_10;
 	sprintf(printbuffer, "%d. %s", v0 - 49, LevelsNames_D9204[v0]);
 	sub_7FAE0_draw_text(printbuffer, 246, 355, 14, 0);

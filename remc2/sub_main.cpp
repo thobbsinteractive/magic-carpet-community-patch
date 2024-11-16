@@ -26518,7 +26518,7 @@ void DrawGameFrame_2BE30()//20CE30
 					256 / scale);
 			}
 
-			DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+			GetFont_6FC50(x_BYTE_D419D_fonttype);
 			if (D41A0_0.m_GameSettings.m_Display.m_wTopBar)
 			{
 
@@ -26759,7 +26759,7 @@ void DrawGameFrame_2BE30()//20CE30
 	}
 	if (D41A0_0.byte_0x36E04)
 		DrawCurrentObjectTextbox_30630(scale);
-	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		return;
 
@@ -26846,7 +26846,7 @@ void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale)//2
 	int v22; // [esp+84h] [ebp+76h]
 
 	textPosY = posY;
-	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	//result = (int)x_D41A0_BYTEARRAY_4;
 	textPosX = posX;
 	indexedColor = (*xadataclrd0dat.colorPalette_var28)[3840];
@@ -27018,7 +27018,7 @@ void DrawSorcererScores_2D1D0(uint8_t scale)//20e1d0
 		}
 
 	v0 = 0;
-	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	v1 = 0;
 	//v2 = x_D41A0_BYTEARRAY_0 + 11230;
 	v2x = 0;
@@ -27376,7 +27376,7 @@ void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3x, cha
 
 	if (a3x > x_DWORD_EA3E4[0])
 	{
-		DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+		GetFont_6FC50(x_BYTE_D419D_fonttype);
 		v4x = x_DWORD_EA3E4[a3x->parentId_0x28_40];
 		v15x = v4x;
 		if (v4x > x_DWORD_EA3E4[0])
@@ -61719,7 +61719,7 @@ void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_
 	v76 = height / 2;
 	v15 = (x_DWORD)Maths::sin_DB750[0x200 + yaw & 0x7FF] * v13;
 	v86 = -v14 >> 16;
-	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	v73 = v15 >> 16;
 	v80x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	v16 = v80x->dword_0xA4_164x->str_611.array_0x333_819x.word[12];
@@ -62324,7 +62324,7 @@ void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_
 	v16 = (x_DWORD)Maths::sin_DB750[0x200 + yaw & 0x7FF] * v14;
 	v85 = height / 2;
 	v86 = -v15 >> 16;
-	DrawHelpText_6FC50(x_BYTE_D419D_fonttype);
+	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	v87 = v16 >> 16;
 	v102x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	v17 = v102x->dword_0xA4_164x->str_611.array_0x333_819x.word[12];
@@ -71782,7 +71782,7 @@ void sub_6FEC0()//250ec0
 	//!!!!!!!!!!!!!!!
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x005_2BE0_11235 & 8)
 	{
-		DrawHelpText_6FC50(1);
+		GetFont_6FC50(1);
 		DrawText_2BC10((char*)"Product name", 320, 0, (*xadataclrd0dat.colorPalette_var28)[3840]);
 		LOWORD(v3) = GetLetterHeight_6FC30();
 		v4 = v3;
