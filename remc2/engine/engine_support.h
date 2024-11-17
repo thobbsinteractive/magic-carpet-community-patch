@@ -1473,7 +1473,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int16_t word_0x98;//98
 	int16_t word_0x9a;//9A
 	int16_t word_0x9c;//9C
-	int8_t byte_0x9e;//9e
+	int8_t MapOpenByte_0x9e;//9e
 	int8_t byte_0x9f;//9f
 	int8_t byte_0xa0;//a0
 	int8_t byte_0xa1;//a1
