@@ -76534,7 +76534,7 @@ void DrawHelpPopUps_871F0()//2681f0
 	bool hintType1 = true;
 
 	sub_872A0();
-	if (str_unk_1804B0ar.byte_0x9e & 0x10)
+	if (str_unk_1804B0ar.MapOpenByte_0x9e & 0x10)
 	{
 		sub_87C10();
 	}
@@ -76542,7 +76542,7 @@ void DrawHelpPopUps_871F0()//2681f0
 	{
 		if (str_unk_1804B0ar.byte_0x9f & 0x20 || str_unk_1804B0ar.byte_0x9f & 0x10)
 			hintType1 = false;
-		if (str_unk_1804B0ar.byte_0x9e & 2 || str_unk_1804B0ar.byte_0x9f & 0x8)
+		if (str_unk_1804B0ar.MapOpenByte_0x9e & 2 || str_unk_1804B0ar.byte_0x9f & 0x8)
 			hintType1 = true;
 		if (hintType1)
 		{
@@ -76591,10 +76591,10 @@ void sub_872A0()//2682a0
 	v1 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 	v2x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	if (v1 < 6u || v1 > 8u)
-		str_unk_1804B0ar.byte_0x9e &= 0xFA;
+		str_unk_1804B0ar.MapOpenByte_0x9e &= 0xFA;
 	else
-		str_unk_1804B0ar.byte_0x9e |= 5;
-	str_unk_1804B0ar.byte_0x9e &= 0xFDu;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 5;
+	str_unk_1804B0ar.MapOpenByte_0x9e &= 0xFDu;
 	str_unk_1804B0ar.byte_0x9f &= 0xC7u;
 	v3 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221;
 	if (v3 != 5 && v3 != 8)
@@ -76605,7 +76605,7 @@ void sub_872A0()//2682a0
 	}
 	else
 	{
-		str_unk_1804B0ar.byte_0x9e |= 2;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 2;
 		str_unk_1804B0ar.dword_0x6e = 6;
 		v5 = v2x->dword_0xA4_164x->str_611.byte_0x458_1112;
 		if (v5 != (unsigned __int8)str_unk_1804B0ar.byte_0xa5 || v2x->dword_0xA4_164x->str_611.byte_0x459_1113 != str_unk_1804B0ar.byte_0xa6)
@@ -76639,7 +76639,7 @@ void sub_872A0()//2682a0
 	str_unk_1804B0ar.byte_0x9f &= 0xFBu;
 	if (v2x->state_0x45_69 == 3)
 		str_unk_1804B0ar.byte_0x9f = str_unk_1804B0ar.byte_0x9f | 4;
-	str_unk_1804B0ar.byte_0x9e &= 0xEF;
+	str_unk_1804B0ar.MapOpenByte_0x9e &= 0xEF;
 	if (D41A0_0.byte_0x36E04
 		|| x_D41A0_BYTEARRAY_4_struct.byteindex_225
 		|| v2x->state_0x45_69 == 12
@@ -76648,7 +76648,7 @@ void sub_872A0()//2682a0
 		|| D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 == 14)
 	{
 		str_unk_1804B0ar.dword_0x72 = str_unk_1804B0ar.dword_0x6e;
-		str_unk_1804B0ar.byte_0x9e |= 0x10;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 0x10;
 	}
 	if (str_unk_1804B0ar.word_0x86)
 	{	//adress 268509
@@ -76683,7 +76683,7 @@ void SetHelpPopupCoords_87580()//268580
 	{
 		SetHelpPopupTextAndCoords_884D0(91, 1, &str_E2A74[91].axis_2[1], 1, 0, scale);
 	}
-	else if (str_unk_1804B0ar.byte_0x9e & 0x2)
+	else if (str_unk_1804B0ar.MapOpenByte_0x9e & 0x2)
 	{
 		SetSpellHelpPopupCoordinates_88D40(scale);
 	}
@@ -76729,7 +76729,7 @@ void DrawPopupTextBox_87610()//268610
 	{
 		case 1: // Draw in the top middle
 		{
-			if (str_unk_1804B0ar.byte_0x9e & 8)
+			if (str_unk_1804B0ar.MapOpenByte_0x9e & 8)
 			{
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
@@ -76754,7 +76754,7 @@ void DrawPopupTextBox_87610()//268610
 				str_unk_1804B0ar.type_sub_0[0].color2_0x31);
 			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
 			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
-			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			str_unk_1804B0ar.MapOpenByte_0x9e &= 0xF7;
 			break;
 		}
 		case 2: // Draws Mini Map, Top Status Bar and Control Help
@@ -76768,7 +76768,7 @@ void DrawPopupTextBox_87610()//268610
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 / 2;
 				str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
 			}
-			if (str_unk_1804B0ar.byte_0x9e & 0x8)
+			if (str_unk_1804B0ar.MapOpenByte_0x9e & 0x8)
 			{
 				ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);//here
 				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
@@ -76785,7 +76785,7 @@ void DrawPopupTextBox_87610()//268610
 			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
 			DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
 			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
-			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			str_unk_1804B0ar.MapOpenByte_0x9e &= 0xF7;
 			break;
 		}
 		case 3: //Draw Spell Menu Help
@@ -76823,12 +76823,12 @@ void DrawPopupTextBox_87610()//268610
 			}
 			DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
 			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
-			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			str_unk_1804B0ar.MapOpenByte_0x9e &= 0xF7;
 			break;
 		}
 		default:
 		{
-			str_unk_1804B0ar.byte_0x9e &= 0xF7;
+			str_unk_1804B0ar.MapOpenByte_0x9e &= 0xF7;
 			break;
 		}
 	}
@@ -76961,7 +76961,7 @@ void sub_87C10()//268c10
 	if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 	{
 		str_unk_1804B0ar.dword_0x6a = 0;
-		str_unk_1804B0ar.byte_0x9e &= 0xDFu;
+		str_unk_1804B0ar.MapOpenByte_0x9e &= 0xDFu;
 		str_unk_1804B0ar.byte_0x9f &= 0xFEu;
 		str_unk_1804B0ar.dword_0x72 = str_unk_1804B0ar.dword_0x6e;
 		str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] &= 0xffFDu;
@@ -77071,7 +77071,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		case 0xD:
 			break;
 		case 6:
-			v13 = (str_unk_1804B0ar.byte_0x9e & 2) == 0;
+			v13 = (str_unk_1804B0ar.MapOpenByte_0x9e & 2) == 0;
 			goto LABEL_31;
 		case 8:
 			if (str_E2A74[v9x].axis_2[0] & 0x10 || str_E2A74[v9x].axis_2[0] & 0x40)
@@ -77090,10 +77090,11 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		v9x++;
 		v35++;
 	}
-	if (str_unk_1804B0ar.byte_0x9e & 4)
+	if (str_unk_1804B0ar.MapOpenByte_0x9e & 4)
 	{
-		str_E2A74[2].axis_2[3] = 190;
-		str_E2A74[2].axis_2[4] = 202;
+		//Map screen open
+		str_E2A74[2].axis_2[3] = (190 * scale);
+		str_E2A74[2].axis_2[4] = (202 * scale);
 	}
 	else
 	{
@@ -77101,7 +77102,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 		str_E2A74[2].axis_2[3] = (64 * scale);
 		str_E2A74[2].axis_2[4] = (66 * scale);
 	}
-	if (!v34 && !(str_unk_1804B0ar.byte_0x9e & 4))
+	if (!v34 && !(str_unk_1804B0ar.MapOpenByte_0x9e & 4))
 		str_E2A74[4].axis_2[0] |= 1u;
 	if (v1x->maxLife_0x4 >> 2 >= v1x->life_0x8)
 		str_E2A74[5].axis_2[0] |= 1u;
@@ -77112,8 +77113,8 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 	str_E2A74[12].axis_2[0] |= 4u;
 	if (v29)
 	{
-		v14 = str_unk_1804B0ar.byte_0x9e & 0x40;
-		if (str_unk_1804B0ar.byte_0x9e & 0x80)
+		v14 = str_unk_1804B0ar.MapOpenByte_0x9e & 0x40;
+		if (str_unk_1804B0ar.MapOpenByte_0x9e & 0x80)
 		{
 			if (v31)
 			{
@@ -77146,7 +77147,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			{
 				str_E2A74[7].axis_2[0] |= 1u;
 			}
-			str_unk_1804B0ar.byte_0x9e &= 0x7F;
+			str_unk_1804B0ar.MapOpenByte_0x9e &= 0x7F;
 		}
 		if (v14)
 		{
@@ -77181,7 +77182,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			{
 				str_E2A74[9].axis_2[0] |= 1u;
 			}
-			str_unk_1804B0ar.byte_0x9e &= 0xBF;
+			str_unk_1804B0ar.MapOpenByte_0x9e &= 0xBF;
 		}
 		if (v30)
 		{
@@ -77241,6 +77242,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			str_E2A74[39].axis_2[0] |= 1u;
 		if (v0 > -1)
 		{
+			//Your current objective is to fly to a point
 			str_E2A74[40].axis_2[3] = 540;
 			str_E2A74[40].axis_2[0] |= 1u;
 			str_E2A74[40].axis_2[4] = (40 * scale);
@@ -77353,7 +77355,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			v22x++;
 		}
 	}
-	if (str_unk_1804B0ar.byte_0x9e & 4)
+	if (str_unk_1804B0ar.MapOpenByte_0x9e & 4)
 	{
 		v23 = 1;
 		v24x = 1;
@@ -77470,7 +77472,7 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popup
 		str_unk_1804B0ar.dword_0x7a = str_E2A74[helpIdx].axis_2[2];
 		str_unk_1804B0ar.drawTextType_0xa3 = a4;
 		str_unk_1804B0ar.word_0x86 = helpIdx;
-		str_unk_1804B0ar.byte_0x9e |= 8;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 8;
 		str_unk_1804B0ar.byte_0xa1 = a5;
 		str_unk_1804B0ar.dword_0x76 = 0;
 		str_unk_1804B0ar.byte_0xa0 = a2;
@@ -77480,7 +77482,7 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popup
 		str_E2A74[helpIdx].axis_2[0] |= 3;
 		if (str_E2A74[helpIdx].axis_2[0] & 8)
 		{
-			str_unk_1804B0ar.byte_0x9e |= 0x20;
+			str_unk_1804B0ar.MapOpenByte_0x9e |= 0x20;
 		}
 		else if (str_E2A74[helpIdx].axis_2[0] & 0x10)
 		{
@@ -77556,13 +77558,13 @@ void sub_885E0(type_event_0x6E8E* a1x, int16_t posX, int16_t posY, unsigned __in
 			//v6 = 30 * (signed __int16)a4;
 			if (str_E2A74[a4].axis_2[0] & 2)
 			{
-				if (a1x == str_E2A74[a4].dword_12 && !(*(int16_t*)&str_unk_1804B0ar.byte_0x9e & 0x20))
+				if (a1x == str_E2A74[a4].dword_12 && !(*(int16_t*)&str_unk_1804B0ar.MapOpenByte_0x9e & 0x20))
 				{
 					//v9 = array_E2A74[0x2 + 30 * a4] | 0x10;
 					str_E2A74[a4].axis_2[3] = posX;
 					str_E2A74[a4].axis_2[0] |= 0x10;
 					//LOBYTE(v4) = a3;
-					//v10 = HIBYTE(*(int16_t*)&str_unk_1804B0ar.byte_0x9e) | 2;
+					//v10 = HIBYTE(*(int16_t*)&str_unk_1804B0ar.MapOpenByte_0x9e) | 2;
 					str_E2A74[a4].axis_2[4] = posY;
 					str_unk_1804B0ar.byte_0x9f |= 2;
 				}
@@ -77619,15 +77621,15 @@ void sub_889F0(uint16_t a1)//2699f0
 		{
 			if (a1 != 19)
 				goto LABEL_22;
-			str_unk_1804B0ar.byte_0x9e |= 0x80;
+			str_unk_1804B0ar.MapOpenByte_0x9e |= 0x80;
 			return;
 		}
-		str_unk_1804B0ar.byte_0x9e |= 0x40;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 0x40;
 		return;
 	}
 	if (a1 <= 0x15u)
 	{
-		str_unk_1804B0ar.byte_0x9e |= 0x40;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 0x40;
 		return;
 	}
 	if (a1 < 0x1Cu)
@@ -77635,13 +77637,13 @@ void sub_889F0(uint16_t a1)//2699f0
 		if (a1 < 0x19u || a1 > 0x1Au)
 			goto LABEL_22;
 		{
-			str_unk_1804B0ar.byte_0x9e |= 0x80;
+			str_unk_1804B0ar.MapOpenByte_0x9e |= 0x80;
 			return;
 		}
 	}
 	if (a1 <= 0x1Cu)
 	{
-		str_unk_1804B0ar.byte_0x9e |= 0x80;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 0x80;
 		return;
 	}
 	if (a1 < 0x52u)
@@ -77652,7 +77654,7 @@ void sub_889F0(uint16_t a1)//2699f0
 			switch (D41A0_0.stages_0x3654C[D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1].stages_3654C_byte0)
 			{
 			case 0:
-				str_unk_1804B0ar.byte_0x9e |= 0x40;
+				str_unk_1804B0ar.MapOpenByte_0x9e |= 0x40;
 				break;
 			case 1:
 			case 2:
@@ -77660,7 +77662,7 @@ void sub_889F0(uint16_t a1)//2699f0
 			case 7:
 			case 8:
 			case 9:
-				str_unk_1804B0ar.byte_0x9e |= 0x80;
+				str_unk_1804B0ar.MapOpenByte_0x9e |= 0x80;
 				break;
 			default:
 				break;
@@ -77675,7 +77677,7 @@ void sub_889F0(uint16_t a1)//2699f0
 	}
 	if (a1 <= 0x52u)
 	{
-		str_unk_1804B0ar.byte_0x9e |= 0x80;
+		str_unk_1804B0ar.MapOpenByte_0x9e |= 0x80;
 		return;
 	}
 	if (a1 != 93)
