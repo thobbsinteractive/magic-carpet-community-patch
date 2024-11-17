@@ -581,8 +581,10 @@ void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int
 void DrawBottomMenu_2ECC0();
 void DrawChatMenu_2F6B0();
 void DrawGameFrame_2BE30();
-void DrawGameHelp_87610();
+void DrawPopupTextBox_87610();
 void DrawHelpPopUps_871F0();
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
+void DrawCurrentObjectiveTextbox_30630(uint8_t scale = 1);
 void GetFont_6FC50(__int16 a1);
 void DrawInGameOptionsMenu_30050(uint8_t scale = 1);
 void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);

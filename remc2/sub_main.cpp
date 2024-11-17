@@ -1264,7 +1264,6 @@ void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 //void sub_2BB40_draw_bitmap(int16_t posx, int16_t posy, bitmap_pos_struct_t temposstr);
 void sub_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
 //void sub_2BC80(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
-void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
 //void sub_2EB60();
@@ -1274,7 +1273,6 @@ void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t col
 //void sub_2EC90(char a1);
 void GetPauseMenuCoordinates_2FFE0(int16_t* posX, int16_t* posY, int16_t* width, int16_t* height, uint8_t scale = 1);
 // int sub_303D0(signed int a1);
-void DrawCurrentObjectTextbox_30630(uint8_t scale = 1);
 void sub_30870();
 void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint8_t scale = 1);
 void sub_30D50(type_event_0x6E8E* a1/*, uint8_t v2, uint8_t v4*/);
@@ -26758,7 +26756,7 @@ void DrawGameFrame_2BE30()//20CE30
 		} 
 	}
 	if (D41A0_0.byte_0x36E04)
-		DrawCurrentObjectTextbox_30630(scale);
+		DrawCurrentObjectiveTextbox_30630(scale);
 	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
 		return;
@@ -28459,7 +28457,7 @@ void DrawVolumeSettings_303D0(uint8_t scale)//2113d0
 }
 
 //----- (00030630) --------------------------------------------------------
-void DrawCurrentObjectTextbox_30630(uint8_t scale)//211630
+void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 {
 	char v0; // dl
 	int result; // eax
@@ -76550,7 +76548,7 @@ void DrawHelpPopUps_871F0()//2681f0
 		{
 			if (str_unk_1804B0ar.word_0x86)
 			{
-				DrawGameHelp_87610();
+				DrawPopupTextBox_87610();
 				sub_87B30();
 			}
 			else if (--str_unk_1804B0ar.dword_0x72 <= 0)
@@ -76702,7 +76700,7 @@ void SetHelpPopupCoords_87580()//268580
 }
 
 //----- (00087610) --------------------------------------------------------
-void DrawGameHelp_87610()//268610
+void DrawPopupTextBox_87610()//268610
 {
 	char* textForDraw; // edi
 	signed int v4; // esi
@@ -77197,7 +77195,6 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 				else
 				{
 					//Currently selected Spell Help
-
 					str_E2A74[12].axis_2[0] &= 0xFBu;
 					if (v0 == 2)
 						str_E2A74[12].axis_2[3] = 540;
