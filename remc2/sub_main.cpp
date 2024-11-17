@@ -2231,10 +2231,6 @@ void sub_87B70();
 // int /*__fastcall*/ _wcpp_1_unwind_leave__132(x_DWORD); weak
 void sub_87BE0();
 void sub_87C10();
-void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
-int16_t GetHelpPopupIndex_88450();
-void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
-void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
 void sub_88580();
 void sub_885E0(type_event_0x6E8E* a1, int16_t posX, int16_t posY, unsigned __int16 a4);
 void sub_889F0(uint16_t a1);
@@ -2243,13 +2239,6 @@ void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
 void sub_89360();
-void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
-void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox);
-void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
-void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-void GetHintText_89AC0(char* buffer, int typeOfText);
 int ReadGameUserInputs_89D10();
 int sub_8B5A0();
 

@@ -576,6 +576,20 @@ signed int sub_8BBE0(uint8_t* a1);
 void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
 
+void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
+void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox);
+void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
+void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+
+void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
+int16_t GetHelpPopupIndex_88450();
+void GetHintText_89AC0(char* buffer, int typeOfText);
+
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
+void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
+
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx);
 void DrawBottomMenu_2ECC0();
