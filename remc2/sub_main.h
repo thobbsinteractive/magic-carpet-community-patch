@@ -589,6 +589,8 @@ void GetHintText_89AC0(char* buffer, int typeOfText);
 
 void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
 void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
+void SetTextBoxMinMaxSizes_87090();
+void SetTextBoxMinMaxForSetResolution();
 
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx);
