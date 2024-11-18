@@ -2236,7 +2236,7 @@ void GameRenderOriginal::sub_88740(type_event_0x6E8E* a1x, int16_t posX, int16_t
 	char v18; // [esp+0h] [ebp-4h]
 
 	v3 = 0;
-	if (str_unk_1804B0ar.MapOpenByte_0x9e & 1)
+	if (str_unk_1804B0ar.PopupStatusByte_0x9e & 1)
 		return;
 	v4x = x_DWORD_EA3E4[D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].word_0x00a_2BE4_11240];
 	v5 = a1x->class_0x3F_63;
