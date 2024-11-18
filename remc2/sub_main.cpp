@@ -28522,8 +28522,9 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 			if (!DefaultResolutions())
 			{
 				textbox.maxTextboxWidth_0x0 = screenWidth_18062C / 2;
-				textbox.maxTextboxHeight_0x2 = screenHeight_180624 - 180;
+				textbox.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 100;
 				textbox.maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+				textbox.maxTextboxHeight2_0xe = screenHeight_180624 / 2;
 			}
 
 			ComputeTextboxSizesFromTextWords_89420(&textbox, text, scale);
@@ -76534,6 +76535,9 @@ void SetTextBoxMinMaxForSetResolution()
 	{
 		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
 		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
+		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = screenHeight_180624 - 80;
+
+		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
 		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
 		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
 	}
@@ -76541,6 +76545,9 @@ void SetTextBoxMinMaxForSetResolution()
 	{
 		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = 600;
 		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = 260;
+		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = 400;
+
+		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
 		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = 610;
 		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = 370;
 	}
@@ -76758,6 +76765,14 @@ void DrawPopupTextBox_87610()//268610
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = 320;
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = 80;
 				str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 320;
+
+				if (!DefaultResolutions())
+				{
+					str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+					str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight_0x2 = screenWidth_18062C / 6;
+					str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = screenWidth_18062C / 2;
+				}
+
 				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
 				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
 				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
