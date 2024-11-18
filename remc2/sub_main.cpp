@@ -28501,20 +28501,20 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 
 			textbox.charWidth_0x10 = 8;
 			textbox.maxTextboxHeight2_0xe = 400;
-			textbox.minWidth_0x14 = 40;
-			textbox.maxWidth_0x16 = 600;
+			textbox.minPosX_0x14 = 40;
+			textbox.maxPosX_0x16 = 600;
 			textbox.charHeight_0x12 = 14;
-			textbox.maxHeight_0x1a = 260;
+			textbox.maxPosY_0x1a = 260;
 
 			if (!DefaultResolutions())
 			{
-				textbox.maxWidth_0x16 = screenWidth_18062C - 40;
-				textbox.maxHeight_0x1a = screenHeight_180624 / 2;
+				textbox.maxPosX_0x16 = screenWidth_18062C - 40;
+				textbox.maxPosY_0x1a = screenHeight_180624 / 2;
 			}
 
 			textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
 			textbox.color2_0x31 = ((*xadataclrd0dat.colorPalette_var28)[0]);
-			textbox.minHeight_0x18 = 80;
+			textbox.minPosY_0x18 = 80;
 			textbox.maxTextboxWidth_0x0 = 320;
 			textbox.maxTextboxHeight_0x2 = 300;
 			textbox.maxTextboxWidth2_0xc = 320;
@@ -28559,17 +28559,23 @@ void sub_30870()//211870
 	sprintf(printbuffer, "%d", x_WORD_D41D4);
 	DrawText_2BC10(printbuffer, 10, 300, (*xadataclrd0dat.colorPalette_var28)[4095]);
 	textbox.maxTextboxHeight2_0xe = 400;
-	textbox.minWidth_0x14 = 4;
+	textbox.minPosX_0x14 = 4;
 	textbox.charWidth_0x10 = 8;
 	textbox.charHeight_0x12 = 14;
-	textbox.maxWidth_0x16 = 636;
+	textbox.maxPosX_0x16 = 636;
+
+	if (!DefaultResolutions())
+	{
+		textbox.maxPosX_0x16 = screenWidth_18062C - 4;
+	}
+
 	v0 = x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
 	textbox.maxTextboxWidth2_0xc = 600;
 	textbox.maxTextboxWidth_0x0 = 320;
 	textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
 	textbox.color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
-	textbox.minHeight_0x18 = 310;
-	textbox.maxHeight_0x1a = 630;
+	textbox.minPosY_0x18 = 310;
+	textbox.maxPosY_0x1a = 630;
 	textbox.maxTextboxHeight_0x2 = 310;
 	if (!DefaultResolutions())
 	{
@@ -37832,6 +37838,8 @@ void sub_46B40()//227b40
 		sub_6EBF0(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
 
 		sub_47130();
+
+		//Change resolution
 		if (x_WORD_180660_VGA_type_resolution == 1)
 		{
 			sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
@@ -76484,19 +76492,19 @@ void SetTextBoxMinMaxSizes_87090()//268090
 		str_unk_1804B0ar.type_sub_0[0].charWidth_0x10 = 8;
 		str_unk_1804B0ar.type_sub_0[0].charHeight_0x12 = 14;
 		str_unk_1804B0ar.type_sub_0[0].maxTextboxHeight2_0xe = 400;
-		str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = 600;
-		str_unk_1804B0ar.type_sub_0[0].minHeight_0x18 = 80;
-		str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = 260;
-		str_unk_1804B0ar.type_sub_0[0].minWidth_0x14 = 40;
+		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = 600;
+		str_unk_1804B0ar.type_sub_0[0].minPosY_0x18 = 80;
+		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = 260;
+		str_unk_1804B0ar.type_sub_0[0].minPosX_0x14 = 40;
 		str_unk_1804B0ar.type_sub_0[1] = str_unk_1804B0ar.type_sub_0[0];
 		//qmemcpy(&unk_1804B0ar[51], unk_1804B0ar, 0x30u);
 		//qmemcpy(&unk_1804B0ar[0x33+0x30], &str_unk_1804B0ar.type_sub_0[0].byte_0x30, 3u);
 		//v2 = &array_E2A74[30];
 		v2x = 0;
-		str_unk_1804B0ar.type_sub_0[1].maxHeight_0x1a = 370;
-		str_unk_1804B0ar.type_sub_0[1].minWidth_0x14 = 30;
-		str_unk_1804B0ar.type_sub_0[1].maxWidth_0x16 = 610;
-		str_unk_1804B0ar.type_sub_0[1].minHeight_0x18 = 30;
+		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = 370;
+		str_unk_1804B0ar.type_sub_0[1].minPosX_0x14 = 30;
+		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = 610;
+		str_unk_1804B0ar.type_sub_0[1].minPosY_0x18 = 30;
 		v3 = 0;
 		while (v3 < str_unk_1804B0ar.dword_0x66)
 		{
@@ -76524,17 +76532,17 @@ void SetTextBoxMinMaxForSetResolution()
 {
 	if (!DefaultResolutions())
 	{
-		str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = screenWidth_18062C - 40;
-		str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = screenHeight_180624 - 220;
-		str_unk_1804B0ar.type_sub_0[1].maxWidth_0x16 = screenWidth_18062C - 30;
-		str_unk_1804B0ar.type_sub_0[1].maxHeight_0x1a = screenHeight_180624 - 110;
+		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = screenWidth_18062C - 40;
+		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = screenHeight_180624 - 220;
+		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = screenWidth_18062C - 30;
+		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = screenHeight_180624 - 110;
 	}
 	else
 	{
-		str_unk_1804B0ar.type_sub_0[0].maxWidth_0x16 = 600;
-		str_unk_1804B0ar.type_sub_0[0].maxHeight_0x1a = 260;
-		str_unk_1804B0ar.type_sub_0[1].maxWidth_0x16 = 610;
-		str_unk_1804B0ar.type_sub_0[1].maxHeight_0x1a = 370;
+		str_unk_1804B0ar.type_sub_0[0].maxPosX_0x16 = 600;
+		str_unk_1804B0ar.type_sub_0[0].maxPosY_0x1a = 260;
+		str_unk_1804B0ar.type_sub_0[1].maxPosX_0x16 = 610;
+		str_unk_1804B0ar.type_sub_0[1].maxPosY_0x1a = 370;
 	}
 }
 
@@ -78087,14 +78095,14 @@ void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale)//26a
 	textboxHeight = textbox->textboxHeight_0x6;
 	centerToMaxWidth = textbox->maxTextboxWidth_0x0 - (textBoxWidth / 2);
 	centerToMaxHeight = textbox->maxTextboxHeight_0x2 - (textboxHeight / 2);
-	if (centerToMaxWidth < textbox->minWidth_0x14)
-		centerToMaxWidth = textbox->minWidth_0x14;
-	if (centerToMaxHeight < textbox->minHeight_0x18)
-		centerToMaxHeight = textbox->minHeight_0x18;
-	if (centerToMaxWidth + textBoxWidth >= textbox->maxWidth_0x16)
-		centerToMaxWidth = textbox->maxWidth_0x16 - textBoxWidth;
-	if (centerToMaxHeight + textboxHeight >= textbox->maxHeight_0x1a)
-		centerToMaxHeight = textbox->maxHeight_0x1a - textboxHeight;
+	if (centerToMaxWidth < textbox->minPosX_0x14)
+		centerToMaxWidth = textbox->minPosX_0x14;
+	if (centerToMaxHeight < textbox->minPosY_0x18)
+		centerToMaxHeight = textbox->minPosY_0x18;
+	if (centerToMaxWidth + textBoxWidth >= textbox->maxPosX_0x16)
+		centerToMaxWidth = textbox->maxPosX_0x16 - textBoxWidth;
+	if (centerToMaxHeight + textboxHeight >= textbox->maxPosY_0x1a)
+		centerToMaxHeight = textbox->maxPosY_0x1a - textboxHeight;
 	textbox->maxTextboxWidth_0x0 = centerToMaxWidth + textbox->textBoxWidth_0x4 / 2;
 	textbox->textboxPosX_0x8 = centerToMaxWidth;
 	textbox->textboxPosY_0xa = centerToMaxHeight;
@@ -78164,10 +78172,10 @@ void DrawTextboxFrame_89690(Type_TextBox_1804B0* textbox, uint8_t scale)//26a690
 void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale)//26a830
 {
 	int preMaxTextboxWidth = textbox->lineSrcX_0x1c + 25;
-	if (textbox->maxWidth_0x16 < textbox->lineSrcX_0x1c + 135)
+	if (textbox->maxPosX_0x16 < textbox->lineSrcX_0x1c + 135)
 		preMaxTextboxWidth = textbox->lineSrcX_0x1c - 135;
 	int preMaxTextboxHeight = textbox->lineSrcY_0x1e - 94;
-	if (textbox->lineSrcY_0x1e - 94 + 28 < textbox->minHeight_0x18)
+	if (textbox->lineSrcY_0x1e - 94 + 28 < textbox->minPosY_0x18)
 		preMaxTextboxHeight = textbox->lineSrcY_0x1e + 66;
 	textbox->maxTextboxWidth_0x0 = preMaxTextboxWidth;
 	textbox->maxTextboxHeight_0x2 = preMaxTextboxHeight;

@@ -1418,10 +1418,10 @@ struct {//lenght 0x33
 	int16_t maxTextboxHeight2_0xe;//e //7
 	int16_t charWidth_0x10;//10 //8
 	int16_t charHeight_0x12;//12 //9
-	int16_t minWidth_0x14;//14 //10
-	int16_t maxWidth_0x16;//16 //11
-	int16_t minHeight_0x18;//18 //12
-	int16_t maxHeight_0x1a;//1a //13
+	int16_t minPosX_0x14;//14 //10
+	int16_t maxPosX_0x16;//16 //11
+	int16_t minPosY_0x18;//18 //12
+	int16_t maxPosY_0x1a;//1a //13
 	int16_t lineSrcX_0x1c;//1c-4f //14
 	int16_t lineSrcY_0x1e;//1e-51 //15
 	int16_t lineDestX_0x20;//20 //16
