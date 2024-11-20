@@ -77899,7 +77899,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 			posY2 = ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale) / 2 + sizeFromYEndPlus;
 			switch (str_unk_1804B0ar.byte_0xa4)
 			{
-			case 0:
+			case 0: //Selected Spell Name
 				if (isStandardSpell)
 				{
 					hintIndex = 85;
@@ -77914,7 +77914,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 					typeB = locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113;
 				}
 				break;
-			case 1:
+			case 1: //Spell Experience Points
 				if (isStandardSpell)
 				{
 					hintIndex = 69;
@@ -77926,7 +77926,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 					str_E2A74[69].axis_2[4] = sizeFromYEndPlus + (29 * scale);
 				}
 				break;
-			case 2:
+			case 2: //Can cast spell
 				if (isStandardSpell)
 				{
 					for (int j = 0; j < 3 && !endLoop; j++)
