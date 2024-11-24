@@ -77917,27 +77917,27 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 			case 1: //Spell Experience Points
 				if (isStandardSpell)
 				{
-					hintIndex = 69;
-					hintText[0] = str_E2A74[69].axis_2[1];
+					hintIndex = SPELL_EXPERIENCE_POINTS;
+					hintText[0] = str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[1];
 					endLoop = true;
-					str_E2A74[69].axis_2[3] = posX2 + (33 * scale);
+					str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[3] = posX2 + (33 * scale);
 					if (spellType > 0)
-						str_E2A74[69].axis_2[3] = posX2 + (33 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
-					str_E2A74[69].axis_2[4] = sizeFromYEndPlus + (29 * scale);
+						str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[3] = posX2 + (33 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+					str_E2A74[SPELL_EXPERIENCE_POINTS].axis_2[4] = sizeFromYEndPlus + (29 * scale);
 				}
 				break;
-			case 2: //Can cast spell
+			case 2: //Can cast spell?
 				if (isStandardSpell)
 				{
 					for (int j = 0; j < 3 && !endLoop; j++)
 					{
 						if (SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[j].dword_A && (!locEvent2 || locEvent2->mana_0x90_144 < SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[j].dword_A))
 						{
-							hintIndex = 70;
-							hintText[0] = str_E2A74[70].axis_2[1];
-							str_E2A74[70].axis_2[3] = posX2 + j * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2;
+							hintIndex = NOT_ENOUGH_CASTLED_MANA_TO_USE;
+							hintText[0] = str_E2A74[NOT_ENOUGH_CASTLED_MANA_TO_USE].axis_2[1];
+							str_E2A74[NOT_ENOUGH_CASTLED_MANA_TO_USE].axis_2[3] = posX2 + j * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2;
 							endLoop = true;
-							str_E2A74[70].axis_2[4] = sizeFromYEndPlus + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale) / 2;
+							str_E2A74[NOT_ENOUGH_CASTLED_MANA_TO_USE].axis_2[4] = sizeFromYEndPlus + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].height_5 * scale) / 2;
 						}
 					}
 				}
@@ -77945,11 +77945,11 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 			case 3:
 				if (isStandardSpell && spellType)
 				{
-					hintIndex = 71;
-					hintText[0] = str_E2A74[71].axis_2[1];
-					str_E2A74[71].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2) + posX2 + spellType * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+					hintIndex = ACHIEVED_SPELL_LEVEL;
+					hintText[0] = str_E2A74[ACHIEVED_SPELL_LEVEL].axis_2[1];
+					str_E2A74[ACHIEVED_SPELL_LEVEL].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2) + posX2 + spellType * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
 					endLoop = true;
-					str_E2A74[71].axis_2[4] = posY2;
+					str_E2A74[ACHIEVED_SPELL_LEVEL].axis_2[4] = posY2;
 				}
 				break;
 			case 4:
@@ -77957,21 +77957,21 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 				{
 					if (!SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113].dword_A || locEvent2 && locEvent2->mana_0x90_144 >= SPELLS_BEGIN_BUFFER_str[spellIndex].subspell[locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113].dword_A)
 					{
-						hintIndex = 40;
-						hintText[0] = str_E2A74[40].axis_2[1];
-						str_E2A74[40].axis_2[3] = posX1;
-						str_E2A74[40].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale)) * 8)) >> 2;
+						hintIndex = SPELL_RECHARGE_AND_SHOTS;
+						hintText[0] = str_E2A74[SPELL_RECHARGE_AND_SHOTS].axis_2[1];
+						str_E2A74[SPELL_RECHARGE_AND_SHOTS].axis_2[3] = posX1;
+						str_E2A74[SPELL_RECHARGE_AND_SHOTS].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale)) * 8)) >> 2;
 					}
 				}
 				break;
 			case 5:
 				if (isStandardSpell)
 				{
-					hintIndex = 42;
-					hintText[0] = str_E2A74[42].axis_2[1];
-					str_E2A74[42].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2) + posX2 + locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
+					hintIndex = SELECTED_SPELL_LEVEL;
+					hintText[0] = str_E2A74[SELECTED_SPELL_LEVEL].axis_2[1];
+					str_E2A74[SELECTED_SPELL_LEVEL].axis_2[3] = (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale) / 2) + posX2 + locEvent1->dword_0xA4_164x->str_611.byte_0x459_1113 * ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[163].width_4 * scale);
 					endLoop = true;
-					str_E2A74[42].axis_2[4] = posY2;
+					str_E2A74[SELECTED_SPELL_LEVEL].axis_2[4] = posY2;
 				}
 				break;
 			case 6:
@@ -77990,10 +77990,10 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 						}
 						if (endLoop)
 						{
-							hintIndex = 41;
-							hintText[0] = str_E2A74[41].axis_2[1];
-							str_E2A74[41].axis_2[3] = posX1;
-							str_E2A74[41].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale)) * 8)) >> 2;
+							hintIndex = NOT_ENOUGH_MANA_TO_CAST;
+							hintText[0] = str_E2A74[NOT_ENOUGH_MANA_TO_CAST].axis_2[1];
+							str_E2A74[NOT_ENOUGH_MANA_TO_CAST].axis_2[3] = posX1;
+							str_E2A74[NOT_ENOUGH_MANA_TO_CAST].axis_2[4] = posY1 + (((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale) - (my_sign32(((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[89].height_5 * scale)) * 8)) >> 2;
 						}
 					}
 				}
