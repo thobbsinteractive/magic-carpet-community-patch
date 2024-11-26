@@ -577,7 +577,7 @@ void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
 
 void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
-void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ConstrainTextboxSizes_89520(Type_TextBox_1804B0* textbox);
 void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
 void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox);
 void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);

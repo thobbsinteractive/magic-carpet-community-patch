@@ -28528,7 +28528,7 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 			}
 
 			ComputeTextboxSizesFromTextWords_89420(&textbox, text, scale);
-			ComputeTextboxSizes_89520(&textbox, scale);
+			ConstrainTextboxSizes_89520(&textbox);
 			ComputeFrameSizes_89980(&textbox, scale);
 			ColorizeScreen_2E790(textbox.framePosX_0x24, textbox.framePosY_0x26, textbox.frameWidth_0x28, textbox.frameHeight_0x2a, textbox.color2_0x31);
 			DrawTextboxText_895D0(&textbox, text, scale);
@@ -28585,7 +28585,7 @@ void sub_30870()//211870
 		textbox.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 90;
 	}
 	ComputeTextboxSizesFromTextWords_89420(&textbox, v0);
-	ComputeTextboxSizes_89520(&textbox);
+	ConstrainTextboxSizes_89520(&textbox);
 	ComputeFrameSizes_89980(&textbox);
 	DrawTextboxText_895D0(&textbox, v0);
 	switch (LastPressedKey_1806E4)
@@ -76774,7 +76774,7 @@ void DrawPopupTextBox_87610()//268610
 				}
 
 				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
-				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
+				ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
 				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
 			}
 			ColorizeScreen_2E790(
@@ -76797,7 +76797,7 @@ void DrawPopupTextBox_87610()//268610
 			{
 				ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);//here
 				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
-				ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
+				ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
 				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
 			}
 			ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
@@ -76819,7 +76819,7 @@ void DrawPopupTextBox_87610()//268610
 			str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);
 			ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2], scale);
-			ComputeTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
+			ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
 			ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
 			ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
 			v4 = 0;
@@ -76867,7 +76867,7 @@ void DrawPauseMenuPopUps_87860()//268860
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], x_DWORD_E9C4C_langindexbuffer[str_E2A74[(str_unk_1804B0ar.byte_0xaa + 86)].axis_2[1]]);
-		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
+		ConstrainTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
@@ -76918,7 +76918,7 @@ void sub_87A30()//268a30
 		str_unk_1804B0ar.type_sub_0[1].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
 		ComputeTextboxSizes_89830(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxSizesFromTextWords_89420(&str_unk_1804B0ar.type_sub_0[1], x_DWORD_E9C4C_langindexbuffer[str_E2A74[str_unk_1804B0ar.byte_0xa9].axis_2[1]]);
-		ComputeTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
+		ConstrainTextboxSizes_89520(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeFrameSizes_89980(&str_unk_1804B0ar.type_sub_0[1]);
 		ComputeTextboxLine_898A0(&str_unk_1804B0ar.type_sub_0[1]);
 		ColorizeScreen_2E790(str_unk_1804B0ar.type_sub_0[1].framePosX_0x24, str_unk_1804B0ar.type_sub_0[1].framePosY_0x26, str_unk_1804B0ar.type_sub_0[1].frameWidth_0x28, str_unk_1804B0ar.type_sub_0[1].frameHeight_0x2a, str_unk_1804B0ar.type_sub_0[1].color2_0x31);
@@ -78099,7 +78099,7 @@ void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const 
 }
 
 //----- (00089520) --------------------------------------------------------
-void ComputeTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale)//26a520
+void ConstrainTextboxSizes_89520(Type_TextBox_1804B0* textbox)//26a520
 {
 	int textboxHeight; // edi
 	int centerToMaxWidth; // ecx
