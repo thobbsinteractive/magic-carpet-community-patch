@@ -78131,7 +78131,7 @@ void DrawTextboxText_895D0(Type_TextBox_1804B0* textbox, const char* text, uint8
 	unsigned __int8 color;
 	int textboxPosX;
 	char buffer[1000]; // [esp+0h] [ebp-12h]
-
+	memset(buffer, NULL, 1000 * sizeof(*buffer));
 	int lastPos = 0;
 	int posY = textbox->textboxPosY_0xa;
 	int textlen = strlen(text);
