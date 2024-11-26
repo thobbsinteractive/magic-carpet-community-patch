@@ -76791,14 +76791,14 @@ void DrawPopupTextBox_87610()//268610
 		case 2: // Draws Mini Map, Top Status Bar and Control Help
 		{
 			str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
-			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220;
+			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220 * scale;
 			str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
 			if (str_unk_1804B0ar.PopupStatusByte_0x9e & 0x8)
 			{
-				ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0);//here
-				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw);
+				ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);//here
+				ComputeTextboxSizesFromTextWords_89420(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
 				ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0);
-				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0);
+				ComputeFrameSizes_89980(str_unk_1804B0ar.type_sub_0, scale);
 			}
 			ComputeTextboxLine_898A0(str_unk_1804B0ar.type_sub_0);
 			ColorizeScreen_2E790(
@@ -76807,9 +76807,9 @@ void DrawPopupTextBox_87610()//268610
 				str_unk_1804B0ar.type_sub_0[0].frameWidth_0x28,
 				str_unk_1804B0ar.type_sub_0[0].frameHeight_0x2a,
 				str_unk_1804B0ar.type_sub_0[0].color2_0x31);
-			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw);
+			DrawTextboxText_895D0(str_unk_1804B0ar.type_sub_0, textForDraw, scale);
 			DrawTextboxLine_89A30(str_unk_1804B0ar.type_sub_0);
-			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0);
+			DrawTextboxFrame_89690(str_unk_1804B0ar.type_sub_0, scale);
 			str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xF7;
 			break;
 		}
@@ -78186,12 +78186,14 @@ void DrawTextboxFrame_89690(Type_TextBox_1804B0* textbox, uint8_t scale)//26a690
 //----- (00089830) --------------------------------------------------------
 void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale)//26a830
 {
-	int preMaxTextboxWidth = textbox->lineSrcX_0x1c + 25;
-	if (textbox->maxPosX_0x16 < textbox->lineSrcX_0x1c + 135)
-		preMaxTextboxWidth = textbox->lineSrcX_0x1c - 135;
-	int preMaxTextboxHeight = textbox->lineSrcY_0x1e - 94;
-	if (textbox->lineSrcY_0x1e - 94 + 28 < textbox->minPosY_0x18)
-		preMaxTextboxHeight = textbox->lineSrcY_0x1e + 66;
+	int16_t preMaxTextboxWidth = textbox->lineSrcX_0x1c + (25 * scale);
+	if (textbox->maxPosX_0x16 < textbox->lineSrcX_0x1c + (135 * scale))
+		preMaxTextboxWidth = textbox->lineSrcX_0x1c - (135 * scale);
+
+	int16_t preMaxTextboxHeight = textbox->lineSrcY_0x1e - (94 * scale);
+	if (textbox->lineSrcY_0x1e - (94 * scale) + (28 * scale) < textbox->minPosY_0x18)
+		preMaxTextboxHeight = textbox->lineSrcY_0x1e + (66 * scale);
+
 	textbox->maxTextboxWidth_0x0 = preMaxTextboxWidth;
 	textbox->maxTextboxHeight_0x2 = preMaxTextboxHeight;
 }
