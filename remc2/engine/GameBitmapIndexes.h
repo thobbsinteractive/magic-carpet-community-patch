@@ -14,6 +14,9 @@ const uint16_t HEALTH_PANEL_HIT = 55;
 const uint16_t EDGE_PANEL = 88;
 const uint16_t SPELL_ICON_PANEL = 89;
 const uint16_t SPELL_ICON_FRAME = 90;
+const uint16_t FRAME_CORNER = 171;
+const uint16_t FRAME_LEFT_RIGHT_SIDE = 172;
+const uint16_t FRAME_TOP_BOTTOM_SIDE = 173;
 const uint16_t SOUND_ICON = 176;
 const uint16_t MUSIC_ICON = 177;
 
