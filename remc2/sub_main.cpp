@@ -77396,6 +77396,20 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale)//268cf0
 			v28x++;
 		}
 	}
+
+	// Correct locations for "This is your life" 36 and "This is your Spells Mana" 37
+	// "Click on LMB to cast this spell" 38, "Click on RMB to cast this spell" 39
+	if (!DefaultResolutions())
+	{
+		str_E2A74[36].axis_2[3] = 470 * scale;
+		str_E2A74[36].axis_2[4] = 16 * scale;
+		str_E2A74[37].axis_2[3] = 470 * scale;
+		str_E2A74[37].axis_2[4] = 32 * scale;
+		str_E2A74[38].axis_2[3] = screenWidth_18062C - (100 * scale);
+		str_E2A74[38].axis_2[4] = 32 * scale;
+		str_E2A74[39].axis_2[3] = screenWidth_18062C - (40 * scale);
+		str_E2A74[39].axis_2[4] = 32 * scale;
+	}
 }
 
 //----- (00088450) --------------------------------------------------------
