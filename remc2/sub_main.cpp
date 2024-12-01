@@ -2234,7 +2234,6 @@ void sub_88B20();
 void sub_88B60();
 void sub_88BA0();
 void sub_88D00();
-void sub_89360();
 int ReadGameUserInputs_89D10();
 int sub_8B5A0();
 
@@ -76717,7 +76716,7 @@ void SetHelpPopupCoords_87580()//268580
 	}
 	else if (str_unk_1804B0ar.byte_0x9f & 0x8)
 	{
-		sub_89360();
+		SetPlayerScoresHelpPopupTextAndCoords_89360();
 	}
 	else
 	{
@@ -78021,7 +78020,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 }
 
 //----- (00089360) --------------------------------------------------------
-void sub_89360()//26a360
+void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 {
 	char v0 = 0;
 	int v1 = 0;

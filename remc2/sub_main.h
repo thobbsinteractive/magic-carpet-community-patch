@@ -591,6 +591,7 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popup
 void SetHelpPopupCoords_87580();
 void SetPauseMenuCoordinates_87970(uint8_t scale = 1);
 void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
+void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale = 1);
 void SetTextBoxMinMaxSizes_87090();
 void SetTextBoxMinMaxForSetResolution();
 
