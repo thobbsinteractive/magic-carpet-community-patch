@@ -585,7 +585,7 @@ void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
 
 void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
 int16_t GetHelpPopupIndex_88450();
-void GetHintText_89AC0(char* buffer, int typeOfText);
+void GetHintText_89AC0(char* buffer, int helpIndex);
 
 void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
 void SetHelpPopupCoords_87580();

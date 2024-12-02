@@ -14,5 +14,6 @@ const int16_t NOT_ENOUGH_CASTLED_MANA_TO_USE = 70;
 const int16_t ACHIEVED_SPELL_LEVEL = 71;
 const int16_t HAS_BEEN_BANISHED = 283;
 const int16_t THIS_IS_YOUR_LIFE = 324;
+const int16_t NUMBER_OF_TIMES_YOU_HAVE_KILLED = 353;
 
 #endif

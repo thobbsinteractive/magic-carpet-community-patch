@@ -76743,7 +76743,7 @@ void DrawPopupTextBox_87610()//268610
 	}
 
 	textForDraw = x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
-	if (str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] & 0x100)
+	if (str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] & 0x100 || str_unk_1804B0ar.Index_0x86 == 96)
 	{
 		textForDraw = textBuffer;
 		GetHintText_89AC0(textBuffer, str_unk_1804B0ar.Index_0x86);
@@ -78023,14 +78023,15 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale)
 void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 {
 	char v0 = 0;
-	int v1 = 0;
+	int16_t helpIdx = 0;
 	if (str_unk_1804B0ar.showPlayerScores_0xa7)
 	{
 		str_unk_1804B0ar.showPlayerScores_0xa7 = 0;
 		if (str_unk_1804B0ar.byte_0xa8 && D41A0_0.word_0xe > 1u)
 		{
+			// Number of times you have killed %s
 			str_E2A74[96].axis_2[3] = str_unk_1804B0ar.word_0x9a;
-			v1 = 96;
+			helpIdx = 96;
 			str_E2A74[96].axis_2[4] = str_unk_1804B0ar.word_0x9c;
 		}
 		else
@@ -78045,14 +78046,16 @@ void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 	}
 	if (v0)
 	{
-		v1 = 95;
+		// Current spells mana value
+		helpIdx = 95;
 		str_E2A74[95].axis_2[3] = str_unk_1804B0ar.word_0x96;
 		str_unk_1804B0ar.byte_0xa8 = 0;
 		str_E2A74[95].axis_2[4] = str_unk_1804B0ar.word_0x98;
 	}
-	if (v1)
+	if (helpIdx)
 	{
-		SetHelpPopupTextAndCoords_884D0(v1, 1, &str_E2A74[v1].axis_2[1], 2, 0);
+		Logger->debug("helpIdx: {}", helpIdx);
+		SetHelpPopupTextAndCoords_884D0(helpIdx, 1, &str_E2A74[helpIdx].axis_2[1], 2, 0);
 	}
 }
 
@@ -78302,14 +78305,15 @@ void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox)//26aa30
 }
 
 //----- (00089AC0) --------------------------------------------------------
-void GetHintText_89AC0(char* buffer, int typeOfText)//26aac0
+void GetHintText_89AC0(char* buffer, int helpIndex)//26aac0
 {
-	switch (typeOfText) {
+	switch (helpIndex) 
+	{
 	case 92:
 		sprintf(buffer, "[F1] %s", x_DWORD_E9C4C_langindexbuffer[14]);//Toggle help on / off
 		break;
 	case 96:
-		sprintf(buffer, (const char*)x_DWORD_E9C4C_langindexbuffer[353], (&WizardsNames_D93A0)[GetTrueWizardNumber_61790(str_unk_1804B0ar.byte_0xa8)]);//Number of times you have killed %s
+			sprintf(buffer, (const char*)x_DWORD_E9C4C_langindexbuffer[NUMBER_OF_TIMES_YOU_HAVE_KILLED], (char*)WizardsNames_D93A0[GetTrueWizardNumber_61790(str_unk_1804B0ar.byte_0xa8)]);//Number of times you have killed %s
 		break;
 	default:
 		buffer[0] = 0;
