@@ -1482,7 +1482,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t byte_0xa4;//a4
 	int8_t byte_0xa5;//a5
 	int8_t byte_0xa6;//a6
-	int8_t byte_0xa7;//a7
+	int8_t showPlayerScores_0xa7;//a7
 	int8_t byte_0xa8;//a8
 	int8_t byte_0xa9;//a9
 	int8_t byte_0xaa;//aa

@@ -78024,9 +78024,9 @@ void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 {
 	char v0 = 0;
 	int v1 = 0;
-	if (str_unk_1804B0ar.byte_0xa7)
+	if (str_unk_1804B0ar.showPlayerScores_0xa7)
 	{
-		str_unk_1804B0ar.byte_0xa7 = 0;
+		str_unk_1804B0ar.showPlayerScores_0xa7 = 0;
 		if (str_unk_1804B0ar.byte_0xa8 && D41A0_0.word_0xe > 1u)
 		{
 			str_E2A74[96].axis_2[3] = str_unk_1804B0ar.word_0x9a;
@@ -78041,7 +78041,7 @@ void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale)//26a360
 	else
 	{
 		v0 = 1;
-		str_unk_1804B0ar.byte_0xa7 = 1;
+		str_unk_1804B0ar.showPlayerScores_0xa7 = 1;
 	}
 	if (v0)
 	{
