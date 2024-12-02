@@ -76573,7 +76573,7 @@ void DrawHelpPopUps_871F0()//2681f0
 			hintType1 = true;
 		if (hintType1)
 		{
-			if (str_unk_1804B0ar.word_0x86)
+			if (str_unk_1804B0ar.Index_0x86)
 			{
 				DrawPopupTextBox_87610();
 				sub_87B30();
@@ -76651,7 +76651,7 @@ void sub_872A0()//2682a0
 	{
 		str_unk_1804B0ar.byte_0x9f |= 8u;
 	}
-	else if (str_E2A74[str_unk_1804B0ar.word_0x86].word_0 == 12)
+	else if (str_E2A74[str_unk_1804B0ar.Index_0x86].word_0 == 12)
 	{
 		sub_87C10();
 	}
@@ -76677,15 +76677,15 @@ void sub_872A0()//2682a0
 		str_unk_1804B0ar.dword_0x72 = str_unk_1804B0ar.dword_0x6e;
 		str_unk_1804B0ar.PopupStatusByte_0x9e |= 0x10;
 	}
-	if (str_unk_1804B0ar.word_0x86)
+	if (str_unk_1804B0ar.Index_0x86)
 	{	//adress 268509
-		if (str_E2A74[str_unk_1804B0ar.word_0x86].word_0 == 2 || str_E2A74[str_unk_1804B0ar.word_0x86].word_0 == 8)
+		if (str_E2A74[str_unk_1804B0ar.Index_0x86].word_0 == 2 || str_E2A74[str_unk_1804B0ar.Index_0x86].word_0 == 8)
 		{
 			if (!(str_unk_1804B0ar.byte_0x9f & 0x2)
-				|| (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] >= 0)
-				&& (str_E2A74[str_unk_1804B0ar.word_0x86].dword_12 == 0
-					|| str_E2A74[str_unk_1804B0ar.word_0x86].dword_20 < 0
-					|| str_E2A74[str_unk_1804B0ar.word_0x86].dword_24 & 0x400))
+				|| (str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] >= 0)
+				&& (str_E2A74[str_unk_1804B0ar.Index_0x86].dword_12 == 0
+					|| str_E2A74[str_unk_1804B0ar.Index_0x86].dword_20 < 0
+					|| str_E2A74[str_unk_1804B0ar.Index_0x86].dword_24 & 0x400))
 			{
 				sub_87C10();
 			}
@@ -76743,10 +76743,10 @@ void DrawPopupTextBox_87610()//268610
 	}
 
 	textForDraw = x_DWORD_E9C4C_langindexbuffer[str_unk_1804B0ar.uni_0x8a.word[2]];
-	if (str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 0x100)
+	if (str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] & 0x100)
 	{
 		textForDraw = textBuffer;
-		GetHintText_89AC0(textBuffer, str_unk_1804B0ar.word_0x86);
+		GetHintText_89AC0(textBuffer, str_unk_1804B0ar.Index_0x86);
 	}
 	str_unk_1804B0ar.type_sub_0[0].color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[4095];//convert RGB to indexed color
 	str_unk_1804B0ar.type_sub_0[0].color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
@@ -76786,9 +76786,9 @@ void DrawPopupTextBox_87610()//268610
 		}
 		case 2: // Draws Mini Map, Top Status Bar and Control Help
 		{
-			str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];
+			str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[3];
 			str_unk_1804B0ar.type_sub_0[0].maxTextboxWidth2_0xc = 220 * scale;
-			str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
+			str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[4];
 			if (str_unk_1804B0ar.PopupStatusByte_0x9e & 0x8)
 			{
 				ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);//here
@@ -76811,8 +76811,8 @@ void DrawPopupTextBox_87610()//268610
 		}
 		case 3: //Draw Spell Menu Help
 		{
-			str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[3];//3
-			str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[4];
+			str_unk_1804B0ar.type_sub_0[0].lineSrcX_0x1c = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[3];//3
+			str_unk_1804B0ar.type_sub_0[0].lineSrcY_0x1e = str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[4];
 			ComputeTextboxSizes_89830(str_unk_1804B0ar.type_sub_0, scale);
 			ComputeTextboxSizesFromTextLines_89920(str_unk_1804B0ar.type_sub_0, str_unk_1804B0ar.byte_0xa0, &str_unk_1804B0ar.uni_0x8a.word[2], scale);
 			ConstrainTextboxSizes_89520(str_unk_1804B0ar.type_sub_0, scale);
@@ -76927,7 +76927,7 @@ void sub_87A30()//268a30
 //----- (00087B30) --------------------------------------------------------
 void sub_87B30()//268b30
 {
-	if (++str_unk_1804B0ar.dword_0x76 >= str_unk_1804B0ar.dword_0x7a || !(str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] & 1))
+	if (++str_unk_1804B0ar.dword_0x76 >= str_unk_1804B0ar.dword_0x7a || !(str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] & 1))
 		sub_87C10();
 }
 
@@ -76979,12 +76979,12 @@ void sub_87C10()//268c10
 		str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xDFu;
 		str_unk_1804B0ar.byte_0x9f &= 0xFEu;
 		str_unk_1804B0ar.dword_0x72 = str_unk_1804B0ar.dword_0x6e;
-		str_E2A74[str_unk_1804B0ar.word_0x86].axis_2[0] &= 0xffFDu;
-		str_E2A74[str_unk_1804B0ar.word_0x86].dword_16 = 0;
-		str_E2A74[str_unk_1804B0ar.word_0x86].dword_12 = 0;
-		str_E2A74[str_unk_1804B0ar.word_0x86].byte_29 = str_E2A74[str_unk_1804B0ar.word_0x86].byte_28;
-		sub_889F0(str_unk_1804B0ar.word_0x86);
-		str_unk_1804B0ar.word_0x86 = 0;
+		str_E2A74[str_unk_1804B0ar.Index_0x86].axis_2[0] &= 0xffFDu;
+		str_E2A74[str_unk_1804B0ar.Index_0x86].dword_16 = 0;
+		str_E2A74[str_unk_1804B0ar.Index_0x86].dword_12 = 0;
+		str_E2A74[str_unk_1804B0ar.Index_0x86].byte_29 = str_E2A74[str_unk_1804B0ar.Index_0x86].byte_28;
+		sub_889F0(str_unk_1804B0ar.Index_0x86);
+		str_unk_1804B0ar.Index_0x86 = 0;
 	}
 }
 
@@ -77500,7 +77500,7 @@ void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popup
 	{
 		str_unk_1804B0ar.dword_0x7a = str_E2A74[helpIdx].axis_2[2];
 		str_unk_1804B0ar.drawTextType_0xa3 = a4;
-		str_unk_1804B0ar.word_0x86 = helpIdx;
+		str_unk_1804B0ar.Index_0x86 = helpIdx;
 		str_unk_1804B0ar.PopupStatusByte_0x9e |= 8;
 		str_unk_1804B0ar.byte_0xa1 = a5;
 		str_unk_1804B0ar.dword_0x76 = 0;

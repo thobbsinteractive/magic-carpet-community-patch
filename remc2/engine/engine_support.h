@@ -1464,7 +1464,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int32_t dword_0x7a;//7a
 	int8_t stub[4];
 	int32_t dword_0x82;//82
-	int16_t word_0x86;//86
+	int16_t Index_0x86;//86
 	int16_t word_0x88;//88
 	type_uni_0x8a uni_0x8a;
 	//int32_t dword_0x8a;//8a
