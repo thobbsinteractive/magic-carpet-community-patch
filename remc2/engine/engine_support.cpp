@@ -2229,7 +2229,7 @@ void clean_x_D41A0_BYTEARRAY_0_0x2BDE(int number) {
 		for (int j = 0; j < 846; j++)
 			D41A0_BYTESTR_0.array_0x2BDE[i].stub2[j];
 		for (int j = 0; j < 64; j++)
-			D41A0_BYTESTR_0.array_0x2BDE[i].array_0x39f_2BFA_12157[j];//927//12157 - byte(11230+927) 100% jmeno
+			D41A0_BYTESTR_0.array_0x2BDE[i].WizardName_0x39f_2BFA_12157[j];//927//12157 - byte(11230+927) 100% jmeno
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3DF_2BE4_12221 = 0;//991//12221 - byte
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3E0_2BE4_12222_xx = 0;
 		D41A0_BYTESTR_0.array_0x2BDE[i].byte_0x3E1_2BE4_12223 = 0;//993//12223 - byte
@@ -2331,7 +2331,7 @@ void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(int index, int subindex, in
 };//477
 
 int8_t* get_x_D41A0_BYTEARRAY_0_0x2BDE_0x39f_2BFA_12157(int index) {
-	return D41A0_BYTESTR_0.array_0x2BDE[index].array_0x39f_2BFA_12157;
+	return D41A0_BYTESTR_0.array_0x2BDE[index].WizardName_0x39f_2BFA_12157;
 };
 
 void set_x_D41A0_BYTEARRAY_0_0x2BDE_0x5a6(int number, int8_t value) {

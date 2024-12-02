@@ -5809,7 +5809,7 @@ LABEL_15:
 		if (v30 == 1)
 		{
 			v13 = x_DWORD_17DE38str.x_DWORD_17DE50;
-			v14 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].array_0x39f_2BFA_12157;//wizard name
+			v14 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157;
 			strcpy(v14, v13);
 			/*do
 			{
@@ -5823,7 +5823,7 @@ LABEL_15:
 				v14 += 2;
 			} while (v16);*/
 			v17 = x_D41A0_BYTEARRAY_4_struct.player_name_57ar;//38cf89
-			v18 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].array_0x39f_2BFA_12157;//wizard name
+			v18 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157;
 			strcpy(v17, v18);
 			/*do
 			{
@@ -5842,7 +5842,7 @@ LABEL_15:
 			*x_D41A0_BYTEARRAY_4_struct.player_name_57ar = 0;//fixed x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
 		}
 		v21 = x_DWORD_17DE38str.x_DWORD_17DE50;
-		v22 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].array_0x39f_2BFA_12157;//wizard name
+		v22 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].WizardName_0x39f_2BFA_12157;
 		strcpy(v21, v22);
 		/*do
 		{

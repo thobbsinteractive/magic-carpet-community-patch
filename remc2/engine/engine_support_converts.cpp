@@ -276,8 +276,8 @@ void convert_struct_to_array_0x2BDE(type_str_0x2BDE* input, uint8_t* output) {
 	//type_struct_0x1d1_2BDE_11695 struct_0x1d1_2BDE_11695[33];//465
 	for (int i = 0; i < 0x21; i++)
 		convert_struct_to_array_0x1d1_2BDE_11695(&input->struct_0x1d1_2BDE_11695[i], output + 0x1d1+i*14);
-	//char array_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% name
-	memcpy(output + 0x39f, input->array_0x39f_2BFA_12157, 0x40);
+	//char WizardName_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% name
+	memcpy(output + 0x39f, input->WizardName_0x39f_2BFA_12157, 0x40);
 	//uint8_t byte_0x3DF_2BE4_12221;//991//12221 - byte
 	memcpy(output + 0x3df, &input->byte_0x3DF_2BE4_12221, 1);
 	//uint8_t byte_0x3E0_2BE4_12222;//992//12222 - byte

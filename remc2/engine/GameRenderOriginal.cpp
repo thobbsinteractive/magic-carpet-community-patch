@@ -2991,7 +2991,7 @@ void GameRenderOriginal::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a
 	v31 = viewPort.PreWidth_EA3C4 + viewPort.PosX_EA3D0 - 4;
 	v29 = viewPort.PreHeight_EA3C0 + viewPort.PosY_EA3CC - 22;
 	v25 = a1x->dword_0xA4_164x->word_0x38_56;
-	v5 = D41A0_0.array_0x2BDE[v25].array_0x39f_2BFA_12157;//wizard name
+	v5 = D41A0_0.array_0x2BDE[v25].WizardName_0x39f_2BFA_12157;
 	strcpy(v24, v5);
 	v36 = x_BYTE_E88E0x[3 * GetTrueWizardNumber_61790(v25)];//c
 	v35 = (*xadataclrd0dat.colorPalette_var28)[0];//10 //v19
