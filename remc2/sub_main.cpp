@@ -953,10 +953,9 @@ void sub_19A50();
 void HandleOptionsMenuButtonClick_19A70();
 void ReadOptionMenuEvents_19AB0();
 void ChangeSoundLevel_19CA0(uint8_t option);
-// int SetSoundEffectAndMusicLevelCoordinates_19D60(signed int a1, int a2);
+
 void ReadOkayCancelButtonEvents_19E00();
 void SetOkayCancelButtonsCursorPosition_1A030();
-// void sub_1A070(signed int a1, __int16 a2);
 void sub_1A280();
 int sub_1A4A0();
 void sub_1A5B0_getLangStrings(int a1, int* a2, int* a3);
@@ -1714,7 +1713,6 @@ type_event_0x6E8E* sub_51800(axis_3d* a1);
 type_event_0x6E8E* sub_51A00(axis_3d* a1);
 // int GameEvents_51BB0(int a1);
 void sub_52D70(uint16_t playerIndex, char* cheatMessage);
-void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
 void sub_53120();
 void sub_53160();
 //char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
@@ -11461,7 +11459,7 @@ void MouseAndKeysEvents_17A00(signed int a2, __int16 a3)//1f8a00
 			goto LABEL_306;
 		case 0xA:
 		case 0xC:
-			sub_1A070(a2, a3);
+			AdjustVolume_1A070(a2, a3);
 			/*LOBYTE(result) = (uint8_t)*/sub_1A7A0_fly_asistant();
 			goto LABEL_306;
 		case 0xD:
@@ -12254,6 +12252,12 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 	int16_t posX;
 
 	int posYbyType = 0; // set zero, add stopper for x_D41A0_BYTEARRAY_4_struct.byte_38591 ==0
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
 
 	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
@@ -12266,8 +12270,8 @@ void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume)//1fad60
 			posYbyType = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
 			break;
 	}
-	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
-	SetMousePositionInMemory_5BDC0((int)(posYbyType * (width - 12) / volume) + 5 + posX, (int)(9 * height / 2) + posY);
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
+	SetMousePositionInMemory_5BDC0(((int)((posYbyType * scale) * (width - (12 * scale)) / (volume * scale)) + (5 * scale)) + posX, (int)(9 * height / 2) + posY);
 }
 
 //----- (00019E00) --------------------------------------------------------
@@ -12373,7 +12377,7 @@ void SetOkayCancelButtonsCursorPosition_1A030()//1fb030
 }
 
 //----- (0001A070) --------------------------------------------------------
-void sub_1A070(signed int a1, __int16 a2)//1fb070
+void AdjustVolume_1A070(signed int a1, __int16 a2)//1fb070
 {
 	unsigned __int8 v2; // al
 	int v3; // eax
@@ -12388,10 +12392,16 @@ void sub_1A070(signed int a1, __int16 a2)//1fb070
 	int16_t width; // [esp+4h] [ebp-Ch]
 	int16_t posY; // [esp+8h] [ebp-8h]
 	int16_t posX; // [esp+Ch] [ebp-4h]
+	uint8_t scale = 1;
+
+	if (!DefaultResolutions())
+	{
+		scale = gameUiScale;
+	}
 
 	if (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2)
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[x_BYTE_D419E]); //fixit
-	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height);
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
 	v2 = x_D41A0_BYTEARRAY_4_struct.byte_38591;
 	if (v2 >= 1u)
 	{
@@ -12413,12 +12423,12 @@ void sub_1A070(signed int a1, __int16 a2)//1fb070
 LABEL_12:
 	if (unk_18058Cstr.x_DWORD_18059C & 1 || unk_18058Cstr.x_DWORD_18059C & 2 || unk_18058Cstr.x_DWORD_18059C & 4 || unk_18058Cstr.x_DWORD_18059C & 8 || pressedKeys_180664[47] || pressedKeys_180664[50])
 	{
-		v5 = width - 12;
-		v6 = unk_18058Cstr.x_DWORD_1805B0_mouse.x - (posX + 4);
+		v5 = width - (12 * scale);
+		v6 = unk_18058Cstr.x_DWORD_1805B0_mouse.x - (posX + (4 * scale));
 		if (v6 < 0)
 			v6 = 0;
 		if (v6 > v5)
-			v6 = width - 12;
+			v6 = width - (12 * scale);
 		v8 = a1 * v6;
 		v7 = a1 * v6 / v5;
 		v9 = a1 * v6 / v5;
@@ -42072,7 +42082,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 #ifdef COMPILE_FOR_64BIT // FIXME: 64bit
   std::cout << "FIXME: 64bit @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 #else
-		sub_1A070((int)a1_6E8E, 0);
+		AdjustVolume_1A070((int)a1_6E8E, 0);
 		allert_error();
 #endif
 		break;

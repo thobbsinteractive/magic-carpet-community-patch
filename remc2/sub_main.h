@@ -463,7 +463,7 @@ int16_t sub_16730(/*int a1,*/ type_event_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
-void sub_1A070(signed int a1, __int16 a2);
+void AdjustVolume_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
@@ -587,6 +587,7 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
 int16_t GetHelpPopupIndex_88450();
 void GetHintText_89AC0(char* buffer, int helpIndex);
 
+void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
 void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
 void SetHelpPopupCoords_87580();
 void SetPauseMenuCoordinates_87970(uint8_t scale = 1);
@@ -594,6 +595,7 @@ void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
 void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale = 1);
 void SetTextBoxMinMaxSizes_87090();
 void SetTextBoxMinMaxForSetResolution();
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume);
 
 void DrawPauseMenuPopUps_87860();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
