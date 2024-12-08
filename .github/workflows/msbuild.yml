@@ -37,11 +37,7 @@ jobs:
 
     - name: Build ${{matrix.BUILD_CONFIGURATION}} ${{matrix.BUILD_PLATFORM}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: |
-        cd
-        dir
-        msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
-      shell: cmd
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
     
     - name: Run Unit Tests x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x86' }}
@@ -49,7 +45,7 @@ jobs:
       env:
         ASAN_OPTIONS: continue_on_error=1
       run: |
-        cd
+        cd "${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}"
         dir
         "${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe"
       shell: cmd
@@ -60,7 +56,7 @@ jobs:
       env:
         ASAN_OPTIONS: continue_on_error=1
       run: |
-        cd
+        cd "${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}"
         dir
         "${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe"
       shell: cmd
