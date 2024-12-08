@@ -3,7 +3,7 @@
 #ifndef GAME_BITMAP
 #define GAME_BITMAP
 
-#include "basic.h"
+#include "Basic.h"
 
 class GameBitmap
 {
