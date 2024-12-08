@@ -126,7 +126,7 @@ set(SOURCE_FILES__libs__findfirst
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
 set(SOURCE_FILES__portability
-    "portability/mctypes.h"
+    "portability/bitmap_pos_struct.h"
     "portability/fcaseopen.cpp"
     "portability/fcaseopen.h"
     "portability/port_net.cpp"
