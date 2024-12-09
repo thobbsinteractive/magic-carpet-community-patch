@@ -1,8 +1,11 @@
+#include <iostream>
 #include <cstdint>
 #include <gtest/gtest.h>
 #include "../../remc2/engine/ViewPort.h"
-
 TEST(ViewPort, SetRenderViewPortSize_40C50) {
+
+	std::cout << "Started SetRenderViewPortSize_40C50";
+
     pdwScreenBuffer_351628 = new uint8_t[1920 * 1080 * 2];
     ViewPort viewPort;
 
