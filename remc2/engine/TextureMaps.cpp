@@ -506,6 +506,14 @@ void InitTmaps(unsigned __int16 a1)//251f50
 							BIG_SPRITES_BUFFERx[i].actdatax->height = oldheight * 4;
 							*(uint16_t*)&BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer[oldwidth * 4 * oldheight * 4] = mm;
 
+							Logger->trace("BIG_SPRITES_BUFFERx[i].actdatax->word_0: {}", BIG_SPRITES_BUFFERx[i].actdatax->word_0);
+							Logger->trace("BIG_SPRITES_BUFFERx[i].actdatax->width: {}", BIG_SPRITES_BUFFERx[i].actdatax->width);
+							Logger->trace("BIG_SPRITES_BUFFERx[i].actdatax->height: {}", BIG_SPRITES_BUFFERx[i].actdatax->height);
+							Logger->trace("BIG_SPRITES_BUFFERx[i].actdatax frames: {}", BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer[oldwidth * 4 * oldheight * 4]);
+							int8_t* buffer = BIG_SPRITES_BUFFERx[i].actdatax->textureBuffer;
+							Logger->trace("BIG_SPRITES_BUFFERx[i].actdatax->texture buffer start: {}", fmt::ptr(buffer));
+							Logger->trace("BIG_SPRITES_BUFFERx[i].actdatax->texture buffer end: {}", fmt::ptr(buffer + (oldwidth * 4 * oldheight * 4 + 6 + 2)));
+
 							/*for (int xx = 0; xx < oldwidth*4; xx++)
 								for (int yy = 0; yy < oldheight*4; yy++)
 									* (uint16_t*)(BIG_SPRITES_BUFFER[i] + 6+ yy * oldwidth + xx) = 128;*/

@@ -1,4 +1,5 @@
 # Magic Carpet 2 HD
+## Now actually in HD or 2K!
 Based off the Reverse engineering of game Magic Carpet 2 from assembler to c/c++ language by Tomas Versly <br />
 Forked from Tomas Vesely's repo here: https://github.com/turican0/remc2 <br /><br />
 Tomas has done amazing work, not only reverse engineering this code but updating it to use more modern memory allocation and use the SDL library for input and sound. He has even increased the sprite resolutions.
@@ -21,6 +22,9 @@ To jump to a selected Level use:</br>
 --set_level [0-25]</br>
 To run a level you have created using the editor:</br>
 --custom_level "[Path to .mc2 file]"</br>
+
+## FAQ ##
+https://github.com/thobbsinteractive/magic-carpet-2-hd/wiki/FAQ
 
 ## For more information on Magic Carpet 2 ##
 Moburma has been tirelessly working to document cut levels, level data structures and missing graphics at: https://tcrf.net/Magic_Carpet_2:_The_Netherworlds
