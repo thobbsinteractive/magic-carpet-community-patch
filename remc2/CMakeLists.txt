@@ -1,11 +1,5 @@
 project(remc2 C CXX)
 
-if (USE_CLANG_TIDY)
-    #set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=*")
-    #set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters;-fix")
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters")
-endif ()
-
 ################################################################################
 # Source groups
 ################################################################################

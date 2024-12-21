@@ -87,7 +87,6 @@ There are two ways to build the Linux binary.
   ```
   5. Magic Carpet 2 is now built. you can find it in `build/Debug/inst/bin`
      - You can also run the code with sanitizers (leak, address, undefined behaviour, pointers) by passing `-DUSE_SANITIZERS=True` to CMake
-     - Additionally you can compile the code with clang-tidy analyzers by passing `-DUSE_CLANG_TIDY=True` to CMake
 
 - Building a [flatpak](https://flatpak.org/)
   1. Pull the development branch
@@ -99,6 +98,16 @@ There are two ways to build the Linux binary.
   3. Run the `remc2` flatpak via
   ```bash
   flatpak run com.github.thobbsinteractive.magic-carpet-2-hd
+  ```
+
+- Running clang-tidy for static code analysis
+  1. Run CMake with the flag `CMAKE_EXPORT_COMPILE_COMMANDS` for exporting the build commands like this
+  ```
+  cmake -GNinja -DUSE_CLANG_TIDY=True -DUSE_SANITIZERS=True -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DCMAKE_INSTALL_PREFIX=./inst -DUNIT_TESTS=True  -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ../.
+  ```
+  2. Run clang-tidy
+  ```
+  run-clang-tidy -p . -j 4 -export-fixes clang-tidy-fixes.yaml
   ```
 
 ### Providing the original game assets to `remc2` and running the game
