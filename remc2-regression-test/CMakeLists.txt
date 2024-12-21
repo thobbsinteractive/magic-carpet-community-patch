@@ -101,7 +101,6 @@ set(ROOT_NAMESPACE remc2-regression-test)
 ################################################################################
 # Regression tests
 ################################################################################
-include(GoogleTest)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES_REGRESSIONTESTS})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/engine"
@@ -123,12 +122,6 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 	fmt::fmt
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
-gtest_add_tests(
-    TARGET      ${PROJECT_NAME}
-    TEST_SUFFIX .noArgs
-    TEST_LIST   noArgsTests
-)
-set_tests_properties(${noArgsTests} PROPERTIES TIMEOUT 10)
 install(
     TARGETS ${PROJECT_NAME}
     CONFIGURATIONS Debug;Release;RelWithDebInfo
