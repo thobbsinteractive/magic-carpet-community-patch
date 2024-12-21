@@ -1956,9 +1956,8 @@ bool AilApiReadIni_9E3A0(AIL_INI* INI, char* filename)//27f3a0
 	{
 		strcpy(INI->device_name, "Creative Labs Sound Blaster 16 or AWE32");
 		strcpy(INI->driver_name, "SB16.DIG");
-		char workingDir[MAX_PATH];
-		GetDirectory(workingDir, filename);
-		sprintf(INI->driver_path, "%s/%s", workingDir, "SB16.DIG");
+		std::string driver_path = GetSubDirectoryFile(cdFolder, "SOUND", "SB16.DIG");
+		sprintf(INI->driver_path, "%s", driver_path.c_str());
 		INI->IO.IO = StrToInt("220h", 16);
 		INI->IO.IRQ = StrToInt("-1", 10);
 		INI->IO.DMA_8_bit = StrToInt("-1", 10);
@@ -1968,9 +1967,8 @@ bool AilApiReadIni_9E3A0(AIL_INI* INI, char* filename)//27f3a0
 	{
 		strcpy(INI->device_name, "Creative Labs Sound Blaster(TM) 16");
 		strcpy(INI->driver_name, "SBPRO2.MDI");
-			char workingDir[MAX_PATH];
-		GetDirectory(workingDir, filename);
-		sprintf(INI->driver_path, "%s/%s", workingDir, "SBPRO2.MDI");
+		std::string driver_path = GetSubDirectoryFile(cdFolder, "SOUND", "SBPRO2.MDI");
+		sprintf(INI->driver_path, "%s", driver_path.c_str());
 		INI->IO.IO = StrToInt((char*)"220h", 16);
 		INI->IO.IRQ = StrToInt((char*)"-1", 10);
 		INI->IO.DMA_8_bit = StrToInt((char*)"-1", 10);
