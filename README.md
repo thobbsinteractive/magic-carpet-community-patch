@@ -74,7 +74,8 @@ There are two ways to build the Linux binary.
   - libpng
   - boost
   - boost-system
-    - To install them on Debian/Pi OS: `sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libpng-dev libpng++-dev libboost-system-dev` 
+  - spdlog
+    - To install them on Debian/Pi OS: `sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libpng-dev libpng++-dev libboost-system-dev libspdlog-dev` 
   4. Build the code
   ```bash
   export BUILDTYPE=Debug # or Release
@@ -111,7 +112,7 @@ In order to run the game you need to own a copy of Magic Carpet 2. We provide a 
   ```
   bash check_install.sh -s [directory where GOG installed MC2] -d [destination directory]
   # for example :
-  bash check_install.sh -s "${HOME}/.wine/drive_c/games/Magic Carpet 2/" -d "build/${BUILDTYPE}/inst/bin/"
+  bash check_install.sh -s "${HOME}/.wine/drive_c/games/Magic Carpet 2/" -d "build/${BUILDTYPE}/inst/bin/NETHERW"
   ```
   Please note that if you have used any other method to get the assets, at least run a check to make sure that remc2 has access to every file it needs:
   ```
