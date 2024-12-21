@@ -60,12 +60,14 @@ jobs:
         ./remc2-unit-test 
 
     - name: Run Clang-Tidy
+      if: startsWith(matrix.BUILD_CONFIGURATION, 'Debug') == true
       run: |
         cd ${{ github.workspace }}
         cd build_${{matrix.BUILD_CONFIGURATION}}
         run-clang-tidy -p . -j 4 -export-fixes clang-tidy-fixes.yaml
 
     - name: Run clang-tidy-pr-comments Action
+      if: startsWith(matrix.BUILD_CONFIGURATION, 'Debug') == true
       uses: platisd/clang-tidy-pr-comments@v1
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
