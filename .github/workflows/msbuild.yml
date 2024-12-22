@@ -46,7 +46,7 @@ jobs:
       env:
         ASAN_OPTIONS: continue_on_error=1
       run: |
-      dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}
+      dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/
       ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
       
@@ -56,7 +56,7 @@ jobs:
       env:
         ASAN_OPTIONS: continue_on_error=1
       run: |
-      dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}
+      dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/
       ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
     
     - name: Archive x86
