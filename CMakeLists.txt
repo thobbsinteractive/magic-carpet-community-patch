@@ -6,6 +6,7 @@ project(remc2 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_COLOR_DIAGNOSTICS ON)
 
 
 ################################################################################
@@ -116,6 +117,8 @@ endif ()
 # remc2 and tests
 add_subdirectory(remc2)
 if (UNIT_TESTS)
+    find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
     add_subdirectory(remc2-unit-test)
     add_subdirectory(remc2-regression-test)
 endif ()
