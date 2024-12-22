@@ -16,14 +16,14 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
-            "name": "Game Sanitizer",
+            "name": "Unit Tests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/buildsanitizers/Debug/inst/bin/remc2",
+            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2-unit-test",
             "args": [
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/buildsanitizers/Debug/inst/bin",
+            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

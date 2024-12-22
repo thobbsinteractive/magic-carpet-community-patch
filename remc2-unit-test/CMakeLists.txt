@@ -1,13 +1,20 @@
 project(remc2-unit-test C CXX)
 
-if (USE_CLANG_TIDY)
-    set(CMAKE_CXX_CLANG_TIDY "clang-tidy;-checks=misc-unused-parameters")
-endif ()
-
 ################################################################################
 # Source groups
 ################################################################################
 set(SOURCE_FILES_UNITTESTS
+    "engine/CommandLineParserUT.cpp"
+    "portability/fcaseopenUT.cpp"
+    "engine/TerrainUT.cpp"
+    "engine/SetRenderViewPortSize_40C50UT.cpp"
+    "utilities/Math.cpp"
+    "utilities/Math.h"
+    "comparison/engine/OriginalTerrain.cpp"
+    "comparison/engine/OriginalTerrain.h"
+    "UnitTests.cpp"
+)
+set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "pch.cpp"
     "pch.h"
     "../inih/ini.c"
@@ -16,12 +23,9 @@ set(SOURCE_FILES_UNITTESTS
     "../inih/INIReader.h"
     "../remc2/engine/CommandLineParser.cpp"
     "../remc2/engine/CommandLineParser.h"
-    "engine/CommandLineParserUT.cpp"
     "../remc2/portability/fcaseopen.cpp"
     "../remc2/portability/fcaseopen.h"
-    "portability/fcaseopenUT.cpp"
     "../remc2/engine/ViewPort.cpp"
-    "engine/SetRenderViewPortSize_40C50UT.cpp"
     "../remc2/sub_main.cpp"
     "../remc2/sub_main.h"
     "../remc2/utilities/Maths.cpp"
@@ -98,14 +102,8 @@ set(SOURCE_FILES_UNITTESTS
     "../remc2/engine/engine_support.h"
     "../remc2/engine/Terrain.cpp"
     "../remc2/engine/Terrain.h"
-    "utilities/Math.cpp"
-    "utilities/Math.h"
-    "comparison/engine/OriginalTerrain.cpp"
-    "comparison/engine/OriginalTerrain.h"
-    "engine/TerrainUT.cpp"
-    "UnitTests.cpp"
 )
-source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS})
+source_group("Source Files\\unittests" FILES ${SOURCE_FILES_UNITTESTS} ${SOURCE_FILES_UNITTESTS_DEPENDENCIES})
 
 set(ROOT_NAMESPACE remc2-unit-test)
 
@@ -114,7 +112,7 @@ set(ROOT_NAMESPACE remc2-unit-test)
 # Unit tests
 ################################################################################
 include(GoogleTest)
-add_executable(${PROJECT_NAME} ${SOURCE_FILES_UNITTESTS})
+add_executable(${PROJECT_NAME} ${SOURCE_FILES_UNITTESTS} ${SOURCE_FILES_UNITTESTS_DEPENDENCIES})
 target_include_directories(${PROJECT_NAME} PUBLIC
     "../remc2/engine"
     "../remc2/portability"
@@ -124,7 +122,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	"../rapidjson"
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
-    gtest
     pthread
 	SDL2::Main
 	SDL2::Mixer
@@ -133,10 +130,13 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 	ADLMIDI_static
 	Boost::system
 	fmt::fmt
+    ${GTEST_LIBRARIES}
+    ${GTEST_MAIN_LIBRARIES}
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
 gtest_add_tests(
     TARGET      ${PROJECT_NAME}
+    SOURCES     ${SOURCE_FILES_UNITTESTS}
     TEST_SUFFIX .noArgs
     TEST_LIST   noArgsTests
 )
