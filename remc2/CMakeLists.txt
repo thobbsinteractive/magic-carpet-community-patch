@@ -207,8 +207,8 @@ if (UNIX)
     #target_compile_options(${PROJECT_NAME} PRIVATE
     #)
     target_link_libraries(${PROJECT_NAME} PUBLIC 
-        SDL2::Main
-        SDL2::Mixer
+        SDL2::SDL2
+        SDL2_mixer::SDL2_mixer
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static

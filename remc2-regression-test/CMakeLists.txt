@@ -113,8 +113,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     gtest
     pthread
-	SDL2::Main
-	SDL2::Mixer
+	SDL2::SDL2
+	SDL2_mixer::SDL2_mixer
 	${PNG_LIBRARY}
 	findfirst
 	ADLMIDI_static
