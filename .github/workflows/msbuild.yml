@@ -45,9 +45,9 @@ jobs:
       env:
         ASAN_OPTIONS: continue_on_error=1
       run: |
-      dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/
-      ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
-      
+        dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}
+        ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
+      shell: cmd
       
     - name: Run Unit Tests x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x64' }}
@@ -55,8 +55,9 @@ jobs:
       env:
         ASAN_OPTIONS: continue_on_error=1
       run: |
-      dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/
-      ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
+        dir ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}
+        ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
+      shell: cmd
     
     - name: Archive x86
       if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
