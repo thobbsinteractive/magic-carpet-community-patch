@@ -3,6 +3,7 @@
 #include "engine/CommandLineParser.h"
 #include "engine/MenusAndIntros.h"
 #include "engine/Network.h"
+#include "utilities/StateMonitor.h"
 
 /*
 
@@ -37632,8 +37633,14 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 	if (setLevel > -1 || customLevelPath.length() > 0)
 		skipMenus = true;
 
+	if (CommandLineParams.DoStateMonitor()) {
+		g_state_monitor.Init();
+	}
+
 	while (1)
 	{
+		g_state_monitor.Update();
+
 		//result = (int)x_D41A0_BYTEARRAY_0;
 		//D41A0_BYTESTR_0.array_0x2BE2[D41A0_BYTESTR_0.word_12]
 		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x004_2BE0_11234)
@@ -38236,6 +38243,8 @@ void sub_47320_in_game_loop(signed int a1)//228320
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.word[1] = 0;
 	while (1)
 	{
+		g_state_monitor.Update();
+
 		//debug
 		if (CommandLineParams.DoRightButton()) {
 			if (CommandLineParams.DoDebugafterload())
@@ -38323,6 +38332,8 @@ void DrawAndEventsInGame_47560(/*uint8_t* a1, int a2, */uint32_t a3, signed int 
 	signed int i; // ebx
 
 	SetFrameStart(std::chrono::system_clock::now());
+
+
 
 	if ((CommandLineParams.DoDebugafterload() == 1) && (count_begin == 1))
 		debugcounter_47560++;

@@ -1,5 +1,6 @@
 #include "MenusAndIntros.h"
 #include "CommandLineParser.h"
+#include "../utilities/StateMonitor.h"
 
 
 #ifdef __linux__
@@ -676,6 +677,8 @@ void MenusAndIntros_76930(int /*a2*/, uint16_t a3, bool skipMenus)//257930
 
 	do
 	{
+		g_state_monitor.Update();
+
 		//x_WORD_E29D8 - prvni pruchod -0
 		//v3 = x_WORD_E29D8;//2b39d8
 		switch (x_WORD_E29D8)
