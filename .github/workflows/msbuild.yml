@@ -37,20 +37,17 @@ jobs:
 
     - name: Build ${{matrix.BUILD_CONFIGURATION}} ${{matrix.BUILD_PLATFORM}}
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} /p:MyDefines="_DISABLE_VECTOR_ANNOTATION;_DISABLE_STRING_ANNOTATION" ${{env.SOLUTION_FILE_PATH}}/remc2.sln
-      shell: cmd
+      run: msbuild /m /p:Configuration=${{matrix.BUILD_CONFIGURATION}} /p:PlatformTarget=${{matrix.BUILD_PLATFORM}} /p:Platform=${{matrix.BUILD_PLATFORM}} ${{env.SOLUTION_FILE_PATH}}/remc2.sln
     
     - name: Run Unit Tests x86
       if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x86' }}
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: start ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
-      shell: cmd
+      run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
       
     - name: Run Unit Tests x64
       if: ${{ matrix.BUILD_CONFIGURATION == 'Debug' && matrix.BUILD_PLATFORM == 'x64' }}
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: start ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
-      shell: cmd
+      run: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/${{matrix.BUILD_CONFIGURATION}}/remc2-unit-test.exe
 
     - name: Archive x86
       if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
