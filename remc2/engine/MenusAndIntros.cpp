@@ -1011,6 +1011,8 @@ void MainMenu_76FA0(/*int a1, */int  /*a2*/, uint16_t a3x)//257fa0
 		v27 = x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode;
 		while (!m_ExitMenuLoop_E29DC)
 		{
+			g_state_monitor.Update();
+
 			SetFrameStart(std::chrono::system_clock::now());
 			v13 = j___clock();
 			if ((v10 == x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx) && (v12 == x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony) && (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == v27))
@@ -1157,6 +1159,8 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 		x_DWORD_17DB70str.x_WORD_17DB8A = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 		while (!v1)
 		{
+			g_state_monitor.Update();
+
 			SetFrameStart(std::chrono::system_clock::now());
 			if (x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode == 59)
 			{

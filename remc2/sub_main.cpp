@@ -50189,7 +50189,7 @@ void GameEvents_51BB0()//232bb0
 			}
 		}
 		if (playerFound)
-			ReceiveSendAll_7438A((uint8_t*)D41A0_0.array_0x2BDE, sizeof(type_str_0x2BDE));
+			ReceiveSendAll_7438A((uint8_t*)&D41A0_0.array_0x2BDE[0], sizeof(type_str_0x2BDE));
 	}
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248++;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_26++;//232c9e
@@ -53324,7 +53324,7 @@ void ClearSettings_567C0()//2377c0 // clean level
 	//int v1; // ebx
 
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[16]), 0, 29);
-	memset(D41A0_0.array_0x10, 0, 29);
+	D41A0_0.array_0x10.fill(0);
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[45]), 0, 4);
 	D41A0_0.dword_0x2d = 0;
 	//memset((void*)(&x_D41A0_BYTEARRAY_0[49]), 0, 2);
@@ -58135,7 +58135,7 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 	sub_49F90();
 	//*(uint32_t*)v35x = *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 6 * ((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124) + 9058);//fix
 	//v35x[2] = *(x_WORD *)(x_D41A0_BYTEARRAY_0 + 6 * ((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124) + 9062);
-	v35x = D41A0_0.array_0x2362[a1x - D41A0_0.array_0x2BDE];
+	v35x = D41A0_0.array_0x2362[a1x - &D41A0_0.array_0x2BDE[0]]; // FIXME: pointer arithmetic for array_0x2362
 	//v35x[2] = get_x_D41A0_BYTEARRAY_0_0x2366(((a1 - &x_D41A0_BYTEARRAY_0[11230]) / 2124));
 	v3 = getTerrainAlt_10C40(&v35x);
 	v3 += 0x100;
@@ -58161,7 +58161,7 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 	//v7 = (int)x_D41A0_BYTEARRAY_0;
 	a1x->word_0x00a_2BE4_11240 = v2x - D41A0_0.struct_0x6E8E;
 	v2x->dword_0xA4_164x = &a1x->dword_0x3E6_2BE4_12228;
-	v2x->dword_0xA4_164x->word_0x38_56 = a1x - D41A0_0.array_0x2BDE;
+	v2x->dword_0xA4_164x->word_0x38_56 = a1x - &D41A0_0.array_0x2BDE[0]; // FIXME: pointer arithmetic
 	v2x->dword_0xA4_164x->word_0x159_345 = 100;
 	v2x->dword_0xA4_164x->word_0x24C_588 = 0;
 	v2x->dword_0xA4_164x->dword_0x16D_365 = 2000;

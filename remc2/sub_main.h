@@ -411,8 +411,8 @@ typedef struct //lenght 50
 	int8_t x_BYTE_17DB8E; // weak 30
 	int8_t x_BYTE_17DB8F; // weak 31
 	int16_t unk_17DB90; // weak 32
-	uint8_t unk_17DB92[6]; // weak 32
-	uint8_t fill3[16]; // fill
+	std::array<uint8_t, 6> unk_17DB92; // weak 32
+	std::array<uint8_t, 16> fill3; // fill
 } type_x_DWORD_17DB70str;
 #pragma pack (16)
 
