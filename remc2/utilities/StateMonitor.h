@@ -24,6 +24,7 @@ typedef struct {
 typedef struct {
     type_D41A0_BYTESTR_0 D41A0_0;
     type_x_DWORD_17DB70str x_DWORD_17DB70str;
+    std::array<type_D4C52ar, 17> str_D4C48ar;
 } LastStates;
 
 class StateMonitor {
@@ -41,6 +42,7 @@ class StateMonitor {
 
         void MonitorD41A0();
         void Monitor17DB70str();
+        void Monitor_str_D4C48ar();
 
         bool m_initialized = false;
 

@@ -2536,15 +2536,6 @@ int x_DWORD_D4BA8 = 4294967216; // weak
 int x_DWORD_D4BAC = 80; // weak
 __int16 x_WORD_D4BB0 = 65532; // weak
 
-#pragma pack (1)
-typedef struct {//lenght 14
-	uint32_t dword_0;//ok
-	int16_t word_4;//ok
-	uint32_t address_6;
-	int32_t dword_10;//ok
-}
-type_D4C52ar2;
-#pragma pack (16)
 type_D4C52ar2 x_DWORD_D4C52ar_strtest[1280];
 type_D4C52ar2 x_DWORD_D4C52ar_str10[1] = {
 0x00000000,0x0000,0x00000000,0x00000000
@@ -3460,18 +3451,7 @@ type_D4C52ar2 x_DWORD_D4C52ar_strF1[27] = {
 0x002A5C44,0x0019,0x002324C0,0x00000001,
 0x00000000,0x0000,0x00000000,0x00000000 };
 
-#pragma pack (1)
-typedef struct {//lenght 18
-	uint32_t dword_0;
-	uint32_t dword_4;
-	int16_t word_8;
-	type_D4C52ar2* dword_10;
-	type_D4C52ar2* dword_14;
-}
-type_D4C52ar;
-#pragma pack (16)
-
-type_D4C52ar str_D4C48ar[17] = {
+std::array<type_D4C52ar, 17> str_D4C48ar = {
 0x002A5C44,0x00000000,0x0000,NULL,NULL,//0
 0x002A5C44,0x00000001,0x0000,x_DWORD_D4C52ar_str10,x_DWORD_D4C52ar_str11,//1
 0x002A5C44,0x00000002,0x0000,x_DWORD_D4C52ar_str20,x_DWORD_D4C52ar_str21,//2
@@ -74570,22 +74550,6 @@ Type_SecretMapScreenPortals_E2970* sub_824B0(__int16 a1)//2634b0
 	}
 	return &secretMapScreenPortals_E2970[ri];
 }
-
-//----- (000824E0) --------------------------------------------------------
-Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1)//2634e0
-{
-	int ri = 0;
-	if (!secretMapScreenPortals_E2970[ri].activated_12)
-		return 0;
-	while (a1 != secretMapScreenPortals_E2970[ri].levelNumber_6)
-	{
-		ri++;
-		if (!secretMapScreenPortals_E2970[ri].activated_12)
-			return 0;
-	}
-	return &secretMapScreenPortals_E2970[ri];
-}
-
 
 //----- (00082AB0) --------------------------------------------------------
 void sub_82AB0(unsigned __int8 a1)//263ab0

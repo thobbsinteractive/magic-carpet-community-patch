@@ -209,6 +209,27 @@ extern x_WORD __SS__;*/
 //extern char IsTable[];
 
 #pragma pack (1)
+typedef struct {//lenght 14
+	uint32_t dword_0;//ok
+	int16_t word_4;//ok
+	uint32_t address_6;
+	int32_t dword_10;//ok
+}
+type_D4C52ar2;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct {//lenght 18
+	uint32_t dword_0;
+	uint32_t dword_4;
+	int16_t word_8;
+	type_D4C52ar2* dword_10;
+	type_D4C52ar2* dword_14;
+}
+type_D4C52ar;
+#pragma pack (16)
+
+#pragma pack (1)
 typedef struct {//lenght 6
 	int8_t* bitmapData_0;
 	int16_t bitmapIndex_4;
@@ -653,7 +674,6 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 Type_SecretMapScreenPortals_E2970* sub_824B0(__int16 a1);
-Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1);
 
 void sub_101C0();
 void sub_5BCC0_set_any_variables1();

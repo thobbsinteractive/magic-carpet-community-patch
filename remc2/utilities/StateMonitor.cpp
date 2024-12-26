@@ -127,7 +127,7 @@ void StateMonitor::RegisterChange(const string& key, const string& old_value, co
 }
 
 // macros to compare and register changes
-#define MONITOR_VARIABLE_HEX(struct, key) \
+#define MONITOR_STRUCT_VARIABLE_HEX(struct, key) \
     if (m_last_states.struct.key != struct.key) { \
         RegisterChange( \
             #struct ": " #key, \
@@ -135,7 +135,7 @@ void StateMonitor::RegisterChange(const string& key, const string& old_value, co
             fmt::format("{:x}", struct.key) \
         ); \
     }
-#define MONITOR_ARRAY_HEX(struct, key) \
+#define MONITOR_STRUCT_ARRAY_HEX(struct, key) \
     if (m_last_states.struct.key != struct.key) { \
         std::string old_value; \
         std::string new_value; \
@@ -147,7 +147,7 @@ void StateMonitor::RegisterChange(const string& key, const string& old_value, co
         } \
         RegisterChange(#struct ": " #key, old_value, new_value); \
     }
-#define MONITOR_ARRAY_POINTERS(struct, key) \
+#define MONITOR_STRUCT_ARRAY_POINTERS(struct, key) \
     if (m_last_states.struct.key != struct.key) { \
         std::string old_value; \
         std::string new_value; \
@@ -164,28 +164,28 @@ void StateMonitor::RegisterChange(const string& key, const string& old_value, co
 void StateMonitor::MonitorD41A0() {
     // compare D41A0_0 with with last state if different, add to observed changes
 	// uint8_t stub0[4];
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x4);
-    MONITOR_VARIABLE_HEX(D41A0_0, LevelIndex_0xc);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0xe);
-	MONITOR_ARRAY_HEX(D41A0_0, array_0x10);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x2d);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x31);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x33);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x35); // entity counter(max 1000 entity changes per step)
-    MONITOR_ARRAY_HEX(D41A0_0, array_0x39);
-    MONITOR_VARIABLE_HEX(D41A0_0, maptypeMusic_0x235);
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x239);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x23a);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x23e);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x242);
-    //MONITOR_ARRAY_POINTERS(D41A0_0, pointers_0x246);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x11e6); // second entity counter
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x4);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, LevelIndex_0xc);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0xe);
+	MONITOR_STRUCT_ARRAY_HEX(D41A0_0, array_0x10);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x2d);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x31);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x33);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x35); // entity counter(max 1000 entity changes per step)
+    MONITOR_STRUCT_ARRAY_HEX(D41A0_0, array_0x39);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, maptypeMusic_0x235);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x239);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x23a);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x23e);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x242);
+    //MONITOR_STRUCT_ARRAY_POINTERS(D41A0_0, pointers_0x246);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x11e6); // second entity counter
 	// type_event_0x6E8E* dword_0x11EA[1000];//??4586
 	// GameSettingsStruct_t m_GameSettings;
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x219A);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x219E);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x21A2);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x21A6);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x219A);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x219E);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x21A2);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x21A6);
 	// type_str_0x21AA str_0x21AA;
 	// type_str_0x21AE str_0x21AE;
 	// type_str_0x21B2 str_0x21B2;
@@ -199,34 +199,34 @@ void StateMonitor::MonitorD41A0() {
 	// type_event_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
 	// Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level
 	// type_str_0x364D2 str_0x364D2;//lenght 108
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x3653E);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36540);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36542);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36544);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36546);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36548);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x3654A);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x3653E);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36540);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36542);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36544);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36546);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36548);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x3654A);
 	// type_str_3654C stages_0x3654C[8];//size 10 count 8
 	// type_str_3659C struct_0x3659C[8];//size 11 count 8 C-0 D-1 E-2 F-3
 	// type_str_0x3647Ac StageVars2_0x365F4[11];//8x11	//set 0x58 // end 0x3664c
 	// type_str_0x3664C str_0x3664C[50];// lenght 0x79e//39x50 (end-0x36dea)
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x36DEA_fly_asistant);
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x36DEB_xx);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36DEC_mousex);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36DEE_mousey);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36DF0_mousexx);
-    MONITOR_VARIABLE_HEX(D41A0_0, dword_0x36DF2);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36DEA_fly_asistant);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36DEB_xx);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DEC_mousex);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DEE_mousey);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DF0_mousexx);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, dword_0x36DF2);
 	// type_str_160* dword_0x36DF6;//pointer
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36DFA);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36DFC);
-    MONITOR_VARIABLE_HEX(D41A0_0, word_0x36DFE);
-    MONITOR_VARIABLE_HEX(D41A0_0, countStageVars_0x36E00);
-    MONITOR_VARIABLE_HEX(D41A0_0, stageIndex_0x36E01);
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x36E02);
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x36E03);
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x36E04);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFA);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFC);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, word_0x36DFE);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, countStageVars_0x36E00);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, stageIndex_0x36E01);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E02);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E03);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E04);
 	// uint8_t stub3k[6];
-    MONITOR_VARIABLE_HEX(D41A0_0, byte_0x36E0B);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E0B);
 	// uint8_t stubend[11];
 
     // shallow copy of D41A0_0
@@ -235,31 +235,63 @@ void StateMonitor::MonitorD41A0() {
 
 extern type_x_DWORD_17DB70str x_DWORD_17DB70str;
 void StateMonitor::Monitor17DB70str() {
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_DWORD_17DB70);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB74);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB76_posx);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB78_posy);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, fill1);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, fill2);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB7E);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB80);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB82_shift_step);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB84);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB86);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB88);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8A);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8C);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8E);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8F);
-    MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90);
-    MONITOR_ARRAY_HEX(x_DWORD_17DB70str, unk_17DB92);
-    MONITOR_ARRAY_HEX(x_DWORD_17DB70str, fill3);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_DWORD_17DB70);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB74);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB76_posx);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB78_posy);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill1);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, fill2);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB7E);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB80);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB82_shift_step);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB84);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB86);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB88);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8A);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB8C);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8E);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, x_BYTE_17DB8F);
+    MONITOR_STRUCT_VARIABLE_HEX(x_DWORD_17DB70str, unk_17DB90);
+    MONITOR_STRUCT_ARRAY_HEX(x_DWORD_17DB70str, unk_17DB92);
+    MONITOR_STRUCT_ARRAY_HEX(x_DWORD_17DB70str, fill3);
 
     // shallow copy of x_DWORD_17DB70str
     m_last_states.x_DWORD_17DB70str = x_DWORD_17DB70str;
 }
 
+extern std::array<type_D4C52ar, 17> str_D4C48ar;
+void StateMonitor::Monitor_str_D4C48ar() {
+    for (int i = 0; i < str_D4C48ar.size(); i++) {
+        bool different = 
+            m_last_states.str_D4C48ar[i].dword_0 != str_D4C48ar[i].dword_0 ||
+            m_last_states.str_D4C48ar[i].dword_4 != str_D4C48ar[i].dword_4 ||
+            m_last_states.str_D4C48ar[i].word_8 != str_D4C48ar[i].word_8 ||
+            m_last_states.str_D4C48ar[i].dword_10 != str_D4C48ar[i].dword_10 ||
+            m_last_states.str_D4C48ar[i].dword_14 != str_D4C48ar[i].dword_14;
+        if (different) {
+            RegisterChange(
+                fmt::format("str_D4C48ar[{}]", i),
+                fmt::format("{:x} {:x} {:x} {:x} {:x}", 
+                    m_last_states.str_D4C48ar[i].dword_0, 
+                    m_last_states.str_D4C48ar[i].dword_4, 
+                    m_last_states.str_D4C48ar[i].word_8, 
+                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].dword_10), 
+                    reinterpret_cast<std::uintptr_t>(m_last_states.str_D4C48ar[i].dword_14)),
+                fmt::format("{:x} {:x} {:x} {:x} {:x}", 
+                    str_D4C48ar[i].dword_0, 
+                    str_D4C48ar[i].dword_4, 
+                    str_D4C48ar[i].word_8, 
+                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].dword_10), 
+                    reinterpret_cast<std::uintptr_t>(str_D4C48ar[i].dword_14))
+            );
+        }
+    }
+
+    // shallow copy of str_D4C48ar
+    m_last_states.str_D4C48ar = str_D4C48ar;
+}
+
 // TODO: check these 
 // - unk_17DBA8str
 // - x_DWORD_17DE28str
-// - str_D4C48ar
+// - all the type_D4C52ar2 in sub_main.cpp

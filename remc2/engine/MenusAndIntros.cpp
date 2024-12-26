@@ -7483,6 +7483,23 @@ void PaletteCopy_7C800(signed __int16 a1)//25d800
 	fix_sub_9A0FC_wait_to_screen_beam();
 }
 
+
+//----- (000824E0) --------------------------------------------------------
+Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1)//2634e0
+{
+	int ri = 0;
+	if (!secretMapScreenPortals_E2970[ri].activated_12)
+		return 0;
+	while (a1 != secretMapScreenPortals_E2970[ri].levelNumber_6)
+	{
+		ri++;
+		if (!secretMapScreenPortals_E2970[ri].activated_12)
+			return 0;
+	}
+	return &secretMapScreenPortals_E2970[ri];
+}
+
+
 //----- (00085BF5) --------------------------------------------------------
 void sub_85BF5(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6)//266bf5
 {

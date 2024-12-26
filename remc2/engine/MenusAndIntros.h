@@ -93,6 +93,7 @@ bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4,
 void NewGameSubdraw_81760(/*type_unk_E17CC_str_0x194* a1*/);
 void WriteConfigDat_81DB0();
 void DrawAndSoundDragonAndFire_81EE0(__int16 a5, __int16 a6);
+Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1);
 void sub_82510(/*__int16 a1*//*, int *a2*/);
 void sub_82670();
 void DrawEndGameTable_82C20(__int16 a1);
