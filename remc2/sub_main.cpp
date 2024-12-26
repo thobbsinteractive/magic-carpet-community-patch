@@ -4610,7 +4610,6 @@ void begin_plugin() {
 }
 
 
-int16_t x_WORD_E29D6_not_movex = 0; // weak
 int16_t x_WORD_E29D8 = 0; // weak//2b39d8
 __int16 x_WORD_E29DA_type_resolution = 0; // weak
 int16_t m_ExitMenuLoop_E29DC = 0; // weak

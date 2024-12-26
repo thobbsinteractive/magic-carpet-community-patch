@@ -18,7 +18,6 @@ extern __int16 timeCounter_E2094;
 extern char minTimeCounter_E2096;
 extern char maxTimeCounter_E2097;
 extern type_x_BYTE_E25ED_db_str x_BYTE_E25ED_db_str[16];
-extern int16_t x_WORD_E29D6_not_movex;
 extern int16_t x_WORD_E29D8;
 extern int16_t m_ExitMenuLoop_E29DC;
 extern char x_BYTE_E29DF_skip_screen;

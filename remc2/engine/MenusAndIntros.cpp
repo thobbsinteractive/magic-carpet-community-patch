@@ -1,7 +1,13 @@
 #include "MenusAndIntros.h"
+
+#include <algorithm>
+
 #include "CommandLineParser.h"
 #include "../utilities/StateMonitor.h"
 
+constexpr int16_t MOUSE_MIN = 0;
+constexpr int16_t MOUSE_MAX_X = 638;
+constexpr int16_t MOUSE_MAX_Y = 478;
 
 #ifdef __linux__
 void _strupr(char* s)
@@ -514,7 +520,7 @@ struct//lenght 13
 } x_DWORD_17DE28str;
 #pragma pack (16)
 
-
+bool map_not_moving_WORD_E29D6 = false; // used to set/reset map move acceleration
 char x_BYTE_E29DE = 1; // weak
 char x_BYTE_E29E1 = 1; // weak
 
@@ -1114,7 +1120,7 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 	bool result=false; // al
 
 	v1 = 0;
-	x_WORD_E29D6_not_movex = 0;
+	map_not_moving_WORD_E29D6 = false;
 	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
 		&& x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24)
 		sub_833C0();
@@ -1196,7 +1202,7 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 		sub_86860_speak_Sound(x_WORD_1803EC);
 		D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] = 0;
 		EndSample_8D8F0();
-		x_WORD_E29D6_not_movex = 0;
+		map_not_moving_WORD_E29D6 = false;
 		if (v1 >= 1u)
 		{
 			if (v1 <= 1u)
@@ -3695,10 +3701,10 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 	case 3:
 		if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			goto LABEL_92;
-		x_WORD_E29D6_not_movex = 1;
+		map_not_moving_WORD_E29D6 = true;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx)//mousex>0
 		{
-			if (x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx < 638)
+			if (x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx < MOUSE_MAX_X)
 				goto LABEL_75;
 			*posx += x_DWORD_17DB70str.x_WORD_17DB82_shift_step;//shift position by step
 		}
@@ -3706,11 +3712,11 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 		{
 			*posx -= x_DWORD_17DB70str.x_WORD_17DB82_shift_step;//shift position by step
 		}
-		x_WORD_E29D6_not_movex = 0;//add
+		map_not_moving_WORD_E29D6 = false;
 	LABEL_75:
 		if (x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony)//mousey>0
 		{
-			if (x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony < 478)
+			if (x_DWORD_17DE38str.x_DWORD_17DEE6_mouse_positiony < MOUSE_MAX_Y)
 				goto LABEL_80;
 			*posy += x_DWORD_17DB70str.x_WORD_17DB82_shift_step;//shift position by step
 		}
@@ -3718,27 +3724,11 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 		{
 			*posy -= x_DWORD_17DB70str.x_WORD_17DB82_shift_step;//shift position by step
 		}
-		x_WORD_E29D6_not_movex = 0;//shift right up or down
+		map_not_moving_WORD_E29D6 = false;
 	LABEL_80:
-		if (*posx >= 0)
-		{
-			if (*posx >= 638)
-				*posx = 638;
-		}
-		else
-		{
-			*posx = 0;
-		}
-		if (*posy >= 0)
-		{
-			if (*posy >= 478)
-				*posy = 478;
-		}
-		else
-		{
-			*posy = 0;
-		}
-		if (x_WORD_E29D6_not_movex)
+		*posx = std::clamp(*posx, MOUSE_MIN, MOUSE_MAX_X);
+		*posy = std::clamp(*posy, MOUSE_MIN, MOUSE_MAX_Y);
+		if (map_not_moving_WORD_E29D6)
 		{
 			x_DWORD_17DB70str.x_WORD_17DB82_shift_step = 0;
 		}
@@ -3798,7 +3788,7 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 			mapScreenPortals_E17CC[v64x].viewPortPosX_4 = v70x;
 		}
 	LABEL_92:
-		if (x_WORD_E29D6_not_movex)
+		if (map_not_moving_WORD_E29D6)
 		{
 			DrawNetGameMapBackground_85C8B(x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, pdwScreenBuffer_351628, *posx, *posy, 160, 480);//draw game word map
 			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
@@ -3841,7 +3831,7 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 			sub_85CC3_draw_round_frame((unsigned __int16*)x_DWORD_17DE38str.x_DWORD_17DE5C_border_bitmap);
 			v34 = 1;
 			v35 = *a5;
-			x_WORD_E29D6_not_movex = 1;
+			map_not_moving_WORD_E29D6 = true;
 			if (v35 == 4)
 			{
 				v36 = x_DWORD_17DB70str.x_WORD_17DB8A;
@@ -3891,7 +3881,7 @@ int NewGameDraw_7EAE0(int16_t* posx, int16_t* posy, __int16* a3, __int16* a4, in
 						x_DWORD_17DE28str.x_DWORD_17DE28 = v43;
 						x_DWORD_17DE28str.x_BYTE_17DE34 = 2;
 					}
-					if (x_DWORD_17DE28str.x_WORD_17DE32_posy < 478)
+					if (x_DWORD_17DE28str.x_WORD_17DE32_posy < MOUSE_MAX_Y)
 						v54 = 280;
 					else
 						v54 = 60;
