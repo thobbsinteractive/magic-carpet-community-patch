@@ -233,6 +233,7 @@ void StateMonitor::MonitorD41A0() {
     m_last_states.D41A0_0 = D41A0_0;
 }
 
+extern type_x_DWORD_17DB70str x_DWORD_17DB70str;
 void StateMonitor::Monitor17DB70str() {
     MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_DWORD_17DB70);
     MONITOR_VARIABLE_HEX(x_DWORD_17DB70str, x_WORD_17DB74);

@@ -391,31 +391,6 @@ typedef struct {//lenght 44
 type_WORD_E1F84;
 #pragma pack (16)
 
-#pragma pack (1)
-typedef struct //lenght 50
-{
-	uint32_t x_DWORD_17DB70; // weak
-	int16_t x_WORD_17DB74; // weak 4
-	int16_t unk_17DB76_posx; // weak 6
-	int16_t unk_17DB78_posy; // weak 8
-	int16_t fill1; // test 10
-	int16_t fill2; // test 12
-	int16_t unk_17DB7E; // weak 14
-	int16_t unk_17DB80; // weak 16
-	int16_t x_WORD_17DB82_shift_step; // weak 18
-	int16_t x_WORD_17DB84; // weak 20
-	int16_t x_WORD_17DB86; // weak 22
-	int16_t x_WORD_17DB88; // weak 24
-	int16_t x_WORD_17DB8A; // weak 26
-	int16_t x_WORD_17DB8C; // weak 28
-	int8_t x_BYTE_17DB8E; // weak 30
-	int8_t x_BYTE_17DB8F; // weak 31
-	int16_t unk_17DB90; // weak 32
-	std::array<uint8_t, 6> unk_17DB92; // weak 32
-	std::array<uint8_t, 16> fill3; // fill
-} type_x_DWORD_17DB70str;
-#pragma pack (16)
-
 // typedef struct NCB{
 //				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
 //BYTE     ncb_retcode;	/* NetBIOS return code; 0xFF until asynchronous call  finishes */
@@ -536,7 +511,6 @@ signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a
 void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
 int sub_812D0_drawDotBitmap(__int16 a1, __int16 a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
-bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
 void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
