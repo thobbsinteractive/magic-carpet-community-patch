@@ -188,7 +188,7 @@ bool readini() {
 	if (gameUiScale < 1)
 		gameUiScale = 1;
 
-	if ((640 * gameUiScale) > gameResWidth)
+	if (gameUiScale > 8 || (640 * gameUiScale) > gameResWidth)
 	{
 		while (gameUiScale > 1 && (640 * gameUiScale) > gameResWidth)
 		{

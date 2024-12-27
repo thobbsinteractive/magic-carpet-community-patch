@@ -5265,7 +5265,7 @@ int x_DWORD_F42A0; // weak
 type_str_164 unk_F42B0x[1136]; // weak//2c52b0
 
 POSITION x_DWORD_F4720; // weak
-__int16 x_WORD_F4960[1664 * 4]; // Was 1664. Seems to be used in rendering the map 2x indexes ar a time. fix it -  weak
+__int16 x_WORD_F4960[1664 * 8]; // Was 1664. Seems to be used in rendering the map 2x indexes ar a time. fix it -  weak
 type_F4FE0 str_F4FE0[70];
 //__int16 x_WORD_F4FE0[424]; // fix it -  weak
 uint8_t x_BYTE_F5538[504]; // idb
@@ -61760,9 +61760,21 @@ void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_
 			i += 4;
 			if (i > v75)
 				break;
+
+			if (v72 < 0 || v72 > 2560)
+				break;
+
 			v29 = v20 + (i * Maths::sin_DB750[v72] >> 16);
 			//v29 = v20 + (i * Maths::x_DWORD_DB750ar_ret(4*v72) >> 16);
+
+			if (v72 < 0 || 0x200 + v72 > 2560)
+				break;
+
 			v85 = v21 + (-i * Maths::sin_DB750[0x200 + v72] >> 16);
+
+			if ((1 + 2 * v85) < 0 || (1 + 2 * v85) > 1664 * 8)
+				break;
+
 			if (v29 < 0 || v29 >= width || v85 < 0 || v85 >= height || v29 < x_WORD_F4960[1 + 2 * v85] || v29 >= x_WORD_F4960[2 * v85])
 				break;
 		}
