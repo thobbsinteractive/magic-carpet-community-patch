@@ -27,9 +27,9 @@
     <None Remove="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="WixSharp" Version="1.19.0" />
-    <PackageReference Include="WixSharp.bin" Version="1.19.0" />
-    <PackageReference Include="WixSharp.wix.bin" Version="3.11.2" />
+    <PackageReference Include="WixSharp" Version="1.26.0" />
+    <PackageReference Include="WixSharp.bin" Version="1.26.0" />
+    <PackageReference Include="WixSharp.wix.bin" Version="3.14.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
