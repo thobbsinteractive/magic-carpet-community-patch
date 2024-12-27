@@ -100,6 +100,7 @@
             // 
             // btnBack
             // 
+            this.btnBack.AutoSize = true;
             this.btnBack.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack.Location = new System.Drawing.Point(227, 12);
             this.btnBack.Name = "btnBack";
@@ -111,6 +112,7 @@
             // 
             // btnNext
             // 
+            this.btnNext.AutoSize = true;
             this.btnNext.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNext.Location = new System.Drawing.Point(308, 12);
             this.btnNext.Name = "btnNext";
@@ -122,6 +124,8 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.AutoSize = true;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Location = new System.Drawing.Point(404, 12);
             this.btnCancel.Name = "btnCancel";
@@ -146,6 +150,8 @@
             // EnhancedDataDialog
             // 
             this.ClientSize = new System.Drawing.Size(494, 361);
+            this.AcceptButton = this.btnNext;
+            this.CancelButton = this.btnCancel;
             this.Controls.Add(this.chkInstallTextures);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -161,6 +167,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
