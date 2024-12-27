@@ -11,8 +11,8 @@ GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uin
 
 GameRenderHD::~GameRenderHD()
 {
-	delete m_ptrDWORD_E9C38_smalltit;
-	delete m_preBlurBuffer_E9C3C;
+	delete[] m_ptrDWORD_E9C38_smalltit;
+	delete[] m_preBlurBuffer_E9C3C;
 
 	if (m_renderThreads.size() > 0)
 	{
