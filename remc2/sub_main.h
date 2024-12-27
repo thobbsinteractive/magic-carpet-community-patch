@@ -28,6 +28,10 @@
 #include "engine/GameRenderHD.h"
 #include "engine/GameRenderNG.h"
 #include "engine/GameRenderGL.h"
+#include "engine/GameBitmap.h"
+#include "engine/GameBitmapIndexes.h"
+#include "engine/GameUiConstants.h"
+#include "engine/LangTextIndexes.h"
 
 #include "engine/Terrain.h"
 
@@ -438,6 +442,7 @@ void j___delay(x_DWORD); // weak
 unsigned long j___clock();
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
+void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
 
@@ -446,7 +451,6 @@ void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, ui
 
 void sub_49F30();
 
-void DrawHelpText_6FC50(__int16 a1);
 
 void sub_6EBF0(filearray_struct* a1);
 
@@ -459,7 +463,7 @@ int16_t sub_16730(/*int a1,*/ type_event_0x6E8E* a2, char a3); // weak
 int16_t sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
 void sub_17A00(int8_t* a1, signed int a2, __int16 a3); // weak
 int _wcpp_1_unwind_leave__120(int32_t a, int32_t b, int32_t c);// weak
-void sub_1A070(signed int a1, __int16 a2);
+void AdjustVolume_1A070(signed int a1, __int16 a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(int32_t cs, int* adr);
 void JUMPOUT(int32_t cs, int a, int* adr);
@@ -471,7 +475,6 @@ void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*t
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
 void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
-void DrawVolumeSettings_303D0();
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
 signed int sub_36A50(/*signed int a1, */char a2);
@@ -493,7 +496,6 @@ void NetworkUpdateConnections2_74374();
 int16_t GetIndexNetwork2_74515();
 void sub_7A060_get_mouse_and_keyboard_events();
 void sub_7AA70_load_and_decompres_dat_file(const char* a1, uint8_t* a2, int a3, int a4);
-void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
 void GameEvents_51BB0();
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(type_str_0x2BDE* loc0x2BDE);
@@ -571,8 +573,59 @@ void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
 char sub_8B980(int a1, int a2, char* a3, int a4);
 signed int sub_8BBE0(uint8_t* a1);
-void sub_8CD27_set_cursor(posistruct_t a2);
+void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
+
+void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
+void ConstrainTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox);
+void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
+void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+
+void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
+int16_t GetHelpPopupIndex_88450();
+void GetHintText_89AC0(char* buffer, int helpIndex);
+
+void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
+void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
+void SetHelpPopupCoords_87580();
+void SetPauseMenuCoordinates_87970(uint8_t scale = 1);
+void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
+void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale = 1);
+void SetTextBoxMinMaxSizes_87090();
+void SetTextBoxMinMaxForSetResolution();
+void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume);
+
+void DrawPauseMenuPopUps_87860();
+void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
+void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx);
+void DrawBottomMenu_2ECC0();
+void DrawChatMenu_2F6B0();
+void DrawGameFrame_2BE30();
+void DrawPopupTextBox_87610();
+void DrawHelpPopUps_871F0();
+void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
+void DrawCurrentObjectiveTextbox_30630(uint8_t scale = 1);
+void GetFont_6FC50(__int16 a1);
+void DrawInGameOptionsMenu_30050(uint8_t scale = 1);
+void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
+void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
+void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
+void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint8_t scale = 1);
+void DrawPauseMenu_2FD90(uint8_t scale = 1);
+void DrawSorcererScores_2D1D0(uint8_t scale = 1);
+void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4, uint8_t scale = 1);
+void DrawTextboxFrame_89690(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
+void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox);
+void DrawTextboxText_895D0(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
+void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
+void DrawVolumeSettings_303D0(uint8_t scale = 1);
+
+void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
+void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
+void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
+void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
 int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3, int32_t frameDelay = 10);
 void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
@@ -580,6 +633,7 @@ void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int
 size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
 signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
+
 /*
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(char* filename, IO_PARMS* IO);
 char sub_9AE90(int eax0, int edx0, int ebx0, int* a1, int8_t* a2, int a3, int a4);

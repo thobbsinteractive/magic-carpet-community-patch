@@ -144,7 +144,7 @@
     <ClInclude Include="portability\port_sdl_vga_mouse.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
-    <ClInclude Include="portability\mctypes.h">
+    <ClInclude Include="portability\bitmap_pos_struct.h">
       <Filter>Header Files\portability</Filter>
     </ClInclude>
     <ClInclude Include="engine\defs.h">
@@ -302,6 +302,18 @@
     </ClInclude>
     <ClInclude Include="portability\port_sdl_joystick.h">
       <Filter>Header Files\portability</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\GameBitmap.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\GameBitmapIndexes.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\GameUiConstants.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="engine\LangTextIndexes.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -490,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="portability\port_sdl_joystick.cpp">
       <Filter>Source Files\portability</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\GameBitmap.cpp">
+      <Filter>Source Files\engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

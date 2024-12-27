@@ -65,6 +65,7 @@ set(SOURCE_FILES_ENGINE
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
     "engine/TextureMaps.h"
+    "engine/LangTextIndexes.h"
     "engine/GameRenderOriginal.cpp"
     "engine/GameRenderOriginal.h"
     "engine/GameRenderNG.cpp"
@@ -73,6 +74,10 @@ set(SOURCE_FILES_ENGINE
     "engine/GameRenderHD.h"
     "engine/GameRenderGL.cpp"
     "engine/GameRenderGL.h"
+    "engine/GameBitmap.cpp"
+    "engine/GameBitmap.h"
+    "engine/GameBitmapIndexes.h"
+    "engine/GameUiConstants.h"
     "engine/GameRenderInterface.h"
     "sub_main.cpp"
     "sub_main.h"
@@ -115,7 +120,7 @@ set(SOURCE_FILES__libs__findfirst
 source_group("Source Files\\libs\\findfirst" FILES ${SOURCE_FILES__libs__findfirst})
 
 set(SOURCE_FILES__portability
-    "portability/mctypes.h"
+    "portability/bitmap_pos_struct.h"
     "portability/fcaseopen.cpp"
     "portability/fcaseopen.h"
     "portability/port_net.cpp"

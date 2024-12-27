@@ -294,7 +294,7 @@ typedef struct {//lenght 2124=0x84C
 	}*/
 	//uint8_t stub2b[308];
 
-	char array_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% name
+	char WizardName_0x39f_2BFA_12157[64];//927//12157 - byte(11230+927) 100% name
 	uint8_t byte_0x3DF_2BE4_12221;//991//12221 - byte
 	uint8_t byte_0x3E0_2BE4_12222;//992//12222 - byte
 	uint8_t byte_0x3E1_2BE4_12223;//993//12223 - byte - ok
@@ -395,7 +395,7 @@ typedef struct Type_x_D41A0_BYTEARRAY_4_struct {
 	uint16_t langIndex_4;//x_D41A0_BYTEARRAY_4_struct.byteindex_4
 	uint16_t soundVolume_6;//x_D41A0_BYTEARRAY_4_struct.wordindex_6
 	uint16_t musicVolume_8;//x_D41A0_BYTEARRAY_4_struct.wordindex_8
-	uint8_t byteindex_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
+	uint8_t showHelp_10;//0xa//x_D41A0_BYTEARRAY_4_struct.byteindex_10//show help
 	int8_t brightness_11;//0xb//x_D41A0_BYTEARRAY_4_struct.byteindex_11
 	int8_t brightness_12;//0xc//x_D41A0_BYTEARRAY_4_struct.byteindex_12
 	int8_t brightness_13;//0xd//x_D41A0_BYTEARRAY_4_struct.byteindex_13
@@ -573,11 +573,11 @@ extern int16_t x_D41A0_WORDARRAY[];
 
 //xx extern uint8_t* dword_E9C30[]; // weak
 
-extern posistruct_t* xy_DWORD_17DED4_spritestr;
-extern posistruct_t* xy_DWORD_17DEC0_spritestr;
-extern posistruct_t* xy_DWORD_17DEC8_spritestr;
+extern bitmap_pos_struct_t* xy_DWORD_17DED4_spritestr;
+extern bitmap_pos_struct_t* xy_DWORD_17DEC0_spritestr;
+extern bitmap_pos_struct_t* xy_DWORD_17DEC8_spritestr;
 
-extern posistruct_t* x_DWORD_D4188t_spritestr;
+extern bitmap_pos_struct_t* x_DWORD_D4188t_spritestr;
 
 /*extern x_DWORD x_DWORD_355208;//3551CE+3A DWORD
 extern x_BYTE x_BYTE_355234_hardisknumber;//harddrive//3551CE+66 BYTE
@@ -1418,14 +1418,14 @@ struct {//lenght 0x33
 	int16_t maxTextboxHeight2_0xe;//e //7
 	int16_t charWidth_0x10;//10 //8
 	int16_t charHeight_0x12;//12 //9
-	int16_t minWidth_0x14;//14 //10
-	int16_t maxWidth_0x16;//16 //11
-	int16_t minHeight_0x18;//18 //12
-	int16_t maxHeight_0x1a;//1a //13
-	int16_t lineX1_0x1c;//1c-4f //14
-	int16_t lineY1_0x1e;//1e-51 //15
-	int16_t lineX2_0x20;//20 //16
-	int16_t lineY2_0x22;//22 //17
+	int16_t minPosX_0x14;//14 //10
+	int16_t maxPosX_0x16;//16 //11
+	int16_t minPosY_0x18;//18 //12
+	int16_t maxPosY_0x1a;//1a //13
+	int16_t lineSrcX_0x1c;//1c-4f //14
+	int16_t lineSrcY_0x1e;//1e-51 //15
+	int16_t lineDestX_0x20;//20 //16
+	int16_t lineDestY_0x22;//22 //17
 	int16_t framePosX_0x24;//24-57 //width 18
 	int16_t framePosY_0x26;//26-59 //19
 	int16_t frameWidth_0x28;//28-5b //20
@@ -1435,7 +1435,7 @@ struct {//lenght 0x33
 	int8_t color2_0x31;//31-64 - color2
 	int8_t color3_0x32;//32-65 - color2
 }
-typedef type_textbox_sub1804B0;
+typedef Type_TextBox_1804B0;
 
 typedef union {//lenght 12
 	int32_t dword[3];
@@ -1444,7 +1444,7 @@ typedef union {//lenght 12
 type_uni_0x8a;
 
 struct {//0xb0 nebo spis 171(0xab)
-	type_textbox_sub1804B0 type_sub_0[2];
+	Type_TextBox_1804B0 type_sub_0[2];
 	/*int16_t word_0xe;//e
 	int16_t word_0x10;//10
 	int16_t word_0x12;//12
@@ -1464,7 +1464,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int32_t dword_0x7a;//7a
 	int8_t stub[4];
 	int32_t dword_0x82;//82
-	int16_t word_0x86;//86
+	int16_t Index_0x86;//86
 	int16_t word_0x88;//88
 	type_uni_0x8a uni_0x8a;
 	//int32_t dword_0x8a;//8a
@@ -1473,7 +1473,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int16_t word_0x98;//98
 	int16_t word_0x9a;//9A
 	int16_t word_0x9c;//9C
-	int8_t byte_0x9e;//9e
+	int8_t PopupStatusByte_0x9e;//9e
 	int8_t byte_0x9f;//9f
 	int8_t byte_0xa0;//a0
 	int8_t byte_0xa1;//a1
@@ -1482,7 +1482,7 @@ struct {//0xb0 nebo spis 171(0xab)
 	int8_t byte_0xa4;//a4
 	int8_t byte_0xa5;//a5
 	int8_t byte_0xa6;//a6
-	int8_t byte_0xa7;//a7
+	int8_t showPlayerScores_0xa7;//a7
 	int8_t byte_0xa8;//a8
 	int8_t byte_0xa9;//a9
 	int8_t byte_0xaa;//aa
@@ -1691,7 +1691,7 @@ extern type_D41A0_BYTESTR_0 D41A0_0;
 
 /*void x_D41A0_BYTEARRAY_0_to_x_D41A0_BYTESTR_0();
 void x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();*/
-void write_posistruct_to_png(uint8_t* buffer, int width, int height, const char* filename);
+void write_bitmap_pos_struct_to_png(uint8_t* buffer, int width, int height, const char* filename);
 
 int my_sign32(int32_t var);
 int my_sign16(int16_t var);

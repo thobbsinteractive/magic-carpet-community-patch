@@ -11,6 +11,7 @@ int windowResWidth = 640;
 int windowResHeight = 480;
 int gameResWidth = 640;
 int gameResHeight = 480;
+int gameUiScale = 1;
 bool maintainAspectRatio = false;
 bool forceWindow = false;
 bool bigTextures = false;
@@ -180,6 +181,19 @@ bool readini() {
 	{
 		gameResWidth = 320;
 		gameResHeight = 200;
+	}
+
+	gameUiScale = reader.GetInteger("graphics", "gameUiScale", 1);
+
+	if (gameUiScale < 1)
+		gameUiScale = 1;
+
+	if (gameUiScale > 8 || (640 * gameUiScale) > gameResWidth)
+	{
+		while (gameUiScale > 1 && (640 * gameUiScale) > gameResWidth)
+		{
+			gameUiScale--;
+		}
 	}
 
 	maintainAspectRatio = reader.GetBoolean("graphics", "maintainAspectRatio", true);

@@ -348,12 +348,16 @@
     <ClInclude Include="engine\Basic.h" />
     <ClInclude Include="engine\CommandLineParser.h" />
     <ClInclude Include="engine\Compare.h" />
+    <ClInclude Include="engine\GameBitmap.h" />
+    <ClInclude Include="engine\GameUiConstants.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
     <ClInclude Include="engine\GameRenderNG.h" />
     <ClInclude Include="engine\globals.h" />
     <ClInclude Include="engine\global_types.h" />
+    <ClInclude Include="engine\GameBitmapIndexes.h" />
+    <ClInclude Include="engine\LangTextIndexes.h" />
     <ClInclude Include="engine\MapType.h" />
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
@@ -393,7 +397,7 @@
     <ClInclude Include="engine\read_config.h" />
     <ClInclude Include="engine\sub_main_mouse.h" />
     <ClInclude Include="portability\dirent-x.h" />
-    <ClInclude Include="portability\mctypes.h" />
+    <ClInclude Include="portability\bitmap_pos_struct.h" />
     <ClInclude Include="portability\port_filesystem.h" />
     <ClInclude Include="portability\port_inputs.h" />
     <ClInclude Include="portability\port_outputs.h" />
@@ -429,6 +433,7 @@
     <ClCompile Include="engine\Basic.cpp" />
     <ClCompile Include="engine\CommandLineParser.cpp" />
     <ClCompile Include="engine\Compare.cpp" />
+    <ClCompile Include="engine\GameBitmap.cpp" />
     <ClCompile Include="engine\GameRenderGL.cpp" />
     <ClCompile Include="engine\GameRenderHD.cpp" />
     <ClCompile Include="engine\GameRenderNG.cpp" />
