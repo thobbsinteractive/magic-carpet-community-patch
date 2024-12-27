@@ -28,11 +28,11 @@ namespace WixSharpSetup
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("CD_Files");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("NETHERW");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("CD_Files");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("NETHERW");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD", new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode5});
             this.banner = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -103,6 +103,7 @@ namespace WixSharpSetup
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.btnNext);
+            this.panel1.Controls.Add(this.btnRun);
             this.panel1.Location = new System.Drawing.Point(-3, 308);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(503, 57);
@@ -122,7 +123,7 @@ namespace WixSharpSetup
             // btnRun
             // 
             this.btnRun.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRun.Location = new System.Drawing.Point(12, 62);
+            this.btnRun.Location = new System.Drawing.Point(285, 17);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(118, 23);
             this.btnRun.TabIndex = 0;
@@ -208,15 +209,15 @@ namespace WixSharpSetup
             this.treeViewInstallProgress.Location = new System.Drawing.Point(12, 232);
             this.treeViewInstallProgress.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.treeViewInstallProgress.Name = "treeViewInstallProgress";
-            treeNode1.Name = "CDFiles";
-            treeNode1.Text = "CD_Files";
-            treeNode2.Name = "NETHERW";
-            treeNode2.Text = "NETHERW";
-            treeNode3.Checked = true;
-            treeNode3.Name = "InstallPath";
-            treeNode3.Text = "C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD";
+            treeNode4.Name = "CDFiles";
+            treeNode4.Text = "CD_Files";
+            treeNode5.Name = "NETHERW";
+            treeNode5.Text = "NETHERW";
+            treeNode6.Checked = true;
+            treeNode6.Name = "InstallPath";
+            treeNode6.Text = "C:\\Program Files x86\\Remc2\\Magic Carpet 2 HD";
             this.treeViewInstallProgress.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode6});
             this.treeViewInstallProgress.ShowPlusMinus = false;
             this.treeViewInstallProgress.ShowRootLines = false;
             this.treeViewInstallProgress.Size = new System.Drawing.Size(391, 52);
@@ -229,7 +230,6 @@ namespace WixSharpSetup
             this.Controls.Add(this.treeViewInstallProgress);
             this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.grpBox);
-            this.Controls.Add(this.btnRun);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
