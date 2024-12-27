@@ -2079,9 +2079,9 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	uint8_t point4;
 
 	tempAxis.word = inAxis2dA.word;
-	for (int indexY = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 1; indexY != 0; indexY--)
+	for (int indexY = inAxis2dB._axis_2d.y - inAxis2dA._axis_2d.y + 1; indexY > 0; indexY--)
 	{
-		for (int indexX = inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 1; indexX; indexX--)
+		for (int indexX = inAxis2dB._axis_2d.x - inAxis2dA._axis_2d.x + 1; indexX > 0; indexX--)
 		{
 			if ((int8_t)mapAngle_13B4E0[tempAxis.word] >= 0)
 				mapTerrainType_10B4E0[tempAxis.word] = 1;
@@ -2142,9 +2142,9 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	tempAxis.word = inAxis2dA.word;
 	if (yAdd != 0)
 	{
-		for (int indexY = yAdd; indexY; indexY--)
+		for (int indexY = yAdd; indexY > 0; indexY--)
 		{
-			for (int indexX = xAdd; indexX; indexX--)
+			for (int indexX = xAdd; indexX > 0; indexX--)
 			{
 				tempAxis._axis_2d.x++;
 				tempAxis._axis_2d.y++;
