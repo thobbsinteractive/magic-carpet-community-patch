@@ -7,7 +7,8 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
             "args": [
-                "--state_monitor"
+                "--set_level", "3",
+                "--test_renderers"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",
@@ -34,11 +35,8 @@
             "name": "Regression Tests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
+            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2-regression-test",
             "args": [
-                "reglevel", "0",
-                "--mode_test_regressions_game",
-                "--memimages_path", "${workspaceFolder}/build/Debug/inst/memimages/"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",

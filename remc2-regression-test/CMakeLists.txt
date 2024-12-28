@@ -132,6 +132,16 @@ install(
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib/static
 )
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/memimages
+    DESTINATION bin
+)
+install(
+    FILES
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/regression-config.ini
+    DESTINATION bin
+)
 
 
 if (USE_SANITIZERS)
