@@ -26358,8 +26358,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				// FIXME: code not working
-				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 			m_ptrGameRender->DrawWorld_411A0(
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
@@ -26370,9 +26369,25 @@ void DrawGameFrame_2BE30()//20CE30
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
-				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
+			if (CommandLineParams.DoTestRenderers()) {
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
+			}
+
+			int difference = 0;
+			const int diff_limit = 100;
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi]) {
+					difference++;
+				}
+			}
+
+			if (difference > 0) {
+				Logger->info("Differences between HD and Original renderer: {0}", difference);
+				if (difference > diff_limit) {
 					allert_error();
+				}
+			}
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 			{
@@ -26384,12 +26399,9 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				// FIXME: code not working
-				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 		}
-
-		//WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628);
 
 		if (v3x->life_0x8 < 0)
 		{
@@ -72691,7 +72703,7 @@ void ClearGraphicsBuffer_72883(void* ptrScreenBuffer, uint16_t width, uint16_t h
 	memset32(ptrScreenBuffer, value, width * height);
 }
 
-void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer)
+void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer, const std::string &filename)
 {
 	std::string path = GetSubDirectoryPath("BufferOut");
 	if (myaccess(path.c_str(), 0) < 0)
@@ -72702,7 +72714,7 @@ void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint
 
 	path = GetSubDirectoryFilePath("BufferOut", "PaletteOut.bmp");
 	BitmapIO::WritePaletteAsImageBMP(path.c_str(), 256, ptrPalette);
-	path = GetSubDirectoryFilePath("BufferOut","BufferOut.bmp");
+	path = GetSubDirectoryFilePath("BufferOut", filename.c_str());
 	BitmapIO::WriteImageBufferAsImageBMP(path.c_str(), width, height, ptrPalette, ptrBuffer);
 }
 

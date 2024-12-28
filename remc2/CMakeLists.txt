@@ -238,6 +238,6 @@ if (UNIX)
             -static-liblsan
             -static-libubsan
         )
-        target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
     endif ()
 endif ()
