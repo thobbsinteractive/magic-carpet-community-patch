@@ -8788,6 +8788,7 @@ LABEL_129:
 						v1183 = v1146 << 16;
 						HIWORD(v375) = 0;
 						HIWORD(v376) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit("HD - case 5 v377"); }
 						while (1)
 						{
 							v377 = v1276;

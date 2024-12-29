@@ -7,8 +7,6 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
             "args": [
-                "--set_level", "3",
-                "--test_renderers"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",
@@ -23,6 +21,22 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2-unit-test",
             "args": [
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Renderer Test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
+            "args": [
+                "--set_level", "0",
+                "--test_renderers"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",

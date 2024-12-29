@@ -26304,6 +26304,7 @@ void DrawGameFrame_2BE30()//20CE30
 	uint8_t* help_ScreenBuffer = nullptr;
 	if (CommandLineParams.DoTestRenderers()) {
 		help_ScreenBuffer = (uint8_t*)malloc(screenWidth_18062C * screenHeight_180624);
+		renderer_tests_frame_count++;
 	}
 	switch (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221)
 	{
@@ -26346,7 +26347,7 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
 		if (CommandLineParams.DoTestRenderers()) {
-			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C * screenHeight_180624);
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C*screenHeight_180624);
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 			{
@@ -26360,6 +26361,7 @@ void DrawGameFrame_2BE30()//20CE30
 				m_ptrGameRender = nullptr;
 				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
+
 			m_ptrGameRender->DrawWorld_411A0(
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.x,//position of player
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].axis_2BDE_11695.y,//position of player
@@ -26369,10 +26371,8 @@ void DrawGameFrame_2BE30()//20CE30
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-			if (CommandLineParams.DoTestRenderers()) {
-				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
-				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
-			}
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
 
 			int difference = 0;
 			const int diff_limit = 100;
@@ -26384,9 +26384,7 @@ void DrawGameFrame_2BE30()//20CE30
 
 			if (difference > 0) {
 				Logger->info("Differences between HD and Original renderer: {0}", difference);
-				if (difference > diff_limit) {
-					allert_error();
-				}
+				allert_error();
 			}
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
@@ -26630,7 +26628,7 @@ void DrawGameFrame_2BE30()//20CE30
 			D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
 		if (CommandLineParams.DoTestRenderers()) {
-			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C* screenHeight_180624);
+			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C*screenHeight_180624);
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 			{
@@ -26642,8 +26640,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				// FIXME: code not working
-				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 
 			m_ptrGameRender->DrawWorld_411A0(
@@ -26654,6 +26651,9 @@ void DrawGameFrame_2BE30()//20CE30
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.pitch,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
+
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
 
 			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
 				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
@@ -26669,8 +26669,7 @@ void DrawGameFrame_2BE30()//20CE30
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
-				// FIXME: code not working
-				// m_ptrGameRender = (GameRenderInterface*)new GameRenderHD((multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
 			}
 		}
 
@@ -37806,6 +37805,13 @@ void sub_46830_main_loop(/*int16_t* a1, */signed int a2, unsigned __int16 a3)//2
 			setLevel = -1;
 			customLevelPath = "";
 		}
+
+		if (CommandLineParams.DoTestRenderers()) {
+			if (renderer_tests_quit) {
+				x_WORD_E29D8 = 5; // exit menu loop	
+				break;
+			}
+		}
 	}
 	//x_D41A0_BYTESTR_0_to_x_D41A0_BYTEARRAY_0();//fixing x_D41A0_BYTEARRAY_0
 }
@@ -38282,6 +38288,21 @@ void sub_47320_in_game_loop(signed int a1)//228320
 			if (v1 == 1)
 				StartMusic_8E160(D41A0_0.maptypeMusic_0x235, 0x7Fu);
 			v1++;
+		}
+
+		if (CommandLineParams.DoTestRenderers()) {
+			// force player turn
+			SetMousePositionInMemory_5BDC0(
+				renderer_tests[CommandLineParams.GetSetLevel()].set_mouse_x,
+				renderer_tests[CommandLineParams.GetSetLevel()].set_mouse_y
+			);
+			// force up key pressed
+			LastPressedKey_1806E4 = 0x48;
+			pressedKeys_180664[x_BYTE_EB39E_keys[0]] = 1;
+
+			if (stop_renderer_tests()) {
+				break;
+			}
 		}
 	}
 

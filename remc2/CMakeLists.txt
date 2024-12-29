@@ -1,4 +1,3 @@
-project(remc2 C CXX)
 
 ################################################################################
 # Source groups
@@ -228,16 +227,6 @@ endif ()
 
 if (UNIX)
     if (USE_SANITIZERS)
-        set(SANITIZER_OPTIONS
-            -fsanitize=address
-            -fsanitize=pointer-compare
-            -fsanitize=pointer-subtract
-            -fsanitize=leak
-            -fsanitize=undefined
-            -static-libasan
-            -static-liblsan
-            -static-libubsan
-        )
         target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
     endif ()
 endif ()

@@ -12,6 +12,58 @@ bool unitTests = false;
 std::string unitTestsPath;
 int* endTestsCode;
 
+int renderer_tests_frame_count = 0;
+bool renderer_tests_success = false;
+bool renderer_tests_quit = false;
+std::array<RendererTestsForLevel,25> renderer_tests{
+	RendererTestsForLevel{100, 0, 240, {{"HD - case 5 v377", false}, {"Original - case 5 v377", false}}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{1, 0, 240, {}},
+};
+bool stop_renderer_tests() {
+	if (renderer_tests_frame_count >= renderer_tests[CommandLineParams.GetSetLevel()].max_frames) {
+		renderer_tests_eval_findings();
+		return true;
+	}
+	return false;
+}
+void renderer_tests_eval_findings() {
+	renderer_tests_quit = true;
+
+	for (auto& [key, value] : renderer_tests[CommandLineParams.GetSetLevel()].must_hit_checkpoints) {
+		if (!value) {
+			std::cout << "Renderer test failed: " << key << " not hit" << std::endl;
+			renderer_tests_success = false;
+		}
+	}
+	renderer_tests_success = true;
+}
+void renderer_tests_register_hit(const std::string& checkpoint) {
+	renderer_tests[CommandLineParams.GetSetLevel()].must_hit_checkpoints[checkpoint] = true;
+}
+
 const int printBufferSize = 4096;
 
 //delete after finalization
