@@ -6,11 +6,15 @@
 
 // renderer regressions tests data for comparing HD and original renderer
 enum class RendererTestsHitCheckpoint {
-	HD_case_4_v339, Original_case_4_v339,
-	HD_case_5_v377, Original_case_5_v377,
-	HD_case_6_v392, Original_case_6_v392,
-	HD_case_7_v406, Original_case_7_v406,
-	HD_case_8_v445, Original_case_8_v445,
+	HD_BYTE_E126D_case_0_v173, Original_BYTE_E126D_case_0_v173,
+	HD_BYTE_E126D_case_1_v176, Original_BYTE_E126D_case_1_v176,
+	HD_BYTE_E126D_case_2_v228, Original_BYTE_E126D_case_2_v228,
+	HD_BYTE_E126D_case_3_v383, Original_BYTE_E126D_case_3_v383,
+	HD_BYTE_E126D_case_4_v339, Original_BYTE_E126D_case_4_v339,
+	HD_BYTE_E126D_case_5_v377, Original_BYTE_E126D_case_5_v377,
+	HD_BYTE_E126D_case_6_v392, Original_BYTE_E126D_case_6_v392,
+	HD_BYTE_E126D_case_7_v406, Original_BYTE_E126D_case_7_v406,
+	HD_BYTE_E126D_case_8_v445, Original_BYTE_E126D_case_8_v445,
 };
 
 extern int renderer_tests_frame_count;

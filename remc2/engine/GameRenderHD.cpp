@@ -7950,6 +7950,7 @@ LABEL_129:
 						v170 = (char*)v1102;
 						v171 = x_BYTE_E126C;
 						HIWORD(v172) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_0_v173); }
 						while (1)
 						{
 							LOWORD(v172) = v169[1];
@@ -7985,6 +7986,7 @@ LABEL_129:
 						goto LABEL_328;
 					case 1:
 						v175 = (unsigned __int16*)unk_DE56Cx[startLine];
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_1_v176); }
 						while (1)
 						{
 							LOWORD(v31) = v175[1];
@@ -8148,6 +8150,7 @@ LABEL_129:
 						v1165 = v1135 << 16;
 						HIWORD(v228) = 0;
 						HIWORD(v229) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_2_v228); }
 						while (1)
 						{
 							LOWORD(v228) = v227[1];
@@ -8380,6 +8383,7 @@ LABEL_129:
 						v1166 = v1135 << 16;
 						HIWORD(v284) = 0;
 						HIWORD(v285) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_3_v383); }
 						while (1)
 						{
 							LOWORD(v284) = v283[1];
@@ -8625,7 +8629,7 @@ LABEL_129:
 						goto LABEL_401;
 					case 4:
 						v339 = (unsigned __int16*)unk_DE56Cx[startLine];
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_4_v339); }
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_4_v339); }
 						while (1)
 						{
 							LOWORD(v31) = v339[1];
@@ -8791,7 +8795,7 @@ LABEL_129:
 						v1183 = v1146 << 16;
 						HIWORD(v375) = 0;
 						HIWORD(v376) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_5_v377); }
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
 						while (1)
 						{
 							v377 = v1276;
@@ -9088,7 +9092,7 @@ LABEL_129:
 						v1184 = v1146 << 16;
 						HIWORD(v390) = 0;
 						HIWORD(v391) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_6_v392); }
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_6_v392); }
 						while (1)
 						{
 							v392 = v1277;
@@ -9401,7 +9405,7 @@ LABEL_129:
 						v1169 = v1135 << 16;
 						HIWORD(v406) = 0;
 						HIWORD(v407) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_7_v406); }
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406); }
 						while (1)
 						{
 							LOWORD(v406) = v405[1];
@@ -9635,7 +9639,7 @@ LABEL_129:
 						v1170 = v1135 << 16;
 						HIWORD(v446) = 0;
 						HIWORD(v447) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_8_v445); }
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_8_v445); }
 						while (1)
 						{
 							LOWORD(v446) = v445[1];

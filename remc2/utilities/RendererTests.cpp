@@ -17,12 +17,12 @@ bool renderer_tests_quit = false;
 
 std::array<RendererTestsForLevel,25> renderer_tests{
 	RendererTestsForLevel{100, 0, 240, 0, { // level 1
-		{RendererTestsHitCheckpoint::HD_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_case_5_v377, false},
+		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_5_v377, false},
 	}},
 	RendererTestsForLevel{200, 320, 240, 0, {}}, // level 2
 	RendererTestsForLevel{1, 0, 240, 0, {}}, // level 3
 	RendererTestsForLevel{100, 0, 480, 0, { // level 4 - looking up to the ceiling
-		{RendererTestsHitCheckpoint::HD_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_case_5_v377, false},
+		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_5_v377, false},
 	}},
 	RendererTestsForLevel{1, 0, 240, 0, {}},
 	RendererTestsForLevel{1, 0, 240, 0, {}},
