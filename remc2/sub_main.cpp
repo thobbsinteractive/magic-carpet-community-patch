@@ -4,6 +4,7 @@
 #include "engine/MenusAndIntros.h"
 #include "engine/Network.h"
 #include "utilities/StateMonitor.h"
+#include "utilities/RendererTests.h"
 
 /*
 

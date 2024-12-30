@@ -62,6 +62,8 @@ set(SOURCE_FILES_ENGINE
     "utilities/DataFileIO.h"
     "utilities/StateMonitor.cpp"
     "utilities/StateMonitor.h"
+    "utilities/RendererTests.cpp"
+    "utilities/RendererTests.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "engine/TextureMaps.cpp"

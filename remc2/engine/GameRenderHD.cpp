@@ -1,5 +1,7 @@
 #include "GameRenderHD.h"
 
+#include "../utilities/RendererTests.h"
+
 GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores) : 
 	m_ptrScreenBuffer_351628(ptrScreenBuffer), m_ptrColorPalette(pColorPalette), m_assignToSpecificCores(assignToSpecificCores), 
 	m_ptrDWORD_E9C38_smalltit(new uint8_t[GAME_RES_MAX_WIDTH * GAME_RES_MAX_HEIGHT])
@@ -8623,6 +8625,7 @@ LABEL_129:
 						goto LABEL_401;
 					case 4:
 						v339 = (unsigned __int16*)unk_DE56Cx[startLine];
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_4_v339); }
 						while (1)
 						{
 							LOWORD(v31) = v339[1];
@@ -8788,7 +8791,7 @@ LABEL_129:
 						v1183 = v1146 << 16;
 						HIWORD(v375) = 0;
 						HIWORD(v376) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit("HD - case 5 v377"); }
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_5_v377); }
 						while (1)
 						{
 							v377 = v1276;
@@ -9085,6 +9088,7 @@ LABEL_129:
 						v1184 = v1146 << 16;
 						HIWORD(v390) = 0;
 						HIWORD(v391) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_6_v392); }
 						while (1)
 						{
 							v392 = v1277;
@@ -9397,6 +9401,7 @@ LABEL_129:
 						v1169 = v1135 << 16;
 						HIWORD(v406) = 0;
 						HIWORD(v407) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_7_v406); }
 						while (1)
 						{
 							LOWORD(v406) = v405[1];
@@ -9630,6 +9635,7 @@ LABEL_129:
 						v1170 = v1135 << 16;
 						HIWORD(v446) = 0;
 						HIWORD(v447) = 0;
+						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_case_8_v445); }
 						while (1)
 						{
 							LOWORD(v446) = v445[1];

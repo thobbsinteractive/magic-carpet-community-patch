@@ -23,6 +23,8 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/utilities/BitmapIO.h"
     "../remc2/utilities/StateMonitor.cpp"
     "../remc2/utilities/StateMonitor.h"
+    "../remc2/utilities/RendererTests.cpp"
+    "../remc2/utilities/RendererTests.h"
     "../remc2/portability/port_time.cpp"
     "../remc2/portability/port_time.h"
     "../remc2/portability/port_filesystem.cpp"
