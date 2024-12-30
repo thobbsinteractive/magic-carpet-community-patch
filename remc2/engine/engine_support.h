@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <assert.h>
 #include <array>
+#include <map>
 #include <sstream>
 #include <stddef.h>
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
