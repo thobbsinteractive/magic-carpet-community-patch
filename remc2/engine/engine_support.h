@@ -78,6 +78,7 @@ typedef struct {
 	int max_frames;
 	int set_mouse_x;
 	int set_mouse_y;
+	int differences;
 	std::map<std::string, bool> must_hit_checkpoints;
 } RendererTestsForLevel;
 extern std::array<RendererTestsForLevel,25> renderer_tests;

@@ -16,31 +16,31 @@ int renderer_tests_frame_count = 0;
 bool renderer_tests_success = false;
 bool renderer_tests_quit = false;
 std::array<RendererTestsForLevel,25> renderer_tests{
-	RendererTestsForLevel{100, 0, 240, {{"HD - case 5 v377", false}, {"Original - case 5 v377", false}}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
-	RendererTestsForLevel{1, 0, 240, {}},
+	RendererTestsForLevel{100, 0, 240, 0, {{"HD - case 5 v377", false}, {"Original - case 5 v377", false}}},
+	RendererTestsForLevel{200, 320, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, 0, {}},
 };
 bool stop_renderer_tests() {
 	if (renderer_tests_frame_count >= renderer_tests[CommandLineParams.GetSetLevel()].max_frames) {
@@ -52,13 +52,25 @@ bool stop_renderer_tests() {
 void renderer_tests_eval_findings() {
 	renderer_tests_quit = true;
 
-	for (auto& [key, value] : renderer_tests[CommandLineParams.GetSetLevel()].must_hit_checkpoints) {
-		if (!value) {
-			std::cout << "Renderer test failed: " << key << " not hit" << std::endl;
+	renderer_tests_success = true;
+	for (auto& [key, hit] : renderer_tests[CommandLineParams.GetSetLevel()].must_hit_checkpoints) {
+		if (!hit) {
+			Logger->error("Renderer test failed: {} not hit", key);
 			renderer_tests_success = false;
 		}
 	}
-	renderer_tests_success = true;
+
+	if (renderer_tests[CommandLineParams.GetSetLevel()].differences > 0) {
+		Logger->error("Differences between HD and Original renderer: {0}", renderer_tests[CommandLineParams.GetSetLevel()].differences);
+		renderer_tests_success = false;
+	}
+
+	if (!renderer_tests_success) {
+		allert_error();
+	}
+	else {
+		Logger->info("No differences between HD and Original renderer");
+	}
 }
 void renderer_tests_register_hit(const std::string& checkpoint) {
 	renderer_tests[CommandLineParams.GetSetLevel()].must_hit_checkpoints[checkpoint] = true;

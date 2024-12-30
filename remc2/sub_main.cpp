@@ -26375,7 +26375,6 @@ void DrawGameFrame_2BE30()//20CE30
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
 
 			int difference = 0;
-			const int diff_limit = 100;
 			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
 				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi]) {
 					difference++;
@@ -26383,8 +26382,8 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 
 			if (difference > 0) {
-				Logger->info("Differences between HD and Original renderer: {0}", difference);
-				allert_error();
+				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
+				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
 			}
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
@@ -26655,9 +26654,17 @@ void DrawGameFrame_2BE30()//20CE30
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
 			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
 
-			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++)
-				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi])
-					allert_error();
+			int difference = 0;
+			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
+				if (pdwScreenBuffer_351628[test_compi] != help_ScreenBuffer[test_compi]) {
+					difference++;
+				}
+			}
+
+			if (difference > 0) {
+				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
+				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
+			}
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 			{
