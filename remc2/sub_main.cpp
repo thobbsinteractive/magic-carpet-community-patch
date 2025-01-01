@@ -50359,7 +50359,6 @@ void sub_53160()//234160
 	__int16 v4; // dx
 	//int v5; // eax
 	char* v6; // edi
-	char* v7; // esi
 	//char v8; // al
 	//char v9; // al
 	//int result; // eax
@@ -50457,9 +50456,9 @@ void sub_53160()//234160
 		//v6 = (char *)(v0 + 927);//wizard name
 		v6 = (char*)D41A0_0.array_0x2BDE[v0index].WizardName_0x39f_2BFA_12157;
 		//adress 2342e4
-		v7 = (char*)std::string(WizardsNames_D93A0[GetTrueWizardNumber_61790(v12)]).c_str();
-		strcpy(v6, v7);
-		strcpy(D41A0_0.array_0x2BDE[v0index].WizardName_0x39f_2BFA_12157, v7);
+		auto wizard_name = std::string(WizardsNames_D93A0[GetTrueWizardNumber_61790(v12)]);
+		strcpy(v6, wizard_name.c_str());
+		strcpy(D41A0_0.array_0x2BDE[v0index].WizardName_0x39f_2BFA_12157, wizard_name.c_str());
 		/*do
 		{
 			v8 = *v7;
