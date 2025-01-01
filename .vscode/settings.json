@@ -3,7 +3,9 @@
     "files.associations": {
         "iostream": "cpp",
         "cstdlib": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "cstring": "cpp",
+        "type_traits": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

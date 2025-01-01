@@ -3245,7 +3245,7 @@ void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const 
 				lastLineIndex = 0;
 				while (lastLineIndex < textBufferLenght - 1)
 				{
-					for (textIndex = lastLineIndex + lineCharWidth; text[lastLineIndex + textIndex] != 32 && textIndex < textBufferLenght - 1; textIndex--);//to previous word
+					for (textIndex = lastLineIndex + lineCharWidth; text[textIndex] != 32 && textIndex < textBufferLenght - 1; textIndex--);//to previous word
 					lastLineIndex = textIndex + 1;
 					countOfLines++;
 				}

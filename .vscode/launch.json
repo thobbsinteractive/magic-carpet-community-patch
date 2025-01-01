@@ -5,7 +5,7 @@
             "name": "Game",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
+            "program": "${workspaceFolder}/build_vscode/inst/bin/remc2",
             "args": [
             ],
             "stopAtEntry": false,
