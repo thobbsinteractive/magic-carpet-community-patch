@@ -10,7 +10,7 @@ uint8_t mapShading_12B4E0[65536]; // 256x256 //map array3
 uint8_t mapAngle_13B4E0[65536]; // 256x256 //map array4 // water //!!! find all comparation, change to int8_t and test it !!!
 int16_t mapEntityIndex_15B4E0[65536]; // 256x256 //map array5
 
-char x_BYTE_F2CD0x[7 * 7 * 7 * 7][2]; // 233cd0//4802 //4816
+char x_BYTE_F2CD0x[2800][2]; // 233cd0//4802 //4816 // size has to be 2 * (7^4 + 7^3 + 7^2 + 7^1) = 2 * (2401 + 343 + 49 + 7) = 2*2800 as seen in sub_462A0_orig
 
 uint8_t x_BYTE_D41B7 = 44; // weak
 

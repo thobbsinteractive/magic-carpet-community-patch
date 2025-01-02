@@ -209,6 +209,27 @@ extern x_WORD __SS__;*/
 //extern char IsTable[];
 
 #pragma pack (1)
+typedef struct {//lenght 14
+	uint32_t dword_0;//ok
+	int16_t word_4;//ok
+	uint32_t address_6;
+	int32_t dword_10;//ok
+}
+type_D4C52ar2;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct {//lenght 18
+	uint32_t dword_0;
+	uint32_t dword_4;
+	int16_t word_8;
+	type_D4C52ar2* dword_10;
+	type_D4C52ar2* dword_14;
+}
+type_D4C52ar;
+#pragma pack (16)
+
+#pragma pack (1)
 typedef struct {//lenght 6
 	int8_t* bitmapData_0;
 	int16_t bitmapIndex_4;
@@ -344,6 +365,8 @@ extern char x_BYTE_17DF11_last_key_status; // weak
 
 extern uint16_t x_WORD_17B4E0; // 34c4e0
 
+// needed from GameUI
+extern void(*ptrDrawBitmap_F01E8)(int16_t, int16_t, bitmap_pos_struct_t, uint8_t scale);
 
 extern char isCaveLevel_D41B6;
 
@@ -391,31 +414,6 @@ typedef struct {//lenght 44
 type_WORD_E1F84;
 #pragma pack (16)
 
-#pragma pack (1)
-typedef struct //lenght 50
-{
-	uint32_t x_DWORD_17DB70; // weak
-	int16_t x_WORD_17DB74; // weak 4
-	int16_t unk_17DB76_posx; // weak 6
-	int16_t unk_17DB78_posy; // weak 8
-	int16_t fill1; // test 10
-	int16_t fill2; // test 12
-	int16_t unk_17DB7E; // weak 14
-	int16_t unk_17DB80; // weak 16
-	int16_t x_WORD_17DB82_shift_step; // weak 18
-	int16_t x_WORD_17DB84; // weak 20
-	int16_t x_WORD_17DB86; // weak 22
-	int16_t x_WORD_17DB88; // weak 24
-	int16_t x_WORD_17DB8A; // weak 26
-	int16_t x_WORD_17DB8C; // weak 28
-	int8_t x_BYTE_17DB8E; // weak 30
-	int8_t x_BYTE_17DB8F; // weak 31
-	int16_t unk_17DB90; // weak 32
-	uint8_t unk_17DB92[6]; // weak 32
-	uint8_t fill3[16]; // fill
-} type_x_DWORD_17DB70str;
-#pragma pack (16)
-
 // typedef struct NCB{
 //				BYTE     ncb_command;	/* NetBIOS command (see netbios.h) */
 //BYTE     ncb_retcode;	/* NetBIOS return code; 0xFF until asynchronous call  finishes */
@@ -441,7 +439,7 @@ extern char x_BYTE_D4B80;
 void j___delay(x_DWORD); // weak
 unsigned long j___clock();
 
-void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer);
+void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer, const std::string &filename = "BufferOut.bmp");
 void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
@@ -473,7 +471,6 @@ signed int sub_369F0(/*signed int a1,*/ __int16 a2);
 //void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_event_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_event_0x6E8E* a2, type_event_0x6E8E* a3);
-void sub_2BD10_draw_line(__int16 a1, __int16 a2, __int16 a3, __int16 a4, unsigned __int8 a5);
 void ClearGraphicsBuffer_72883(void* ptrBuffer, uint16_t width, uint16_t height, char value);
 int _wcpp_1_unwind_leave__62(void); //weak
 //int sub_7FCB0_draw_text_with_border(/*int a1,*/ char* a2, int32_t a3, int32_t a4, int a5, uint8_t a6, unsigned __int8 a7, uint32_t a8);//560cb0
@@ -536,7 +533,6 @@ signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, uint8_t* a
 void sub_81260(int a1, int a2, int8_t* a3, __int16 a4, __int16 a5);
 int sub_812D0_drawDotBitmap(__int16 a1, __int16 a2);
 signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
-bool sub_80D40_move_graphics_and_play_sounds(__int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
 void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16* a3);
 void fix_sub_9A0FC_wait_to_screen_beam(int32_t delay = 10);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
@@ -576,56 +572,6 @@ signed int sub_8BBE0(uint8_t* a1);
 void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
 
-void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
-void ConstrainTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-void ComputeTextboxSizes_89830(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-void ComputeTextboxLine_898A0(Type_TextBox_1804B0* textbox);
-void ComputeTextboxSizesFromTextLines_89920(Type_TextBox_1804B0* textbox, __int16 countLines, int16_t* textLines, uint8_t scale = 1);
-void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-
-void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
-int16_t GetHelpPopupIndex_88450();
-void GetHintText_89AC0(char* buffer, int helpIndex);
-
-void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
-void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
-void SetHelpPopupCoords_87580();
-void SetPauseMenuCoordinates_87970(uint8_t scale = 1);
-void SetSpellHelpPopupCoordinates_88D40(uint8_t scale = 1);
-void SetPlayerScoresHelpPopupTextAndCoords_89360(uint8_t scale = 1);
-void SetTextBoxMinMaxSizes_87090();
-void SetTextBoxMinMaxForSetResolution();
-void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume);
-
-void DrawPauseMenuPopUps_87860();
-void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, __int16 a5);
-void DrawBar_2D190(int16_t posStartX, int16_t posStartY, int16_t maxPosEndX, int16_t posEndY, int16_t posEndX, uint8 colorIdx);
-void DrawBottomMenu_2ECC0();
-void DrawChatMenu_2F6B0();
-void DrawGameFrame_2BE30();
-void DrawPopupTextBox_87610();
-void DrawHelpPopUps_871F0();
-void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);
-void DrawCurrentObjectiveTextbox_30630(uint8_t scale = 1);
-void GetFont_6FC50(__int16 a1);
-void DrawInGameOptionsMenu_30050(uint8_t scale = 1);
-void DrawMinimap_63600(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
-void DrawMinimapEntites_61880(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
-void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
-void DrawOkCancelMenu_30A60(int16_t posTextX, int16_t posTextY, uint8_t scale = 1);
-void DrawPauseMenu_2FD90(uint8_t scale = 1);
-void DrawSorcererScores_2D1D0(uint8_t scale = 1);
-void DrawSpellIcon_2E260(int16_t posX, int16_t posY, type_event_0x6E8E* a3, char a4, uint8_t scale = 1);
-void DrawTextboxFrame_89690(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
-void DrawTextboxLine_89A30(const Type_TextBox_1804B0* textbox);
-void DrawTextboxText_895D0(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale = 1);
-void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
-void DrawVolumeSettings_303D0(uint8_t scale = 1);
-
-void sub_63670_draw_minimap_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
-void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling, int a10);
-void sub_627F0_draw_minimap_entites_a(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
-void sub_61A00_draw_minimap_entites_b(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling);
 int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3, int32_t frameDelay = 10);
 void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
@@ -679,7 +625,6 @@ void sub_B5F8F(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 int sub_BD320(int result, int8_t* a2, int8_t* a3, int a4, int a5, uint8_t* a6);
 void sub_B5EFA(__int16 a1, uint16_t* a2, int32_t a3, __int16* a4);
 Type_SecretMapScreenPortals_E2970* sub_824B0(__int16 a1);
-Type_SecretMapScreenPortals_E2970* sub_824E0(__int16 a1);
 
 void sub_101C0();
 void sub_5BCC0_set_any_variables1();

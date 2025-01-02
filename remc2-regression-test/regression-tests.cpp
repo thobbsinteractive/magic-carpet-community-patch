@@ -1,4 +1,4 @@
-#include "Regression-tests.h"
+#include "regression-tests.h"
 
 int run_regtest(int level)//236F70
 {

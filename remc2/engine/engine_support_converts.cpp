@@ -674,7 +674,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//int16_t word_0xe;
 	memcpy(output + 0xe, &input->word_0xe, 2);
 	//uint8_t array_0x10[29]; //0x10, next 0x2d(45)
-	memcpy(output + 0x10, input->array_0x10, 0x1d);
+	memcpy(output + 0x10, &input->array_0x10[0], 0x1d);
 	//int32_t dword_0x2d;//45
 	memcpy(output + 0x2d, &input->dword_0x2d, 4);
 	//uint16_t word_0x31;//49
@@ -684,7 +684,7 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	//int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
 	memcpy(output + 0x35, &input->dword_0x35, 4);
 	//uint8_t array_0x39[508];//57
-	memcpy(output + 0x39, input->array_0x39, 508);
+	memcpy(output + 0x39, &input->array_0x39[0], 508);
 	//int32_t dword_0x235;//act music
 	memcpy(output + 0x235, &input->maptypeMusic_0x235, 4);
 	//uint8_t byte_0x239;//569

@@ -3,14 +3,11 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
-#include "Regression-tests.h"
+#include "regression-tests.h"
 
-int main(int argc, char** argv)
-{
-	//if (CommandLineParams.DoShowDebugMessages1()) -- for suppress messages
+
+int CountFailedRegressionTests() {
 	int numFailedTests = 0;
-
-	InitializeLogging(spdlog::level::info);
 
 	Logger->info("--- Regressions tests ---");
 	for (int i = 1; i <= 25; i++)
@@ -20,13 +17,24 @@ int main(int argc, char** argv)
 				numFailedTests++;
 			}
 
+	return numFailedTests;
+}
+
+int main(int argc, char** argv)
+{
+	//if (CommandLineParams.DoShowDebugMessages1()) -- for suppress messages
+	int numFailedTests = 0;
+
+	InitializeLogging(spdlog::level::info);
+	numFailedTests += CountFailedRegressionTests();
+
 	if (numFailedTests == 0)
 	{
 		Logger->info("All tests passed");
 	}
 	else
 	{
-		Logger->info("{} tests failed!", numFailedTests);
+		Logger->error("{} tests failed!", numFailedTests);
 	}
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(2000));

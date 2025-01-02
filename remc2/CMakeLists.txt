@@ -1,4 +1,3 @@
-project(remc2 C CXX)
 
 ################################################################################
 # Source groups
@@ -61,6 +60,10 @@ set(SOURCE_FILES_ENGINE
     "utilities/BitmapIO.h"
     "utilities/DataFileIO.cpp"
     "utilities/DataFileIO.h"
+    "utilities/StateMonitor.cpp"
+    "utilities/StateMonitor.h"
+    "utilities/RendererTests.cpp"
+    "utilities/RendererTests.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
@@ -79,6 +82,8 @@ set(SOURCE_FILES_ENGINE
     "engine/GameBitmapIndexes.h"
     "engine/GameUiConstants.h"
     "engine/GameRenderInterface.h"
+    "engine/GameUI.cpp"
+    "engine/GameUI.h"
     "sub_main.cpp"
     "sub_main.h"
     "engine/ProjectionPolygon.cpp"
@@ -171,6 +176,7 @@ install(
     FILES 
     ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/16x16-font.bmp
     ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/8x8-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/UbuntuMono-B.ttf
     DESTINATION bin/font
 )
 install(
@@ -207,8 +213,9 @@ if (UNIX)
     #target_compile_options(${PROJECT_NAME} PRIVATE
     #)
     target_link_libraries(${PROJECT_NAME} PUBLIC 
-        SDL2::Main
-        SDL2::Mixer
+        SDL2::SDL2
+        SDL2_mixer::SDL2_mixer
+        SDL2_ttf::SDL2_ttf
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
@@ -224,16 +231,6 @@ endif ()
 
 if (UNIX)
     if (USE_SANITIZERS)
-        set(SANITIZER_OPTIONS
-            -fsanitize=address
-            -fsanitize=pointer-compare
-            -fsanitize=pointer-subtract
-            -fsanitize=leak
-            -fsanitize=undefined
-            -static-libasan
-            -static-liblsan
-            -static-libubsan
-        )
-        target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
     endif ()
 endif ()

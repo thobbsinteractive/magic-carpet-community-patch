@@ -1,4 +1,4 @@
-project(remc2-regression-test C CXX)
+set(REGRESSION_TEST_TARGET remc2-regression-test)
 
 ################################################################################
 # Source groups
@@ -21,6 +21,10 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/utilities/DataFileIO.h"
     "../remc2/utilities/BitmapIO.cpp"
     "../remc2/utilities/BitmapIO.h"
+    "../remc2/utilities/StateMonitor.cpp"
+    "../remc2/utilities/StateMonitor.h"
+    "../remc2/utilities/RendererTests.cpp"
+    "../remc2/utilities/RendererTests.h"
     "../remc2/portability/port_time.cpp"
     "../remc2/portability/port_time.h"
     "../remc2/portability/port_filesystem.cpp"
@@ -69,6 +73,8 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/engine/GameBitmap.h"
     "../remc2/engine/GameBitmapIndexes.h"
     "../remc2/engine/GameUiConstants.h"
+    "../remc2/engine/GameUI.cpp"
+    "../remc2/engine/GameUI.h"
     "../remc2/engine/TextureMaps.cpp"
     "../remc2/engine/TextureMaps.h"
     "../remc2/engine/Animation.cpp"
@@ -89,9 +95,9 @@ set(SOURCE_FILES_REGRESSIONTESTS
     "../remc2/engine/engine_support.h"
     "../remc2/engine/Terrain.cpp"
     "../remc2/engine/Terrain.h"
-    "Regression-tests.cpp"
-    "Regression-tests.h"
-    "Tests.cpp"
+    "regression-tests.cpp"
+    "regression-tests.h"
+    "tests.cpp"
 )
 source_group("Source Files\\regressiontests" FILES ${SOURCE_FILES_REGRESSIONTESTS})
 
@@ -101,8 +107,8 @@ set(ROOT_NAMESPACE remc2-regression-test)
 ################################################################################
 # Regression tests
 ################################################################################
-add_executable(${PROJECT_NAME} ${SOURCE_FILES_REGRESSIONTESTS})
-target_include_directories(${PROJECT_NAME} PUBLIC
+add_executable(${REGRESSION_TEST_TARGET} ${SOURCE_FILES_REGRESSIONTESTS})
+target_include_directories(${REGRESSION_TEST_TARGET} PUBLIC
     "../remc2/engine"
     "../remc2/portability"
     "../findfirst"
@@ -110,11 +116,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	"../spdlog/include"
 	"../rapidjson"
 )
-target_link_libraries(${PROJECT_NAME} PUBLIC 
+target_link_libraries(${REGRESSION_TEST_TARGET} PUBLIC 
     gtest
     pthread
-	SDL2::Main
-	SDL2::Mixer
+	SDL2::SDL2
+	SDL2_mixer::SDL2_mixer
+	SDL2_ttf::SDL2_ttf
 	${PNG_LIBRARY}
 	findfirst
 	ADLMIDI_static
@@ -123,24 +130,26 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
 install(
-    TARGETS ${PROJECT_NAME}
+    TARGETS ${REGRESSION_TEST_TARGET}
     CONFIGURATIONS Debug;Release;RelWithDebInfo
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib/static
 )
+install(
+    DIRECTORY
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/memimages
+    DESTINATION bin
+)
+install(
+    FILES
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/regression-config.ini
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/renderer-config.ini
+    ${CMAKE_SOURCE_DIR}/remc2-regression-test/test_renderer.sh
+    DESTINATION bin
+)
 
 
 if (USE_SANITIZERS)
-    set(SANITIZER_OPTIONS
-        -fsanitize=address
-        -fsanitize=pointer-compare
-        -fsanitize=pointer-subtract
-        -fsanitize=leak
-        -fsanitize=undefined
-        -static-libasan
-        -static-liblsan
-        -static-libubsan
-    )
-    target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
+    target_link_options(${REGRESSION_TEST_TARGET} PRIVATE ${SANITIZER_OPTIONS})
 endif ()

@@ -9,7 +9,7 @@
             "args": [
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
+            "cwd": "${workspaceFolder}/build_vscode/inst/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -19,11 +19,27 @@
             "name": "Unit Tests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2-unit-test",
+            "program": "${workspaceFolder}/build_vscode/inst/bin/remc2-unit-test",
             "args": [
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
+            "cwd": "${workspaceFolder}/build_vscode/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
+            "name": "Renderer Test",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build_vscode/inst/bin/remc2",
+            "args": [
+                "--set_level", "0",
+                "--test_renderers"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build_vscode/inst/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -33,14 +49,11 @@
             "name": "Regression Tests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
+            "program": "${workspaceFolder}/build_vscode/inst/bin/remc2-regression-test",
             "args": [
-                "reglevel", "0",
-                "--mode_test_regressions_game",
-                "--memimages_path", "${workspaceFolder}/build/Debug/inst/memimages/"
             ],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/build/Debug/inst/bin",
+            "cwd": "${workspaceFolder}/build_vscode/inst/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
