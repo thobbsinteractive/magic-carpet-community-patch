@@ -390,6 +390,7 @@
     <ClInclude Include="portability\port_show_perifery.h" />
     <ClInclude Include="utilities\BitmapIO.h" />
     <ClInclude Include="utilities\DataFileIO.h" />
+    <ClInclude Include="utilities\StateMonitor.h" />
     <ClInclude Include="engine\ail_sound.h" />
     <ClInclude Include="engine\defs.h" />
     <ClInclude Include="engine\engine_support.h" />
@@ -462,6 +463,7 @@
     <ClCompile Include="portability\port_show_perifery.cpp" />
     <ClCompile Include="utilities\BitmapIO.cpp" />
     <ClCompile Include="utilities\DataFileIO.cpp" />
+    <ClCompile Include="utilities\StateMonitor.cpp" />
     <ClCompile Include="engine\engine_support.cpp" />
     <ClCompile Include="engine\engine_support_converts.cpp" />
     <ClCompile Include="engine\read_config.cpp" />

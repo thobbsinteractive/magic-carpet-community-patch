@@ -1180,25 +1180,25 @@ typedef struct {
 GameSettingsStruct_t;
 
 typedef struct {//lenght 224791
-	uint8_t stub0[4];
+	std::array<uint8_t, 4> stub0;
 	uint32_t dword_0x4;
 	uint32_t rand_0x8;
 	int16_t LevelIndex_0xc;//player_index?
 	int16_t word_0xe;
-	uint8_t array_0x10[29]; //0x10, next 0x2d(45)
+	std::array<uint8_t, 29> array_0x10; //0x10, next 0x2d(45)
 	int32_t dword_0x2d;//45
 	uint16_t word_0x31;//49
 	uint16_t word_0x33;//51
 	int32_t dword_0x35;//53//entity counter(max 1000 entity changes per step)
-	uint8_t array_0x39[508];//57
+	std::array<uint8_t, 508> array_0x39;//57
 	int32_t maptypeMusic_0x235;//act music
 	uint8_t byte_0x239;//569
 	int32_t dword_0x23a;
 	int32_t dword_0x23e;
 	int32_t dword_0x242;
-	type_event_0x6E8E* pointers_0x246[1000];//pointers
+	std::array<type_event_0x6E8E*, 1000> pointers_0x246;//pointers
 	int32_t dword_0x11e6;//second entity counter
-	type_event_0x6E8E* dword_0x11EA[1000];//??4586
+	std::array<type_event_0x6E8E*, 1000> dword_0x11EA;//??4586
 	GameSettingsStruct_t m_GameSettings;
 	uint32_t dword_0x219A;//8602
 	uint32_t dword_0x219E;//8606
@@ -1208,11 +1208,11 @@ typedef struct {//lenght 224791
 	type_str_0x21AE str_0x21AE;
 	type_str_0x21B2 str_0x21B2;
 	type_str_0x21B6 str_0x21B6;
-	uint8_t stub3b[424];
-	axis_3d array_0x2362[8];
-	uint8_t stub3c[333];
-	uint8_t stub3d[1791];
-	type_str_0x2BDE array_0x2BDE[8];
+	std::array<uint8_t, 424> stub3b;
+	std::array<axis_3d, 8> array_0x2362;
+	std::array<uint8_t, 333> stub3c;
+	std::array<uint8_t, 1791> stub3d;
+	std::array<type_str_0x2BDE, 8> array_0x2BDE;
 	type_str_0x6E3E array_0x6E3E[8];//28222	lenght 0xa size 0x8// game events
 	type_event_0x6E8E struct_0x6E8E[1000];//28302 a8*3e8
 	Type_Level_2FECE terrain_2FECE;// a1 = &x_D41A0_BYTEARRAY_0[0x2FECE/*196302*/];//fix - size 0x6604u//compress level

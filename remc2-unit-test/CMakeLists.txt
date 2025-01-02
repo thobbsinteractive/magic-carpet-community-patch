@@ -34,6 +34,8 @@ set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "../remc2/utilities/DataFileIO.h"
     "../remc2/utilities/BitmapIO.cpp"
     "../remc2/utilities/BitmapIO.h"
+    "../remc2/utilities/StateMonitor.cpp"
+    "../remc2/utilities/StateMonitor.h"
     "../remc2/portability/port_time.cpp"
     "../remc2/portability/port_time.h"
     "../remc2/portability/port_filesystem.cpp"
@@ -123,8 +125,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC 
     pthread
-	SDL2::Main
-	SDL2::Mixer
+	SDL2::SDL2
+	SDL2_mixer::SDL2_mixer
+	SDL2_ttf::SDL2_ttf
 	${PNG_LIBRARY}
 	findfirst
 	ADLMIDI_static

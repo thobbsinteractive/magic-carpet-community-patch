@@ -13,7 +13,7 @@ set(CMAKE_COLOR_DIAGNOSTICS ON)
 # Dependencies
 ################################################################################
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+#list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
 
 if (GITHUB_CI_COMPATIBILITY_PATH)
     set(SDL2_DIR "${GITHUB_CI_COMPATIBILITY_PATH}/cmake/SDL2")
@@ -25,7 +25,7 @@ find_package(SDL2_mixer REQUIRED)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(PNG REQUIRED)
-find_package(Boost REQUIRED system)
+find_package(Boost REQUIRED system CONFIG)
 find_package(fmt REQUIRED)
 
 

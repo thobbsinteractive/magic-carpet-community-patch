@@ -7,6 +7,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/Debug/inst/bin/remc2",
             "args": [
+                "--state_monitor"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build/Debug/inst/bin",

@@ -61,6 +61,8 @@ set(SOURCE_FILES_ENGINE
     "utilities/BitmapIO.h"
     "utilities/DataFileIO.cpp"
     "utilities/DataFileIO.h"
+    "utilities/StateMonitor.cpp"
+    "utilities/StateMonitor.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
@@ -171,6 +173,7 @@ install(
     FILES 
     ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/16x16-font.bmp
     ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/8x8-font.bmp
+    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/font/UbuntuMono-B.ttf
     DESTINATION bin/font
 )
 install(
@@ -207,8 +210,9 @@ if (UNIX)
     #target_compile_options(${PROJECT_NAME} PRIVATE
     #)
     target_link_libraries(${PROJECT_NAME} PUBLIC 
-        SDL2::Main
-        SDL2::Mixer
+        SDL2::SDL2
+        SDL2_mixer::SDL2_mixer
+        SDL2_ttf::SDL2_ttf
         ${PNG_LIBRARY}
         findfirst
         ADLMIDI_static
