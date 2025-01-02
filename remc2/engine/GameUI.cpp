@@ -9,6 +9,8 @@
 #include "Type_D93C0_Bldgprmbuffer.h"
 
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
+std::vector<std::string> splitTextIntoWords(const std::string& text);
+std::vector<std::string> splitTextIntoLines(const std::string& text, int width);
 
 char x_BYTE_D419D_fonttype = 1; // weak
 char* SpellLevelText_DB06C[5] = { (char*)"I",(char*)"II",(char*)"III",(char*)"IV",(char*)"V" };//x_DWORD_DAF50ar[0x11c]//2ac06c
@@ -3241,14 +3243,7 @@ void ComputeTextboxSizesFromTextWords_89420(Type_TextBox_1804B0* textbox, const 
 			if (textboxWidth > 0)
 			{
 				lineCharWidth = (textboxWidth + (textbox->charWidth_0x10 * scale) - 1) / (textbox->charWidth_0x10 * scale);
-				countOfLines = 0;
-				lastLineIndex = 0;
-				while (lastLineIndex < textBufferLenght - 1)
-				{
-					for (textIndex = lastLineIndex + lineCharWidth; text[textIndex] != 32 && textIndex < textBufferLenght - 1; textIndex--);//to previous word
-					lastLineIndex = textIndex + 1;
-					countOfLines++;
-				}
+				countOfLines = splitTextIntoLines(text, lineCharWidth).size();
 				textbox->textBoxWidth_0x4 = textboxWidth;
 			}
 		}
@@ -3290,32 +3285,15 @@ void ConstrainTextboxSizes_89520(Type_TextBox_1804B0* textbox, uint8_t scale)//2
 	textbox->maxTextboxHeight_0x2 = centerToMaxHeight + (textboxHeight / 2);
 }
 
-
 //----- (000895D0) --------------------------------------------------------
 void DrawTextboxText_895D0(Type_TextBox_1804B0* textbox, const char* text, uint8_t scale)//26a5d0
 {
-	int i;
-	uint8_t color;
-	int textboxPosX;
-	char buffer[1000]; // [esp+0h] [ebp-12h]
-	memset(buffer, NULL, 1000 * sizeof(*buffer));
-	int lastPos = 0;
-	int posY = textbox->textboxPosY_0xa;
-	int textlen = strlen(text);
 	int width = textbox->textBoxWidth_0x4 / (textbox->charWidth_0x10 * scale);
-	if (textlen > 0)
-	{
-		do
-		{
-			for (i = width + lastPos; text[i] != 32 && i < textlen; i--);
-			memcpy(buffer, &text[lastPos], i - lastPos);
-			buffer[i] = 0;
-			color = textbox->color1_0x30;
-			textboxPosX = textbox->textboxPosX_0x8;
-			lastPos = i + 1;
-			DrawText_2BC10(buffer, textboxPosX, posY, color, scale);
-			posY += textbox->charHeight_0x12 * scale;
-		} while (textlen > lastPos);
+	std::vector<std::string> lines = splitTextIntoLines(text, width);
+	int posY = textbox->textboxPosY_0xa;
+	for (auto& line : lines) {
+		DrawText_2BC10(line.c_str(), textbox->textboxPosX_0x8, posY, textbox->color1_0x30, scale);
+		posY += textbox->charHeight_0x12 * scale;
 	}
 }
 
@@ -3617,3 +3595,37 @@ LABEL_15:
 		--v14;
 	} while (v14);
 }
+
+std::vector<std::string> splitTextIntoWords(const std::string& text) {
+	std::vector<std::string> words;
+	std::string word;
+	std::istringstream tokenStream(text);
+	while (std::getline(tokenStream, word, ' ')) {
+		words.push_back(word);
+	}
+	return words;
+}
+
+std::vector<std::string> splitTextIntoLines(const std::string& text, int width) {
+	std::vector<std::string> lines;
+	std::vector<std::string> words = splitTextIntoWords(text);
+	std::string line;
+	for (const std::string& word : words) {
+		if (line.empty()) {
+			line = word;
+		}
+		else {
+			if (line.size() + word.size() + 1 <= width) {
+				line += " " + word;
+			}
+			else {
+				lines.push_back(line);
+				line = word;
+			}
+		}
+	}
+	if (!line.empty()) {
+		lines.push_back(line);
+	}
+	return lines;
+}	
