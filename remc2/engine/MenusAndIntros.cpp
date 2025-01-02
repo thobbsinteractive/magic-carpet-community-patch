@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "CommandLineParser.h"
+#include "GameUI.h"
 #include "../utilities/StateMonitor.h"
 
 constexpr int16_t MOUSE_MIN = 0;

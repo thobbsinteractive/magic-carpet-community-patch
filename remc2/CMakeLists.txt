@@ -82,6 +82,8 @@ set(SOURCE_FILES_ENGINE
     "engine/GameBitmapIndexes.h"
     "engine/GameUiConstants.h"
     "engine/GameRenderInterface.h"
+    "engine/GameUI.cpp"
+    "engine/GameUI.h"
     "sub_main.cpp"
     "sub_main.h"
     "engine/ProjectionPolygon.cpp"

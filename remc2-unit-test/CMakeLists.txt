@@ -86,6 +86,8 @@ set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "../remc2/engine/GameBitmap.h"
     "../remc2/engine/GameBitmapIndexes.h"
     "../remc2/engine/GameUiConstants.h"
+    "../remc2/engine/GameUI.cpp"
+    "../remc2/engine/GameUI.h"
     "../remc2/engine/TextureMaps.cpp"
     "../remc2/engine/TextureMaps.h"
     "../remc2/engine/Animation.cpp"
