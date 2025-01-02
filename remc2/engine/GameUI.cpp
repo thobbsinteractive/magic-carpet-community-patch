@@ -3,9 +3,10 @@
 #include <array>
 
 #include "Basic.h"
-#include "Terrain.h"
 #include "GameBitmapIndexes.h"
 #include "LangTextIndexes.h"
+#include "Player.h"
+#include "Terrain.h"
 #include "Type_D93C0_Bldgprmbuffer.h"
 
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
@@ -2679,24 +2680,6 @@ void sub_63C90_draw_minimap_b(int16_t x, int16_t y, int16_t posX, int16_t posY, 
 int debugcounter_644F0 = 0;
 
 
-//----- (00057FA0) --------------------------------------------------------
-void MovePlayer_57FA0_temporary_hack_for_gameui(axis_3d* position, uint16_t a2, int16_t a3, int16_t a4)//238fa0 // move player
-{
-	// FIXME: this is a hack to make the game UI work
-	if (a4)
-	{
-		a3 &= 0x7ffu;
-		a2 &= 0x7ffu;
-		if (a3)
-		{
-			position->z -= (int)(a4 * Maths::sin_DB750[a3]) >> 16;//change z axis
-			a4 = (int)(a4 * Maths::sin_DB750[0x200 + a3]) >> 16;
-		}
-		position->x += (int)(a4 * Maths::sin_DB750[a2]) >> 16;
-		position->y -= (int)(a4 * Maths::sin_DB750[0x200 + a2]) >> 16;
-	}
-}
-
 //----- (000644F0) --------------------------------------------------------
 void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, uint16_t width, uint16_t height, int16_t yaw, int16_t scaling)//2454f0
 {
@@ -2992,7 +2975,7 @@ void DrawMinimapMarks_644F0(int16_t x, int16_t y, int16_t posX, int16_t posY, ui
 				if (v21 > 15872)
 					LOWORD(v21) = 15872;
 				v67x = v75x->axis_0x4C_76;
-				MovePlayer_57FA0_temporary_hack_for_gameui(&v67x, v78, 0, v21);
+				MovePlayer_57FA0(&v67x, v78, 0, v21);
 				v22 = v83 * Maths::sin_DB750[v82];
 				v23 = v83 * (x_DWORD)Maths::sin_DB750[0x200 + v82];
 				v71 = (int16_t)(*(int16_t*)&v67x - posX);

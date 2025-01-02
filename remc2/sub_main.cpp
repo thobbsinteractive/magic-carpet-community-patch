@@ -1,9 +1,10 @@
 #include "sub_main.h"
-#include "engine/engine_support.h"
 #include "engine/CommandLineParser.h"
+#include "engine/GameUI.h"
 #include "engine/MenusAndIntros.h"
 #include "engine/Network.h"
-#include "engine/GameUI.h"
+#include "engine/Player.h"
+#include "engine/engine_support.h"
 #include "utilities/StateMonitor.h"
 #include "utilities/RendererTests.h"
 
@@ -1756,7 +1757,6 @@ void AddEventToMap_57D70(type_event_0x6E8E* entity, axis_3d* position);
 void sub_57E50(type_event_0x6E8E* entity);
 void SetEntity04_57F10(type_event_0x6E8E* entity);
 void sub_57F20(type_event_0x6E8E* entity);
-void MovePlayer_57FA0(axis_3d* a1, unsigned __int16 a2, __int16 a3, __int16 a4);
 void sub_58030(axis_3d* a1, axis_3d* a2);
 void sub_580E0(axis_3d* a1, signed int a2, int a3, int a4, __int16 a5);
 int sub_582B0(__int16 a1, __int16 a2);
@@ -53983,23 +53983,6 @@ void sub_57F20(type_event_0x6E8E* entity)//238f20
 	D41A0_0.pointers_0x246[D41A0_0.dword_0x35] = entity;
 }
 // D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
-
-//----- (00057FA0) --------------------------------------------------------
-void MovePlayer_57FA0(axis_3d* position, unsigned __int16 a2, __int16 a3, __int16 a4)//238fa0 // move player
-{
-	if (a4)
-	{
-		a3 &= 0x7ffu;
-		a2 &= 0x7ffu;
-		if (a3)
-		{
-			position->z -= (int)(a4 * Maths::sin_DB750[a3]) >> 16;//change z axis
-			a4 = (int)(a4 * Maths::sin_DB750[0x200 + a3]) >> 16;
-		}
-		position->x += (int)(a4 * Maths::sin_DB750[a2]) >> 16;
-		position->y -= (int)(a4 * Maths::sin_DB750[0x200 + a2]) >> 16;
-	}
-}
 
 //----- (00058030) --------------------------------------------------------
 void sub_58030(axis_3d* a1x, axis_3d* a2)//239030

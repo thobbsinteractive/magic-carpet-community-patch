@@ -1125,9 +1125,10 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 
 	v1 = 0;
 	map_not_moving_WORD_E29D6 = false;
-	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
-		&& x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24)
+	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24) {
+		// show credits after finishing the last level
 		sub_833C0();
+	}
 	memset((void*)&unk_17DBA8str, 0, 16);
 	unk_17DBA8str.x_BYTE_17DBB6 = 2;
 	if (x_BYTE_D419C_level_num <= -1)
