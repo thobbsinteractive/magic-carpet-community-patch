@@ -3545,8 +3545,8 @@ type_D4C52ar2 str_x_DWORD_D4C52ar_0x2F22[7] = {
 
 
 
-int(*off_D697E)(int) = (int(*)(int)) & NewAdd0A00_4E320; // weak
-int(*off_D7B7A)(int) = (int(*)(int)) & sub_51530; // weak
+//int(*off_D697E)(int) = (int(*)(int)) & NewAdd0A00_4E320; // weak
+//int(*off_D7B7A)(int) = (int(*)(int)) & sub_51530; // weak
 
 type_str_160 str_D7BD6[157] = {
 {0x0005,0x0000,0x0013,0x0028,0x002A,0x0154,0x0007,0x00F4,0xFFFF,0x0000,0x00000000,{0x00,0x00},0x0000,0x0000,0x0000,0x00,{0x00}},
@@ -27386,7 +27386,7 @@ void DrawBottomMenu_2ECC0()//20fcc0
 						v29 = SPELLS_BEGIN_BUFFER_str[v43].subspell[v20].dword_E;
 					}
 					v30 = v28 - v29;
-					v31 = v37x->dword_0xA4_164x->str_611.array_0x263_611x.dword[v27] + v37x->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[v27] - v29;
+					v31 = v37x->dword_0xA4_164x->str_611.array_0x263_611x.dword[v27] + v37x->dword_0xA4_164x->str_611.spells_experience_0x2CB_715x.at(v27) - v29;
 					if (v30 > 0)
 					{
 						v32 = 54 * v31 / v30;
@@ -49979,7 +49979,7 @@ void GameEvents_51BB0()//232bb0
 			case 8:
 				for (int k = 0; k < 26; k++)
 				{
-					actEvent->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[x_BYTE_D94FF_spell_index[k]] += 100;
+					actEvent->dword_0xA4_164x->str_611.spells_experience_0x2CB_715x.at(x_BYTE_D94FF_spell_index[k]) += 100;
 				}
 				sub_6DB50(0, 0);
 				sub_52D70(i, (char*)".. CHEAT: More Spell Experience Points");
@@ -49997,14 +49997,14 @@ void GameEvents_51BB0()//232bb0
 				}
 				break;
 			case 0xA:
-				if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1)
+				if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1) {
 					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 &= 0xFE;
-				else
-					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 1;
-				if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 1)
 					sub_52D70(i, (char*)".. CHEAT: Invincability ON");
-				else
+				}
+				else {
+					x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 1;
 					sub_52D70(i, (char*)".. CHEAT: Invincability OFF");
+				}
 				break;
 			default:
 				break;
@@ -57595,7 +57595,7 @@ void sub_5C950(type_str_0x2BDE* a1x, type_event_0x6E8E* a2x)//23d950
 		sub_58DA0(0, v2x);
 		for (i = 0; i < 26; i++)
 			//*(x_DWORD *)(v2x->dword_0xA4_164 + 4 * i + 711) = 0;
-			v2x->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[i] = 0;
+			v2x->dword_0xA4_164x->str_611.spells_experience_0x2CB_715x.at(i) = 0;
 		v2x->dword_0xA4_164x->dword_0x189_393 = j___clock();
 		switch (sub_616D0(v2x->dword_0xA4_164x->word_0x38_56))
 		{
@@ -67203,9 +67203,9 @@ void sub_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3)//24e8b0
 			if (v3x->class_0x3F_63 == 3 && !v3x->model_0x40_64)
 			{
 				//v4 = v3x->dword_0xA4_164;
-				v5 = v3x->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[a2];
+				v5 = v3x->dword_0xA4_164x->str_611.spells_experience_0x2CB_715x.at(a2);
 				//v6 = v4 + 611;
-				v3x->dword_0xA4_164x->str_611.array_0x2CB_715x.dword[a2] = a3 + v5;
+				v3x->dword_0xA4_164x->str_611.spells_experience_0x2CB_715x.at(a2) = a3 + v5;
 				if (a2 == 2)
 					SetSpell_6D5E0(x_DWORD_EA3E4[v3x->dword_0xA4_164x->str_611.array_0x333_819x.word[2]], v3x->dword_0xA4_164x->str_611.array_0x437_1079x.byte[2]);
 				if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
@@ -67240,11 +67240,11 @@ void sub_6D9C0(type_str_611* a1x, type_SPELLS_BEGIN_BUFFER_str* a2x, __int16 a3,
 	v5 = 0;
 	if ((a1x->array_0x3E9_1001x.byte[a3] || a1x->array_0x333_819x.word[a3]) && (isCaveLevel_D41B6 || a3 != 25))
 		v5 = 1;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && a1x->array_0x2CB_715x.dword[2] > 7)
-		a1x->array_0x2CB_715x.dword[2] = 7;
+	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && a1x->spells_experience_0x2CB_715x.at((int)spell_t::castle) > 7) // FIXME: replace magic numbers 2 and 7
+		a1x->spells_experience_0x2CB_715x.at((int)spell_t::castle) = 7;
 	//v6 = *a2;
 	v6 = a2x->byte_0;
-	v7 = a1x->array_0x2CB_715x.dword[a3] + a1x->array_0x263_611x.dword[a3];
+	v7 = a1x->spells_experience_0x2CB_715x.at(a3) + a1x->array_0x263_611x.dword[a3];
 	do
 		v6--;
 	//while (v6 >= 0 && v7 < *(x_DWORD *)&a2[26 * v6 + 14]);
@@ -67294,7 +67294,7 @@ void sub_6DAD0(type_str_611* a1x, type_SPELLS_BEGIN_BUFFER_str* a2x, __int16 a3)
 	//if (a1x->array_0x333_819x.word[a3] && a1x->array_0x41D_1053z.byte[a3] < *a2 - 1)
 	if (a1x->array_0x333_819x.word[a3] && a1x->array_0x41D_1053z.byte[a3] < a2x->byte_0 - 1)
 	{
-		v3 = a1x->array_0x2CB_715x.dword[a3] + a1x->array_0x263_611x.dword[a3];
+		v3 = a1x->spells_experience_0x2CB_715x.at(a3) + a1x->array_0x263_611x.dword[a3];
 		if (v3 < 0)
 			v3 = 0;
 		/*if (v3 > *(x_DWORD *)(a2 + 70) + 2)
@@ -67655,11 +67655,11 @@ void sub_6E090(type_str_611* a1x, int a2)//24f090
 	for (i = 0; i < 26; i++)
 	{
 		if (a1x->array_0x333_819x.word[i])
-			a1x->array_0x2CB_715x.dword[i] += a2;
+			a1x->spells_experience_0x2CB_715x.at(i) += a2;
 	}
 	//result = (int)x_D41A0_BYTEARRAY_4;
-	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && a1x->array_0x2CB_715x.dword[2] > 7)
-		a1x->array_0x2CB_715x.dword[2] = 7;
+	if (x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 >= 0 && a1x->spells_experience_0x2CB_715x.at((int)spell_t::castle) > 7) // FIXME: replace magic numbers
+		a1x->spells_experience_0x2CB_715x.at((int)spell_t::castle) = 7;
 	//return result;
 }
 // D41A4: using guessed type int x_DWORD_D41A4;
