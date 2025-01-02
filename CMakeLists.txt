@@ -114,11 +114,24 @@ if (FLATPAK)
     add_compile_definitions(FLATPAK)
 endif ()
 
+# sanitizer flags
+if (USE_SANITIZERS)
+    set(SANITIZER_OPTIONS
+        -fsanitize=address
+        -fsanitize=pointer-compare
+        -fsanitize=pointer-subtract
+        -fsanitize=leak
+        -fsanitize=undefined
+        -static-libasan
+        -static-liblsan
+        -static-libubsan
+    )
+endif ()
+
 # remc2 and tests
 add_subdirectory(remc2)
 if (UNIT_TESTS)
     find_package(GTest REQUIRED)
-    include_directories(${GTEST_INCLUDE_DIRS})
     add_subdirectory(remc2-unit-test)
     add_subdirectory(remc2-regression-test)
 endif ()

@@ -174,6 +174,9 @@
     <ClInclude Include="utilities\DataFileIO.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="utilities\RendererTests.h">
+      <Filter>Header Files\utilities</Filter>
+    </ClInclude>
     <ClInclude Include="utilities\StateMonitor.h">
       <Filter>Header Files\utilities</Filter>
     </ClInclude>
@@ -411,6 +414,9 @@
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
     <ClCompile Include="utilities\DataFileIO.cpp">
+      <Filter>Source Files\utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="utilities\RendererTests.cpp">
       <Filter>Source Files\utilities</Filter>
     </ClCompile>
     <ClCompile Include="utilities\StateMonitor.cpp">

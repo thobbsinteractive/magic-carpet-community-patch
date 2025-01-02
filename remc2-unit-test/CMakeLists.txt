@@ -1,4 +1,4 @@
-project(remc2-unit-test C CXX)
+set(UNIT_TEST_TARGET remc2-unit-test)
 
 ################################################################################
 # Source groups
@@ -36,6 +36,8 @@ set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "../remc2/utilities/BitmapIO.h"
     "../remc2/utilities/StateMonitor.cpp"
     "../remc2/utilities/StateMonitor.h"
+    "../remc2/utilities/RendererTests.cpp"
+    "../remc2/utilities/RendererTests.h"
     "../remc2/portability/port_time.cpp"
     "../remc2/portability/port_time.h"
     "../remc2/portability/port_filesystem.cpp"
@@ -114,16 +116,17 @@ set(ROOT_NAMESPACE remc2-unit-test)
 # Unit tests
 ################################################################################
 include(GoogleTest)
-add_executable(${PROJECT_NAME} ${SOURCE_FILES_UNITTESTS} ${SOURCE_FILES_UNITTESTS_DEPENDENCIES})
-target_include_directories(${PROJECT_NAME} PUBLIC
+add_executable(${UNIT_TEST_TARGET} ${SOURCE_FILES_UNITTESTS} ${SOURCE_FILES_UNITTESTS_DEPENDENCIES})
+target_include_directories(${UNIT_TEST_TARGET} PUBLIC
     "../remc2/engine"
     "../remc2/portability"
     "../findfirst"
     "../inih"
 	"../spdlog/include"
 	"../rapidjson"
+    ${GTEST_INCLUDE_DIRS}
 )
-target_link_libraries(${PROJECT_NAME} PUBLIC 
+target_link_libraries(${UNIT_TEST_TARGET} PUBLIC 
     pthread
 	SDL2::SDL2
 	SDL2_mixer::SDL2_mixer
@@ -138,14 +141,14 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
 )
 add_compile_definitions(COMPILE_FOR_64BIT)
 gtest_add_tests(
-    TARGET      ${PROJECT_NAME}
+    TARGET      ${UNIT_TEST_TARGET}
     SOURCES     ${SOURCE_FILES_UNITTESTS}
     TEST_SUFFIX .noArgs
     TEST_LIST   noArgsTests
 )
 set_tests_properties(${noArgsTests} PROPERTIES TIMEOUT 10)
 install(
-    TARGETS ${PROJECT_NAME}
+    TARGETS ${UNIT_TEST_TARGET}
     CONFIGURATIONS Debug;Release;RelWithDebInfo
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
@@ -154,15 +157,5 @@ install(
 
 
 if (USE_SANITIZERS)
-    set(SANITIZER_OPTIONS
-        -fsanitize=address
-        -fsanitize=pointer-compare
-        -fsanitize=pointer-subtract
-        -fsanitize=leak
-        -fsanitize=undefined
-        -static-libasan
-        -static-liblsan
-        -static-libubsan
-    )
-    target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
+    target_link_options(${UNIT_TEST_TARGET} PRIVATE ${SANITIZER_OPTIONS})
 endif ()

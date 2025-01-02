@@ -1,4 +1,3 @@
-project(remc2 C CXX)
 
 ################################################################################
 # Source groups
@@ -63,6 +62,8 @@ set(SOURCE_FILES_ENGINE
     "utilities/DataFileIO.h"
     "utilities/StateMonitor.cpp"
     "utilities/StateMonitor.h"
+    "utilities/RendererTests.cpp"
+    "utilities/RendererTests.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "engine/TextureMaps.cpp"
@@ -228,16 +229,6 @@ endif ()
 
 if (UNIX)
     if (USE_SANITIZERS)
-        set(SANITIZER_OPTIONS
-            -fsanitize=address
-            -fsanitize=pointer-compare
-            -fsanitize=pointer-subtract
-            -fsanitize=leak
-            -fsanitize=undefined
-            -static-libasan
-            -static-liblsan
-            -static-libubsan
-        )
-        target_link_options(remc2 PRIVATE ${SANITIZER_OPTIONS})
+        target_link_options(${PROJECT_NAME} PRIVATE ${SANITIZER_OPTIONS})
     endif ()
 endif ()
