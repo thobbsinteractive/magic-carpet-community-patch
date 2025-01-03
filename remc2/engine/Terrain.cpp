@@ -2105,9 +2105,9 @@ void sub_462A0(uaxis_2d inAxis2dA, uaxis_2d inAxis2dB)//2272a0
 	inAxis2dA._axis_2d.x--;
 	inAxis2dA._axis_2d.y--;
 	tempAxis.word = inAxis2dA.word;
-	for (int indexY = yAdd; indexY; indexY--)
+	for (int indexY = yAdd; indexY > 0; indexY--)
 	{
-		for (int indexX = xAdd; indexX; indexX--)
+		for (int indexX = xAdd; indexX > 0; indexX--)
 		{
 			if (mapTerrainType_10B4E0[tempAxis.word] == 1)
 			{
