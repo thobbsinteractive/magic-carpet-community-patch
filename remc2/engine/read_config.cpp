@@ -23,6 +23,8 @@ bool multiThreadedRender = false;
 int numberOfRenderThreads = 0;
 bool assignToSpecificCores = false;
 bool openGLRender = false;
+bool invertYAxis = true;
+bool invertXAxis = false;
 gamepad_config_t gpc;
 
 std::string findIniFile() {
@@ -235,6 +237,8 @@ bool readini() {
 	maxGameFps = reader.GetInteger("game", "maxGameFps", 0);
 	fmvFps = reader.GetInteger("game", "fmvFps", 20);
 	loggingLevel = reader.GetString("game", "loggingLevel", "Info");
+	invertYAxis = reader.GetBoolean("game", "invertYAxis", true);
+	invertXAxis = reader.GetBoolean("game", "invertXAxis", false);
 
 	gpc.axis_yaw = reader.GetInteger("gamepad", "axis_yaw", GAMEPAD_ITEM_DISABLED);
 	gpc.axis_pitch = reader.GetInteger("gamepad", "axis_pitch", GAMEPAD_ITEM_DISABLED);
