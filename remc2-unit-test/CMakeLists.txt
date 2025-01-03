@@ -45,6 +45,8 @@ set(SOURCE_FILES_UNITTESTS_DEPENDENCIES
     "../remc2/engine/Network.h"	
     "../remc2/engine/Player.cpp"
     "../remc2/engine/Player.h"
+    "../remc2/engine/PlayerInput.cpp"
+    "../remc2/engine/PlayerInput.h"
     "../remc2/engine/ProjectionPolygon.cpp"
     "../remc2/engine/ProjectionPolygon.h"
     "../remc2/engine/RenderThread.cpp"

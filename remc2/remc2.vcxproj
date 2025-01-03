@@ -386,6 +386,7 @@
     <ClInclude Include="engine\RenderThread.h" />
     <ClInclude Include="engine\GameUI.h" />
     <ClInclude Include="engine\Player.h" />
+    <ClInclude Include="engine\PlayerInput.h" />
     <ClInclude Include="portability\fcaseopen.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="portability\port_sdl_joystick.h" />
@@ -461,6 +462,7 @@
     <ClCompile Include="engine\RenderThread.cpp" />
     <ClCompile Include="engine\GameUI.cpp" />
     <ClCompile Include="engine\Player.cpp" />
+    <ClCompile Include="engine\PlayerInput.cpp" />
     <ClCompile Include="portability\dirent.c" />
     <ClCompile Include="portability\fcaseopen.cpp" />
     <ClCompile Include="portability\port_net.cpp" />

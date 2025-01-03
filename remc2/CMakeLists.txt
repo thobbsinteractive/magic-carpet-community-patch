@@ -56,6 +56,8 @@ set(SOURCE_FILES_ENGINE
     "engine/Network.h"
     "engine/Player.cpp"
     "engine/Player.h"
+    "engine/PlayerInput.cpp"
+    "engine/PlayerInput.h"
     "engine/ProjectionPolygon.cpp"
     "engine/ProjectionPolygon.h"
     "engine/RenderThread.cpp"
