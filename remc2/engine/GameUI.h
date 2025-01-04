@@ -8,6 +8,7 @@
 
 using namespace std::string_view_literals;
 
+
 #pragma pack (1)
 typedef struct {
 	axis_3d v51y;//v51x_struct v51x; // [esp+A8h] [ebp-12h]//0
@@ -28,6 +29,18 @@ typedef struct {
 #pragma pack (16)
 
 
+extern char x_BYTE_D419D_fonttype;
+extern char x_BYTE_D47D8;
+extern char x_BYTE_D94FF_spell_index[29];
+extern int16_t x_WORD_E375C_mouse_position_x;
+extern int16_t x_WORD_E375E_mouse_position_y;
+extern uint8_t xx_array_E36C4[64];
+
+constexpr std::array WizardsNames_D93A0 { 
+    "Zanzamar"sv, "Nyphur"sv, "Rahn"sv, "Belix"sv, "Jark"sv, "Elyssia"sv, "Yragore"sv, "Prish"sv  
+};
+
+
 void sub_2BD10_draw_line(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5);
 
 void DrawTopStatusBar_2D710(type_event_0x6E8E* a1, uint8_t scale = 1);
@@ -41,7 +54,9 @@ void GetHelpPopupTextAndCoords_87CF0(uint8_t scale = 1);
 int16_t GetHelpPopupIndex_88450();
 void GetHintText_89AC0(char* buffer, int helpIndex);
 
+void sub_41B60();
 void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound);
+void sub_53120();
 void SetHelpPopupTextAndCoords_884D0(int16_t helpIdx, int16_t a2, int16_t* popupSrcPos, char a4, char a5, uint8_t scale = 1);
 void SetHelpPopupCoords_87580();
 void SetPauseMenuCoordinates_87970(uint8_t scale = 1);
@@ -52,6 +67,7 @@ void SetTextBoxMinMaxForSetResolution();
 void SetSoundEffectAndMusicLevelCoordinates_19D60(signed int volume);
 
 void DrawPauseMenuPopUps_87860();
+void sub_87C10();
 void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, int16_t a5);
 void DrawBottomMenu_2ECC0();
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
@@ -93,9 +109,12 @@ void ComputeFrameSizes_89980(Type_TextBox_1804B0* textbox, uint8_t scale = 1);
 
 void sub_BD524(int16_t a1, int16_t a2, int16_t a3, int16_t a4, char a5);
 void sub_BD542(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, char a5);
-
-extern char x_BYTE_D419D_fonttype;
-
-constexpr std::array WizardsNames_D93A0 { 
-    "Zanzamar"sv ,"Nyphur"sv ,"Rahn"sv ,"Belix"sv ,"Jark"sv ,"Elyssia"sv ,"Yragore"sv ,"Prish"sv  
-};
+void sub_548F0(type_str_0x2BDE* a1);
+void sub_1A280();
+int sub_1A4A0();
+void SetOkayCancelButtonsCursorPosition_1A030();
+void MoveCursorToSelectedSpell_6D200(type_str_0x2BDE* a1);
+void SetMousePositionInMemory_5BDC0(int16_t posX, int16_t posY);
+void sub_1A5B0_getLangStrings(int a1, int* a2, int* a3);
+void GetOkayCancelButtonPositions_30BE0(int16_t* a1, int16_t* a2, uint8_t scale = 1);
+void sub_52D70(uint16_t playerIndex, char* cheatMessage);

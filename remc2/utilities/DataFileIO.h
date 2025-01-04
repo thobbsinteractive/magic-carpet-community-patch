@@ -1,15 +1,30 @@
 #pragma once
-#ifndef DataFileIO_H
-#define DataFileIO_H
 
 #include <cstdio>
 #include <cstdint>
 #include "../portability/port_filesystem.h"
 #include "../portability/port_outputs.h"
+#include "../engine/global_types.h"
 
 #define RNC_SIGN 0x524E43 // RNC
 #define RNC_HEADER_SIZE 0x12
 #define MAX_BUF_SIZE 0x90000
+
+
+extern Pathstruct pstr[];
+
+
+bool sub_55C00_TestSaveFile2(int16_t a1);
+bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex);
+char* sub_90D3F_unload_file_array(int a1);
+bool sub_84250_load_file_array(int psindex);
+void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[]);
+uint8_t* ClearMemoryForPath(Pathstruct path);
+signed int UnpackAndLoadMemoryFromPath(Pathstruct path);
+signed int sub_AB9E1_get_file_unpack_size(const char* a1);
+signed int sub_98C48_open_nwrite_close(const char* file, uint8_t* buffer, uint32_t count);
+size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
+
 
 class DataFileIO
 {
@@ -118,5 +133,3 @@ private:
 	// Disallow creating an instance of this object
 	DataFileIO();
 };
-
-#endif

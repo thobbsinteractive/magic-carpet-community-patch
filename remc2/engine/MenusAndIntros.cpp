@@ -2,9 +2,11 @@
 
 #include <algorithm>
 
+#include "../utilities/StateMonitor.h"
 #include "CommandLineParser.h"
 #include "GameUI.h"
-#include "../utilities/StateMonitor.h"
+#include "Level.h"
+#include "PlayerInput.h"
 
 constexpr int16_t MOUSE_MIN = 0;
 constexpr int16_t MOUSE_MAX_X = 638;
@@ -25,7 +27,8 @@ void _strupr(char* s)
 
 bool first_enter = true;
 
-__int16 x_WORD_17DBC4 = 0; // weak//x_DWORD_17DBB8[3] 34ebc4
+int16_t x_WORD_17DBC4 = 0; // weak//x_DWORD_17DBB8[3] 34ebc4
+uint8_t* pre_x_DWORD_E9C3C;
 
 char x_BYTE_E1B9C[8] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }; // idb x_WORD_E1964x[0x238+
 char x_BYTE_E1BA4[8] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }; // idb x_WORD_E1964x[0x240+
@@ -7538,4 +7541,11 @@ void sub_85BF5(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6)//266bf5
 		v8--;
 	} while (v8);
 	//return v11;
+}
+
+//----- (00041BC0) --------------------------------------------------------
+void sub_41BC0()//222bc0
+{
+	x_BYTE_D47D9 = 0;
+	x_BYTE_D47D8 = 0;
 }

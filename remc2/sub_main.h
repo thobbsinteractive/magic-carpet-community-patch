@@ -230,22 +230,6 @@ type_D4C52ar;
 #pragma pack (16)
 
 #pragma pack (1)
-typedef struct {//lenght 6
-	int8_t* bitmapData_0;
-	int16_t bitmapIndex_4;
-}
-sub2x_BYTE_E7EE0x;
-
-typedef struct {//lenght 24
-	int32_t dword_0;
-	int32_t dword_4;
-	int32_t dword_8;
-	int32_t dword_12;
-	sub2x_BYTE_E7EE0x* bitmapsStr_16;
-	int8_t* bitmapsData_20xx;
-}
-subx_BYTE_E7EE0x;
-
 typedef struct {
 	unsigned long LastTimeRendered_0;
 	int16_t PosX_4;
@@ -433,19 +417,15 @@ type_WORD_E1F84;
 //BYTE     ncb_reserved[14];
 //		 } NCB;
 
-extern Pathstruct pstr[];
 extern char x_BYTE_D4B80;
 
 void j___delay(x_DWORD); // weak
-unsigned long j___clock();
 
 void WriteBufferToBMP(uint16_t width, uint16_t height, uint8_t* ptrPalette, uint8_t* ptrBuffer, const std::string &filename = "BufferOut.bmp");
 void WriteMenuGraphicToBMP(uint16_t width, uint16_t height, uint8_t scale, uint8_t* ptrPalette, uint8_t* ptrBuffer);
 
 void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
 
-void SetStagetagForTermod_49830(Type_Level_2FECE* terrain);
-void GenerateEvents_49290(Type_Level_2FECE* terrain, char a2, uint16_t width, uint16_t height);
 
 void sub_49F30();
 
@@ -480,7 +460,6 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
-void sub_41BC0();
 void sub_44EE0_smooth_tiles(/*int a1, */uaxis_2d a2);
 void sub_54600_mouse_reset();
 void sub_56A30_init_game_level(unsigned int a1, int16_t level = -1, std::string customLevelPath = "");
@@ -569,14 +548,12 @@ void sub_8BA10(int a2, int* a3, char* a4, int a5);
 double /*__fastcall*/ _CHP(int32_t);// weak
 char sub_8B980(int a1, int a2, char* a3, int a4);
 signed int sub_8BBE0(uint8_t* a1);
-void sub_8CD27_set_cursor(bitmap_pos_struct_t a2);
 signed int sub_8CEDF_install_mouse();
 
 int16_t sub_90B27_VGA_pal_fadein_fadeout(TColor* a1x, uint8_t shadow_levels, bool a3, int32_t frameDelay = 10);
 void sub_90D6E_VGA_set_video_mode_320x200_and_Palette(TColor* Palette);
 void sub_90E07_VGA_set_video_mode_640x480_and_Palette(TColor* Palette);
 void CopyScreen(void* source, void* desc, unsigned __int16 width, unsigned __int16 height);
-size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
 signed int sub_9A10A_check_keyboard();
 bool sub_9AE04(int a1, int a2);
 
@@ -633,19 +610,14 @@ signed int sub_5BF50_load_psxdata();
 
 void CleanF5538_716A0();
 
-void CreateIndexes_6EB90(filearray_struct* a1);
-
 //type_str_0x6E8E* pre_sub_4A190(uint32_t adress, int16_t* a1,int type);
-type_event_0x6E8E* pre_sub_4A190_axis_3d(uint32_t adress, axis_3d* a1);//pre 22b190
 
-void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1);//pre 22b190
 
 //---------------------------
 
 //char sub_54200();
 
 void sub_71410_process_tmaps();
-void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[]);
 void initposistruct();
 
 void Initialize();

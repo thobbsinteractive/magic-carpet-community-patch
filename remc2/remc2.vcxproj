@@ -385,6 +385,8 @@
     <ClInclude Include="engine\XUnk_D4350.h" />
     <ClInclude Include="engine\RenderThread.h" />
     <ClInclude Include="engine\GameUI.h" />
+    <ClInclude Include="engine\Events.h" />
+    <ClInclude Include="engine\Level.h" />
     <ClInclude Include="engine\Player.h" />
     <ClInclude Include="engine\PlayerInput.h" />
     <ClInclude Include="portability\fcaseopen.h" />
@@ -444,6 +446,7 @@
     <ClCompile Include="engine\GameRenderNG.cpp" />
     <ClCompile Include="engine\MenusAndIntros.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
+    <ClInclude Include="engine\GameRenderInterface.cpp" />
     <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
@@ -461,6 +464,8 @@
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
     <ClCompile Include="engine\GameUI.cpp" />
+    <ClCompile Include="engine\Events.cpp" />
+    <ClCompile Include="engine\Level.cpp" />
     <ClCompile Include="engine\Player.cpp" />
     <ClCompile Include="engine\PlayerInput.cpp" />
     <ClCompile Include="portability\dirent.c" />

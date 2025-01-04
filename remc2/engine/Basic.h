@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef MAIN_BASIC
-#define MAIN_BASIC
-
 #if (!defined(WIN32) && !defined(__linux__)) || defined(COMPILE_FOR_64BIT)
   #define TEST_x64//only for x64 testing
 #endif
@@ -243,16 +240,6 @@ typedef struct {
 	bitmap_pos_struct_t** posistruct;
 } filearray_struct;
 
-#pragma pack (16)
-
-#pragma pack (1)
-typedef struct {
-	char path[512];
-	uint8_t** colorPalette_var28;//1C // Palette
-	uint8_t** var32_end_buffer;//20 // maybe buffer
-	uint32_t var36_size_buffer;//24 //maybe file size
-	uint32_t var40_alloc_type;//28
-} Pathstruct;
 #pragma pack (16)
 
 #pragma pack (1)
@@ -615,4 +602,5 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D41A0_BYTESTR_0* to);
 void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_str_E2A74* to);
 
-#endif //MAIN_BASIC
+void sub_417A0_install_pal_and_mouse_minmax();
+unsigned long j___clock();

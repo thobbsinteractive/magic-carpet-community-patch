@@ -393,6 +393,16 @@ typedef struct _str_0x6E8E {//lenght a8//THING
 }
 type_event_0x6E8E;
 
+#pragma pack (1)
+typedef struct {
+	char path[512];
+	uint8_t** colorPalette_var28;//1C // Palette
+	uint8_t** var32_end_buffer;//20 // maybe buffer
+	uint32_t var36_size_buffer;//24 //maybe file size
+	uint32_t var40_alloc_type;//28
+} Pathstruct;
+#pragma pack (16)
+
 #pragma pack (pop)
 /*
 	entite
