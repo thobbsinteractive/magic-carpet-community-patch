@@ -470,6 +470,9 @@
     <ClCompile Include="engine\Type_SecretMapScreenPortals_E2970.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="engine\GameRenderInterface.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="engine\GameRenderHD.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
