@@ -1,6 +1,7 @@
 #include "editor.h"
 
 #include "../remc2/engine/Level.h"
+#include "../remc2/engine/Events.h"
 
 bool changed = false;
 
