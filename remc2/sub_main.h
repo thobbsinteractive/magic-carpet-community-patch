@@ -976,7 +976,6 @@ void sub_2B860(type_event_0x6E8E* a1, unsigned __int8 a2);
 signed int sub_2B9A0(type_event_0x6E8E* a1x);
 void sub_2BA50(type_event_0x6E8E* a1, unsigned __int8 a2);
 void sub_2BBB0(int16_t posX, int16_t posY, bitmap_pos_struct_t a3, uint8_t scale = 1);
-void sub_30870();
 void sub_30D50(type_event_0x6E8E* a1/*, uint8_t v2, uint8_t v4*/);
 void AddQuickfair0A_01_30F60(type_event_0x6E8E* a1);
 void CastSpeedSpell_31100(type_event_0x6E8E* a1);

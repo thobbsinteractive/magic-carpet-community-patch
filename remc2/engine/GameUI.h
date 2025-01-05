@@ -72,7 +72,6 @@ void DrawAndEventsInGame_47560(uint32_t a3, signed int a4, int16_t a5);
 void DrawBottomMenu_2ECC0();
 void ColorizeScreen_2E790(int posX, int posY, int width, int height, uint8_t color);
 void DrawChatMenu_2F6B0();
-void DrawGameFrame_2BE30();
 void DrawPopupTextBox_87610();
 void DrawHelpPopUps_871F0();
 void DrawTextPauseEndOfLevel_2CE30(int16_t posX, int16_t posY, uint8_t scale = 1);

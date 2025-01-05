@@ -13,6 +13,7 @@
 
 
 char x_BYTE_D419D_fonttype = 1; // weak
+int16_t x_WORD_D41D4 = 1; // weak
 char* SpellLevelText_DB06C[5] = { (char*)"I",(char*)"II",(char*)"III",(char*)"IV",(char*)"V" };//x_DWORD_DAF50ar[0x11c]//2ac06c
 std::array<uint8_t, 25> IndexLevelText_DB4EE = //x_DWORD_DAF50ar[0x59e] //index for levels endings?
 {
@@ -59,11 +60,13 @@ int16_t x_WORD_E375E_mouse_position_y = 200; // weak
 
 
 void ColorizeScreen_2E850(int posX, int posY, int width, int height, uint8_t color);
-std::vector<std::string> splitTextIntoWords(const std::string& text);
-std::vector<std::string> splitTextIntoLines(const std::string& text, int width);
+void sub_30870();
 void sub_548B0(type_str_0x2BDE* a1);
 signed __int16 sub_10010();
 void sub_889F0(uint16_t a1);
+
+std::vector<std::string> splitTextIntoWords(const std::string& text);
+std::vector<std::string> splitTextIntoLines(const std::string& text, int width);
 
 
 char* x_InterlockedExchange(char**  Target, char*  Value)
@@ -4570,4 +4573,638 @@ void sub_52D70(uint16_t playerIndex, char* cheatMessage)//233d70
 	strcpy(D41A0_0.array_0x2BDE[playerIndex].array_0x01c_2BFA_11258, cheatMessage);
 	D41A0_0.array_0x2BDE[playerIndex].word_0x04d_2C2B_11307 = 100;
 	D41A0_0.array_0x2BDE[playerIndex].word_0x04f_2C2D_11309 = 1;
+}
+
+//----- (0002F6B0) --------------------------------------------------------
+void DrawChatMenu_2F6B0()//2106b0
+{
+	signed int v0; // eax
+	//int v1; // eax
+	unsigned __int8 v2; // dl
+	char v3; // dh
+	__int16 v4; // bx
+	unsigned __int8 v5; // di
+	unsigned __int8 v6; // al
+	__int16 v7; // si
+	int v8; // ebx
+	__int16 v9; // di
+	unsigned int v10; // ebx
+	__int16 v11; // si
+	unsigned __int8 v12; // al
+	__int16 v13; // ST04_2
+	__int16 v14; // ST00_2
+	__int16 v15; // si
+	__int16 v16; // bx
+	__int16 v17; // si
+	__int16 v18; // bx
+	bitmap_pos_struct_t v19; // eax
+	int v20; // ebx
+	__int16 v21; // si
+	bitmap_pos_struct_t v22; // eax
+	signed int v23; // eax
+	int v24; // ebx
+	int v25; // esi
+	char v26; // al
+	bitmap_pos_struct_t v27; // eax
+	__int16 v28; // si
+	__int16 v29; // bx
+	__int16 v30; // si
+	unsigned __int8 v31; // di
+	//int result; // eax
+	//char v33; // [esp+0h] [ebp-Eh]
+	int v34; // [esp+48h] [ebp+3Ah]
+	int v35; // [esp+4Ch] [ebp+3Eh]
+	int v36; // [esp+50h] [ebp+42h]
+	int v37; // [esp+54h] [ebp+46h]
+	int v38; // [esp+58h] [ebp+4Ah]
+	int v39; // [esp+5Ch] [ebp+4Eh]
+	int v40; // [esp+60h] [ebp+52h]
+	//x_BYTE *v41; // [esp+64h] [ebp+56h]
+	unsigned __int8 v42; // [esp+68h] [ebp+5Ah]
+	unsigned __int8 v43; // [esp+6Ch] [ebp+5Eh]
+	unsigned __int8 v44; // [esp+70h] [ebp+62h]
+	unsigned __int8 v45; // [esp+74h] [ebp+66h]
+	unsigned __int8 v46; // [esp+78h] [ebp+6Ah]
+	unsigned __int8 v47; // [esp+7Ch] [ebp+6Eh]
+	unsigned __int8 v48; // [esp+80h] [ebp+72h]
+	unsigned __int8 v49; // [esp+84h] [ebp+76h]
+	bool v50; // [esp+88h] [ebp+7Ah]
+	char v51; // [esp+8Ch] [ebp+7Eh]
+
+	//v41 = (x_BYTE *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11230);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+		v0 = 400;
+	else
+		v0 = screenHeight_180624;
+	v40 = v0 - 72;
+	v36 = 0;
+	//v1 = 5 * static_cast<std::underlying_type<MapType_t>::type>(D41A0_BYTESTR_0.terrain_2FECE.MapType);
+	v2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
+	v47 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][1];
+	v3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
+	v48 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
+	v42 = (*xadataclrd0dat.colorPalette_var28)[4095];
+	v44 = (*xadataclrd0dat.colorPalette_var28)[0];
+	v49 = v3;
+	v45 = (*xadataclrd0dat.colorPalette_var28)[240];
+	v43 = (*xadataclrd0dat.colorPalette_var28)[3840];
+	v4 = v40;
+	v51 = -1;
+	DrawLine_2BC80(0, v40, 640, 72, v2);
+	v34 = v49;
+	DrawLine_2BC80(0, v4, 640, 2, v49);
+	v5 = v48;
+	DrawLine_2BC80(0, v40 + 70, 640, 2, v48);
+	DrawLine_2BC80(0, v4, 2, 70, v34);
+	DrawLine_2BC80(v36 + 638, v4, 2, 72, v5);
+	if (x_WORD_E3760_mouse.x < 4
+		|| x_WORD_E3760_mouse.x >= 66
+		|| x_WORD_E3760_mouse.y < v40 + 28
+		|| x_WORD_E3760_mouse.y >= v40 + 66)
+	{
+		v6 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E0_2BE4_12222;
+	}
+	else
+	{
+		v6 = 4 * ((x_WORD_E3760_mouse.y - (v40 + 28)) / 20)
+			+ ((x_WORD_E3760_mouse.x
+				- 4
+				- (__CFSHL__((x_WORD_E3760_mouse.x - 4) >> 31, 4)
+					+ 16 * ((x_WORD_E3760_mouse.x - 4) >> 31))) >> 4);
+	}
+	v46 = v6;
+	v7 = v40 + 4;
+	v8 = v36 + 4;
+	v9 = v36 + 4;
+	v34 = (signed __int16)(v40 + 4);
+	DrawLine_2BC80(v36 + 4, v40 + 4, 372, 20, v47);
+	v35 = v48;
+	DrawLine_2BC80(v9, v34, 372, 2, v48);
+	v38 = v49;
+	DrawLine_2BC80(v9, v7 + 18, 372, 2, v49);
+	DrawLine_2BC80(v9, v34, 2, 18, v35);
+	DrawLine_2BC80(v8 + 370, v34, 2, 20, v38);
+	sprintf(printbuffer, "%s", D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].names_81[v46]);
+	v7 += 2;
+	v8 += 6;
+	DrawText_2BC10(printbuffer, v8, v7, v42);
+	v10 = 8 * strlen(printbuffer) + v8;
+	v11 = v7 + 2;
+	if (x_D41A0_BYTEARRAY_4_struct.byteindex_26 & 8)
+		v12 = v43;
+	else
+		v12 = v47;
+	v13 = v11;
+	v39 = 0;
+	v14 = v10;
+	v15 = v40;
+	v16 = v36;
+	DrawLine_2BC80(v14, v13, 6, 12, v12);
+	v17 = v15 + 28;
+	v18 = v16 + 4;
+	while (v39 < 8)
+	{
+		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E0_2BE4_12222 == v39)
+			v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[155];
+		else
+			v19 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[158];
+		sub_2BB40_draw_bitmap(v18, v17, v19);
+		sprintf(printbuffer, "%d", v39 + 1);
+		DrawText_2BC10(printbuffer, v18 + 4, v17 + 2, v44);
+		if (++v39 == 4)
+		{
+			v18 = 4;
+			v17 += 20;
+		}
+		else
+		{
+			v18 += 16;
+		}
+	}
+	v39 = 0;
+	v20 = v36 + 82;
+	v21 = v40 + 32;
+	while (v39 < 4)
+	{
+		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E1_2BE4_12223 == v39)
+			v22 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[156];
+		else
+			v22 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[159];
+		sub_2BB40_draw_bitmap(v20, v21, v22);
+		switch (v39)
+		{
+		case 0:
+			v37 = 154;
+			break;
+		case 1:
+			v37 = 153;
+			break;
+		case 2:
+			v37 = 152;
+			break;
+		case 3:
+			v37 = 151;
+			break;
+		default:
+			break;
+		}
+		//sub_2BB40_draw_bitmap(v20 + 2, v21 + 2, (uint8_t**)(6 * v37 + **filearray_2aa18c[6]));
+		sub_2BB40_draw_bitmap(v20 + 2, v21 + 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v37]);
+		if (++v39 == 3)
+			v23 = 20;
+		else
+			v23 = 2;
+		v20 += v23 + 68;
+	}
+	v50 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E1_2BE4_12223 != 3;
+	v39 = 0;
+	v24 = v36 + 384;
+	v25 = v40 + 26;
+	while (v39 < 8)
+	{
+		if (D41A0_0.LevelIndex_0xc == v39)
+			++v39;
+		v26 = 1;
+		if (!v50 && (1 << v39) & D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3E3_2BE4_12225)
+			v26 = 0;
+		/*if ( v26 )
+		  v27 = **filearray_2aa18c[6] + 960;
+		else
+		  v27 = **filearray_2aa18c[6] + 942;
+		sub_2BB40_draw_bitmap(v24, v25, (uint8_t**)v27);
+		sub_2BB40_draw_bitmap(v24 + 2, v25 + 2, (uint8_t**)(6 * (v39 + 74) + **filearray_2aa18c[6]));*/
+		if (v26)
+			v27 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[160];
+		else
+			v27 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[157];
+		sub_2BB40_draw_bitmap(v24, v25, v27);
+		sub_2BB40_draw_bitmap(v24 + 2, v25 + 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[v39 + 74]);
+		if (x_WORD_E3760_mouse.x >= v24
+			&& x_WORD_E3760_mouse.x < v24 + 32
+			&& x_WORD_E3760_mouse.y >= v25
+			&& x_WORD_E3760_mouse.y < v25 + 22)
+		{
+			v51 = v39;
+		}
+		v24 += 34;
+		v39++;
+	}
+	v28 = v40 + 4;
+	v29 = v36 + 384;
+	/*sub_2BB40_draw_bitmap(v36 + 384, v40 + 4, (uint8_t**)(**filearray_2aa18c[6] + 1554));
+	sub_2BB40_draw_bitmap(v36 + 474, v28, (uint8_t**)(**filearray_2aa18c[6] + 1566));
+	sub_2BB40_draw_bitmap(v36 + 564, v28, (uint8_t**)(**filearray_2aa18c[6] + 1560));*/
+	sub_2BB40_draw_bitmap(v36 + 384, v40 + 4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[259]);
+	sub_2BB40_draw_bitmap(v36 + 474, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[261]);
+	sub_2BB40_draw_bitmap(v36 + 564, v28, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[260]);
+	v30 = v40 + 50;
+	DrawLine_2BC80(v29, v40 + 50, 236, 18, v47);
+	v31 = v48;
+	DrawLine_2BC80(v29, v30, 236, 2, v48);
+	v38 = v49;
+	DrawLine_2BC80(v29, v40 + 66, 236, 2, v49);
+	DrawLine_2BC80(v29, v30, 2, 16, v31);
+	DrawLine_2BC80(v36 + 618, v30, 2, 18, v38);
+	//result = v51;
+	if (v51 != -1)
+		//v51
+		DrawText_2BC10(D41A0_0.array_0x2BDE[v51].WizardName_0x39f_2BFA_12157, v36 + 390, v40 + 52, v45);
+	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 4
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 6
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 11
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 5)
+	{
+		//result = sub_2BB40_draw_bitmap(x_DWORD_1805B0_mouse.x, x_DWORD_1805B0_mouse.y, (uint8_t**)(**filearray_2aa18c[0] + 6 * (unsigned __int8)x_BYTE_D419E));
+		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E]);
+	}
+	//return result;
+	set_scene(SCENE_FLIGHT_MENU);
+}
+// 8E3D5: using guessed type x_DWORD sprintf(x_DWORD, const char *, ...);
+// D419E: using guessed type char x_BYTE_D419E;
+// D41A0: using guessed type int x_D41A0_BYTEARRAY_0;
+// D41A4: using guessed type int x_DWORD_D41A4;
+// E3760: using guessed type int x_DWORD_E3760;
+// E89F0: using guessed type char x_BYTE_E89F0;
+// E9800: using guessed type char x_BYTE_E9800;
+// E98FF: using guessed type char x_BYTE_E98FF;
+// EA3DC: using guessed type int **filearray_2aa18c[6];
+// EB394: using guessed type int **filearray_2aa18c[0];
+// 1805B0: using guessed type int x_DWORD_1805B0_mouse.x;
+// 1805B4: using guessed type int x_DWORD_1805B0_mouse.y;
+// 1805C2: using guessed type __int16 x_WORD_1805C2_joystick;
+// 180660: using guessed type __int16 x_WORD_180660_VGA_type_resolution;
+
+//----- (0002FD90) --------------------------------------------------------
+void DrawPauseMenu_2FD90(uint8_t scale)//210d90
+{
+	signed int v1; // ebx
+	signed int v2; // ebx
+	signed int v3; // ebx
+	int16_t heigth; // [esp+0h] [ebp-14h]
+	int16_t width; // [esp+4h] [ebp-10h]
+	int16_t posX; // [esp+8h] [ebp-Ch]
+	int16_t posY; // [esp+Ch] [ebp-8h]
+	uint8_t colour; // [esp+10h] [ebp-4h]
+
+	colour = (*xadataclrd0dat.colorPalette_var28)[0];
+	if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
+	{
+		if (!x_D41A0_BYTEARRAY_4_struct.byteindex_206)
+		{
+			GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &heigth, scale);
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[174], scale);//Save Dialog
+			posY += heigth;
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[175], scale);//Load Dialog
+			if (!x_D41A0_BYTEARRAY_4_struct.byteindex_208)
+			{
+				v1 = 0;
+				while (v1 < 2)
+				{
+					v1++;
+					ColorizeScreen_2E790(posX, posY, width - 2, heigth, colour);//Shade Load Dialog
+				}
+			}
+			posY += heigth;
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON], scale);//Sound button
+			if (!soundAble_E3798)
+			{
+				v2 = 0;
+				while (v2 < 2)
+				{
+					v2++;
+					ColorizeScreen_2E790(
+						posX,
+						posY,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON].width_4 * scale,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[SOUND_ICON].height_5 * scale,
+						colour);
+				}
+			}
+			sub_2BB40_draw_bitmap(posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].width_4 * scale), posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON], scale);//Music button
+			if (!musicAble_E37FC)
+			{
+				v3 = 0;
+				while (v3 < 2)
+				{
+					v3++;
+					ColorizeScreen_2E790(
+						posX + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].width_4 * scale),
+						posY,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].width_4 * scale,
+						(*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[MUSIC_ICON].height_5 * scale,
+						colour);
+				}
+			}
+			posY += heigth;
+			sub_2BB40_draw_bitmap(posX, posY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[178], scale);//Settings button
+			set_scene(SCENE_FLIGHT_MENU);
+		}
+		if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
+			|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
+			|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
+			|| unk_18058Cstr.x_WORD_1805C2_joystick == 4
+			|| unk_18058Cstr.x_WORD_1805C2_joystick == 6
+			|| unk_18058Cstr.x_WORD_1805C2_joystick == 11
+			|| unk_18058Cstr.x_WORD_1805C2_joystick == 5)
+		{
+			sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E], scale);
+		}
+		if (x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 & 0x10)
+			sub_30870();
+	}
+
+}
+
+//----- (00030050) --------------------------------------------------------
+void DrawInGameOptionsMenu_30050(uint8_t scale)//211050
+{
+	int v1; // edx
+	int v3; // eax
+	int v4; // eax
+	int v5; // ecx
+	int v6; // edi
+	uint8_t textColour; // dl
+	int v9; // esi
+	int v10; // edi
+	unsigned __int8 v12; // dl
+	//int result; // eax
+	int v14; // [esp+0h] [ebp-20h]
+	int v15; // [esp+4h] [ebp-1Ch]
+	int v16; // [esp+8h] [ebp-18h]
+	int v17; // [esp+Ch] [ebp-14h]
+	char* v18; // [esp+10h] [ebp-10h]
+	int v19; // [esp+14h] [ebp-Ch]
+	int v20; // [esp+18h] [ebp-8h]
+	int v21; // [esp+1Ch] [ebp-4h]
+	int okayBtnPosY = 377;
+	int menuBtnPosY = 67;
+
+	//fix
+	v9 = 0;
+	v10 = 0;
+	//fix
+	v1 = 0;
+	
+	int optionMenuXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			optionMenuXPos = (screenWidth_18062C - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
+		    menuBtnPosY = (screenHeight_180624 / 2) - ((OPTIONS_MENU_BTN_COUNT * (OPTIONS_MENU_BTN_HEIGHT * scale)) / 2);
+			okayBtnPosY = menuBtnPosY + ((OPTIONS_MENU_BTN_HEIGHT * scale) * OPTIONS_MENU_BTN_COUNT) + (4 * scale);
+		}
+
+	while (1)
+	{
+		v21 = v1;
+		if (v1 >= 17)
+			break;
+		sub_1A5B0_getLangStrings(v21 + 1, &v15, &v14);
+		v19 = 1 << v21;
+		if ((1 << v21) & x_D41A0_BYTEARRAY_4_struct.dwordindex_192 && (1 << v21) & x_D41A0_BYTEARRAY_4_struct.dwordindex_188)
+			v3 = v15;
+		else
+			v3 = v14;
+		v18 = (char*)x_DWORD_E9C4C_langindexbuffer[v3];
+		//help mode On and etc
+		v4 = x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale;
+		/*v16 = v2 + *(unsigned __int8 *)(**filearray_2aa18c[6] + 1012);
+			v5 = v2 + v4 - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1024);
+			v17 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1018);
+			v20 = v5;
+			sub_2BB40_draw_bitmap(v2, v0, (uint8_t**)(**filearray_2aa18c[6] + 1008));
+			v6 = v16;
+			sub_2BB40_draw_bitmap(v20, v0, (uint8_t**)(**filearray_2aa18c[6] + 1020));
+			while ( v6 < v20 )
+			{
+			  sub_2BB40_draw_bitmap(v6, v0, (uint8_t**)(**filearray_2aa18c[6] + 1014));
+			  v6 += v17;
+			}*/
+		v16 = optionMenuXPos + ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168].width_4 * scale);
+		v5 = optionMenuXPos + v4 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170].width_4 * scale);
+		v17 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169].width_4 * scale;
+		v20 = v5;
+		sub_2BB40_draw_bitmap(optionMenuXPos, menuBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168], scale);
+		v6 = v16;
+		sub_2BB40_draw_bitmap(v20, menuBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
+		while (v6 < v20)
+		{
+			sub_2BB40_draw_bitmap(v6, menuBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
+			v6 += v17;
+		}
+		if (v19 & x_D41A0_BYTEARRAY_4_struct.dwordindex_192)
+		{
+			if (optionMenuXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x
+				|| optionMenuXPos + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.x
+				|| menuBtnPosY > unk_18058Cstr.x_DWORD_1805B0_mouse.y
+				|| menuBtnPosY + (OPTIONS_MENU_BTN_HEIGHT * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.y)
+			{
+				textColour = (*xadataclrd0dat.colorPalette_var28)[4095];
+			}
+			else
+			{
+				textColour = (*xadataclrd0dat.colorPalette_var28)[3840];
+			}
+		}
+		else
+		{
+			textColour = (*xadataclrd0dat.colorPalette_var28)[0x888];
+		}
+		DrawText_2BC10((char*)v18, optionMenuXPos + (((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (8 * scale) * strlen(v18)) >> 1), menuBtnPosY + (2 * scale), textColour, scale);
+		menuBtnPosY += (OPTIONS_MENU_BTN_HEIGHT * scale);
+		v1 = v21 + 1;
+	}
+
+	int okayBtnXPos = (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - OPTIONS_MENU_BTN_WIDTH) / 2 + (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			okayBtnXPos = ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (OPTIONS_MENU_BTN_WIDTH * scale)) / 2 + (screenWidth_18062C - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2;
+		}
+
+	/*v16 = v8 + *(unsigned __int8 *)(**filearray_2aa18c[6] + 1012);
+	v9 = *(unsigned __int8 *)(**filearray_2aa18c[6] + 1018);
+	v20 = v8 + OPTIONS_MENU_BTN_WIDTH - *(unsigned __int8 *)(**filearray_2aa18c[6] + 1024);
+	sub_2BB40_draw_bitmap(v8, 377, (uint8_t**)(**filearray_2aa18c[6] + 1008));
+	v10 = v16;
+	sub_2BB40_draw_bitmap(v20, 377, (uint8_t**)(**filearray_2aa18c[6] + 1020));
+	while ( v10 < v20 )
+	{
+	  sub_2BB40_draw_bitmap(v10, 377, (uint8_t**)(**filearray_2aa18c[6] + 1014));
+	  v10 += v9;
+	}*/
+	v16 = okayBtnXPos + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168].width_4 * scale;
+	v9 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169].width_4 * scale;
+	v20 = okayBtnXPos + (OPTIONS_MENU_BTN_WIDTH * scale) - (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170].width_4 * scale;
+	sub_2BB40_draw_bitmap(okayBtnXPos, okayBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[168], scale);
+	v10 = v16;
+	sub_2BB40_draw_bitmap(v20, okayBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[170], scale);
+	while (v10 < v20)
+	{
+		sub_2BB40_draw_bitmap(v10, okayBtnPosY, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[169], scale);
+		v10 += v9;
+	}
+
+	int okayBtnTextXPos = (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - OPTIONS_MENU_BTN_WIDTH) / 2;
+	if (x_WORD_180660_VGA_type_resolution != 1)
+		if (!DefaultResolutions())
+		{
+			okayBtnTextXPos = (screenWidth_18062C - (x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale)) / 2 + ((x_D41A0_BYTEARRAY_4_struct.byteindex_186 * scale) - (OPTIONS_MENU_BTN_WIDTH * scale)) / 2;
+		}
+
+	if (okayBtnTextXPos > unk_18058Cstr.x_DWORD_1805B0_mouse.x || okayBtnTextXPos + (OPTIONS_MENU_BTN_WIDTH * scale) <= unk_18058Cstr.x_DWORD_1805B0_mouse.x || unk_18058Cstr.x_DWORD_1805B0_mouse.y < okayBtnPosY || unk_18058Cstr.x_DWORD_1805B0_mouse.y >= (okayBtnPosY + (OPTIONS_MENU_BTN_HEIGHT * scale)))
+		v12 = (*xadataclrd0dat.colorPalette_var28)[4095];
+	else
+		v12 = (*xadataclrd0dat.colorPalette_var28)[3840];
+		
+	if ((!DefaultResolutions())&& (x_WORD_180660_VGA_type_resolution != 1))
+		DrawText_2BC10((char*)"OK", okayBtnTextXPos + (33 * scale), okayBtnPosY + (2 * scale), v12, scale);
+	else
+		DrawText_2BC10((char*)"OK", (640 - x_D41A0_BYTEARRAY_4_struct.byteindex_186) / 2 + (x_D41A0_BYTEARRAY_4_struct.byteindex_186 - OPTIONS_MENU_BTN_WIDTH) / 2 + 33, 379, v12);	
+
+	set_scene(SCENE_FLIGHT_MENU);
+
+	if (unk_18058Cstr.x_WORD_1805C2_joystick == 8
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 12
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 13
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 4
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 6
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 11
+		|| unk_18058Cstr.x_WORD_1805C2_joystick == 5)
+	{
+		sub_2BB40_draw_bitmap(unk_18058Cstr.x_DWORD_1805B0_mouse.x, unk_18058Cstr.x_DWORD_1805B0_mouse.y, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB].posistruct)[x_BYTE_D419E], scale);
+	}
+
+}
+
+//----- (000303D0) --------------------------------------------------------
+void DrawVolumeSettings_303D0(uint8_t scale)//2113d0
+{
+	int16_t height;
+	int16_t width;
+	int16_t posY;
+	int16_t posX;
+	int index = 0;
+	signed int volume = 0;
+
+	unsigned __int8 color1 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][0];
+	unsigned __int8 color2 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][2];
+	unsigned __int8 color3 = str_D94F0_bldgprmbuffer[static_cast<std::underlying_type<MapType_t>::type>(D41A0_0.terrain_2FECE.MapType)][3];
+
+	GetPauseMenuCoordinates_2FFE0(&posX, &posY, &width, &height, scale);
+	switch (x_D41A0_BYTEARRAY_4_struct.byte_38591)
+	{
+	case 1:
+		volume = 127;
+		index = x_D41A0_BYTEARRAY_4_struct.soundVolume_6;
+		break;
+	case 2:
+		volume = 127;
+		index = x_D41A0_BYTEARRAY_4_struct.musicVolume_8;
+		break;
+	}
+	width -= (2 * scale);
+	posY += 4 * height;
+	DrawLine_2BC80(posX, posY, width, (24 * scale), color1);
+	DrawLine_2BC80(posX, posY, width, (2 * scale), color2);
+	DrawLine_2BC80(posX, posY + (22 * scale), width, (2 * scale), color3);
+	DrawLine_2BC80(posX, posY, (2 * scale), (22 * scale), color2);
+	DrawLine_2BC80(width + posX - (2 * scale), posY, (2 * scale), (24 * scale), color3);
+	DrawLine_2BC80(posX + (4 * scale), posY + (4 * scale), width - (8 * scale), (16 * scale), color1);
+	DrawLine_2BC80(posX + (4 * scale), posY + (4 * scale), width - (8 * scale), (2 * scale), color3);
+	DrawLine_2BC80(posX + (4 * scale), posY + (18 * scale), width - (8 * scale), (2 * scale), color2);
+	DrawLine_2BC80(posX + (4 * scale), posY + (4 * scale), (2 * scale), (14 * scale), color3);
+	DrawLine_2BC80(posX + (4 * scale) + width - (8 * scale) - (2 * scale), posY + (4 * scale), (2 * scale), (16 * scale), color2);
+	posY += (6 * scale);
+	posX += (6 * scale);
+	DrawLine_2BC80(posX, posY, width - (12 * scale), (12 * scale), (*xadataclrd0dat.colorPalette_var28)[0]);
+	if (volume > 0) {
+		DrawLine_2BC80(posX, posY, (index * (width - (12 * scale))) / volume, (12 * scale), (*xadataclrd0dat.colorPalette_var28)[240]);
+	}
+}
+
+//----- (00030870) --------------------------------------------------------
+void sub_30870()//211870
+{
+	char* v0; // ebx
+	__int16 v1; // ax
+	//char v3; // [esp+0h] [ebp-32h]
+	Type_TextBox_1804B0 textbox; // [esp+80h] [ebp+4Eh]
+	//__int16 v5; // [esp+82h] [ebp+50h]//v4x[1]
+	//__int16 v6; // [esp+8Ch] [ebp+5Ah]//v4x[6]
+	//__int16 v7; // [esp+8Eh] [ebp+5Ch]//v4x[7]
+	//__int16 v8; // [esp+90h] [ebp+5Eh]//v4x[8]
+	//__int16 v9; // [esp+92h] [ebp+60h]//v4x[9]
+	//__int16 v10; // [esp+94h] [ebp+62h]//v4x[10]
+	//__int16 v11; // [esp+96h] [ebp+64h]//v4x[11]
+	//__int16 v12; // [esp+98h] [ebp+66h]//v4x[12]
+	//__int16 v13; // [esp+9Ah] [ebp+68h]//v4x[13]
+	//char v14; // [esp+B0h] [ebp+7Eh]
+	//char v15; // [esp+B1h] [ebp+7Fh]
+
+	DrawLine_2BC80(4, 286, 632, 190, 0);
+	sprintf(printbuffer, "%d", x_WORD_D41D4);
+	DrawText_2BC10(printbuffer, 10, 300, (*xadataclrd0dat.colorPalette_var28)[4095]);
+	textbox.maxTextboxHeight2_0xe = 400;
+	textbox.minPosX_0x14 = 4;
+	textbox.charWidth_0x10 = 8;
+	textbox.charHeight_0x12 = 14;
+	textbox.maxPosX_0x16 = 636;
+
+	if (!DefaultResolutions())
+	{
+		textbox.maxPosX_0x16 = screenWidth_18062C - 4;
+	}
+
+	v0 = x_DWORD_E9C4C_langindexbuffer[x_WORD_D41D4];
+	textbox.maxTextboxWidth2_0xc = 600;
+	textbox.maxTextboxWidth_0x0 = 320;
+	textbox.color1_0x30 = (*xadataclrd0dat.colorPalette_var28)[3840];
+	textbox.color2_0x31 = (*xadataclrd0dat.colorPalette_var28)[0];
+	textbox.minPosY_0x18 = 310;
+	textbox.maxPosY_0x1a = 630;
+	textbox.maxTextboxHeight_0x2 = 310;
+	if (!DefaultResolutions())
+	{
+		textbox.maxPosX_0x16 = screenWidth_18062C - 40;
+		textbox.maxTextboxWidth_0x0 = screenWidth_18062C / 2;
+		textbox.maxTextboxHeight_0x2 = screenHeight_180624 / 2 - 90;
+	}
+	ComputeTextboxSizesFromTextWords_89420(&textbox, v0);
+	ConstrainTextboxSizes_89520(&textbox);
+	ComputeFrameSizes_89980(&textbox);
+	DrawTextboxText_895D0(&textbox, v0);
+	switch (LastPressedKey_1806E4)
+	{
+	case 0x48:
+		if (++x_WORD_D41D4 < 1)
+			x_WORD_D41D4 = 1;
+		if (x_WORD_D41D4 > 470)
+			x_WORD_D41D4 = 470;
+		LastPressedKey_1806E4 = 0;
+		break;
+	case 0x50:
+		v1 = x_WORD_D41D4 - 1;
+		x_WORD_D41D4 = v1;
+		if (v1 < 1)
+			x_WORD_D41D4 = 1;
+		if (x_WORD_D41D4 > 470)
+			x_WORD_D41D4 = 470;
+		LastPressedKey_1806E4 = 0;
+		break;
+	case 0x4b:
+		x_WORD_D41D4 = 1;
+		LastPressedKey_1806E4 = 0;
+		break;
+	case 0x4d:
+		x_WORD_D41D4 = 470;
+		//		LOBYTE(v1) = 0;
+		LastPressedKey_1806E4 = 0;
+		break;
+	}
+	//	return v1;
 }
