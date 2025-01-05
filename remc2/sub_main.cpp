@@ -908,8 +908,6 @@ int sub_5D0A0(type_event_0x6E8E* a1);
 void sub_5D530(type_event_0x6E8E* a1);
 void sub_5DD50(type_event_0x6E8E* a1);
 void sub_5DE30(type_event_0x6E8E* a1);
-x_WORD* sub_60400(__int16 a1, x_WORD* a2, x_WORD* a3);
-void sub_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3);
 //void sub_6F940_sub_draw_text(char* a1, int a2, int a3, uint8_t color);
 //uint8_t GetLetterWidth_6FC10();
 //uint8_t GetLetterHeight_6FC30();

@@ -1569,5 +1569,7 @@ type_event_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4);
 type_event_0x6E8E* sub_487D0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4, char a5);
 void sub_48880(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4);
 type_event_0x6E8E* sub_48930(__int16 posX2, __int16 posY2, __int16 posX, __int16 posY, char a5);
+x_WORD* sub_60400(__int16 a1, x_WORD* a2, x_WORD* a3);
+void sub_6D8B0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3);
 
 #endif //SUB_MAIN_ACTIVE

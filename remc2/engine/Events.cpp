@@ -2933,6 +2933,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 	case 0x241400: {
 #ifdef __linux__ // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+        allert_error();
 #else
 		sub_60400((short)a1_6E8E, 0, 0);
 		stub_fix_it();//bad retyping
@@ -3826,6 +3827,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 	case 0x24e8b0: {
 #ifdef __linux__ // FIXME: types
 		std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+        allert_error();
 #else
 		sub_6D8B0((unsigned short)a1_6E8E, 0, 0);
 		stub_fix_it();//bad retyping
