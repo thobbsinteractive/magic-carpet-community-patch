@@ -1,5 +1,7 @@
 #include "editor.h"
 
+#include "../remc2/engine/Level.h"
+
 bool changed = false;
 
 int stage = 1000;

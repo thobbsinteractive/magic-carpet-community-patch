@@ -446,7 +446,7 @@
     <ClCompile Include="engine\GameRenderNG.cpp" />
     <ClCompile Include="engine\MenusAndIntros.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
-    <ClInclude Include="engine\GameRenderInterface.cpp" />
+    <ClCompile Include="engine\GameRenderInterface.cpp" />
     <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
