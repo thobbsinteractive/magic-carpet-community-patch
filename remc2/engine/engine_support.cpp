@@ -675,6 +675,8 @@ int test_0x6E8E_id_pointer(uint32_t adress) {
 int test_D41A0_id_pointer(uint32_t adress) {
 	if ((adress >= 0x2fc4) && (adress < 0x2fc5))return 2;//event
 
+	if ((adress >= 0x2fd8) && (adress < 0x2fdc))return 2; // mouse position: position_backup_20 in dword_0x3E6_2BE4_12228 in array_0x2BDE
+
 	if ((adress >= 0x314d) && (adress < 0x3151))return 2;//clock - 4 bytes
 	if ((adress >= 0x3999) && (adress < 0x399d))return 2;//clock2 - 4 bytes
 	if ((adress >= 0x41e5) && (adress < 0x41e9))return 2;//clock3 - 4 bytes
