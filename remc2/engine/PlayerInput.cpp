@@ -1322,35 +1322,35 @@ void sub_1A970_change_game_settings(char a1, int a2, int a3)//1fb970
 		v17 = D41A0_0.terrain_2FECE.MapType;
 		if (v17 == MapType_t::Day)
 		{
-      if (a2)
-      {
-        //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
-        //v19 = x_D41A0_BYTEARRAY_4[11] - 1;
-        x_D41A0_BYTEARRAY_4_struct.brightness_11--;// = v19;
-        if (x_D41A0_BYTEARRAY_4_struct.brightness_11 >= 0)
-          goto LABEL_86;
-        if (!a3)
-        {
-          x_D41A0_BYTEARRAY_4_struct.brightness_11 = 4;
-          goto LABEL_86;
-        }
-      }
-      else
-      {
-        //v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
-        //v18 = x_D41A0_BYTEARRAY_4[11] + 1;
-        x_D41A0_BYTEARRAY_4_struct.brightness_11++;// = v18;
-        if (x_D41A0_BYTEARRAY_4_struct.brightness_11 <= 4)
-          goto LABEL_86;
-        if (a3)
-        {
-          x_D41A0_BYTEARRAY_4_struct.brightness_11 = 4;
-          goto LABEL_86;
-        }
-      }
-      x_D41A0_BYTEARRAY_4_struct.brightness_11 = 0;
+			if (a2)
+			{
+				// v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+				// v19 = x_D41A0_BYTEARRAY_4[11] - 1;
+				x_D41A0_BYTEARRAY_4_struct.brightness_11--; // = v19;
+				if (x_D41A0_BYTEARRAY_4_struct.brightness_11 >= 0)
+					goto LABEL_86;
+				if (!a3)
+				{
+					x_D41A0_BYTEARRAY_4_struct.brightness_11 = 4;
+					goto LABEL_86;
+				}
+			}
+			else
+			{
+				// v3 = x_D41A0_BYTEARRAY_4_struct.dwordindex_0;
+				// v18 = x_D41A0_BYTEARRAY_4[11] + 1;
+				x_D41A0_BYTEARRAY_4_struct.brightness_11++; // = v18;
+				if (x_D41A0_BYTEARRAY_4_struct.brightness_11 <= 4)
+					goto LABEL_86;
+				if (a3)
+				{
+					x_D41A0_BYTEARRAY_4_struct.brightness_11 = 4;
+					goto LABEL_86;
+				}
+			}
+			x_D41A0_BYTEARRAY_4_struct.brightness_11 = 0;
 		LABEL_86:
-			sub_47650(a3/*, a2*/);
+			sub_47650(a3 /*, a2*/);
 			return;
 		}
 		if (v17 == MapType_t::Cave)
@@ -2729,87 +2729,87 @@ void sub_46B40()//227b40
 	int16_t v0_tempmousex = x_WORD_E3760_mouse.x;
 	int16_t v0_tempmousey = x_WORD_E3760_mouse.y;
 
-    sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-    sub_417A0_install_pal_and_mouse_minmax();
-    memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-    sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
+	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
+	sub_417A0_install_pal_and_mouse_minmax();
+	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
+	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
 
-    if (pre_x_DWORD_E9C3C)
-    {
-        FreeMem_83E80(pre_x_DWORD_E9C3C);
-        pre_x_DWORD_E9C3C = 0;
-        x_DWORD_E9C3C = 0;
-    }
+	if (pre_x_DWORD_E9C3C)
+	{
+		FreeMem_83E80(pre_x_DWORD_E9C3C);
+		pre_x_DWORD_E9C3C = 0;
+		x_DWORD_E9C3C = 0;
+	}
 
-    sub_54600_mouse_reset();
+	sub_54600_mouse_reset();
 
-    sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
-    sub_6EBF0(&filearray_2aa18c[filearrayindex_MSPRD00DATTAB]);
-    sub_6EBF0(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
+	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+	sub_6EBF0(&filearray_2aa18c[filearrayindex_MSPRD00DATTAB]);
+	sub_6EBF0(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
 
-    sub_47130();
+	sub_47130();
 
-    //Change resolution
-    if (x_WORD_180660_VGA_type_resolution == 1)
-    {
-        sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
-		DataFileIO::sub_90D3F_unload_file_array(psxadatamsprd00dat);
-        x_WORD_180660_VGA_type_resolution = 8;
-    }
-    else
-    {
-        sub_6EBF0(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);
-		DataFileIO::sub_90D3F_unload_file_array(psxadatahsprd00dat);
-        x_WORD_180660_VGA_type_resolution = 1;
-    }
-    sub_47160();
+	//Change resolution
+	if (x_WORD_180660_VGA_type_resolution == 1)
+	{
+		sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
+		sub_90D3F_unload_file_array(psxadatamsprd00dat);
+		x_WORD_180660_VGA_type_resolution = 8;
+	}
+	else
+	{
+		sub_6EBF0(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);
+		sub_90D3F_unload_file_array(psxadatahsprd00dat);
+		x_WORD_180660_VGA_type_resolution = 1;
+	}
+	sub_47160();
 
-    CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
-    CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
+	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
+	CreateIndexes_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
 
-    memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-    if (x_WORD_180660_VGA_type_resolution & 1)
-    {
-        v1 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
-        ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v1);
-    }
-    else
-    {
-        v2 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
-        ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v2);
-    }
-    memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
-    sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
-    if (x_WORD_180660_VGA_type_resolution & 1)
-        sub_90D6E_VGA_set_video_mode_320x200_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
-    else
-    {
-        if (((gameResWidth > 640) || (gameResHeight > 480)) && (x_WORD_180660_VGA_type_resolution != 1))
-        {
-            screenWidth_18062C = gameResWidth;
-            screenHeight_180624 = gameResHeight;
-            sub_90E07_VGA_set_video_mode_alt_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
-        }
-        else
-            sub_90E07_VGA_set_video_mode_640x480_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
-    }
+	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+	{
+		v1 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v1);
+	}
+	else
+	{
+		v2 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v2);
+	}
+	memset((void*)*xadatapald0dat2.colorPalette_var28, 0, 768);
+	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
+	if (x_WORD_180660_VGA_type_resolution & 1)
+		sub_90D6E_VGA_set_video_mode_320x200_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
+	else
+	{
+		if (((gameResWidth > 640) || (gameResHeight > 480)) && (x_WORD_180660_VGA_type_resolution != 1))
+		{
+			screenWidth_18062C = gameResWidth;
+			screenHeight_180624 = gameResHeight;
+			sub_90E07_VGA_set_video_mode_alt_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
+		}
+		else
+			sub_90E07_VGA_set_video_mode_640x480_and_Palette((TColor*)*xadatapald0dat2.colorPalette_var28);
+	}
 
-    sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
-    v3 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
-    uiBackGroundColorIdx_EB3A8 = v3;
-    if (x_WORD_180660_VGA_type_resolution & 1)
-        ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v3);
-    else
-        ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v3);
+	sub_41A90_VGA_Palette_install((TColor*)*xadatapald0dat2.colorPalette_var28);
+	v3 = getPaletteIndex_5BE80((TColor*)*xadatapald0dat2.colorPalette_var28, 0, 0, 0);
+	uiBackGroundColorIdx_EB3A8 = v3;
+	if (x_WORD_180660_VGA_type_resolution & 1)
+		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, 320, 200, v3);
+	else
+		ClearGraphicsBuffer_72883((void*)pdwScreenBuffer_351628, screenWidth_18062C, screenHeight_180624, v3);
 
-    sub_8CEDF_install_mouse();
-    sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-    x_D41A0_BYTEARRAY_4_struct.byteindex_51 = 2;
-    if (x_WORD_180660_VGA_type_resolution == 1)
-        x_BYTE_D419D_fonttype = 1;
-    else
-        x_BYTE_D419D_fonttype = 3;
-    SetMousePositionInMemory_5BDC0(v0_tempmousex, v0_tempmousey);
+	sub_8CEDF_install_mouse();
+	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+	x_D41A0_BYTEARRAY_4_struct.byteindex_51 = 2;
+	if (x_WORD_180660_VGA_type_resolution == 1)
+		x_BYTE_D419D_fonttype = 1;
+	else
+		x_BYTE_D419D_fonttype = 3;
+	SetMousePositionInMemory_5BDC0(v0_tempmousex, v0_tempmousey);
 }
 
 //----- (00075C50) --------------------------------------------------------
