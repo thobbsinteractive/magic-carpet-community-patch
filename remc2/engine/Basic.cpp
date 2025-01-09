@@ -3569,7 +3569,7 @@ void Convert_from_shadow_D41A0_BYTESTR_0(type_shadow_D41A0_BYTESTR_0* from, type
 	to->stageIndex_0x36E01 = from->byte_0x36E01;
 	to->byte_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
-	to->byte_0x36E04 = from->byte_0x36E04;
+	to->byte_counter_current_objective_box_0x36E04 = from->byte_counter_current_objective_box_0x36E04;
 	for (int i = 0; i < 6; i++)to->stub3k[i] = from->stub3k[i];
 	to->byte_0x36E0B = from->byte_0x36E0B;
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];
@@ -3762,7 +3762,7 @@ void Convert_to_shadow_D41A0_BYTESTR_0(type_D41A0_BYTESTR_0* from, type_shadow_D
 	to->byte_0x36E01 = from->stageIndex_0x36E01;
 	to->byte_0x36E02 = from->byte_0x36E02;
 	to->byte_0x36E03 = from->byte_0x36E03;
-	to->byte_0x36E04 = from->byte_0x36E04;
+	to->byte_counter_current_objective_box_0x36E04 = from->byte_counter_current_objective_box_0x36E04;
 	for (int i = 0; i < 6; i++)to->stub3k[i] = from->stub3k[i];
 	to->byte_0x36E0B = from->byte_0x36E0B;
 	for (int i = 0; i < 11; i++)to->stubend[i] = from->stubend[i];

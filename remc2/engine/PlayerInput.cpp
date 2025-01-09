@@ -392,7 +392,7 @@ void sub_17190_process_keyboard()//1f8190
 				}
 				if (pressedKeys_180664[24])
 				{
-					D41A0_0.byte_0x36E04 = 2;
+					D41A0_0.byte_counter_current_objective_box_0x36E04 = 2;
 				}
 				return;
 			}
@@ -421,7 +421,7 @@ void sub_18BB0()//1f9bb0
 		}
 		else
 		{
-			D41A0_0.byte_0x36E04 = 0;
+			D41A0_0.byte_counter_current_objective_box_0x36E04 = 0;
 			v2 = x_D41A0_BYTEARRAY_4_struct.byteindex_206;
 			str_unk_1804B0ar.byte_0xaa = -1;
 			if (!v2 && (unk_18058Cstr.x_WORD_1805C2_joystick == 7 || unk_18058Cstr.x_WORD_1805C2_joystick == 1 || unk_18058Cstr.x_WORD_1805C2_joystick == 2))

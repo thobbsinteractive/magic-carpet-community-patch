@@ -5,7 +5,9 @@
         "cstdlib": "cpp",
         "filesystem": "cpp",
         "cstring": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "functional": "cpp",
+        "thread": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
 }

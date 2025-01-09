@@ -5835,7 +5835,7 @@ void ChangeSoundLevel_19CA0(uint8_t option)//1faca0
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.byte_38591)
 	{
-		D41A0_0.byte_0x36E04 = 0;
+		D41A0_0.byte_counter_current_objective_box_0x36E04 = 0;
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 		if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 < 6u || D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].byte_0x3DF_2BE4_12221 > 8u)
 			HandleButtonClick_191B0(20, 10);

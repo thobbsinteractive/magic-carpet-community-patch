@@ -22343,7 +22343,7 @@ void DrawGameFrame_2BE30()//20CE30
 			help_ScreenBuffer = nullptr;
 		} 
 	}
-	if (D41A0_0.byte_0x36E04)
+	if (D41A0_0.byte_counter_current_objective_box_0x36E04)
 		DrawCurrentObjectiveTextbox_30630(scale);
 	GetFont_6FC50(x_BYTE_D419D_fonttype);
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 4))
@@ -43006,9 +43006,9 @@ void sub_59820()//23a820
 	char v10; // cl
 	int v11; // ebx
 
-	if (D41A0_0.byte_0x36E04)
+	if (D41A0_0.byte_counter_current_objective_box_0x36E04)
 	{
-		if (D41A0_0.byte_0x36E04-- == 1)
+		if (D41A0_0.byte_counter_current_objective_box_0x36E04-- == 1)
 			sub_88BA0();
 	}
 	if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x40 && sub_86180(x_WORD_1803EC) == 256)
@@ -43090,7 +43090,7 @@ void sub_59820()//23a820
 			}
 			D41A0_0.byte_0x36E02 = 0;
 			v10 = D41A0_0.byte_0x36E0B;
-			D41A0_0.byte_0x36E04 = -56;
+			D41A0_0.byte_counter_current_objective_box_0x36E04 = 200; // set counter for displaying objective message box to 200
 			if (v10 & 1)
 			{
 			LABEL_36:
@@ -51102,7 +51102,7 @@ void sub_872A0()//2682a0
 	if (v2x->state_0x45_69 == 3)
 		str_unk_1804B0ar.byte_0x9f = str_unk_1804B0ar.byte_0x9f | 4;
 	str_unk_1804B0ar.PopupStatusByte_0x9e &= 0xEF;
-	if (D41A0_0.byte_0x36E04
+	if (D41A0_0.byte_counter_current_objective_box_0x36E04
 		|| x_D41A0_BYTEARRAY_4_struct.byteindex_225
 		|| v2x->state_0x45_69 == 12
 		|| v2x->state_0x45_69 == 11
