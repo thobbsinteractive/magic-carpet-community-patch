@@ -936,6 +936,11 @@ uint32_t compare_with_sequence_D41A0(const char* filename, uint8_t* adress, uint
 			{
 				*origbyte = buffer[i];
 				*copybyte = adress[i];
+				for (int j = 0; (j < 10) && (i+j < size); j++)
+				{
+					std::cout << "buffer[" << i + j << "] = " << (int)buffer[i + j] << "   ";
+					std::cout << "adress[" << i + j << "] = " << (int)adress[i + j] << std::endl;
+				}
 				break;
 			}
 		}
