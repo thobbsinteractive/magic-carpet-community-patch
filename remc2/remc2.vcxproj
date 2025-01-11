@@ -350,6 +350,7 @@
     <ClInclude Include="engine\Compare.h" />
     <ClInclude Include="engine\GameBitmap.h" />
     <ClInclude Include="engine\GameUiConstants.h" />
+    <ClInclude Include="engine\Graphics.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
@@ -446,7 +447,7 @@
     <ClCompile Include="engine\GameRenderNG.cpp" />
     <ClCompile Include="engine\MenusAndIntros.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
-    <ClCompile Include="engine\GameRenderInterface.cpp" />
+    <ClCompile Include="engine\Graphics.cpp" />
     <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />

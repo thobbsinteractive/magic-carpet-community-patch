@@ -5,6 +5,7 @@
 #include "Basic.h"
 #include "Events.h"
 #include "GameUI.h"
+#include "Graphics.h"
 #include "Level.h"
 #include "MenusAndIntros.h"
 #include "Sound.h"

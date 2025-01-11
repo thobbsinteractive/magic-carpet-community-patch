@@ -1,6 +1,7 @@
 #include "sub_main.h"
 #include "engine/CommandLineParser.h"
 #include "engine/GameUI.h"
+#include "engine/Graphics.h"
 #include "engine/MenusAndIntros.h"
 #include "engine/Network.h"
 #include "engine/Player.h"

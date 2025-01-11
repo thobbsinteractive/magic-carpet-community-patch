@@ -4,9 +4,10 @@
 #include "Basic.h"
 #include "Events.h"
 #include "GameUI.h"
+#include "Graphics.h"
 #include "MenusAndIntros.h"
-#include "Terrain.h"
 #include "PlayerInput.h"
+#include "Terrain.h"
 
 
 void LoadTextureData(__int16 vgaTypeResolution, MapType_t MapType, uint8_t* textureBuffer);
