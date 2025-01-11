@@ -207,7 +207,7 @@ bool SaveLevelSLEV_55250(uint8_t savefileindex, char* savefileindex2)//236250 //
 	//x64 fix
 
 	int size = sizeof(shadow_type_D41A0_BYTESTR_0);
-	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
+	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&shadow_type_D41A0_BYTESTR_0, size) == size) success = true;
 	D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393 = temptime;
 
 	//fix for saving
@@ -234,13 +234,13 @@ bool SaveLevelSMAP_55320(uint8_t savefileindex, char* savefileindex2)//236320 //
 	savesmapfile = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (savesmapfile)
 	{
-		WriteFile_98CAA(savesmapfile, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
-		WriteFile_98CAA(savesmapfile, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
-		WriteFile_98CAA(savesmapfile, (uint8_t*)mapShading_12B4E0, 0x10000);
-		WriteFile_98CAA(savesmapfile, (uint8_t*)mapAngle_13B4E0, 0x10000);
-		WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
-		WriteFile_98CAA(savesmapfile, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
-		writedsize = WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
+		DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)mapShading_12B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)mapAngle_13B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
+		DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
+		writedsize = DataFileIO::WriteFile_98CAA(savesmapfile, (uint8_t*)x_BYTE_F2CD0x, 4802) != 4802;
 		DataFileIO::Close(savesmapfile);
 	}
 
@@ -260,7 +260,7 @@ bool SaveLevelSVER_55450(uint8_t savefileindex, int32_t levelNumber, char* savef
 	data[0] = 15;
 	bool success = false;
 	sprintf(printbuffer, "%s/%s/%s%d%s.DAT", gameDataPath.c_str(), "SAVE", "SVER", savefileindex + 1, savefileindex2);
-	if (sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
+	if (DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)data, 2*sizeof(int32_t)) == 8)
 		success = true;
 	return success;
 }
@@ -296,7 +296,7 @@ bool LoadLevel_555D0(uint8_t fileindex, int levelindex)//2365d0
 		temp0x21AE = D41A0_0.str_0x21AE;
 		temp0x21B2 = D41A0_0.str_0x21B2;
 		temp0x21B6 = D41A0_0.str_0x21B6;
-		readSuccess = sub_55750_TestExistingSaveFile(fileindex, levelindex);
+		readSuccess = DataFileIO::sub_55750_TestExistingSaveFile(fileindex, levelindex);
 		//adress  23662a
 		if (readSuccess)
 		{
@@ -465,7 +465,7 @@ void sub_47160()//228160
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
-		sub_84250_load_file_array(psxadatamsprd00dat);
+		DataFileIO::sub_84250_load_file_array(psxadatamsprd00dat);
 
 		//fix
 		filearray_2aa18c[filearrayindex_MSPRD00DATTAB] = { &MSPRD00TAB_BEGIN_BUFFER,&MSPRD00TAB_END_BUFFER,&MSPRD00DAT_BEGIN_BUFFER,&posistruct5 };
@@ -488,7 +488,7 @@ void sub_47160()//228160
 	}
 	else
 	{
-		sub_84250_load_file_array(psxadatahsprd00dat);//tady se to nahraje
+		DataFileIO::sub_84250_load_file_array(psxadatahsprd00dat);//tady se to nahraje
 
 		//fix
 		filearray_2aa18c[filearrayindex_MSPRD00DATTAB] = { &HSPRD00TAB_BEGIN_BUFFER,&HSPRD00TAB_END_BUFFER,&HSPRD00DAT_BEGIN_BUFFER,&posistruct5 };

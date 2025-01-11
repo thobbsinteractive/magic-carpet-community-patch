@@ -89,7 +89,7 @@ xazero,//41
 xadataspellsdatx,//42
 xazero };//43
 
-void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[])
+void DataFileIO::SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[])
 {
 	sprintf(pstr[psxafonts0dat].path, "%s/%s", cdDataPath, "DATA/FONT0.DAT\0");
 	sprintf(pstr[psxafonts0tab].path, "%s/%s", cdDataPath, "DATA/FONT0.TAB\0");
@@ -756,13 +756,13 @@ void DataFileIO::clear_table(huftable_t* data, int count)
 }
 
 //----- (00055C00) --------------------------------------------------------
-bool sub_55C00_TestSaveFile2(int16_t a1)//236c00
+bool DataFileIO::sub_55C00_TestSaveFile2(int16_t a1)//236c00
 {
 	return sub_55750_TestExistingSaveFile(0, a1);
 }
 
 //----- (00055750) --------------------------------------------------------
-bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 //load in game
+bool DataFileIO::sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 //load in game
 {
 	FILE* saveslevfile;
 	int32_t readState;
@@ -802,7 +802,7 @@ bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex)//236750 /
 }
 
 //----- (00090D3F) --------------------------------------------------------
-char* sub_90D3F_unload_file_array(int psindex)//271d3f
+char* DataFileIO::sub_90D3F_unload_file_array(int psindex)//271d3f
 {
 	char* result; // eax
 
@@ -819,7 +819,7 @@ char* sub_90D3F_unload_file_array(int psindex)//271d3f
 }
 
 //----- (00084250) --------------------------------------------------------
-bool sub_84250_load_file_array(int psindex)//265250
+bool DataFileIO::sub_84250_load_file_array(int psindex)//265250
 {
 	//Pathstruct v1; // ebx
 	uint16_t result; // si
@@ -876,7 +876,7 @@ bool sub_84250_load_file_array(int psindex)//265250
 // EA3D8: using guessed type int *xadatapald0dat2.colorPalette_var28;
 
 //----- (0009A2F5) --------------------------------------------------------
-uint8_t* ClearMemoryForPath(Pathstruct path)//27B2f5
+uint8_t* DataFileIO::ClearMemoryForPath(Pathstruct path)//27B2f5
 {
 	uint8_t* result; // eax
 	//2bac30
@@ -892,7 +892,7 @@ uint8_t* ClearMemoryForPath(Pathstruct path)//27B2f5
 }
 
 //----- (0009A32D) --------------------------------------------------------
-signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
+signed int DataFileIO::UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 {
 	//int v1; // edx
 	//int *v2; // eax
@@ -957,7 +957,7 @@ signed int UnpackAndLoadMemoryFromPath(Pathstruct path)//27B32d
 }
 
 //----- (000AB9E1) --------------------------------------------------------
-signed int sub_AB9E1_get_file_unpack_size(const char* path)//28c9e1
+signed int DataFileIO::sub_AB9E1_get_file_unpack_size(const char* path)//28c9e1
 {
 	uint8_t v2[10]; // [esp+0h] [ebp-1Ch]
 	//unsigned __int8 v3; // [esp+4h] [ebp-18h]
@@ -1011,7 +1011,7 @@ signed int sub_AB9E1_get_file_unpack_size(const char* path)//28c9e1
 // 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (00098C48) --------------------------------------------------------
-signed int sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, uint32_t count)//279c48
+signed int DataFileIO::sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, uint32_t count)//279c48
 {
 	int result; // ST14_4
 	FILE* file; // [esp+4h] [ebp-8h]
@@ -1024,12 +1024,12 @@ signed int sub_98C48_open_nwrite_close(const char* filename, uint8_t* buffer, ui
 	return result;
 }
 
-size_t x_write2(FILE* descriptor, uint8_t* buffer, uint32_t size) {
+size_t DataFileIO::x_write2(FILE* descriptor, uint8_t* buffer, uint32_t size) {
 	return fwrite(buffer, 1, size, descriptor);
 };// weak
 
 //----- (00098CAA) --------------------------------------------------------
-size_t WriteFile_98CAA(FILE* filename, uint8_t* buffer, uint32_t num_bytes)//279caa
+size_t DataFileIO::WriteFile_98CAA(FILE* filename, uint8_t* buffer, uint32_t num_bytes)//279caa
 {
 	return x_write2(filename, buffer, num_bytes);
 }

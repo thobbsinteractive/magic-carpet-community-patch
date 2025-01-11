@@ -39709,7 +39709,7 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 			//v13 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
 			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
 			{
-				if (WriteFile_98CAA(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) != 10)
+				if (DataFileIO::WriteFile_98CAA(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (uint8_t*)a1x, 10) != 10)
 					sub_53CC0_close_movie();
 				if (a1x->str_0x6E3E_byte0 == 12)
 					a1x->str_0x6E3E_byte0 = 0;
@@ -39856,7 +39856,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 		return 3;
 	v5 = DataFileIO::FileLengthBytes(file1);
 	v6 = DataFileIO::Read(file1, readbuffer, v5);
-	v19 = WriteFile_98CAA(file2, readbuffer, v6);
+	v19 = DataFileIO::WriteFile_98CAA(file2, readbuffer, v6);
 	DataFileIO::Close(file1);
 	DataFileIO::Close(file2);
 	if (v6 != v19)
@@ -39881,7 +39881,7 @@ char LoadFilesFromCDAndGameData(const char* cdPath, const char* gamePath, const 
 			v11 = 64000;
 		v12 = DataFileIO::Read(file3, readbuffer, v11);
 		v10 -= v12;
-		if (WriteFile_98CAA(file4, readbuffer, v12) != v12)
+		if (DataFileIO::WriteFile_98CAA(file4, readbuffer, v12) != v12)
 		{
 			DataFileIO::Close(file3);
 			DataFileIO::Close(file4);
@@ -39998,7 +39998,7 @@ char sub_54200_create_user_directiores()//235200
 	{
 		versionPath = GetSubDirectoryFile(gameFolder, "CDATA", "VERSION.DAT");
 		readbuffer[0] = 60;
-		sub_98C48_open_nwrite_close(versionPath.c_str(), readbuffer, 4);
+		DataFileIO::sub_98C48_open_nwrite_close(versionPath.c_str(), readbuffer, 4);
 	}
 
 	return v0l;
@@ -40031,10 +40031,10 @@ void sub_54630_load_psxblock(uint16_t TextSize)//235630
 	switch (TextSize)
 	{
 	case 16:
-		sub_84250_load_file_array(psxadatablock16dat);
+		DataFileIO::sub_84250_load_file_array(psxadatablock16dat);
 		break;
 	case 32:
-		sub_84250_load_file_array(psxadatablock32dat);
+		DataFileIO::sub_84250_load_file_array(psxadatablock32dat);
 		break;
 	case 128:
 		break;
@@ -40388,19 +40388,19 @@ bool SaveSMAPSLEVmovie2_54F00(__int16 a1)//235f00 //in game save
 	D41A0_0.dword_0x36DF6 = &str_D7BD6[59];
 
     int size = sizeof(type_shadow_D41A0_BYTESTR_0);
-	sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&D41A0_0, size);
+	DataFileIO::sub_98C48_open_nwrite_close(printbuffer, (uint8_t*)&D41A0_0, size);
 
 	sprintf(printbuffer, "%s/%s%03d.DAT", "MOVIE", "SMAP", a1);
 	FILE* file = DataFileIO::CreateOrOpenFile(printbuffer, 546);
 	if (file != nullptr)
 	{
-		WriteFile_98CAA(file, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
-		WriteFile_98CAA(file, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
-		WriteFile_98CAA(file, (uint8_t*)mapShading_12B4E0, 0x10000);
-		WriteFile_98CAA(file, (uint8_t*)mapAngle_13B4E0, 0x10000);
-		WriteFile_98CAA(file, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
-		WriteFile_98CAA(file, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
-		WriteFile_98CAA(file, (uint8_t*)x_BYTE_F2CD0x, 4802);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapTerrainType_10B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapHeightmap_11B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapShading_12B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapAngle_13B4E0, 0x10000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)x_BYTE_14B4E0_second_heightmap, 0x10000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)mapEntityIndex_15B4E0, 0x20000);
+		DataFileIO::WriteFile_98CAA(file, (uint8_t*)x_BYTE_F2CD0x, 4802);
 		DataFileIO::Close(file);
 	}
 	sub_55100(2);
@@ -40973,7 +40973,7 @@ void sub_560D0_create_sound_dir()//2370d0
 		diginifile = DataFileIO::CreateOrOpenFile(digPath.c_str(), 546);
 		if (diginifile != NULL)
 		{
-			WriteFile_98CAA(diginifile, (uint8_t*)printbuffer, strlen(printbuffer));
+			DataFileIO::WriteFile_98CAA(diginifile, (uint8_t*)printbuffer, strlen(printbuffer));
 			DataFileIO::Close(diginifile);
 		}
 	}
@@ -40988,7 +40988,7 @@ void sub_560D0_create_sound_dir()//2370d0
 		mdiini2 = DataFileIO::CreateOrOpenFile(mdiPath.c_str(), 546);
 		if (mdiini2 != NULL)
 		{
-			WriteFile_98CAA(mdiini2, (uint8_t*)printbuffer, strlen(printbuffer));
+			DataFileIO::WriteFile_98CAA(mdiini2, (uint8_t*)printbuffer, strlen(printbuffer));
 			DataFileIO::Close(mdiini2);
 		}
 	}
@@ -44938,7 +44938,7 @@ void Initialize()//23c8d0
 		exit(-1);
 	}
 
-	SetCDFilePaths(cdDataPath.c_str(), pstr);
+	DataFileIO::SetCDFilePaths(cdDataPath.c_str(), pstr);
 
 	Logger->debug("Init:End of creating dirs\n");
 
@@ -45177,27 +45177,27 @@ signed int sub_5BF50_load_psxdata()//23cf50 //find 2bc394
 	x_DWORD_181C40_vga_init_buffer = (uint8_t*)Malloc_83D70(0x100); //fix it 264D70
 	if (x_DWORD_181C40_vga_init_buffer)
 	{
-		if (sub_84250_load_file_array(psxasearchd_2bac30))//psxasearchd_2bac30~=2a9a54   set 2bc394(after 2A9A54) - set 2bab20
+		if (DataFileIO::sub_84250_load_file_array(psxasearchd_2bac30))//psxasearchd_2bac30~=2a9a54   set 2bc394(after 2A9A54) - set 2bab20
 		{
 			myprintf("NOT ENOUGH MEMORY\n");
-			sub_90D3F_unload_file_array(psxasearchd_2bac30);
+			DataFileIO::sub_90D3F_unload_file_array(psxasearchd_2bac30);
 			result = 0;
 		}
 		else
 		{
-			if (sub_84250_load_file_array(psxadatabuild00dat))
+			if (DataFileIO::sub_84250_load_file_array(psxadatabuild00dat))
 			{
 				myprintf("NOT ENOUGH MEMORY\n");
-				sub_90D3F_unload_file_array(psxasearchd_2bac30);
-				sub_90D3F_unload_file_array(psxadatabuild00dat);
+				DataFileIO::sub_90D3F_unload_file_array(psxasearchd_2bac30);
+				DataFileIO::sub_90D3F_unload_file_array(psxadatabuild00dat);
 				result = 0;
 			}
 			else
 			{
 				sub_539A0_load_bldgprm();
-				if (sub_84250_load_file_array(psxawscreen_351628))
+				if (DataFileIO::sub_84250_load_file_array(psxawscreen_351628))
 				{
-					sub_90D3F_unload_file_array(psxawscreen_351628);
+					DataFileIO::sub_90D3F_unload_file_array(psxawscreen_351628);
 					myprintf("NOT ENOUGH MEMORY\n");
 					result = 0;
 				}
@@ -45223,9 +45223,9 @@ signed int sub_5BF50_load_psxdata()//23cf50 //find 2bc394
 //----- (0005C060) --------------------------------------------------------
 signed int sub_5C060()//23d060
 {
-	sub_90D3F_unload_file_array(psxasearchd_2bac30);
-	sub_90D3F_unload_file_array(psxadatabuild00dat);
-	sub_90D3F_unload_file_array(psxawscreen_351628);
+	DataFileIO::sub_90D3F_unload_file_array(psxasearchd_2bac30);
+	DataFileIO::sub_90D3F_unload_file_array(psxadatabuild00dat);
+	DataFileIO::sub_90D3F_unload_file_array(psxawscreen_351628);
 	return 1;
 }
 

@@ -459,7 +459,7 @@ void sub_18BB0()//1f9bb0
 			x_D41A0_BYTEARRAY_4_struct.byteindex_225 = 1;
 	}
 	//LOBYTE(result) = sub_55C00(x_D41A0_BYTEARRAY_4_struct.levelnumber_43);
-	x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00_TestSaveFile2(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
+	x_D41A0_BYTEARRAY_4_struct.byteindex_208 = DataFileIO::sub_55C00_TestSaveFile2(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
 	//return result;
 }
 // D419E: using guessed type char x_BYTE_D419E;
@@ -2624,7 +2624,7 @@ void ReadOkayCancelButtonEvents_19E00()//1fae00
 				sprintf(printbuffer, "%s:%s.", x_DWORD_E9C4C_langindexbuffer[424], x_DWORD_E9C4C_langindexbuffer[429]);//429 - Failed
 			sub_52D70(0, printbuffer);
 			selectSpell = true;
-			x_D41A0_BYTEARRAY_4_struct.byteindex_208 = sub_55C00_TestSaveFile2(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
+			x_D41A0_BYTEARRAY_4_struct.byteindex_208 = DataFileIO::sub_55C00_TestSaveFile2(x_D41A0_BYTEARRAY_4_struct.levelnumber_43w);
 			break;
 		}
 	}
@@ -2752,13 +2752,13 @@ void sub_46B40()//227b40
     if (x_WORD_180660_VGA_type_resolution == 1)
     {
         sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
-        sub_90D3F_unload_file_array(psxadatamsprd00dat);
+		DataFileIO::sub_90D3F_unload_file_array(psxadatamsprd00dat);
         x_WORD_180660_VGA_type_resolution = 8;
     }
     else
     {
         sub_6EBF0(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);
-        sub_90D3F_unload_file_array(psxadatahsprd00dat);
+		DataFileIO::sub_90D3F_unload_file_array(psxadatahsprd00dat);
         x_WORD_180660_VGA_type_resolution = 1;
     }
     sub_47160();

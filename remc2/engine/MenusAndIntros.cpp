@@ -1517,7 +1517,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		for (int i = 0; i < 10; i++)
 			configDat.keys[i] = x_BYTE_EB39E_keys[i];
 
-		WriteFile_98CAA(configFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
+		DataFileIO::WriteFile_98CAA(configFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
 
 		DataFileIO::Close(configFile);
 	}
@@ -3015,17 +3015,17 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 					v55++;
 				}
 				v53 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2];
-				WriteFile_98CAA(file2, (uint8_t*)&v54, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[x_DWORD_17DE38str.x_WORD_17DF04 - 1][0], 20);
-				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
-				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
-				WriteFile_98CAA(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
-				WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.m_GameSettings, 16);
-				WriteFile_98CAA(file2, (uint8_t*)&v55, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&v53, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611, 505);
-				WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DBC8x, 500);
-				WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DDBCx, 100);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&v54, 4);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[x_DWORD_17DE38str.x_WORD_17DF04 - 1][0], 20);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.m_GameSettings, 16);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&v55, 4);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&v53, 4);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611, 505);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DBC8x, 500);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DDBCx, 100);
 				DataFileIO::Close(file2);
 			}
 		}
@@ -4671,7 +4671,7 @@ void WriteConfigDat_81DB0()//262db0
 			for (int i = 0; i < 10; i++)
 				configDat.keys[i] = x_BYTE_EB39E_keys[i];
 
-			WriteFile_98CAA(configDatFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
+			DataFileIO::WriteFile_98CAA(configDatFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
 			DataFileIO::Close(configDatFile);
 		}
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 0;

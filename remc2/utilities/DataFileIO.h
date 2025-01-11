@@ -13,19 +13,6 @@
 
 extern Pathstruct pstr[];
 
-
-bool sub_55C00_TestSaveFile2(int16_t a1);
-bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex);
-char* sub_90D3F_unload_file_array(int a1);
-bool sub_84250_load_file_array(int psindex);
-void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[]);
-uint8_t* ClearMemoryForPath(Pathstruct path);
-signed int UnpackAndLoadMemoryFromPath(Pathstruct path);
-signed int sub_AB9E1_get_file_unpack_size(const char* a1);
-signed int sub_98C48_open_nwrite_close(const char* file, uint8_t* buffer, uint32_t count);
-size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
-
-
 class DataFileIO
 {
 private:
@@ -127,6 +114,17 @@ public:
 	static void make_huftable(vars_t* v, huftable_t* data, int count);
 	static uint32_t decode_table_data(vars_t* v, huftable_t* data);
 	static void clear_table(huftable_t* data, int count);
+	static bool sub_55C00_TestSaveFile2(int16_t a1);
+	static bool sub_55750_TestExistingSaveFile(uint8_t fileindex, int levelindex);
+	static char* sub_90D3F_unload_file_array(int a1);
+	static bool sub_84250_load_file_array(int psindex);
+	static void SetCDFilePaths(const char* cdDataPath, Pathstruct pstr[]);
+	static uint8_t* ClearMemoryForPath(Pathstruct path);
+	static signed int UnpackAndLoadMemoryFromPath(Pathstruct path);
+	static signed int sub_AB9E1_get_file_unpack_size(const char* a1);
+	static signed int sub_98C48_open_nwrite_close(const char* file, uint8_t* buffer, uint32_t count);
+	static size_t WriteFile_98CAA(FILE* a1, uint8_t* a2, uint32_t a3);
+	static size_t x_write2(FILE* descriptor, uint8_t* buffer, uint32_t size);
 
 
 private:
