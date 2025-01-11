@@ -52481,6 +52481,10 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 			}
 		}
 	}
+	catch (const thread_exit_exception& e)
+	{
+		Logger->info("Immediate Exit called");
+	}
 	catch (const std::exception& e)
 	{
 		Logger->critical("Critial Error: {}", e.what());

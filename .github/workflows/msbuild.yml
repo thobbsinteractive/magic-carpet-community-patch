@@ -21,7 +21,7 @@ jobs:
         BUILD_PLATFORM: [x86, x64]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
     - name: Add MSBuild to PATH
@@ -62,7 +62,7 @@ jobs:
 
     - name: Archive x86
       if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x86' }}    
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: remc2-win-x86
         path: ${{env.SOLUTION_FILE_PATH}}/Release/
@@ -70,7 +70,7 @@ jobs:
         
     - name: Archive x64
       if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: remc2-win-x64
         path: ${{env.SOLUTION_FILE_PATH}}/${{matrix.BUILD_PLATFORM}}/Release/
@@ -78,7 +78,7 @@ jobs:
         
     - name: Archive Enhanced Graphics
       if: ${{ github.REF_NAME == 'master' && matrix.BUILD_CONFIGURATION == 'Release' && matrix.BUILD_PLATFORM == 'x64' }}    
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: enhanced-graphics
         path: |
