@@ -707,9 +707,7 @@ int /*__fastcall*/ nullsub_1(x_DWORD) { stub_fix_it(); return 0; }; // weak
 //int sub_365F8() { stub_fix_it();return 0; }; // weak 222712
 
 int sub_8E0D0() { stub_fix_it(); return 0; }; // weak
-void sub_8F4B0(HMDIDRIVER user) { stub_fix_it(); }; // weak
 int dword_1820E0 = 0;
-void sub_99830(HMDIDRIVER  /*user*/) { stub_fix_it(); }; // weak
 void j___delay(x_DWORD x) { mydelay(x);}; // weak
 int j_j___clock(x_DWORD, x_DWORD, char*) { stub_fix_it(); return 0; }; // weak
 
@@ -1077,7 +1075,6 @@ int sub_9937E_set_video_mode(__int16 a1);
 // int sub_994BA_cursor_move(__int16 a1);
 signed int sub_9951B(__int16 a1);
 int sub_995B0_test_vga_driver();
-void sub_99830(uint32_t user); // weak
 signed int sub_99FF0(char* a1, char** a2, signed int a3);
 int sub_9AD16_free_mem_pool(void* a1);
 int sub_9AD9C(int a1);
