@@ -2753,13 +2753,13 @@ void sub_46B40()//227b40
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
 		sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
-		sub_90D3F_unload_file_array(psxadatamsprd00dat);
+		DataFileIO::sub_90D3F_unload_file_array(psxadatamsprd00dat);
 		x_WORD_180660_VGA_type_resolution = 8;
 	}
 	else
 	{
 		sub_6EBF0(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);
-		sub_90D3F_unload_file_array(psxadatahsprd00dat);
+		DataFileIO::sub_90D3F_unload_file_array(psxadatahsprd00dat);
 		x_WORD_180660_VGA_type_resolution = 1;
 	}
 	sub_47160();
