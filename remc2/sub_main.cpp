@@ -961,7 +961,6 @@ int sub_75B80_alloc_mem_block(int a1, x_WORD* a2, x_WORD* a3);
 //void sub_75DB0();
 //void /*__fastcall*/ sub_75E70();
 //void PlayIntoFmv(__int16 a1, __int16 a2, uint8_t* a3, char* path);
-//void sub_76260_read_intro_Palette(uint8_t a1);
 //void sub_76300();
 //int sub_76430();
 //int sub_76540();

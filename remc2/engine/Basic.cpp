@@ -1310,43 +1310,6 @@ void sub_7C120_draw_bitmap_640(int16_t posx, int16_t posy, bitmap_pos_struct_t t
 	sub_2BB40_draw_bitmap(posx, posy, tempstr);//ebp
 }
 
-//----- (00076260) --------------------------------------------------------
-void sub_76260_read_intro_Palette(uint8_t  /*a1*/)
-{
-	TColor* v0x; // ebx
-	int v1; // esi
-	//unsigned int result; // eax
-	unsigned __int16 v3; // di
-	uint16_t v4; // [esp+0h] [ebp-Ch]
-	int32_t v5; // [esp+4h] [ebp-8h]
-	unsigned __int8 v6; // [esp+8h] [ebp-4h]
-
-	v0x = unk_17D838x;
-	v1 = 0;
-	sub_75D70((uint8_t*)&v4, 2u);
-	if (v4 > 0u)
-	{
-		do
-		{
-			sub_75D70((uint8_t*)&v6, 1u);
-			//v0 += 3 * v6;
-			v0x += v6;
-			v5 = 0;
-			sub_75D70((uint8_t*)&v5, 1u);
-			if (!v5)
-				v5 = 256;
-			for (v3 = 0; v3 < v5; v3++)//mybe read Palette
-			{
-				sub_75D70((uint8_t*)v0x, 3u);
-				//v0 += 3;
-				v0x++;
-			}
-			v1++;
-		} while (v1 < v4);
-	}
-	//return result;
-}
-
 //----- (0005BE80) --------------------------------------------------------
 uint8_t getPaletteIndex_5BE80(TColor* Palettex, uint8_t red_color, uint8_t green_color, uint8_t blue_color)//23ce80
 {
