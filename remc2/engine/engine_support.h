@@ -1241,7 +1241,7 @@ typedef struct {//lenght 224791
 	uint8_t stageIndex_0x36E01;//count objectives
 	int8_t byte_0x36E02;//temp objective
 	int8_t byte_0x36E03;
-	int8_t byte_0x36E04;
+	uint8_t byte_counter_current_objective_box_0x36E04;
 	uint8_t stub3k[6];
 	int8_t byte_0x36E0B;
 	uint8_t stubend[11];
@@ -1400,7 +1400,7 @@ typedef struct {//lenght 224791
 	uint8_t byte_0x36E01;
 	int8_t byte_0x36E02;
 	int8_t byte_0x36E03;
-	int8_t byte_0x36E04;
+	uint8_t byte_counter_current_objective_box_0x36E04;
 	uint8_t stub3k[6];
 	int8_t byte_0x36E0B;
 	uint8_t stubend[11];

@@ -806,8 +806,8 @@ void convert_struct_to_array_D41A0_0(type_D41A0_BYTESTR_0* input,uint8_t* output
 	memcpy(output + 0x36E02, &input->byte_0x36E02, 1);
 	//int8_t byte_0x36E03;
 	memcpy(output + 0x36E03, &input->byte_0x36E03, 1);
-	//int8_t byte_0x36E04;
-	memcpy(output + 0x36E04, &input->byte_0x36E04, 1);
+	//uint8_t byte_counter_current_objective_box_0x36E04;
+	memcpy(output + 0x36E04, &input->byte_counter_current_objective_box_0x36E04, 1);
 	//uint8_t stub3k[6];
 	memset(output + 0x36E05, 0, 6);
 	//int8_t byte_0x36E0B;

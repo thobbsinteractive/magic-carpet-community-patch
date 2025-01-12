@@ -224,7 +224,7 @@ void StateMonitor::MonitorD41A0() {
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, stageIndex_0x36E01);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E02);
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E03);
-    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E04);
+    MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_counter_current_objective_box_0x36E04);
 	// uint8_t stub3k[6];
     MONITOR_STRUCT_VARIABLE_HEX(D41A0_0, byte_0x36E0B);
 	// uint8_t stubend[11];

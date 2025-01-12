@@ -598,7 +598,7 @@ void DrawCurrentObjectiveTextbox_30630(uint8_t scale)//211630
 			else if (x_D41A0_BYTEARRAY_4_struct.setting_38545 & 0x20
 				&& !D41A0_0.struct_0x3659C[D41A0_0.LevelIndex_0xc].substr_3659C.ObjectiveText_1)
 			{
-				D41A0_0.byte_0x36E04 = 0;
+				D41A0_0.byte_counter_current_objective_box_0x36E04 = 0;
 			}
 			else
 			{
@@ -669,6 +669,9 @@ void sub_41B60()//222b60
 //----- (00052E90) --------------------------------------------------------
 void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool useSound)//233e90
 {
+	// type == 0 -> hide in-game dialog
+	// type == 9 -> show in-game settings dialog
+	// type == 13 -> show in-game abandon game yes/no dialog
 	uint8_t temp_12221 = playStr->byte_0x3DF_2BE4_12221;
 	playStr->byte_0x3DF_2BE4_12221 = type;
 	if (playStr->word_0x007_2BE4_11237 != D41A0_0.LevelIndex_0xc)
@@ -712,7 +715,7 @@ void SetMenuCursorPosition_52E90(type_str_0x2BDE* playStr, uint16_t type, bool u
 	case 0xC:
 	case 0xD:
 	case 0xE:
-		D41A0_0.byte_0x36E04 = 0;
+		D41A0_0.byte_counter_current_objective_box_0x36E04 = 0;  // hide objective message box
 		break;
 	default:
 		break;
