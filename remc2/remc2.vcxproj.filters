@@ -252,6 +252,9 @@
     <ClInclude Include="engine\GameRenderHD.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="engine\Map.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
     <ClInclude Include="engine\MenusAndIntros.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>

@@ -359,6 +359,7 @@
     <ClInclude Include="engine\global_types.h" />
     <ClInclude Include="engine\GameBitmapIndexes.h" />
     <ClInclude Include="engine\LangTextIndexes.h" />
+    <ClInclude Include="engine\Map.h" />
     <ClInclude Include="engine\MapType.h" />
     <ClInclude Include="engine\MenusAndIntros.h" />
     <ClInclude Include="engine\GameRenderOriginal.h" />
