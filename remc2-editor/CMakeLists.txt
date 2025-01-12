@@ -1,6 +1,8 @@
 project(remc2editor C CXX)
 
 set(SOURCE_FILES_EDITOR
+    "ReadConfig.h"
+    "ReadConfig.cpp"
     "editor.cpp"
     "editor_main.cpp"
     "editor.h"
