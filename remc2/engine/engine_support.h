@@ -1,6 +1,4 @@
 #pragma once
-#ifndef ENGINE_SUPPORT_H
-#define ENGINE_SUPPORT_H
 
 #include <stdio.h>
 #include <cstdint>
@@ -900,46 +898,6 @@ typedef struct {
 }
 type_str_0x36442;
 
-typedef struct {//lenght 0x6604u
-	uint16_t word_2FECE;
-	uint16_t word_2FED0;
-	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
-	uint8_t byte_0x2FED3;
-	MapType_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
-	int16_t word_0x2FED5;
-	int16_t word_0x2FED7;
-	int8_t player_0x2FED9[8];
-	uint8_t stubb[4];
-	uint16_t seed_0x2FEE5;//2FEE5//23
-	uint8_t stubb2[2];
-	uint16_t offset_0x2FEE9;//2FEE9//27 //first seed position
-	uint8_t stubc[2];
-	uint16_t raise_0x2FEED;//2FEED//31 //first seed height
-	uint8_t stubc2[2];
-	uint16_t gnarl_0x2FEF1;//2FEF1//35 //random seed
-	uint8_t stubc3[2];
-	uint32_t river_0x2FEF5;//2FEF5//39
-	uint16_t lriver_0x2FEF9;//2FEF9//43
-	uint8_t stube[2];
-	uint16_t source_0x2FEFD;//2FEFD//47
-	uint8_t stubf[2];
-	uint16_t snLin_0x2FF01;//2FF01//51
-	uint8_t stubg[2];
-	uint16_t snFlt_0x2FF05;//2FF05//55
-	uint8_t stubh[2];
-	uint16_t bhLin_0x2FF09;//2FF09//59
-	uint8_t stubi[2];
-	uint16_t bhFlt_0x2FF0D;//2FF0D//63
-	uint8_t stubj[2];
-	uint16_t rkSte_0x2FF11;//2FF11//67
-	uint8_t stubk[1022];
-	type_entity_0x30311 entity_0x30311[1200];//end(next entity) - 0x360d1
-	uint8_t next_0x360D1;
-	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
-	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
-	type_str_0x3647Ac StageVars_0x3647A[11];//8x11
-} Type_Level_2FECE;//Uncompressed level
-
 typedef union {
 	axis_2du axis;
 }
@@ -1179,6 +1137,46 @@ typedef struct {
 	type_str_0x2196 str_0x2196;
 }
 GameSettingsStruct_t;
+
+typedef struct {//lenght 0x6604u
+	uint16_t word_2FECE;
+	uint16_t word_2FED0;
+	uint8_t byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
+	uint8_t byte_0x2FED3;
+	MapType_t MapType;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
+	int16_t word_0x2FED5;
+	int16_t word_0x2FED7;
+	int8_t player_0x2FED9[8];
+	uint8_t stubb[4];
+	uint16_t seed_0x2FEE5;//2FEE5//23
+	uint8_t stubb2[2];
+	uint16_t offset_0x2FEE9;//2FEE9//27 //first seed position
+	uint8_t stubc[2];
+	uint16_t raise_0x2FEED;//2FEED//31 //first seed height
+	uint8_t stubc2[2];
+	uint16_t gnarl_0x2FEF1;//2FEF1//35 //random seed
+	uint8_t stubc3[2];
+	uint32_t river_0x2FEF5;//2FEF5//39
+	uint16_t lriver_0x2FEF9;//2FEF9//43
+	uint8_t stube[2];
+	uint16_t source_0x2FEFD;//2FEFD//47
+	uint8_t stubf[2];
+	uint16_t snLin_0x2FF01;//2FF01//51
+	uint8_t stubg[2];
+	uint16_t snFlt_0x2FF05;//2FF05//55
+	uint8_t stubh[2];
+	uint16_t bhLin_0x2FF09;//2FF09//59
+	uint8_t stubi[2];
+	uint16_t bhFlt_0x2FF0D;//2FF0D//63
+	uint8_t stubj[2];
+	uint16_t rkSte_0x2FF11;//2FF11//67
+	uint8_t stubk[1022];
+	type_entity_0x30311 entity_0x30311[1200];//end(next entity) - 0x360d1
+	uint8_t next_0x360D1;
+	type_str_0x360D2 next_0x360D2[8];//lenght 110  /spells?
+	type_str_0x36442 stages_0x36442[8];//stages(checkpoints)
+	type_str_0x3647Ac StageVars_0x3647A[11];//8x11
+} Type_Level_2FECE;//Uncompressed level
 
 typedef struct {//lenght 224791
 	std::array<uint8_t, 4> stub0;
@@ -1696,5 +1694,3 @@ void write_bitmap_pos_struct_to_png(uint8_t* buffer, int width, int height, cons
 
 int my_sign32(int32_t var);
 int my_sign16(int16_t var);
-
-#endif //ENGINE_SUPPORT_ACTIVE

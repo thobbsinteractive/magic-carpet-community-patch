@@ -2,9 +2,11 @@
 
 #include <algorithm>
 
+#include "../utilities/StateMonitor.h"
 #include "CommandLineParser.h"
 #include "GameUI.h"
-#include "../utilities/StateMonitor.h"
+#include "Level.h"
+#include "PlayerInput.h"
 
 constexpr int16_t MOUSE_MIN = 0;
 constexpr int16_t MOUSE_MAX_X = 638;
@@ -25,7 +27,8 @@ void _strupr(char* s)
 
 bool first_enter = true;
 
-__int16 x_WORD_17DBC4 = 0; // weak//x_DWORD_17DBB8[3] 34ebc4
+int16_t x_WORD_17DBC4 = 0; // weak//x_DWORD_17DBB8[3] 34ebc4
+uint8_t* pre_x_DWORD_E9C3C;
 
 char x_BYTE_E1B9C[8] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }; // idb x_WORD_E1964x[0x238+
 char x_BYTE_E1BA4[8] = { '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }; // idb x_WORD_E1964x[0x240+
@@ -1125,9 +1128,10 @@ bool NewGameDialog_77350(type_WORD_E1F84* a1x)//258350
 
 	v1 = 0;
 	map_not_moving_WORD_E29D6 = false;
-	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2
-		&& x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24)
+	if (D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w == 24) {
+		// show credits after finishing the last level
 		sub_833C0();
+	}
 	memset((void*)&unk_17DBA8str, 0, 16);
 	unk_17DBA8str.x_BYTE_17DBB6 = 2;
 	if (x_BYTE_D419C_level_num <= -1)
@@ -1513,7 +1517,7 @@ char LanguageSettingDialog_779E0(type_WORD_E1F84* a1y)//2589E0
 		for (int i = 0; i < 10; i++)
 			configDat.keys[i] = x_BYTE_EB39E_keys[i];
 
-		WriteFile_98CAA(configFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
+		DataFileIO::WriteFile_98CAA(configFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
 
 		DataFileIO::Close(configFile);
 	}
@@ -3011,17 +3015,17 @@ char SaveGameDialog_78730(type_WORD_E1F84* a1x)//259730
 					v55++;
 				}
 				v53 = D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dw_w_b_0_2BDE_11230.byte[2];
-				WriteFile_98CAA(file2, (uint8_t*)&v54, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[x_DWORD_17DE38str.x_WORD_17DF04 - 1][0], 20);
-				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
-				WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
-				WriteFile_98CAA(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
-				WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.m_GameSettings, 16);
-				WriteFile_98CAA(file2, (uint8_t*)&v55, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&v53, 4);
-				WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611, 505);
-				WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DBC8x, 500);
-				WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DDBCx, 100);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&v54, 4);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&x_DWORD_17DE38str.xx_BYTE_17DF14[x_DWORD_17DE38str.x_WORD_17DF04 - 1][0], 20);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.player_name_57ar, 32);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_D41A0_BYTEARRAY_4_struct.savestring_89, 32);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&secretMapScreenPortals_E2970, 102);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.m_GameSettings, 16);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&v55, 4);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&v53, 4);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)&D41A0_0.array_0x2BDE[0].dword_0x3E6_2BE4_12228.str_611, 505);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DBC8x, 500);
+				DataFileIO::WriteFile_98CAA(file2, (uint8_t*)x_DWORD_17DDBCx, 100);
 				DataFileIO::Close(file2);
 			}
 		}
@@ -4667,7 +4671,7 @@ void WriteConfigDat_81DB0()//262db0
 			for (int i = 0; i < 10; i++)
 				configDat.keys[i] = x_BYTE_EB39E_keys[i];
 
-			WriteFile_98CAA(configDatFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
+			DataFileIO::WriteFile_98CAA(configDatFile, (uint8_t*)&configDat, sizeof(TypeConfigDat));
 			DataFileIO::Close(configDatFile);
 		}
 		x_D41A0_BYTEARRAY_4_struct.setting_38402 = 0;
@@ -7537,4 +7541,11 @@ void sub_85BF5(uint8_t* a1, uint8_t* a2, int a3, int a4, int a5, int a6)//266bf5
 		v8--;
 	} while (v8);
 	//return v11;
+}
+
+//----- (00041BC0) --------------------------------------------------------
+void sub_41BC0()//222bc0
+{
+	x_BYTE_D47D9 = 0;
+	x_BYTE_D47D8 = 0;
 }

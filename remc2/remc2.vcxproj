@@ -350,6 +350,7 @@
     <ClInclude Include="engine\Compare.h" />
     <ClInclude Include="engine\GameBitmap.h" />
     <ClInclude Include="engine\GameUiConstants.h" />
+    <ClInclude Include="engine\Graphics.h" />
     <ClInclude Include="engine\GameRenderInterface.h" />
     <ClInclude Include="engine\GameRenderGL.h" />
     <ClInclude Include="engine\GameRenderHD.h" />
@@ -385,6 +386,10 @@
     <ClInclude Include="engine\XUnk_D4350.h" />
     <ClInclude Include="engine\RenderThread.h" />
     <ClInclude Include="engine\GameUI.h" />
+    <ClInclude Include="engine\Events.h" />
+    <ClInclude Include="engine\Level.h" />
+    <ClInclude Include="engine\Player.h" />
+    <ClInclude Include="engine\PlayerInput.h" />
     <ClInclude Include="portability\fcaseopen.h" />
     <ClInclude Include="portability\port_net.h" />
     <ClInclude Include="portability\port_sdl_joystick.h" />
@@ -442,6 +447,7 @@
     <ClCompile Include="engine\GameRenderNG.cpp" />
     <ClCompile Include="engine\MenusAndIntros.cpp" />
     <ClCompile Include="engine\GameRenderOriginal.cpp" />
+    <ClCompile Include="engine\Graphics.cpp" />
     <ClCompile Include="engine\Network.cpp" />
     <ClCompile Include="engine\ProjectionPolygon.cpp" />
     <ClCompile Include="engine\Sound.cpp" />
@@ -459,6 +465,10 @@
     <ClCompile Include="engine\XUnk_D4350.cpp" />
     <ClCompile Include="engine\RenderThread.cpp" />
     <ClCompile Include="engine\GameUI.cpp" />
+    <ClCompile Include="engine\Events.cpp" />
+    <ClCompile Include="engine\Level.cpp" />
+    <ClCompile Include="engine\Player.cpp" />
+    <ClCompile Include="engine\PlayerInput.cpp" />
     <ClCompile Include="portability\dirent.c" />
     <ClCompile Include="portability\fcaseopen.cpp" />
     <ClCompile Include="portability\port_net.cpp" />

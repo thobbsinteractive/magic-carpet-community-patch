@@ -3782,3 +3782,15 @@ void Convert_to_shadow_str_E2A74(const type_array_str_E2A74 &from, type_shadow_s
 		to[j].byte_29 = from[j].byte_29;
 	}
 }
+
+unsigned long clock_value()
+{
+	return mygethundredths();
+}
+unsigned long _clock()
+{
+	return clock_value();
+}
+unsigned long j___clock() {
+	return _clock();
+}; // weak

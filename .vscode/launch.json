@@ -16,6 +16,21 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
+            "name": "Game Statemonitor",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build_vscode/inst/bin/remc2",
+            "args": [
+                "--state_monitor"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build_vscode/inst/bin",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
             "name": "Unit Tests",
             "type": "cppdbg",
             "request": "launch",
