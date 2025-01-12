@@ -1,6 +1,7 @@
 #include "Events.h"
 
 #include "GameUI.h"
+#include "Map.h"
 #include "PlayerInput.h"
 #include "Terrain.h"
 #include "Type_D93C0_Bldgprmbuffer.h"
@@ -11,11 +12,14 @@
 // void sub_49090(Type_Level_2FECE* a1, Type_Level_2FECE* a2); // FIXME: investigate this function: the type of param 2 is wrong - this was the original declaration but the fucntion definition was as below with another type
 int shortestLenght_48370(__int16 a1, __int16 a2, __int16 a3);
 int sub_483A0(__int16 a1, int a2, char a3, char a4);
-int sub_48400(int a1, int a2, int a3, int a4);
-type_event_0x6E8E* sub_48690(int16_t a1, int16_t a2, int16_t a3, int16_t a4);
-type_event_0x6E8E* sub_487D0(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4, char a5);
-void sub_48880(unsigned __int16 a1, unsigned __int16 a2, __int16 a3, __int16 a4);
-type_event_0x6E8E* sub_48930(__int16 posX2, __int16 posY2, __int16 posX, __int16 posY, char a5);
+
+typedef std::function<void(uint16_t, uint16_t, uint16_t, uint16_t, uint8_t)> EventInitFunctionType;
+void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
+void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5 = 0);
+void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
+void sub_48880(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, uint8_t a5 = 0);
+void sub_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5);
+
 void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 void PrepareEvents_49540(Type_Level_2FECE* terrain, type_entity_0x30311* entity);
 void ApplyEvents_498A0();
@@ -5196,40 +5200,40 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 	uint16_t tempType; // di
 	unsigned __int16 tempY; // cx
 	unsigned int v8; // eax
-	int(*functionPointer)(); // [esp+4h] [ebp-10h]
+    EventInitFunctionType functionPointer; // [esp+4h] [ebp-10h]
 	unsigned __int16 tempX; // [esp+8h] [ebp-Ch]
 
 	tempEntity = entity;
 	tempSubtype = entity->subtype_0x30311;
 	tempType = entity->type_0x30311;
-	functionPointer = NULL;
+	functionPointer = nullptr;
 	if (entity->type_0x30311 == 0x0A)
 	{
 		switch (entity->subtype_0x30311)
 		{
 			case 0x1C:
 			{
-				functionPointer = (int(*)())sub_48400;
+				functionPointer = &sub_48400;
 				break;
 			}
 			case 0x1D:
 			{
-				functionPointer = (int(*)())sub_48690;
+				functionPointer = &sub_48690;
 				break;
 			}
 			case 0x1F:
 			{
-				functionPointer = (int(*)())sub_487D0;
+				functionPointer = &sub_487D0;
 				break;
 			}
 			case 0x32:
 			{
-				functionPointer = (int(*)())sub_48880;
+				functionPointer = &sub_48880;
 				break;
 			}
 			case 0x50:				
 			{
-				functionPointer = (int(*)())sub_48930;
+				functionPointer = &sub_48930;
 				break;
 			}
 		}
@@ -5282,7 +5286,7 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 					break;
 				}
 			}
-			((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, unsigned int))functionPointer)(
+			functionPointer(
 				tempX,
 				tempY,
 				tempEntity->axis2d_4.x,
@@ -5293,7 +5297,7 @@ void sub_49090(Type_Level_2FECE* terrain, type_entity_0x30311* entity)//22a090
 }
 
 //----- (00048400) --------------------------------------------------------
-int sub_48400(int posX2, int posY2, int posX, int posY)//229400
+void sub_48400(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229400
 {
 	int v4; // eax
 	int v5; // esi
@@ -5323,10 +5327,10 @@ int sub_48400(int posX2, int posY2, int posX, int posY)//229400
 	int v29; // [esp+10h] [ebp-4h]
 	int v30; // [esp+10h] [ebp-4h]
 
-	v4 = shortestLenght_48370(posX2, posX, 256);
+	v4 = shortestLenght_48370(posX2, posX, MAP_SIZE);
 	v5 = v4;
 	v6 = v4;
-	result = shortestLenght_48370(posY2, posY, 256);
+	result = shortestLenght_48370(posY2, posY, MAP_SIZE);
 	v8 = result;
 	if (v5 || result)
 	{
@@ -5417,12 +5421,11 @@ int sub_48400(int posX2, int posY2, int posX, int posY)//229400
 			}
 		}
 	}
-	return result;
 }
 // EB398: using guessed type __int16 x_WORD_EB398;
 
 //----- (00048690) --------------------------------------------------------
-type_event_0x6E8E* sub_48690(int16_t posX2, int16_t posY2, int16_t posX, int16_t posY)//229690
+void sub_48690(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229690
 {
 	int Xdist; // eax
 	signed __int16 Xdir; // si
@@ -5436,9 +5439,9 @@ type_event_0x6E8E* sub_48690(int16_t posX2, int16_t posY2, int16_t posX, int16_t
 	signed __int16 v15; // [esp+Ch] [ebp-8h]
 	int absYdist; // [esp+10h] [ebp-4h]
 
-	Xdist = shortestLenght_48370(posX2, posX, 256);
+	Xdist = shortestLenght_48370(posX2, posX, MAP_SIZE);
 	Xdir = 0;
-	Ydist = shortestLenght_48370(posY2, posY, 256);
+	Ydist = shortestLenght_48370(posY2, posY, MAP_SIZE);
 	if (Xdist)
 	{
 		Xdir = -1;
@@ -5484,11 +5487,10 @@ type_event_0x6E8E* sub_48690(int16_t posX2, int16_t posY2, int16_t posX, int16_t
 		resultx->word_0x1C_28 = v14;
 		resultx->word_0x1E_30 = v15;
 	}
-	return resultx;
 }
 
 //----- (000487D0) --------------------------------------------------------
-type_event_0x6E8E* sub_487D0(unsigned __int16 posX2, unsigned __int16 posY2, __int16 posX, __int16 posY, char a5)//2297d0
+void sub_487D0(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//2297d0
 {
 	__int16 v5; // si
 	unsigned __int16 v6; // bx
@@ -5513,11 +5515,10 @@ type_event_0x6E8E* sub_487D0(unsigned __int16 posX2, unsigned __int16 posY2, __i
 		resultx->life_0x8 = (signed int)v6 >> 8;
 		resultx->byte_0x46_70 = a5;
 	}
-	return resultx;
 }
 
 //----- (00048880) --------------------------------------------------------
-void sub_48880(unsigned __int16 posX2, unsigned __int16 posY2, __int16 posX, __int16 posY)//229880
+void sub_48880(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229880
 {
 	__int16 v4; // si
 	unsigned __int16 v5; // di
@@ -5552,7 +5553,7 @@ void sub_48880(unsigned __int16 posX2, unsigned __int16 posY2, __int16 posX, __i
 int debugcounter_229930 = 0;
 //uint16_t last_v8x = 0;
 //uint16_t last_a1x = 0;
-type_event_0x6E8E* sub_48930(__int16 posX2, __int16 posY2, __int16 posX, __int16 posY, char a5)//229930
+void sub_48930(uint16_t posX2, uint16_t posY2, uint16_t posX, uint16_t posY, uint8_t a5)//229930
 {
 	type_event_0x6E8E* result; // eax
 	__int16 v6; // [esp+0h] [ebp-10h]
@@ -5681,7 +5682,6 @@ type_event_0x6E8E* sub_48930(__int16 posX2, __int16 posY2, __int16 posX, __int16
 		result->word_0x9A_154x = v8x;
 		result->byte_0x46_70 = a5;
 	}
-	return result;
 }
 
 //----- (00048370) --------------------------------------------------------
