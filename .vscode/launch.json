@@ -70,7 +70,8 @@
             "program": "${workspaceFolder}/build_vscode/inst/bin/remc2",
             "args": [
                 "--set_level", "0",
-                "--test_renderers"
+                "--test_renderers",
+                "--config_file_path", "./renderer-config.ini"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build_vscode/inst/bin",
