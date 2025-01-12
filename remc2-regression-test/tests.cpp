@@ -1,4 +1,4 @@
-﻿// Unit-tests.cpp : Tento soubor obsahuje funkci main. Provádění programu se tam zahajuje a ukončuje.
+// Unit-tests.cpp : This file contains the main function. This is where the program execution starts and ends.
 //
 #include <chrono>
 #include <thread>
@@ -10,8 +10,8 @@ int CountFailedRegressionTests() {
 	int numFailedTests = 0;
 
 	Logger->info("--- Regressions tests ---");
-	for (int i = 22; i <= 22; i++)
-		if (i != 22)
+	for (int i = 1; i <= 25; i++)
+		if (i != 22 && i != 25)
 			if (run_regtest(i) != 0)
 			{
 				numFailedTests++;
@@ -28,6 +28,9 @@ int CountFailedRegressionTests() {
 	//   168 byte per element
 	//   -> diff in the 23rd element struct_0x6E8E[22] at position 140
 	//       -> maxMana_0x8C_140 and word_0x94_148
+
+	// diff in level 25
+	// byte_counter_current_objective_box_0x36E04 = 0 instead of 200
 
 	return numFailedTests;
 }
