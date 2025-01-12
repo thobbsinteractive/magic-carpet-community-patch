@@ -1627,6 +1627,7 @@ void pre_sub_4A190_0x6E8E(uint32_t adress, type_event_0x6E8E* a1_6E8E)//pre 22b1
 
 	case 0x205190: {
 		sub_24190(a1_6E8E);
+        break; // FIXME: this break was missing here - was this a mistake?
 	}
 	case 0x205400: {
 		sub_24400(a1_6E8E);
