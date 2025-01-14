@@ -132,18 +132,11 @@ void loadlevel(int levelnumber) {
 }
 
 
-void editor_run(std::string gameFolderParam, std::string cdFolderParam)
+void editor_run()
 {	
 	*xadataclrd0dat.colorPalette_var28 = (uint8_t*)malloc(4096);//fix it 3x256 ?
 
 	initposistruct();
-
-	if (gameFolderParam != "")
-		strcpy(gameFolder, gameFolderParam.c_str());
-	
-
-	if (cdFolderParam != "")
-		strcpy(cdFolder, cdFolderParam.c_str());
 
 	gameDataPath = GetSubDirectoryPath(gameFolder);
 	cdDataPath = GetSubDirectoryPath(cdFolder);

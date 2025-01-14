@@ -64,6 +64,15 @@ namespace remc2_installer
 										new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
 									}
 								 },
+								 new File(new Id("EDITOR_CONFIG_INI"), @"..\Release\editor-config.ini")
+								 {
+									Permissions = new[] {
+										new FilePermission("Everyone", GenericPermission.All) { ChangePermission = true },
+										new FilePermission("Users", GenericPermission.All) { ChangePermission = true },
+										new FilePermission("AuthenticatedUser", GenericPermission.All) { ChangePermission = true },
+										new FilePermission("CREATOR OWNER", GenericPermission.All)  { ChangePermission = true },
+									}
+								 },
 #if WIN64
 								 new File(new Id("BROTLICOMMON_DLL"), @"..\x64\Release\brotlicommon.dll"),
 								 new File(new Id("BROTLIDEC_DLL"), @"..\x64\Release\brotlidec.dll"),

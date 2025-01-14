@@ -16,6 +16,25 @@
             "miDebuggerPath": "/usr/bin/gdb"
         },
         {
+            "name": "Editor",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build_vscode/inst/bin/remc2-editor",
+            "args": [
+            ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/build_vscode/inst/bin",
+            "environment": [
+                {
+                    "name": "ASAN_OPTIONS",
+                    "value": "detect_leaks=0"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
+        {
             "name": "Game Statemonitor",
             "type": "cppdbg",
             "request": "launch",
