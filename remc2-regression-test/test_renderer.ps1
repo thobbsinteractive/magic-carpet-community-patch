@@ -19,6 +19,9 @@ function Test-Level {
     }
 }
 
-for ($i = 0; $i -le 1; $i++) {
-    Test-Level -level $i
+for ($i = 0; $i -le 3; $i++) {
+	if($i -ne 2)
+	{
+		Test-Level -level $i
+	}
 }

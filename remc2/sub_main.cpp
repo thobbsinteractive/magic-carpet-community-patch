@@ -21980,9 +21980,9 @@ void DrawGameFrame_2BE30()//20CE30
 
 			if (difference > 0) {
 				std::ostringstream screenBufferName;
-				screenBufferName << "ScreenBuffer-level-" << CommandLineParams.GetSetLevel() << "-frame-" << renderer_tests_frame_count << ".bmp";
+				screenBufferName << "Frame-" << renderer_tests_frame_count << "-ScreenBuffer-" << "-Level-" << CommandLineParams.GetSetLevel() << ".bmp";
 				std::ostringstream helpScreenBufferName;
-				helpScreenBufferName << "Help_ScreenBuffer-level-" << CommandLineParams.GetSetLevel() << "-frame-" << renderer_tests_frame_count << ".bmp";
+				helpScreenBufferName << "Frame-" << renderer_tests_frame_count << "-HelpScreenBuffer-" << "-Level-" << CommandLineParams.GetSetLevel() << ".bmp";
 
 				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
 				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
