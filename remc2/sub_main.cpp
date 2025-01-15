@@ -21985,8 +21985,15 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 
 			if (difference > 0) {
+				std::ostringstream screenBufferName;
+				screenBufferName << "Frame-" << renderer_tests_frame_count << "-ScreenBuffer-Level-" << CommandLineParams.GetSetLevel() << ".bmp";
+				std::ostringstream helpScreenBufferName;
+				helpScreenBufferName << "Frame-" << renderer_tests_frame_count << "-HelpScreenBuffer-Level-" << CommandLineParams.GetSetLevel() << ".bmp";
+
 				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
 				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenBufferName.str());
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, helpScreenBufferName.str());
 			}
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
