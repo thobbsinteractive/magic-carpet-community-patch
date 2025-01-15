@@ -73,7 +73,7 @@ private:
 
 	int x_DWORD_D4794 = 0;
 	int x_DWORD_D4798 = 0;
-	char x_BYTE_E126D = 0;
+	char x_BYTE_E126D = 0;     // 7: reflections off, 5: reflections on
 	char x_BYTE_E126C = 112;
 	int x_DWORD_D4790 = 20;
 	int x_DWORD_D4324 = 0;
