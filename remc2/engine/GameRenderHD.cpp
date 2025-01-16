@@ -5496,36 +5496,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v412; // edx
 	unsigned int v413; // eax
 	uint8_t* v414; // esi
-	int v415; // edx
-	__int16 v416; // cx
-	int v417; // edx
-	__int16 v418; // cx
-	int v419; // edx
-	__int16 v420; // cx
-	int v421; // edx
-	__int16 v422; // cx
-	int v423; // edx
-	__int16 v424; // cx
-	int v425; // edx
-	__int16 v426; // cx
-	int v427; // edx
-	__int16 v428; // cx
-	int v429; // edx
-	__int16 v430; // cx
-	int v431; // edx
-	__int16 v432; // cx
-	int v433; // edx
-	__int16 v434; // cx
-	int v435; // edx
-	__int16 v436; // cx
-	int v437; // edx
-	__int16 v438; // cx
-	int v439; // edx
-	__int16 v440; // cx
-	int v441; // edx
-	__int16 v442; // cx
-	int v443; // edx
-	__int16 v444; // cx
 	unsigned __int16* v1045; // esi
 	unsigned int v1046; // eax
 	int v1047; // ebx
@@ -6807,6 +6777,7 @@ LABEL_129:
 						goto LABEL_493;
 					case 7:
 					case 0xB:
+						// flat shading and reflections enabled
 						v405 = (unsigned __int16*)unk_DE56Cx[startLine];
 						v1169 = v1135 << 16;
 						HIWORD(v406) = 0;
@@ -6847,178 +6818,13 @@ LABEL_129:
 										LOWORD(v412) = v1124 + v412;
 										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v412);
-										v415 = v1169 + v412;
+										v412 = v1169 + v412;
 										*v409 = x_BYTE_F6EE0_tablesx[v406];
 										BYTE1(v407) += BYTE2(v1135) + v180;
-										v416 = v408 - 1;
-										if (!v416)
+										v408 = v408 - 1;
+										if (!v408)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v415);
-										LOWORD(v415) = v1124 + v415;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v415);
-										v417 = v1169 + v415;
-										v409[1] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v418 = v416 - 1;
-										if (!v418)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v417);
-										LOWORD(v417) = v1124 + v417;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v417);
-										v419 = v1169 + v417;
-										v409[2] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v420 = v418 - 1;
-										if (!v420)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v419);
-										LOWORD(v419) = v1124 + v419;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v419);
-										v421 = v1169 + v419;
-										v409[3] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v422 = v420 - 1;
-										if (!v422)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v421);
-										LOWORD(v421) = v1124 + v421;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v421);
-										v423 = v1169 + v421;
-										v409[4] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v424 = v422 - 1;
-										if (!v424)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v423);
-										LOWORD(v423) = v1124 + v423;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v423);
-										v425 = v1169 + v423;
-										v409[5] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v426 = v424 - 1;
-										if (!v426)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v425);
-										LOWORD(v425) = v1124 + v425;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v425);
-										v427 = v1169 + v425;
-										v409[6] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v428 = v426 - 1;
-										if (!v428)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v427);
-										LOWORD(v427) = v1124 + v427;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v427);
-										v429 = v1169 + v427;
-										v409[7] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v430 = v428 - 1;
-										if (!v430)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v429);
-										LOWORD(v429) = v1124 + v429;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v429);
-										v431 = v1169 + v429;
-										v409[8] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v432 = v430 - 1;
-										if (!v432)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v431);
-										LOWORD(v431) = v1124 + v431;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v431);
-										v433 = v1169 + v431;
-										v409[9] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v434 = v432 - 1;
-										if (!v434)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v433);
-										LOWORD(v433) = v1124 + v433;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v433);
-										v435 = v1169 + v433;
-										v409[10] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v436 = v434 - 1;
-										if (!v436)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v435);
-										LOWORD(v435) = v1124 + v435;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v435);
-										v437 = v1169 + v435;
-										v409[11] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v438 = v436 - 1;
-										if (!v438)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v437);
-										LOWORD(v437) = v1124 + v437;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v437);
-										v439 = v1169 + v437;
-										v409[12] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v440 = v438 - 1;
-										if (!v440)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v439);
-										LOWORD(v439) = v1124 + v439;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v439);
-										v441 = v1169 + v439;
-										v409[13] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v442 = v440 - 1;
-										if (!v442)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v441);
-										LOWORD(v441) = v1124 + v441;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v441);
-										v443 = v1169 + v441;
-										v409[14] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v444 = v442 - 1;
-										if (!v444)
-											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v443);
-										LOWORD(v443) = v1124 + v443;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v443);
-										v412 = v1169 + v443;
-										v409[15] = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										LOWORD(v408) = v444 - 1;
-										if (!(x_WORD)v408)
-											break;
-										v409 += 16;
+										v409 += 1;
 									}
 									v405 = v1278;
 								}
