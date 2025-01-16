@@ -1069,16 +1069,13 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 	char v58; // ah
 	int jx;
 	char v60; // dl
-	char v61; // dh
 	char v62; // ch
 	char v63; // ah
 	char v64; // dl
 	char v65; // dh
 	char v66; // ch
 	char v67; // dl
-	int v68x;
 	char v71; // dl
-	char v72; // dh
 	char v73; // ch
 	char v74; // ah
 	char v75; // dl
@@ -1086,31 +1083,22 @@ void GameRenderHD::SubDrawCaveTerrainAndParticles(std::vector<int>& projectedVer
 	char v77; // ch
 	char v78; // dl
 	char v79; // dh
-	int v80x;
 	int v82x;
 	int v83x;
 	char v84; // dl
 	char v85; // cl
-	char v86; // dh
 	char v87; // al
 	char v88; // dl
 	char v89; // dh
-	int v90; // eax
-	int v91x; // ebx
 	char v92; // cl
 	char v93; // dl
-	int v94x;
 	char v97; // dl
-	char v98; // dh
 	char v99; // ah
 	char v100; // dl
 	char v101; // dh
 	char v102; // ch
-	int v103; // eax
-	int v104x;
 	char v105; // dl
 	char v106; // dh
-	int v107x;
 	char v281 = 20; // [esp+94h] [ebp+32h]
 	char v293; // [esp+C4h] [ebp+62h]
 
