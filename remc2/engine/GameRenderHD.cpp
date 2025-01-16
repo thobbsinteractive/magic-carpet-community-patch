@@ -5328,29 +5328,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
-	uint8_t line2 = startLine;
-	uint8_t line3 = startLine;
-	uint8_t line4 = startLine;
-	uint8_t line5 = startLine;
 	uint8_t line6 = startLine;
-	uint8_t line7 = startLine;
 	uint8_t line8 = startLine;
-	uint8_t line9 = startLine;
-	uint8_t line10 = startLine;
-	uint8_t line11 = startLine;
-	uint8_t line12 = startLine;
-	uint8_t line13 = startLine;
-	uint8_t line14 = startLine;
-	uint8_t line15 = startLine;
-	uint8_t line16 = startLine;
-	uint8_t line17 = startLine;
-	uint8_t line18 = startLine;
-	uint8_t line19 = startLine;
-	uint8_t line20 = startLine;
-	uint8_t line21 = startLine;
-	uint8_t line22 = startLine;
-	uint8_t line23 = startLine;
-	uint8_t line24 = startLine;
 	uint8_t line25 = startLine;
 
 	const ProjectionPolygon* v3; // esi
@@ -5381,7 +5360,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	x_DWORD* v28; // edi
 	int v29; // edi
 	int v30; // edi
-	unsigned int v31; // eax
 	int v32; // eax
 	int v33; // ebx
 	bool v34; // zf
@@ -5396,18 +5374,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	x_DWORD* v43; // edi
 	int v44; // edi
 	int v45; // edi
-	int v46; // eax
-	int v47; // ebx
-	bool v48; // zf
-	int v49; // ebx
-	int v50; // eax
-	int v51; // ebx
-	int v52; // esi
-	int v53; // ST48_4
-	int v54; // ebx
-	x_DWORD* v55; // edi
-	int v56; // edi
-	int v57; // edi
 	int v58; // eax
 	int v59; // ebx
 	int v60; // ST48_4
@@ -5448,18 +5414,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int* v95; // edi
 	int v96; // edi
 	int v97; // edi
-	int v98; // eax
-	int v99; // ebx
-	bool v100; // zf
-	int v101; // ebx
-	int v102; // eax
-	int v103; // ebx
-	int v104; // esi
-	int v105; // ST48_4
-	int v106; // eax
-	int* v107; // edi
-	int v108; // edi
-	int v109; // edi
 	int v110; // eax
 	int v111; // ebx
 	int v112; // ST48_4
@@ -5484,10 +5438,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v131; // edx
 	int v132; // edi
 	//x_DWORD* v133; // edi
-	int v134; // eax
-	int v135; // ebx
-	int v136; // esi
-	int v137; // edi
 	//x_DWORD* v138; // edi
 	int v139; // eax
 	int v140; // ebx
@@ -5510,10 +5460,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v157; // edx
 	int v158; // edi
 	//x_DWORD* v159; // edi
-	int v160; // eax
-	int v161; // ebx
-	int v162; // esi
-	int v163; // edi
 	//x_DWORD* v164; // edi
 	int v165; // eax
 	int v166; // ebx
@@ -5525,206 +5471,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v172; // ebx
 	signed int v173; // ecx
 	char* v174; // edi
-	unsigned __int16* v175; // esi
-	int v176; // ecx
-	x_BYTE* v177; // edi
-	unsigned int v178; // eax
-	__int16 v179; // bx
 	unsigned __int8 v180; // cf
-	unsigned __int16 v181; // bx
-	__int16 v182; // bx
-	char v183; // ah
-	__int16 v184; // cx
-	__int16 v185; // bx
-	char v186; // ah
-	__int16 v187; // cx
-	__int16 v188; // bx
-	char v189; // ah
-	__int16 v190; // cx
-	__int16 v191; // bx
-	char v192; // ah
-	__int16 v193; // cx
-	__int16 v194; // bx
-	char v195; // ah
-	__int16 v196; // cx
-	__int16 v197; // bx
-	char v198; // ah
-	__int16 v199; // cx
-	__int16 v200; // bx
-	char v201; // ah
-	__int16 v202; // cx
-	__int16 v203; // bx
-	char v204; // ah
-	__int16 v205; // cx
-	__int16 v206; // bx
-	char v207; // ah
-	__int16 v208; // cx
-	__int16 v209; // bx
-	char v210; // ah
-	__int16 v211; // cx
-	__int16 v212; // bx
-	char v213; // ah
-	__int16 v214; // cx
-	__int16 v215; // bx
-	char v216; // ah
-	__int16 v217; // cx
-	__int16 v218; // bx
-	char v219; // ah
-	__int16 v220; // cx
-	__int16 v221; // bx
-	char v222; // ah
-	__int16 v223; // cx
-	__int16 v224; // bx
-	char v225; // ah
-	__int16 v226; // cx
-	unsigned __int16* v227; // esi
-	int v228; // eax
-	int v229; // ebx
-	int v230; // ecx
-	x_BYTE* v231; // edi
-	int v232; // eax
-	unsigned int v233; // eax
-	int v234; // edx
-	unsigned int v235; // eax
-	uint8_t* v236; // esi
-	char v237; // al
-	int v238; // edx
-	__int16 v239; // cx
-	char v240; // al
-	int v241; // edx
-	__int16 v242; // cx
-	char v243; // al
-	int v244; // edx
-	__int16 v245; // cx
-	char v246; // al
-	int v247; // edx
-	__int16 v248; // cx
-	char v249; // al
-	int v250; // edx
-	__int16 v251; // cx
-	char v252; // al
-	int v253; // edx
-	__int16 v254; // cx
-	char v255; // al
-	int v256; // edx
-	__int16 v257; // cx
-	char v258; // al
-	int v259; // edx
-	__int16 v260; // cx
-	char v261; // al
-	int v262; // edx
-	__int16 v263; // cx
-	char v264; // al
-	int v265; // edx
-	__int16 v266; // cx
-	char v267; // al
-	int v268; // edx
-	__int16 v269; // cx
-	char v270; // al
-	int v271; // edx
-	__int16 v272; // cx
-	char v273; // al
-	int v274; // edx
-	__int16 v275; // cx
-	char v276; // al
-	int v277; // edx
-	__int16 v278; // cx
-	char v279; // al
-	int v280; // edx
-	__int16 v281; // cx
-	char v282; // al
-	unsigned __int16* v283; // esi
-	int v284; // eax
-	int v285; // ebx
-	int v286; // ecx
-	x_BYTE* v287; // edi
-	int v288; // eax
-	unsigned int v289; // eax
-	int v290; // edx
-	unsigned int v291; // eax
-	uint8_t* v292; // esi
-	char v293; // al
-	int v294; // edx
-	__int16 v295; // cx
-	char v296; // al
-	int v297; // edx
-	__int16 v298; // cx
-	char v299; // al
-	int v300; // edx
-	__int16 v301; // cx
-	char v302; // al
-	int v303; // edx
-	__int16 v304; // cx
-	char v305; // al
-	int v306; // edx
-	__int16 v307; // cx
-	char v308; // al
-	int v309; // edx
-	__int16 v310; // cx
-	char v311; // al
-	int v312; // edx
-	__int16 v313; // cx
-	char v314; // al
-	int v315; // edx
-	__int16 v316; // cx
-	char v317; // al
-	int v318; // edx
-	__int16 v319; // cx
-	char v320; // al
-	int v321; // edx
-	__int16 v322; // cx
-	char v323; // al
-	int v324; // edx
-	__int16 v325; // cx
-	char v326; // al
-	int v327; // edx
-	__int16 v328; // cx
-	char v329; // al
-	int v330; // edx
-	__int16 v331; // cx
-	char v332; // al
-	int v333; // edx
-	__int16 v334; // cx
-	char v335; // al
-	int v336; // edx
-	__int16 v337; // cx
-	char v338; // al
-	unsigned __int16* v339; // esi
-	int v340; // ecx
-	x_BYTE* v341; // edi
-	unsigned int v342; // eax
-	__int16 v343; // bx
-	unsigned __int16 v344; // bx
-	__int16 v345; // bx
-	__int16 v346; // cx
-	__int16 v347; // bx
-	__int16 v348; // cx
-	__int16 v349; // bx
-	__int16 v350; // cx
-	__int16 v351; // bx
-	__int16 v352; // cx
-	__int16 v353; // bx
-	__int16 v354; // cx
-	__int16 v355; // bx
-	__int16 v356; // cx
-	__int16 v357; // bx
-	__int16 v358; // cx
-	__int16 v359; // bx
-	__int16 v360; // cx
-	__int16 v361; // bx
-	__int16 v362; // cx
-	__int16 v363; // bx
-	__int16 v364; // cx
-	__int16 v365; // bx
-	__int16 v366; // cx
-	__int16 v367; // bx
-	__int16 v368; // cx
-	__int16 v369; // bx
-	__int16 v370; // cx
-	__int16 v371; // bx
-	__int16 v372; // cx
-	__int16 v373; // bx
-	__int16 v374; // cx
 	unsigned int v375; // eax
 	int v376; // ebx
 	char* v377; // esi
@@ -5737,24 +5484,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int32_t v384; // ecx
 	__int16 v385; // cx
 	__int16 v386; // bp
-	int v387; // esi
 	uint8_t* v388; // edi
 	uint8_t* v389; // ebp
-	unsigned int v390; // eax
-	int v391; // ebx
-	char* v392; // esi
-	int v393; // ecx
-	uint8_t* v394; // edi
-	int v395; // eax
-	int v396; // ecx
-	unsigned int v397; // eax
-	int v398; // edx
-	int v399; // ecx
-	__int16 v400; // cx
-	__int16 v401; // bp
-	int v402; // esi
-	uint8_t* v403; // edi
-	uint8_t* v404; // ebp
 	unsigned __int16* v405; // esi
 	int v406; // eax
 	int v407; // ebx
@@ -5795,606 +5526,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	__int16 v442; // cx
 	int v443; // edx
 	__int16 v444; // cx
-	unsigned __int16* v445; // esi
-	int v446; // eax
-	int v447; // ebx
-	int v448; // ecx
-	x_BYTE* v449; // edi
-	int v450; // eax
-	unsigned int v451; // eax
-	int v452; // edx
-	unsigned int v453; // eax
-	uint8_t* v454; // esi
-	int v455; // edx
-	__int16 v456; // cx
-	int v457; // edx
-	__int16 v458; // cx
-	int v459; // edx
-	__int16 v460; // cx
-	int v461; // edx
-	__int16 v462; // cx
-	int v463; // edx
-	__int16 v464; // cx
-	int v465; // edx
-	__int16 v466; // cx
-	int v467; // edx
-	__int16 v468; // cx
-	int v469; // edx
-	__int16 v470; // cx
-	int v471; // edx
-	__int16 v472; // cx
-	int v473; // edx
-	__int16 v474; // cx
-	int v475; // edx
-	__int16 v476; // cx
-	int v477; // edx
-	__int16 v478; // cx
-	int v479; // edx
-	__int16 v480; // cx
-	int v481; // edx
-	__int16 v482; // cx
-	int v483; // edx
-	__int16 v484; // cx
-	unsigned __int16* v485; // esi
-	int v486; // eax
-	int v487; // ebx
-	int v488; // ecx
-	x_BYTE* v489; // edi
-	int v490; // eax
-	unsigned int v491; // eax
-	int v492; // edx
-	unsigned int v493; // eax
-	uint8_t* v494; // esi
-	int v495; // edx
-	__int16 v496; // cx
-	int v497; // edx
-	__int16 v498; // cx
-	int v499; // edx
-	__int16 v500; // cx
-	int v501; // edx
-	__int16 v502; // cx
-	int v503; // edx
-	__int16 v504; // cx
-	int v505; // edx
-	__int16 v506; // cx
-	int v507; // edx
-	__int16 v508; // cx
-	int v509; // edx
-	__int16 v510; // cx
-	int v511; // edx
-	__int16 v512; // cx
-	int v513; // edx
-	__int16 v514; // cx
-	int v515; // edx
-	__int16 v516; // cx
-	int v517; // edx
-	__int16 v518; // cx
-	int v519; // edx
-	__int16 v520; // cx
-	int v521; // edx
-	__int16 v522; // cx
-	int v523; // edx
-	__int16 v524; // cx
-	unsigned __int16* v525; // esi
-	int v526; // eax
-	int v527; // ebx
-	int v528; // ecx
-	x_BYTE* v529; // edi
-	int v530; // eax
-	unsigned int v531; // eax
-	int v532; // edx
-	unsigned int v533; // eax
-	uint8_t* v534; // esi
-	int v535; // edx
-	__int16 v536; // cx
-	int v537; // edx
-	__int16 v538; // cx
-	int v539; // edx
-	__int16 v540; // cx
-	int v541; // edx
-	__int16 v542; // cx
-	int v543; // edx
-	__int16 v544; // cx
-	int v545; // edx
-	__int16 v546; // cx
-	int v547; // edx
-	__int16 v548; // cx
-	int v549; // edx
-	__int16 v550; // cx
-	int v551; // edx
-	__int16 v552; // cx
-	int v553; // edx
-	__int16 v554; // cx
-	int v555; // edx
-	__int16 v556; // cx
-	int v557; // edx
-	__int16 v558; // cx
-	int v559; // edx
-	__int16 v560; // cx
-	int v561; // edx
-	__int16 v562; // cx
-	int v563; // edx
-	__int16 v564; // cx
-	unsigned __int16* v565; // esi
-	int v566; // eax
-	int v567; // ebx
-	int v568; // ecx
-	x_BYTE* v569; // edi
-	int v570; // eax
-	unsigned int v571; // eax
-	int v572; // edx
-	unsigned int v573; // eax
-	uint8_t* v574; // esi
-	int v575; // edx
-	__int16 v576; // cx
-	int v577; // edx
-	__int16 v578; // cx
-	int v579; // edx
-	__int16 v580; // cx
-	int v581; // edx
-	__int16 v582; // cx
-	int v583; // edx
-	__int16 v584; // cx
-	int v585; // edx
-	__int16 v586; // cx
-	int v587; // edx
-	__int16 v588; // cx
-	int v589; // edx
-	__int16 v590; // cx
-	int v591; // edx
-	__int16 v592; // cx
-	int v593; // edx
-	__int16 v594; // cx
-	int v595; // edx
-	__int16 v596; // cx
-	int v597; // edx
-	__int16 v598; // cx
-	int v599; // edx
-	__int16 v600; // cx
-	int v601; // edx
-	__int16 v602; // cx
-	int v603; // edx
-	__int16 v604; // cx
-	unsigned __int16* v605; // esi
-	x_BYTE* v606; // edx
-	int v607; // eax
-	int v608; // ebx
-	int v609; // ecx
-	x_BYTE* i; // edi
-	__int16 v611; // cx
-	__int16 v612; // cx
-	__int16 v613; // cx
-	__int16 v614; // cx
-	__int16 v615; // cx
-	__int16 v616; // cx
-	__int16 v617; // cx
-	__int16 v618; // cx
-	__int16 v619; // cx
-	__int16 v620; // cx
-	__int16 v621; // cx
-	__int16 v622; // cx
-	__int16 v623; // cx
-	__int16 v624; // cx
-	__int16 v625; // cx
-	unsigned __int16* v626; // esi
-	x_BYTE* v627; // edx
-	int v628; // eax
-	int v629; // ebx
-	int v630; // ecx
-	x_BYTE* j; // edi
-	__int16 v632; // cx
-	__int16 v633; // cx
-	__int16 v634; // cx
-	__int16 v635; // cx
-	__int16 v636; // cx
-	__int16 v637; // cx
-	__int16 v638; // cx
-	__int16 v639; // cx
-	__int16 v640; // cx
-	__int16 v641; // cx
-	__int16 v642; // cx
-	__int16 v643; // cx
-	__int16 v644; // cx
-	__int16 v645; // cx
-	__int16 v646; // cx
-	unsigned __int16* v647; // esi
-	int v648; // edx
-	int v649; // ecx
-	x_BYTE* v650; // edi
-	unsigned int v651; // eax
-	__int16 v652; // bx
-	unsigned __int16 v653; // bx
-	__int16 v654; // bx
-	__int16 v655; // cx
-	__int16 v656; // bx
-	__int16 v657; // cx
-	__int16 v658; // bx
-	__int16 v659; // cx
-	__int16 v660; // bx
-	__int16 v661; // cx
-	__int16 v662; // bx
-	__int16 v663; // cx
-	__int16 v664; // bx
-	__int16 v665; // cx
-	__int16 v666; // bx
-	__int16 v667; // cx
-	__int16 v668; // bx
-	__int16 v669; // cx
-	__int16 v670; // bx
-	__int16 v671; // cx
-	__int16 v672; // bx
-	__int16 v673; // cx
-	__int16 v674; // bx
-	__int16 v675; // cx
-	__int16 v676; // bx
-	__int16 v677; // cx
-	__int16 v678; // bx
-	__int16 v679; // cx
-	__int16 v680; // bx
-	__int16 v681; // cx
-	__int16 v682; // bx
-	__int16 v683; // cx
-	unsigned __int16* v684; // esi
-	int v685; // edx
-	int v686; // ecx
-	x_BYTE* v687; // edi
-	unsigned int v688; // eax
-	__int16 v689; // bx
-	unsigned __int16 v690; // bx
-	__int16 v691; // bx
-	__int16 v692; // cx
-	__int16 v693; // bx
-	__int16 v694; // cx
-	__int16 v695; // bx
-	__int16 v696; // cx
-	__int16 v697; // bx
-	__int16 v698; // cx
-	__int16 v699; // bx
-	__int16 v700; // cx
-	__int16 v701; // bx
-	__int16 v702; // cx
-	__int16 v703; // bx
-	__int16 v704; // cx
-	__int16 v705; // bx
-	__int16 v706; // cx
-	__int16 v707; // bx
-	__int16 v708; // cx
-	__int16 v709; // bx
-	__int16 v710; // cx
-	__int16 v711; // bx
-	__int16 v712; // cx
-	__int16 v713; // bx
-	__int16 v714; // cx
-	__int16 v715; // bx
-	__int16 v716; // cx
-	__int16 v717; // bx
-	__int16 v718; // cx
-	__int16 v719; // bx
-	__int16 v720; // cx
-	unsigned __int16* v721; // esi
-	int v722; // eax
-	int v723; // ebx
-	int v724; // ecx
-	x_BYTE* v725; // edi
-	int v726; // eax
-	unsigned int v727; // eax
-	int v728; // edx
-	unsigned int v729; // eax
-	uint8_t* v730; // esi
-	int v731; // edx
-	__int16 v732; // cx
-	int v733; // edx
-	__int16 v734; // cx
-	int v735; // edx
-	__int16 v736; // cx
-	int v737; // edx
-	__int16 v738; // cx
-	int v739; // edx
-	__int16 v740; // cx
-	int v741; // edx
-	__int16 v742; // cx
-	int v743; // edx
-	__int16 v744; // cx
-	int v745; // edx
-	__int16 v746; // cx
-	int v747; // edx
-	__int16 v748; // cx
-	int v749; // edx
-	__int16 v750; // cx
-	int v751; // edx
-	__int16 v752; // cx
-	int v753; // edx
-	__int16 v754; // cx
-	int v755; // edx
-	__int16 v756; // cx
-	int v757; // edx
-	__int16 v758; // cx
-	int v759; // edx
-	__int16 v760; // cx
-	unsigned __int16* v761; // esi
-	int v762; // eax
-	int v763; // ebx
-	int v764; // ecx
-	x_BYTE* v765; // edi
-	int v766; // eax
-	unsigned int v767; // eax
-	int v768; // edx
-	unsigned int v769; // eax
-	uint8_t* v770; // esi
-	int v771; // edx
-	__int16 v772; // cx
-	int v773; // edx
-	__int16 v774; // cx
-	int v775; // edx
-	__int16 v776; // cx
-	int v777; // edx
-	__int16 v778; // cx
-	int v779; // edx
-	__int16 v780; // cx
-	int v781; // edx
-	__int16 v782; // cx
-	int v783; // edx
-	__int16 v784; // cx
-	int v785; // edx
-	__int16 v786; // cx
-	int v787; // edx
-	__int16 v788; // cx
-	int v789; // edx
-	__int16 v790; // cx
-	int v791; // edx
-	__int16 v792; // cx
-	int v793; // edx
-	__int16 v794; // cx
-	int v795; // edx
-	__int16 v796; // cx
-	int v797; // edx
-	__int16 v798; // cx
-	int v799; // edx
-	__int16 v800; // cx
-	unsigned __int16* v801; // esi
-	unsigned int v802; // eax
-	int v803; // ebx
-	int v804; // ecx
-	x_BYTE* v805; // edi
-	int v806; // eax
-	int v807; // ecx
-	unsigned int v808; // eax
-	int v809; // edx
-	int v810; // ecx
-	uint8_t* v811; // esi
-	int v812; // edx
-	int v813; // ecx
-	int v814; // edx
-	int v815; // ecx
-	int v816; // edx
-	int v817; // ecx
-	int v818; // edx
-	int v819; // ecx
-	int v820; // edx
-	int v821; // ecx
-	int v822; // edx
-	int v823; // ecx
-	int v824; // edx
-	int v825; // ecx
-	int v826; // edx
-	int v827; // ecx
-	int v828; // edx
-	int v829; // ecx
-	int v830; // edx
-	int v831; // ecx
-	int v832; // edx
-	int v833; // ecx
-	int v834; // edx
-	int v835; // ecx
-	int v836; // edx
-	int v837; // ecx
-	int v838; // edx
-	int v839; // ecx
-	int v840; // edx
-	int v841; // ecx
-	unsigned __int16* v842; // esi
-	unsigned int v843; // eax
-	int v844; // ebx
-	int v845; // ecx
-	x_BYTE* v846; // edi
-	int v847; // eax
-	int v848; // ecx
-	unsigned int v849; // eax
-	int v850; // edx
-	int v851; // ecx
-	uint8_t* v852; // esi
-	int v853; // edx
-	int v854; // ecx
-	int v855; // edx
-	int v856; // ecx
-	int v857; // edx
-	int v858; // ecx
-	int v859; // edx
-	int v860; // ecx
-	int v861; // edx
-	int v862; // ecx
-	int v863; // edx
-	int v864; // ecx
-	int v865; // edx
-	int v866; // ecx
-	int v867; // edx
-	int v868; // ecx
-	int v869; // edx
-	int v870; // ecx
-	int v871; // edx
-	int v872; // ecx
-	int v873; // edx
-	int v874; // ecx
-	int v875; // edx
-	int v876; // ecx
-	int v877; // edx
-	int v878; // ecx
-	int v879; // edx
-	int v880; // ecx
-	int v881; // edx
-	int v882; // ecx
-	unsigned __int16* v883; // esi
-	int v884; // eax
-	int v885; // ebx
-	int v886; // ecx
-	x_BYTE* v887; // edi
-	int v888; // eax
-	unsigned int v889; // eax
-	int v890; // edx
-	unsigned int v891; // eax
-	uint8_t* v892; // esi
-	int v893; // edx
-	__int16 v894; // cx
-	int v895; // edx
-	__int16 v896; // cx
-	int v897; // edx
-	__int16 v898; // cx
-	int v899; // edx
-	__int16 v900; // cx
-	int v901; // edx
-	__int16 v902; // cx
-	int v903; // edx
-	__int16 v904; // cx
-	int v905; // edx
-	__int16 v906; // cx
-	int v907; // edx
-	__int16 v908; // cx
-	int v909; // edx
-	__int16 v910; // cx
-	int v911; // edx
-	__int16 v912; // cx
-	int v913; // edx
-	__int16 v914; // cx
-	int v915; // edx
-	__int16 v916; // cx
-	int v917; // edx
-	__int16 v918; // cx
-	int v919; // edx
-	__int16 v920; // cx
-	int v921; // edx
-	__int16 v922; // cx
-	unsigned __int16* v923; // esi
-	int v924; // eax
-	int v925; // ebx
-	int v926; // ecx
-	x_BYTE* v927; // edi
-	int v928; // eax
-	unsigned int v929; // eax
-	int v930; // edx
-	unsigned int v931; // eax
-	uint8_t* v932; // esi
-	int v933; // edx
-	__int16 v934; // cx
-	int v935; // edx
-	__int16 v936; // cx
-	int v937; // edx
-	__int16 v938; // cx
-	int v939; // edx
-	__int16 v940; // cx
-	int v941; // edx
-	__int16 v942; // cx
-	int v943; // edx
-	__int16 v944; // cx
-	int v945; // edx
-	__int16 v946; // cx
-	int v947; // edx
-	__int16 v948; // cx
-	int v949; // edx
-	__int16 v950; // cx
-	int v951; // edx
-	__int16 v952; // cx
-	int v953; // edx
-	__int16 v954; // cx
-	int v955; // edx
-	__int16 v956; // cx
-	int v957; // edx
-	__int16 v958; // cx
-	int v959; // edx
-	__int16 v960; // cx
-	int v961; // edx
-	__int16 v962; // cx
-	unsigned __int16* v963; // esi
-	unsigned int v964; // eax
-	int v965; // ebx
-	int v966; // ecx
-	x_BYTE* v967; // edi
-	int v968; // eax
-	int v969; // ecx
-	unsigned int v970; // eax
-	int v971; // edx
-	int v972; // ecx
-	uint8_t* v973; // esi
-	int v974; // edx
-	int v975; // ecx
-	int v976; // edx
-	int v977; // ecx
-	int v978; // edx
-	int v979; // ecx
-	int v980; // edx
-	int v981; // ecx
-	int v982; // edx
-	int v983; // ecx
-	int v984; // edx
-	int v985; // ecx
-	int v986; // edx
-	int v987; // ecx
-	int v988; // edx
-	int v989; // ecx
-	int v990; // edx
-	int v991; // ecx
-	int v992; // edx
-	int v993; // ecx
-	int v994; // edx
-	int v995; // ecx
-	int v996; // edx
-	int v997; // ecx
-	int v998; // edx
-	int v999; // ecx
-	int v1000; // edx
-	int v1001; // ecx
-	int v1002; // edx
-	int v1003; // ecx
-	unsigned __int16* v1004; // esi
-	unsigned int v1005; // eax
-	int v1006; // ebx
-	int v1007; // ecx
-	x_BYTE* v1008; // edi
-	int v1009; // eax
-	int v1010; // ecx
-	unsigned int v1011; // eax
-	int v1012; // edx
-	int v1013; // ecx
-	uint8_t* v1014; // esi
-	int v1015; // edx
-	int v1016; // ecx
-	int v1017; // edx
-	int v1018; // ecx
-	int v1019; // edx
-	int v1020; // ecx
-	int v1021; // edx
-	int v1022; // ecx
-	int v1023; // edx
-	int v1024; // ecx
-	int v1025; // edx
-	int v1026; // ecx
-	int v1027; // edx
-	int v1028; // ecx
-	int v1029; // edx
-	int v1030; // ecx
-	int v1031; // edx
-	int v1032; // ecx
-	int v1033; // edx
-	int v1034; // ecx
-	int v1035; // edx
-	int v1036; // ecx
-	int v1037; // edx
-	int v1038; // ecx
-	int v1039; // edx
-	int v1040; // ecx
-	int v1041; // edx
-	int v1042; // ecx
-	int v1043; // edx
-	int v1044; // ecx
 	unsigned __int16* v1045; // esi
 	unsigned int v1046; // eax
 	int v1047; // ebx
@@ -6498,116 +5629,25 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1145; // [esp+38h] [ebp-50h]
 	uint v1146; // [esp+3Ch] [ebp-4Ch]
 	int v1147; // [esp+40h] [ebp-48h]
-	int v1148; // [esp+40h] [ebp-48h]
 	int v1149; // [esp+40h] [ebp-48h]
-	int v1150; // [esp+40h] [ebp-48h]
 	int v1151; // [esp+40h] [ebp-48h]
-	int v1152; // [esp+40h] [ebp-48h]
 	int v1153; // [esp+40h] [ebp-48h]
-	int v1154; // [esp+40h] [ebp-48h]
 	int v1155; // [esp+44h] [ebp-44h]
-	int v1156; // [esp+44h] [ebp-44h]
 	int v1157; // [esp+48h] [ebp-40h]
 	int v1158; // [esp+48h] [ebp-40h]
-	int v1159; // [esp+48h] [ebp-40h]
 	int v1160; // [esp+48h] [ebp-40h]
 	int v1161; // [esp+48h] [ebp-40h]
 	int v1162; // [esp+48h] [ebp-40h]
-	int v1163; // [esp+48h] [ebp-40h]
 	int v1164; // [esp+48h] [ebp-40h]
-	int v1165; // [esp+4Ch] [ebp-3Ch]
-	int v1166; // [esp+4Ch] [ebp-3Ch]
 	uint v1167; // [esp+4Ch] [ebp-3Ch]
-	int v1168; // [esp+4Ch] [ebp-3Ch]
 	int v1169; // [esp+4Ch] [ebp-3Ch]
-	int v1170; // [esp+4Ch] [ebp-3Ch]
-	int v1171; // [esp+4Ch] [ebp-3Ch]
-	int v1172; // [esp+4Ch] [ebp-3Ch]
-	int v1173; // [esp+4Ch] [ebp-3Ch]
-	int v1174; // [esp+4Ch] [ebp-3Ch]
-	int v1175; // [esp+4Ch] [ebp-3Ch]
-	int v1176; // [esp+4Ch] [ebp-3Ch]
-	int v1177; // [esp+4Ch] [ebp-3Ch]
-	int v1178; // [esp+4Ch] [ebp-3Ch]
-	int v1179; // [esp+4Ch] [ebp-3Ch]
-	int v1180; // [esp+4Ch] [ebp-3Ch]
-	int v1181; // [esp+4Ch] [ebp-3Ch]
 	int v1182; // [esp+4Ch] [ebp-3Ch]
 	uint v1183; // [esp+50h] [ebp-38h]
-	int v1184; // [esp+50h] [ebp-38h]
-	int v1185; // [esp+50h] [ebp-38h]
-	int v1186; // [esp+50h] [ebp-38h]
-	int v1187; // [esp+50h] [ebp-38h]
-	int v1188; // [esp+50h] [ebp-38h]
 	int v1189; // [esp+50h] [ebp-38h]
 	int v1190; // [esp+54h] [ebp-34h]
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
 	int v1193; // [esp+54h] [ebp-34h]
-	int v1194; // [esp+58h] [ebp-30h]
-	int v1195; // [esp+58h] [ebp-30h]
-	int v1196; // [esp+58h] [ebp-30h]
-	int v1197; // [esp+58h] [ebp-30h]
-	int v1198; // [esp+58h] [ebp-30h]
-	int v1199; // [esp+58h] [ebp-30h]
-	int v1200; // [esp+58h] [ebp-30h]
-	int v1201; // [esp+58h] [ebp-30h]
-	int v1202; // [esp+58h] [ebp-30h]
-	int v1203; // [esp+58h] [ebp-30h]
-	int v1204; // [esp+58h] [ebp-30h]
-	int v1205; // [esp+58h] [ebp-30h]
-	int v1206; // [esp+58h] [ebp-30h]
-	int v1207; // [esp+58h] [ebp-30h]
-	int v1208; // [esp+58h] [ebp-30h]
-	int v1209; // [esp+58h] [ebp-30h]
-	int v1210; // [esp+58h] [ebp-30h]
-	int v1211; // [esp+58h] [ebp-30h]
-	int v1212; // [esp+58h] [ebp-30h]
-	int v1213; // [esp+58h] [ebp-30h]
-	int v1214; // [esp+58h] [ebp-30h]
-	int v1215; // [esp+58h] [ebp-30h]
-	int v1216; // [esp+58h] [ebp-30h]
-	int v1217; // [esp+58h] [ebp-30h]
-	int v1218; // [esp+58h] [ebp-30h]
-	int v1219; // [esp+58h] [ebp-30h]
-	int v1220; // [esp+58h] [ebp-30h]
-	int v1221; // [esp+58h] [ebp-30h]
-	int v1222; // [esp+58h] [ebp-30h]
-	int v1223; // [esp+58h] [ebp-30h]
-	int v1224; // [esp+58h] [ebp-30h]
-	int v1225; // [esp+58h] [ebp-30h]
-	int v1226; // [esp+58h] [ebp-30h]
-	int v1227; // [esp+58h] [ebp-30h]
-	int v1228; // [esp+58h] [ebp-30h]
-	int v1229; // [esp+58h] [ebp-30h]
-	int v1230; // [esp+58h] [ebp-30h]
-	int v1231; // [esp+58h] [ebp-30h]
-	int v1232; // [esp+58h] [ebp-30h]
-	int v1233; // [esp+58h] [ebp-30h]
-	int v1234; // [esp+58h] [ebp-30h]
-	int v1235; // [esp+58h] [ebp-30h]
-	int v1236; // [esp+58h] [ebp-30h]
-	int v1237; // [esp+58h] [ebp-30h]
-	int v1238; // [esp+58h] [ebp-30h]
-	int v1239; // [esp+58h] [ebp-30h]
-	int v1240; // [esp+58h] [ebp-30h]
-	int v1241; // [esp+58h] [ebp-30h]
-	int v1242; // [esp+58h] [ebp-30h]
-	int v1243; // [esp+58h] [ebp-30h]
-	int v1244; // [esp+58h] [ebp-30h]
-	int v1245; // [esp+58h] [ebp-30h]
-	int v1246; // [esp+58h] [ebp-30h]
-	int v1247; // [esp+58h] [ebp-30h]
-	int v1248; // [esp+58h] [ebp-30h]
-	int v1249; // [esp+58h] [ebp-30h]
-	int v1250; // [esp+58h] [ebp-30h]
-	int v1251; // [esp+58h] [ebp-30h]
-	int v1252; // [esp+58h] [ebp-30h]
-	int v1253; // [esp+58h] [ebp-30h]
-	int v1254; // [esp+58h] [ebp-30h]
-	int v1255; // [esp+58h] [ebp-30h]
-	int v1256; // [esp+58h] [ebp-30h]
-	int v1257; // [esp+58h] [ebp-30h]
 	int v1258; // [esp+58h] [ebp-30h]
 	int v1259; // [esp+58h] [ebp-30h]
 	int v1260; // [esp+58h] [ebp-30h]
@@ -6624,23 +5664,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1271; // [esp+58h] [ebp-30h]
 	int v1272; // [esp+58h] [ebp-30h]
 	int v1273; // [esp+58h] [ebp-30h]
-	unsigned __int16* v1274; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1275; // [esp+5Ch] [ebp-2Ch]
 	char* v1276; // [esp+5Ch] [ebp-2Ch]
-	char* v1277; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1278; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1279; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1280; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1281; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1282; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1283; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1284; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1285; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1286; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1287; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1288; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1289; // [esp+5Ch] [ebp-2Ch]
-	unsigned __int16* v1290; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1291; // [esp+5Ch] [ebp-2Ch]
 	char v1292; // [esp+62h] [ebp-26h]
 	char v1293; // [esp+62h] [ebp-26h]
@@ -6803,12 +5828,10 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						LABEL_124:
 							if (v1296)
 							{
-								v31 = (unsigned __int8)x_BYTE_E126D;
 							}
 							else
 							{
 								v62 = LoadPolygon(v62, &v58, &v61, v1103, v1111, &v1119);
-								v31 = (unsigned __int8)x_BYTE_E126D;
 							}
 							goto LABEL_53;
 						}
@@ -6874,12 +5897,10 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 							LABEL_77:
 								if (v1296)
 								{
-									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								else
 								{
 									v43 = LoadPolygon(v43, &v37, &v42, &v39, &v40, v1103, v1111, v1126, v1137, &v1119);
-									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								goto LABEL_53;
 							}
@@ -6981,12 +6002,10 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 							LABEL_51:
 								if (v1296)
 								{
-									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								else
 								{
 									v28 = LoadPolygon(v28, &v21, &v27, &v23, &v24, &v25, v1103, v1111, v1125, v1136, v1147, &v1119);
-									v31 = (unsigned __int8)x_BYTE_E126D;
 								}
 								goto LABEL_53;
 							}
@@ -7093,7 +6112,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v139, &v140, v1105, v1109, &v1115);
-				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 2:
 			case 3:
@@ -7143,7 +6161,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
-				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			case 5:
 			case 6:
@@ -7191,7 +6208,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
-				v31 = (unsigned __int8)x_BYTE_E126D;
 				goto LABEL_53;
 			}
 		}
@@ -7252,7 +6268,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, v1106, v1110, &v1116);
-			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 2:
 		case 3:
@@ -7302,7 +6317,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &v1116);
-			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		case 5:
 		case 6:
@@ -7350,7 +6364,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				v1116 = viewPort.Height_DE568 - v1193;
 			}
 			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &v1116);
-			v31 = (unsigned __int8)x_BYTE_E126D;
 			goto LABEL_53;
 		}
 	}
@@ -7487,12 +6500,10 @@ LABEL_129:
 		LABEL_228:
 			if (v1297)
 			{
-				v31 = (unsigned __int8)x_BYTE_E126D;
 			}
 			else
 			{
 				v114 = LoadPolygon(v114, &v113, &v111, v1112, v1108, &v1120);
-				v31 = (unsigned __int8)x_BYTE_E126D;
 			}
 			goto LABEL_53;
 		case 2:
@@ -7558,12 +6569,10 @@ LABEL_129:
 				LABEL_181:
 					if (v1297)
 					{
-						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 					else
 					{
 						v95 = LoadPolygon(v95, &v94, &v90, &v91, &v92, v1112, v1108, v1134, v1145, &v1120);
-						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 					goto LABEL_53;
 				}
@@ -7668,12 +6677,10 @@ LABEL_129:
 				LABEL_156:
 					if (v1297)
 					{
-						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 					else
 					{
 						v81 = LoadPolygon(v81, &v80, &v75, &v76, &v77, &v78, v1112, v1108, v1133, v1144, v1155, &v1120);
-						v31 = (unsigned __int8)x_BYTE_E126D;
 					}
 				LABEL_53:
 					switch (x_BYTE_E126D)
