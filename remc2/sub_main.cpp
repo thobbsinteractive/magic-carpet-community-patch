@@ -21896,17 +21896,23 @@ void DrawGameFrame_2BE30()//20CE30
 		if (CommandLineParams.DoTestRenderers()) {
 			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C*screenHeight_180624);
 
+			std::string help_buffer_name;
+			std::string screenbuffer_buffer_name;
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
 				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+				help_buffer_name = "ScreenBuffer_HD.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_Original.bmp";
 			}
 			else
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
 				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				help_buffer_name = "ScreenBuffer_Original.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
 			}
 
 			m_ptrGameRender->DrawWorld_411A0(
@@ -21918,8 +21924,8 @@ void DrawGameFrame_2BE30()//20CE30
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
-			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenbuffer_buffer_name);
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, help_buffer_name);
 
 			int difference = 0;
 			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
@@ -21929,8 +21935,15 @@ void DrawGameFrame_2BE30()//20CE30
 			}
 
 			if (difference > 0) {
+				std::ostringstream screenBufferName;
+				screenBufferName << "Frame-" << renderer_tests_frame_count << "-Level-" << CommandLineParams.GetSetLevel() << "-" << screenbuffer_buffer_name;
+				std::ostringstream helpScreenBufferName;
+				helpScreenBufferName << "Frame-" << renderer_tests_frame_count << "-Level-" << CommandLineParams.GetSetLevel() << "-" << help_buffer_name;
+
 				renderer_tests[CommandLineParams.GetSetLevel()].differences += difference;
 				Logger->error("Differences between HD and Original renderer in frame {0}: {1}", renderer_tests_frame_count, difference);
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenBufferName.str());
+				WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, helpScreenBufferName.str());
 			}
 
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
@@ -22176,17 +22189,23 @@ void DrawGameFrame_2BE30()//20CE30
 		if (CommandLineParams.DoTestRenderers()) {
 			memcpy(help_ScreenBuffer, pdwScreenBuffer_351628, screenWidth_18062C*screenHeight_180624);
 
+			std::string help_buffer_name;
+			std::string screenbuffer_buffer_name;
 			if (typeid(*m_ptrGameRender) == typeid(GameRenderHD))
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
 				m_ptrGameRender = (GameRenderInterface*)new GameRenderOriginal();
+				help_buffer_name = "ScreenBuffer_HD.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_Original.bmp";
 			}
 			else
 			{
 				delete m_ptrGameRender;
 				m_ptrGameRender = nullptr;
 				m_ptrGameRender = (GameRenderInterface*)new GameRenderHD(pdwScreenBuffer_351628, *xadatapald0dat2.colorPalette_var28, (multiThreadedRender ? numberOfRenderThreads : 0), assignToSpecificCores);
+				help_buffer_name = "ScreenBuffer_Original.bmp";
+				screenbuffer_buffer_name = "ScreenBuffer_HD.bmp";
 			}
 
 			m_ptrGameRender->DrawWorld_411A0(
@@ -22198,8 +22217,8 @@ void DrawGameFrame_2BE30()//20CE30
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.roll,
 				D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.fov);
 
-			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, "ScreenBuffer.bmp");
-			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, "Help_ScreenBuffer.bmp");
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, pdwScreenBuffer_351628, screenbuffer_buffer_name);
+			WriteBufferToBMP(screenWidth_18062C, screenHeight_180624, *xadatapald0dat2.colorPalette_var28, help_ScreenBuffer, help_buffer_name);
 
 			int difference = 0;
 			for (int test_compi = 0; test_compi < screenWidth_18062C * screenHeight_180624; test_compi++) {
