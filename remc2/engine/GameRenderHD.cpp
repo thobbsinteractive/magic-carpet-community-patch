@@ -5505,16 +5505,13 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1103; // [esp+4h] [ebp-84h]
 	int v1104; // [esp+4h] [ebp-84h]
 	int v1105; // [esp+4h] [ebp-84h]
-	int v1106; // [esp+4h] [ebp-84h]
 	int v1107; // [esp+8h] [ebp-80h]
 	int v1108; // [esp+8h] [ebp-80h]
 	int v1109; // [esp+8h] [ebp-80h]
-	int v1110; // [esp+8h] [ebp-80h]
 	int v1111; // [esp+Ch] [ebp-7Ch]
 	int v1112; // [esp+Ch] [ebp-7Ch]
 	int v1114; // [esp+10h] [ebp-78h]
 	int v1115; // [esp+10h] [ebp-78h]
-	int dY_v5v3; // [esp+10h] [ebp-78h]
 	int v1117; // [esp+14h] [ebp-74h]
 	int v1118; // [esp+14h] [ebp-74h]
 	int v1119; // [esp+18h] [ebp-70h]
@@ -5564,7 +5561,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1190; // [esp+54h] [ebp-34h]
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
-	int v1193; // [esp+54h] [ebp-34h]
 	int v1258; // [esp+58h] [ebp-30h]
 	char* v1276; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1278; // [esp+5Ch] [ebp-2Ch]
@@ -5572,11 +5568,10 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	char v1292; // [esp+62h] [ebp-26h]
 	char v1293; // [esp+62h] [ebp-26h]
 	char v1294; // [esp+62h] [ebp-26h]
-	char v1295; // [esp+62h] [ebp-26h]
+	bool v3Y_negative; // [esp+62h] [ebp-26h]
 	char v1296; // [esp+63h] [ebp-25h]
 	char v1297; // [esp+63h] [ebp-25h]
 	bool v1298; // [esp+63h] [ebp-25h]
-	bool v1299; // [esp+63h] [ebp-25h]
 	bool v1300; // [esp+64h] [ebp-24h]
 	bool v1301; // [esp+64h] [ebp-24h]
 
@@ -5645,7 +5640,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1292 = 1;
 				}
 				v1300 = v5->Y > viewPort.Height_DE568;
-				int dY_v5v3 = v5->Y - v3->Y;
+				const int dY_v5v3 = v5->Y - v3->Y;
 				triLn_v1123 = dY_v5v3;
 				v12 = v4->Y;
 				v1296 = v12 > viewPort.Height_DE568;
@@ -6116,27 +6111,26 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		v3 = vertex3;
 		v4 = vertex1;
 		v5 = vertex2;
-	LABEL_277:
-		v143 = v3->Y;
-		v1193 = v143;
-		if (v143 >= 0)
+	LABEL_277: // clipping in Y direction to viewport
+		const int v3Y = v3->Y;
+		if (v3Y >= 0)
 		{
-			if (v143 >= viewPort.Height_DE568)
+			if (v3Y >= viewPort.Height_DE568)
 				return;
-			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
-			v1295 = 0;
+			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v3Y;
+			v3Y_negative = false;
 		}
 		else
 		{
 			v1102 = ViewPortRenderBufferAltStart_DE554;
-			v1295 = 1;
+			v3Y_negative = true;
 		}
 		v144 = v5->Y;
-		v1299 = v144 > viewPort.Height_DE568;
-		dY_v5v3 = v144 - v143;
-		triLn_v1123 = v144 - v143;
-		v1106 = ((v5->X - v3->X) << 16) / (dY_v5v3);
-		v1110 = ((v5->X - v4->X) << 16) / (dY_v5v3);
+		const bool v5Y_higher_than_viewport = v144 > viewPort.Height_DE568;
+		int dY_v5v3_actual_rows_to_draw = v144 - v3Y;
+		triLn_v1123 = v144 - v3Y;
+		const int slope_v5v3 = ((v5->X - v3->X) << 16) / (dY_v5v3_actual_rows_to_draw);
+		const int v1110 = ((v5->X - v4->X) << 16) / (dY_v5v3_actual_rows_to_draw);
 		switch (x_BYTE_E126D)
 		{
 		case 0:
@@ -6144,30 +6138,30 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0xF:
 			v165 = v3->X << 16;
 			v166 = v4->X << 16;
-			if (v1295)
+			if (v3Y_negative)
 			{
-				v167 = -v1193;
-				dY_v5v3 += v1193;
-				v18 = __OFSUB__(triLn_v1123, -v1193);
-				v16 = triLn_v1123 == -v1193;
-				v17 = triLn_v1123 + v1193 < 0;
-				triLn_v1123 += v1193;
+				v167 = -v3Y;
+				dY_v5v3_actual_rows_to_draw += v3Y;
+				v18 = __OFSUB__(triLn_v1123, -v3Y);
+				v16 = triLn_v1123 == -v3Y;
+				v17 = triLn_v1123 + v3Y < 0;
+				triLn_v1123 += v3Y;
 				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
 					return;
-				v165 += v1106 * v167;
+				v165 += slope_v5v3 * v167;
 				v166 += v167 * v1110;
-				if (v1299)
+				if (v5Y_higher_than_viewport)
 				{
 					triLn_v1123 = viewPort.Height_DE568;
-					dY_v5v3 = viewPort.Height_DE568;
+					dY_v5v3_actual_rows_to_draw = viewPort.Height_DE568;
 				}
 			}
-			else if (v1299)
+			else if (v5Y_higher_than_viewport)
 			{
-				triLn_v1123 = viewPort.Height_DE568 - v1193;
-				dY_v5v3 = viewPort.Height_DE568 - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v3Y;
+				dY_v5v3_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, v1106, v1110, &dY_v5v3);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v165, &v166, slope_v5v3, v1110, &dY_v5v3_actual_rows_to_draw);
 			goto LABEL_53;
 		case 2:
 		case 3:
@@ -6191,32 +6185,32 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			v155 = v4->X << 16;
 			v156 = v3->U;
 			v157 = v3->V;
-			if (v1295)
+			if (v3Y_negative)
 			{
-				v158 = -v1193;
-				dY_v5v3 += v1193;
-				v18 = __OFSUB__(triLn_v1123, -v1193);
-				v16 = triLn_v1123 == -v1193;
-				v17 = triLn_v1123 + v1193 < 0;
-				triLn_v1123 += v1193;
+				v158 = -v3Y;
+				dY_v5v3_actual_rows_to_draw += v3Y;
+				v18 = __OFSUB__(triLn_v1123, -v3Y);
+				v16 = triLn_v1123 == -v3Y;
+				v17 = triLn_v1123 + v3Y < 0;
+				triLn_v1123 += v3Y;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
-				v154 += v1106 * v158;
+				v154 += slope_v5v3 * v158;
 				v155 += v158 * v1110;
 				v156 += v158 * v1132;
 				v157 += v158 * v1143;
-				if (v1299)
+				if (v5Y_higher_than_viewport)
 				{
 					triLn_v1123 = viewPort.Height_DE568;
-					dY_v5v3 = viewPort.Height_DE568;
+					dY_v5v3_actual_rows_to_draw = viewPort.Height_DE568;
 				}
 			}
-			else if (v1299)
+			else if (v5Y_higher_than_viewport)
 			{
-				triLn_v1123 = viewPort.Height_DE568 - v1193;
-				dY_v5v3 = viewPort.Height_DE568 - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v3Y;
+				dY_v5v3_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, v1106, v1110, v1132, v1143, &dY_v5v3);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v154, &v155, &v156, &v157, slope_v5v3, v1110, v1132, v1143, &dY_v5v3_actual_rows_to_draw);
 			goto LABEL_53;
 		case 5:
 		case 6:
@@ -6237,33 +6231,33 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			v148 = v3->U;
 			v149 = v3->V;
 			v150 = v3->Brightness;
-			if (v1295)
+			if (v3Y_negative)
 			{
-				v151 = -v1193;
-				dY_v5v3 += v1193;
-				v18 = __OFSUB__(triLn_v1123, -v1193);
-				v16 = triLn_v1123 == -v1193;
-				v17 = triLn_v1123 + v1193 < 0;
-				triLn_v1123 += v1193;
+				v151 = -v3Y;
+				dY_v5v3_actual_rows_to_draw += v3Y;
+				v18 = __OFSUB__(triLn_v1123, -v3Y);
+				v16 = triLn_v1123 == -v3Y;
+				v17 = triLn_v1123 + v3Y < 0;
+				triLn_v1123 += v3Y;
 				if ((unsigned __int8)(v17 ^ v18) | (unsigned __int8)v16)
 					return;
-				v146 += v1106 * v151;
+				v146 += slope_v5v3 * v151;
 				v147 += v151 * v1110;
 				v148 += v151 * v1131;
 				v149 += v151 * v1142;
 				v150 += v151 * v1153;
-				if (v1299)
+				if (v5Y_higher_than_viewport)
 				{
 					triLn_v1123 = viewPort.Height_DE568;
-					dY_v5v3 = viewPort.Height_DE568;
+					dY_v5v3_actual_rows_to_draw = viewPort.Height_DE568;
 				}
 			}
-			else if (v1299)
+			else if (v5Y_higher_than_viewport)
 			{
-				triLn_v1123 = viewPort.Height_DE568 - v1193;
-				dY_v5v3 = viewPort.Height_DE568 - v1193;
+				triLn_v1123 = viewPort.Height_DE568 - v3Y;
+				dY_v5v3_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
 			}
-			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, v1106, v1110, v1131, v1142, v1153, &dY_v5v3);
+			LoadPolygon((x_DWORD*)unk_DE56Cx[startLine], &v146, &v147, &v148, &v149, &v150, slope_v5v3, v1110, v1131, v1142, v1153, &dY_v5v3_actual_rows_to_draw);
 			goto LABEL_53;
 		}
 	}
