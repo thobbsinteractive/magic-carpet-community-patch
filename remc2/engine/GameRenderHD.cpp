@@ -5329,9 +5329,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	uint8_t line8 = startLine;
 	uint8_t line25 = startLine;
 
-	const ProjectionPolygon* v3; // esi
-	const ProjectionPolygon* v4; // edi
-	const ProjectionPolygon* v5; // ecx
+	const ProjectionPolygon* vert_y_low; // esi
+	const ProjectionPolygon* vert_y_middle; // edi
+	const ProjectionPolygon* vert_y_high; // ecx
 	int y1; // eax
 	int y2; // ebx
 	int y3; // edx
@@ -5591,9 +5591,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	v1135 = 0;
 	//fix it
 
-	v3 = vertex1;
-	v4 = vertex2;
-	v5 = vertex3;
+	vert_y_low = vertex1;
+	vert_y_middle = vertex2;
+	vert_y_high = vertex3;
 	y1 = vertex1->Y;
 	y2 = vertex2->Y;
 	y3 = vertex3->Y;
@@ -5602,19 +5602,23 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 
 	if (y1 == y2)
 	{
-		if (y1 == y3)
-			return; // 
+		if (y1 == y3) {
+			// all vertices are on the same line -> nothing to draw
+			return;
+		}
 		if (y1 >= y3)
 		{
+			// y3 <= y1 == y2
+
 			if (vertex1->X <= vertex2->X) {
 				//       vertex3
 				//      /       \ 
 				// vertex1 ---- vertex2 
 				return; // face culling
 			}
-			v3 = vertex3;
-			v4 = vertex1;
-			v5 = vertex2;
+			vert_y_low = vertex3;
+			vert_y_middle = vertex1;
+			vert_y_high = vertex2;
 			goto LABEL_234;
 		}
 		if (vertex2->X <= vertex1->X) {
@@ -5632,11 +5636,13 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		{
 			if (y1 >= y3)
 			{
-				v3 = vertex3;
-				v4 = vertex1;
-				v5 = vertex2;
+				// y3 <= y1 <= y2
+
+				vert_y_low = vertex3;
+				vert_y_middle = vertex1;
+				vert_y_high = vertex2;
 			LABEL_24:
-				v9 = v3->Y;
+				v9 = vert_y_low->Y;
 				v1190 = v9;
 				if (v9 >= 0)
 				{
@@ -5650,27 +5656,27 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1102 = ViewPortRenderBufferAltStart_DE554;
 					v1292 = 1;
 				}
-				v1300 = v5->Y > viewPort.Height_DE568;
-				const int dY_v5v3 = v5->Y - v3->Y;
+				v1300 = vert_y_high->Y > viewPort.Height_DE568;
+				const int dY_v5v3 = vert_y_high->Y - vert_y_low->Y;
 				triLn_v1123 = dY_v5v3;
-				v12 = v4->Y;
+				v12 = vert_y_middle->Y;
 				v1296 = v12 > viewPort.Height_DE568;
 				v13 = v12 - v9;
 				v1117 = v13;
-				v1103 = ((v5->X - v3->X) << 16) / dY_v5v3;
-				if (((v4->X - v3->X) << 16) / v13 > v1103)
+				v1103 = ((vert_y_high->X - vert_y_low->X) << 16) / dY_v5v3;
+				if (((vert_y_middle->X - vert_y_low->X) << 16) / v13 > v1103)
 				{
-					v1107 = ((v4->X - v3->X) << 16) / v13;
-					v1111 = ((v5->X - v4->X) << 16) / (v5->Y - v4->Y);
-					v1119 = v5->Y - v4->Y;
-					v1121 = v4->X << 16;
+					v1107 = ((vert_y_middle->X - vert_y_low->X) << 16) / v13;
+					v1111 = ((vert_y_high->X - vert_y_middle->X) << 16) / (vert_y_high->Y - vert_y_middle->Y);
+					v1119 = vert_y_high->Y - vert_y_middle->Y;
+					v1121 = vert_y_middle->X << 16;
 					switch (x_BYTE_E126D)
 					{
 					case 0:
 					case 0xE:
 					case 0xF:
-						v58 = v3->X << 16;
-						v59 = v3->X << 16;
+						v58 = vert_y_low->X << 16;
+						v59 = vert_y_low->X << 16;
 						if (!v1292)
 						{
 							if (v1300)
@@ -5755,8 +5761,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					case 0x13:
 					case 0x16:
 					case 0x17:
-						v32 = v13 * (signed __int64)(v3->X - v5->X) / dY_v5v3;
-						v33 = v4->X - v3->X;
+						v32 = v13 * (signed __int64)(vert_y_low->X - vert_y_high->X) / dY_v5v3;
+						v33 = vert_y_middle->X - vert_y_low->X;
 						v18 = __OFADD__(v32, v33);
 						v34 = v32 + v33 == 0;
 						v17 = v32 + v33 < 0;
@@ -5766,17 +5772,17 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						if (!v34)
 						{
 							v36 = v35 + 1;
-							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / dY_v5v3) - v3->U)
+							v1124 = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_v5v3) - vert_y_low->U)
 								/ v36;
-							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / dY_v5v3) - v3->V)
+							v1135 = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_v5v3) - vert_y_low->V)
 								/ v36;
 						}
-						v1126 = (v5->U - v3->U) / dY_v5v3;
-						v1137 = (v5->V - v3->V) / dY_v5v3;
-						v37 = v3->X << 16;
-						v38 = v3->X << 16;
-						v39 = v3->U;
-						v40 = v3->V;
+						v1126 = (vert_y_high->U - vert_y_low->U) / dY_v5v3;
+						v1137 = (vert_y_high->V - vert_y_low->V) / dY_v5v3;
+						v37 = vert_y_low->X << 16;
+						v38 = vert_y_low->X << 16;
+						v39 = vert_y_low->U;
+						v40 = vert_y_low->V;
 						if (v1292)
 						{
 							v18 = __OFSUB__(triLn_v1123, -v1190);
@@ -5855,8 +5861,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					case 0x18:
 					case 0x19:
 					case 0x1A:
-						v14 = v13 * (signed __int64)(v3->X - v5->X) / dY_v5v3;
-						v15 = v4->X - v3->X;
+						v14 = v13 * (signed __int64)(vert_y_low->X - vert_y_high->X) / dY_v5v3;
+						v15 = vert_y_middle->X - vert_y_low->X;
 						v18 = __OFADD__(v14, v15);
 						v16 = v14 + v15 == 0;
 						v17 = v14 + v15 < 0;
@@ -5866,21 +5872,21 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						if (!v16)
 						{
 							v20 = v19 + 1;
-							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / dY_v5v3) - v3->U)
+							v1124 = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_v5v3) - vert_y_low->U)
 								/ v20;
-							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / dY_v5v3) - v3->V)
+							v1135 = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_v5v3) - vert_y_low->V)
 								/ v20;
-							v1146 = (signed int)(v4->Brightness + (unsigned __int64)(v1117 * (signed __int64)(v3->Brightness - v5->Brightness) / dY_v5v3) - v3->Brightness)
+							v1146 = (signed int)(vert_y_middle->Brightness + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->Brightness - vert_y_high->Brightness) / dY_v5v3) - vert_y_low->Brightness)
 								/ v20;
 						}
-						v1125 = (v5->U - v3->U) / dY_v5v3;
-						v1136 = (v5->V - v3->V) / dY_v5v3;
-						v1147 = (v5->Brightness - v3->Brightness) / dY_v5v3;
-						v21 = v3->X << 16;
-						v22 = v3->X << 16;
-						v23 = v3->U;
-						v24 = v3->V;
-						v25 = v3->Brightness;
+						v1125 = (vert_y_high->U - vert_y_low->U) / dY_v5v3;
+						v1136 = (vert_y_high->V - vert_y_low->V) / dY_v5v3;
+						v1147 = (vert_y_high->Brightness - vert_y_low->Brightness) / dY_v5v3;
+						v21 = vert_y_low->X << 16;
+						v22 = vert_y_low->X << 16;
+						v23 = vert_y_low->U;
+						v24 = vert_y_low->V;
+						v25 = vert_y_low->Brightness;
 						if (v1292)
 						{
 							v18 = __OFSUB__(triLn_v1123, -v1190);
@@ -5964,10 +5970,38 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					goto LABEL_24;
 				goto LABEL_129;
 			}
-			if (vertex2->X <= vertex3->X)
-				return;
+			if (vertex2->X <= vertex3->X) {
+				//        vertex1
+				//       /       \ 
+				// vertex2 ----  vertex3
+				return; // face culling
+			}
+
 		LABEL_234:
-			v117 = v3->Y;
+			// this code covers the cases:
+
+			//       vertex3
+			//      /       \ 
+			// vertex2 ---- vertex1 
+			// vert_y_low = vertex3;
+			// vert_y_middle = vertex1;
+			// vert_y_high = vertex2;
+
+			//        vertex1
+			//       /       \ 
+			// vertex3 ----  vertex2
+			// vert_y_low = vertex1;
+			// vert_y_middle = vertex2;
+			// vert_y_high = vertex3;
+
+			//       vertex2
+			//      /       \ 
+			// vertex1 ---- vertex3 
+			// vert_y_low = vertex2;
+			// vert_y_middle = vertex3;
+			// vert_y_high = vertex1;
+
+			v117 = vert_y_low->Y;
 			v1192 = v117;
 			if (v117 >= 0)
 			{
@@ -5981,19 +6015,19 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				v1102 = ViewPortRenderBufferAltStart_DE554;
 				v1294 = 1;
 			}
-			v118 = v5->Y;
+			v118 = vert_y_high->Y;
 			v1298 = v118 > viewPort.Height_DE568;
 			v1115 = v118 - v117;
 			triLn_v1123 = v118 - v117;
-			v1105 = ((v5->X - v3->X) << 16) / (v118 - v117);
-			v1109 = ((v4->X - v3->X) << 16) / (v118 - v117);
+			v1105 = ((vert_y_high->X - vert_y_low->X) << 16) / (v118 - v117);
+			v1109 = ((vert_y_middle->X - vert_y_low->X) << 16) / (v118 - v117);
 			switch (x_BYTE_E126D)
 			{
 			case 0:
 			case 0xE:
 			case 0xF:
-				v139 = v3->X << 16;
-				v140 = v3->X << 16;
+				v139 = vert_y_low->X << 16;
+				v140 = vert_y_low->X << 16;
 				if (v1294)
 				{
 					v141 = -v1192;
@@ -6032,15 +6066,15 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			case 0x13:
 			case 0x16:
 			case 0x17:
-				v127 = v4->X - v5->X;
-				v1124 = (v4->U - v5->U) / v127;
-				v1135 = (v4->V - v5->V) / v127;
-				v1130 = (v5->U - v3->U) / triLn_v1123;
-				v1141 = (v5->V - v3->V) / triLn_v1123;
-				v128 = v3->X << 16;
-				v129 = v3->X << 16;
-				v130 = v3->U;
-				v131 = v3->V;
+				v127 = vert_y_middle->X - vert_y_high->X;
+				v1124 = (vert_y_middle->U - vert_y_high->U) / v127;
+				v1135 = (vert_y_middle->V - vert_y_high->V) / v127;
+				v1130 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
+				v1141 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
+				v128 = vert_y_low->X << 16;
+				v129 = vert_y_low->X << 16;
+				v130 = vert_y_low->U;
+				v131 = vert_y_low->V;
 				if (v1294)
 				{
 					v132 = -v1192;
@@ -6075,18 +6109,18 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			case 0x18:
 			case 0x19:
 			case 0x1A:
-				v119 = v4->X - v5->X;
-				v1124 = (v4->U - v5->U) / v119;
-				v1135 = (v4->V - v5->V) / v119;
-				v1146 = (v4->Brightness - v5->Brightness) / v119;
-				v1129 = (v5->U - v3->U) / triLn_v1123;
-				v1140 = (v5->V - v3->V) / triLn_v1123;
-				v1151 = (v5->Brightness - v3->Brightness) / triLn_v1123;
-				v120 = v3->X << 16;
-				v121 = v3->X << 16;
-				v122 = v3->U;
-				v123 = v3->V;
-				v124 = v3->Brightness;
+				v119 = vert_y_middle->X - vert_y_high->X;
+				v1124 = (vert_y_middle->U - vert_y_high->U) / v119;
+				v1135 = (vert_y_middle->V - vert_y_high->V) / v119;
+				v1146 = (vert_y_middle->Brightness - vert_y_high->Brightness) / v119;
+				v1129 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
+				v1140 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
+				v1151 = (vert_y_high->Brightness - vert_y_low->Brightness) / triLn_v1123;
+				v120 = vert_y_low->X << 16;
+				v121 = vert_y_low->X << 16;
+				v122 = vert_y_low->U;
+				v123 = vert_y_low->V;
+				v124 = vert_y_low->Brightness;
 				if (v1294)
 				{
 					v125 = -v1192;
@@ -6117,13 +6151,24 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				goto LABEL_53;
 			}
 		}
-		if (vertex1->X <= vertex3->X)
-			return;
-		v3 = vertex3;
-		v4 = vertex1;
-		v5 = vertex2;
+
+		// y3 == y1 <= y2
+
+		if (vertex1->X <= vertex3->X) {
+			// vertex1 ---- vertex3 
+			//      \       /
+			//       vertex2
+			return; // face culling
+		}
+
+		// vertex3 ---- vertex1
+		//      \       /
+		//       vertex2
+		vert_y_low = vertex3;
+		vert_y_middle = vertex1;
+		vert_y_high = vertex2;
 	LABEL_277: // clipping in Y direction to viewport
-		const int v3Y = v3->Y;
+		const int v3Y = vert_y_low->Y;
 		if (v3Y >= 0)
 		{
 			if (v3Y >= viewPort.Height_DE568)
@@ -6136,19 +6181,19 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			v1102 = ViewPortRenderBufferAltStart_DE554;
 			v3Y_negative = true;
 		}
-		v144 = v5->Y;
+		v144 = vert_y_high->Y;
 		const bool v5Y_above_viewport = v144 > viewPort.Height_DE568;
 		int dY_v5v3_actual_rows_to_draw = v144 - v3Y;
 		triLn_v1123 = v144 - v3Y;
-		const int slope_v5v3 = ((v5->X - v3->X) << 16) / (dY_v5v3_actual_rows_to_draw);
-		const int v1110 = ((v5->X - v4->X) << 16) / (dY_v5v3_actual_rows_to_draw);
+		const int slope_v5v3 = ((vert_y_high->X - vert_y_low->X) << 16) / (dY_v5v3_actual_rows_to_draw);
+		const int v1110 = ((vert_y_high->X - vert_y_middle->X) << 16) / (dY_v5v3_actual_rows_to_draw);
 		switch (x_BYTE_E126D)
 		{
 		case 0:
 		case 0xE:
 		case 0xF:
-			v165 = v3->X << 16;
-			v166 = v4->X << 16;
+			v165 = vert_y_low->X << 16;
+			v166 = vert_y_middle->X << 16;
 			if (v3Y_negative)
 			{
 				v167 = -v3Y;
@@ -6187,15 +6232,15 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0x13:
 		case 0x16:
 		case 0x17:
-			dX_v4v3 = v4->X - v3->X;
-			v1124 = (v4->U - v3->U) / dX_v4v3;
-			v1135 = (v4->V - v3->V) / dX_v4v3;
-			v1132 = (v5->U - v3->U) / triLn_v1123;
-			v1143 = (v5->V - v3->V) / triLn_v1123;
-			v154 = v3->X << 16;
-			v155 = v4->X << 16;
-			v156 = v3->U;
-			v157 = v3->V;
+			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
+			v1124 = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
+			v1135 = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
+			v1132 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
+			v1143 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
+			v154 = vert_y_low->X << 16;
+			v155 = vert_y_middle->X << 16;
+			v156 = vert_y_low->U;
+			v157 = vert_y_low->V;
 			if (v3Y_negative)
 			{
 				v158 = -v3Y;
@@ -6230,18 +6275,18 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0x18:
 		case 0x19:
 		case 0x1A:
-			dX_v4v3 = v4->X - v3->X;
-			v1124 = (v4->U - v3->U) / dX_v4v3;
-			v1135 = (v4->V - v3->V) / dX_v4v3;
-			v1146 = (v4->Brightness - v3->Brightness) / dX_v4v3;
-			v1131 = (v5->U - v3->U) / triLn_v1123;
-			v1142 = (v5->V - v3->V) / triLn_v1123;
-			v1153 = (v5->Brightness - v3->Brightness) / triLn_v1123;
-			v146 = v3->X << 16;
-			v147 = v4->X << 16;
-			v148 = v3->U;
-			v149 = v3->V;
-			v150 = v3->Brightness;
+			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
+			v1124 = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
+			v1135 = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
+			v1146 = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
+			v1131 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
+			v1142 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
+			v1153 = (vert_y_high->Brightness - vert_y_low->Brightness) / triLn_v1123;
+			v146 = vert_y_low->X << 16;
+			v147 = vert_y_middle->X << 16;
+			v148 = vert_y_low->U;
+			v149 = vert_y_low->V;
+			v150 = vert_y_low->Brightness;
 			if (v3Y_negative)
 			{
 				v151 = -v3Y;
@@ -6273,43 +6318,50 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		}
 	}
 
+	// here y1 > y2, because all the switch cases above leave with a goto
+
 	if (y1 == y3)
 	{
-		if (vertex3->X <= vertex1->X)
-			return;
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		// y2 < y1 == y3
+		if (vertex3->X <= vertex1->X) {
+			//       vertex2
+			//      /       \ 
+			// vertex3 ---- vertex1 
+			return; // face culling
+		}
+		vert_y_low = vertex2;
+		vert_y_middle = vertex3;
+		vert_y_high = vertex1;
 		goto LABEL_234;
 	}
 	if (y1 < y3)
 	{
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert_y_low = vertex2;
+		vert_y_middle = vertex3;
+		vert_y_high = vertex1;
 		goto LABEL_129;
 	}
 	if (y2 == y3)
 	{
 		if (vertex3->X <= vertex2->X)
 			return;
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert_y_low = vertex2;
+		vert_y_middle = vertex3;
+		vert_y_high = vertex1;
 		goto LABEL_277;
 	}
 	if (y2 < y3)
 	{
-		v3 = vertex2;
-		v4 = vertex3;
-		v5 = vertex1;
+		vert_y_low = vertex2;
+		vert_y_middle = vertex3;
+		vert_y_high = vertex1;
 		goto LABEL_24;
 	}
-	v3 = vertex3;
-	v4 = vertex1;
-	v5 = vertex2;
+	vert_y_low = vertex3;
+	vert_y_middle = vertex1;
+	vert_y_high = vertex2;
 LABEL_129:
-	v65 = v3->Y;
+	v65 = vert_y_low->Y;
 	v1191 = v65;
 	if (v65 >= 0)
 	{
@@ -6323,28 +6375,28 @@ LABEL_129:
 		v1102 = ViewPortRenderBufferAltStart_DE554;
 		v1293 = 1;
 	}
-	v66 = v5->Y;
+	v66 = vert_y_high->Y;
 	v1297 = v66 > viewPort.Height_DE568;
 	v1114 = v66 - v65;
-	v67 = v4->Y;
+	v67 = vert_y_middle->Y;
 	v1301 = v67 > viewPort.Height_DE568;
 	v68 = v67 - v65;
 	v1118 = v68;
 	triLn_v1123 = v68;
-	v1104 = ((v5->X - v3->X) << 16) / v1114;
-	if (((v4->X - v3->X) << 16) / v68 > v1104)
+	v1104 = ((vert_y_high->X - vert_y_low->X) << 16) / v1114;
+	if (((vert_y_middle->X - vert_y_low->X) << 16) / v68 > v1104)
 	{
-		v1108 = ((v4->X - v3->X) << 16) / v68;
-		v1112 = ((v4->X - v5->X) << 16) / (v4->Y - v5->Y);
-		v1120 = v4->Y - v5->Y;
-		v1122 = v5->X << 16;
+		v1108 = ((vert_y_middle->X - vert_y_low->X) << 16) / v68;
+		v1112 = ((vert_y_middle->X - vert_y_high->X) << 16) / (vert_y_middle->Y - vert_y_high->Y);
+		v1120 = vert_y_middle->Y - vert_y_high->Y;
+		v1122 = vert_y_high->X << 16;
 		switch (x_BYTE_E126D)
 		{
 		case 0:
 		case 0xE:
 		case 0xF:
-			v110 = v3->X << 16;
-			v111 = v3->X << 16;
+			v110 = vert_y_low->X << 16;
+			v111 = vert_y_low->X << 16;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -6425,8 +6477,8 @@ LABEL_129:
 		case 0x13:
 		case 0x16:
 		case 0x17:
-			v84 = v1114 * (signed __int64)(v4->X - v3->X) / v68;
-			v85 = v3->X - v5->X;
+			v84 = v1114 * (signed __int64)(vert_y_middle->X - vert_y_low->X) / v68;
+			v85 = vert_y_low->X - vert_y_high->X;
 			v18 = __OFADD__(v84, v85);
 			v86 = v84 + v85 == 0;
 			v17 = v84 + v85 < 0;
@@ -6436,19 +6488,19 @@ LABEL_129:
 			if (!v86)
 			{
 				v88 = v87 + 1;
-				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
+				v1124 = (signed int)(vert_y_low->U + (unsigned __int64)(v1114 * (signed __int64)(vert_y_middle->U - vert_y_low->U) / v1118) - vert_y_high->U)
 					/ v88;
-				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
+				v1135 = (signed int)(vert_y_low->V + (unsigned __int64)(v1114 * (signed __int64)(vert_y_middle->V - vert_y_low->V) / v1118) - vert_y_high->V)
 					/ v88;
 			}
-			v1128 = (v5->U - v3->U) / v1114;
-			v1139 = (v5->V - v3->V) / v1114;
-			v1134 = (v4->U - v5->U) / v1120;
-			v1145 = (v4->V - v5->V) / v1120;
-			v89 = v3->X << 16;
-			v90 = v3->X << 16;
-			v91 = v3->U;
-			v92 = v3->V;
+			v1128 = (vert_y_high->U - vert_y_low->U) / v1114;
+			v1139 = (vert_y_high->V - vert_y_low->V) / v1114;
+			v1134 = (vert_y_middle->U - vert_y_high->U) / v1120;
+			v1145 = (vert_y_middle->V - vert_y_high->V) / v1120;
+			v89 = vert_y_low->X << 16;
+			v90 = vert_y_low->X << 16;
+			v91 = vert_y_low->U;
+			v92 = vert_y_low->V;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
@@ -6527,8 +6579,8 @@ LABEL_129:
 		case 0x18:
 		case 0x19:
 		case 0x1A:
-			v69 = v1114 * (int64_t)(v4->X - v3->X) / v68;
-			v70 = v3->X - v5->X;
+			v69 = v1114 * (int64_t)(vert_y_middle->X - vert_y_low->X) / v68;
+			v70 = vert_y_low->X - vert_y_high->X;
 			v18 = __OFADD__(v69, v70);
 			v17 = v69 + v70 < 0;
 			v72 = v69 + v70;
@@ -6537,24 +6589,24 @@ LABEL_129:
 			if (!(v69 + v70 == 0))
 			{
 				v73 = v72 + 1;
-				v1124 = (signed int)(v3->U + (uint64_t)(v1114 * (int64_t)(v4->U - v3->U) / v1118) - v5->U)
+				v1124 = (signed int)(vert_y_low->U + (uint64_t)(v1114 * (int64_t)(vert_y_middle->U - vert_y_low->U) / v1118) - vert_y_high->U)
 					/ v73;
-				v1135 = (signed int)(v3->V + (uint64_t)(v1114 * (int64_t)(v4->V - v3->V) / v1118) - v5->V)
+				v1135 = (signed int)(vert_y_low->V + (uint64_t)(v1114 * (int64_t)(vert_y_middle->V - vert_y_low->V) / v1118) - vert_y_high->V)
 					/ v73;
-				v69 = (signed int)(v3->Brightness + (uint64_t)(v1114 * (int64_t)(v4->Brightness - v3->Brightness) / v1118) - v5->Brightness) / v73;
+				v69 = (signed int)(vert_y_low->Brightness + (uint64_t)(v1114 * (int64_t)(vert_y_middle->Brightness - vert_y_low->Brightness) / v1118) - vert_y_high->Brightness) / v73;
 			}
 			v1146 = v69;
-			v1127 = (v5->U - v3->U) / v1114;
-			v1138 = (v5->V - v3->V) / v1114;
-			v1149 = (v5->Brightness - v3->Brightness) / v1114;
-			v1133 = (v4->U - v5->U) / v1120;
-			v1144 = (v4->V - v5->V) / v1120;
-			v1155 = (v4->Brightness - v5->Brightness) / v1120;
-			v74 = v3->X << 16;
-			v75 = v3->X << 16;
-			v76 = v3->U;
-			v77 = v3->V;
-			v78 = v3->Brightness;
+			v1127 = (vert_y_high->U - vert_y_low->U) / v1114;
+			v1138 = (vert_y_high->V - vert_y_low->V) / v1114;
+			v1149 = (vert_y_high->Brightness - vert_y_low->Brightness) / v1114;
+			v1133 = (vert_y_middle->U - vert_y_high->U) / v1120;
+			v1144 = (vert_y_middle->V - vert_y_high->V) / v1120;
+			v1155 = (vert_y_middle->Brightness - vert_y_high->Brightness) / v1120;
+			v74 = vert_y_low->X << 16;
+			v75 = vert_y_low->X << 16;
+			v76 = vert_y_low->U;
+			v77 = vert_y_low->V;
+			v78 = vert_y_low->Brightness;
 			if (v1293)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
