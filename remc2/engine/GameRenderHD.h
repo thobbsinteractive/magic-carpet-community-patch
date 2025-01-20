@@ -26,13 +26,25 @@
 #include "RenderThread.h"
 #include "ProjectionPolygon.h"
 
+typedef struct {
+	int32_t r0;
+	int32_t r1;
+	int32_t r2;
+	int32_t r3;
+	int32_t r4;
+} Rasterline_t;
+
+constexpr int MAX_THREADS = 8;
+constexpr int MAX_RASTERLINES = 209716; // based on the original 2048 * 2048 / 20 bytes per Rasterline_t, can probably be reduced (to screen height + margin?)
+
+
 class GameRenderHD : public GameRenderInterface
 {
 
 private:
 
 	//The sprite render uses hardcoded offsets of the buffer. This have been adjusted to the new buffer size of
-	//m_ptrDWORD_E9C38_smalltit otherwise at higher resolutions sprite data they writes over each other
+	//m_ptrDWORD_E9C38_smalltit otherwise at higher reolutions sprite data they writes over each other
 	const int m_bufferOffset_E9C38_1 = 995328; // 12%
 	const int m_bufferOffset_E9C38_2 = 1161216; // 14%
 	const int m_bufferOffset_E9C38_3 = 1658880; // 20%
@@ -43,7 +55,7 @@ private:
 		0x00,0xFF,0xFF,0x00,0xFF,0x28,0x00,0xFF
 	};
 
-	uint8_t unk_DE56Cx[8][4194304]; //Number of possible render threads (8) //number of polygons (2048 * 2048)
+	Rasterline_t rasterlines_DE56Cx[MAX_THREADS][MAX_RASTERLINES];
 	
 	int offsets_B8845[16] = {
 		  0, -15, -14, -13,
@@ -98,10 +110,10 @@ private:
 	void DrawInverseSquareInProjectionSpace(int* vertexs, int index, uint8_t* pTexture);
 	void DrawSprites_3E360(int a2x, type_particle_str** str_DWORD_F66F0x[], uint8_t x_BYTE_E88E0x[], int32_t x_DWORD_F5730[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, ViewPort viewPort, uint16_t screenWidth);
 	void DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);
-	x_DWORD* LoadPolygon(x_DWORD* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line);
+	Rasterline_t* RasterizePolygon(Rasterline_t* ptrPolys, int* v0, int* v1, int s0, int s1, int* line);
+	Rasterline_t* RasterizePolygon(Rasterline_t* ptrPolys, int* v0, int* v1, int* v4, int s0, int s1, int s4, int* line);
+	Rasterline_t* RasterizePolygon(Rasterline_t* ptrPolys, int* v0, int* v1, int* v2, int* v3, int s0, int s1, int s2, int s3, int* line);
+	Rasterline_t* RasterizePolygon(Rasterline_t* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line);
 	uint16_t sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x6E8E* x_DWORD_EA3E4[], type_str_unk_1804B0ar str_unk_1804B0ar, type_particle_str** str_DWORD_F66F0x[], int32_t x_DWORD_F5730[], ViewPort viewPort, uint16_t screenWidth);
 	void sub_88740(type_event_0x6E8E* a1, int16_t posX, int16_t posY);
 	void SetBillboards_3B560(int16_t roll);
