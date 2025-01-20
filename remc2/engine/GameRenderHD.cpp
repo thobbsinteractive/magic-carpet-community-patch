@@ -5322,10 +5322,121 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 	}
 }
 
+
+void DrawPolygonRasterLine_subB6253(
+	char* raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
+	uint32_t v1135, uint32_t v1146, uint8_t **pv1102, int v1124,
+	uint8_t *actTexture, int triLn_v1123) 
+{
+	// TODO: convert unk_DE56Cx to array of structs of raster line definitions
+	char* next_raster_line = raster_lines;
+	char* current_raster_line;
+
+	uint8_t line6 = startLine;
+
+	uint32_t v1167 = v1135 << 16;
+	uint32_t v1183 = v1146 << 16;
+
+	uint8_t v18;
+	uint8_t v180;
+	uint32_t v375;
+	uint32_t v376;
+	int v378;
+	uint8_t* v379; // pixel position in screen buffer
+	uint16_t v380;
+	uint16_t v381;
+	unsigned int v382;
+	int v383;
+	int32_t v384;
+	int16_t v385;
+	int16_t v386;
+	uint8_t* v388;
+	uint8_t* v389;
+
+	HIWORD(v375) = 0;
+	HIWORD(v376) = 0;
+
+	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
+	while (1)
+	{
+		current_raster_line = next_raster_line;
+		next_raster_line += 20;
+		LOWORD(v375) = *((x_WORD*)current_raster_line + 1);
+		v378 = *((uint16_t*)current_raster_line + 3);
+		v379 = iScreenWidth_DE560 + *pv1102;
+		*pv1102 += iScreenWidth_DE560;
+		line6++;
+		if (line6 >= drawEveryNthLine)
+		{
+			line6 = 0;
+			if ((v375 & 0x8000u) == 0)
+				break;
+			if ((signed __int16)v378 > 0)
+			{
+				v380 = (uint16_t)-(int16_t)v375;
+				v381 = v380;
+				v383 = __ROL4_16__(*((x_DWORD*)current_raster_line + 3) + v1135 * v380);
+				BYTE1(v376) = v383;
+				v382 = *((x_DWORD*)current_raster_line + 2) + v1124 * v380;
+				LOWORD(v383) = v382;
+				v375 = v382 >> 8;
+				LOBYTE(v376) = BYTE1(v375);
+				v384 = __ROL4_16__(*((x_DWORD*)current_raster_line + 4) + v1146 * v381);
+				BYTE1(v375) = v384;
+				LOWORD(v384) = *((x_WORD*)current_raster_line + 3);
+				v375 = (uint16_t)v375;
+				if ((int16_t)v384 > (int16_t)viewPort.Width_DE564)
+					LOWORD(v384) = viewPort.Width_DE564;
+			LABEL_493:
+				v388 = &v379[0];
+				v389 = actTexture;
+				while (1)
+				{
+					v180 = __CFADD__((x_WORD)v1124, (x_WORD)v383);
+					LOWORD(v383) = v1124 + v383;
+					LOBYTE(v375) = *(x_BYTE*)(v376 + v389);
+					LOBYTE(v376) = BYTE2(v1124) + v180 + v376;
+					v180 = __CFADD__(v1167, v383);
+					v383 += v1167;
+					BYTE1(v376) += BYTE2(v1135) + v180;
+					v180 = __CFADD__(v1183, v384);
+					v384 += v1183;
+					v388[0] = x_BYTE_F6EE0_tablesx[v375];
+					BYTE1(v375) += BYTE2(v1146) + v180;
+					v388 += 1;
+					v18 = __OFSUB__((x_WORD)v384, 1);
+					LOWORD(v384) = v384 - 1;
+					if ((uint8_t)(((v384 & 0x8000u) != 0) ^ v18) | ((x_WORD)v384 == 0))
+						break;
+				}
+			}
+		}
+	LABEL_510:
+		if (!--triLn_v1123)
+			return;
+	}
+	if (v378 > viewPort.Width_DE564)
+		LOWORD(v378) = viewPort.Width_DE564;
+	v18 = __OFSUB__((x_WORD)v378, (x_WORD)v375);
+	v385 = v378 - v375;
+	if ((unsigned __int8)((v385 < 0) ^ v18) | (v385 == 0))
+		goto LABEL_510;
+	v379 += v375;
+	LOBYTE(v376) = current_raster_line[10];
+	v383 = __ROL4_16__(*((x_DWORD*)current_raster_line + 3));
+	v386 = v385;
+	BYTE1(v376) = v383;
+	LOWORD(v383) = *((x_WORD*)current_raster_line + 4);
+	v384 = __ROL4_16__(*((x_DWORD*)current_raster_line + 4));
+	BYTE1(v375) = v384;
+	LOWORD(v384) = v386;
+	goto LABEL_493;
+}
+
+
 void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
-	uint8_t line6 = startLine;
 	uint8_t line8 = startLine;
 	uint8_t line25 = startLine;
 
@@ -5462,20 +5573,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	signed int v173; // ecx
 	char* v174; // edi
 	unsigned __int8 v180; // cf
-	unsigned int v375; // eax
-	int v376; // ebx
-	char* v377; // esi
-	int v378; // ecx
-	uint8_t* v379; // edi
-	int v380; // eax
-	int v381; // ecx
-	unsigned int v382; // eax
-	int v383; // edx
-	int32_t v384; // ecx
-	__int16 v385; // cx
-	__int16 v386; // bp
-	uint8_t* v388; // edi
-	uint8_t* v389; // ebp
 	unsigned __int16* v405; // esi
 	int v406; // eax
 	int v407; // ebx
@@ -5525,7 +5622,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1132; // [esp+28h] [ebp-60h]
 	int v1133; // [esp+2Ch] [ebp-5Ch]
 	int v1134; // [esp+2Ch] [ebp-5Ch]
-	uint v1135; // [esp+30h] [ebp-58h]
+	uint32_t v1135; // [esp+30h] [ebp-58h]
 	int v1136; // [esp+34h] [ebp-54h]
 	int v1137; // [esp+34h] [ebp-54h]
 	int v1138; // [esp+34h] [ebp-54h]
@@ -5536,7 +5633,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1143; // [esp+34h] [ebp-54h]
 	int v1144; // [esp+38h] [ebp-50h]
 	int v1145; // [esp+38h] [ebp-50h]
-	uint v1146; // [esp+3Ch] [ebp-4Ch]
+	uint32_t v1146; // [esp+3Ch] [ebp-4Ch]
 	int v1147; // [esp+40h] [ebp-48h]
 	int v1149; // [esp+40h] [ebp-48h]
 	int v1151; // [esp+40h] [ebp-48h]
@@ -5548,16 +5645,13 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1161; // [esp+48h] [ebp-40h]
 	int v1162; // [esp+48h] [ebp-40h]
 	int v1164; // [esp+48h] [ebp-40h]
-	uint v1167; // [esp+4Ch] [ebp-3Ch]
 	int v1169; // [esp+4Ch] [ebp-3Ch]
 	int v1182; // [esp+4Ch] [ebp-3Ch]
-	uint v1183; // [esp+50h] [ebp-38h]
 	int v1189; // [esp+50h] [ebp-38h]
 	int v1190; // [esp+54h] [ebp-34h]
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
 	int v1258; // [esp+58h] [ebp-30h]
-	char* v1276; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1278; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1291; // [esp+5Ch] [ebp-2Ch]
 	char v1292; // [esp+62h] [ebp-26h]
@@ -6704,86 +6798,13 @@ LABEL_129:
 						v174 = &v170[v172];
 						goto LABEL_328;
 					case 5:
-						v1276 = (char*)unk_DE56Cx[startLine];
-						v1167 = v1135 << 16;
-						v1183 = v1146 << 16;
-						HIWORD(v375) = 0;
-						HIWORD(v376) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
-						while (1)
-						{
-							v377 = v1276;
-							v1276 += 20;
-							LOWORD(v375) = *((x_WORD*)v377 + 1);
-							v378 = *((unsigned __int16*)v377 + 3);
-							v379 = iScreenWidth_DE560 + v1102;
-							v1102 += iScreenWidth_DE560;
-							line6++;
-							if (line6 >= drawEveryNthLine)
-							{
-								line6 = 0;
-								if ((v375 & 0x8000u) == 0)
-									break;
-								if ((signed __int16)v378 > 0)
-								{
-									v380 = (unsigned __int16)-(signed __int16)v375;
-									v381 = v380;
-									v383 = __ROL4_16__(*((x_DWORD*)v377 + 3) + v1135 * v380);
-									BYTE1(v376) = v383;
-									v382 = *((x_DWORD*)v377 + 2) + v1124 * v380;
-									LOWORD(v383) = v382;
-									v375 = v382 >> 8;
-									LOBYTE(v376) = BYTE1(v375);
-									v384 = __ROL4_16__(*((x_DWORD*)v377 + 4) + v1146 * v381);
-									BYTE1(v375) = v384;
-									LOWORD(v384) = *((x_WORD*)v377 + 3);
-									v375 = (unsigned __int16)v375;
-									if ((signed __int16)v384 > (signed __int16)viewPort.Width_DE564)
-										LOWORD(v384) = viewPort.Width_DE564;
-								LABEL_493:
-									v388 = &v379[0];
-									v389 = x_DWORD_DE55C_ActTexture;
-									while (1)
-									{
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v383);
-										LOWORD(v383) = v1124 + v383;
-										LOBYTE(v375) = *(x_BYTE*)(v376 + v389);
-										LOBYTE(v376) = BYTE2(v1124) + v180 + v376;
-										v180 = __CFADD__(v1167, v383);
-										v383 += v1167;
-										BYTE1(v376) += BYTE2(v1135) + v180;
-										v180 = __CFADD__(v1183, v384);
-										v384 += v1183;
-										v388[0] = x_BYTE_F6EE0_tablesx[v375];
-										BYTE1(v375) += BYTE2(v1146) + v180;
-										v388 += 1;
-										v18 = __OFSUB__((x_WORD)v384, 1);
-										LOWORD(v384) = v384 - 1;
-										if ((uint8_t)(((v384 & 0x8000u) != 0) ^ v18) | ((x_WORD)v384 == 0))
-											break;
-									}
-								}
-							}
-						LABEL_510:
-							if (!--triLn_v1123)
-								return;
-						}
-						if (v378 > viewPort.Width_DE564)
-							LOWORD(v378) = viewPort.Width_DE564;
-						v18 = __OFSUB__((x_WORD)v378, (x_WORD)v375);
-						v385 = v378 - v375;
-						if ((unsigned __int8)((v385 < 0) ^ v18) | (v385 == 0))
-							goto LABEL_510;
-						v379 += v375;
-						LOBYTE(v376) = v377[10];
-						v383 = __ROL4_16__(*((x_DWORD*)v377 + 3));
-						v386 = v385;
-						BYTE1(v376) = v383;
-						LOWORD(v383) = *((x_WORD*)v377 + 4);
-						v384 = __ROL4_16__(*((x_DWORD*)v377 + 4));
-						BYTE1(v375) = v384;
-						LOWORD(v384) = v386;
-						goto LABEL_493;
+						DrawPolygonRasterLine_subB6253(
+							(char*)unk_DE56Cx[startLine],
+							startLine, drawEveryNthLine,
+							v1135, v1146, &v1102, v1124,
+							x_DWORD_DE55C_ActTexture, triLn_v1123
+						);
+						return;
 					case 7:
 					case 0xB:
 						// flat shading and reflections enabled
