@@ -44,7 +44,7 @@ class GameRenderHD : public GameRenderInterface
 private:
 
 	//The sprite render uses hardcoded offsets of the buffer. This have been adjusted to the new buffer size of
-	//m_ptrDWORD_E9C38_smalltit otherwise at higher reolutions sprite data they writes over each other
+	//m_ptrDWORD_E9C38_smalltit otherwise at higher resolutions sprite data they writes over each other
 	const int m_bufferOffset_E9C38_1 = 995328; // 12%
 	const int m_bufferOffset_E9C38_2 = 1161216; // 14%
 	const int m_bufferOffset_E9C38_3 = 1658880; // 20%
@@ -57,13 +57,6 @@ private:
 
 	Rasterline_t rasterlines_DE56Cx[MAX_THREADS][MAX_RASTERLINES];
 	
-	int offsets_B8845[16] = {
-		  0, -15, -14, -13,
-		-12, -11, -10,  -9,
-		 -8,  -7,  -6,  -5,
-		 -4,  -3,  -2,  -1
-	};
-
 	char x_BYTE_D4750[60] = {
 		0x00,0x00,0x02,0x03,0x04,0x05,0x01,0x00,0x06,0x07,0x04,0x05,0x00,0x01,0x01,0x02,
 		0x02,0x03,0x03,0x04,0x04,0x03,0x03,0x02,0x02,0x01,0x01,0x00,0x00,0x00,0x00,0x01,
