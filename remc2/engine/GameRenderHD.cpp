@@ -5360,8 +5360,8 @@ void DrawPolygonRasterLine_subB6253(
 	{
 		current_raster_line = next_raster_line;
 		next_raster_line++;
-		LOWORD(v375) = *((x_WORD*)current_raster_line + 1);
-		v378 = *((uint16_t*)current_raster_line + 3);
+		LOWORD(v375) = HIWORD(current_raster_line->r0);
+		v378 = HIWORD(current_raster_line->r1);
 		v379 = iScreenWidth_DE560 + *pv1102;
 		*pv1102 += iScreenWidth_DE560;
 		line6++;
@@ -5374,15 +5374,15 @@ void DrawPolygonRasterLine_subB6253(
 			{
 				v380 = (uint16_t)-(int16_t)v375;
 				v381 = v380;
-				v383 = __ROL4_16__(*((x_DWORD*)current_raster_line + 3) + v1135 * v380);
+				v383 = __ROL4_16__(current_raster_line->r3 + v1135 * v380);
 				BYTE1(v376) = v383;
-				v382 = *((x_DWORD*)current_raster_line + 2) + v1124 * v380;
+				v382 = current_raster_line->r2 + v1124 * v380;
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
 				LOBYTE(v376) = BYTE1(v375);
-				v384 = __ROL4_16__(*((x_DWORD*)current_raster_line + 4) + v1146 * v381);
+				v384 = __ROL4_16__(current_raster_line->r4 + v1146 * v381);
 				BYTE1(v375) = v384;
-				LOWORD(v384) = *((x_WORD*)current_raster_line + 3);
+				LOWORD(v384) = HIWORD(current_raster_line->r1);
 				v375 = (uint16_t)v375;
 				if ((int16_t)v384 > (int16_t)viewPort.Width_DE564)
 					LOWORD(v384) = viewPort.Width_DE564;
@@ -5421,12 +5421,12 @@ void DrawPolygonRasterLine_subB6253(
 	if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0))
 		goto LABEL_510;
 	v379 += v375;
-	LOBYTE(v376) = *((char*)current_raster_line + 10);
-	v383 = __ROL4_16__(*((x_DWORD*)current_raster_line + 3));
+	LOBYTE(v376) = BYTE2(current_raster_line->r2);
+	v383 = __ROL4_16__(current_raster_line->r3);
 	v386 = v385;
 	BYTE1(v376) = v383;
-	LOWORD(v383) = *((x_WORD*)current_raster_line + 4);
-	v384 = __ROL4_16__(*((x_DWORD*)current_raster_line + 4));
+	LOWORD(v383) = LOWORD(current_raster_line->r2);
+	v384 = __ROL4_16__(current_raster_line->r4);
 	BYTE1(v375) = v384;
 	LOWORD(v384) = v386;
 	goto LABEL_493;
