@@ -5572,7 +5572,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	signed int v173; // ecx
 	char* v174; // edi
 	uint8_t v180; // cf
-	uint16_t* v405; // esi
+	Rasterline_t *v405; // esi
 	int v406; // eax
 	int v407; // ebx
 	int v408; // ecx
@@ -5651,7 +5651,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
 	int v1258; // [esp+58h] [ebp-30h]
-	unsigned __int16* v1278; // [esp+5Ch] [ebp-2Ch]
+	Rasterline_t *v1278; // [esp+5Ch] [ebp-2Ch]
 	unsigned __int16* v1291; // [esp+5Ch] [ebp-2Ch]
 	char v1292; // [esp+62h] [ebp-26h]
 	char v1293; // [esp+62h] [ebp-26h]
@@ -5845,6 +5845,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					case 0x13:
 					case 0x16:
 					case 0x17:
+						// flat shading
 						v32 = dY_MiddleLowVert * (signed __int64)(vert_y_low->X - vert_y_high->X) / dY_HighLowVert;
 						v33 = vert_y_middle->X - vert_y_low->X;
 						v18 = __OFADD__(v32, v33);
@@ -6807,15 +6808,15 @@ LABEL_129:
 					case 7:
 					case 0xB:
 						// flat shading and reflections enabled
-						v405 = (uint16_t*)&rasterlines_DE56Cx[startLine][0];
+						v405 = &rasterlines_DE56Cx[startLine][0];
 						v1169 = v1135 << 16;
 						HIWORD(v406) = 0;
 						HIWORD(v407) = 0;
 						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406); }
 						while (1)
 						{
-							LOWORD(v406) = v405[1];
-							v408 = v405[3];
+							LOWORD(v406) = HIWORD(v405->r0);
+							v408 = HIWORD(v405->r1);
 							v409 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
 							v1102 += iScreenWidth_DE560;
 							line8++;
@@ -6827,9 +6828,9 @@ LABEL_129:
 								if ((signed __int16)v408 > 0)
 								{
 									v410 = (unsigned __int16)-(signed __int16)v406;
-									v412 = __ROL4_16__(*((x_DWORD*)v405 + 3) + v1135 * v410);
+									v412 = __ROL4_16__(v405->r3 + v1135 * v410);
 									BYTE1(v407) = v412;
-									v411 = *((x_DWORD*)v405 + 2) + v1124 * v410;
+									v411 = v405->r2 + v1124 * v410;
 									LOWORD(v412) = v411;
 									v413 = v411 >> 8;
 									LOBYTE(v407) = BYTE1(v413);
@@ -6859,7 +6860,7 @@ LABEL_129:
 								}
 							}
 						LABEL_602:
-							v405 += 10;
+							v405 += 1;
 							if (!--triLn_v1123)
 								return;
 						}
@@ -6870,10 +6871,10 @@ LABEL_129:
 						if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
 							goto LABEL_602;
 						v409 += v406;
-						v412 = __ROL4_16__(*((x_DWORD*)v405 + 3));
+						v412 = __ROL4_16__(v405->r3);
 						BYTE1(v407) = v412;
-						LOWORD(v412) = v405[4];
-						LOBYTE(v407) = *((x_BYTE*)v405 + 10);
+						LOWORD(v412) = LOWORD(v405->r2);
+						LOBYTE(v407) = BYTE2(v405->r2);
 						goto LABEL_583;
 					case 0x1A:
 						v1045 = (uint16_t*)&rasterlines_DE56Cx[startLine][0];
