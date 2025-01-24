@@ -5360,8 +5360,8 @@ void DrawPolygonRasterLine_subB6253(
 	{
 		current_raster_line = next_raster_line;
 		next_raster_line++;
-		LOWORD(v375) = HIWORD(current_raster_line->r0);
-		v378 = HIWORD(current_raster_line->r1);
+		LOWORD(v375) = HIWORD(current_raster_line->startX);
+		v378 = HIWORD(current_raster_line->endX);
 		v379 = iScreenWidth_DE560 + *pv1102;
 		*pv1102 += iScreenWidth_DE560;
 		line6++;
@@ -5374,15 +5374,15 @@ void DrawPolygonRasterLine_subB6253(
 			{
 				v380 = (uint16_t)-(int16_t)v375;
 				v381 = v380;
-				v383 = __ROL4_16__(current_raster_line->r3 + v1135 * v380);
+				v383 = __ROL4_16__(current_raster_line->V + v1135 * v380);
 				BYTE1(v376) = v383;
-				v382 = current_raster_line->r2 + v1124 * v380;
+				v382 = current_raster_line->U + v1124 * v380;
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
 				LOBYTE(v376) = BYTE1(v375);
-				v384 = __ROL4_16__(current_raster_line->r4 + v1146 * v381);
+				v384 = __ROL4_16__(current_raster_line->brightness + v1146 * v381);
 				BYTE1(v375) = v384;
-				LOWORD(v384) = HIWORD(current_raster_line->r1);
+				LOWORD(v384) = HIWORD(current_raster_line->endX);
 				v375 = (uint16_t)v375;
 				if ((int16_t)v384 > (int16_t)viewPort.Width_DE564)
 					LOWORD(v384) = viewPort.Width_DE564;
@@ -5421,12 +5421,12 @@ void DrawPolygonRasterLine_subB6253(
 	if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0))
 		goto LABEL_510;
 	v379 += v375;
-	LOBYTE(v376) = BYTE2(current_raster_line->r2);
-	v383 = __ROL4_16__(current_raster_line->r3);
+	LOBYTE(v376) = BYTE2(current_raster_line->U);
+	v383 = __ROL4_16__(current_raster_line->V);
 	v386 = v385;
 	BYTE1(v376) = v383;
-	LOWORD(v383) = LOWORD(current_raster_line->r2);
-	v384 = __ROL4_16__(current_raster_line->r4);
+	LOWORD(v383) = LOWORD(current_raster_line->U);
+	v384 = __ROL4_16__(current_raster_line->brightness);
 	BYTE1(v375) = v384;
 	LOWORD(v384) = v386;
 	goto LABEL_493;
@@ -5561,7 +5561,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v158; // edi
 	//x_DWORD* v159; // edi
 	//x_DWORD* v164; // edi
-	int v165; // eax
 	int v166; // ebx
 	int v167; // edi
 	//x_DWORD* v168; // edi
@@ -6299,6 +6298,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		triLn_v1123 = v144 - v3Y;
 		const int slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / (dY_HighLow_actual_rows_to_draw);
 		const int v1110 = ((vert_y_high->X - vert_y_middle->X) << 16) / (dY_HighLow_actual_rows_to_draw);
+		int v165;
 		switch (x_BYTE_E126D)
 		{
 		case 0:
@@ -6815,8 +6815,8 @@ LABEL_129:
 						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406); }
 						while (1)
 						{
-							LOWORD(v406) = HIWORD(v405->r0);
-							v408 = HIWORD(v405->r1);
+							LOWORD(v406) = HIWORD(v405->startX);
+							v408 = HIWORD(v405->endX);
 							v409 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
 							v1102 += iScreenWidth_DE560;
 							line8++;
@@ -6828,9 +6828,9 @@ LABEL_129:
 								if ((signed __int16)v408 > 0)
 								{
 									v410 = (unsigned __int16)-(signed __int16)v406;
-									v412 = __ROL4_16__(v405->r3 + v1135 * v410);
+									v412 = __ROL4_16__(v405->V + v1135 * v410);
 									BYTE1(v407) = v412;
-									v411 = v405->r2 + v1124 * v410;
+									v411 = v405->U + v1124 * v410;
 									LOWORD(v412) = v411;
 									v413 = v411 >> 8;
 									LOBYTE(v407) = BYTE1(v413);
@@ -6871,10 +6871,10 @@ LABEL_129:
 						if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
 							goto LABEL_602;
 						v409 += v406;
-						v412 = __ROL4_16__(v405->r3);
+						v412 = __ROL4_16__(v405->V);
 						BYTE1(v407) = v412;
-						LOWORD(v412) = LOWORD(v405->r2);
-						LOBYTE(v407) = BYTE2(v405->r2);
+						LOWORD(v412) = LOWORD(v405->U);
+						LOBYTE(v407) = BYTE2(v405->U);
 						goto LABEL_583;
 					case 0x1A:
 						// flat shading and reflections enabled
@@ -6887,8 +6887,8 @@ LABEL_129:
 					}
 					while (1)
 					{
-						LOWORD(v1046) = HIWORD(v1045->r0);
-						v1048 = HIWORD(v1045->r1);
+						LOWORD(v1046) = HIWORD(v1045->startX);
+						v1048 = HIWORD(v1045->endX);
 						v1049 = (char*)(iScreenWidth_DE560 + v1102);
 						v1102 += iScreenWidth_DE560;
 						line25++;
@@ -6904,13 +6904,13 @@ LABEL_129:
 								v1258 = v1048;
 								v1050 = (unsigned __int16)-(signed __int16)v1046;
 								v1051 = v1050;
-								v1053 = __ROL4_16__(v1045->r3 + v1135 * v1050);
+								v1053 = __ROL4_16__(v1045->V + v1135 * v1050);
 								BYTE1(v1047) = v1053;
-								v1052 = v1045->r2 + v1124 * v1050;
+								v1052 = v1045->U + v1124 * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
 								LOBYTE(v1047) = BYTE1(v1046);
-								v1054 = __ROL4_16__(v1045->r4 + v1146 * v1051);
+								v1054 = __ROL4_16__(v1045->brightness + v1146 * v1051);
 								v1046 = (unsigned __int16)v1046;
 							LABEL_1294:
 								v1291 = v1045;
@@ -6960,12 +6960,12 @@ LABEL_129:
 					if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
 						goto LABEL_1361;
 					v1049 += v1046;
-					v1053 = __ROL4_16__(v1045->r3);
+					v1053 = __ROL4_16__(v1045->V);
 					BYTE1(v1047) = v1053;
-					LOWORD(v1053) = LOWORD(v1045->r2);
-					LOBYTE(v1047) = BYTE2(v1045->r2);
+					LOWORD(v1053) = LOWORD(v1045->U);
+					LOBYTE(v1047) = BYTE2(v1045->U);
 					v1258 = v1048;
-					v1054 = __ROL4_16__(v1045->r4);
+					v1054 = __ROL4_16__(v1045->brightness);
 					goto LABEL_1294;
 				}
 				v1114 += v1191;
@@ -7015,9 +7015,9 @@ Rasterline_t* GameRenderHD::RasterizePolygon(Rasterline_t* ptrPolys, int* v0, in
 {
 	do
 	{
-		ptrPolys->r0 = *v0;
+		ptrPolys->startX = *v0;
 		*v0 += s0;
-		ptrPolys->r1 = *v1;
+		ptrPolys->endX = *v1;
 		*v1 += s1;
 		ptrPolys++;
 		*line = *line - 1;
@@ -7030,11 +7030,11 @@ Rasterline_t* GameRenderHD::RasterizePolygon(Rasterline_t* ptrPolys, int* v0, in
 {
 	do
 	{
-		ptrPolys->r0 = *v0;
+		ptrPolys->startX = *v0;
 		*v0 += s0;
-		ptrPolys->r1 = *v1;
+		ptrPolys->endX = *v1;
 		*v1 += s1;
-		ptrPolys->r4 = *v4;
+		ptrPolys->brightness = *v4;
 		*v4 += s4;
 		ptrPolys++;
 		*line = *line - 1;
@@ -7047,13 +7047,13 @@ Rasterline_t* GameRenderHD::RasterizePolygon(Rasterline_t* ptrPolys, int* v0, in
 {
 	do
 	{
-		ptrPolys->r0 = *v0;
+		ptrPolys->startX = *v0;
 		*v0 += s0;
-		ptrPolys->r1 = *v1;
+		ptrPolys->endX = *v1;
 		*v1 += s1;
-		ptrPolys->r2 = *v2;
+		ptrPolys->U = *v2;
 		*v2 += s2;
-		ptrPolys->r3 = *v3;
+		ptrPolys->V = *v3;
 		*v3 += s3;
 		ptrPolys++;
 		*line = *line - 1;
@@ -7062,23 +7062,25 @@ Rasterline_t* GameRenderHD::RasterizePolygon(Rasterline_t* ptrPolys, int* v0, in
 	return ptrPolys;
 }
 
-Rasterline_t* GameRenderHD::RasterizePolygon(Rasterline_t* ptrPolys, int* v0, int* v1, int* v2, int* v3, int* v4, int s0, int s1, int s2, int s3, int s4, int* line)
+Rasterline_t* GameRenderHD::RasterizePolygon(Rasterline_t* ptrPolys, 
+	int *startX, int *endX, int *U, int *V, int *brightness, 
+	int startX_inc, int endX_inc, int U_inc, int V_inc, int brightness_inc, int* numLines)
 {
 	do
 	{
-		ptrPolys->r0 = *v0;
-		*v0 += s0;
-		ptrPolys->r1 = *v1;
-		*v1 += s1;
-		ptrPolys->r2 = *v2;
-		*v2 += s2;
-		ptrPolys->r3 = *v3;
-		*v3 += s3;
-		ptrPolys->r4 = *v4;
-		*v4 += s4;
+		ptrPolys->startX = *startX;
+		*startX += startX_inc;
+		ptrPolys->endX = *endX;
+		*endX += endX_inc;
+		ptrPolys->U = *U;
+		*U += U_inc;
+		ptrPolys->V = *V;
+		*V += V_inc;
+		ptrPolys->brightness = *brightness;
+		*brightness += brightness_inc;
 		ptrPolys++;
-		*line = *line - 1;
-	} while (*line);
+		*numLines = *numLines - 1;
+	} while (*numLines);
 
 	return ptrPolys;
 }

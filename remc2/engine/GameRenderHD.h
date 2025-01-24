@@ -27,11 +27,11 @@
 #include "ProjectionPolygon.h"
 
 typedef struct {
-	int32_t r0;
-	int32_t r1;
-	int32_t r2;
-	int32_t r3;
-	int32_t r4;
+	int32_t startX;
+	int32_t endX;
+	int32_t U;
+	int32_t V;
+	int32_t brightness;
 } Rasterline_t;
 
 constexpr int MAX_THREADS = 8;
