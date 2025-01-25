@@ -5433,10 +5433,107 @@ void DrawPolygonRasterLine_subB6253(
 }
 
 
+void DrawPolygonRasterLine_flat_and_reflections_subB6253(
+	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
+	uint32_t v1135, uint8_t **pv1102, int v1124,
+	uint8_t *actTexture, char local_x_BYTE_E126C, int triLn_v1123) 
+	//uint32_t v1135, uint32_t v1146, uint8_t **pv1102, int v1124,
+	//uint8_t *actTexture, int triLn_v1123) 
+{
+	// flat shading and reflections enabled
+	Rasterline_t *next_raster_line = raster_lines;
+
+	uint8_t line8 = startLine;
+
+	uint32_t v1169 = v1135 << 16;
+
+	uint8_t v18;
+	uint8_t v180;
+	uint32_t v406;
+	uint32_t v407;
+	int v408;
+	uint8_t* v409;
+	int v410;
+	unsigned int v411;
+	int v412;
+	unsigned int v413;
+	uint8_t* v414;
+
+	Rasterline_t *v1278;
+
+	HIWORD(v406) = 0;
+	HIWORD(v407) = 0;
+
+	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406); }
+	while (1)
+	{
+		LOWORD(v406) = HIWORD(next_raster_line->startX);
+		v408 = HIWORD(next_raster_line->endX);
+		v409 = iScreenWidth_DE560 + *pv1102;
+		*pv1102 += iScreenWidth_DE560;
+		line8++;
+		if (line8 >= drawEveryNthLine)
+		{
+			line8 = 0;
+			if ((v406 & 0x8000u) == 0)
+				break;
+			if ((int16_t)v408 > 0)
+			{
+				v410 = (uint16_t)-(int16_t)v406;
+				v412 = __ROL4_16__(next_raster_line->V + v1135 * v410);
+				BYTE1(v407) = v412;
+				v411 = next_raster_line->U + v1124 * v410;
+				LOWORD(v412) = v411;
+				v413 = v411 >> 8;
+				LOBYTE(v407) = BYTE1(v413);
+				if (v408 > viewPort.Width_DE564)
+					LOWORD(v408) = viewPort.Width_DE564;
+				v406 = (uint16_t)v413;
+			LABEL_583:
+				v1278 = next_raster_line;
+				v414 = actTexture;
+				BYTE1(v406) = local_x_BYTE_E126C;
+				while (1)
+				{
+					LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+					v180 = __CFADD__((x_WORD)v1124, (x_WORD)v412);
+					LOWORD(v412) = v1124 + v412;
+					LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+					v180 = __CFADD__(v1169, v412);
+					v412 = v1169 + v412;
+					*v409 = x_BYTE_F6EE0_tablesx[v406];
+					BYTE1(v407) += BYTE2(v1135) + v180;
+					v408 = v408 - 1;
+					if (!v408)
+						break;
+					v409 += 1;
+				}
+				next_raster_line = v1278;
+			}
+		}
+	LABEL_602:
+		next_raster_line += 1;
+		if (!--triLn_v1123)
+			return;
+	}
+	if (v408 > viewPort.Width_DE564)
+		LOWORD(v408) = viewPort.Width_DE564;
+	v18 = __OFSUB__((x_WORD)v408, (x_WORD)v406);
+	LOWORD(v408) = v408 - v406;
+	if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
+		goto LABEL_602;
+	v409 += v406;
+	v412 = __ROL4_16__(next_raster_line->V);
+	BYTE1(v407) = v412;
+	LOWORD(v412) = LOWORD(next_raster_line->U);
+	LOBYTE(v407) = BYTE2(next_raster_line->U);
+	goto LABEL_583;
+}
+
+
 void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
-	uint8_t line8 = startLine;
 	uint8_t line25 = startLine;
 
 	const ProjectionPolygon* vert_y_low; // esi
@@ -5449,7 +5546,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v15; // ebx
 	bool v16; // zf
 	bool v17; // sf
-	unsigned __int8 v18; // of
+	uint8_t v18; // of
 	int v19; // ebx
 	int v20; // ebx
 	int v21; // eax
@@ -5571,16 +5668,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	signed int v173; // ecx
 	char* v174; // edi
 	uint8_t v180; // cf
-	Rasterline_t *v405; // esi
-	int v406; // eax
-	int v407; // ebx
-	int v408; // ecx
-	x_BYTE* v409; // edi
-	int v410; // eax
-	unsigned int v411; // eax
-	int v412; // edx
-	unsigned int v413; // eax
-	uint8_t* v414; // esi
 	Rasterline_t *v1045; // esi
 	unsigned int v1046; // eax
 	int v1047; // ebx
@@ -5643,14 +5730,12 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1161; // [esp+48h] [ebp-40h]
 	int v1162; // [esp+48h] [ebp-40h]
 	int v1164; // [esp+48h] [ebp-40h]
-	int v1169; // [esp+4Ch] [ebp-3Ch]
 	int v1182; // [esp+4Ch] [ebp-3Ch]
 	int v1189; // [esp+50h] [ebp-38h]
 	int v1190; // [esp+54h] [ebp-34h]
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
 	int v1258; // [esp+58h] [ebp-30h]
-	Rasterline_t *v1278; // [esp+5Ch] [ebp-2Ch]
 	Rasterline_t *v1291; // [esp+5Ch] [ebp-2Ch]
 	char v1292; // [esp+62h] [ebp-26h]
 	char v1293; // [esp+62h] [ebp-26h]
@@ -6448,13 +6533,15 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	}
 	if (y1 < y3)
 	{
+		// y2 < y1 < y3
 		vert_y_low = vertex2;
-		vert_y_middle = vertex3;
-		vert_y_high = vertex1;
+		vert_y_middle = vertex3; //?
+		vert_y_high = vertex1; //?
 		goto LABEL_129;
 	}
 	if (y2 == y3)
 	{
+		// y2 == y3 < y1
 		if (vertex3->X <= vertex2->X) {
 			// vertex3 --- vertex2 
 			//       |     |
@@ -6468,11 +6555,14 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	}
 	if (y2 < y3)
 	{
+		// y2 < y1 and y2 < y3 (and not y1 < y3 - checked above)
+		// => y2 < y3 < y1
 		vert_y_low = vertex2;
 		vert_y_middle = vertex3;
 		vert_y_high = vertex1;
 		goto LABEL_24;
 	}
+	// y3 < y1 < y2
 	vert_y_low = vertex3;
 	vert_y_middle = vertex1;
 	vert_y_high = vertex2;
@@ -6807,75 +6897,15 @@ LABEL_129:
 						return;
 					case 7:
 					case 0xB:
-						// flat shading and reflections enabled
-						v405 = &rasterlines_DE56Cx[startLine][0];
-						v1169 = v1135 << 16;
-						HIWORD(v406) = 0;
-						HIWORD(v407) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406); }
-						while (1)
-						{
-							LOWORD(v406) = HIWORD(v405->startX);
-							v408 = HIWORD(v405->endX);
-							v409 = (x_BYTE*)(iScreenWidth_DE560 + v1102);
-							v1102 += iScreenWidth_DE560;
-							line8++;
-							if (line8 >= drawEveryNthLine)
-							{
-								line8 = 0;
-								if ((v406 & 0x8000u) == 0)
-									break;
-								if ((signed __int16)v408 > 0)
-								{
-									v410 = (unsigned __int16)-(signed __int16)v406;
-									v412 = __ROL4_16__(v405->V + v1135 * v410);
-									BYTE1(v407) = v412;
-									v411 = v405->U + v1124 * v410;
-									LOWORD(v412) = v411;
-									v413 = v411 >> 8;
-									LOBYTE(v407) = BYTE1(v413);
-									if (v408 > viewPort.Width_DE564)
-										LOWORD(v408) = viewPort.Width_DE564;
-									v406 = (unsigned __int16)v413;
-								LABEL_583:
-									v1278 = v405;
-									v414 = x_DWORD_DE55C_ActTexture;
-									BYTE1(v406) = x_BYTE_E126C;
-									while (1)
-									{
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v412);
-										LOWORD(v412) = v1124 + v412;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
-										v180 = __CFADD__(v1169, v412);
-										v412 = v1169 + v412;
-										*v409 = x_BYTE_F6EE0_tablesx[v406];
-										BYTE1(v407) += BYTE2(v1135) + v180;
-										v408 = v408 - 1;
-										if (!v408)
-											break;
-										v409 += 1;
-									}
-									v405 = v1278;
-								}
-							}
-						LABEL_602:
-							v405 += 1;
-							if (!--triLn_v1123)
-								return;
-						}
-						if (v408 > viewPort.Width_DE564)
-							LOWORD(v408) = viewPort.Width_DE564;
-						v18 = __OFSUB__((x_WORD)v408, (x_WORD)v406);
-						LOWORD(v408) = v408 - v406;
-						if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
-							goto LABEL_602;
-						v409 += v406;
-						v412 = __ROL4_16__(v405->V);
-						BYTE1(v407) = v412;
-						LOWORD(v412) = LOWORD(v405->U);
-						LOBYTE(v407) = BYTE2(v405->U);
-						goto LABEL_583;
+						DrawPolygonRasterLine_flat_and_reflections_subB6253(
+							&rasterlines_DE56Cx[startLine][0],
+							startLine, drawEveryNthLine,
+							v1135, &v1102, v1124,
+							x_DWORD_DE55C_ActTexture, x_BYTE_E126C, triLn_v1123
+							//v1135, v1146, &v1102, v1124,
+							//x_DWORD_DE55C_ActTexture
+						);
+						return;
 					case 0x1A:
 						// flat shading and reflections enabled
 						v1045 = &rasterlines_DE56Cx[startLine][0];
