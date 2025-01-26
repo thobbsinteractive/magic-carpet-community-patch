@@ -5325,7 +5325,7 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 
 void DrawPolygonRasterLine_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
-	uint32_t v1135, uint32_t v1146, uint8_t **pv1102, int v1124,
+	uint32_t Vincrement, uint32_t v1146, uint8_t **pv1102, int Uincrement,
 	uint8_t *actTexture, int triLn_v1123) 
 {
 	Rasterline_t* next_raster_line = raster_lines;
@@ -5333,7 +5333,7 @@ void DrawPolygonRasterLine_subB6253(
 
 	uint8_t line6 = startLine;
 
-	uint32_t v1167 = v1135 << 16;
+	uint32_t v1167 = Vincrement << 16;
 	uint32_t v1183 = v1146 << 16;
 
 	uint8_t v18;
@@ -5374,9 +5374,9 @@ void DrawPolygonRasterLine_subB6253(
 			{
 				v380 = (uint16_t)-(int16_t)v375;
 				v381 = v380;
-				v383 = __ROL4_16__(current_raster_line->V + v1135 * v380);
+				v383 = __ROL4_16__(current_raster_line->V + Vincrement * v380);
 				BYTE1(v376) = v383;
-				v382 = current_raster_line->U + v1124 * v380;
+				v382 = current_raster_line->U + Uincrement * v380;
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
 				LOBYTE(v376) = BYTE1(v375);
@@ -5391,13 +5391,13 @@ void DrawPolygonRasterLine_subB6253(
 				v389 = actTexture;
 				while (1)
 				{
-					v180 = __CFADD__((x_WORD)v1124, (x_WORD)v383);
-					LOWORD(v383) = v1124 + v383;
+					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
+					LOWORD(v383) = Uincrement + v383;
 					LOBYTE(v375) = *(x_BYTE*)(v376 + v389);
-					LOBYTE(v376) = BYTE2(v1124) + v180 + v376;
+					LOBYTE(v376) = BYTE2(Uincrement) + v180 + v376;
 					v180 = __CFADD__(v1167, v383);
 					v383 += v1167;
-					BYTE1(v376) += BYTE2(v1135) + v180;
+					BYTE1(v376) += BYTE2(Vincrement) + v180;
 					v180 = __CFADD__(v1183, v384);
 					v384 += v1183;
 					v388[0] = x_BYTE_F6EE0_tablesx[v375];
@@ -5435,7 +5435,7 @@ void DrawPolygonRasterLine_subB6253(
 
 void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
-	uint32_t v1135, uint8_t **pv1102, int v1124,
+	uint32_t Vincrement, uint8_t **pv1102, int Uincrement,
 	uint8_t *actTexture, char local_x_BYTE_E126C, int triLn_v1123) 
 {
 	// flat shading and reflections enabled
@@ -5443,7 +5443,7 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 
 	uint8_t line8 = startLine;
 
-	uint32_t v1169 = v1135 << 16;
+	uint32_t v1169 = Vincrement << 16;
 
 	uint8_t v18;
 	uint8_t v180;
@@ -5478,9 +5478,9 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 			if ((int16_t)v408 > 0)
 			{
 				v410 = (uint16_t)-(int16_t)v406;
-				v412 = __ROL4_16__(next_raster_line->V + v1135 * v410);
+				v412 = __ROL4_16__(next_raster_line->V + Vincrement * v410);
 				BYTE1(v407) = v412;
-				v411 = next_raster_line->U + v1124 * v410;
+				v411 = next_raster_line->U + Uincrement * v410;
 				LOWORD(v412) = v411;
 				v413 = v411 >> 8;
 				LOBYTE(v407) = BYTE1(v413);
@@ -5494,13 +5494,13 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 				while (1)
 				{
 					LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-					v180 = __CFADD__((x_WORD)v1124, (x_WORD)v412);
-					LOWORD(v412) = v1124 + v412;
-					LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v412);
+					LOWORD(v412) = Uincrement + v412;
+					LOBYTE(v407) = BYTE2(Uincrement) + v180 + v407;
 					v180 = __CFADD__(v1169, v412);
 					v412 = v1169 + v412;
 					*v409 = x_BYTE_F6EE0_tablesx[v406];
-					BYTE1(v407) += BYTE2(v1135) + v180;
+					BYTE1(v407) += BYTE2(Vincrement) + v180;
 					v408 = v408 - 1;
 					if (!v408)
 						break;
@@ -5694,7 +5694,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1121; // [esp+1Ch] [ebp-6Ch]
 	int v1122; // [esp+1Ch] [ebp-6Ch]
 	int triLn_v1123; // [esp+20h] [ebp-68h]
-	int v1124; // [esp+24h] [ebp-64h]
+	int Uincrement; // [esp+24h] [ebp-64h]
 	int v1125; // [esp+28h] [ebp-60h]
 	int v1126; // [esp+28h] [ebp-60h]
 	int v1127; // [esp+28h] [ebp-60h]
@@ -5705,7 +5705,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1132; // [esp+28h] [ebp-60h]
 	int v1133; // [esp+2Ch] [ebp-5Ch]
 	int v1134; // [esp+2Ch] [ebp-5Ch]
-	uint32_t v1135; // [esp+30h] [ebp-58h]
+	uint32_t Vincrement; // [esp+30h] [ebp-58h]
 	int v1136; // [esp+34h] [ebp-54h]
 	int v1137; // [esp+34h] [ebp-54h]
 	int v1138; // [esp+34h] [ebp-54h]
@@ -5755,8 +5755,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 
 	//fix it
 	v1045 = nullptr;
-	v1124 = 0;
-	v1135 = 0;
+	Uincrement = 0;
+	Vincrement = 0;
 	//fix it
 
 	vert_y_low = vertex1;
@@ -5939,9 +5939,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						if (!v34)
 						{
 							v36 = v35 + 1;
-							v1124 = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_HighLowVert) - vert_y_low->U)
+							Uincrement = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_HighLowVert) - vert_y_low->U)
 								/ v36;
-							v1135 = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_HighLowVert) - vert_y_low->V)
+							Vincrement = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_HighLowVert) - vert_y_low->V)
 								/ v36;
 						}
 						v1126 = (vert_y_high->U - vert_y_low->U) / dY_HighLowVert;
@@ -6039,9 +6039,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						if (!v16)
 						{
 							v20 = v19 + 1;
-							v1124 = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_HighLowVert) - vert_y_low->U)
+							Uincrement = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_HighLowVert) - vert_y_low->U)
 								/ v20;
-							v1135 = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_HighLowVert) - vert_y_low->V)
+							Vincrement = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_HighLowVert) - vert_y_low->V)
 								/ v20;
 							v1146 = (signed int)(vert_y_middle->Brightness + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->Brightness - vert_y_high->Brightness) / dY_HighLowVert) - vert_y_low->Brightness)
 								/ v20;
@@ -6237,8 +6237,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			case 0x16:
 			case 0x17:
 				v127 = vert_y_middle->X - vert_y_high->X;
-				v1124 = (vert_y_middle->U - vert_y_high->U) / v127;
-				v1135 = (vert_y_middle->V - vert_y_high->V) / v127;
+				Uincrement = (vert_y_middle->U - vert_y_high->U) / v127;
+				Vincrement = (vert_y_middle->V - vert_y_high->V) / v127;
 				v1130 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
 				v1141 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
 				v128 = vert_y_low->X << 16;
@@ -6280,8 +6280,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			case 0x19:
 			case 0x1A:
 				v119 = vert_y_middle->X - vert_y_high->X;
-				v1124 = (vert_y_middle->U - vert_y_high->U) / v119;
-				v1135 = (vert_y_middle->V - vert_y_high->V) / v119;
+				Uincrement = (vert_y_middle->U - vert_y_high->U) / v119;
+				Vincrement = (vert_y_middle->V - vert_y_high->V) / v119;
 				v1146 = (vert_y_middle->Brightness - vert_y_high->Brightness) / v119;
 				v1129 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
 				v1140 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
@@ -6428,8 +6428,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0x16:
 		case 0x17:
 			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
-			v1124 = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
-			v1135 = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
+			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
+			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
 			v1132 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
 			v1143 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
 			v154 = vert_y_low->X << 16;
@@ -6471,8 +6471,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0x19:
 		case 0x1A:
 			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
-			v1124 = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
-			v1135 = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
+			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
+			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
 			v1146 = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
 			v1131 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
 			v1142 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
@@ -6695,9 +6695,9 @@ LABEL_129:
 			if (!v86)
 			{
 				v88 = v87 + 1;
-				v1124 = (signed int)(vert_y_low->U + (unsigned __int64)(v1114 * (signed __int64)(vert_y_middle->U - vert_y_low->U) / v1118) - vert_y_high->U)
+				Uincrement = (signed int)(vert_y_low->U + (unsigned __int64)(v1114 * (signed __int64)(vert_y_middle->U - vert_y_low->U) / v1118) - vert_y_high->U)
 					/ v88;
-				v1135 = (signed int)(vert_y_low->V + (unsigned __int64)(v1114 * (signed __int64)(vert_y_middle->V - vert_y_low->V) / v1118) - vert_y_high->V)
+				Vincrement = (signed int)(vert_y_low->V + (unsigned __int64)(v1114 * (signed __int64)(vert_y_middle->V - vert_y_low->V) / v1118) - vert_y_high->V)
 					/ v88;
 			}
 			v1128 = (vert_y_high->U - vert_y_low->U) / v1114;
@@ -6796,9 +6796,9 @@ LABEL_129:
 			if (!(v69 + v70 == 0))
 			{
 				v73 = v72 + 1;
-				v1124 = (signed int)(vert_y_low->U + (uint64_t)(v1114 * (int64_t)(vert_y_middle->U - vert_y_low->U) / v1118) - vert_y_high->U)
+				Uincrement = (signed int)(vert_y_low->U + (uint64_t)(v1114 * (int64_t)(vert_y_middle->U - vert_y_low->U) / v1118) - vert_y_high->U)
 					/ v73;
-				v1135 = (signed int)(vert_y_low->V + (uint64_t)(v1114 * (int64_t)(vert_y_middle->V - vert_y_low->V) / v1118) - vert_y_high->V)
+				Vincrement = (signed int)(vert_y_low->V + (uint64_t)(v1114 * (int64_t)(vert_y_middle->V - vert_y_low->V) / v1118) - vert_y_high->V)
 					/ v73;
 				v69 = (signed int)(vert_y_low->Brightness + (uint64_t)(v1114 * (int64_t)(vert_y_middle->Brightness - vert_y_low->Brightness) / v1118) - vert_y_high->Brightness) / v73;
 			}
@@ -6892,7 +6892,7 @@ LABEL_129:
 						DrawPolygonRasterLine_subB6253(
 							&rasterlines_DE56Cx[startLine][0],
 							startLine, drawEveryNthLine,
-							v1135, v1146, &v1102, v1124,
+							Vincrement, v1146, &v1102, Uincrement,
 							x_DWORD_DE55C_ActTexture, triLn_v1123
 						);
 						return;
@@ -6901,14 +6901,14 @@ LABEL_129:
 						DrawPolygonRasterLine_flat_and_reflections_subB6253(
 							&rasterlines_DE56Cx[startLine][0],
 							startLine, drawEveryNthLine,
-							v1135, &v1102, v1124,
+							Vincrement, &v1102, Uincrement,
 							x_DWORD_DE55C_ActTexture, x_BYTE_E126C, triLn_v1123
 						);
 						return;
 					case 0x1A:
 						// flat shading and reflections enabled
 						v1045 = &rasterlines_DE56Cx[startLine][0];
-						v1182 = v1135 << 16;
+						v1182 = Vincrement << 16;
 						v1189 = v1146 << 16;
 						HIWORD(v1046) = 0;
 						HIWORD(v1047) = 0;
@@ -6933,9 +6933,9 @@ LABEL_129:
 								v1258 = v1048;
 								v1050 = (unsigned __int16)-(signed __int16)v1046;
 								v1051 = v1050;
-								v1053 = __ROL4_16__(v1045->V + v1135 * v1050);
+								v1053 = __ROL4_16__(v1045->V + Vincrement * v1050);
 								BYTE1(v1047) = v1053;
-								v1052 = v1045->U + v1124 * v1050;
+								v1052 = v1045->U + Uincrement * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
 								LOBYTE(v1047) = BYTE1(v1046);
@@ -6947,10 +6947,10 @@ LABEL_129:
 								while (1)
 								{
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1053);
-									LOWORD(v1053) = v1124 + v1053;
+									v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v1053);
+									LOWORD(v1053) = Uincrement + v1053;
 									BYTE1(v1046) = v1054;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1056 = x_BYTE_F6EE0_tablesx[v1046];
@@ -6963,7 +6963,7 @@ LABEL_129:
 									}
 									v180 = __CFADD__(v1182, v1053);
 									v1053 = v1182 + v1053;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
+									BYTE1(v1047) += BYTE2(Vincrement) + v180;
 									v180 = __CFADD__(v1189, v1054);
 									v1054 = v1189 + v1054;
 									*v1049 = v1056;
