@@ -1707,8 +1707,8 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x
 					v9x = &str_WORD_D951C[v41x->word_0x5A_90];
 					v10 = v6 * str_F2C20ar.dword0x18 / v40;
 					v11 = str_F2C20ar.dword0x18 * v42 / v40 + str_F2C20ar.dword0x22;
-					str_F2C20ar.dword0x04_screenY = ((v10 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v11) >> 16) + str_F2C20ar.dword0x24;
-					str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * v10 + v11 * str_F2C20ar.cos_0x11) >> 16);
+					str_F2C20ar.dword0x04_screenY = (((int64_t)v10 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * (int64_t)v11) >> 16) + str_F2C20ar.dword0x24;
+					str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * (int64_t)v10 + (int64_t)v11 * str_F2C20ar.cos_0x11) >> 16);
 					v12 = v9x->byte_12;
 					x_BYTE_F2CC6 = 0;
 					switch (v12)
@@ -3136,8 +3136,8 @@ void GameRenderHD::DrawSprites_3E360(int a2x, type_particle_str** str_DWORD_F66F
 						{
 							v8 = v5 * str_F2C20ar.dword0x18 / v99;
 							v9 = str_F2C20ar.dword0x18 * v98 / v99 + str_F2C20ar.dword0x22;
-							str_F2C20ar.dword0x04_screenY = ((v8 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v9) >> 16) + str_F2C20ar.dword0x24;
-							str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * v8 + v9 * str_F2C20ar.cos_0x11) >> 16);
+							str_F2C20ar.dword0x04_screenY = (((int64_t)v8 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * (int64_t)v9) >> 16) + str_F2C20ar.dword0x24;
+							str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * (int64_t)v8 + (int64_t)v9 * str_F2C20ar.cos_0x11) >> 16);
 							v10 = v7x->byte_12;
 							x_BYTE_F2CC6 = 0;
 							switch (v10)
@@ -3469,8 +3469,8 @@ void GameRenderHD::DrawSprites_3E360(int a2x, type_particle_str** str_DWORD_F66F
 				v52x = &str_WORD_D951C[str_F2C20ar.dword0x14x->word_0x5A_90];
 				v53 = v49 * str_F2C20ar.dword0x18 / v100;
 				v54 = str_F2C20ar.dword0x18 * (v48 - str_F2C20ar.dword0x20) / v100 + str_F2C20ar.dword0x22;
-				str_F2C20ar.dword0x04_screenY = ((v53 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * v54) >> 16) + str_F2C20ar.dword0x24;
-				str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * v53 + v54 * str_F2C20ar.cos_0x11) >> 16);
+				str_F2C20ar.dword0x04_screenY = (((int64_t)v53 * str_F2C20ar.cos_0x11 - str_F2C20ar.sin_0x0d * (int64_t)v54) >> 16) + str_F2C20ar.dword0x24;
+				str_F2C20ar.dword0x03_screenX = str_F2C20ar.dword0x10 - ((str_F2C20ar.sin_0x0d * (int64_t)v53 + (int64_t)v54 * str_F2C20ar.cos_0x11) >> 16);
 				v55 = v52x->byte_12;
 				x_BYTE_F2CC6 = 0;
 				switch (v55)
@@ -5437,8 +5437,6 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
 	uint32_t v1135, uint8_t **pv1102, int v1124,
 	uint8_t *actTexture, char local_x_BYTE_E126C, int triLn_v1123) 
-	//uint32_t v1135, uint32_t v1146, uint8_t **pv1102, int v1124,
-	//uint8_t *actTexture, int triLn_v1123) 
 {
 	// flat shading and reflections enabled
 	Rasterline_t *next_raster_line = raster_lines;
@@ -5738,7 +5736,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1258; // [esp+58h] [ebp-30h]
 	Rasterline_t *v1291; // [esp+5Ch] [ebp-2Ch]
 	char v1292; // [esp+62h] [ebp-26h]
-	char v1293; // [esp+62h] [ebp-26h]
+	bool vertYlowIsNegative; // [esp+62h] [ebp-26h]
 	char v1294; // [esp+62h] [ebp-26h]
 	bool v3Y_negative; // [esp+62h] [ebp-26h]
 	char v1297; // [esp+63h] [ebp-25h]
@@ -6069,11 +6067,11 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 							{
 								v1119 -= v1157 - v1117;
 								v26 = v1157 - v1117;
-								v21 += slope_HighLowVert * v26 + v1117 * slope_HighLowVert;
-								v27 = v1111 * v26 + v1121;
-								v23 += v26 * v1125 + v1117 * v1125;
-								v24 += v26 * v1136 + v1117 * v1136;
-								v25 += v26 * v1147 + v1117 * v1147;
+								v21 += slope_HighLowVert * (int64_t)v26 + (int64_t)v1117 * slope_HighLowVert;
+								v27 = v1111 * (int64_t)v26 + v1121;
+								v23 += (int64_t)v26 * v1125 + v1117 * v1125;
+								v24 += (int64_t)v26 * v1136 + v1117 * v1136;
+								v25 += (int64_t)v26 * v1147 + v1117 * v1147;
 								if (vertYHigh_above_viewport)
 								{
 									v1119 = viewPort.Height_DE568;
@@ -6092,7 +6090,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 							}
 							v1117 += v1190;
 							v21 += slope_HighLowVert * v1157;
-							v22 += v1157 * slope_MiddleLowVert;
+							v22 += (int64_t)v1157 * slope_MiddleLowVert;
 							v23 += v1157 * v1125;
 							v24 += v1157 * v1136;
 							v25 += v1157 * v1147;
@@ -6574,12 +6572,12 @@ LABEL_129:
 		if (v65 >= viewPort.Height_DE568)
 			return;
 		v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
-		v1293 = 0;
+		vertYlowIsNegative = false;
 	}
 	else
 	{
 		v1102 = ViewPortRenderBufferAltStart_DE554;
-		v1293 = 1;
+		vertYlowIsNegative = true;
 	}
 	v66 = vert_y_high->Y;
 	v1297 = v66 > viewPort.Height_DE568;
@@ -6603,8 +6601,9 @@ LABEL_129:
 		case 0xF:
 			v110 = vert_y_low->X << 16;
 			v111 = vert_y_low->X << 16;
-			if (v1293)
+			if (vertYlowIsNegative)
 			{
+				// clip triangle for negative y, top of the viewport
 				v18 = __OFSUB__(triLn_v1123, -v1191);
 				v16 = triLn_v1123 == -v1191;
 				v17 = triLn_v1123 + v1191 < 0;
@@ -6620,17 +6619,19 @@ LABEL_129:
 					v111 += v112 * v1108 + v1114 * v1108;
 					if (v1301)
 					{
+						// middle vertex y > viewport
 						v1120 = viewPort.Height_DE568;
 						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v114 = &rasterlines_DE56Cx[startLine][0];
 					goto LABEL_228;
 				}
-				v1114 += v1191;
-				v110 += v1104 * v1164;
-				v111 += v1164 * v1108;
+				v1114 += v1191; // subtract -y from number of lines
+				v110 += v1104 * v1164; // compute start x when entering viewport
+				v111 += v1164 * v1108; // compute end x when entering viewport
 				if (v1301)
 				{
+					// high vertex y > viewport
 					triLn_v1123 = viewPort.Height_DE568;
 					if (v1297)
 					{
@@ -6707,7 +6708,7 @@ LABEL_129:
 			v90 = vert_y_low->X << 16;
 			v91 = vert_y_low->U;
 			v92 = vert_y_low->V;
-			if (v1293)
+			if (vertYlowIsNegative)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
 				v16 = triLn_v1123 == -v1191;
@@ -6813,7 +6814,7 @@ LABEL_129:
 			v76 = vert_y_low->U;
 			v77 = vert_y_low->V;
 			v78 = vert_y_low->Brightness;
-			if (v1293)
+			if (vertYlowIsNegative)
 			{
 				v18 = __OFSUB__(triLn_v1123, -v1191);
 				v16 = triLn_v1123 == -v1191;
@@ -6902,8 +6903,6 @@ LABEL_129:
 							startLine, drawEveryNthLine,
 							v1135, &v1102, v1124,
 							x_DWORD_DE55C_ActTexture, x_BYTE_E126C, triLn_v1123
-							//v1135, v1146, &v1102, v1124,
-							//x_DWORD_DE55C_ActTexture
 						);
 						return;
 					case 0x1A:
@@ -7020,19 +7019,19 @@ LABEL_129:
 			}
 			else if (v1301)
 			{
-			v82 = viewPort.Height_DE568 - v1191;
-			triLn_v1123 = viewPort.Height_DE568 - v1191;
-			if (v1297)
-			{
-				v1114 = viewPort.Height_DE568 - v1191;
-			}
-			else
-			{
-				v18 = __OFSUB__(v82, v1114);
-				v83 = v82 - v1114;
-				v1297 = (v83 < 0) ^ v18 | (v83 == 0);
-				v1120 = v83;
-			}
+				v82 = viewPort.Height_DE568 - v1191;
+				triLn_v1123 = viewPort.Height_DE568 - v1191;
+				if (v1297)
+				{
+					v1114 = viewPort.Height_DE568 - v1191;
+				}
+				else
+				{
+					v18 = __OFSUB__(v82, v1114);
+					v83 = v82 - v1114;
+					v1297 = (v83 < 0) ^ v18 | (v83 == 0);
+					v1120 = v83;
+				}
 			}
 			v81 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
 			v80 = v1122;
