@@ -5374,13 +5374,13 @@ void DrawPolygonRasterLine_subB6253(
 			{
 				v380 = (uint16_t)-(int16_t)v375;
 				v381 = v380;
-				v383 = __ROL4_16__(current_raster_line->V + Vincrement * v380);
+				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
 				BYTE1(v376) = v383;
 				v382 = current_raster_line->U + Uincrement * v380;
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
 				LOBYTE(v376) = BYTE1(v375);
-				v384 = __ROL4_16__(current_raster_line->brightness + v1146 * v381);
+				v384 = __SWAP_HILOWORD__(current_raster_line->brightness + v1146 * v381);
 				BYTE1(v375) = v384;
 				LOWORD(v384) = HIWORD(current_raster_line->endX);
 				v375 = (uint16_t)v375;
@@ -5422,11 +5422,11 @@ void DrawPolygonRasterLine_subB6253(
 		goto LABEL_510;
 	v379 += v375;
 	LOBYTE(v376) = BYTE2(current_raster_line->U);
-	v383 = __ROL4_16__(current_raster_line->V);
+	v383 = __SWAP_HILOWORD__(current_raster_line->V);
 	v386 = v385;
 	BYTE1(v376) = v383;
 	LOWORD(v383) = LOWORD(current_raster_line->U);
-	v384 = __ROL4_16__(current_raster_line->brightness);
+	v384 = __SWAP_HILOWORD__(current_raster_line->brightness);
 	BYTE1(v375) = v384;
 	LOWORD(v384) = v386;
 	goto LABEL_493;
@@ -5478,7 +5478,7 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 			if ((int16_t)v408 > 0)
 			{
 				v410 = (uint16_t)-(int16_t)v406;
-				v412 = __ROL4_16__(next_raster_line->V + Vincrement * v410);
+				v412 = __SWAP_HILOWORD__(next_raster_line->V + Vincrement * v410);
 				BYTE1(v407) = v412;
 				v411 = next_raster_line->U + Uincrement * v410;
 				LOWORD(v412) = v411;
@@ -5521,7 +5521,7 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 	if ((unsigned __int8)(((v408 & 0x8000u) != 0) ^ v18) | ((x_WORD)v408 == 0))
 		goto LABEL_602;
 	v409 += v406;
-	v412 = __ROL4_16__(next_raster_line->V);
+	v412 = __SWAP_HILOWORD__(next_raster_line->V);
 	BYTE1(v407) = v412;
 	LOWORD(v412) = LOWORD(next_raster_line->U);
 	LOBYTE(v407) = BYTE2(next_raster_line->U);
@@ -6933,13 +6933,13 @@ LABEL_129:
 								v1258 = v1048;
 								v1050 = (unsigned __int16)-(signed __int16)v1046;
 								v1051 = v1050;
-								v1053 = __ROL4_16__(v1045->V + Vincrement * v1050);
+								v1053 = __SWAP_HILOWORD__(v1045->V + Vincrement * v1050);
 								BYTE1(v1047) = v1053;
 								v1052 = v1045->U + Uincrement * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
 								LOBYTE(v1047) = BYTE1(v1046);
-								v1054 = __ROL4_16__(v1045->brightness + v1146 * v1051);
+								v1054 = __SWAP_HILOWORD__(v1045->brightness + v1146 * v1051);
 								v1046 = (unsigned __int16)v1046;
 							LABEL_1294:
 								v1291 = v1045;
@@ -6989,12 +6989,12 @@ LABEL_129:
 					if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
 						goto LABEL_1361;
 					v1049 += v1046;
-					v1053 = __ROL4_16__(v1045->V);
+					v1053 = __SWAP_HILOWORD__(v1045->V);
 					BYTE1(v1047) = v1053;
 					LOWORD(v1053) = LOWORD(v1045->U);
 					LOBYTE(v1047) = BYTE2(v1045->U);
 					v1258 = v1048;
-					v1054 = __ROL4_16__(v1045->brightness);
+					v1054 = __SWAP_HILOWORD__(v1045->brightness);
 					goto LABEL_1294;
 				}
 				v1114 += v1191;
