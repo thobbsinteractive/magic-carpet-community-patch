@@ -421,6 +421,7 @@ void GameRenderHD::DrawSky_40950(int16_t roll, uint8_t startLine, uint8_t drawEv
 void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __int16 yaw, signed int posZ, int pitch, int16_t roll, int fov)
 {
 	int sinIdx = 0;
+	int sinIdx2 = 0;
 	int v9; // eax
 	int v10; // edx
 	int v11; // ecx
@@ -889,8 +890,9 @@ void GameRenderHD::DrawTerrainAndParticles_3C080(__int16 posX, __int16 posY, __i
 				//Used for Reflection Wave Index.
 				tickIdx = (unsigned __int16)D41A0_0.array_0x2BDE[D41A0_0.LevelIndex_0xc].dword_0x012_2BE0_11248 << 6;
 				sinIdx = (tickIdx + (HIBYTE(v279) << 7)) & 0x7FF;
+				sinIdx2 = (tickIdx + ((uint8_t)v279 << 7)) & 0x7FF;
 				projectedVertexBuffer[26] = Maths::sin_DB750[sinIdx] >> 8;
-				v113 = projectedVertexBuffer[26] * (Maths::sin_DB750[sinIdx] >> 8);
+				v113 = projectedVertexBuffer[26] * (Maths::sin_DB750[sinIdx2] >> 8);
 				projectedVertexBuffer[26] = mapHeightmap_11B4E0[v111];
 				Str_E9C38_smalltit[v278x].inverse_alt_8 = -(projectedVertexBuffer[26] * ((v113 >> 4) + 0x8000) >> 10) - posZ;
 				if (!(mapAngle_13B4E0[v111] & 8) || (Str_E9C38_smalltit[v278x].alt_4 -= v113 >> 10, projectedVertexBuffer[31] >= 14464))
