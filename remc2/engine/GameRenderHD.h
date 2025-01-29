@@ -131,6 +131,7 @@ public:
 
 	static int32_t CalculateRotationTranslationX(int64_t cos_0x11, int64_t pnt1, int64_t sin_0x0d, int64_t pnt2);
 	static int32_t CalculateRotationTranslationY(int64_t pnt1, int64_t sin_0x0d, int64_t cos_0x11, int64_t pnt2);
+	static int SumByte1WithByte2(int byte1, int byte2, uint8_t v180);
 };
 
 #endif //GAME_RENDER_HD

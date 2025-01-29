@@ -5399,11 +5399,11 @@ void DrawPolygonRasterLine_subB6253(
 					LOBYTE(v376) = BYTE2(Uincrement) + v180 + v376;
 					v180 = __CFADD__(v1167, v383);
 					v383 += v1167;
-					BYTE1(v376) += BYTE2(Vincrement) + v180;
+					v376 = GameRenderHD::SumByte1WithByte2(v376, Vincrement, v180);
 					v180 = __CFADD__(v1183, v384);
 					v384 += v1183;
 					v388[0] = x_BYTE_F6EE0_tablesx[v375];
-					BYTE1(v375) += BYTE2(v1146) + v180;
+					v375 = GameRenderHD::SumByte1WithByte2(v375, v1146, v180);
 					v388 += 1;
 					v18 = __OFSUB__((x_WORD)v384, 1);
 					LOWORD(v384) = v384 - 1;
@@ -5502,7 +5502,7 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 					v180 = __CFADD__(v1169, v412);
 					v412 = v1169 + v412;
 					*v409 = x_BYTE_F6EE0_tablesx[v406];
-					BYTE1(v407) += BYTE2(Vincrement) + v180;
+					v407 = GameRenderHD::SumByte1WithByte2(v407, Vincrement, v180);
 					v408 = v408 - 1;
 					if (!v408)
 						break;
@@ -6965,7 +6965,7 @@ LABEL_129:
 									}
 									v180 = __CFADD__(v1182, v1053);
 									v1053 = v1182 + v1053;
-									BYTE1(v1047) += BYTE2(Vincrement) + v180;
+									v1047 = GameRenderHD::SumByte1WithByte2(v1047, Vincrement, v180);
 									v180 = __CFADD__(v1189, v1054);
 									v1054 = v1189 + v1054;
 									*v1049 = v1056;
@@ -7150,4 +7150,10 @@ void GameRenderHD::WaitForRenderFinish()
 		}
 		//std::this_thread::sleep_for(std::chrono::milliseconds(50));
 	} while (taskCount > 0);
+}
+
+int GameRenderHD::SumByte1WithByte2(int byte1, int byte2, uint8_t v180)
+{
+	BYTE1(byte1) += BYTE2(byte2) + v180;
+	return byte1;
 }
