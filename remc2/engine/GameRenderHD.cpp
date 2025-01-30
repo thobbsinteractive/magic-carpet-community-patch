@@ -5435,7 +5435,7 @@ void DrawPolygonRasterLine_subB6253(
 }
 
 
-void DrawPolygonRasterLine_flat_and_reflections_subB6253(
+void DrawPolygonRasterLine_flat_shading_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
 	uint32_t Vincrement, uint8_t **pv1102, int Uincrement,
 	uint8_t *actTexture, char local_x_BYTE_E126C, int triLn_v1123) 
@@ -5531,10 +5531,127 @@ void DrawPolygonRasterLine_flat_and_reflections_subB6253(
 }
 
 
+void DrawPolygonRasterLine_reflections_subB6253(
+	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine,
+	uint32_t Vincrement, int Uincrement,
+	uint32_t v1146, uint8_t **pv1102,
+	uint8_t *actTexture, int triLn_v1123//, char local_x_BYTE_E126C
+	)
+{
+	Rasterline_t *next_raster_line = raster_lines;
+	uint8_t line25 = startLine;
+
+	int VincrementFixedPoint = Vincrement << 16;
+	int v1189 = v1146 << 16;
+
+	uint8_t v18;
+	uint8_t v180;
+	unsigned int v1046;
+	int v1047;
+	int v1048;
+	char* v1049;
+	int v1050;
+	int v1051;
+	unsigned int v1052;
+	int v1053;
+	int v1054;
+	uint8_t* v1055;
+	char v1056;
+	int v1258;
+	Rasterline_t *v1291;
+
+	HIWORD(v1046) = 0;
+	HIWORD(v1047) = 0;
+
+	while (1)
+	{
+		LOWORD(v1046) = HIWORD(next_raster_line->startX);
+		v1048 = HIWORD(next_raster_line->endX);
+		v1049 = (char*)(iScreenWidth_DE560 + *pv1102);
+		*pv1102 += iScreenWidth_DE560;
+
+		line25++;
+		if (line25 >= drawEveryNthLine)
+		{
+			line25 = 0;
+			if ((v1046 & 0x8000u) == 0)
+				break;
+			if ((signed __int16)v1048 > 0)
+			{
+				if (v1048 > viewPort.Width_DE564)
+					v1048 = viewPort.Width_DE564;
+				v1258 = v1048;
+				v1050 = (uint16_t)-(int16_t)v1046;
+				v1051 = v1050;
+				v1053 = __SWAP_HILOWORD__(next_raster_line->V + Vincrement * v1050);
+				BYTE1(v1047) = v1053;
+				v1052 = next_raster_line->U + Uincrement * v1050;
+				LOWORD(v1053) = v1052;
+				v1046 = v1052 >> 8;
+				LOBYTE(v1047) = BYTE1(v1046);
+				v1054 = __SWAP_HILOWORD__(next_raster_line->brightness + v1146 * v1051);
+				v1046 = (unsigned __int16)v1046;
+			LABEL_1294:
+				v1291 = next_raster_line;
+				v1055 = actTexture;
+				while (1)
+				{
+					LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v1053);
+					LOWORD(v1053) = Uincrement + v1053;
+					BYTE1(v1046) = v1054;
+					LOBYTE(v1047) = BYTE2(Uincrement) + v180 + v1047;
+					if ((unsigned __int8)v1046 >= 0xCu)
+					{
+						v1056 = x_BYTE_F6EE0_tablesx[v1046]; // Fixme: x_BYTE_F6EE0_tablesx should be passed as a parameter
+					}
+					else
+					{
+						LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
+						BYTE1(v1046) = *v1049;
+						v1056 = x_BYTE_F6EE0_tablesx[16384 + v1046];
+					}
+					v180 = __CFADD__(VincrementFixedPoint, v1053);
+					v1053 = VincrementFixedPoint + v1053;
+					v1047 = GameRenderHD::SumByte1WithByte2(v1047, Vincrement, v180);
+					v180 = __CFADD__(v1189, v1054);
+					v1054 = v1189 + v1054;
+					*v1049 = v1056;
+					LOBYTE(v1054) = BYTE2(v1146) + v180 + v1054;
+					v1258 = v1258 - 1;
+					if (!v1258)
+						break;
+
+					v1049 += 1;
+				}
+				next_raster_line = v1291;
+			}
+		}
+	LABEL_1361:
+		next_raster_line += 1;
+		if (!--triLn_v1123)
+			return;
+	}
+	if (v1048 > viewPort.Width_DE564)
+		v1048 = viewPort.Width_DE564;
+	v18 = __OFSUB__((x_WORD)v1048, (x_WORD)v1046);
+	LOWORD(v1048) = v1048 - v1046;
+	if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
+		goto LABEL_1361;
+	v1049 += v1046;
+	v1053 = __SWAP_HILOWORD__(next_raster_line->V);
+	BYTE1(v1047) = v1053;
+	LOWORD(v1053) = LOWORD(next_raster_line->U);
+	LOBYTE(v1047) = BYTE2(next_raster_line->U);
+	v1258 = v1048;
+	v1054 = __SWAP_HILOWORD__(next_raster_line->brightness);
+	goto LABEL_1294;
+}
+
+
 void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
 	uint8_t line1 = startLine;
-	uint8_t line25 = startLine;
 
 	const ProjectionPolygon* vert_y_low; // esi
 	const ProjectionPolygon* vert_y_middle; // edi
@@ -5668,18 +5785,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	signed int v173; // ecx
 	char* v174; // edi
 	uint8_t v180; // cf
-	Rasterline_t *v1045; // esi
-	unsigned int v1046; // eax
-	int v1047; // ebx
-	int v1048; // ecx
-	char* v1049; // edi
-	int v1050; // eax
-	int v1051; // ecx
-	unsigned int v1052; // eax
-	int v1053; // edx
-	int v1054; // ecx
-	uint8_t* v1055; // esi
-	char v1056; // al
 	uint8_t* v1102; // [esp+0h] [ebp-88h]
 	int v1104; // [esp+4h] [ebp-84h]
 	int v1105; // [esp+4h] [ebp-84h]
@@ -5730,13 +5835,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1161; // [esp+48h] [ebp-40h]
 	int v1162; // [esp+48h] [ebp-40h]
 	int v1164; // [esp+48h] [ebp-40h]
-	int v1182; // [esp+4Ch] [ebp-3Ch]
-	int v1189; // [esp+50h] [ebp-38h]
 	int v1190; // [esp+54h] [ebp-34h]
 	int v1191; // [esp+54h] [ebp-34h]
 	int v1192; // [esp+54h] [ebp-34h]
-	int v1258; // [esp+58h] [ebp-30h]
-	Rasterline_t *v1291; // [esp+5Ch] [ebp-2Ch]
 	char v1292; // [esp+62h] [ebp-26h]
 	bool vertYlowIsNegative; // [esp+62h] [ebp-26h]
 	char v1294; // [esp+62h] [ebp-26h]
@@ -5756,7 +5857,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	//add_compare(0x297257, CommandLineParams.DoDebugafterload(),0x37);
 
 	//fix it
-	v1045 = nullptr;
 	Uincrement = 0;
 	Vincrement = 0;
 	//fix it
@@ -5916,6 +6016,11 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 							goto LABEL_53;
 						}
 						return;
+					case 1:
+					case 4:
+					case 0x10:
+					case 0x11:
+						Logger->error("!!! Unsupported polygon mode !!!");
 					case 2:
 					case 3:
 					case 7:
@@ -6274,6 +6379,11 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				}
 				RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
 				goto LABEL_53;
+			case 1:
+			case 4:
+			case 0x10:
+			case 0x11:
+				Logger->error("!!! Unsupported polygon mode !!!");
 			case 5:
 			case 6:
 			case 0x14:
@@ -6465,6 +6575,11 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			}
 			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v154, &v155, &v156, &v157, slope_HighLowVert, v1110, v1132, v1143, &dY_HighLow_actual_rows_to_draw);
 			goto LABEL_53;
+		case 1:
+		case 4:
+		case 0x10:
+		case 0x11:
+			Logger->error("!!! Unsupported polygon mode !!!");
 		case 5:
 		case 6:
 		case 0x14:
@@ -6673,6 +6788,11 @@ LABEL_129:
 				v114 = RasterizePolygon(v114, &v113, &v111, v1112, v1108, &v1120);
 			}
 			goto LABEL_53;
+		case 1:
+		case 4:
+		case 0x10:
+		case 0x11:
+			Logger->error("!!! Unsupported polygon mode !!!");
 		case 2:
 		case 3:
 		case 7:
@@ -6900,7 +7020,7 @@ LABEL_129:
 						return;
 					case 7:
 					case 0xB:
-						DrawPolygonRasterLine_flat_and_reflections_subB6253(
+						DrawPolygonRasterLine_flat_shading_subB6253(
 							&rasterlines_DE56Cx[startLine][0],
 							startLine, drawEveryNthLine,
 							Vincrement, &v1102, Uincrement,
@@ -6908,96 +7028,15 @@ LABEL_129:
 						);
 						return;
 					case 0x1A:
-						// flat shading and reflections enabled
-						v1045 = &rasterlines_DE56Cx[startLine][0];
-						v1182 = Vincrement << 16;
-						v1189 = v1146 << 16;
-						HIWORD(v1046) = 0;
-						HIWORD(v1047) = 0;
-						break;
+						DrawPolygonRasterLine_reflections_subB6253(
+							&rasterlines_DE56Cx[startLine][0],
+							startLine, drawEveryNthLine,
+							Vincrement, Uincrement,
+							v1146, &v1102,
+							x_DWORD_DE55C_ActTexture, triLn_v1123//, x_BYTE_E126C
+						);
+						return;
 					}
-					while (1)
-					{
-						LOWORD(v1046) = HIWORD(v1045->startX);
-						v1048 = HIWORD(v1045->endX);
-						v1049 = (char*)(iScreenWidth_DE560 + v1102);
-						v1102 += iScreenWidth_DE560;
-						line25++;
-						if (line25 >= drawEveryNthLine)
-						{
-							line25 = 0;
-							if ((v1046 & 0x8000u) == 0)
-								break;
-							if ((signed __int16)v1048 > 0)
-							{
-								if (v1048 > viewPort.Width_DE564)
-									v1048 = viewPort.Width_DE564;
-								v1258 = v1048;
-								v1050 = (unsigned __int16)-(signed __int16)v1046;
-								v1051 = v1050;
-								v1053 = __SWAP_HILOWORD__(v1045->V + Vincrement * v1050);
-								BYTE1(v1047) = v1053;
-								v1052 = v1045->U + Uincrement * v1050;
-								LOWORD(v1053) = v1052;
-								v1046 = v1052 >> 8;
-								LOBYTE(v1047) = BYTE1(v1046);
-								v1054 = __SWAP_HILOWORD__(v1045->brightness + v1146 * v1051);
-								v1046 = (unsigned __int16)v1046;
-							LABEL_1294:
-								v1291 = v1045;
-								v1055 = x_DWORD_DE55C_ActTexture;
-								while (1)
-								{
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v1053);
-									LOWORD(v1053) = Uincrement + v1053;
-									BYTE1(v1046) = v1054;
-									LOBYTE(v1047) = BYTE2(Uincrement) + v180 + v1047;
-									if ((unsigned __int8)v1046 >= 0xCu)
-									{
-										v1056 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = *v1049;
-										v1056 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1053);
-									v1053 = v1182 + v1053;
-									v1047 = GameRenderHD::SumByte1WithByte2(v1047, Vincrement, v180);
-									v180 = __CFADD__(v1189, v1054);
-									v1054 = v1189 + v1054;
-									*v1049 = v1056;
-									LOBYTE(v1054) = BYTE2(v1146) + v180 + v1054;
-									v1258 = v1258 - 1;
-									if (!v1258)
-										break;
-
-									v1049 += 1;
-								}
-								v1045 = v1291;
-							}
-						}
-					LABEL_1361:
-						v1045 += 1;
-						if (!--triLn_v1123)
-							return;
-					}
-					if (v1048 > viewPort.Width_DE564)
-						v1048 = viewPort.Width_DE564;
-					v18 = __OFSUB__((x_WORD)v1048, (x_WORD)v1046);
-					LOWORD(v1048) = v1048 - v1046;
-					if ((unsigned __int8)(((v1048 & 0x8000u) != 0) ^ v18) | ((x_WORD)v1048 == 0))
-						goto LABEL_1361;
-					v1049 += v1046;
-					v1053 = __SWAP_HILOWORD__(v1045->V);
-					BYTE1(v1047) = v1053;
-					LOWORD(v1053) = LOWORD(v1045->U);
-					LOBYTE(v1047) = BYTE2(v1045->U);
-					v1258 = v1048;
-					v1054 = __SWAP_HILOWORD__(v1045->brightness);
-					goto LABEL_1294;
 				}
 				v1114 += v1191;
 				v74 += v1104 * v1161;
