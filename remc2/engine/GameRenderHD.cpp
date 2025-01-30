@@ -5325,6 +5325,62 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 }
 
 
+void DrawPolygonRasterLine_single_color_subB6253(
+	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
+	uint8_t **pv1102, char local_x_BYTE_E126C, int triLn_v1123)
+{
+	Rasterline_t* next_raster_line = raster_lines;
+
+	uint8_t* v170 = *pv1102;
+
+	char v171 = local_x_BYTE_E126C;
+
+	uint8_t v18;
+	int v172;
+	signed int v173;
+
+	uint8_t* v174;
+
+	uint8_t line1 = startLine;
+
+	HIWORD(v172) = 0;
+	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_0_v173); }
+	while (1)
+	{
+		LOWORD(v172) = HIWORD(next_raster_line->startX);
+		v173 = HIWORD(next_raster_line->endX);
+		v170 += iScreenWidth_DE560;
+		line1++;
+		if (line1 >= drawEveryNthLine)
+		{
+			line1 = startLine;
+			if ((v172 & 0x8000u) == 0)
+				break;
+			if ((signed __int16)v173 > 0)
+			{
+				if (v173 > viewPort.Width_DE564)
+					v173 = viewPort.Width_DE564;
+				v174 = v170;
+			LABEL_328:
+				memset(v174, v171, v173);
+			}
+		}
+		LABEL_329:
+			next_raster_line++;
+		if (!--triLn_v1123)
+			return;
+	}
+	if (v173 > viewPort.Width_DE564)
+		v173 = viewPort.Width_DE564;
+	v18 = __OFSUB__((x_WORD)v173, (x_WORD)v172);
+	LOWORD(v173) = v173 - v172;
+	if ((unsigned __int8)(((v173 & 0x8000u) != 0) ^ v18) | ((x_WORD)v173 == 0))
+		goto LABEL_329;
+	v174 = &v170[v172];
+	goto LABEL_328;
+}
+
+
 void DrawPolygonRasterLine_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
 	uint32_t Vincrement, uint32_t v1146, uint8_t **pv1102, int Uincrement,
@@ -5651,8 +5707,6 @@ void DrawPolygonRasterLine_reflections_subB6253(
 
 void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* vertex1, const ProjectionPolygon* vertex2, const ProjectionPolygon* vertex3, uint8_t startLine, uint8_t drawEveryNthLine)
 {
-	uint8_t line1 = startLine;
-
 	const ProjectionPolygon* vert_y_low; // esi
 	const ProjectionPolygon* vert_y_middle; // edi
 	const ProjectionPolygon* vert_y_high; // ecx
@@ -5778,12 +5832,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v166; // ebx
 	int v167; // edi
 	//x_DWORD* v168; // edi
-	uint16_t* v169; // esi
-	char* v170; // edx
-	char v171; // al
-	int v172; // ebx
-	signed int v173; // ecx
-	char* v174; // edi
 	uint8_t v180; // cf
 	uint8_t* v1102; // [esp+0h] [ebp-88h]
 	int v1104; // [esp+4h] [ebp-84h]
@@ -6972,44 +7020,12 @@ LABEL_129:
 					switch (x_BYTE_E126D)
 					{
 					case 0:
-						v169 = (uint16_t*)&rasterlines_DE56Cx[startLine][0];
-						v170 = (char*)v1102;
-						v171 = x_BYTE_E126C;
-						HIWORD(v172) = 0;
-						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_0_v173); }
-						while (1)
-						{
-							LOWORD(v172) = v169[1];
-							v173 = v169[3];
-							v170 += iScreenWidth_DE560;
-							line1++;
-							if (line1 >= drawEveryNthLine)
-							{
-								line1 = startLine;
-								if ((v172 & 0x8000u) == 0)
-									break;
-								if ((signed __int16)v173 > 0)
-								{
-									if (v173 > viewPort.Width_DE564)
-										v173 = viewPort.Width_DE564;
-									v174 = v170;
-								LABEL_328:
-									memset(v174, v171, v173);
-								}
-							}
-							LABEL_329:
-								v169 += 10;
-							if (!--triLn_v1123)
-								return;
-						}
-						if (v173 > viewPort.Width_DE564)
-							v173 = viewPort.Width_DE564;
-						v18 = __OFSUB__((x_WORD)v173, (x_WORD)v172);
-						LOWORD(v173) = v173 - v172;
-						if ((unsigned __int8)(((v173 & 0x8000u) != 0) ^ v18) | ((x_WORD)v173 == 0))
-							goto LABEL_329;
-						v174 = &v170[v172];
-						goto LABEL_328;
+						DrawPolygonRasterLine_single_color_subB6253(
+							&rasterlines_DE56Cx[startLine][0],
+							startLine, drawEveryNthLine,
+							&v1102, x_BYTE_E126C, triLn_v1123
+						);
+						return;
 					case 5:
 						DrawPolygonRasterLine_subB6253(
 							&rasterlines_DE56Cx[startLine][0],
