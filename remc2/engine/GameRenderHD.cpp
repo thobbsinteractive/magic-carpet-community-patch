@@ -5383,7 +5383,7 @@ void DrawPolygonRasterLine_single_color_subB6253(
 
 void DrawPolygonRasterLine_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
-	uint32_t Vincrement, uint32_t v1146, uint8_t **pv1102, int Uincrement,
+	uint32_t Vincrement, uint32_t BrightnessIncrement, uint8_t **pv1102, int Uincrement,
 	uint8_t *actTexture, int triLn_v1123) 
 {
 	Rasterline_t* next_raster_line = raster_lines;
@@ -5392,7 +5392,7 @@ void DrawPolygonRasterLine_subB6253(
 	uint8_t line6 = startLine;
 
 	uint32_t v1167 = Vincrement << 16;
-	uint32_t v1183 = v1146 << 16;
+	uint32_t v1183 = BrightnessIncrement << 16;
 
 	uint8_t v18;
 	uint8_t v180;
@@ -5438,7 +5438,7 @@ void DrawPolygonRasterLine_subB6253(
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
 				LOBYTE(v376) = BYTE1(v375);
-				v384 = __SWAP_HILOWORD__(current_raster_line->brightness + v1146 * v381);
+				v384 = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v381);
 				BYTE1(v375) = v384;
 				LOWORD(v384) = HIWORD(current_raster_line->endX);
 				v375 = (uint16_t)v375;
@@ -5459,7 +5459,7 @@ void DrawPolygonRasterLine_subB6253(
 					v180 = __CFADD__(v1183, v384);
 					v384 += v1183;
 					v388[0] = x_BYTE_F6EE0_tablesx[v375];
-					v375 = GameRenderHD::SumByte1WithByte2(v375, v1146, v180);
+					v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
 					v388 += 1;
 					v18 = __OFSUB__((x_WORD)v384, 1);
 					LOWORD(v384) = v384 - 1;
@@ -5590,7 +5590,7 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 void DrawPolygonRasterLine_reflections_subB6253(
 	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine,
 	uint32_t Vincrement, int Uincrement,
-	uint32_t v1146, uint8_t **pv1102,
+	uint32_t BrightnessIncrement, uint8_t **pv1102,
 	uint8_t *actTexture, int triLn_v1123//, char local_x_BYTE_E126C
 	)
 {
@@ -5598,7 +5598,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 	uint8_t line25 = startLine;
 
 	int VincrementFixedPoint = Vincrement << 16;
-	int v1189 = v1146 << 16;
+	int v1189 = BrightnessIncrement << 16;
 
 	uint8_t v18;
 	uint8_t v180;
@@ -5645,7 +5645,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 				LOWORD(v1053) = v1052;
 				v1046 = v1052 >> 8;
 				LOBYTE(v1047) = BYTE1(v1046);
-				v1054 = __SWAP_HILOWORD__(next_raster_line->brightness + v1146 * v1051);
+				v1054 = __SWAP_HILOWORD__(next_raster_line->brightness + BrightnessIncrement * v1051);
 				v1046 = (unsigned __int16)v1046;
 			LABEL_1294:
 				v1291 = next_raster_line;
@@ -5673,7 +5673,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 					v180 = __CFADD__(v1189, v1054);
 					v1054 = v1189 + v1054;
 					*v1049 = v1056;
-					LOBYTE(v1054) = BYTE2(v1146) + v180 + v1054;
+					LOBYTE(v1054) = BYTE2(BrightnessIncrement) + v180 + v1054;
 					v1258 = v1258 - 1;
 					if (!v1258)
 						break;
@@ -5871,7 +5871,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1143; // [esp+34h] [ebp-54h]
 	int v1144; // [esp+38h] [ebp-50h]
 	int v1145; // [esp+38h] [ebp-50h]
-	uint32_t v1146; // [esp+3Ch] [ebp-4Ch]
+	uint32_t BrightnessIncrement = 0xAAAAAAAA; // [esp+3Ch] [ebp-4Ch]
 	int v1147; // [esp+40h] [ebp-48h]
 	int v1149; // [esp+40h] [ebp-48h]
 	int v1151; // [esp+40h] [ebp-48h]
@@ -6191,16 +6191,13 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						v19 = v14 + v15;
 						if ((unsigned __int8)v17 ^ v18)
 							return;
-						if (!v16)
-						{
-							v20 = v19 + 1;
-							Uincrement = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_HighLowVert) - vert_y_low->U)
-								/ v20;
-							Vincrement = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_HighLowVert) - vert_y_low->V)
-								/ v20;
-							v1146 = (signed int)(vert_y_middle->Brightness + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->Brightness - vert_y_high->Brightness) / dY_HighLowVert) - vert_y_low->Brightness)
-								/ v20;
-						}
+						v20 = v19 + 1;
+						Uincrement = (signed int)(vert_y_middle->U + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->U - vert_y_high->U) / dY_HighLowVert) - vert_y_low->U)
+							/ v20;
+						Vincrement = (signed int)(vert_y_middle->V + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->V - vert_y_high->V) / dY_HighLowVert) - vert_y_low->V)
+							/ v20;
+						BrightnessIncrement = (signed int)(vert_y_middle->Brightness + (unsigned __int64)(v1117 * (signed __int64)(vert_y_low->Brightness - vert_y_high->Brightness) / dY_HighLowVert) - vert_y_low->Brightness)
+							/ v20;
 						v1125 = (vert_y_high->U - vert_y_low->U) / dY_HighLowVert;
 						v1136 = (vert_y_high->V - vert_y_low->V) / dY_HighLowVert;
 						v1147 = (vert_y_high->Brightness - vert_y_low->Brightness) / dY_HighLowVert;
@@ -6442,7 +6439,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				v119 = vert_y_middle->X - vert_y_high->X;
 				Uincrement = (vert_y_middle->U - vert_y_high->U) / v119;
 				Vincrement = (vert_y_middle->V - vert_y_high->V) / v119;
-				v1146 = (vert_y_middle->Brightness - vert_y_high->Brightness) / v119;
+				BrightnessIncrement = (vert_y_middle->Brightness - vert_y_high->Brightness) / v119;
 				v1129 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
 				v1140 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
 				v1151 = (vert_y_high->Brightness - vert_y_low->Brightness) / triLn_v1123;
@@ -6638,7 +6635,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
 			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
 			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
-			v1146 = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
+			BrightnessIncrement = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
 			v1131 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
 			v1142 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
 			v1153 = (vert_y_high->Brightness - vert_y_low->Brightness) / triLn_v1123;
@@ -6972,7 +6969,7 @@ LABEL_129:
 					/ v73;
 				v69 = (signed int)(vert_y_low->Brightness + (uint64_t)(v1114 * (int64_t)(vert_y_middle->Brightness - vert_y_low->Brightness) / v1118) - vert_y_high->Brightness) / v73;
 			}
-			v1146 = v69;
+			BrightnessIncrement = v69;
 			v1127 = (vert_y_high->U - vert_y_low->U) / v1114;
 			v1138 = (vert_y_high->V - vert_y_low->V) / v1114;
 			v1149 = (vert_y_high->Brightness - vert_y_low->Brightness) / v1114;
@@ -7016,43 +7013,7 @@ LABEL_129:
 					{
 						v81 = RasterizePolygon(v81, &v80, &v75, &v76, &v77, &v78, v1112, v1108, v1133, v1144, v1155, &v1120);
 					}
-				LABEL_53:
-					switch (x_BYTE_E126D)
-					{
-					case 0:
-						DrawPolygonRasterLine_single_color_subB6253(
-							&rasterlines_DE56Cx[startLine][0],
-							startLine, drawEveryNthLine,
-							&v1102, x_BYTE_E126C, triLn_v1123
-						);
-						return;
-					case 5:
-						DrawPolygonRasterLine_subB6253(
-							&rasterlines_DE56Cx[startLine][0],
-							startLine, drawEveryNthLine,
-							Vincrement, v1146, &v1102, Uincrement,
-							x_DWORD_DE55C_ActTexture, triLn_v1123
-						);
-						return;
-					case 7:
-					case 0xB:
-						DrawPolygonRasterLine_flat_shading_subB6253(
-							&rasterlines_DE56Cx[startLine][0],
-							startLine, drawEveryNthLine,
-							Vincrement, &v1102, Uincrement,
-							x_DWORD_DE55C_ActTexture, x_BYTE_E126C, triLn_v1123
-						);
-						return;
-					case 0x1A:
-						DrawPolygonRasterLine_reflections_subB6253(
-							&rasterlines_DE56Cx[startLine][0],
-							startLine, drawEveryNthLine,
-							Vincrement, Uincrement,
-							v1146, &v1102,
-							x_DWORD_DE55C_ActTexture, triLn_v1123//, x_BYTE_E126C
-						);
-						return;
-					}
+					goto LABEL_53; // draw raster lines
 				}
 				v1114 += v1191;
 				v74 += v1104 * v1161;
@@ -7094,6 +7055,45 @@ LABEL_129:
 			v80 = v1122;
 			goto LABEL_156;
 		}
+	}
+	return;
+
+LABEL_53:
+	switch (x_BYTE_E126D)
+	{
+	case 0:
+		DrawPolygonRasterLine_single_color_subB6253(
+			&rasterlines_DE56Cx[startLine][0],
+			startLine, drawEveryNthLine,
+			&v1102, x_BYTE_E126C, triLn_v1123
+		);
+		return;
+	case 5:
+		DrawPolygonRasterLine_subB6253(
+			&rasterlines_DE56Cx[startLine][0],
+			startLine, drawEveryNthLine,
+			Vincrement, BrightnessIncrement, &v1102, Uincrement,
+			x_DWORD_DE55C_ActTexture, triLn_v1123
+		);
+		return;
+	case 7:
+	case 0xB:
+		DrawPolygonRasterLine_flat_shading_subB6253(
+			&rasterlines_DE56Cx[startLine][0],
+			startLine, drawEveryNthLine,
+			Vincrement, &v1102, Uincrement,
+			x_DWORD_DE55C_ActTexture, x_BYTE_E126C, triLn_v1123
+		);
+		return;
+	case 0x1A:
+		DrawPolygonRasterLine_reflections_subB6253(
+			&rasterlines_DE56Cx[startLine][0],
+			startLine, drawEveryNthLine,
+			Vincrement, Uincrement,
+			BrightnessIncrement, &v1102,
+			x_DWORD_DE55C_ActTexture, triLn_v1123
+		);
+		return;
 	}
 }
 
