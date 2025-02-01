@@ -5405,7 +5405,7 @@ void DrawPolygonRasterLine_subB6253(
 	unsigned int v382;
 	int v383;
 	int32_t v384tmp;
-	int16_t v384lo;
+	int16_t pixelCount_v384lo;
 	int16_t v384hi;
 	int16_t v385;
 	uint8_t* currentPixel;
@@ -5440,24 +5440,25 @@ void DrawPolygonRasterLine_subB6253(
 				LOBYTE(textureIndex) = BYTE1(v375);
 
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v380);
-				v384lo = LOWORD(v384tmp);
+				pixelCount_v384lo = LOWORD(v384tmp);
 				v384hi = HIWORD(v384tmp);
-				BYTE1(v375) = v384lo;
-				v384lo = HIWORD(current_raster_line->endX);
+				BYTE1(v375) = pixelCount_v384lo;
+				pixelCount_v384lo = HIWORD(current_raster_line->endX);
 
 				v375 = (uint16_t)v375;
 
-				if (v384lo > (int16_t)viewPort.Width_DE564) {
-					v384lo = viewPort.Width_DE564;
+				if (pixelCount_v384lo > (int16_t)viewPort.Width_DE564) {
+					pixelCount_v384lo = viewPort.Width_DE564;
 				}
 
 			LABEL_493:
 				currentPixel = &v379[0];
 				while (1)
 				{
+					LOBYTE(v375) = pTexture[textureIndex];
+
 					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
 					LOWORD(v383) = Uincrement + v383;
-					LOBYTE(v375) = pTexture[textureIndex];
 					LOBYTE(textureIndex) = BYTE2(Uincrement) + v180 + textureIndex;
 					v180 = __CFADD__(fixedpointVincrement, v383);
 					v383 += fixedpointVincrement;
@@ -5470,9 +5471,9 @@ void DrawPolygonRasterLine_subB6253(
 					v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
 					currentPixel += 1;
 
-					v18 = __OFSUB__(v384lo, 1);
-					v384lo = v384lo - 1;
-					if ((uint8_t)(((v384lo & 0x8000u) != 0) ^ v18) | (v384lo == 0))
+					v18 = __OFSUB__(pixelCount_v384lo, 1);
+					pixelCount_v384lo = pixelCount_v384lo - 1;
+					if ((uint8_t)(((pixelCount_v384lo & 0x8000u) != 0) ^ v18) | (pixelCount_v384lo == 0))
 						break;
 				}
 			}
@@ -5494,10 +5495,10 @@ void DrawPolygonRasterLine_subB6253(
 	LOWORD(v383) = LOWORD(current_raster_line->U);
 
 	v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
-	v384lo = LOWORD(v384tmp);
+	pixelCount_v384lo = LOWORD(v384tmp);
 	v384hi = HIWORD(v384tmp);
-	BYTE1(v375) = v384lo;
-	v384lo = v385;
+	BYTE1(v375) = pixelCount_v384lo;
+	pixelCount_v384lo = v385;
 
 	goto LABEL_493;
 }
