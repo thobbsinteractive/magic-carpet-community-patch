@@ -5392,7 +5392,6 @@ void DrawPolygonRasterLine_subB6253(
 	uint8_t line6 = startLine;
 
 	uint32_t fixedpointVincrement = Vincrement << 16;
-	uint32_t fixedpointBrightnessIncrement = BrightnessIncrement << 16;
 
 	uint8_t v18;
 	uint8_t v180;
@@ -5404,7 +5403,9 @@ void DrawPolygonRasterLine_subB6253(
 	uint16_t v381;
 	unsigned int v382;
 	int v383;
-	int32_t v384;
+	int32_t v384tmp;
+	int16_t v384lo;
+	int16_t v384hi;
 	int16_t v385;
 	int16_t v386;
 	uint8_t* currentPixel;
@@ -5437,12 +5438,19 @@ void DrawPolygonRasterLine_subB6253(
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
 				LOBYTE(textureIndex) = BYTE1(v375);
-				v384 = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v381);
-				BYTE1(v375) = v384;
-				LOWORD(v384) = HIWORD(current_raster_line->endX);
+
+				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v381);
+				v384lo = LOWORD(v384tmp);
+				v384hi = HIWORD(v384tmp);
+				BYTE1(v375) = v384lo;
+				v384lo = HIWORD(current_raster_line->endX);
+
 				v375 = (uint16_t)v375;
-				if ((int16_t)v384 > (int16_t)viewPort.Width_DE564)
-					LOWORD(v384) = viewPort.Width_DE564;
+
+				if (v384lo > (int16_t)viewPort.Width_DE564) {
+					v384lo = viewPort.Width_DE564;
+				}
+
 			LABEL_493:
 				currentPixel = &v379[0];
 				while (1)
@@ -5454,14 +5462,17 @@ void DrawPolygonRasterLine_subB6253(
 					v180 = __CFADD__(fixedpointVincrement, v383);
 					v383 += fixedpointVincrement;
 					textureIndex = GameRenderHD::SumByte1WithByte2(textureIndex, Vincrement, v180);
-					v180 = __CFADD__(fixedpointBrightnessIncrement, v384);
-					v384 += fixedpointBrightnessIncrement;
+
+					v180 = __CFADD__(LOWORD(BrightnessIncrement), v384hi);
+					v384hi += BrightnessIncrement;
+
 					currentPixel[0] = x_BYTE_F6EE0_tablesx[v375];
 					v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
 					currentPixel += 1;
-					v18 = __OFSUB__((x_WORD)v384, 1);
-					LOWORD(v384) = v384 - 1;
-					if ((uint8_t)(((v384 & 0x8000u) != 0) ^ v18) | ((x_WORD)v384 == 0))
+
+					v18 = __OFSUB__(v384lo, 1);
+					v384lo = v384lo - 1;
+					if ((uint8_t)(((v384lo & 0x8000u) != 0) ^ v18) | (v384lo == 0))
 						break;
 				}
 			}
@@ -5482,9 +5493,13 @@ void DrawPolygonRasterLine_subB6253(
 	v386 = v385;
 	BYTE1(textureIndex) = v383;
 	LOWORD(v383) = LOWORD(current_raster_line->U);
-	v384 = __SWAP_HILOWORD__(current_raster_line->brightness);
-	BYTE1(v375) = v384;
-	LOWORD(v384) = v386;
+
+	v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
+	v384lo = LOWORD(v384tmp);
+	v384hi = HIWORD(v384tmp);
+	BYTE1(v375) = v384lo;
+	v384lo = v386;
+
 	goto LABEL_493;
 }
 
