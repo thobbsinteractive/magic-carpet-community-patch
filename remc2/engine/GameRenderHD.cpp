@@ -5400,7 +5400,6 @@ void DrawPolygonRasterLine_subB6253(
 	int v378;
 	uint8_t* v379; // pixel position in screen buffer
 	uint16_t v380;
-	uint16_t v381;
 	unsigned int v382;
 	int v383;
 	int32_t v384tmp;
@@ -5427,11 +5426,11 @@ void DrawPolygonRasterLine_subB6253(
 		{
 			line6 = 0;
 			if ((v375 & 0x8000u) == 0)
-				break;
-			if ((signed __int16)v378 > 0)
+				break; // startX positive
+			if ((int16_t)v378 > 0)
 			{
+				// startX negative -> skip pixels by updating v,u,brightness
 				v380 = (uint16_t)-(int16_t)v375;
-				v381 = v380;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
 				BYTE1(textureIndex) = v383;
 				v382 = current_raster_line->U + Uincrement * v380;
@@ -5439,7 +5438,7 @@ void DrawPolygonRasterLine_subB6253(
 				v375 = v382 >> 8;
 				LOBYTE(textureIndex) = BYTE1(v375);
 
-				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v381);
+				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v380);
 				v384lo = LOWORD(v384tmp);
 				v384hi = HIWORD(v384tmp);
 				BYTE1(v375) = v384lo;
