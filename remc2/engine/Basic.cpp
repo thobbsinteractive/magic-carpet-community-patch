@@ -504,31 +504,6 @@ void FreeMem_83E80(uint8_t* ptr)//264e80
 }
 // 17ECA0: using guessed type int x_DWORD_17ECA0;
 
-//----- (00084000) --------------------------------------------------------
-int sub_84000(int a1)//265000
-{
-	int result; // eax
-	int v2; // edx
-	int v3; // ebx
-
-	result = a1;
-	if (*(x_DWORD*)(a1 + 12))
-	{
-		*(x_BYTE*)(a1 + 16) = 0;
-		v2 = *(x_DWORD*)(a1 + 12);
-		if (*(x_BYTE*)(a1 + 17) == *(x_BYTE*)(v2 + 17) && !*(x_BYTE*)(v2 + 16))
-		{
-			v3 = *(x_DWORD*)(a1 + 8);
-			if (v3)
-				*(x_DWORD*)(v3 + 12) = v2;
-			*(x_DWORD*)(*(x_DWORD*)(a1 + 12) + 8) = *(x_DWORD*)(a1 + 8);
-			*(x_DWORD*)(*(x_DWORD*)(a1 + 12) + 4) += *(x_DWORD*)(a1 + 4);
-			*(x_DWORD*)(a1 + 4) = 0;
-		}
-	}
-	return result;
-}
-
 x_DWORD x_outp(x_DWORD, char) { stub_fix_it(); return 0; };// weak
 x_DWORD x_inp(x_DWORD) { stub_fix_it(); return 0; };// weak
 void stub_fix_it() { allert_error(); };
