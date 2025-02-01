@@ -5326,10 +5326,10 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 
 
 void DrawPolygonRasterLine_single_color_subB6253(
-	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
+	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine, 
 	uint8_t **pv1102, char local_x_BYTE_E126C, int triLn_v1123)
 {
-	Rasterline_t* next_raster_line = raster_lines;
+	Rasterline_t* next_raster_line = pRasterLines;
 
 	uint8_t* v170 = *pv1102;
 
@@ -5382,22 +5382,22 @@ void DrawPolygonRasterLine_single_color_subB6253(
 
 
 void DrawPolygonRasterLine_subB6253(
-	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
+	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine, 
 	uint32_t Vincrement, uint32_t BrightnessIncrement, uint8_t **pv1102, int Uincrement,
-	uint8_t *actTexture, int triLn_v1123) 
+	const uint8_t *pTexture, int triLn_v1123) 
 {
-	Rasterline_t* next_raster_line = raster_lines;
+	Rasterline_t* next_raster_line = pRasterLines;
 	Rasterline_t* current_raster_line;
 
 	uint8_t line6 = startLine;
 
-	uint32_t v1167 = Vincrement << 16;
-	uint32_t v1183 = BrightnessIncrement << 16;
+	uint32_t fixedpointVincrement = Vincrement << 16;
+	uint32_t fixedpointBrightnessIncrement = BrightnessIncrement << 16;
 
 	uint8_t v18;
 	uint8_t v180;
 	uint32_t v375;
-	uint32_t v376;
+	uint32_t textureIndex;
 	int v378;
 	uint8_t* v379; // pixel position in screen buffer
 	uint16_t v380;
@@ -5407,11 +5407,10 @@ void DrawPolygonRasterLine_subB6253(
 	int32_t v384;
 	int16_t v385;
 	int16_t v386;
-	uint8_t* v388;
-	uint8_t* v389;
+	uint8_t* currentPixel;
 
 	HIWORD(v375) = 0;
-	HIWORD(v376) = 0;
+	HIWORD(textureIndex) = 0;
 
 	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
 	while (1)
@@ -5433,11 +5432,11 @@ void DrawPolygonRasterLine_subB6253(
 				v380 = (uint16_t)-(int16_t)v375;
 				v381 = v380;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
-				BYTE1(v376) = v383;
+				BYTE1(textureIndex) = v383;
 				v382 = current_raster_line->U + Uincrement * v380;
 				LOWORD(v383) = v382;
 				v375 = v382 >> 8;
-				LOBYTE(v376) = BYTE1(v375);
+				LOBYTE(textureIndex) = BYTE1(v375);
 				v384 = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v381);
 				BYTE1(v375) = v384;
 				LOWORD(v384) = HIWORD(current_raster_line->endX);
@@ -5445,22 +5444,21 @@ void DrawPolygonRasterLine_subB6253(
 				if ((int16_t)v384 > (int16_t)viewPort.Width_DE564)
 					LOWORD(v384) = viewPort.Width_DE564;
 			LABEL_493:
-				v388 = &v379[0];
-				v389 = actTexture;
+				currentPixel = &v379[0];
 				while (1)
 				{
 					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
 					LOWORD(v383) = Uincrement + v383;
-					LOBYTE(v375) = *(x_BYTE*)(v376 + v389);
-					LOBYTE(v376) = BYTE2(Uincrement) + v180 + v376;
-					v180 = __CFADD__(v1167, v383);
-					v383 += v1167;
-					v376 = GameRenderHD::SumByte1WithByte2(v376, Vincrement, v180);
-					v180 = __CFADD__(v1183, v384);
-					v384 += v1183;
-					v388[0] = x_BYTE_F6EE0_tablesx[v375];
+					LOBYTE(v375) = pTexture[textureIndex];
+					LOBYTE(textureIndex) = BYTE2(Uincrement) + v180 + textureIndex;
+					v180 = __CFADD__(fixedpointVincrement, v383);
+					v383 += fixedpointVincrement;
+					textureIndex = GameRenderHD::SumByte1WithByte2(textureIndex, Vincrement, v180);
+					v180 = __CFADD__(fixedpointBrightnessIncrement, v384);
+					v384 += fixedpointBrightnessIncrement;
+					currentPixel[0] = x_BYTE_F6EE0_tablesx[v375];
 					v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
-					v388 += 1;
+					currentPixel += 1;
 					v18 = __OFSUB__((x_WORD)v384, 1);
 					LOWORD(v384) = v384 - 1;
 					if ((uint8_t)(((v384 & 0x8000u) != 0) ^ v18) | ((x_WORD)v384 == 0))
@@ -5479,10 +5477,10 @@ void DrawPolygonRasterLine_subB6253(
 	if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0))
 		goto LABEL_510;
 	v379 += v375;
-	LOBYTE(v376) = BYTE2(current_raster_line->U);
+	LOBYTE(textureIndex) = BYTE2(current_raster_line->U);
 	v383 = __SWAP_HILOWORD__(current_raster_line->V);
 	v386 = v385;
-	BYTE1(v376) = v383;
+	BYTE1(textureIndex) = v383;
 	LOWORD(v383) = LOWORD(current_raster_line->U);
 	v384 = __SWAP_HILOWORD__(current_raster_line->brightness);
 	BYTE1(v375) = v384;
@@ -5492,12 +5490,12 @@ void DrawPolygonRasterLine_subB6253(
 
 
 void DrawPolygonRasterLine_flat_shading_subB6253(
-	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine, 
+	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine, 
 	uint32_t Vincrement, uint8_t **pv1102, int Uincrement,
-	uint8_t *actTexture, char local_x_BYTE_E126C, int triLn_v1123) 
+	uint8_t *pTexture, char local_x_BYTE_E126C, int triLn_v1123) 
 {
 	// flat shading and reflections enabled
-	Rasterline_t *next_raster_line = raster_lines;
+	Rasterline_t *next_raster_line = pRasterLines;
 
 	uint8_t line8 = startLine;
 
@@ -5547,7 +5545,7 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 				v406 = (uint16_t)v413;
 			LABEL_583:
 				v1278 = next_raster_line;
-				v414 = actTexture;
+				v414 = pTexture;
 				BYTE1(v406) = local_x_BYTE_E126C;
 				while (1)
 				{
@@ -5588,13 +5586,13 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 
 
 void DrawPolygonRasterLine_reflections_subB6253(
-	Rasterline_t *raster_lines, uint8_t startLine, uint8_t drawEveryNthLine,
+	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine,
 	uint32_t Vincrement, int Uincrement,
 	uint32_t BrightnessIncrement, uint8_t **pv1102,
-	uint8_t *actTexture, int triLn_v1123//, char local_x_BYTE_E126C
+	uint8_t *pTexture, int triLn_v1123//, char local_x_BYTE_E126C
 	)
 {
-	Rasterline_t *next_raster_line = raster_lines;
+	Rasterline_t *next_raster_line = pRasterLines;
 	uint8_t line25 = startLine;
 
 	int VincrementFixedPoint = Vincrement << 16;
@@ -5649,7 +5647,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 				v1046 = (unsigned __int16)v1046;
 			LABEL_1294:
 				v1291 = next_raster_line;
-				v1055 = actTexture;
+				v1055 = pTexture;
 				while (1)
 				{
 					LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
