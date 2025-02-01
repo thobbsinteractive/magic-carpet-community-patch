@@ -5406,7 +5406,6 @@ void DrawPolygonRasterLine_subB6253(
 	int16_t v384lo;
 	int16_t v384hi;
 	int16_t v385;
-	int16_t v386;
 	uint8_t* currentPixel;
 
 	HIWORD(v375) = 0;
@@ -5489,7 +5488,6 @@ void DrawPolygonRasterLine_subB6253(
 	v379 += v375;
 	LOBYTE(textureIndex) = BYTE2(current_raster_line->U);
 	v383 = __SWAP_HILOWORD__(current_raster_line->V);
-	v386 = v385;
 	BYTE1(textureIndex) = v383;
 	LOWORD(v383) = LOWORD(current_raster_line->U);
 
@@ -5497,7 +5495,7 @@ void DrawPolygonRasterLine_subB6253(
 	v384lo = LOWORD(v384tmp);
 	v384hi = HIWORD(v384tmp);
 	BYTE1(v375) = v384lo;
-	v384lo = v386;
+	v384lo = v385;
 
 	goto LABEL_493;
 }
