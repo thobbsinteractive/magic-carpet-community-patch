@@ -5399,7 +5399,7 @@ void DrawPolygonRasterLine_subB6253(
 	uint8_t v180;
 	uint32_t v375;
 	uint32_t textureIndex;
-	int v378;
+	int16_t endX;
 	uint8_t* v379; // pixel position in screen buffer
 	uint16_t v380;
 	unsigned int v382;
@@ -5420,7 +5420,7 @@ void DrawPolygonRasterLine_subB6253(
 		next_raster_line++;
 
 		LOWORD(v375) = HIWORD(current_raster_line->startX);
-		v378 = HIWORD(current_raster_line->endX);
+		endX = HIWORD(current_raster_line->endX);
 		v379 = iScreenWidth_DE560 + *pv1102;
 		*pv1102 += iScreenWidth_DE560;
 		line6++;
@@ -5430,10 +5430,10 @@ void DrawPolygonRasterLine_subB6253(
 			line6 = 0;
 			if ((v375 & 0x8000u) == 0) {
 				// startX >= 0
-				if (v378 > viewPort.Width_DE564)
-					LOWORD(v378) = viewPort.Width_DE564;
-				v18 = __OFSUB__((x_WORD)v378, (x_WORD)v375);
-				v385 = v378 - v375;
+				if (endX > viewPort.Width_DE564)
+					endX = viewPort.Width_DE564;
+				v18 = __OFSUB__((x_WORD)endX, (x_WORD)v375);
+				v385 = endX - v375;
 				if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0)) {
 					continue;
 				}
@@ -5449,7 +5449,7 @@ void DrawPolygonRasterLine_subB6253(
 				BYTE1(v375) = pixelCount_v384lo;
 				pixelCount_v384lo = v385;
 			}
-			else if ((int16_t)v378 > 0)
+			else if (endX > 0)
 			{
 				// startX is negative here, but endX is positive -> skip pixels by updating v,u,brightness
 				v380 = (uint16_t)-(int16_t)v375;
