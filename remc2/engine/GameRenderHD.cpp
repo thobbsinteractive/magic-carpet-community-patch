@@ -5414,7 +5414,7 @@ void DrawPolygonRasterLine_subB6253(
 	HIWORD(textureIndex) = 0;
 
 	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
-	while (1)
+	do
 	{
 		current_raster_line = next_raster_line;
 		next_raster_line++;
@@ -5423,14 +5423,38 @@ void DrawPolygonRasterLine_subB6253(
 		v379 = iScreenWidth_DE560 + *pv1102;
 		*pv1102 += iScreenWidth_DE560;
 		line6++;
+
 		if (line6 >= drawEveryNthLine)
 		{
 			line6 = 0;
-			if ((v375 & 0x8000u) == 0)
-				break; // startX positive
+			if ((v375 & 0x8000u) == 0) {
+				// startX >= 0
+				if (v378 > viewPort.Width_DE564)
+					LOWORD(v378) = viewPort.Width_DE564;
+				v18 = __OFSUB__((x_WORD)v378, (x_WORD)v375);
+				v385 = v378 - v375;
+				if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0)) {
+					continue;
+				}
+				v379 += v375;
+				LOBYTE(textureIndex) = BYTE2(current_raster_line->U);
+				v383 = __SWAP_HILOWORD__(current_raster_line->V);
+				BYTE1(textureIndex) = v383;
+				LOWORD(v383) = LOWORD(current_raster_line->U);
+
+				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
+				pixelCount_v384lo = LOWORD(v384tmp);
+				v384hi = HIWORD(v384tmp);
+				BYTE1(v375) = pixelCount_v384lo;
+				pixelCount_v384lo = v385;
+
+				goto LABEL_493;
+			}
+
+			// startX is negative here -> skip pixels by updating v,u,brightness
+			// if endX is <= 0, skip the whole raster line
 			if ((int16_t)v378 > 0)
 			{
-				// startX negative -> skip pixels by updating v,u,brightness
 				v380 = (uint16_t)-(int16_t)v375;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
 				BYTE1(textureIndex) = v383;
@@ -5478,29 +5502,7 @@ void DrawPolygonRasterLine_subB6253(
 				}
 			}
 		}
-	LABEL_510:
-		if (!--triLn_v1123)
-			return;
-	}
-	if (v378 > viewPort.Width_DE564)
-		LOWORD(v378) = viewPort.Width_DE564;
-	v18 = __OFSUB__((x_WORD)v378, (x_WORD)v375);
-	v385 = v378 - v375;
-	if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0))
-		goto LABEL_510;
-	v379 += v375;
-	LOBYTE(textureIndex) = BYTE2(current_raster_line->U);
-	v383 = __SWAP_HILOWORD__(current_raster_line->V);
-	BYTE1(textureIndex) = v383;
-	LOWORD(v383) = LOWORD(current_raster_line->U);
-
-	v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
-	pixelCount_v384lo = LOWORD(v384tmp);
-	v384hi = HIWORD(v384tmp);
-	BYTE1(v375) = pixelCount_v384lo;
-	pixelCount_v384lo = v385;
-
-	goto LABEL_493;
+	} while(--triLn_v1123);
 }
 
 
