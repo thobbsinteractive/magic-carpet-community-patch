@@ -5418,6 +5418,7 @@ void DrawPolygonRasterLine_subB6253(
 	{
 		current_raster_line = next_raster_line;
 		next_raster_line++;
+
 		LOWORD(v375) = HIWORD(current_raster_line->startX);
 		v378 = HIWORD(current_raster_line->endX);
 		v379 = iScreenWidth_DE560 + *pv1102;
@@ -5447,14 +5448,11 @@ void DrawPolygonRasterLine_subB6253(
 				v384hi = HIWORD(v384tmp);
 				BYTE1(v375) = pixelCount_v384lo;
 				pixelCount_v384lo = v385;
-
-				goto LABEL_493;
 			}
-
-			// startX is negative here -> skip pixels by updating v,u,brightness
-			// if endX is <= 0, skip the whole raster line
-			if ((int16_t)v378 > 0)
+			else if ((int16_t)v378 > 0)
 			{
+				// startX is negative here -> skip pixels by updating v,u,brightness
+				// if endX is <= 0, skip the whole raster line
 				v380 = (uint16_t)-(int16_t)v375;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
 				BYTE1(textureIndex) = v383;
@@ -5474,32 +5472,34 @@ void DrawPolygonRasterLine_subB6253(
 				if (pixelCount_v384lo > (int16_t)viewPort.Width_DE564) {
 					pixelCount_v384lo = viewPort.Width_DE564;
 				}
+			}
+			else {
+				continue; // raster line outside of viewport
+			}
 
-			LABEL_493:
-				currentPixel = &v379[0];
-				while (1)
-				{
-					LOBYTE(v375) = pTexture[textureIndex];
+			currentPixel = &v379[0];
+			while (1)
+			{
+				LOBYTE(v375) = pTexture[textureIndex];
 
-					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
-					LOWORD(v383) = Uincrement + v383;
-					LOBYTE(textureIndex) = BYTE2(Uincrement) + v180 + textureIndex;
-					v180 = __CFADD__(fixedpointVincrement, v383);
-					v383 += fixedpointVincrement;
-					textureIndex = GameRenderHD::SumByte1WithByte2(textureIndex, Vincrement, v180);
+				v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
+				LOWORD(v383) = Uincrement + v383;
+				LOBYTE(textureIndex) = BYTE2(Uincrement) + v180 + textureIndex;
+				v180 = __CFADD__(fixedpointVincrement, v383);
+				v383 += fixedpointVincrement;
+				textureIndex = GameRenderHD::SumByte1WithByte2(textureIndex, Vincrement, v180);
 
-					v180 = __CFADD__(LOWORD(BrightnessIncrement), v384hi);
-					v384hi += BrightnessIncrement;
+				v180 = __CFADD__(LOWORD(BrightnessIncrement), v384hi);
+				v384hi += BrightnessIncrement;
 
-					currentPixel[0] = x_BYTE_F6EE0_tablesx[v375];
-					v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
-					currentPixel += 1;
+				currentPixel[0] = x_BYTE_F6EE0_tablesx[v375];
+				v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
+				currentPixel += 1;
 
-					v18 = __OFSUB__(pixelCount_v384lo, 1);
-					pixelCount_v384lo = pixelCount_v384lo - 1;
-					if ((uint8_t)(((pixelCount_v384lo & 0x8000u) != 0) ^ v18) | (pixelCount_v384lo == 0))
-						break;
-				}
+				v18 = __OFSUB__(pixelCount_v384lo, 1);
+				pixelCount_v384lo = pixelCount_v384lo - 1;
+				if ((uint8_t)(((pixelCount_v384lo & 0x8000u) != 0) ^ v18) | (pixelCount_v384lo == 0))
+					break;
 			}
 		}
 	} while(--triLn_v1123);
