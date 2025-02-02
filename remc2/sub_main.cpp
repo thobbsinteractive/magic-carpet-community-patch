@@ -32356,6 +32356,11 @@ void sub_47320_in_game_loop(signed int a1)//228320
 				renderer_tests[CommandLineParams.GetSetLevel()].set_mouse_x,
 				renderer_tests[CommandLineParams.GetSetLevel()].set_mouse_y
 			);
+
+			if (renderer_tests[CommandLineParams.GetSetLevel()].set_flatshader) {
+				D41A0_0.m_GameSettings.str_0x2196.flat_0x2199 = 1;
+			}
+
 			// force up key pressed
 			LastPressedKey_1806E4 = 0x48;
 			pressedKeys_180664[x_BYTE_EB39E_keys[0]] = 1;

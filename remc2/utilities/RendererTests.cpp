@@ -16,35 +16,37 @@ bool renderer_tests_quit = false;
 // 		{RendererTestsHitCheckpoint::HD_case_8_v445, false}, {RendererTestsHitCheckpoint::Original_case_8_v445, false}
 
 std::array<RendererTestsForLevel,25> renderer_tests{
-	RendererTestsForLevel{100, 0, 240, 0, { // level 1
+	RendererTestsForLevel{100, 0, 240, false, 0, { // level 1
 		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_5_v377, false},
 	}},
-	RendererTestsForLevel{200, 320, 240, 0, {}}, // level 2
-	RendererTestsForLevel{1, 0, 240, 0, {}}, // level 3
-	RendererTestsForLevel{100, 0, 480, 0, { // level 4 - looking up to the ceiling
+	RendererTestsForLevel{200, 320, 240, false, 0, {}}, // level 2
+	RendererTestsForLevel{400, 380, 240, true, 0, { // level 3 - flat shading
+ 		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_7_v406, false},
+	}},
+	RendererTestsForLevel{100, 0, 480, false, 0, { // level 4 - looking up to the ceiling
 		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_5_v377, false},
 	}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
-	RendererTestsForLevel{1, 0, 240, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
+	RendererTestsForLevel{1, 0, 240, false, 0, {}},
 };
 bool stop_renderer_tests() {
 	if (renderer_tests_frame_count >= renderer_tests[CommandLineParams.GetSetLevel()].max_frames) {

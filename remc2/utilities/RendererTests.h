@@ -27,6 +27,7 @@ typedef struct {
 	int max_frames;
 	int set_mouse_x;
 	int set_mouse_y;
+	bool set_flatshader;
 	int differences;
 	std::map<RendererTestsHitCheckpoint, bool> must_hit_checkpoints;
 } RendererTestsForLevel;
