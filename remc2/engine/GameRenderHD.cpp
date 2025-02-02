@@ -5397,7 +5397,7 @@ void DrawPolygonRasterLine_subB6253(
 
 	uint8_t v18;
 	uint8_t v180;
-	int16_t startX;
+	int16_t startX; // FIXME: this variable is also used for other purposes -> introduce alternative variable
 	uint32_t textureIndex;
 	int16_t endX;
 	uint8_t* v379; // pixel position in screen buffer
