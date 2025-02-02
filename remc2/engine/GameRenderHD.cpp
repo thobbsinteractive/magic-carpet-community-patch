@@ -5451,8 +5451,7 @@ void DrawPolygonRasterLine_subB6253(
 			}
 			else if ((int16_t)v378 > 0)
 			{
-				// startX is negative here -> skip pixels by updating v,u,brightness
-				// if endX is <= 0, skip the whole raster line
+				// startX is negative here, but endX is positive -> skip pixels by updating v,u,brightness
 				v380 = (uint16_t)-(int16_t)v375;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
 				BYTE1(textureIndex) = v383;
@@ -5474,7 +5473,8 @@ void DrawPolygonRasterLine_subB6253(
 				}
 			}
 			else {
-				continue; // raster line outside of viewport
+				// endX is <= 0, skip the whole raster line
+				continue;
 			}
 
 			currentPixel = &v379[0];
