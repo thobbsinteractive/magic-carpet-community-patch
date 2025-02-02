@@ -5478,8 +5478,7 @@ void DrawPolygonRasterLine_subB6253(
 			}
 
 			currentPixel = &v379[0];
-			while (1)
-			{
+			do {
 				LOBYTE(v375) = pTexture[textureIndex];
 
 				v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
@@ -5495,11 +5494,7 @@ void DrawPolygonRasterLine_subB6253(
 				currentPixel[0] = x_BYTE_F6EE0_tablesx[v375];
 				v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
 				currentPixel += 1;
-
-				pixelCount_v384lo = pixelCount_v384lo - 1;
-				if (pixelCount_v384lo <= 0)
-					break;
-			}
+			} while (--pixelCount_v384lo > 0);
 		}
 	} while(--triLn_v1123);
 }
