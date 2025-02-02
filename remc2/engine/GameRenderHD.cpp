@@ -5496,9 +5496,8 @@ void DrawPolygonRasterLine_subB6253(
 				v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
 				currentPixel += 1;
 
-				v18 = __OFSUB__(pixelCount_v384lo, 1);
 				pixelCount_v384lo = pixelCount_v384lo - 1;
-				if ((uint8_t)(((pixelCount_v384lo & 0x8000u) != 0) ^ v18) | (pixelCount_v384lo == 0))
+				if (pixelCount_v384lo <= 0)
 					break;
 			}
 		}
