@@ -32350,6 +32350,7 @@ void sub_47320_in_game_loop(signed int a1)//228320
 			v1++;
 		}
 
+		// force special settings for renderer tests			
 		if (CommandLineParams.DoTestRenderers()) {
 			// force player turn
 			SetMousePositionInMemory_5BDC0(
