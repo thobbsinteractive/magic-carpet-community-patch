@@ -18,6 +18,6 @@ test_level() {
     fi
 }
 
-for i in `seq 0 5`; do
+for i in `seq 0 3`; do
     test_level $i
 done

@@ -5397,7 +5397,7 @@ void DrawPolygonRasterLine_subB6253(
 
 	uint8_t v18;
 	uint8_t v180;
-	uint32_t v375;
+	int16_t startX;
 	uint32_t textureIndex;
 	int16_t endX;
 	uint8_t* v379; // pixel position in screen buffer
@@ -5410,7 +5410,6 @@ void DrawPolygonRasterLine_subB6253(
 	int16_t v385;
 	uint8_t* currentPixel;
 
-	HIWORD(v375) = 0;
 	HIWORD(textureIndex) = 0;
 
 	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
@@ -5419,7 +5418,7 @@ void DrawPolygonRasterLine_subB6253(
 		current_raster_line = next_raster_line;
 		next_raster_line++;
 
-		LOWORD(v375) = HIWORD(current_raster_line->startX);
+		startX = HIWORD(current_raster_line->startX);
 		endX = HIWORD(current_raster_line->endX);
 		v379 = iScreenWidth_DE560 + *pv1102;
 		*pv1102 += iScreenWidth_DE560;
@@ -5428,16 +5427,16 @@ void DrawPolygonRasterLine_subB6253(
 		if (line6 >= drawEveryNthLine)
 		{
 			line6 = 0;
-			if ((v375 & 0x8000u) == 0) {
+			if (startX >= 0) {
 				// startX >= 0
 				if (endX > viewPort.Width_DE564)
 					endX = viewPort.Width_DE564;
-				v18 = __OFSUB__((x_WORD)endX, (x_WORD)v375);
-				v385 = endX - v375;
+				v18 = __OFSUB__(endX, startX);
+				v385 = endX - startX;
 				if ((uint8_t)((v385 < 0) ^ v18) | (v385 == 0)) {
 					continue;
 				}
-				v379 += v375;
+				v379 += startX;
 				LOBYTE(textureIndex) = BYTE2(current_raster_line->U);
 				v383 = __SWAP_HILOWORD__(current_raster_line->V);
 				BYTE1(textureIndex) = v383;
@@ -5446,27 +5445,25 @@ void DrawPolygonRasterLine_subB6253(
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
 				pixelCount_v384lo = LOWORD(v384tmp);
 				BrightnessFractionalPart_v384hi = HIWORD(v384tmp);
-				BYTE1(v375) = pixelCount_v384lo;
+				BYTE1(startX) = pixelCount_v384lo;
 				pixelCount_v384lo = v385;
 			}
 			else if (endX > 0)
 			{
 				// startX is negative here, but endX is positive -> skip pixels by updating v,u,brightness
-				v380 = (uint16_t)-(int16_t)v375;
+				v380 = -startX;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
 				BYTE1(textureIndex) = v383;
 				v382 = current_raster_line->U + Uincrement * v380;
 				LOWORD(v383) = v382;
-				v375 = v382 >> 8;
-				LOBYTE(textureIndex) = BYTE1(v375);
+				startX = v382 >> 8;
+				LOBYTE(textureIndex) = BYTE1(startX);
 
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v380);
 				pixelCount_v384lo = LOWORD(v384tmp);
 				BrightnessFractionalPart_v384hi = HIWORD(v384tmp);
-				BYTE1(v375) = pixelCount_v384lo;
+				BYTE1(startX) = pixelCount_v384lo;
 				pixelCount_v384lo = HIWORD(current_raster_line->endX);
-
-				v375 = (uint16_t)v375;
 
 				if (pixelCount_v384lo > (int16_t)viewPort.Width_DE564) {
 					pixelCount_v384lo = viewPort.Width_DE564;
@@ -5479,7 +5476,7 @@ void DrawPolygonRasterLine_subB6253(
 
 			currentPixel = &v379[0];
 			do {
-				LOBYTE(v375) = pTexture[textureIndex];
+				LOBYTE(startX) = pTexture[textureIndex];
 
 				v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
 				LOWORD(v383) = Uincrement + v383;
@@ -5491,8 +5488,8 @@ void DrawPolygonRasterLine_subB6253(
 				v180 = __CFADD__(LOWORD(BrightnessIncrement), BrightnessFractionalPart_v384hi);
 				BrightnessFractionalPart_v384hi += BrightnessIncrement;
 
-				currentPixel[0] = x_BYTE_F6EE0_tablesx[v375];
-				v375 = GameRenderHD::SumByte1WithByte2(v375, BrightnessIncrement, v180);
+				currentPixel[0] = x_BYTE_F6EE0_tablesx[startX];
+				startX = GameRenderHD::SumByte1WithByte2(startX, BrightnessIncrement, v180);
 				currentPixel += 1;
 			} while (--pixelCount_v384lo > 0);
 		}
