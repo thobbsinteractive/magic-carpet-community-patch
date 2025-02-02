@@ -20,7 +20,7 @@ std::array<RendererTestsForLevel,25> renderer_tests{
 		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_5_v377, false},
 	}},
 	RendererTestsForLevel{200, 320, 240, false, 0, {}}, // level 2
-	RendererTestsForLevel{400, 380, 240, true, 0, { // level 3 - flat shading
+	RendererTestsForLevel{100, 310, 240, true, 0, { // level 3 - flat shading
  		{RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406, false}, {RendererTestsHitCheckpoint::Original_BYTE_E126D_case_7_v406, false},
 	}},
 	RendererTestsForLevel{100, 0, 480, false, 0, { // level 4 - looking up to the ceiling
