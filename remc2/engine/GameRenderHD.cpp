@@ -5397,7 +5397,8 @@ void DrawPolygonRasterLine_subB6253(
 
 	uint8_t v18;
 	uint8_t v180;
-	int16_t startX; // FIXME: this variable is also used for other purposes -> introduce alternative variable
+	int16_t startX;
+	uint16_t paletteMapping;
 	uint32_t textureIndex;
 	int16_t endX;
 	uint8_t* v379; // pixel position in screen buffer
@@ -5443,9 +5444,8 @@ void DrawPolygonRasterLine_subB6253(
 				LOWORD(v383) = LOWORD(current_raster_line->U);
 
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
-				pixelCount_v384lo = LOWORD(v384tmp);
 				BrightnessFractionalPart_v384hi = HIWORD(v384tmp);
-				BYTE1(startX) = pixelCount_v384lo;
+				BYTE1(paletteMapping) = LOWORD(v384tmp);
 				pixelCount_v384lo = v385;
 			}
 			else if (endX > 0)
@@ -5460,9 +5460,8 @@ void DrawPolygonRasterLine_subB6253(
 				LOBYTE(textureIndex) = BYTE1(startX);
 
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v380);
-				pixelCount_v384lo = LOWORD(v384tmp);
 				BrightnessFractionalPart_v384hi = HIWORD(v384tmp);
-				BYTE1(startX) = pixelCount_v384lo;
+				BYTE1(paletteMapping) = LOWORD(v384tmp);
 				pixelCount_v384lo = HIWORD(current_raster_line->endX);
 
 				if (pixelCount_v384lo > (int16_t)viewPort.Width_DE564) {
@@ -5476,7 +5475,7 @@ void DrawPolygonRasterLine_subB6253(
 
 			currentPixel = &v379[0];
 			do {
-				LOBYTE(startX) = pTexture[textureIndex];
+				LOBYTE(paletteMapping) = pTexture[textureIndex];
 
 				v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
 				LOWORD(v383) = Uincrement + v383;
@@ -5488,8 +5487,8 @@ void DrawPolygonRasterLine_subB6253(
 				v180 = __CFADD__(LOWORD(BrightnessIncrement), BrightnessFractionalPart_v384hi);
 				BrightnessFractionalPart_v384hi += BrightnessIncrement;
 
-				currentPixel[0] = x_BYTE_F6EE0_tablesx[startX];
-				startX = GameRenderHD::SumByte1WithByte2(startX, BrightnessIncrement, v180);
+				currentPixel[0] = x_BYTE_F6EE0_tablesx[paletteMapping];
+				paletteMapping = GameRenderHD::SumByte1WithByte2(paletteMapping, BrightnessIncrement, v180);
 				currentPixel += 1;
 			} while (--pixelCount_v384lo > 0);
 		}
