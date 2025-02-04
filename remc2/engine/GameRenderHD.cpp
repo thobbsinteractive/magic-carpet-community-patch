@@ -6474,7 +6474,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1121; // [esp+1Ch] [ebp-6Ch]
 	int v1122; // [esp+1Ch] [ebp-6Ch]
 	int triLn_v1123; // [esp+20h] [ebp-68h]
-	int v1124; // [esp+24h] [ebp-64h]
+	int Uincrement_v1124; // [esp+24h] [ebp-64h]
 	int v1125; // [esp+28h] [ebp-60h]
 	int v1126; // [esp+28h] [ebp-60h]
 	int v1127; // [esp+28h] [ebp-60h]
@@ -6665,7 +6665,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 
 	//fix it
 	v1045 = 0;
-	v1124 = 0;
+	Uincrement_v1124 = 0;
 	v1135 = 0;
 	//fix it
 
@@ -6927,7 +6927,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						if (!v34)
 						{
 							v36 = v35 + 1;
-							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
+							Uincrement_v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
 								/ v36;
 							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / v1113) - v3->V)
 								/ v36;
@@ -7029,7 +7029,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						if (!v16)
 						{
 							v20 = v19 + 1;
-							v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
+							Uincrement_v1124 = (signed int)(v4->U + (unsigned __int64)(v1117 * (signed __int64)(v3->U - v5->U) / v1113) - v3->U)
 								/ v20;
 							v1135 = (signed int)(v4->V + (unsigned __int64)(v1117 * (signed __int64)(v3->V - v5->V) / v1113) - v3->V)
 								/ v20;
@@ -7235,7 +7235,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			case 0x16:
 			case 0x17:
 				v127 = v4->X - v5->X;
-				v1124 = (v4->U - v5->U) / v127;
+				Uincrement_v1124 = (v4->U - v5->U) / v127;
 				v1135 = (v4->V - v5->V) / v127;
 				v1130 = (v5->U - v3->U) / triLn_v1123;
 				v1141 = (v5->V - v3->V) / triLn_v1123;
@@ -7279,7 +7279,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			case 0x19:
 			case 0x1A:
 				v119 = v4->X - v5->X;
-				v1124 = (v4->U - v5->U) / v119;
+				Uincrement_v1124 = (v4->U - v5->U) / v119;
 				v1135 = (v4->V - v5->V) / v119;
 				v1146 = (v4->Brightness - v5->Brightness) / v119;
 				v1129 = (v5->U - v3->U) / triLn_v1123;
@@ -7430,7 +7430,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0x16:
 		case 0x17:
 			v153 = v4->X - v3->X;
-			v1124 = (v4->U - v3->U) / v153;
+			Uincrement_v1124 = (v4->U - v3->U) / v153;
 			v1135 = (v4->V - v3->V) / v153;
 			v1132 = (v5->U - v3->U) / triLn_v1123;
 			v1143 = (v5->V - v3->V) / triLn_v1123;
@@ -7474,7 +7474,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		case 0x19:
 		case 0x1A:
 			v145 = v4->X - v3->X;
-			v1124 = (v4->U - v3->U) / v145;
+			Uincrement_v1124 = (v4->U - v3->U) / v145;
 			v1135 = (v4->V - v3->V) / v145;
 			v1146 = (v4->Brightness - v3->Brightness) / v145;
 			v1131 = (v5->U - v3->U) / triLn_v1123;
@@ -7772,7 +7772,7 @@ LABEL_129:
 			if (!v86)
 			{
 				v88 = v87 + 1;
-				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
+				Uincrement_v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
 					/ v88;
 				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
 					/ v88;
@@ -7876,7 +7876,7 @@ LABEL_129:
 			if (!v71)
 			{
 				v73 = v72 + 1;
-				v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
+				Uincrement_v1124 = (signed int)(v3->U + (unsigned __int64)(v1114 * (signed __int64)(v4->U - v3->U) / v1118) - v5->U)
 					/ v73;
 				v1135 = (signed int)(v3->V + (unsigned __int64)(v1114 * (signed __int64)(v4->V - v3->V) / v1118) - v5->V)
 					/ v73;
@@ -8154,7 +8154,7 @@ LABEL_129:
 									v232 = (unsigned __int16)-(signed __int16)v228;
 									v234 = __ROL4_16__(*((x_DWORD*)v227 + 3) + v1135 * v232);
 									BYTE1(v229) = v234;
-									v233 = *((x_DWORD*)v227 + 2) + v1124 * v232;
+									v233 = *((x_DWORD*)v227 + 2) + Uincrement_v1124 * v232;
 									LOWORD(v234) = v233;
 									v235 = v233 >> 8;
 									LOBYTE(v229) = BYTE1(v235);
@@ -8167,9 +8167,9 @@ LABEL_129:
 									while (1)
 									{
 										v237 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v234);
-										LOWORD(v234) = v1124 + v234;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v234);
+										LOWORD(v234) = Uincrement_v1124 + v234;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[0] = v237;
 										v180 = __CFADD__(v1165, v234);
 										v238 = v1165 + v234;
@@ -8178,9 +8178,9 @@ LABEL_129:
 										if (!v239)
 											break;
 										v240 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v238);
-										LOWORD(v238) = v1124 + v238;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v238);
+										LOWORD(v238) = Uincrement_v1124 + v238;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[1] = v240;
 										v180 = __CFADD__(v1165, v238);
 										v241 = v1165 + v238;
@@ -8189,9 +8189,9 @@ LABEL_129:
 										if (!v242)
 											break;
 										v243 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v241);
-										LOWORD(v241) = v1124 + v241;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v241);
+										LOWORD(v241) = Uincrement_v1124 + v241;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[2] = v243;
 										v180 = __CFADD__(v1165, v241);
 										v244 = v1165 + v241;
@@ -8200,9 +8200,9 @@ LABEL_129:
 										if (!v245)
 											break;
 										v246 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v244);
-										LOWORD(v244) = v1124 + v244;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v244);
+										LOWORD(v244) = Uincrement_v1124 + v244;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[3] = v246;
 										v180 = __CFADD__(v1165, v244);
 										v247 = v1165 + v244;
@@ -8211,9 +8211,9 @@ LABEL_129:
 										if (!v248)
 											break;
 										v249 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v247);
-										LOWORD(v247) = v1124 + v247;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v247);
+										LOWORD(v247) = Uincrement_v1124 + v247;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[4] = v249;
 										v180 = __CFADD__(v1165, v247);
 										v250 = v1165 + v247;
@@ -8222,9 +8222,9 @@ LABEL_129:
 										if (!v251)
 											break;
 										v252 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v250);
-										LOWORD(v250) = v1124 + v250;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v250);
+										LOWORD(v250) = Uincrement_v1124 + v250;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[5] = v252;
 										v180 = __CFADD__(v1165, v250);
 										v253 = v1165 + v250;
@@ -8233,9 +8233,9 @@ LABEL_129:
 										if (!v254)
 											break;
 										v255 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v253);
-										LOWORD(v253) = v1124 + v253;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v253);
+										LOWORD(v253) = Uincrement_v1124 + v253;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[6] = v255;
 										v180 = __CFADD__(v1165, v253);
 										v256 = v1165 + v253;
@@ -8244,9 +8244,9 @@ LABEL_129:
 										if (!v257)
 											break;
 										v258 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v256);
-										LOWORD(v256) = v1124 + v256;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v256);
+										LOWORD(v256) = Uincrement_v1124 + v256;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[7] = v258;
 										v180 = __CFADD__(v1165, v256);
 										v259 = v1165 + v256;
@@ -8255,9 +8255,9 @@ LABEL_129:
 										if (!v260)
 											break;
 										v261 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v259);
-										LOWORD(v259) = v1124 + v259;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v259);
+										LOWORD(v259) = Uincrement_v1124 + v259;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[8] = v261;
 										v180 = __CFADD__(v1165, v259);
 										v262 = v1165 + v259;
@@ -8266,9 +8266,9 @@ LABEL_129:
 										if (!v263)
 											break;
 										v264 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v262);
-										LOWORD(v262) = v1124 + v262;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v262);
+										LOWORD(v262) = Uincrement_v1124 + v262;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[9] = v264;
 										v180 = __CFADD__(v1165, v262);
 										v265 = v1165 + v262;
@@ -8277,9 +8277,9 @@ LABEL_129:
 										if (!v266)
 											break;
 										v267 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v265);
-										LOWORD(v265) = v1124 + v265;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v265);
+										LOWORD(v265) = Uincrement_v1124 + v265;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[10] = v267;
 										v180 = __CFADD__(v1165, v265);
 										v268 = v1165 + v265;
@@ -8288,9 +8288,9 @@ LABEL_129:
 										if (!v269)
 											break;
 										v270 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v268);
-										LOWORD(v268) = v1124 + v268;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v268);
+										LOWORD(v268) = Uincrement_v1124 + v268;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[11] = v270;
 										v180 = __CFADD__(v1165, v268);
 										v271 = v1165 + v268;
@@ -8299,9 +8299,9 @@ LABEL_129:
 										if (!v272)
 											break;
 										v273 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v271);
-										LOWORD(v271) = v1124 + v271;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v271);
+										LOWORD(v271) = Uincrement_v1124 + v271;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[12] = v273;
 										v180 = __CFADD__(v1165, v271);
 										v274 = v1165 + v271;
@@ -8310,9 +8310,9 @@ LABEL_129:
 										if (!v275)
 											break;
 										v276 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v274);
-										LOWORD(v274) = v1124 + v274;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v274);
+										LOWORD(v274) = Uincrement_v1124 + v274;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[13] = v276;
 										v180 = __CFADD__(v1165, v274);
 										v277 = v1165 + v274;
@@ -8321,9 +8321,9 @@ LABEL_129:
 										if (!v278)
 											break;
 										v279 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v277);
-										LOWORD(v277) = v1124 + v277;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v277);
+										LOWORD(v277) = Uincrement_v1124 + v277;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[14] = v279;
 										v180 = __CFADD__(v1165, v277);
 										v280 = v1165 + v277;
@@ -8332,9 +8332,9 @@ LABEL_129:
 										if (!v281)
 											break;
 										v282 = *(x_BYTE*)(v229 + v236);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v280);
-										LOWORD(v280) = v1124 + v280;
-										LOBYTE(v229) = BYTE2(v1124) + v180 + v229;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v280);
+										LOWORD(v280) = Uincrement_v1124 + v280;
+										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
 										v231[15] = v282;
 										v180 = __CFADD__(v1165, v280);
 										v234 = v1165 + v280;
@@ -8387,7 +8387,7 @@ LABEL_129:
 									v288 = (unsigned __int16)-(signed __int16)v284;
 									v290 = __ROL4_16__(*((x_DWORD*)v283 + 3) + v1135 * v288);
 									BYTE1(v285) = v290;
-									v289 = *((x_DWORD*)v283 + 2) + v1124 * v288;
+									v289 = *((x_DWORD*)v283 + 2) + Uincrement_v1124 * v288;
 									LOWORD(v290) = v289;
 									v291 = v289 >> 8;
 									LOBYTE(v285) = BYTE1(v291);
@@ -8402,9 +8402,9 @@ LABEL_129:
 										v293 = *(x_BYTE*)(v285 + v292);
 										if (v293)
 											*v287 = v293;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v290);
-										LOWORD(v290) = v1124 + v290;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v290);
+										LOWORD(v290) = Uincrement_v1124 + v290;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v290);
 										v294 = v1166 + v290;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8414,9 +8414,9 @@ LABEL_129:
 										v296 = *(x_BYTE*)(v285 + v292);
 										if (v296)
 											v287[1] = v296;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v294);
-										LOWORD(v294) = v1124 + v294;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v294);
+										LOWORD(v294) = Uincrement_v1124 + v294;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v294);
 										v297 = v1166 + v294;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8426,9 +8426,9 @@ LABEL_129:
 										v299 = *(x_BYTE*)(v285 + v292);
 										if (v299)
 											v287[2] = v299;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v297);
-										LOWORD(v297) = v1124 + v297;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v297);
+										LOWORD(v297) = Uincrement_v1124 + v297;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v297);
 										v300 = v1166 + v297;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8438,9 +8438,9 @@ LABEL_129:
 										v302 = *(x_BYTE*)(v285 + v292);
 										if (v302)
 											v287[3] = v302;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v300);
-										LOWORD(v300) = v1124 + v300;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v300);
+										LOWORD(v300) = Uincrement_v1124 + v300;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v300);
 										v303 = v1166 + v300;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8450,9 +8450,9 @@ LABEL_129:
 										v305 = *(x_BYTE*)(v285 + v292);
 										if (v305)
 											v287[4] = v305;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v303);
-										LOWORD(v303) = v1124 + v303;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v303);
+										LOWORD(v303) = Uincrement_v1124 + v303;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v303);
 										v306 = v1166 + v303;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8462,9 +8462,9 @@ LABEL_129:
 										v308 = *(x_BYTE*)(v285 + v292);
 										if (v308)
 											v287[5] = v308;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v306);
-										LOWORD(v306) = v1124 + v306;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v306);
+										LOWORD(v306) = Uincrement_v1124 + v306;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v306);
 										v309 = v1166 + v306;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8474,9 +8474,9 @@ LABEL_129:
 										v311 = *(x_BYTE*)(v285 + v292);
 										if (v311)
 											v287[6] = v311;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v309);
-										LOWORD(v309) = v1124 + v309;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v309);
+										LOWORD(v309) = Uincrement_v1124 + v309;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v309);
 										v312 = v1166 + v309;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8486,9 +8486,9 @@ LABEL_129:
 										v314 = *(x_BYTE*)(v285 + v292);
 										if (v314)
 											v287[7] = v314;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v312);
-										LOWORD(v312) = v1124 + v312;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v312);
+										LOWORD(v312) = Uincrement_v1124 + v312;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v312);
 										v315 = v1166 + v312;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8498,9 +8498,9 @@ LABEL_129:
 										v317 = *(x_BYTE*)(v285 + v292);
 										if (v317)
 											v287[8] = v317;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v315);
-										LOWORD(v315) = v1124 + v315;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v315);
+										LOWORD(v315) = Uincrement_v1124 + v315;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v315);
 										v318 = v1166 + v315;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8510,9 +8510,9 @@ LABEL_129:
 										v320 = *(x_BYTE*)(v285 + v292);
 										if (v320)
 											v287[9] = v320;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v318);
-										LOWORD(v318) = v1124 + v318;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v318);
+										LOWORD(v318) = Uincrement_v1124 + v318;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v318);
 										v321 = v1166 + v318;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8522,9 +8522,9 @@ LABEL_129:
 										v323 = *(x_BYTE*)(v285 + v292);
 										if (v323)
 											v287[10] = v323;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v321);
-										LOWORD(v321) = v1124 + v321;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v321);
+										LOWORD(v321) = Uincrement_v1124 + v321;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v321);
 										v324 = v1166 + v321;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8534,9 +8534,9 @@ LABEL_129:
 										v326 = *(x_BYTE*)(v285 + v292);
 										if (v326)
 											v287[11] = v326;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v324);
-										LOWORD(v324) = v1124 + v324;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v324);
+										LOWORD(v324) = Uincrement_v1124 + v324;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v324);
 										v327 = v1166 + v324;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8546,9 +8546,9 @@ LABEL_129:
 										v329 = *(x_BYTE*)(v285 + v292);
 										if (v329)
 											v287[12] = v329;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v327);
-										LOWORD(v327) = v1124 + v327;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v327);
+										LOWORD(v327) = Uincrement_v1124 + v327;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v327);
 										v330 = v1166 + v327;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8558,9 +8558,9 @@ LABEL_129:
 										v332 = *(x_BYTE*)(v285 + v292);
 										if (v332)
 											v287[13] = v332;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v330);
-										LOWORD(v330) = v1124 + v330;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v330);
+										LOWORD(v330) = Uincrement_v1124 + v330;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v330);
 										v333 = v1166 + v330;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8570,9 +8570,9 @@ LABEL_129:
 										v335 = *(x_BYTE*)(v285 + v292);
 										if (v335)
 											v287[14] = v335;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v333);
-										LOWORD(v333) = v1124 + v333;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v333);
+										LOWORD(v333) = Uincrement_v1124 + v333;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v333);
 										v336 = v1166 + v333;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8582,9 +8582,9 @@ LABEL_129:
 										v338 = *(x_BYTE*)(v285 + v292);
 										if (v338)
 											v287[15] = v338;
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v336);
-										LOWORD(v336) = v1124 + v336;
-										LOBYTE(v285) = BYTE2(v1124) + v180 + v285;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v336);
+										LOWORD(v336) = Uincrement_v1124 + v336;
+										LOBYTE(v285) = BYTE2(Uincrement_v1124) + v180 + v285;
 										v180 = __CFADD__(v1166, v336);
 										v290 = v1166 + v336;
 										v285 = SumByte1WithByte2(v285, v1135, v180);
@@ -8802,7 +8802,7 @@ LABEL_129:
 									v381 = v380;
 									v383 = __ROL4_16__(*((x_DWORD*)v377 + 3) + v1135 * v380);
 									BYTE1(v376) = v383;
-									v382 = *((x_DWORD*)v377 + 2) + v1124 * v380;
+									v382 = *((x_DWORD*)v377 + 2) + Uincrement_v1124 * v380;
 									LOWORD(v383) = v382;
 									v375 = v382 >> 8;
 									LOBYTE(v376) = BYTE1(v375);
@@ -8817,10 +8817,10 @@ LABEL_129:
 									v389 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v383);
-										LOWORD(v383) = v1124 + v383;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v383);
+										LOWORD(v383) = Uincrement_v1124 + v383;
 										LOBYTE(v375) = *(x_BYTE*)(v376 + v389);
-										LOBYTE(v376) = BYTE2(v1124) + v180 + v376;
+										LOBYTE(v376) = BYTE2(Uincrement_v1124) + v180 + v376;
 										v180 = __CFADD__(v1167, v383);
 										v383 += v1167;
 										v376 = SumByte1WithByte2(v376, v1135, v180);
@@ -8883,7 +8883,7 @@ LABEL_129:
 									v396 = v395;
 									v398 = __ROL4_16__(*((x_DWORD*)v392 + 3) + v1135 * v395);
 									BYTE1(v391) = v398;
-									v397 = *((x_DWORD*)v392 + 2) + v1124 * v395;
+									v397 = *((x_DWORD*)v392 + 2) + Uincrement_v1124 * v395;
 									LOWORD(v398) = v397;
 									v390 = v397 >> 8;
 									LOBYTE(v391) = BYTE1(v390);
@@ -8935,9 +8935,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[1] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -8948,9 +8948,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[2] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -8961,9 +8961,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[3] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -8974,9 +8974,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[4] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -8987,9 +8987,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[5] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9000,9 +9000,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[6] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9013,9 +9013,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[7] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9026,9 +9026,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[8] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9039,9 +9039,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[9] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9052,9 +9052,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[10] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9065,9 +9065,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[11] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9078,9 +9078,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[12] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9091,9 +9091,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[13] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9104,9 +9104,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[14] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9117,9 +9117,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												v403[15] = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9135,9 +9135,9 @@ LABEL_129:
 											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
 											if ((x_BYTE)v390)
 												*v403 = x_BYTE_F6EE0_tablesx[v390];
-											v180 = __CFADD__((x_WORD)v1124, (x_WORD)v398);
-											LOWORD(v398) = v1124 + v398;
-											LOBYTE(v391) = BYTE2(v1124) + v180 + v391;
+											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
+											LOWORD(v398) = Uincrement_v1124 + v398;
+											LOBYTE(v391) = BYTE2(Uincrement_v1124) + v180 + v391;
 											v180 = __CFADD__(v1168, v398);
 											v398 += v1168;
 											v391 = SumByte1WithByte2(v391, v1135, v180);
@@ -9193,7 +9193,7 @@ LABEL_129:
 									v410 = (unsigned __int16)-(signed __int16)v406;
 									v412 = __ROL4_16__(*((x_DWORD*)v405 + 3) + v1135 * v410);
 									BYTE1(v407) = v412;
-									v411 = *((x_DWORD*)v405 + 2) + v1124 * v410;
+									v411 = *((x_DWORD*)v405 + 2) + Uincrement_v1124 * v410;
 									LOWORD(v412) = v411;
 									v413 = v411 >> 8;
 									LOBYTE(v407) = BYTE1(v413);
@@ -9207,9 +9207,9 @@ LABEL_129:
 									while (1)
 									{
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v412);
-										LOWORD(v412) = v1124 + v412;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v412);
+										LOWORD(v412) = Uincrement_v1124 + v412;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v412);
 										v415 = v1169 + v412;
 										*v409 = x_BYTE_F6EE0_tablesx[v406];
@@ -9218,9 +9218,9 @@ LABEL_129:
 										if (!v416)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v415);
-										LOWORD(v415) = v1124 + v415;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v415);
+										LOWORD(v415) = Uincrement_v1124 + v415;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v415);
 										v417 = v1169 + v415;
 										v409[1] = x_BYTE_F6EE0_tablesx[v406];
@@ -9229,9 +9229,9 @@ LABEL_129:
 										if (!v418)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v417);
-										LOWORD(v417) = v1124 + v417;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v417);
+										LOWORD(v417) = Uincrement_v1124 + v417;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v417);
 										v419 = v1169 + v417;
 										v409[2] = x_BYTE_F6EE0_tablesx[v406];
@@ -9240,9 +9240,9 @@ LABEL_129:
 										if (!v420)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v419);
-										LOWORD(v419) = v1124 + v419;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v419);
+										LOWORD(v419) = Uincrement_v1124 + v419;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v419);
 										v421 = v1169 + v419;
 										v409[3] = x_BYTE_F6EE0_tablesx[v406];
@@ -9251,9 +9251,9 @@ LABEL_129:
 										if (!v422)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v421);
-										LOWORD(v421) = v1124 + v421;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v421);
+										LOWORD(v421) = Uincrement_v1124 + v421;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v421);
 										v423 = v1169 + v421;
 										v409[4] = x_BYTE_F6EE0_tablesx[v406];
@@ -9262,9 +9262,9 @@ LABEL_129:
 										if (!v424)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v423);
-										LOWORD(v423) = v1124 + v423;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v423);
+										LOWORD(v423) = Uincrement_v1124 + v423;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v423);
 										v425 = v1169 + v423;
 										v409[5] = x_BYTE_F6EE0_tablesx[v406];
@@ -9273,9 +9273,9 @@ LABEL_129:
 										if (!v426)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v425);
-										LOWORD(v425) = v1124 + v425;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v425);
+										LOWORD(v425) = Uincrement_v1124 + v425;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v425);
 										v427 = v1169 + v425;
 										v409[6] = x_BYTE_F6EE0_tablesx[v406];
@@ -9284,9 +9284,9 @@ LABEL_129:
 										if (!v428)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v427);
-										LOWORD(v427) = v1124 + v427;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v427);
+										LOWORD(v427) = Uincrement_v1124 + v427;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v427);
 										v429 = v1169 + v427;
 										v409[7] = x_BYTE_F6EE0_tablesx[v406];
@@ -9295,9 +9295,9 @@ LABEL_129:
 										if (!v430)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v429);
-										LOWORD(v429) = v1124 + v429;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v429);
+										LOWORD(v429) = Uincrement_v1124 + v429;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v429);
 										v431 = v1169 + v429;
 										v409[8] = x_BYTE_F6EE0_tablesx[v406];
@@ -9306,9 +9306,9 @@ LABEL_129:
 										if (!v432)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v431);
-										LOWORD(v431) = v1124 + v431;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v431);
+										LOWORD(v431) = Uincrement_v1124 + v431;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v431);
 										v433 = v1169 + v431;
 										v409[9] = x_BYTE_F6EE0_tablesx[v406];
@@ -9317,9 +9317,9 @@ LABEL_129:
 										if (!v434)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v433);
-										LOWORD(v433) = v1124 + v433;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v433);
+										LOWORD(v433) = Uincrement_v1124 + v433;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v433);
 										v435 = v1169 + v433;
 										v409[10] = x_BYTE_F6EE0_tablesx[v406];
@@ -9328,9 +9328,9 @@ LABEL_129:
 										if (!v436)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v435);
-										LOWORD(v435) = v1124 + v435;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v435);
+										LOWORD(v435) = Uincrement_v1124 + v435;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v435);
 										v437 = v1169 + v435;
 										v409[11] = x_BYTE_F6EE0_tablesx[v406];
@@ -9339,9 +9339,9 @@ LABEL_129:
 										if (!v438)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v437);
-										LOWORD(v437) = v1124 + v437;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v437);
+										LOWORD(v437) = Uincrement_v1124 + v437;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v437);
 										v439 = v1169 + v437;
 										v409[12] = x_BYTE_F6EE0_tablesx[v406];
@@ -9350,9 +9350,9 @@ LABEL_129:
 										if (!v440)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v439);
-										LOWORD(v439) = v1124 + v439;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v439);
+										LOWORD(v439) = Uincrement_v1124 + v439;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v439);
 										v441 = v1169 + v439;
 										v409[13] = x_BYTE_F6EE0_tablesx[v406];
@@ -9361,9 +9361,9 @@ LABEL_129:
 										if (!v442)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v441);
-										LOWORD(v441) = v1124 + v441;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v441);
+										LOWORD(v441) = Uincrement_v1124 + v441;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v441);
 										v443 = v1169 + v441;
 										v409[14] = x_BYTE_F6EE0_tablesx[v406];
@@ -9372,9 +9372,9 @@ LABEL_129:
 										if (!v444)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v443);
-										LOWORD(v443) = v1124 + v443;
-										LOBYTE(v407) = BYTE2(v1124) + v180 + v407;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v443);
+										LOWORD(v443) = Uincrement_v1124 + v443;
+										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
 										v180 = __CFADD__(v1169, v443);
 										v412 = v1169 + v443;
 										v409[15] = x_BYTE_F6EE0_tablesx[v406];
@@ -9427,7 +9427,7 @@ LABEL_129:
 									v450 = (unsigned __int16)-(signed __int16)v446;
 									v452 = __ROL4_16__(*((x_DWORD*)v445 + 3) + v1135 * v450);
 									BYTE1(v447) = v452;
-									v451 = *((x_DWORD*)v445 + 2) + v1124 * v450;
+									v451 = *((x_DWORD*)v445 + 2) + Uincrement_v1124 * v450;
 									LOWORD(v452) = v451;
 									v453 = v451 >> 8;
 									LOBYTE(v447) = BYTE1(v453);
@@ -9441,9 +9441,9 @@ LABEL_129:
 									while (1)
 									{
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v452);
-										LOWORD(v452) = v1124 + v452;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v452);
+										LOWORD(v452) = Uincrement_v1124 + v452;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											*v449 = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v452);
@@ -9453,9 +9453,9 @@ LABEL_129:
 										if (!v456)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v455);
-										LOWORD(v455) = v1124 + v455;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v455);
+										LOWORD(v455) = Uincrement_v1124 + v455;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[1] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v455);
@@ -9465,9 +9465,9 @@ LABEL_129:
 										if (!v458)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v457);
-										LOWORD(v457) = v1124 + v457;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v457);
+										LOWORD(v457) = Uincrement_v1124 + v457;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[2] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v457);
@@ -9477,9 +9477,9 @@ LABEL_129:
 										if (!v460)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v459);
-										LOWORD(v459) = v1124 + v459;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v459);
+										LOWORD(v459) = Uincrement_v1124 + v459;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[3] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v459);
@@ -9489,9 +9489,9 @@ LABEL_129:
 										if (!v462)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v461);
-										LOWORD(v461) = v1124 + v461;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v461);
+										LOWORD(v461) = Uincrement_v1124 + v461;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[4] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v461);
@@ -9501,9 +9501,9 @@ LABEL_129:
 										if (!v464)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v463);
-										LOWORD(v463) = v1124 + v463;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v463);
+										LOWORD(v463) = Uincrement_v1124 + v463;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[5] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v463);
@@ -9513,9 +9513,9 @@ LABEL_129:
 										if (!v466)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v465);
-										LOWORD(v465) = v1124 + v465;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v465);
+										LOWORD(v465) = Uincrement_v1124 + v465;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[6] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v465);
@@ -9525,9 +9525,9 @@ LABEL_129:
 										if (!v468)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v467);
-										LOWORD(v467) = v1124 + v467;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v467);
+										LOWORD(v467) = Uincrement_v1124 + v467;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[7] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v467);
@@ -9537,9 +9537,9 @@ LABEL_129:
 										if (!v470)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v469);
-										LOWORD(v469) = v1124 + v469;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v469);
+										LOWORD(v469) = Uincrement_v1124 + v469;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[8] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v469);
@@ -9549,9 +9549,9 @@ LABEL_129:
 										if (!v472)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v471);
-										LOWORD(v471) = v1124 + v471;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v471);
+										LOWORD(v471) = Uincrement_v1124 + v471;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[9] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v471);
@@ -9561,9 +9561,9 @@ LABEL_129:
 										if (!v474)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v473);
-										LOWORD(v473) = v1124 + v473;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v473);
+										LOWORD(v473) = Uincrement_v1124 + v473;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[10] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v473);
@@ -9573,9 +9573,9 @@ LABEL_129:
 										if (!v476)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v475);
-										LOWORD(v475) = v1124 + v475;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v475);
+										LOWORD(v475) = Uincrement_v1124 + v475;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[11] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v475);
@@ -9585,9 +9585,9 @@ LABEL_129:
 										if (!v478)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v477);
-										LOWORD(v477) = v1124 + v477;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v477);
+										LOWORD(v477) = Uincrement_v1124 + v477;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[12] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v477);
@@ -9597,9 +9597,9 @@ LABEL_129:
 										if (!v480)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v479);
-										LOWORD(v479) = v1124 + v479;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v479);
+										LOWORD(v479) = Uincrement_v1124 + v479;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[13] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v479);
@@ -9609,9 +9609,9 @@ LABEL_129:
 										if (!v482)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v481);
-										LOWORD(v481) = v1124 + v481;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v481);
+										LOWORD(v481) = Uincrement_v1124 + v481;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[14] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v481);
@@ -9621,9 +9621,9 @@ LABEL_129:
 										if (!v484)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v483);
-										LOWORD(v483) = v1124 + v483;
-										LOBYTE(v447) = BYTE2(v1124) + v180 + v447;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v483);
+										LOWORD(v483) = Uincrement_v1124 + v483;
+										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
 										if ((x_BYTE)v446)
 											v449[15] = x_BYTE_F6EE0_tablesx[v446];
 										v180 = __CFADD__(v1170, v483);
@@ -9677,7 +9677,7 @@ LABEL_129:
 									v490 = (unsigned __int16)-(signed __int16)v486;
 									v492 = __ROL4_16__(*((x_DWORD*)v485 + 3) + v1135 * v490);
 									BYTE1(v487) = v492;
-									v491 = *((x_DWORD*)v485 + 2) + v1124 * v490;
+									v491 = *((x_DWORD*)v485 + 2) + Uincrement_v1124 * v490;
 									LOWORD(v492) = v491;
 									v493 = v491 >> 8;
 									LOBYTE(v487) = BYTE1(v493);
@@ -9690,9 +9690,9 @@ LABEL_129:
 									while (1)
 									{
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v492);
-										LOWORD(v492) = v1124 + v492;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v492);
+										LOWORD(v492) = Uincrement_v1124 + v492;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = *v489;
@@ -9705,9 +9705,9 @@ LABEL_129:
 										if (!v496)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v495);
-										LOWORD(v495) = v1124 + v495;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v495);
+										LOWORD(v495) = Uincrement_v1124 + v495;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[1];
@@ -9720,9 +9720,9 @@ LABEL_129:
 										if (!v498)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v497);
-										LOWORD(v497) = v1124 + v497;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v497);
+										LOWORD(v497) = Uincrement_v1124 + v497;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[2];
@@ -9735,9 +9735,9 @@ LABEL_129:
 										if (!v500)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v499);
-										LOWORD(v499) = v1124 + v499;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v499);
+										LOWORD(v499) = Uincrement_v1124 + v499;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[3];
@@ -9750,9 +9750,9 @@ LABEL_129:
 										if (!v502)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v501);
-										LOWORD(v501) = v1124 + v501;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v501);
+										LOWORD(v501) = Uincrement_v1124 + v501;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[4];
@@ -9765,9 +9765,9 @@ LABEL_129:
 										if (!v504)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v503);
-										LOWORD(v503) = v1124 + v503;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v503);
+										LOWORD(v503) = Uincrement_v1124 + v503;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[5];
@@ -9780,9 +9780,9 @@ LABEL_129:
 										if (!v506)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v505);
-										LOWORD(v505) = v1124 + v505;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v505);
+										LOWORD(v505) = Uincrement_v1124 + v505;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[6];
@@ -9795,9 +9795,9 @@ LABEL_129:
 										if (!v508)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v507);
-										LOWORD(v507) = v1124 + v507;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v507);
+										LOWORD(v507) = Uincrement_v1124 + v507;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[7];
@@ -9810,9 +9810,9 @@ LABEL_129:
 										if (!v510)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v509);
-										LOWORD(v509) = v1124 + v509;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v509);
+										LOWORD(v509) = Uincrement_v1124 + v509;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[8];
@@ -9825,9 +9825,9 @@ LABEL_129:
 										if (!v512)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v511);
-										LOWORD(v511) = v1124 + v511;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v511);
+										LOWORD(v511) = Uincrement_v1124 + v511;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[9];
@@ -9840,9 +9840,9 @@ LABEL_129:
 										if (!v514)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v513);
-										LOWORD(v513) = v1124 + v513;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v513);
+										LOWORD(v513) = Uincrement_v1124 + v513;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[10];
@@ -9855,9 +9855,9 @@ LABEL_129:
 										if (!v516)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v515);
-										LOWORD(v515) = v1124 + v515;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v515);
+										LOWORD(v515) = Uincrement_v1124 + v515;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[11];
@@ -9870,9 +9870,9 @@ LABEL_129:
 										if (!v518)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v517);
-										LOWORD(v517) = v1124 + v517;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v517);
+										LOWORD(v517) = Uincrement_v1124 + v517;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[12];
@@ -9885,9 +9885,9 @@ LABEL_129:
 										if (!v520)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v519);
-										LOWORD(v519) = v1124 + v519;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v519);
+										LOWORD(v519) = Uincrement_v1124 + v519;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[13];
@@ -9900,9 +9900,9 @@ LABEL_129:
 										if (!v522)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v521);
-										LOWORD(v521) = v1124 + v521;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v521);
+										LOWORD(v521) = Uincrement_v1124 + v521;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[14];
@@ -9915,9 +9915,9 @@ LABEL_129:
 										if (!v524)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v523);
-										LOWORD(v523) = v1124 + v523;
-										LOBYTE(v487) = BYTE2(v1124) + v180 + v487;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v523);
+										LOWORD(v523) = Uincrement_v1124 + v523;
+										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
 										if (BYTE1(v486))
 										{
 											LOBYTE(v486) = v489[15];
@@ -9973,7 +9973,7 @@ LABEL_129:
 									v530 = (unsigned __int16)-(signed __int16)v526;
 									v532 = __ROL4_16__(*((x_DWORD*)v525 + 3) + v1135 * v530);
 									BYTE1(v527) = v532;
-									v531 = *((x_DWORD*)v525 + 2) + v1124 * v530;
+									v531 = *((x_DWORD*)v525 + 2) + Uincrement_v1124 * v530;
 									LOWORD(v532) = v531;
 									v533 = v531 >> 8;
 									LOBYTE(v527) = BYTE1(v533);
@@ -9987,9 +9987,9 @@ LABEL_129:
 									while (1)
 									{
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v532);
-										LOWORD(v532) = v1124 + v532;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v532);
+										LOWORD(v532) = Uincrement_v1124 + v532;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v532);
 										v535 = v1172 + v532;
 										*v529 = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -9998,9 +9998,9 @@ LABEL_129:
 										if (!v536)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v535);
-										LOWORD(v535) = v1124 + v535;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v535);
+										LOWORD(v535) = Uincrement_v1124 + v535;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v535);
 										v537 = v1172 + v535;
 										v529[1] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10009,9 +10009,9 @@ LABEL_129:
 										if (!v538)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v537);
-										LOWORD(v537) = v1124 + v537;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v537);
+										LOWORD(v537) = Uincrement_v1124 + v537;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v537);
 										v539 = v1172 + v537;
 										v529[2] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10020,9 +10020,9 @@ LABEL_129:
 										if (!v540)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v539);
-										LOWORD(v539) = v1124 + v539;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v539);
+										LOWORD(v539) = Uincrement_v1124 + v539;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v539);
 										v541 = v1172 + v539;
 										v529[3] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10031,9 +10031,9 @@ LABEL_129:
 										if (!v542)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v541);
-										LOWORD(v541) = v1124 + v541;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v541);
+										LOWORD(v541) = Uincrement_v1124 + v541;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v541);
 										v543 = v1172 + v541;
 										v529[4] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10042,9 +10042,9 @@ LABEL_129:
 										if (!v544)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v543);
-										LOWORD(v543) = v1124 + v543;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v543);
+										LOWORD(v543) = Uincrement_v1124 + v543;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v543);
 										v545 = v1172 + v543;
 										v529[5] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10053,9 +10053,9 @@ LABEL_129:
 										if (!v546)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v545);
-										LOWORD(v545) = v1124 + v545;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v545);
+										LOWORD(v545) = Uincrement_v1124 + v545;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v545);
 										v547 = v1172 + v545;
 										v529[6] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10064,9 +10064,9 @@ LABEL_129:
 										if (!v548)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v547);
-										LOWORD(v547) = v1124 + v547;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v547);
+										LOWORD(v547) = Uincrement_v1124 + v547;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v547);
 										v549 = v1172 + v547;
 										v529[7] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10075,9 +10075,9 @@ LABEL_129:
 										if (!v550)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v549);
-										LOWORD(v549) = v1124 + v549;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v549);
+										LOWORD(v549) = Uincrement_v1124 + v549;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v549);
 										v551 = v1172 + v549;
 										v529[8] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10086,9 +10086,9 @@ LABEL_129:
 										if (!v552)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v551);
-										LOWORD(v551) = v1124 + v551;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v551);
+										LOWORD(v551) = Uincrement_v1124 + v551;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v551);
 										v553 = v1172 + v551;
 										v529[9] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10097,9 +10097,9 @@ LABEL_129:
 										if (!v554)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v553);
-										LOWORD(v553) = v1124 + v553;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v553);
+										LOWORD(v553) = Uincrement_v1124 + v553;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v553);
 										v555 = v1172 + v553;
 										v529[10] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10108,9 +10108,9 @@ LABEL_129:
 										if (!v556)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v555);
-										LOWORD(v555) = v1124 + v555;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v555);
+										LOWORD(v555) = Uincrement_v1124 + v555;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v555);
 										v557 = v1172 + v555;
 										v529[11] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10119,9 +10119,9 @@ LABEL_129:
 										if (!v558)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v557);
-										LOWORD(v557) = v1124 + v557;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v557);
+										LOWORD(v557) = Uincrement_v1124 + v557;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v557);
 										v559 = v1172 + v557;
 										v529[12] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10130,9 +10130,9 @@ LABEL_129:
 										if (!v560)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v559);
-										LOWORD(v559) = v1124 + v559;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v559);
+										LOWORD(v559) = Uincrement_v1124 + v559;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v559);
 										v561 = v1172 + v559;
 										v529[13] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10141,9 +10141,9 @@ LABEL_129:
 										if (!v562)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v561);
-										LOWORD(v561) = v1124 + v561;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v561);
+										LOWORD(v561) = Uincrement_v1124 + v561;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v561);
 										v563 = v1172 + v561;
 										v529[14] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10152,9 +10152,9 @@ LABEL_129:
 										if (!v564)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v563);
-										LOWORD(v563) = v1124 + v563;
-										LOBYTE(v527) = BYTE2(v1124) + v180 + v527;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v563);
+										LOWORD(v563) = Uincrement_v1124 + v563;
+										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
 										v180 = __CFADD__(v1172, v563);
 										v532 = v1172 + v563;
 										v529[15] = x_BYTE_F6EE0_tablesx[16384 + v526];
@@ -10206,7 +10206,7 @@ LABEL_129:
 									v570 = (unsigned __int16)-(signed __int16)v566;
 									v572 = __ROL4_16__(*((x_DWORD*)v565 + 3) + v1135 * v570);
 									BYTE1(v567) = v572;
-									v571 = *((x_DWORD*)v565 + 2) + v1124 * v570;
+									v571 = *((x_DWORD*)v565 + 2) + Uincrement_v1124 * v570;
 									LOWORD(v572) = v571;
 									v573 = v571 >> 8;
 									LOBYTE(v567) = BYTE1(v573);
@@ -10220,9 +10220,9 @@ LABEL_129:
 									while (1)
 									{
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v572);
-										LOWORD(v572) = v1124 + v572;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v572);
+										LOWORD(v572) = Uincrement_v1124 + v572;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v572);
 										v575 = v1173 + v572;
 										*v569 = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10231,9 +10231,9 @@ LABEL_129:
 										if (!v576)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v575);
-										LOWORD(v575) = v1124 + v575;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v575);
+										LOWORD(v575) = Uincrement_v1124 + v575;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v575);
 										v577 = v1173 + v575;
 										v569[1] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10242,9 +10242,9 @@ LABEL_129:
 										if (!v578)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v577);
-										LOWORD(v577) = v1124 + v577;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v577);
+										LOWORD(v577) = Uincrement_v1124 + v577;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v577);
 										v579 = v1173 + v577;
 										v569[2] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10253,9 +10253,9 @@ LABEL_129:
 										if (!v580)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v579);
-										LOWORD(v579) = v1124 + v579;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v579);
+										LOWORD(v579) = Uincrement_v1124 + v579;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v579);
 										v581 = v1173 + v579;
 										v569[3] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10264,9 +10264,9 @@ LABEL_129:
 										if (!v582)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v581);
-										LOWORD(v581) = v1124 + v581;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v581);
+										LOWORD(v581) = Uincrement_v1124 + v581;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v581);
 										v583 = v1173 + v581;
 										v569[4] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10275,9 +10275,9 @@ LABEL_129:
 										if (!v584)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v583);
-										LOWORD(v583) = v1124 + v583;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v583);
+										LOWORD(v583) = Uincrement_v1124 + v583;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v583);
 										v585 = v1173 + v583;
 										v569[5] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10286,9 +10286,9 @@ LABEL_129:
 										if (!v586)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v585);
-										LOWORD(v585) = v1124 + v585;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v585);
+										LOWORD(v585) = Uincrement_v1124 + v585;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v585);
 										v587 = v1173 + v585;
 										v569[6] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10297,9 +10297,9 @@ LABEL_129:
 										if (!v588)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v587);
-										LOWORD(v587) = v1124 + v587;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v587);
+										LOWORD(v587) = Uincrement_v1124 + v587;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v587);
 										v589 = v1173 + v587;
 										v569[7] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10308,9 +10308,9 @@ LABEL_129:
 										if (!v590)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v589);
-										LOWORD(v589) = v1124 + v589;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v589);
+										LOWORD(v589) = Uincrement_v1124 + v589;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v589);
 										v591 = v1173 + v589;
 										v569[8] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10319,9 +10319,9 @@ LABEL_129:
 										if (!v592)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v591);
-										LOWORD(v591) = v1124 + v591;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v591);
+										LOWORD(v591) = Uincrement_v1124 + v591;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v591);
 										v593 = v1173 + v591;
 										v569[9] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10330,9 +10330,9 @@ LABEL_129:
 										if (!v594)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v593);
-										LOWORD(v593) = v1124 + v593;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v593);
+										LOWORD(v593) = Uincrement_v1124 + v593;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v593);
 										v595 = v1173 + v593;
 										v569[10] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10341,9 +10341,9 @@ LABEL_129:
 										if (!v596)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v595);
-										LOWORD(v595) = v1124 + v595;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v595);
+										LOWORD(v595) = Uincrement_v1124 + v595;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v595);
 										v597 = v1173 + v595;
 										v569[11] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10352,9 +10352,9 @@ LABEL_129:
 										if (!v598)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v597);
-										LOWORD(v597) = v1124 + v597;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v597);
+										LOWORD(v597) = Uincrement_v1124 + v597;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v597);
 										v599 = v1173 + v597;
 										v569[12] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10363,9 +10363,9 @@ LABEL_129:
 										if (!v600)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v599);
-										LOWORD(v599) = v1124 + v599;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v599);
+										LOWORD(v599) = Uincrement_v1124 + v599;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v599);
 										v601 = v1173 + v599;
 										v569[13] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10374,9 +10374,9 @@ LABEL_129:
 										if (!v602)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v601);
-										LOWORD(v601) = v1124 + v601;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v601);
+										LOWORD(v601) = Uincrement_v1124 + v601;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v601);
 										v603 = v1173 + v601;
 										v569[14] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -10385,9 +10385,9 @@ LABEL_129:
 										if (!v604)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v603);
-										LOWORD(v603) = v1124 + v603;
-										LOBYTE(v567) = BYTE2(v1124) + v180 + v567;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v603);
+										LOWORD(v603) = Uincrement_v1124 + v603;
+										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
 										v180 = __CFADD__(v1173, v603);
 										v572 = v1173 + v603;
 										v569[15] = x_BYTE_F6EE0_tablesx[16384 + v566];
@@ -11066,7 +11066,7 @@ LABEL_129:
 									v726 = (unsigned __int16)-(signed __int16)v722;
 									v728 = __ROL4_16__(*((x_DWORD*)v721 + 3) + v1135 * v726);
 									BYTE1(v723) = v728;
-									v727 = *((x_DWORD*)v721 + 2) + v1124 * v726;
+									v727 = *((x_DWORD*)v721 + 2) + Uincrement_v1124 * v726;
 									LOWORD(v728) = v727;
 									v729 = v727 >> 8;
 									LOBYTE(v723) = BYTE1(v729);
@@ -11079,10 +11079,10 @@ LABEL_129:
 									while (1)
 									{
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v728);
-										LOWORD(v728) = v1124 + v728;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v728);
+										LOWORD(v728) = Uincrement_v1124 + v728;
 										LOBYTE(v722) = *v725;
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v728);
 										v731 = v1174 + v728;
 										*v725 = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11091,10 +11091,10 @@ LABEL_129:
 										if (!v732)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v731);
-										LOWORD(v731) = v1124 + v731;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v731);
+										LOWORD(v731) = Uincrement_v1124 + v731;
 										LOBYTE(v722) = v725[1];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v731);
 										v733 = v1174 + v731;
 										v725[1] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11103,10 +11103,10 @@ LABEL_129:
 										if (!v734)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v733);
-										LOWORD(v733) = v1124 + v733;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v733);
+										LOWORD(v733) = Uincrement_v1124 + v733;
 										LOBYTE(v722) = v725[2];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v733);
 										v735 = v1174 + v733;
 										v725[2] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11115,10 +11115,10 @@ LABEL_129:
 										if (!v736)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v735);
-										LOWORD(v735) = v1124 + v735;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v735);
+										LOWORD(v735) = Uincrement_v1124 + v735;
 										LOBYTE(v722) = v725[3];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v735);
 										v737 = v1174 + v735;
 										v725[3] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11127,10 +11127,10 @@ LABEL_129:
 										if (!v738)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v737);
-										LOWORD(v737) = v1124 + v737;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v737);
+										LOWORD(v737) = Uincrement_v1124 + v737;
 										LOBYTE(v722) = v725[4];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v737);
 										v739 = v1174 + v737;
 										v725[4] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11139,10 +11139,10 @@ LABEL_129:
 										if (!v740)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v739);
-										LOWORD(v739) = v1124 + v739;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v739);
+										LOWORD(v739) = Uincrement_v1124 + v739;
 										LOBYTE(v722) = v725[5];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v739);
 										v741 = v1174 + v739;
 										v725[5] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11151,10 +11151,10 @@ LABEL_129:
 										if (!v742)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v741);
-										LOWORD(v741) = v1124 + v741;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v741);
+										LOWORD(v741) = Uincrement_v1124 + v741;
 										LOBYTE(v722) = v725[6];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v741);
 										v743 = v1174 + v741;
 										v725[6] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11163,10 +11163,10 @@ LABEL_129:
 										if (!v744)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v743);
-										LOWORD(v743) = v1124 + v743;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v743);
+										LOWORD(v743) = Uincrement_v1124 + v743;
 										LOBYTE(v722) = v725[7];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v743);
 										v745 = v1174 + v743;
 										v725[7] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11175,10 +11175,10 @@ LABEL_129:
 										if (!v746)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v745);
-										LOWORD(v745) = v1124 + v745;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v745);
+										LOWORD(v745) = Uincrement_v1124 + v745;
 										LOBYTE(v722) = v725[8];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v745);
 										v747 = v1174 + v745;
 										v725[8] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11187,10 +11187,10 @@ LABEL_129:
 										if (!v748)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v747);
-										LOWORD(v747) = v1124 + v747;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v747);
+										LOWORD(v747) = Uincrement_v1124 + v747;
 										LOBYTE(v722) = v725[9];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v747);
 										v749 = v1174 + v747;
 										v725[9] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11199,10 +11199,10 @@ LABEL_129:
 										if (!v750)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v749);
-										LOWORD(v749) = v1124 + v749;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v749);
+										LOWORD(v749) = Uincrement_v1124 + v749;
 										LOBYTE(v722) = v725[10];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v749);
 										v751 = v1174 + v749;
 										v725[10] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11211,10 +11211,10 @@ LABEL_129:
 										if (!v752)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v751);
-										LOWORD(v751) = v1124 + v751;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v751);
+										LOWORD(v751) = Uincrement_v1124 + v751;
 										LOBYTE(v722) = v725[11];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v751);
 										v753 = v1174 + v751;
 										v725[11] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11223,10 +11223,10 @@ LABEL_129:
 										if (!v754)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v753);
-										LOWORD(v753) = v1124 + v753;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v753);
+										LOWORD(v753) = Uincrement_v1124 + v753;
 										LOBYTE(v722) = v725[12];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v753);
 										v755 = v1174 + v753;
 										v725[12] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11235,10 +11235,10 @@ LABEL_129:
 										if (!v756)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v755);
-										LOWORD(v755) = v1124 + v755;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v755);
+										LOWORD(v755) = Uincrement_v1124 + v755;
 										LOBYTE(v722) = v725[13];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v755);
 										v757 = v1174 + v755;
 										v725[13] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11247,10 +11247,10 @@ LABEL_129:
 										if (!v758)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v757);
-										LOWORD(v757) = v1124 + v757;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v757);
+										LOWORD(v757) = Uincrement_v1124 + v757;
 										LOBYTE(v722) = v725[14];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v757);
 										v759 = v1174 + v757;
 										v725[14] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11259,10 +11259,10 @@ LABEL_129:
 										if (!v760)
 											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v759);
-										LOWORD(v759) = v1124 + v759;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v759);
+										LOWORD(v759) = Uincrement_v1124 + v759;
 										LOBYTE(v722) = v725[15];
-										LOBYTE(v723) = BYTE2(v1124) + v180 + v723;
+										LOBYTE(v723) = BYTE2(Uincrement_v1124) + v180 + v723;
 										v180 = __CFADD__(v1174, v759);
 										v728 = v1174 + v759;
 										v725[15] = x_BYTE_F6EE0_tablesx[16384 + v722];
@@ -11314,7 +11314,7 @@ LABEL_129:
 									v766 = (unsigned __int16)-(signed __int16)v762;
 									v768 = __ROL4_16__(*((x_DWORD*)v761 + 3) + v1135 * v766);
 									BYTE1(v763) = v768;
-									v767 = *((x_DWORD*)v761 + 2) + v1124 * v766;
+									v767 = *((x_DWORD*)v761 + 2) + Uincrement_v1124 * v766;
 									LOWORD(v768) = v767;
 									v769 = v767 >> 8;
 									LOBYTE(v763) = BYTE1(v769);
@@ -11327,10 +11327,10 @@ LABEL_129:
 									while (1)
 									{
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v768);
-										LOWORD(v768) = v1124 + v768;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v768);
+										LOWORD(v768) = Uincrement_v1124 + v768;
 										BYTE1(v762) = *v765;
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v768);
 										v771 = v1175 + v768;
 										*v765 = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11339,10 +11339,10 @@ LABEL_129:
 										if (!v772)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v771);
-										LOWORD(v771) = v1124 + v771;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v771);
+										LOWORD(v771) = Uincrement_v1124 + v771;
 										BYTE1(v762) = v765[1];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v771);
 										v773 = v1175 + v771;
 										v765[1] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11351,10 +11351,10 @@ LABEL_129:
 										if (!v774)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v773);
-										LOWORD(v773) = v1124 + v773;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v773);
+										LOWORD(v773) = Uincrement_v1124 + v773;
 										BYTE1(v762) = v765[2];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v773);
 										v775 = v1175 + v773;
 										v765[2] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11363,10 +11363,10 @@ LABEL_129:
 										if (!v776)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v775);
-										LOWORD(v775) = v1124 + v775;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v775);
+										LOWORD(v775) = Uincrement_v1124 + v775;
 										BYTE1(v762) = v765[3];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v775);
 										v777 = v1175 + v775;
 										v765[3] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11375,10 +11375,10 @@ LABEL_129:
 										if (!v778)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v777);
-										LOWORD(v777) = v1124 + v777;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v777);
+										LOWORD(v777) = Uincrement_v1124 + v777;
 										BYTE1(v762) = v765[4];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v777);
 										v779 = v1175 + v777;
 										v765[4] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11387,10 +11387,10 @@ LABEL_129:
 										if (!v780)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v779);
-										LOWORD(v779) = v1124 + v779;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v779);
+										LOWORD(v779) = Uincrement_v1124 + v779;
 										BYTE1(v762) = v765[5];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v779);
 										v781 = v1175 + v779;
 										v765[5] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11399,10 +11399,10 @@ LABEL_129:
 										if (!v782)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v781);
-										LOWORD(v781) = v1124 + v781;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v781);
+										LOWORD(v781) = Uincrement_v1124 + v781;
 										BYTE1(v762) = v765[6];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v781);
 										v783 = v1175 + v781;
 										v765[6] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11411,10 +11411,10 @@ LABEL_129:
 										if (!v784)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v783);
-										LOWORD(v783) = v1124 + v783;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v783);
+										LOWORD(v783) = Uincrement_v1124 + v783;
 										BYTE1(v762) = v765[7];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v783);
 										v785 = v1175 + v783;
 										v765[7] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11423,10 +11423,10 @@ LABEL_129:
 										if (!v786)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v785);
-										LOWORD(v785) = v1124 + v785;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v785);
+										LOWORD(v785) = Uincrement_v1124 + v785;
 										BYTE1(v762) = v765[8];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v785);
 										v787 = v1175 + v785;
 										v765[8] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11435,10 +11435,10 @@ LABEL_129:
 										if (!v788)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v787);
-										LOWORD(v787) = v1124 + v787;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v787);
+										LOWORD(v787) = Uincrement_v1124 + v787;
 										BYTE1(v762) = v765[9];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v787);
 										v789 = v1175 + v787;
 										v765[9] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11447,10 +11447,10 @@ LABEL_129:
 										if (!v790)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v789);
-										LOWORD(v789) = v1124 + v789;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v789);
+										LOWORD(v789) = Uincrement_v1124 + v789;
 										BYTE1(v762) = v765[10];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v789);
 										v791 = v1175 + v789;
 										v765[10] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11459,10 +11459,10 @@ LABEL_129:
 										if (!v792)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v791);
-										LOWORD(v791) = v1124 + v791;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v791);
+										LOWORD(v791) = Uincrement_v1124 + v791;
 										BYTE1(v762) = v765[11];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v791);
 										v793 = v1175 + v791;
 										v765[11] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11471,10 +11471,10 @@ LABEL_129:
 										if (!v794)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v793);
-										LOWORD(v793) = v1124 + v793;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v793);
+										LOWORD(v793) = Uincrement_v1124 + v793;
 										BYTE1(v762) = v765[12];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v793);
 										v795 = v1175 + v793;
 										v765[12] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11483,10 +11483,10 @@ LABEL_129:
 										if (!v796)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v795);
-										LOWORD(v795) = v1124 + v795;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v795);
+										LOWORD(v795) = Uincrement_v1124 + v795;
 										BYTE1(v762) = v765[13];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v795);
 										v797 = v1175 + v795;
 										v765[13] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11495,10 +11495,10 @@ LABEL_129:
 										if (!v798)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v797);
-										LOWORD(v797) = v1124 + v797;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v797);
+										LOWORD(v797) = Uincrement_v1124 + v797;
 										BYTE1(v762) = v765[14];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v797);
 										v799 = v1175 + v797;
 										v765[14] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11507,10 +11507,10 @@ LABEL_129:
 										if (!v800)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v799);
-										LOWORD(v799) = v1124 + v799;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v799);
+										LOWORD(v799) = Uincrement_v1124 + v799;
 										BYTE1(v762) = v765[15];
-										LOBYTE(v763) = BYTE2(v1124) + v180 + v763;
+										LOBYTE(v763) = BYTE2(Uincrement_v1124) + v180 + v763;
 										v180 = __CFADD__(v1175, v799);
 										v768 = v1175 + v799;
 										v765[15] = x_BYTE_F6EE0_tablesx[16384 + v762];
@@ -11567,7 +11567,7 @@ LABEL_129:
 									v807 = v806;
 									v809 = __ROL4_16__(*((x_DWORD*)v801 + 3) + v1135 * v806);
 									BYTE1(v803) = v809;
-									v808 = *((x_DWORD*)v801 + 2) + v1124 * v806;
+									v808 = *((x_DWORD*)v801 + 2) + Uincrement_v1124 * v806;
 									LOWORD(v809) = v808;
 									v802 = v808 >> 8;
 									LOBYTE(v803) = BYTE1(v802);
@@ -11579,10 +11579,10 @@ LABEL_129:
 									while (1)
 									{
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v809);
-										LOWORD(v809) = v1124 + v809;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v809);
+										LOWORD(v809) = Uincrement_v1124 + v809;
 										BYTE1(v802) = v810;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v809);
 										v812 = v1176 + v809;
@@ -11596,10 +11596,10 @@ LABEL_129:
 										if (!v1195)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v812);
-										LOWORD(v812) = v1124 + v812;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v812);
+										LOWORD(v812) = Uincrement_v1124 + v812;
 										BYTE1(v802) = v813;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v812);
 										v814 = v1176 + v812;
@@ -11613,10 +11613,10 @@ LABEL_129:
 										if (!v1196)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v814);
-										LOWORD(v814) = v1124 + v814;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v814);
+										LOWORD(v814) = Uincrement_v1124 + v814;
 										BYTE1(v802) = v815;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v814);
 										v816 = v1176 + v814;
@@ -11630,10 +11630,10 @@ LABEL_129:
 										if (!v1197)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v816);
-										LOWORD(v816) = v1124 + v816;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v816);
+										LOWORD(v816) = Uincrement_v1124 + v816;
 										BYTE1(v802) = v817;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v816);
 										v818 = v1176 + v816;
@@ -11647,10 +11647,10 @@ LABEL_129:
 										if (!v1198)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v818);
-										LOWORD(v818) = v1124 + v818;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v818);
+										LOWORD(v818) = Uincrement_v1124 + v818;
 										BYTE1(v802) = v819;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v818);
 										v820 = v1176 + v818;
@@ -11664,10 +11664,10 @@ LABEL_129:
 										if (!v1199)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v820);
-										LOWORD(v820) = v1124 + v820;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v820);
+										LOWORD(v820) = Uincrement_v1124 + v820;
 										BYTE1(v802) = v821;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v820);
 										v822 = v1176 + v820;
@@ -11681,10 +11681,10 @@ LABEL_129:
 										if (!v1200)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v822);
-										LOWORD(v822) = v1124 + v822;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v822);
+										LOWORD(v822) = Uincrement_v1124 + v822;
 										BYTE1(v802) = v823;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v822);
 										v824 = v1176 + v822;
@@ -11698,10 +11698,10 @@ LABEL_129:
 										if (!v1201)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v824);
-										LOWORD(v824) = v1124 + v824;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v824);
+										LOWORD(v824) = Uincrement_v1124 + v824;
 										BYTE1(v802) = v825;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v824);
 										v826 = v1176 + v824;
@@ -11715,10 +11715,10 @@ LABEL_129:
 										if (!v1202)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v826);
-										LOWORD(v826) = v1124 + v826;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v826);
+										LOWORD(v826) = Uincrement_v1124 + v826;
 										BYTE1(v802) = v827;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v826);
 										v828 = v1176 + v826;
@@ -11732,10 +11732,10 @@ LABEL_129:
 										if (!v1203)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v828);
-										LOWORD(v828) = v1124 + v828;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v828);
+										LOWORD(v828) = Uincrement_v1124 + v828;
 										BYTE1(v802) = v829;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v828);
 										v830 = v1176 + v828;
@@ -11749,10 +11749,10 @@ LABEL_129:
 										if (!v1204)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v830);
-										LOWORD(v830) = v1124 + v830;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v830);
+										LOWORD(v830) = Uincrement_v1124 + v830;
 										BYTE1(v802) = v831;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v830);
 										v832 = v1176 + v830;
@@ -11766,10 +11766,10 @@ LABEL_129:
 										if (!v1205)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v832);
-										LOWORD(v832) = v1124 + v832;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v832);
+										LOWORD(v832) = Uincrement_v1124 + v832;
 										BYTE1(v802) = v833;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v832);
 										v834 = v1176 + v832;
@@ -11783,10 +11783,10 @@ LABEL_129:
 										if (!v1206)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v834);
-										LOWORD(v834) = v1124 + v834;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v834);
+										LOWORD(v834) = Uincrement_v1124 + v834;
 										BYTE1(v802) = v835;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v834);
 										v836 = v1176 + v834;
@@ -11800,10 +11800,10 @@ LABEL_129:
 										if (!v1207)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v836);
-										LOWORD(v836) = v1124 + v836;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v836);
+										LOWORD(v836) = Uincrement_v1124 + v836;
 										BYTE1(v802) = v837;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v836);
 										v838 = v1176 + v836;
@@ -11817,10 +11817,10 @@ LABEL_129:
 										if (!v1208)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v838);
-										LOWORD(v838) = v1124 + v838;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v838);
+										LOWORD(v838) = Uincrement_v1124 + v838;
 										BYTE1(v802) = v839;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v838);
 										v840 = v1176 + v838;
@@ -11834,10 +11834,10 @@ LABEL_129:
 										if (!v1209)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v840);
-										LOWORD(v840) = v1124 + v840;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v840);
+										LOWORD(v840) = Uincrement_v1124 + v840;
 										BYTE1(v802) = v841;
-										LOBYTE(v803) = BYTE2(v1124) + v180 + v803;
+										LOBYTE(v803) = BYTE2(Uincrement_v1124) + v180 + v803;
 										BYTE1(v802) = x_BYTE_F6EE0_tablesx[v802];
 										v180 = __CFADD__(v1176, v840);
 										v809 = v1176 + v840;
@@ -11901,7 +11901,7 @@ LABEL_129:
 									v848 = v847;
 									v850 = __ROL4_16__(*((x_DWORD*)v842 + 3) + v1135 * v847);
 									BYTE1(v844) = v850;
-									v849 = *((x_DWORD*)v842 + 2) + v1124 * v847;
+									v849 = *((x_DWORD*)v842 + 2) + Uincrement_v1124 * v847;
 									LOWORD(v850) = v849;
 									v843 = v849 >> 8;
 									LOBYTE(v844) = BYTE1(v843);
@@ -11913,10 +11913,10 @@ LABEL_129:
 									while (1)
 									{
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v850);
-										LOWORD(v850) = v1124 + v850;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v850);
+										LOWORD(v850) = Uincrement_v1124 + v850;
 										BYTE1(v843) = v851;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v850);
 										v853 = v1177 + v850;
@@ -11930,10 +11930,10 @@ LABEL_129:
 										if (!v1211)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v853);
-										LOWORD(v853) = v1124 + v853;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v853);
+										LOWORD(v853) = Uincrement_v1124 + v853;
 										BYTE1(v843) = v854;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v853);
 										v855 = v1177 + v853;
@@ -11947,10 +11947,10 @@ LABEL_129:
 										if (!v1212)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v855);
-										LOWORD(v855) = v1124 + v855;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v855);
+										LOWORD(v855) = Uincrement_v1124 + v855;
 										BYTE1(v843) = v856;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v855);
 										v857 = v1177 + v855;
@@ -11964,10 +11964,10 @@ LABEL_129:
 										if (!v1213)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v857);
-										LOWORD(v857) = v1124 + v857;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v857);
+										LOWORD(v857) = Uincrement_v1124 + v857;
 										BYTE1(v843) = v858;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v857);
 										v859 = v1177 + v857;
@@ -11981,10 +11981,10 @@ LABEL_129:
 										if (!v1214)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v859);
-										LOWORD(v859) = v1124 + v859;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v859);
+										LOWORD(v859) = Uincrement_v1124 + v859;
 										BYTE1(v843) = v860;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v859);
 										v861 = v1177 + v859;
@@ -11998,10 +11998,10 @@ LABEL_129:
 										if (!v1215)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v861);
-										LOWORD(v861) = v1124 + v861;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v861);
+										LOWORD(v861) = Uincrement_v1124 + v861;
 										BYTE1(v843) = v862;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v861);
 										v863 = v1177 + v861;
@@ -12015,10 +12015,10 @@ LABEL_129:
 										if (!v1216)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v863);
-										LOWORD(v863) = v1124 + v863;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v863);
+										LOWORD(v863) = Uincrement_v1124 + v863;
 										BYTE1(v843) = v864;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v863);
 										v865 = v1177 + v863;
@@ -12032,10 +12032,10 @@ LABEL_129:
 										if (!v1217)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v865);
-										LOWORD(v865) = v1124 + v865;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v865);
+										LOWORD(v865) = Uincrement_v1124 + v865;
 										BYTE1(v843) = v866;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v865);
 										v867 = v1177 + v865;
@@ -12049,10 +12049,10 @@ LABEL_129:
 										if (!v1218)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v867);
-										LOWORD(v867) = v1124 + v867;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v867);
+										LOWORD(v867) = Uincrement_v1124 + v867;
 										BYTE1(v843) = v868;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v867);
 										v869 = v1177 + v867;
@@ -12066,10 +12066,10 @@ LABEL_129:
 										if (!v1219)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v869);
-										LOWORD(v869) = v1124 + v869;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v869);
+										LOWORD(v869) = Uincrement_v1124 + v869;
 										BYTE1(v843) = v870;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v869);
 										v871 = v1177 + v869;
@@ -12083,10 +12083,10 @@ LABEL_129:
 										if (!v1220)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v871);
-										LOWORD(v871) = v1124 + v871;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v871);
+										LOWORD(v871) = Uincrement_v1124 + v871;
 										BYTE1(v843) = v872;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v871);
 										v873 = v1177 + v871;
@@ -12100,10 +12100,10 @@ LABEL_129:
 										if (!v1221)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v873);
-										LOWORD(v873) = v1124 + v873;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v873);
+										LOWORD(v873) = Uincrement_v1124 + v873;
 										BYTE1(v843) = v874;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v873);
 										v875 = v1177 + v873;
@@ -12117,10 +12117,10 @@ LABEL_129:
 										if (!v1222)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v875);
-										LOWORD(v875) = v1124 + v875;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v875);
+										LOWORD(v875) = Uincrement_v1124 + v875;
 										BYTE1(v843) = v876;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v875);
 										v877 = v1177 + v875;
@@ -12134,10 +12134,10 @@ LABEL_129:
 										if (!v1223)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v877);
-										LOWORD(v877) = v1124 + v877;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v877);
+										LOWORD(v877) = Uincrement_v1124 + v877;
 										BYTE1(v843) = v878;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v877);
 										v879 = v1177 + v877;
@@ -12151,10 +12151,10 @@ LABEL_129:
 										if (!v1224)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v879);
-										LOWORD(v879) = v1124 + v879;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v879);
+										LOWORD(v879) = Uincrement_v1124 + v879;
 										BYTE1(v843) = v880;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v879);
 										v881 = v1177 + v879;
@@ -12168,10 +12168,10 @@ LABEL_129:
 										if (!v1225)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v881);
-										LOWORD(v881) = v1124 + v881;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v881);
+										LOWORD(v881) = Uincrement_v1124 + v881;
 										BYTE1(v843) = v882;
-										LOBYTE(v844) = BYTE2(v1124) + v180 + v844;
+										LOBYTE(v844) = BYTE2(Uincrement_v1124) + v180 + v844;
 										LOBYTE(v843) = x_BYTE_F6EE0_tablesx[v843];
 										v180 = __CFADD__(v1177, v881);
 										v850 = v1177 + v881;
@@ -12230,7 +12230,7 @@ LABEL_129:
 									v888 = (unsigned __int16)-(signed __int16)v884;
 									v890 = __ROL4_16__(*((x_DWORD*)v883 + 3) + v1135 * v888);
 									BYTE1(v885) = v890;
-									v889 = *((x_DWORD*)v883 + 2) + v1124 * v888;
+									v889 = *((x_DWORD*)v883 + 2) + Uincrement_v1124 * v888;
 									LOWORD(v890) = v889;
 									v891 = v889 >> 8;
 									LOBYTE(v885) = BYTE1(v891);
@@ -12248,9 +12248,9 @@ LABEL_129:
 											LOBYTE(v884) = *v887;
 											*v887 = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v890);
-										LOWORD(v890) = v1124 + v890;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v890);
+										LOWORD(v890) = Uincrement_v1124 + v890;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v890);
 										v893 = v1178 + v890;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12263,9 +12263,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[1];
 											v887[1] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v893);
-										LOWORD(v893) = v1124 + v893;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v893);
+										LOWORD(v893) = Uincrement_v1124 + v893;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v893);
 										v895 = v1178 + v893;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12278,9 +12278,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[2];
 											v887[2] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v895);
-										LOWORD(v895) = v1124 + v895;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v895);
+										LOWORD(v895) = Uincrement_v1124 + v895;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v895);
 										v897 = v1178 + v895;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12293,9 +12293,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[3];
 											v887[3] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v897);
-										LOWORD(v897) = v1124 + v897;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v897);
+										LOWORD(v897) = Uincrement_v1124 + v897;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v897);
 										v899 = v1178 + v897;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12308,9 +12308,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[4];
 											v887[4] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v899);
-										LOWORD(v899) = v1124 + v899;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v899);
+										LOWORD(v899) = Uincrement_v1124 + v899;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v899);
 										v901 = v1178 + v899;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12323,9 +12323,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[5];
 											v887[5] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v901);
-										LOWORD(v901) = v1124 + v901;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v901);
+										LOWORD(v901) = Uincrement_v1124 + v901;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v901);
 										v903 = v1178 + v901;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12338,9 +12338,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[6];
 											v887[6] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v903);
-										LOWORD(v903) = v1124 + v903;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v903);
+										LOWORD(v903) = Uincrement_v1124 + v903;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v903);
 										v905 = v1178 + v903;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12353,9 +12353,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[7];
 											v887[7] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v905);
-										LOWORD(v905) = v1124 + v905;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v905);
+										LOWORD(v905) = Uincrement_v1124 + v905;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v905);
 										v907 = v1178 + v905;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12368,9 +12368,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[8];
 											v887[8] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v907);
-										LOWORD(v907) = v1124 + v907;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v907);
+										LOWORD(v907) = Uincrement_v1124 + v907;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v907);
 										v909 = v1178 + v907;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12383,9 +12383,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[9];
 											v887[9] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v909);
-										LOWORD(v909) = v1124 + v909;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v909);
+										LOWORD(v909) = Uincrement_v1124 + v909;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v909);
 										v911 = v1178 + v909;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12398,9 +12398,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[10];
 											v887[10] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v911);
-										LOWORD(v911) = v1124 + v911;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v911);
+										LOWORD(v911) = Uincrement_v1124 + v911;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v911);
 										v913 = v1178 + v911;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12413,9 +12413,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[11];
 											v887[11] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v913);
-										LOWORD(v913) = v1124 + v913;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v913);
+										LOWORD(v913) = Uincrement_v1124 + v913;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v913);
 										v915 = v1178 + v913;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12428,9 +12428,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[12];
 											v887[12] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v915);
-										LOWORD(v915) = v1124 + v915;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v915);
+										LOWORD(v915) = Uincrement_v1124 + v915;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v915);
 										v917 = v1178 + v915;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12443,9 +12443,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[13];
 											v887[13] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v917);
-										LOWORD(v917) = v1124 + v917;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v917);
+										LOWORD(v917) = Uincrement_v1124 + v917;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v917);
 										v919 = v1178 + v917;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12458,9 +12458,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[14];
 											v887[14] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v919);
-										LOWORD(v919) = v1124 + v919;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v919);
+										LOWORD(v919) = Uincrement_v1124 + v919;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v919);
 										v921 = v1178 + v919;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12473,9 +12473,9 @@ LABEL_129:
 											LOBYTE(v884) = v887[15];
 											v887[15] = x_BYTE_F6EE0_tablesx[16384 + v884];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v921);
-										LOWORD(v921) = v1124 + v921;
-										LOBYTE(v885) = BYTE2(v1124) + v180 + v885;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v921);
+										LOWORD(v921) = Uincrement_v1124 + v921;
+										LOBYTE(v885) = BYTE2(Uincrement_v1124) + v180 + v885;
 										v180 = __CFADD__(v1178, v921);
 										v890 = v1178 + v921;
 										v885 = SumByte1WithByte2(v885, v1135, v180);
@@ -12526,7 +12526,7 @@ LABEL_129:
 									v928 = (unsigned __int16)-(signed __int16)v924;
 									v930 = __ROL4_16__(*((x_DWORD*)v923 + 3) + v1135 * v928);
 									BYTE1(v925) = v930;
-									v929 = *((x_DWORD*)v923 + 2) + v1124 * v928;
+									v929 = *((x_DWORD*)v923 + 2) + Uincrement_v1124 * v928;
 									LOWORD(v930) = v929;
 									v931 = v929 >> 8;
 									LOBYTE(v925) = BYTE1(v931);
@@ -12544,9 +12544,9 @@ LABEL_129:
 											BYTE1(v924) = *v927;
 											*v927 = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v930);
-										LOWORD(v930) = v1124 + v930;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v930);
+										LOWORD(v930) = Uincrement_v1124 + v930;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v930);
 										v933 = v1179 + v930;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12559,9 +12559,9 @@ LABEL_129:
 											BYTE1(v924) = v927[1];
 											v927[1] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v933);
-										LOWORD(v933) = v1124 + v933;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v933);
+										LOWORD(v933) = Uincrement_v1124 + v933;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v933);
 										v935 = v1179 + v933;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12574,9 +12574,9 @@ LABEL_129:
 											BYTE1(v924) = v927[2];
 											v927[2] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v935);
-										LOWORD(v935) = v1124 + v935;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v935);
+										LOWORD(v935) = Uincrement_v1124 + v935;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v935);
 										v937 = v1179 + v935;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12589,9 +12589,9 @@ LABEL_129:
 											BYTE1(v924) = v927[3];
 											v927[3] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v937);
-										LOWORD(v937) = v1124 + v937;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v937);
+										LOWORD(v937) = Uincrement_v1124 + v937;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v937);
 										v939 = v1179 + v937;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12604,9 +12604,9 @@ LABEL_129:
 											BYTE1(v924) = v927[4];
 											v927[4] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v939);
-										LOWORD(v939) = v1124 + v939;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v939);
+										LOWORD(v939) = Uincrement_v1124 + v939;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v939);
 										v941 = v1179 + v939;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12619,9 +12619,9 @@ LABEL_129:
 											BYTE1(v924) = v927[5];
 											v927[5] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v941);
-										LOWORD(v941) = v1124 + v941;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v941);
+										LOWORD(v941) = Uincrement_v1124 + v941;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v941);
 										v943 = v1179 + v941;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12634,9 +12634,9 @@ LABEL_129:
 											BYTE1(v924) = v927[6];
 											v927[6] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v943);
-										LOWORD(v943) = v1124 + v943;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v943);
+										LOWORD(v943) = Uincrement_v1124 + v943;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v943);
 										v945 = v1179 + v943;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12649,9 +12649,9 @@ LABEL_129:
 											BYTE1(v924) = v927[7];
 											v927[7] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v945);
-										LOWORD(v945) = v1124 + v945;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v945);
+										LOWORD(v945) = Uincrement_v1124 + v945;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v945);
 										v947 = v1179 + v945;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12664,9 +12664,9 @@ LABEL_129:
 											BYTE1(v924) = v927[8];
 											v927[8] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v947);
-										LOWORD(v947) = v1124 + v947;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v947);
+										LOWORD(v947) = Uincrement_v1124 + v947;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v947);
 										v949 = v1179 + v947;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12679,9 +12679,9 @@ LABEL_129:
 											BYTE1(v924) = v927[9];
 											v927[9] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v949);
-										LOWORD(v949) = v1124 + v949;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v949);
+										LOWORD(v949) = Uincrement_v1124 + v949;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v949);
 										v951 = v1179 + v949;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12694,9 +12694,9 @@ LABEL_129:
 											BYTE1(v924) = v927[10];
 											v927[10] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v951);
-										LOWORD(v951) = v1124 + v951;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v951);
+										LOWORD(v951) = Uincrement_v1124 + v951;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v951);
 										v953 = v1179 + v951;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12709,9 +12709,9 @@ LABEL_129:
 											BYTE1(v924) = v927[11];
 											v927[11] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v953);
-										LOWORD(v953) = v1124 + v953;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v953);
+										LOWORD(v953) = Uincrement_v1124 + v953;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v953);
 										v955 = v1179 + v953;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12724,9 +12724,9 @@ LABEL_129:
 											BYTE1(v924) = v927[12];
 											v927[12] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v955);
-										LOWORD(v955) = v1124 + v955;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v955);
+										LOWORD(v955) = Uincrement_v1124 + v955;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v955);
 										v957 = v1179 + v955;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12739,9 +12739,9 @@ LABEL_129:
 											BYTE1(v924) = v927[13];
 											v927[13] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v957);
-										LOWORD(v957) = v1124 + v957;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v957);
+										LOWORD(v957) = Uincrement_v1124 + v957;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v957);
 										v959 = v1179 + v957;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12754,9 +12754,9 @@ LABEL_129:
 											BYTE1(v924) = v927[14];
 											v927[14] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v959);
-										LOWORD(v959) = v1124 + v959;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v959);
+										LOWORD(v959) = Uincrement_v1124 + v959;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v959);
 										v961 = v1179 + v959;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12769,9 +12769,9 @@ LABEL_129:
 											BYTE1(v924) = v927[15];
 											v927[15] = x_BYTE_F6EE0_tablesx[16384 + v924];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v961);
-										LOWORD(v961) = v1124 + v961;
-										LOBYTE(v925) = BYTE2(v1124) + v180 + v925;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v961);
+										LOWORD(v961) = Uincrement_v1124 + v961;
+										LOBYTE(v925) = BYTE2(Uincrement_v1124) + v180 + v925;
 										v180 = __CFADD__(v1179, v961);
 										v930 = v1179 + v961;
 										v925 = SumByte1WithByte2(v925, v1135, v180);
@@ -12827,7 +12827,7 @@ LABEL_129:
 									v969 = v968;
 									v971 = __ROL4_16__(*((x_DWORD*)v963 + 3) + v1135 * v968);
 									BYTE1(v965) = v971;
-									v970 = *((x_DWORD*)v963 + 2) + v1124 * v968;
+									v970 = *((x_DWORD*)v963 + 2) + Uincrement_v1124 * v968;
 									LOWORD(v971) = v970;
 									v964 = v970 >> 8;
 									LOBYTE(v965) = BYTE1(v964);
@@ -12846,9 +12846,9 @@ LABEL_129:
 											LOBYTE(v964) = *v967;
 											*v967 = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v971);
-										LOWORD(v971) = v1124 + v971;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v971);
+										LOWORD(v971) = Uincrement_v1124 + v971;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v971);
 										v974 = v1180 + v971;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12866,9 +12866,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[1];
 											v967[1] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v974);
-										LOWORD(v974) = v1124 + v974;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v974);
+										LOWORD(v974) = Uincrement_v1124 + v974;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v974);
 										v976 = v1180 + v974;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12886,9 +12886,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[2];
 											v967[2] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v976);
-										LOWORD(v976) = v1124 + v976;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v976);
+										LOWORD(v976) = Uincrement_v1124 + v976;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v976);
 										v978 = v1180 + v976;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12906,9 +12906,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[3];
 											v967[3] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v978);
-										LOWORD(v978) = v1124 + v978;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v978);
+										LOWORD(v978) = Uincrement_v1124 + v978;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v978);
 										v980 = v1180 + v978;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12926,9 +12926,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[4];
 											v967[4] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v980);
-										LOWORD(v980) = v1124 + v980;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v980);
+										LOWORD(v980) = Uincrement_v1124 + v980;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v980);
 										v982 = v1180 + v980;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12946,9 +12946,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[5];
 											v967[5] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v982);
-										LOWORD(v982) = v1124 + v982;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v982);
+										LOWORD(v982) = Uincrement_v1124 + v982;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v982);
 										v984 = v1180 + v982;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12966,9 +12966,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[6];
 											v967[6] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v984);
-										LOWORD(v984) = v1124 + v984;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v984);
+										LOWORD(v984) = Uincrement_v1124 + v984;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v984);
 										v986 = v1180 + v984;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -12986,9 +12986,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[7];
 											v967[7] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v986);
-										LOWORD(v986) = v1124 + v986;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v986);
+										LOWORD(v986) = Uincrement_v1124 + v986;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v986);
 										v988 = v1180 + v986;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13006,9 +13006,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[8];
 											v967[8] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v988);
-										LOWORD(v988) = v1124 + v988;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v988);
+										LOWORD(v988) = Uincrement_v1124 + v988;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v988);
 										v990 = v1180 + v988;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13026,9 +13026,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[9];
 											v967[9] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v990);
-										LOWORD(v990) = v1124 + v990;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v990);
+										LOWORD(v990) = Uincrement_v1124 + v990;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v990);
 										v992 = v1180 + v990;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13046,9 +13046,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[10];
 											v967[10] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v992);
-										LOWORD(v992) = v1124 + v992;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v992);
+										LOWORD(v992) = Uincrement_v1124 + v992;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v992);
 										v994 = v1180 + v992;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13066,9 +13066,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[11];
 											v967[11] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v994);
-										LOWORD(v994) = v1124 + v994;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v994);
+										LOWORD(v994) = Uincrement_v1124 + v994;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v994);
 										v996 = v1180 + v994;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13086,9 +13086,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[12];
 											v967[12] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v996);
-										LOWORD(v996) = v1124 + v996;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v996);
+										LOWORD(v996) = Uincrement_v1124 + v996;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v996);
 										v998 = v1180 + v996;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13106,9 +13106,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[13];
 											v967[13] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v998);
-										LOWORD(v998) = v1124 + v998;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v998);
+										LOWORD(v998) = Uincrement_v1124 + v998;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v998);
 										v1000 = v1180 + v998;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13126,9 +13126,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[14];
 											v967[14] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1000);
-										LOWORD(v1000) = v1124 + v1000;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1000);
+										LOWORD(v1000) = Uincrement_v1124 + v1000;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v1000);
 										v1002 = v1180 + v1000;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13146,9 +13146,9 @@ LABEL_129:
 											LOBYTE(v964) = v967[15];
 											v967[15] = x_BYTE_F6EE0_tablesx[16384 + v964];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1002);
-										LOWORD(v1002) = v1124 + v1002;
-										LOBYTE(v965) = BYTE2(v1124) + v180 + v965;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1002);
+										LOWORD(v1002) = Uincrement_v1124 + v1002;
+										LOBYTE(v965) = BYTE2(Uincrement_v1124) + v180 + v965;
 										v180 = __CFADD__(v1180, v1002);
 										v971 = v1180 + v1002;
 										v965 = SumByte1WithByte2(v965, v1135, v180);
@@ -13209,7 +13209,7 @@ LABEL_129:
 									v1010 = v1009;
 									v1012 = __ROL4_16__(*((x_DWORD*)v1004 + 3) + v1135 * v1009);
 									BYTE1(v1006) = v1012;
-									v1011 = *((x_DWORD*)v1004 + 2) + v1124 * v1009;
+									v1011 = *((x_DWORD*)v1004 + 2) + Uincrement_v1124 * v1009;
 									LOWORD(v1012) = v1011;
 									v1005 = v1011 >> 8;
 									LOBYTE(v1006) = BYTE1(v1005);
@@ -13228,9 +13228,9 @@ LABEL_129:
 											BYTE1(v1005) = *v1008;
 											*v1008 = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1012);
-										LOWORD(v1012) = v1124 + v1012;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1012);
+										LOWORD(v1012) = Uincrement_v1124 + v1012;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1012);
 										v1015 = v1181 + v1012;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13248,9 +13248,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[1];
 											v1008[1] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1015);
-										LOWORD(v1015) = v1124 + v1015;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1015);
+										LOWORD(v1015) = Uincrement_v1124 + v1015;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1015);
 										v1017 = v1181 + v1015;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13268,9 +13268,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[2];
 											v1008[2] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1017);
-										LOWORD(v1017) = v1124 + v1017;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1017);
+										LOWORD(v1017) = Uincrement_v1124 + v1017;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1017);
 										v1019 = v1181 + v1017;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13288,9 +13288,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[3];
 											v1008[3] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1019);
-										LOWORD(v1019) = v1124 + v1019;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1019);
+										LOWORD(v1019) = Uincrement_v1124 + v1019;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1019);
 										v1021 = v1181 + v1019;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13308,9 +13308,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[4];
 											v1008[4] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1021);
-										LOWORD(v1021) = v1124 + v1021;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1021);
+										LOWORD(v1021) = Uincrement_v1124 + v1021;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1021);
 										v1023 = v1181 + v1021;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13328,9 +13328,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[5];
 											v1008[5] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1023);
-										LOWORD(v1023) = v1124 + v1023;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1023);
+										LOWORD(v1023) = Uincrement_v1124 + v1023;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1023);
 										v1025 = v1181 + v1023;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13348,9 +13348,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[6];
 											v1008[6] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1025);
-										LOWORD(v1025) = v1124 + v1025;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1025);
+										LOWORD(v1025) = Uincrement_v1124 + v1025;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1025);
 										v1027 = v1181 + v1025;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13368,9 +13368,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[7];
 											v1008[7] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1027);
-										LOWORD(v1027) = v1124 + v1027;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1027);
+										LOWORD(v1027) = Uincrement_v1124 + v1027;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1027);
 										v1029 = v1181 + v1027;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13388,9 +13388,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[8];
 											v1008[8] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1029);
-										LOWORD(v1029) = v1124 + v1029;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1029);
+										LOWORD(v1029) = Uincrement_v1124 + v1029;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1029);
 										v1031 = v1181 + v1029;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13408,9 +13408,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[9];
 											v1008[9] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1031);
-										LOWORD(v1031) = v1124 + v1031;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1031);
+										LOWORD(v1031) = Uincrement_v1124 + v1031;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1031);
 										v1033 = v1181 + v1031;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13428,9 +13428,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[10];
 											v1008[10] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1033);
-										LOWORD(v1033) = v1124 + v1033;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1033);
+										LOWORD(v1033) = Uincrement_v1124 + v1033;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1033);
 										v1035 = v1181 + v1033;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13448,9 +13448,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[11];
 											v1008[11] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1035);
-										LOWORD(v1035) = v1124 + v1035;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1035);
+										LOWORD(v1035) = Uincrement_v1124 + v1035;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1035);
 										v1037 = v1181 + v1035;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13468,9 +13468,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[12];
 											v1008[12] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1037);
-										LOWORD(v1037) = v1124 + v1037;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1037);
+										LOWORD(v1037) = Uincrement_v1124 + v1037;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1037);
 										v1039 = v1181 + v1037;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13488,9 +13488,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[13];
 											v1008[13] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1039);
-										LOWORD(v1039) = v1124 + v1039;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1039);
+										LOWORD(v1039) = Uincrement_v1124 + v1039;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1039);
 										v1041 = v1181 + v1039;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13508,9 +13508,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[14];
 											v1008[14] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1041);
-										LOWORD(v1041) = v1124 + v1041;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1041);
+										LOWORD(v1041) = Uincrement_v1124 + v1041;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1041);
 										v1043 = v1181 + v1041;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13528,9 +13528,9 @@ LABEL_129:
 											BYTE1(v1005) = v1008[15];
 											v1008[15] = x_BYTE_F6EE0_tablesx[16384 + v1005];
 										}
-										v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1043);
-										LOWORD(v1043) = v1124 + v1043;
-										LOBYTE(v1006) = BYTE2(v1124) + v180 + v1006;
+										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1043);
+										LOWORD(v1043) = Uincrement_v1124 + v1043;
+										LOBYTE(v1006) = BYTE2(Uincrement_v1124) + v180 + v1006;
 										v180 = __CFADD__(v1181, v1043);
 										v1012 = v1181 + v1043;
 										v1006 = SumByte1WithByte2(v1006, v1135, v180);
@@ -13593,7 +13593,7 @@ LABEL_129:
 								v1051 = v1050;
 								v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3) + v1135 * v1050);
 								BYTE1(v1047) = v1053;
-								v1052 = *((x_DWORD*)v1045 + 2) + v1124 * v1050;
+								v1052 = *((x_DWORD*)v1045 + 2) + Uincrement_v1124 * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
 								LOBYTE(v1047) = BYTE1(v1046);
@@ -13605,10 +13605,10 @@ LABEL_129:
 								while (1)
 								{
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1053);
-									LOWORD(v1053) = v1124 + v1053;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1053);
+									LOWORD(v1053) = Uincrement_v1124 + v1053;
 									BYTE1(v1046) = v1054;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1056 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13630,10 +13630,10 @@ LABEL_129:
 									if (!v1259)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1057);
-									LOWORD(v1057) = v1124 + v1057;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1057);
+									LOWORD(v1057) = Uincrement_v1124 + v1057;
 									BYTE1(v1046) = v1058;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1059 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13655,10 +13655,10 @@ LABEL_129:
 									if (!v1260)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1060);
-									LOWORD(v1060) = v1124 + v1060;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1060);
+									LOWORD(v1060) = Uincrement_v1124 + v1060;
 									BYTE1(v1046) = v1061;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1062 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13680,10 +13680,10 @@ LABEL_129:
 									if (!v1261)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1063);
-									LOWORD(v1063) = v1124 + v1063;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1063);
+									LOWORD(v1063) = Uincrement_v1124 + v1063;
 									BYTE1(v1046) = v1064;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1065 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13705,10 +13705,10 @@ LABEL_129:
 									if (!v1262)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1066);
-									LOWORD(v1066) = v1124 + v1066;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1066);
+									LOWORD(v1066) = Uincrement_v1124 + v1066;
 									BYTE1(v1046) = v1067;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1068 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13730,10 +13730,10 @@ LABEL_129:
 									if (!v1263)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1069);
-									LOWORD(v1069) = v1124 + v1069;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1069);
+									LOWORD(v1069) = Uincrement_v1124 + v1069;
 									BYTE1(v1046) = v1070;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1071 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13755,10 +13755,10 @@ LABEL_129:
 									if (!v1264)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1072);
-									LOWORD(v1072) = v1124 + v1072;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1072);
+									LOWORD(v1072) = Uincrement_v1124 + v1072;
 									BYTE1(v1046) = v1073;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1074 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13780,10 +13780,10 @@ LABEL_129:
 									if (!v1265)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1075);
-									LOWORD(v1075) = v1124 + v1075;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1075);
+									LOWORD(v1075) = Uincrement_v1124 + v1075;
 									BYTE1(v1046) = v1076;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1077 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13805,10 +13805,10 @@ LABEL_129:
 									if (!v1266)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1078);
-									LOWORD(v1078) = v1124 + v1078;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1078);
+									LOWORD(v1078) = Uincrement_v1124 + v1078;
 									BYTE1(v1046) = v1079;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1080 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13830,10 +13830,10 @@ LABEL_129:
 									if (!v1267)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1081);
-									LOWORD(v1081) = v1124 + v1081;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1081);
+									LOWORD(v1081) = Uincrement_v1124 + v1081;
 									BYTE1(v1046) = v1082;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1083 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13855,10 +13855,10 @@ LABEL_129:
 									if (!v1268)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1084);
-									LOWORD(v1084) = v1124 + v1084;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1084);
+									LOWORD(v1084) = Uincrement_v1124 + v1084;
 									BYTE1(v1046) = v1085;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1086 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13880,10 +13880,10 @@ LABEL_129:
 									if (!v1269)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1087);
-									LOWORD(v1087) = v1124 + v1087;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1087);
+									LOWORD(v1087) = Uincrement_v1124 + v1087;
 									BYTE1(v1046) = v1088;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1089 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13905,10 +13905,10 @@ LABEL_129:
 									if (!v1270)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1090);
-									LOWORD(v1090) = v1124 + v1090;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1090);
+									LOWORD(v1090) = Uincrement_v1124 + v1090;
 									BYTE1(v1046) = v1091;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1092 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13930,10 +13930,10 @@ LABEL_129:
 									if (!v1271)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1093);
-									LOWORD(v1093) = v1124 + v1093;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1093);
+									LOWORD(v1093) = Uincrement_v1124 + v1093;
 									BYTE1(v1046) = v1094;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1095 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13955,10 +13955,10 @@ LABEL_129:
 									if (!v1272)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1096);
-									LOWORD(v1096) = v1124 + v1096;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1096);
+									LOWORD(v1096) = Uincrement_v1124 + v1096;
 									BYTE1(v1046) = v1097;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1098 = x_BYTE_F6EE0_tablesx[v1046];
@@ -13980,10 +13980,10 @@ LABEL_129:
 									if (!v1273)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
-									v180 = __CFADD__((x_WORD)v1124, (x_WORD)v1099);
-									LOWORD(v1099) = v1124 + v1099;
+									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1099);
+									LOWORD(v1099) = Uincrement_v1124 + v1099;
 									BYTE1(v1046) = v1100;
-									LOBYTE(v1047) = BYTE2(v1124) + v180 + v1047;
+									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
 									if ((unsigned __int8)v1046 >= 0xCu)
 									{
 										v1101 = x_BYTE_F6EE0_tablesx[v1046];
@@ -14074,7 +14074,23 @@ LABEL_129:
 
 int GameRenderHD::SumByte1WithByte2(int byte1, int byte2, uint8_t v180)
 {
+	//previousv180[m_bufferIdx] = v180;
+	//previousByte1[m_bufferIdx] = byte1;
+	//previousByte2[m_bufferIdx] = byte2;
+	//previousByte1Byte[m_bufferIdx] = BYTE1(byte1);
+	//previousByte2Byte[m_bufferIdx] = BYTE2(byte2);
+
 	BYTE1(byte1) += BYTE2(byte2) + v180;
+
+	//previousResult[m_bufferIdx] = byte1;
+
+	//m_bufferIdx++;
+
+	//if (m_bufferIdx > 95)
+	//{
+	//	m_bufferIdx = 0;
+	//}
+
 	return byte1;
 }
 
