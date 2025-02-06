@@ -5586,7 +5586,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v233; // eax
 	int v234; // edx
 	unsigned int v235; // eax
-	uint8_t* v236; // esi
+	uint8_t* ptrCurrentTexture_v236; // esi
 	char v237; // al
 	int v238; // edx
 	__int16 v239; // cx
@@ -5642,7 +5642,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v289; // eax
 	int v290; // edx
 	unsigned int v291; // eax
-	uint8_t* v292; // esi
+	uint8_t* ptrCurrentTexture_v292; // esi
 	char v293; // al
 	int v294; // edx
 	__int16 v295; // cx
@@ -5739,7 +5739,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	__int16 v386; // bp
 	int v387; // esi
 	uint8_t* v388; // edi
-	uint8_t* v389; // ebp
+	uint8_t* ptrCurrentTexture_v389; // ebp
 	unsigned int v390; // eax
 	int v391; // ebx
 	char* v392; // esi
@@ -5754,7 +5754,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	__int16 v401; // bp
 	int v402; // esi
 	uint8_t* v403; // edi
-	uint8_t* v404; // ebp
+	uint8_t* ptrCurrentTexture_v404; // ebp
 	unsigned __int16* v405; // esi
 	int v406; // eax
 	int v407; // ebx
@@ -5764,7 +5764,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v411; // eax
 	int v412; // edx
 	unsigned int v413; // eax
-	uint8_t* v414; // esi
+	uint8_t* ptrCurrentTexture_v414; // esi
 	int v415; // edx
 	__int16 v416; // cx
 	int v417; // edx
@@ -5804,7 +5804,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v451; // eax
 	int v452; // edx
 	unsigned int v453; // eax
-	uint8_t* v454; // esi
+	uint8_t* ptrCurrentTexture_v454; // esi
 	int v455; // edx
 	__int16 v456; // cx
 	int v457; // edx
@@ -5844,7 +5844,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v491; // eax
 	int v492; // edx
 	unsigned int v493; // eax
-	uint8_t* v494; // esi
+	uint8_t* ptrCurrentTexture_v494; // esi
 	int v495; // edx
 	__int16 v496; // cx
 	int v497; // edx
@@ -5884,7 +5884,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v531; // eax
 	int v532; // edx
 	unsigned int v533; // eax
-	uint8_t* v534; // esi
+	uint8_t* ptrCurrentTexture_v534; // esi
 	int v535; // edx
 	__int16 v536; // cx
 	int v537; // edx
@@ -5924,7 +5924,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v571; // eax
 	int v572; // edx
 	unsigned int v573; // eax
-	uint8_t* v574; // esi
+	uint8_t* ptrCurrentTexture_v574; // esi
 	int v575; // edx
 	__int16 v576; // cx
 	int v577; // edx
@@ -6080,7 +6080,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v727; // eax
 	int v728; // edx
 	unsigned int v729; // eax
-	uint8_t* v730; // esi
+	uint8_t* ptrCurrentTexture_v730; // esi
 	int v731; // edx
 	__int16 v732; // cx
 	int v733; // edx
@@ -6120,7 +6120,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v767; // eax
 	int v768; // edx
 	unsigned int v769; // eax
-	uint8_t* v770; // esi
+	uint8_t* ptrCurrentTexture_v770; // esi
 	int v771; // edx
 	__int16 v772; // cx
 	int v773; // edx
@@ -6161,7 +6161,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v808; // eax
 	int v809; // edx
 	int v810; // ecx
-	uint8_t* v811; // esi
+	uint8_t* ptrCurrentTexture_v811; // esi
 	int v812; // edx
 	int v813; // ecx
 	int v814; // edx
@@ -6202,7 +6202,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v849; // eax
 	int v850; // edx
 	int v851; // ecx
-	uint8_t* v852; // esi
+	uint8_t* ptrCurrentTexture_v852; // esi
 	int v853; // edx
 	int v854; // ecx
 	int v855; // edx
@@ -6242,7 +6242,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v889; // eax
 	int v890; // edx
 	unsigned int v891; // eax
-	uint8_t* v892; // esi
+	uint8_t* ptrCurrentTexture_v892; // esi
 	int v893; // edx
 	__int16 v894; // cx
 	int v895; // edx
@@ -6282,7 +6282,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v929; // eax
 	int v930; // edx
 	unsigned int v931; // eax
-	uint8_t* v932; // esi
+	uint8_t* ptrCurrentTexture_v932; // esi
 	int v933; // edx
 	__int16 v934; // cx
 	int v935; // edx
@@ -6323,7 +6323,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v970; // eax
 	int v971; // edx
 	int v972; // ecx
-	uint8_t* v973; // esi
+	uint8_t* ptrCurrentTexture_v973; // esi
 	int v974; // edx
 	int v975; // ecx
 	int v976; // edx
@@ -6364,7 +6364,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v1011; // eax
 	int v1012; // edx
 	int v1013; // ecx
-	uint8_t* v1014; // esi
+	uint8_t* ptrCurrentTexture_v1014; // esi
 	int v1015; // edx
 	int v1016; // ecx
 	int v1017; // edx
@@ -6405,7 +6405,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	unsigned int v1052; // eax
 	int v1053; // edx
 	int v1054; // ecx
-	uint8_t* v1055; // esi
+	uint8_t* ptrCurrentTexture_v1055; // esi
 	char v1056; // al
 	int v1057; // edx
 	int v1058; // ecx
@@ -8163,10 +8163,10 @@ LABEL_129:
 									v228 = (unsigned __int16)v235;
 								LABEL_370:
 									v1274 = v227;
-									v236 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v236 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										v237 = *(x_BYTE*)(v229 + v236);
+										v237 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v234);
 										LOWORD(v234) = Uincrement_v1124 + v234;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8177,7 +8177,7 @@ LABEL_129:
 										v239 = v230 - 1;
 										if (!v239)
 											break;
-										v240 = *(x_BYTE*)(v229 + v236);
+										v240 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v238);
 										LOWORD(v238) = Uincrement_v1124 + v238;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8188,7 +8188,7 @@ LABEL_129:
 										v242 = v239 - 1;
 										if (!v242)
 											break;
-										v243 = *(x_BYTE*)(v229 + v236);
+										v243 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v241);
 										LOWORD(v241) = Uincrement_v1124 + v241;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8199,7 +8199,7 @@ LABEL_129:
 										v245 = v242 - 1;
 										if (!v245)
 											break;
-										v246 = *(x_BYTE*)(v229 + v236);
+										v246 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v244);
 										LOWORD(v244) = Uincrement_v1124 + v244;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8210,7 +8210,7 @@ LABEL_129:
 										v248 = v245 - 1;
 										if (!v248)
 											break;
-										v249 = *(x_BYTE*)(v229 + v236);
+										v249 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v247);
 										LOWORD(v247) = Uincrement_v1124 + v247;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8221,7 +8221,7 @@ LABEL_129:
 										v251 = v248 - 1;
 										if (!v251)
 											break;
-										v252 = *(x_BYTE*)(v229 + v236);
+										v252 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v250);
 										LOWORD(v250) = Uincrement_v1124 + v250;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8232,7 +8232,7 @@ LABEL_129:
 										v254 = v251 - 1;
 										if (!v254)
 											break;
-										v255 = *(x_BYTE*)(v229 + v236);
+										v255 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v253);
 										LOWORD(v253) = Uincrement_v1124 + v253;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8243,7 +8243,7 @@ LABEL_129:
 										v257 = v254 - 1;
 										if (!v257)
 											break;
-										v258 = *(x_BYTE*)(v229 + v236);
+										v258 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v256);
 										LOWORD(v256) = Uincrement_v1124 + v256;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8254,7 +8254,7 @@ LABEL_129:
 										v260 = v257 - 1;
 										if (!v260)
 											break;
-										v261 = *(x_BYTE*)(v229 + v236);
+										v261 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v259);
 										LOWORD(v259) = Uincrement_v1124 + v259;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8265,7 +8265,7 @@ LABEL_129:
 										v263 = v260 - 1;
 										if (!v263)
 											break;
-										v264 = *(x_BYTE*)(v229 + v236);
+										v264 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v262);
 										LOWORD(v262) = Uincrement_v1124 + v262;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8276,7 +8276,7 @@ LABEL_129:
 										v266 = v263 - 1;
 										if (!v266)
 											break;
-										v267 = *(x_BYTE*)(v229 + v236);
+										v267 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v265);
 										LOWORD(v265) = Uincrement_v1124 + v265;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8287,7 +8287,7 @@ LABEL_129:
 										v269 = v266 - 1;
 										if (!v269)
 											break;
-										v270 = *(x_BYTE*)(v229 + v236);
+										v270 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v268);
 										LOWORD(v268) = Uincrement_v1124 + v268;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8298,7 +8298,7 @@ LABEL_129:
 										v272 = v269 - 1;
 										if (!v272)
 											break;
-										v273 = *(x_BYTE*)(v229 + v236);
+										v273 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v271);
 										LOWORD(v271) = Uincrement_v1124 + v271;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8309,7 +8309,7 @@ LABEL_129:
 										v275 = v272 - 1;
 										if (!v275)
 											break;
-										v276 = *(x_BYTE*)(v229 + v236);
+										v276 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v274);
 										LOWORD(v274) = Uincrement_v1124 + v274;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8320,7 +8320,7 @@ LABEL_129:
 										v278 = v275 - 1;
 										if (!v278)
 											break;
-										v279 = *(x_BYTE*)(v229 + v236);
+										v279 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v277);
 										LOWORD(v277) = Uincrement_v1124 + v277;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8331,7 +8331,7 @@ LABEL_129:
 										v281 = v278 - 1;
 										if (!v281)
 											break;
-										v282 = *(x_BYTE*)(v229 + v236);
+										v282 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v280);
 										LOWORD(v280) = Uincrement_v1124 + v280;
 										LOBYTE(v229) = BYTE2(Uincrement_v1124) + v180 + v229;
@@ -8396,10 +8396,10 @@ LABEL_129:
 									v284 = (unsigned __int16)v291;
 								LABEL_401:
 									v1275 = v283;
-									v292 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v292 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										v293 = *(x_BYTE*)(v285 + v292);
+										v293 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v293)
 											*v287 = v293;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v290);
@@ -8411,7 +8411,7 @@ LABEL_129:
 										v295 = v286 - 1;
 										if (!v295)
 											break;
-										v296 = *(x_BYTE*)(v285 + v292);
+										v296 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v296)
 											v287[1] = v296;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v294);
@@ -8423,7 +8423,7 @@ LABEL_129:
 										v298 = v295 - 1;
 										if (!v298)
 											break;
-										v299 = *(x_BYTE*)(v285 + v292);
+										v299 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v299)
 											v287[2] = v299;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v297);
@@ -8435,7 +8435,7 @@ LABEL_129:
 										v301 = v298 - 1;
 										if (!v301)
 											break;
-										v302 = *(x_BYTE*)(v285 + v292);
+										v302 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v302)
 											v287[3] = v302;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v300);
@@ -8447,7 +8447,7 @@ LABEL_129:
 										v304 = v301 - 1;
 										if (!v304)
 											break;
-										v305 = *(x_BYTE*)(v285 + v292);
+										v305 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v305)
 											v287[4] = v305;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v303);
@@ -8459,7 +8459,7 @@ LABEL_129:
 										v307 = v304 - 1;
 										if (!v307)
 											break;
-										v308 = *(x_BYTE*)(v285 + v292);
+										v308 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v308)
 											v287[5] = v308;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v306);
@@ -8471,7 +8471,7 @@ LABEL_129:
 										v310 = v307 - 1;
 										if (!v310)
 											break;
-										v311 = *(x_BYTE*)(v285 + v292);
+										v311 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v311)
 											v287[6] = v311;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v309);
@@ -8483,7 +8483,7 @@ LABEL_129:
 										v313 = v310 - 1;
 										if (!v313)
 											break;
-										v314 = *(x_BYTE*)(v285 + v292);
+										v314 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v314)
 											v287[7] = v314;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v312);
@@ -8495,7 +8495,7 @@ LABEL_129:
 										v316 = v313 - 1;
 										if (!v316)
 											break;
-										v317 = *(x_BYTE*)(v285 + v292);
+										v317 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v317)
 											v287[8] = v317;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v315);
@@ -8507,7 +8507,7 @@ LABEL_129:
 										v319 = v316 - 1;
 										if (!v319)
 											break;
-										v320 = *(x_BYTE*)(v285 + v292);
+										v320 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v320)
 											v287[9] = v320;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v318);
@@ -8519,7 +8519,7 @@ LABEL_129:
 										v322 = v319 - 1;
 										if (!v322)
 											break;
-										v323 = *(x_BYTE*)(v285 + v292);
+										v323 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v323)
 											v287[10] = v323;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v321);
@@ -8531,7 +8531,7 @@ LABEL_129:
 										v325 = v322 - 1;
 										if (!v325)
 											break;
-										v326 = *(x_BYTE*)(v285 + v292);
+										v326 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v326)
 											v287[11] = v326;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v324);
@@ -8543,7 +8543,7 @@ LABEL_129:
 										v328 = v325 - 1;
 										if (!v328)
 											break;
-										v329 = *(x_BYTE*)(v285 + v292);
+										v329 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v329)
 											v287[12] = v329;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v327);
@@ -8555,7 +8555,7 @@ LABEL_129:
 										v331 = v328 - 1;
 										if (!v331)
 											break;
-										v332 = *(x_BYTE*)(v285 + v292);
+										v332 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v332)
 											v287[13] = v332;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v330);
@@ -8567,7 +8567,7 @@ LABEL_129:
 										v334 = v331 - 1;
 										if (!v334)
 											break;
-										v335 = *(x_BYTE*)(v285 + v292);
+										v335 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v335)
 											v287[14] = v335;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v333);
@@ -8579,7 +8579,7 @@ LABEL_129:
 										v337 = v334 - 1;
 										if (!v337)
 											break;
-										v338 = *(x_BYTE*)(v285 + v292);
+										v338 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v338)
 											v287[15] = v338;
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v336);
@@ -8814,12 +8814,12 @@ LABEL_129:
 										LOWORD(v384) = viewPort.Width_DE564;
 								LABEL_493:
 									v388 = &v379[0];
-									v389 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v389 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v383);
 										LOWORD(v383) = Uincrement_v1124 + v383;
-										LOBYTE(v375) = *(x_BYTE*)(v376 + v389);
+										LOBYTE(v375) = *(x_BYTE*)(v376 + ptrCurrentTexture_v389);
 										LOBYTE(v376) = BYTE2(Uincrement_v1124) + v180 + v376;
 										v180 = __CFADD__(v1167, v383);
 										v383 += v1167;
@@ -8896,7 +8896,7 @@ LABEL_129:
 								LABEL_522:
 									v402 = v399 & 0xF;
 									v403 = &v394[offsets_B8845[v402]];
-									v404 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v404 = x_DWORD_DE55C_ActTexture;
 									switch (v402)
 									{
 									case 0:
@@ -8932,7 +8932,7 @@ LABEL_129:
 									case 15:
 										while (1)
 										{
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[1] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -8945,7 +8945,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_529:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[2] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -8958,7 +8958,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_532:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[3] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -8971,7 +8971,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_535:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[4] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -8984,7 +8984,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_538:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[5] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -8997,7 +8997,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_541:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[6] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9010,7 +9010,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_544:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[7] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9023,7 +9023,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_547:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[8] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9036,7 +9036,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_550:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[9] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9049,7 +9049,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_553:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[10] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9062,7 +9062,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_556:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[11] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9075,7 +9075,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_559:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[12] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9088,7 +9088,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_562:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[13] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9101,7 +9101,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_565:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[14] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9114,7 +9114,7 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_568:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[15] = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9132,7 +9132,7 @@ LABEL_129:
 											if ((unsigned __int8)(((v399 & 0x8000u) != 0) ^ v18) | ((x_WORD)v399 == 0))
 												break;
 										LABEL_523:
-											LOBYTE(v390) = *(x_BYTE*)(v391 + v404);
+											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												*v403 = x_BYTE_F6EE0_tablesx[v390];
 											v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v398);
@@ -9202,11 +9202,11 @@ LABEL_129:
 									v406 = (unsigned __int16)v413;
 								LABEL_583:
 									v1278 = v405;
-									v414 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v414 = x_DWORD_DE55C_ActTexture;
 									BYTE1(v406) = x_BYTE_E126C;
 									while (1)
 									{
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v412);
 										LOWORD(v412) = Uincrement_v1124 + v412;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9217,7 +9217,7 @@ LABEL_129:
 										v416 = v408 - 1;
 										if (!v416)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v415);
 										LOWORD(v415) = Uincrement_v1124 + v415;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9228,7 +9228,7 @@ LABEL_129:
 										v418 = v416 - 1;
 										if (!v418)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v417);
 										LOWORD(v417) = Uincrement_v1124 + v417;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9239,7 +9239,7 @@ LABEL_129:
 										v420 = v418 - 1;
 										if (!v420)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v419);
 										LOWORD(v419) = Uincrement_v1124 + v419;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9250,7 +9250,7 @@ LABEL_129:
 										v422 = v420 - 1;
 										if (!v422)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v421);
 										LOWORD(v421) = Uincrement_v1124 + v421;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9261,7 +9261,7 @@ LABEL_129:
 										v424 = v422 - 1;
 										if (!v424)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v423);
 										LOWORD(v423) = Uincrement_v1124 + v423;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9272,7 +9272,7 @@ LABEL_129:
 										v426 = v424 - 1;
 										if (!v426)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v425);
 										LOWORD(v425) = Uincrement_v1124 + v425;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9283,7 +9283,7 @@ LABEL_129:
 										v428 = v426 - 1;
 										if (!v428)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v427);
 										LOWORD(v427) = Uincrement_v1124 + v427;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9294,7 +9294,7 @@ LABEL_129:
 										v430 = v428 - 1;
 										if (!v430)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v429);
 										LOWORD(v429) = Uincrement_v1124 + v429;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9305,7 +9305,7 @@ LABEL_129:
 										v432 = v430 - 1;
 										if (!v432)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v431);
 										LOWORD(v431) = Uincrement_v1124 + v431;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9316,7 +9316,7 @@ LABEL_129:
 										v434 = v432 - 1;
 										if (!v434)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v433);
 										LOWORD(v433) = Uincrement_v1124 + v433;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9327,7 +9327,7 @@ LABEL_129:
 										v436 = v434 - 1;
 										if (!v436)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v435);
 										LOWORD(v435) = Uincrement_v1124 + v435;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9338,7 +9338,7 @@ LABEL_129:
 										v438 = v436 - 1;
 										if (!v438)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v437);
 										LOWORD(v437) = Uincrement_v1124 + v437;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9349,7 +9349,7 @@ LABEL_129:
 										v440 = v438 - 1;
 										if (!v440)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v439);
 										LOWORD(v439) = Uincrement_v1124 + v439;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9360,7 +9360,7 @@ LABEL_129:
 										v442 = v440 - 1;
 										if (!v442)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v441);
 										LOWORD(v441) = Uincrement_v1124 + v441;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9371,7 +9371,7 @@ LABEL_129:
 										v444 = v442 - 1;
 										if (!v444)
 											break;
-										LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v443);
 										LOWORD(v443) = Uincrement_v1124 + v443;
 										LOBYTE(v407) = BYTE2(Uincrement_v1124) + v180 + v407;
@@ -9436,11 +9436,11 @@ LABEL_129:
 									v446 = (unsigned __int16)v453;
 								LABEL_614:
 									v1279 = v445;
-									v454 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v454 = x_DWORD_DE55C_ActTexture;
 									BYTE1(v446) = x_BYTE_E126C;
 									while (1)
 									{
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v452);
 										LOWORD(v452) = Uincrement_v1124 + v452;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9452,7 +9452,7 @@ LABEL_129:
 										v456 = v448 - 1;
 										if (!v456)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v455);
 										LOWORD(v455) = Uincrement_v1124 + v455;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9464,7 +9464,7 @@ LABEL_129:
 										v458 = v456 - 1;
 										if (!v458)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v457);
 										LOWORD(v457) = Uincrement_v1124 + v457;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9476,7 +9476,7 @@ LABEL_129:
 										v460 = v458 - 1;
 										if (!v460)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v459);
 										LOWORD(v459) = Uincrement_v1124 + v459;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9488,7 +9488,7 @@ LABEL_129:
 										v462 = v460 - 1;
 										if (!v462)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v461);
 										LOWORD(v461) = Uincrement_v1124 + v461;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9500,7 +9500,7 @@ LABEL_129:
 										v464 = v462 - 1;
 										if (!v464)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v463);
 										LOWORD(v463) = Uincrement_v1124 + v463;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9512,7 +9512,7 @@ LABEL_129:
 										v466 = v464 - 1;
 										if (!v466)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v465);
 										LOWORD(v465) = Uincrement_v1124 + v465;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9524,7 +9524,7 @@ LABEL_129:
 										v468 = v466 - 1;
 										if (!v468)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v467);
 										LOWORD(v467) = Uincrement_v1124 + v467;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9536,7 +9536,7 @@ LABEL_129:
 										v470 = v468 - 1;
 										if (!v470)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v469);
 										LOWORD(v469) = Uincrement_v1124 + v469;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9548,7 +9548,7 @@ LABEL_129:
 										v472 = v470 - 1;
 										if (!v472)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v471);
 										LOWORD(v471) = Uincrement_v1124 + v471;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9560,7 +9560,7 @@ LABEL_129:
 										v474 = v472 - 1;
 										if (!v474)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v473);
 										LOWORD(v473) = Uincrement_v1124 + v473;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9572,7 +9572,7 @@ LABEL_129:
 										v476 = v474 - 1;
 										if (!v476)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v475);
 										LOWORD(v475) = Uincrement_v1124 + v475;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9584,7 +9584,7 @@ LABEL_129:
 										v478 = v476 - 1;
 										if (!v478)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v477);
 										LOWORD(v477) = Uincrement_v1124 + v477;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9596,7 +9596,7 @@ LABEL_129:
 										v480 = v478 - 1;
 										if (!v480)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v479);
 										LOWORD(v479) = Uincrement_v1124 + v479;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9608,7 +9608,7 @@ LABEL_129:
 										v482 = v480 - 1;
 										if (!v482)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v481);
 										LOWORD(v481) = Uincrement_v1124 + v481;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9620,7 +9620,7 @@ LABEL_129:
 										v484 = v482 - 1;
 										if (!v484)
 											break;
-										LOBYTE(v446) = *(x_BYTE*)(v447 + v454);
+										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v483);
 										LOWORD(v483) = Uincrement_v1124 + v483;
 										LOBYTE(v447) = BYTE2(Uincrement_v1124) + v180 + v447;
@@ -9686,10 +9686,10 @@ LABEL_129:
 									v486 = (unsigned __int16)v493;
 								LABEL_677:
 									v1280 = v485;
-									v494 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v494 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v492);
 										LOWORD(v492) = Uincrement_v1124 + v492;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9704,7 +9704,7 @@ LABEL_129:
 										v496 = v488 - 1;
 										if (!v496)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v495);
 										LOWORD(v495) = Uincrement_v1124 + v495;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9719,7 +9719,7 @@ LABEL_129:
 										v498 = v496 - 1;
 										if (!v498)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v497);
 										LOWORD(v497) = Uincrement_v1124 + v497;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9734,7 +9734,7 @@ LABEL_129:
 										v500 = v498 - 1;
 										if (!v500)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v499);
 										LOWORD(v499) = Uincrement_v1124 + v499;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9749,7 +9749,7 @@ LABEL_129:
 										v502 = v500 - 1;
 										if (!v502)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v501);
 										LOWORD(v501) = Uincrement_v1124 + v501;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9764,7 +9764,7 @@ LABEL_129:
 										v504 = v502 - 1;
 										if (!v504)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v503);
 										LOWORD(v503) = Uincrement_v1124 + v503;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9779,7 +9779,7 @@ LABEL_129:
 										v506 = v504 - 1;
 										if (!v506)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v505);
 										LOWORD(v505) = Uincrement_v1124 + v505;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9794,7 +9794,7 @@ LABEL_129:
 										v508 = v506 - 1;
 										if (!v508)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v507);
 										LOWORD(v507) = Uincrement_v1124 + v507;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9809,7 +9809,7 @@ LABEL_129:
 										v510 = v508 - 1;
 										if (!v510)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v509);
 										LOWORD(v509) = Uincrement_v1124 + v509;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9824,7 +9824,7 @@ LABEL_129:
 										v512 = v510 - 1;
 										if (!v512)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v511);
 										LOWORD(v511) = Uincrement_v1124 + v511;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9839,7 +9839,7 @@ LABEL_129:
 										v514 = v512 - 1;
 										if (!v514)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v513);
 										LOWORD(v513) = Uincrement_v1124 + v513;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9854,7 +9854,7 @@ LABEL_129:
 										v516 = v514 - 1;
 										if (!v516)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v515);
 										LOWORD(v515) = Uincrement_v1124 + v515;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9869,7 +9869,7 @@ LABEL_129:
 										v518 = v516 - 1;
 										if (!v518)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v517);
 										LOWORD(v517) = Uincrement_v1124 + v517;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9884,7 +9884,7 @@ LABEL_129:
 										v520 = v518 - 1;
 										if (!v520)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v519);
 										LOWORD(v519) = Uincrement_v1124 + v519;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9899,7 +9899,7 @@ LABEL_129:
 										v522 = v520 - 1;
 										if (!v522)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v521);
 										LOWORD(v521) = Uincrement_v1124 + v521;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9914,7 +9914,7 @@ LABEL_129:
 										v524 = v522 - 1;
 										if (!v524)
 											break;
-										BYTE1(v486) = *(x_BYTE*)(v487 + v494);
+										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v523);
 										LOWORD(v523) = Uincrement_v1124 + v523;
 										LOBYTE(v487) = BYTE2(Uincrement_v1124) + v180 + v487;
@@ -9982,11 +9982,11 @@ LABEL_129:
 									v526 = (unsigned __int16)v533;
 								LABEL_740:
 									v1281 = v525;
-									v534 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v534 = x_DWORD_DE55C_ActTexture;
 									LOBYTE(v526) = x_BYTE_E126C;
 									while (1)
 									{
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v532);
 										LOWORD(v532) = Uincrement_v1124 + v532;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -9997,7 +9997,7 @@ LABEL_129:
 										v536 = v528 - 1;
 										if (!v536)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v535);
 										LOWORD(v535) = Uincrement_v1124 + v535;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10008,7 +10008,7 @@ LABEL_129:
 										v538 = v536 - 1;
 										if (!v538)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v537);
 										LOWORD(v537) = Uincrement_v1124 + v537;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10019,7 +10019,7 @@ LABEL_129:
 										v540 = v538 - 1;
 										if (!v540)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v539);
 										LOWORD(v539) = Uincrement_v1124 + v539;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10030,7 +10030,7 @@ LABEL_129:
 										v542 = v540 - 1;
 										if (!v542)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v541);
 										LOWORD(v541) = Uincrement_v1124 + v541;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10041,7 +10041,7 @@ LABEL_129:
 										v544 = v542 - 1;
 										if (!v544)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v543);
 										LOWORD(v543) = Uincrement_v1124 + v543;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10052,7 +10052,7 @@ LABEL_129:
 										v546 = v544 - 1;
 										if (!v546)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v545);
 										LOWORD(v545) = Uincrement_v1124 + v545;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10063,7 +10063,7 @@ LABEL_129:
 										v548 = v546 - 1;
 										if (!v548)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v547);
 										LOWORD(v547) = Uincrement_v1124 + v547;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10074,7 +10074,7 @@ LABEL_129:
 										v550 = v548 - 1;
 										if (!v550)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v549);
 										LOWORD(v549) = Uincrement_v1124 + v549;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10085,7 +10085,7 @@ LABEL_129:
 										v552 = v550 - 1;
 										if (!v552)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v551);
 										LOWORD(v551) = Uincrement_v1124 + v551;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10096,7 +10096,7 @@ LABEL_129:
 										v554 = v552 - 1;
 										if (!v554)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v553);
 										LOWORD(v553) = Uincrement_v1124 + v553;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10107,7 +10107,7 @@ LABEL_129:
 										v556 = v554 - 1;
 										if (!v556)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v555);
 										LOWORD(v555) = Uincrement_v1124 + v555;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10118,7 +10118,7 @@ LABEL_129:
 										v558 = v556 - 1;
 										if (!v558)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v557);
 										LOWORD(v557) = Uincrement_v1124 + v557;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10129,7 +10129,7 @@ LABEL_129:
 										v560 = v558 - 1;
 										if (!v560)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v559);
 										LOWORD(v559) = Uincrement_v1124 + v559;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10140,7 +10140,7 @@ LABEL_129:
 										v562 = v560 - 1;
 										if (!v562)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v561);
 										LOWORD(v561) = Uincrement_v1124 + v561;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10151,7 +10151,7 @@ LABEL_129:
 										v564 = v562 - 1;
 										if (!v564)
 											break;
-										BYTE1(v526) = *(x_BYTE*)(v527 + v534);
+										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v563);
 										LOWORD(v563) = Uincrement_v1124 + v563;
 										LOBYTE(v527) = BYTE2(Uincrement_v1124) + v180 + v527;
@@ -10215,11 +10215,11 @@ LABEL_129:
 									v566 = (unsigned __int16)v573;
 								LABEL_771:
 									v1282 = v565;
-									v574 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v574 = x_DWORD_DE55C_ActTexture;
 									BYTE1(v566) = x_BYTE_E126C;
 									while (1)
 									{
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v572);
 										LOWORD(v572) = Uincrement_v1124 + v572;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10230,7 +10230,7 @@ LABEL_129:
 										v576 = v568 - 1;
 										if (!v576)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v575);
 										LOWORD(v575) = Uincrement_v1124 + v575;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10241,7 +10241,7 @@ LABEL_129:
 										v578 = v576 - 1;
 										if (!v578)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v577);
 										LOWORD(v577) = Uincrement_v1124 + v577;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10252,7 +10252,7 @@ LABEL_129:
 										v580 = v578 - 1;
 										if (!v580)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v579);
 										LOWORD(v579) = Uincrement_v1124 + v579;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10263,7 +10263,7 @@ LABEL_129:
 										v582 = v580 - 1;
 										if (!v582)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v581);
 										LOWORD(v581) = Uincrement_v1124 + v581;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10274,7 +10274,7 @@ LABEL_129:
 										v584 = v582 - 1;
 										if (!v584)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v583);
 										LOWORD(v583) = Uincrement_v1124 + v583;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10285,7 +10285,7 @@ LABEL_129:
 										v586 = v584 - 1;
 										if (!v586)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v585);
 										LOWORD(v585) = Uincrement_v1124 + v585;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10296,7 +10296,7 @@ LABEL_129:
 										v588 = v586 - 1;
 										if (!v588)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v587);
 										LOWORD(v587) = Uincrement_v1124 + v587;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10307,7 +10307,7 @@ LABEL_129:
 										v590 = v588 - 1;
 										if (!v590)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v589);
 										LOWORD(v589) = Uincrement_v1124 + v589;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10318,7 +10318,7 @@ LABEL_129:
 										v592 = v590 - 1;
 										if (!v592)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v591);
 										LOWORD(v591) = Uincrement_v1124 + v591;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10329,7 +10329,7 @@ LABEL_129:
 										v594 = v592 - 1;
 										if (!v594)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v593);
 										LOWORD(v593) = Uincrement_v1124 + v593;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10340,7 +10340,7 @@ LABEL_129:
 										v596 = v594 - 1;
 										if (!v596)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v595);
 										LOWORD(v595) = Uincrement_v1124 + v595;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10351,7 +10351,7 @@ LABEL_129:
 										v598 = v596 - 1;
 										if (!v598)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v597);
 										LOWORD(v597) = Uincrement_v1124 + v597;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10362,7 +10362,7 @@ LABEL_129:
 										v600 = v598 - 1;
 										if (!v600)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v599);
 										LOWORD(v599) = Uincrement_v1124 + v599;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10373,7 +10373,7 @@ LABEL_129:
 										v602 = v600 - 1;
 										if (!v602)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v601);
 										LOWORD(v601) = Uincrement_v1124 + v601;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -10384,7 +10384,7 @@ LABEL_129:
 										v604 = v602 - 1;
 										if (!v604)
 											break;
-										LOBYTE(v566) = *(x_BYTE*)(v567 + v574);
+										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v603);
 										LOWORD(v603) = Uincrement_v1124 + v603;
 										LOBYTE(v567) = BYTE2(Uincrement_v1124) + v180 + v567;
@@ -11075,10 +11075,10 @@ LABEL_129:
 									v722 = (unsigned __int16)v729;
 								LABEL_918:
 									v1283 = v721;
-									v730 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v730 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v728);
 										LOWORD(v728) = Uincrement_v1124 + v728;
 										LOBYTE(v722) = *v725;
@@ -11090,7 +11090,7 @@ LABEL_129:
 										v732 = v724 - 1;
 										if (!v732)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v731);
 										LOWORD(v731) = Uincrement_v1124 + v731;
 										LOBYTE(v722) = v725[1];
@@ -11102,7 +11102,7 @@ LABEL_129:
 										v734 = v732 - 1;
 										if (!v734)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v733);
 										LOWORD(v733) = Uincrement_v1124 + v733;
 										LOBYTE(v722) = v725[2];
@@ -11114,7 +11114,7 @@ LABEL_129:
 										v736 = v734 - 1;
 										if (!v736)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v735);
 										LOWORD(v735) = Uincrement_v1124 + v735;
 										LOBYTE(v722) = v725[3];
@@ -11126,7 +11126,7 @@ LABEL_129:
 										v738 = v736 - 1;
 										if (!v738)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v737);
 										LOWORD(v737) = Uincrement_v1124 + v737;
 										LOBYTE(v722) = v725[4];
@@ -11138,7 +11138,7 @@ LABEL_129:
 										v740 = v738 - 1;
 										if (!v740)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v739);
 										LOWORD(v739) = Uincrement_v1124 + v739;
 										LOBYTE(v722) = v725[5];
@@ -11150,7 +11150,7 @@ LABEL_129:
 										v742 = v740 - 1;
 										if (!v742)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v741);
 										LOWORD(v741) = Uincrement_v1124 + v741;
 										LOBYTE(v722) = v725[6];
@@ -11162,7 +11162,7 @@ LABEL_129:
 										v744 = v742 - 1;
 										if (!v744)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v743);
 										LOWORD(v743) = Uincrement_v1124 + v743;
 										LOBYTE(v722) = v725[7];
@@ -11174,7 +11174,7 @@ LABEL_129:
 										v746 = v744 - 1;
 										if (!v746)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v745);
 										LOWORD(v745) = Uincrement_v1124 + v745;
 										LOBYTE(v722) = v725[8];
@@ -11186,7 +11186,7 @@ LABEL_129:
 										v748 = v746 - 1;
 										if (!v748)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v747);
 										LOWORD(v747) = Uincrement_v1124 + v747;
 										LOBYTE(v722) = v725[9];
@@ -11198,7 +11198,7 @@ LABEL_129:
 										v750 = v748 - 1;
 										if (!v750)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v749);
 										LOWORD(v749) = Uincrement_v1124 + v749;
 										LOBYTE(v722) = v725[10];
@@ -11210,7 +11210,7 @@ LABEL_129:
 										v752 = v750 - 1;
 										if (!v752)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v751);
 										LOWORD(v751) = Uincrement_v1124 + v751;
 										LOBYTE(v722) = v725[11];
@@ -11222,7 +11222,7 @@ LABEL_129:
 										v754 = v752 - 1;
 										if (!v754)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v753);
 										LOWORD(v753) = Uincrement_v1124 + v753;
 										LOBYTE(v722) = v725[12];
@@ -11234,7 +11234,7 @@ LABEL_129:
 										v756 = v754 - 1;
 										if (!v756)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v755);
 										LOWORD(v755) = Uincrement_v1124 + v755;
 										LOBYTE(v722) = v725[13];
@@ -11246,7 +11246,7 @@ LABEL_129:
 										v758 = v756 - 1;
 										if (!v758)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v757);
 										LOWORD(v757) = Uincrement_v1124 + v757;
 										LOBYTE(v722) = v725[14];
@@ -11258,7 +11258,7 @@ LABEL_129:
 										v760 = v758 - 1;
 										if (!v760)
 											break;
-										BYTE1(v722) = *(x_BYTE*)(v723 + v730);
+										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v759);
 										LOWORD(v759) = Uincrement_v1124 + v759;
 										LOBYTE(v722) = v725[15];
@@ -11323,10 +11323,10 @@ LABEL_129:
 									v762 = (unsigned __int16)v769;
 								LABEL_949:
 									v1284 = v761;
-									v770 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v770 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v768);
 										LOWORD(v768) = Uincrement_v1124 + v768;
 										BYTE1(v762) = *v765;
@@ -11338,7 +11338,7 @@ LABEL_129:
 										v772 = v764 - 1;
 										if (!v772)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v771);
 										LOWORD(v771) = Uincrement_v1124 + v771;
 										BYTE1(v762) = v765[1];
@@ -11350,7 +11350,7 @@ LABEL_129:
 										v774 = v772 - 1;
 										if (!v774)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v773);
 										LOWORD(v773) = Uincrement_v1124 + v773;
 										BYTE1(v762) = v765[2];
@@ -11362,7 +11362,7 @@ LABEL_129:
 										v776 = v774 - 1;
 										if (!v776)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v775);
 										LOWORD(v775) = Uincrement_v1124 + v775;
 										BYTE1(v762) = v765[3];
@@ -11374,7 +11374,7 @@ LABEL_129:
 										v778 = v776 - 1;
 										if (!v778)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v777);
 										LOWORD(v777) = Uincrement_v1124 + v777;
 										BYTE1(v762) = v765[4];
@@ -11386,7 +11386,7 @@ LABEL_129:
 										v780 = v778 - 1;
 										if (!v780)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v779);
 										LOWORD(v779) = Uincrement_v1124 + v779;
 										BYTE1(v762) = v765[5];
@@ -11398,7 +11398,7 @@ LABEL_129:
 										v782 = v780 - 1;
 										if (!v782)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v781);
 										LOWORD(v781) = Uincrement_v1124 + v781;
 										BYTE1(v762) = v765[6];
@@ -11410,7 +11410,7 @@ LABEL_129:
 										v784 = v782 - 1;
 										if (!v784)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v783);
 										LOWORD(v783) = Uincrement_v1124 + v783;
 										BYTE1(v762) = v765[7];
@@ -11422,7 +11422,7 @@ LABEL_129:
 										v786 = v784 - 1;
 										if (!v786)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v785);
 										LOWORD(v785) = Uincrement_v1124 + v785;
 										BYTE1(v762) = v765[8];
@@ -11434,7 +11434,7 @@ LABEL_129:
 										v788 = v786 - 1;
 										if (!v788)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v787);
 										LOWORD(v787) = Uincrement_v1124 + v787;
 										BYTE1(v762) = v765[9];
@@ -11446,7 +11446,7 @@ LABEL_129:
 										v790 = v788 - 1;
 										if (!v790)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v789);
 										LOWORD(v789) = Uincrement_v1124 + v789;
 										BYTE1(v762) = v765[10];
@@ -11458,7 +11458,7 @@ LABEL_129:
 										v792 = v790 - 1;
 										if (!v792)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v791);
 										LOWORD(v791) = Uincrement_v1124 + v791;
 										BYTE1(v762) = v765[11];
@@ -11470,7 +11470,7 @@ LABEL_129:
 										v794 = v792 - 1;
 										if (!v794)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v793);
 										LOWORD(v793) = Uincrement_v1124 + v793;
 										BYTE1(v762) = v765[12];
@@ -11482,7 +11482,7 @@ LABEL_129:
 										v796 = v794 - 1;
 										if (!v796)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v795);
 										LOWORD(v795) = Uincrement_v1124 + v795;
 										BYTE1(v762) = v765[13];
@@ -11494,7 +11494,7 @@ LABEL_129:
 										v798 = v796 - 1;
 										if (!v798)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v797);
 										LOWORD(v797) = Uincrement_v1124 + v797;
 										BYTE1(v762) = v765[14];
@@ -11506,7 +11506,7 @@ LABEL_129:
 										v800 = v798 - 1;
 										if (!v800)
 											break;
-										LOBYTE(v762) = *(x_BYTE*)(v763 + v770);
+										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v799);
 										LOWORD(v799) = Uincrement_v1124 + v799;
 										BYTE1(v762) = v765[15];
@@ -11575,10 +11575,10 @@ LABEL_129:
 									v802 = (unsigned __int16)v802;
 								LABEL_980:
 									v1285 = v801;
-									v811 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v811 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v809);
 										LOWORD(v809) = Uincrement_v1124 + v809;
 										BYTE1(v802) = v810;
@@ -11595,7 +11595,7 @@ LABEL_129:
 										v1195 = v1194 - 1;
 										if (!v1195)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v812);
 										LOWORD(v812) = Uincrement_v1124 + v812;
 										BYTE1(v802) = v813;
@@ -11612,7 +11612,7 @@ LABEL_129:
 										v1196 = v1195 - 1;
 										if (!v1196)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v814);
 										LOWORD(v814) = Uincrement_v1124 + v814;
 										BYTE1(v802) = v815;
@@ -11629,7 +11629,7 @@ LABEL_129:
 										v1197 = v1196 - 1;
 										if (!v1197)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v816);
 										LOWORD(v816) = Uincrement_v1124 + v816;
 										BYTE1(v802) = v817;
@@ -11646,7 +11646,7 @@ LABEL_129:
 										v1198 = v1197 - 1;
 										if (!v1198)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v818);
 										LOWORD(v818) = Uincrement_v1124 + v818;
 										BYTE1(v802) = v819;
@@ -11663,7 +11663,7 @@ LABEL_129:
 										v1199 = v1198 - 1;
 										if (!v1199)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v820);
 										LOWORD(v820) = Uincrement_v1124 + v820;
 										BYTE1(v802) = v821;
@@ -11680,7 +11680,7 @@ LABEL_129:
 										v1200 = v1199 - 1;
 										if (!v1200)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v822);
 										LOWORD(v822) = Uincrement_v1124 + v822;
 										BYTE1(v802) = v823;
@@ -11697,7 +11697,7 @@ LABEL_129:
 										v1201 = v1200 - 1;
 										if (!v1201)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v824);
 										LOWORD(v824) = Uincrement_v1124 + v824;
 										BYTE1(v802) = v825;
@@ -11714,7 +11714,7 @@ LABEL_129:
 										v1202 = v1201 - 1;
 										if (!v1202)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v826);
 										LOWORD(v826) = Uincrement_v1124 + v826;
 										BYTE1(v802) = v827;
@@ -11731,7 +11731,7 @@ LABEL_129:
 										v1203 = v1202 - 1;
 										if (!v1203)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v828);
 										LOWORD(v828) = Uincrement_v1124 + v828;
 										BYTE1(v802) = v829;
@@ -11748,7 +11748,7 @@ LABEL_129:
 										v1204 = v1203 - 1;
 										if (!v1204)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v830);
 										LOWORD(v830) = Uincrement_v1124 + v830;
 										BYTE1(v802) = v831;
@@ -11765,7 +11765,7 @@ LABEL_129:
 										v1205 = v1204 - 1;
 										if (!v1205)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v832);
 										LOWORD(v832) = Uincrement_v1124 + v832;
 										BYTE1(v802) = v833;
@@ -11782,7 +11782,7 @@ LABEL_129:
 										v1206 = v1205 - 1;
 										if (!v1206)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v834);
 										LOWORD(v834) = Uincrement_v1124 + v834;
 										BYTE1(v802) = v835;
@@ -11799,7 +11799,7 @@ LABEL_129:
 										v1207 = v1206 - 1;
 										if (!v1207)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v836);
 										LOWORD(v836) = Uincrement_v1124 + v836;
 										BYTE1(v802) = v837;
@@ -11816,7 +11816,7 @@ LABEL_129:
 										v1208 = v1207 - 1;
 										if (!v1208)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v838);
 										LOWORD(v838) = Uincrement_v1124 + v838;
 										BYTE1(v802) = v839;
@@ -11833,7 +11833,7 @@ LABEL_129:
 										v1209 = v1208 - 1;
 										if (!v1209)
 											break;
-										LOBYTE(v802) = *(x_BYTE*)(v803 + v811);
+										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v840);
 										LOWORD(v840) = Uincrement_v1124 + v840;
 										BYTE1(v802) = v841;
@@ -11909,10 +11909,10 @@ LABEL_129:
 									v843 = (unsigned __int16)v843;
 								LABEL_1011:
 									v1286 = v842;
-									v852 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v852 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v850);
 										LOWORD(v850) = Uincrement_v1124 + v850;
 										BYTE1(v843) = v851;
@@ -11929,7 +11929,7 @@ LABEL_129:
 										v1211 = v1210 - 1;
 										if (!v1211)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v853);
 										LOWORD(v853) = Uincrement_v1124 + v853;
 										BYTE1(v843) = v854;
@@ -11946,7 +11946,7 @@ LABEL_129:
 										v1212 = v1211 - 1;
 										if (!v1212)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v855);
 										LOWORD(v855) = Uincrement_v1124 + v855;
 										BYTE1(v843) = v856;
@@ -11963,7 +11963,7 @@ LABEL_129:
 										v1213 = v1212 - 1;
 										if (!v1213)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v857);
 										LOWORD(v857) = Uincrement_v1124 + v857;
 										BYTE1(v843) = v858;
@@ -11980,7 +11980,7 @@ LABEL_129:
 										v1214 = v1213 - 1;
 										if (!v1214)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v859);
 										LOWORD(v859) = Uincrement_v1124 + v859;
 										BYTE1(v843) = v860;
@@ -11997,7 +11997,7 @@ LABEL_129:
 										v1215 = v1214 - 1;
 										if (!v1215)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v861);
 										LOWORD(v861) = Uincrement_v1124 + v861;
 										BYTE1(v843) = v862;
@@ -12014,7 +12014,7 @@ LABEL_129:
 										v1216 = v1215 - 1;
 										if (!v1216)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v863);
 										LOWORD(v863) = Uincrement_v1124 + v863;
 										BYTE1(v843) = v864;
@@ -12031,7 +12031,7 @@ LABEL_129:
 										v1217 = v1216 - 1;
 										if (!v1217)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v865);
 										LOWORD(v865) = Uincrement_v1124 + v865;
 										BYTE1(v843) = v866;
@@ -12048,7 +12048,7 @@ LABEL_129:
 										v1218 = v1217 - 1;
 										if (!v1218)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v867);
 										LOWORD(v867) = Uincrement_v1124 + v867;
 										BYTE1(v843) = v868;
@@ -12065,7 +12065,7 @@ LABEL_129:
 										v1219 = v1218 - 1;
 										if (!v1219)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v869);
 										LOWORD(v869) = Uincrement_v1124 + v869;
 										BYTE1(v843) = v870;
@@ -12082,7 +12082,7 @@ LABEL_129:
 										v1220 = v1219 - 1;
 										if (!v1220)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v871);
 										LOWORD(v871) = Uincrement_v1124 + v871;
 										BYTE1(v843) = v872;
@@ -12099,7 +12099,7 @@ LABEL_129:
 										v1221 = v1220 - 1;
 										if (!v1221)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v873);
 										LOWORD(v873) = Uincrement_v1124 + v873;
 										BYTE1(v843) = v874;
@@ -12116,7 +12116,7 @@ LABEL_129:
 										v1222 = v1221 - 1;
 										if (!v1222)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v875);
 										LOWORD(v875) = Uincrement_v1124 + v875;
 										BYTE1(v843) = v876;
@@ -12133,7 +12133,7 @@ LABEL_129:
 										v1223 = v1222 - 1;
 										if (!v1223)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v877);
 										LOWORD(v877) = Uincrement_v1124 + v877;
 										BYTE1(v843) = v878;
@@ -12150,7 +12150,7 @@ LABEL_129:
 										v1224 = v1223 - 1;
 										if (!v1224)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v879);
 										LOWORD(v879) = Uincrement_v1124 + v879;
 										BYTE1(v843) = v880;
@@ -12167,7 +12167,7 @@ LABEL_129:
 										v1225 = v1224 - 1;
 										if (!v1225)
 											break;
-										LOBYTE(v843) = *(x_BYTE*)(v844 + v852);
+										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v881);
 										LOWORD(v881) = Uincrement_v1124 + v881;
 										BYTE1(v843) = v882;
@@ -12239,10 +12239,10 @@ LABEL_129:
 									v884 = (unsigned __int16)v891;
 								LABEL_1042:
 									v1287 = v883;
-									v892 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v892 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = *v887;
@@ -12257,7 +12257,7 @@ LABEL_129:
 										v894 = v886 - 1;
 										if (!v894)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[1];
@@ -12272,7 +12272,7 @@ LABEL_129:
 										v896 = v894 - 1;
 										if (!v896)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[2];
@@ -12287,7 +12287,7 @@ LABEL_129:
 										v898 = v896 - 1;
 										if (!v898)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[3];
@@ -12302,7 +12302,7 @@ LABEL_129:
 										v900 = v898 - 1;
 										if (!v900)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[4];
@@ -12317,7 +12317,7 @@ LABEL_129:
 										v902 = v900 - 1;
 										if (!v902)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[5];
@@ -12332,7 +12332,7 @@ LABEL_129:
 										v904 = v902 - 1;
 										if (!v904)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[6];
@@ -12347,7 +12347,7 @@ LABEL_129:
 										v906 = v904 - 1;
 										if (!v906)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[7];
@@ -12362,7 +12362,7 @@ LABEL_129:
 										v908 = v906 - 1;
 										if (!v908)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[8];
@@ -12377,7 +12377,7 @@ LABEL_129:
 										v910 = v908 - 1;
 										if (!v910)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[9];
@@ -12392,7 +12392,7 @@ LABEL_129:
 										v912 = v910 - 1;
 										if (!v912)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[10];
@@ -12407,7 +12407,7 @@ LABEL_129:
 										v914 = v912 - 1;
 										if (!v914)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[11];
@@ -12422,7 +12422,7 @@ LABEL_129:
 										v916 = v914 - 1;
 										if (!v916)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[12];
@@ -12437,7 +12437,7 @@ LABEL_129:
 										v918 = v916 - 1;
 										if (!v918)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[13];
@@ -12452,7 +12452,7 @@ LABEL_129:
 										v920 = v918 - 1;
 										if (!v920)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[14];
@@ -12467,7 +12467,7 @@ LABEL_129:
 										v922 = v920 - 1;
 										if (!v922)
 											break;
-										BYTE1(v884) = *(x_BYTE*)(v885 + v892);
+										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
 											LOBYTE(v884) = v887[15];
@@ -12535,10 +12535,10 @@ LABEL_129:
 									v924 = (unsigned __int16)v931;
 								LABEL_1105:
 									v1288 = v923;
-									v932 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v932 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = *v927;
@@ -12553,7 +12553,7 @@ LABEL_129:
 										v934 = v926 - 1;
 										if (!v934)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[1];
@@ -12568,7 +12568,7 @@ LABEL_129:
 										v936 = v934 - 1;
 										if (!v936)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[2];
@@ -12583,7 +12583,7 @@ LABEL_129:
 										v938 = v936 - 1;
 										if (!v938)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[3];
@@ -12598,7 +12598,7 @@ LABEL_129:
 										v940 = v938 - 1;
 										if (!v940)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[4];
@@ -12613,7 +12613,7 @@ LABEL_129:
 										v942 = v940 - 1;
 										if (!v942)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[5];
@@ -12628,7 +12628,7 @@ LABEL_129:
 										v944 = v942 - 1;
 										if (!v944)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[6];
@@ -12643,7 +12643,7 @@ LABEL_129:
 										v946 = v944 - 1;
 										if (!v946)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[7];
@@ -12658,7 +12658,7 @@ LABEL_129:
 										v948 = v946 - 1;
 										if (!v948)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[8];
@@ -12673,7 +12673,7 @@ LABEL_129:
 										v950 = v948 - 1;
 										if (!v950)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[9];
@@ -12688,7 +12688,7 @@ LABEL_129:
 										v952 = v950 - 1;
 										if (!v952)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[10];
@@ -12703,7 +12703,7 @@ LABEL_129:
 										v954 = v952 - 1;
 										if (!v954)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[11];
@@ -12718,7 +12718,7 @@ LABEL_129:
 										v956 = v954 - 1;
 										if (!v956)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[12];
@@ -12733,7 +12733,7 @@ LABEL_129:
 										v958 = v956 - 1;
 										if (!v958)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[13];
@@ -12748,7 +12748,7 @@ LABEL_129:
 										v960 = v958 - 1;
 										if (!v960)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[14];
@@ -12763,7 +12763,7 @@ LABEL_129:
 										v962 = v960 - 1;
 										if (!v962)
 											break;
-										LOBYTE(v924) = *(x_BYTE*)(v925 + v932);
+										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
 											BYTE1(v924) = v927[15];
@@ -12835,10 +12835,10 @@ LABEL_129:
 									v964 = (unsigned __int16)v964;
 								LABEL_1168:
 									v1289 = v963;
-									v973 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v973 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v972;
@@ -12858,7 +12858,7 @@ LABEL_129:
 										v1227 = v1226 - 1;
 										if (!v1227)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v975;
@@ -12878,7 +12878,7 @@ LABEL_129:
 										v1228 = v1227 - 1;
 										if (!v1228)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v977;
@@ -12898,7 +12898,7 @@ LABEL_129:
 										v1229 = v1228 - 1;
 										if (!v1229)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v979;
@@ -12918,7 +12918,7 @@ LABEL_129:
 										v1230 = v1229 - 1;
 										if (!v1230)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v981;
@@ -12938,7 +12938,7 @@ LABEL_129:
 										v1231 = v1230 - 1;
 										if (!v1231)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v983;
@@ -12958,7 +12958,7 @@ LABEL_129:
 										v1232 = v1231 - 1;
 										if (!v1232)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v985;
@@ -12978,7 +12978,7 @@ LABEL_129:
 										v1233 = v1232 - 1;
 										if (!v1233)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v987;
@@ -12998,7 +12998,7 @@ LABEL_129:
 										v1234 = v1233 - 1;
 										if (!v1234)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v989;
@@ -13018,7 +13018,7 @@ LABEL_129:
 										v1235 = v1234 - 1;
 										if (!v1235)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v991;
@@ -13038,7 +13038,7 @@ LABEL_129:
 										v1236 = v1235 - 1;
 										if (!v1236)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v993;
@@ -13058,7 +13058,7 @@ LABEL_129:
 										v1237 = v1236 - 1;
 										if (!v1237)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v995;
@@ -13078,7 +13078,7 @@ LABEL_129:
 										v1238 = v1237 - 1;
 										if (!v1238)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v997;
@@ -13098,7 +13098,7 @@ LABEL_129:
 										v1239 = v1238 - 1;
 										if (!v1239)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v999;
@@ -13118,7 +13118,7 @@ LABEL_129:
 										v1240 = v1239 - 1;
 										if (!v1240)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v1001;
@@ -13138,7 +13138,7 @@ LABEL_129:
 										v1241 = v1240 - 1;
 										if (!v1241)
 											break;
-										LOBYTE(v964) = *(x_BYTE*)(v965 + v973);
+										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
 											BYTE1(v964) = v1003;
@@ -13217,10 +13217,10 @@ LABEL_129:
 									v1005 = (unsigned __int16)v1005;
 								LABEL_1231:
 									v1290 = v1004;
-									v1014 = x_DWORD_DE55C_ActTexture;
+									ptrCurrentTexture_v1014 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1013;
@@ -13240,7 +13240,7 @@ LABEL_129:
 										v1243 = v1242 - 1;
 										if (!v1243)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1016;
@@ -13260,7 +13260,7 @@ LABEL_129:
 										v1244 = v1243 - 1;
 										if (!v1244)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1018;
@@ -13280,7 +13280,7 @@ LABEL_129:
 										v1245 = v1244 - 1;
 										if (!v1245)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1020;
@@ -13300,7 +13300,7 @@ LABEL_129:
 										v1246 = v1245 - 1;
 										if (!v1246)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1022;
@@ -13320,7 +13320,7 @@ LABEL_129:
 										v1247 = v1246 - 1;
 										if (!v1247)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1024;
@@ -13340,7 +13340,7 @@ LABEL_129:
 										v1248 = v1247 - 1;
 										if (!v1248)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1026;
@@ -13360,7 +13360,7 @@ LABEL_129:
 										v1249 = v1248 - 1;
 										if (!v1249)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1028;
@@ -13380,7 +13380,7 @@ LABEL_129:
 										v1250 = v1249 - 1;
 										if (!v1250)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1030;
@@ -13400,7 +13400,7 @@ LABEL_129:
 										v1251 = v1250 - 1;
 										if (!v1251)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1032;
@@ -13420,7 +13420,7 @@ LABEL_129:
 										v1252 = v1251 - 1;
 										if (!v1252)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1034;
@@ -13440,7 +13440,7 @@ LABEL_129:
 										v1253 = v1252 - 1;
 										if (!v1253)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1036;
@@ -13460,7 +13460,7 @@ LABEL_129:
 										v1254 = v1253 - 1;
 										if (!v1254)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1038;
@@ -13480,7 +13480,7 @@ LABEL_129:
 										v1255 = v1254 - 1;
 										if (!v1255)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1040;
@@ -13500,7 +13500,7 @@ LABEL_129:
 										v1256 = v1255 - 1;
 										if (!v1256)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1042;
@@ -13520,7 +13520,7 @@ LABEL_129:
 										v1257 = v1256 - 1;
 										if (!v1257)
 											break;
-										LOBYTE(v1005) = *(x_BYTE*)(v1006 + v1014);
+										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
 											BYTE1(v1005) = v1044;
@@ -13601,10 +13601,10 @@ LABEL_129:
 								v1046 = (unsigned __int16)v1046;
 							LABEL_1294:
 								v1291 = v1045;
-								v1055 = x_DWORD_DE55C_ActTexture;
+								ptrCurrentTexture_v1055 = x_DWORD_DE55C_ActTexture;
 								while (1)
 								{
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1053);
 									LOWORD(v1053) = Uincrement_v1124 + v1053;
 									BYTE1(v1046) = v1054;
@@ -13629,7 +13629,7 @@ LABEL_129:
 									v1259 = v1258 - 1;
 									if (!v1259)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1057);
 									LOWORD(v1057) = Uincrement_v1124 + v1057;
 									BYTE1(v1046) = v1058;
@@ -13654,7 +13654,7 @@ LABEL_129:
 									v1260 = v1259 - 1;
 									if (!v1260)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1060);
 									LOWORD(v1060) = Uincrement_v1124 + v1060;
 									BYTE1(v1046) = v1061;
@@ -13679,7 +13679,7 @@ LABEL_129:
 									v1261 = v1260 - 1;
 									if (!v1261)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1063);
 									LOWORD(v1063) = Uincrement_v1124 + v1063;
 									BYTE1(v1046) = v1064;
@@ -13704,7 +13704,7 @@ LABEL_129:
 									v1262 = v1261 - 1;
 									if (!v1262)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1066);
 									LOWORD(v1066) = Uincrement_v1124 + v1066;
 									BYTE1(v1046) = v1067;
@@ -13729,7 +13729,7 @@ LABEL_129:
 									v1263 = v1262 - 1;
 									if (!v1263)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1069);
 									LOWORD(v1069) = Uincrement_v1124 + v1069;
 									BYTE1(v1046) = v1070;
@@ -13754,7 +13754,7 @@ LABEL_129:
 									v1264 = v1263 - 1;
 									if (!v1264)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1072);
 									LOWORD(v1072) = Uincrement_v1124 + v1072;
 									BYTE1(v1046) = v1073;
@@ -13779,7 +13779,7 @@ LABEL_129:
 									v1265 = v1264 - 1;
 									if (!v1265)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1075);
 									LOWORD(v1075) = Uincrement_v1124 + v1075;
 									BYTE1(v1046) = v1076;
@@ -13804,7 +13804,7 @@ LABEL_129:
 									v1266 = v1265 - 1;
 									if (!v1266)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1078);
 									LOWORD(v1078) = Uincrement_v1124 + v1078;
 									BYTE1(v1046) = v1079;
@@ -13829,7 +13829,7 @@ LABEL_129:
 									v1267 = v1266 - 1;
 									if (!v1267)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1081);
 									LOWORD(v1081) = Uincrement_v1124 + v1081;
 									BYTE1(v1046) = v1082;
@@ -13854,7 +13854,7 @@ LABEL_129:
 									v1268 = v1267 - 1;
 									if (!v1268)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1084);
 									LOWORD(v1084) = Uincrement_v1124 + v1084;
 									BYTE1(v1046) = v1085;
@@ -13879,7 +13879,7 @@ LABEL_129:
 									v1269 = v1268 - 1;
 									if (!v1269)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1087);
 									LOWORD(v1087) = Uincrement_v1124 + v1087;
 									BYTE1(v1046) = v1088;
@@ -13904,7 +13904,7 @@ LABEL_129:
 									v1270 = v1269 - 1;
 									if (!v1270)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1090);
 									LOWORD(v1090) = Uincrement_v1124 + v1090;
 									BYTE1(v1046) = v1091;
@@ -13929,7 +13929,7 @@ LABEL_129:
 									v1271 = v1270 - 1;
 									if (!v1271)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1093);
 									LOWORD(v1093) = Uincrement_v1124 + v1093;
 									BYTE1(v1046) = v1094;
@@ -13954,7 +13954,7 @@ LABEL_129:
 									v1272 = v1271 - 1;
 									if (!v1272)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1096);
 									LOWORD(v1096) = Uincrement_v1124 + v1096;
 									BYTE1(v1046) = v1097;
@@ -13979,7 +13979,7 @@ LABEL_129:
 									v1273 = v1272 - 1;
 									if (!v1273)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1099);
 									LOWORD(v1099) = Uincrement_v1124 + v1099;
 									BYTE1(v1046) = v1100;
