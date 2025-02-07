@@ -5729,7 +5729,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v376; // ebx
 	char* v377; // esi
 	int v378; // ecx
-	uint8_t* v379; // edi
+	uint8_t* ptrViewPortRenderLine_v379; // edi
 	int v380; // eax
 	int v381; // ecx
 	unsigned int v382; // eax
@@ -6452,7 +6452,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1099; // edx
 	int v1100; // ecx
 	char v1101; // al
-	uint8_t* ptrViewPortRenderLine_v1102; // [esp+0h] [ebp-88h]
+	uint8_t* ptrViewPortRenderLineStart_v1102; // [esp+0h] [ebp-88h]
 	int v1103; // [esp+4h] [ebp-84h]
 	int v1104; // [esp+4h] [ebp-84h]
 	int v1105; // [esp+4h] [ebp-84h]
@@ -6709,12 +6709,12 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				{
 					if (v9 >= viewPort.Height_DE568)
 						return;
-					ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
+					ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v9;
 					v1292 = 0;
 				}
 				else
 				{
-					ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554;
+					ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554;
 					v1292 = 1;
 				}
 				v10 = v5->Y;
@@ -7138,12 +7138,12 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			{
 				if (v117 >= viewPort.Height_DE568)
 					return;
-				ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
+				ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v117;
 				v1294 = 0;
 			}
 			else
 			{
-				ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554;
+				ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554;
 				v1294 = 1;
 			}
 			v118 = v5->Y;
@@ -7333,12 +7333,12 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		{
 			if (v143 >= viewPort.Height_DE568)
 				return;
-			ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
+			ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v143;
 			v1295 = 0;
 		}
 		else
 		{
-			ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554;
+			ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554;
 			v1295 = 1;
 		}
 		v144 = v5->Y;
@@ -7558,12 +7558,12 @@ LABEL_129:
 	{
 		if (v65 >= viewPort.Height_DE568)
 			return;
-		ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
+		ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v65;
 		v1293 = 0;
 	}
 	else
 	{
-		ptrViewPortRenderLine_v1102 = ViewPortRenderBufferAltStart_DE554;
+		ptrViewPortRenderLineStart_v1102 = ViewPortRenderBufferAltStart_DE554;
 		v1293 = 1;
 	}
 	v66 = v5->Y;
@@ -7933,7 +7933,7 @@ LABEL_129:
 					{
 					case 0:
 						v169 = (unsigned __int16*)unk_DE56Cx[startLine];
-						v170 = (char*)ptrViewPortRenderLine_v1102;
+						v170 = (char*)ptrViewPortRenderLineStart_v1102;
 						v171 = x_BYTE_E126C;
 						HIWORD(v172) = 0;
 						if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_0_v173); }
@@ -7977,8 +7977,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v175[1];
 							v176 = v175[3];
-							v177 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v177 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line2++;
 							if (line2 >= drawEveryNthLine)
 							{
@@ -8141,8 +8141,8 @@ LABEL_129:
 						{
 							LOWORD(v228) = v227[1];
 							v230 = v227[3];
-							v231 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v231 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line3++;
 							if (line3 >= drawEveryNthLine)
 							{
@@ -8374,8 +8374,8 @@ LABEL_129:
 						{
 							LOWORD(v284) = v283[1];
 							v286 = v283[3];
-							v287 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v287 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line4++;
 							if (line4 >= drawEveryNthLine)
 							{
@@ -8620,8 +8620,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v339[1];
 							v340 = v339[3];
-							v341 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v341 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line5++;
 							if (line5 >= drawEveryNthLine)
 							{
@@ -8788,8 +8788,8 @@ LABEL_129:
 							v1276 += 20;
 							LOWORD(v375) = *((x_WORD*)v377 + 1);
 							v378 = *((unsigned __int16*)v377 + 3);
-							v379 = iScreenWidth_DE560 + ptrViewPortRenderLine_v1102;
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							ptrViewPortRenderLine_v379 = iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102;
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line6++;
 							if (line6 >= drawEveryNthLine)
 							{
@@ -8813,7 +8813,7 @@ LABEL_129:
 									if ((signed __int16)v384 > (signed __int16)viewPort.Width_DE564)
 										LOWORD(v384) = viewPort.Width_DE564;
 								LABEL_493:
-									v388 = &v379[0];
+									v388 = &ptrViewPortRenderLine_v379[0];
 									ptrCurrentTexture_v389 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
@@ -8846,7 +8846,7 @@ LABEL_129:
 						v385 = v378 - v375;
 						if ((unsigned __int8)((v385 < 0) ^ v18) | (v385 == 0))
 							goto LABEL_510;
-						v379 += v375;
+						ptrViewPortRenderLine_v379 += v375;
 						LOBYTE(v376) = v377[10];
 						v383 = __ROL4_16__(*((x_DWORD*)v377 + 3));
 						v386 = v385;
@@ -8869,8 +8869,8 @@ LABEL_129:
 							v1277 += 20;
 							LOWORD(v390) = *((x_WORD*)v392 + 1);
 							v393 = *((unsigned __int16*)v392 + 3);
-							v394 = iScreenWidth_DE560 + ptrViewPortRenderLine_v1102;
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v394 = iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102;
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line7++;
 							if (line7 >= drawEveryNthLine)
 							{
@@ -9180,8 +9180,8 @@ LABEL_129:
 						{
 							LOWORD(v406) = v405[1];
 							v408 = v405[3];
-							v409 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v409 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line8++;
 							if (line8 >= drawEveryNthLine)
 							{
@@ -9414,8 +9414,8 @@ LABEL_129:
 						{
 							LOWORD(v446) = v445[1];
 							v448 = v445[3];
-							v449 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v449 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line9++;
 							if (line9 >= drawEveryNthLine)
 							{
@@ -9664,8 +9664,8 @@ LABEL_129:
 						{
 							LOWORD(v486) = v485[1];
 							v488 = v485[3];
-							v489 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v489 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line10++;
 							if (line10 >= drawEveryNthLine)
 							{
@@ -9960,8 +9960,8 @@ LABEL_129:
 						{
 							LOWORD(v526) = v525[1];
 							v528 = v525[3];
-							v529 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v529 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line11++;
 							if (line11 >= drawEveryNthLine)
 							{
@@ -10193,8 +10193,8 @@ LABEL_129:
 						{
 							LOWORD(v566) = v565[1];
 							v568 = v565[3];
-							v569 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v569 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line12++;
 							if (line12 >= drawEveryNthLine)
 							{
@@ -10419,7 +10419,7 @@ LABEL_129:
 						goto LABEL_771;
 					case 0xE:
 						v605 = (unsigned __int16*)unk_DE56Cx[startLine];
-						v606 = (x_BYTE*)ptrViewPortRenderLine_v1102;
+						v606 = (x_BYTE*)ptrViewPortRenderLineStart_v1102;
 						HIWORD(v607) = 0;
 						BYTE1(v607) = x_BYTE_E126C;
 						HIWORD(v608) = 0;
@@ -10539,7 +10539,7 @@ LABEL_129:
 						goto LABEL_802;
 					case 0xF:
 						v626 = (unsigned __int16*)unk_DE56Cx[startLine];
-						v627 = (x_BYTE*)ptrViewPortRenderLine_v1102;
+						v627 = (x_BYTE*)ptrViewPortRenderLineStart_v1102;
 						v628 = (unsigned __int8)x_BYTE_E126C;
 						HIWORD(v629) = 0;
 						while (1)
@@ -10663,8 +10663,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v647[1];
 							v649 = v647[3];
-							v650 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v650 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line15++;
 							if (line15 >= drawEveryNthLine)
 							{
@@ -10857,8 +10857,8 @@ LABEL_129:
 						{
 							LOWORD(v31) = v684[1];
 							v686 = v684[3];
-							v687 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v687 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line16++;
 							if (line16 >= drawEveryNthLine)
 							{
@@ -11053,8 +11053,8 @@ LABEL_129:
 						{
 							LOWORD(v722) = v721[1];
 							v724 = v721[3];
-							v725 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v725 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line17++;
 							if (line17 >= drawEveryNthLine)
 							{
@@ -11301,8 +11301,8 @@ LABEL_129:
 						{
 							LOWORD(v762) = v761[1];
 							v764 = v761[3];
-							v765 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v765 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line18++;
 							if (line18 >= drawEveryNthLine)
 							{
@@ -11550,8 +11550,8 @@ LABEL_129:
 						{
 							LOWORD(v802) = v801[1];
 							v804 = v801[3];
-							v805 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v805 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line19++;
 							if (line19 >= drawEveryNthLine)
 							{
@@ -11884,8 +11884,8 @@ LABEL_129:
 						{
 							LOWORD(v843) = v842[1];
 							v845 = v842[3];
-							v846 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v846 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line20++;
 							if (line20 >= drawEveryNthLine)
 							{
@@ -12217,8 +12217,8 @@ LABEL_129:
 						{
 							LOWORD(v884) = v883[1];
 							v886 = v883[3];
-							v887 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v887 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line21++;
 							if (line21 >= drawEveryNthLine)
 							{
@@ -12513,8 +12513,8 @@ LABEL_129:
 						{
 							LOWORD(v924) = v923[1];
 							v926 = v923[3];
-							v927 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v927 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line22++;
 							if (line22 >= drawEveryNthLine)
 							{
@@ -12810,8 +12810,8 @@ LABEL_129:
 						{
 							LOWORD(v964) = v963[1];
 							v966 = v963[3];
-							v967 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v967 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line23++;
 							if (line23 >= drawEveryNthLine)
 							{
@@ -13192,8 +13192,8 @@ LABEL_129:
 						{
 							LOWORD(v1005) = v1004[1];
 							v1007 = v1004[3];
-							v1008 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-							ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+							v1008 = (x_BYTE*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+							ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 							line24++;
 							if (line24 >= drawEveryNthLine)
 							{
@@ -13576,8 +13576,8 @@ LABEL_129:
 					{
 						LOWORD(v1046) = v1045[1];
 						v1048 = v1045[3];
-						v1049 = (char*)(iScreenWidth_DE560 + ptrViewPortRenderLine_v1102);
-						ptrViewPortRenderLine_v1102 += iScreenWidth_DE560;
+						v1049 = (char*)(iScreenWidth_DE560 + ptrViewPortRenderLineStart_v1102);
+						ptrViewPortRenderLineStart_v1102 += iScreenWidth_DE560;
 						line25++;
 						if (line25 >= drawEveryNthLine)
 						{
