@@ -5942,7 +5942,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			vert_y_low = vertex3;
 			vert_y_middle = vertex1;
 			vert_y_high = vertex2;
-			goto LABEL_234;
+			goto LABEL_234_DrawTriangle;
 		}
 		if (vertex2->X <= vertex1->X) {
 			// vertex2 --- vertex1 
@@ -5950,7 +5950,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			//       vertex3
 			return; // face culling
 		}
-		goto LABEL_277;
+		goto LABEL_277_DrawTriangle;
 	}
 
 	if (y1 <= y2)
@@ -5964,7 +5964,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				vert_y_low = vertex3;
 				vert_y_middle = vertex1;
 				vert_y_high = vertex2;
-			LABEL_24:
+			LABEL_24_DrawTriangle:
 				v1190 = vert_y_low->Y;
 				if (vert_y_low->Y >= 0)
 				{
@@ -6016,7 +6016,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = v64;
 								}
 							}
-							goto LABEL_121;
+							goto LABEL_121_DrawTriangle;
 						}
 						v18 = __OFSUB__(triLn_v1123, -v1190);
 						v16 = triLn_v1123 == -v1190;
@@ -6037,7 +6037,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v62 = &rasterlines_DE56Cx[startLine][0];
-								goto LABEL_124;
+								goto LABEL_124_DrawTriangle;
 							}
 							v1117 += v1190;
 							v58 += slope_HighLowVert * v1160;
@@ -6055,10 +6055,10 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									v1119 = viewPort.Height_DE568 - v1117;
 								}
 							}
-						LABEL_121:
+						LABEL_121_DrawTriangle:
 							v62 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v58, &v59, slope_HighLowVert, slope_MiddleLowVert, &v1117);
 							v61 = v1121;
-						LABEL_124:
+						LABEL_124_DrawTriangle:
 							if (vertYMiddle_above_viewport)
 							{
 							}
@@ -6066,7 +6066,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 							{
 								v62 = RasterizePolygon(v62, &v58, &v61, slope_HighLowVert, v1111, &v1119);
 							}
-							goto LABEL_53;
+							goto LABEL_DrawRasterLines;
 						}
 						return;
 					case 1:
@@ -6133,7 +6133,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v43 = &rasterlines_DE56Cx[startLine][0];
-							LABEL_77:
+							LABEL_77_DrawTriangle:
 								if (vertYMiddle_above_viewport)
 								{
 								}
@@ -6141,7 +6141,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								{
 									v43 = RasterizePolygon(v43, &v37, &v42, &v39, &v40, slope_HighLowVert, v1111, v1126, v1137, &v1119);
 								}
-								goto LABEL_53;
+								goto LABEL_DrawRasterLines;
 							}
 							v1117 += v1190;
 							v37 += slope_HighLowVert * v1158;
@@ -6180,7 +6180,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						}
 						v43 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v37, &v38, &v39, &v40, slope_HighLowVert, slope_MiddleLowVert, v1126, v1137, &v1117);
 						v42 = v1121;
-						goto LABEL_77;
+						goto LABEL_77_DrawTriangle;
 					case 5:
 					case 6:
 					case 0x14:
@@ -6235,7 +6235,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 									triLn_v1123 = viewPort.Height_DE568;
 								}
 								v28 = &rasterlines_DE56Cx[startLine][0];
-							LABEL_51:
+							LABEL_51_DrawTriangle:
 								if (vertYMiddle_above_viewport)
 								{
 								}
@@ -6243,7 +6243,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 								{
 									v28 = RasterizePolygon(v28, &v21, &v27, &v23, &v24, &v25, slope_HighLowVert, v1111, v1125, v1136, v1147, &v1119);
 								}
-								goto LABEL_53;
+								goto LABEL_DrawRasterLines;
 							}
 							v1117 += v1190;
 							v21 += slope_HighLowVert * v1157;
@@ -6283,7 +6283,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 						}
 						v28 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v21, &v22, &v23, &v24, &v25, slope_HighLowVert, slope_MiddleLowVert, v1125, v1136, v1147, &v1117);
 						v27 = v1121;
-						goto LABEL_51;
+						goto LABEL_51_DrawTriangle;
 					}
 				}
 				return;
@@ -6292,10 +6292,10 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			{
 				if (y2 <= y3) {
 					// y1 <= y2 < y3
-					goto LABEL_24;
+					goto LABEL_24_DrawTriangle;
 				}
 				// y1 <= y2 > y3
-				goto LABEL_129;
+				goto LABEL_129_DrawTriangle;
 			}
 			if (vertex2->X <= vertex3->X) {
 				//       vertex1
@@ -6304,7 +6304,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				return; // face culling
 			}
 
-		LABEL_234:
+		LABEL_234_DrawTriangle:
 			// this code covers the cases:
 
 			//       vertex3
@@ -6379,7 +6379,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v139, &v140, v1105, v1109, &v1115);
-				goto LABEL_53;
+				goto LABEL_DrawRasterLines;
 			case 2:
 			case 3:
 			case 7:
@@ -6428,7 +6428,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v128, &v129, &v130, &v131, v1105, v1109, v1130, v1141, &v1115);
-				goto LABEL_53;
+				goto LABEL_DrawRasterLines;
 			case 1:
 			case 4:
 			case 0x10:
@@ -6480,7 +6480,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					v1115 = viewPort.Height_DE568 - v1192;
 				}
 				RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v120, &v121, &v122, &v123, &v124, v1105, v1109, v1129, v1140, v1151, &v1115);
-				goto LABEL_53;
+				goto LABEL_DrawRasterLines;
 			}
 		}
 
@@ -6499,7 +6499,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex3;
 		vert_y_middle = vertex1;
 		vert_y_high = vertex2;
-	LABEL_277: 
+	LABEL_277_DrawTriangle: 
 		// handled cases:
 
 		// vertex3 --- vertex1
@@ -6575,7 +6575,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
 			}
 			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v165, &v166, slope_HighLowVert, v1110, &dY_HighLow_actual_rows_to_draw);
-			goto LABEL_53;
+			goto LABEL_DrawRasterLines;
 		case 2:
 		case 3:
 		case 7:
@@ -6624,7 +6624,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
 			}
 			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v154, &v155, &v156, &v157, slope_HighLowVert, v1110, v1132, v1143, &dY_HighLow_actual_rows_to_draw);
-			goto LABEL_53;
+			goto LABEL_DrawRasterLines;
 		case 1:
 		case 4:
 		case 0x10:
@@ -6676,7 +6676,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
 			}
 			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v146, &v147, &v148, &v149, &v150, slope_HighLowVert, v1110, v1131, v1142, v1153, &dY_HighLow_actual_rows_to_draw);
-			goto LABEL_53;
+			goto LABEL_DrawRasterLines;
 		}
 	}
 
@@ -6694,7 +6694,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex2;
 		vert_y_middle = vertex3;
 		vert_y_high = vertex1;
-		goto LABEL_234;
+		goto LABEL_234_DrawTriangle;
 	}
 	if (y1 < y3)
 	{
@@ -6702,7 +6702,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex2;
 		vert_y_middle = vertex3; //?
 		vert_y_high = vertex1; //?
-		goto LABEL_129;
+		goto LABEL_129_DrawTriangle;
 	}
 	if (y2 == y3)
 	{
@@ -6716,7 +6716,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex2;
 		vert_y_middle = vertex3;
 		vert_y_high = vertex1;
-		goto LABEL_277;
+		goto LABEL_277_DrawTriangle;
 	}
 	if (y2 < y3)
 	{
@@ -6725,13 +6725,13 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex2;
 		vert_y_middle = vertex3;
 		vert_y_high = vertex1;
-		goto LABEL_24;
+		goto LABEL_24_DrawTriangle;
 	}
 	// y3 < y1 < y2
 	vert_y_low = vertex3;
 	vert_y_middle = vertex1;
 	vert_y_high = vertex2;
-LABEL_129:
+LABEL_129_DrawTriangle:
 	v65 = vert_y_low->Y;
 	v1191 = v65;
 	if (v65 >= 0)
@@ -6791,7 +6791,7 @@ LABEL_129:
 						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v114 = &rasterlines_DE56Cx[startLine][0];
-					goto LABEL_228;
+					goto LABEL_228_DrawTriangle;
 				}
 				v1114 += v1191; // subtract -y from number of lines
 				v110 += v1104 * v1164; // compute start x when entering viewport
@@ -6829,7 +6829,7 @@ LABEL_129:
 			}
 			v114 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v110, &v111, v1104, v1108, &v1114);
 			v113 = v1122;
-		LABEL_228:
+		LABEL_228_DrawTriangle:
 			if (v1297)
 			{
 			}
@@ -6837,7 +6837,7 @@ LABEL_129:
 			{
 				v114 = RasterizePolygon(v114, &v113, &v111, v1112, v1108, &v1120);
 			}
-			goto LABEL_53;
+			goto LABEL_DrawRasterLines;
 		case 1:
 		case 4:
 		case 0x10:
@@ -6903,7 +6903,7 @@ LABEL_129:
 						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v95 = &rasterlines_DE56Cx[startLine][0];
-				LABEL_181:
+				LABEL_181_DrawTriangle:
 					if (v1297)
 					{
 					}
@@ -6911,7 +6911,7 @@ LABEL_129:
 					{
 						v95 = RasterizePolygon(v95, &v94, &v90, &v91, &v92, v1112, v1108, v1134, v1145, &v1120);
 					}
-					goto LABEL_53;
+					goto LABEL_DrawRasterLines;
 				}
 				v1114 += v1191;
 				v89 += v1104 * v1162;
@@ -6950,7 +6950,7 @@ LABEL_129:
 			}
 			v95 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
 			v94 = v1122;
-			goto LABEL_181;
+			goto LABEL_181_DrawTriangle;
 		case 5:
 		case 6:
 		case 0x14:
@@ -7010,7 +7010,7 @@ LABEL_129:
 						triLn_v1123 = viewPort.Height_DE568;
 					}
 					v81 = &rasterlines_DE56Cx[startLine][0];
-				LABEL_156:
+				LABEL_156_DrawTriangle:
 					if (v1297)
 					{
 					}
@@ -7018,7 +7018,7 @@ LABEL_129:
 					{
 						v81 = RasterizePolygon(v81, &v80, &v75, &v76, &v77, &v78, v1112, v1108, v1133, v1144, v1155, &v1120);
 					}
-					goto LABEL_53; // draw raster lines
+					goto LABEL_DrawRasterLines; // draw raster lines
 				}
 				v1114 += v1191;
 				v74 += v1104 * v1161;
@@ -7058,12 +7058,12 @@ LABEL_129:
 			}
 			v81 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v74, &v75, &v76, &v77, &v78, v1104, v1108, v1127, v1138, v1149, &v1114);
 			v80 = v1122;
-			goto LABEL_156;
+			goto LABEL_156_DrawTriangle;
 		}
 	}
 	return;
 
-LABEL_53:
+LABEL_DrawRasterLines:
 	switch (x_BYTE_E126D)
 	{
 	case 0:
