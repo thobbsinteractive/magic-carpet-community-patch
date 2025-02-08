@@ -6653,6 +6653,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	bool v1300; // [esp+64h] [ebp-24h]
 	bool v1301; // [esp+64h] [ebp-24h]
 
+	int maxTextureIdx = (x_BYTE_D41B5_texture_size << 8);
+
 	/*if(CommandLineParams.DoDebugafterload())
 	{
 		if (debugcounter_297253 >= 0x37) {
@@ -8166,6 +8168,8 @@ LABEL_129:
 									ptrCurrentTexture_v236 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v229 > maxTextureIdx)
+											break;
 										v237 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v234);
 										LOWORD(v234) = Uincrement_v1124 + v234;
@@ -8177,6 +8181,9 @@ LABEL_129:
 										v239 = v230 - 1;
 										if (!v239)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
+
 										v240 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v238);
 										LOWORD(v238) = Uincrement_v1124 + v238;
@@ -8187,6 +8194,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v242 = v239 - 1;
 										if (!v242)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v243 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v241);
@@ -8199,6 +8208,8 @@ LABEL_129:
 										v245 = v242 - 1;
 										if (!v245)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v246 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v244);
 										LOWORD(v244) = Uincrement_v1124 + v244;
@@ -8209,6 +8220,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v248 = v245 - 1;
 										if (!v248)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v249 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v247);
@@ -8221,6 +8234,8 @@ LABEL_129:
 										v251 = v248 - 1;
 										if (!v251)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v252 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v250);
 										LOWORD(v250) = Uincrement_v1124 + v250;
@@ -8231,6 +8246,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v254 = v251 - 1;
 										if (!v254)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v255 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v253);
@@ -8243,6 +8260,8 @@ LABEL_129:
 										v257 = v254 - 1;
 										if (!v257)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v258 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v256);
 										LOWORD(v256) = Uincrement_v1124 + v256;
@@ -8253,6 +8272,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v260 = v257 - 1;
 										if (!v260)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v261 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v259);
@@ -8265,6 +8286,8 @@ LABEL_129:
 										v263 = v260 - 1;
 										if (!v263)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v264 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v262);
 										LOWORD(v262) = Uincrement_v1124 + v262;
@@ -8275,6 +8298,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v266 = v263 - 1;
 										if (!v266)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v267 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v265);
@@ -8287,6 +8312,8 @@ LABEL_129:
 										v269 = v266 - 1;
 										if (!v269)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v270 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v268);
 										LOWORD(v268) = Uincrement_v1124 + v268;
@@ -8297,6 +8324,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v272 = v269 - 1;
 										if (!v272)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v273 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v271);
@@ -8309,6 +8338,8 @@ LABEL_129:
 										v275 = v272 - 1;
 										if (!v275)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v276 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v274);
 										LOWORD(v274) = Uincrement_v1124 + v274;
@@ -8320,6 +8351,8 @@ LABEL_129:
 										v278 = v275 - 1;
 										if (!v278)
 											break;
+										if (v229 > maxTextureIdx)
+											break;
 										v279 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v277);
 										LOWORD(v277) = Uincrement_v1124 + v277;
@@ -8330,6 +8363,8 @@ LABEL_129:
 										v229 = SumByte1WithByte2(v229, v1135, v180);
 										v281 = v278 - 1;
 										if (!v281)
+											break;
+										if (v229 > maxTextureIdx)
 											break;
 										v282 = *(x_BYTE*)(v229 + ptrCurrentTexture_v236);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v280);
@@ -8399,6 +8434,8 @@ LABEL_129:
 									ptrCurrentTexture_v292 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v285 > maxTextureIdx)
+											break;
 										v293 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v293)
 											*v287 = v293;
@@ -8410,6 +8447,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v295 = v286 - 1;
 										if (!v295)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v296 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v296)
@@ -8423,6 +8462,8 @@ LABEL_129:
 										v298 = v295 - 1;
 										if (!v298)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v299 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v299)
 											v287[2] = v299;
@@ -8434,6 +8475,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v301 = v298 - 1;
 										if (!v301)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v302 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v302)
@@ -8447,6 +8490,8 @@ LABEL_129:
 										v304 = v301 - 1;
 										if (!v304)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v305 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v305)
 											v287[4] = v305;
@@ -8458,6 +8503,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v307 = v304 - 1;
 										if (!v307)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v308 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v308)
@@ -8471,6 +8518,8 @@ LABEL_129:
 										v310 = v307 - 1;
 										if (!v310)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v311 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v311)
 											v287[6] = v311;
@@ -8482,6 +8531,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v313 = v310 - 1;
 										if (!v313)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v314 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v314)
@@ -8495,6 +8546,8 @@ LABEL_129:
 										v316 = v313 - 1;
 										if (!v316)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v317 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v317)
 											v287[8] = v317;
@@ -8506,6 +8559,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v319 = v316 - 1;
 										if (!v319)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v320 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v320)
@@ -8519,6 +8574,8 @@ LABEL_129:
 										v322 = v319 - 1;
 										if (!v322)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v323 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v323)
 											v287[10] = v323;
@@ -8530,6 +8587,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v325 = v322 - 1;
 										if (!v325)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v326 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v326)
@@ -8543,6 +8602,8 @@ LABEL_129:
 										v328 = v325 - 1;
 										if (!v328)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v329 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v329)
 											v287[12] = v329;
@@ -8554,6 +8615,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v331 = v328 - 1;
 										if (!v331)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v332 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v332)
@@ -8567,6 +8630,8 @@ LABEL_129:
 										v334 = v331 - 1;
 										if (!v334)
 											break;
+										if (v285 > maxTextureIdx)
+											break;
 										v335 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v335)
 											v287[14] = v335;
@@ -8578,6 +8643,8 @@ LABEL_129:
 										v285 = SumByte1WithByte2(v285, v1135, v180);
 										v337 = v334 - 1;
 										if (!v337)
+											break;
+										if (v285 > maxTextureIdx)
 											break;
 										v338 = *(x_BYTE*)(v285 + ptrCurrentTexture_v292);
 										if (v338)
@@ -8819,6 +8886,8 @@ LABEL_129:
 									{
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v383);
 										LOWORD(v383) = Uincrement_v1124 + v383;
+										if (v376 > maxTextureIdx)
+											break;
 										LOBYTE(v375) = *(x_BYTE*)(v376 + ptrCurrentTexture_v389);
 										LOBYTE(v376) = BYTE2(Uincrement_v1124) + v180 + v376;
 										v180 = __CFADD__(v1167, v383);
@@ -8932,6 +9001,8 @@ LABEL_129:
 									case 15:
 										while (1)
 										{
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[1] = x_BYTE_F6EE0_tablesx[v390];
@@ -8945,6 +9016,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_529:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[2] = x_BYTE_F6EE0_tablesx[v390];
@@ -8958,6 +9031,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_532:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[3] = x_BYTE_F6EE0_tablesx[v390];
@@ -8971,6 +9046,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_535:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[4] = x_BYTE_F6EE0_tablesx[v390];
@@ -8984,6 +9061,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_538:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[5] = x_BYTE_F6EE0_tablesx[v390];
@@ -8997,6 +9076,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_541:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[6] = x_BYTE_F6EE0_tablesx[v390];
@@ -9010,6 +9091,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_544:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[7] = x_BYTE_F6EE0_tablesx[v390];
@@ -9023,6 +9106,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_547:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[8] = x_BYTE_F6EE0_tablesx[v390];
@@ -9036,6 +9121,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_550:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[9] = x_BYTE_F6EE0_tablesx[v390];
@@ -9049,6 +9136,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_553:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[10] = x_BYTE_F6EE0_tablesx[v390];
@@ -9062,6 +9151,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_556:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[11] = x_BYTE_F6EE0_tablesx[v390];
@@ -9075,6 +9166,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_559:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[12] = x_BYTE_F6EE0_tablesx[v390];
@@ -9088,6 +9181,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_562:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[13] = x_BYTE_F6EE0_tablesx[v390];
@@ -9101,6 +9196,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_565:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[14] = x_BYTE_F6EE0_tablesx[v390];
@@ -9114,6 +9211,8 @@ LABEL_129:
 											v399 += v1184;
 											v390 = SumByte1WithByte2(v390, v1146, v180);
 										LABEL_568:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												v403[15] = x_BYTE_F6EE0_tablesx[v390];
@@ -9132,6 +9231,8 @@ LABEL_129:
 											if ((uint8_t)(((v399 & 0x8000u) != 0) ^ v18) | ((x_WORD)v399 == 0))
 												break;
 										LABEL_523:
+											if (v391 > maxTextureIdx)
+												break;
 											LOBYTE(v390) = *(x_BYTE*)(v391 + ptrCurrentTexture_v404);
 											if ((x_BYTE)v390)
 												*v403 = x_BYTE_F6EE0_tablesx[v390];
@@ -9206,6 +9307,8 @@ LABEL_129:
 									BYTE1(v406) = x_BYTE_E126C;
 									while (1)
 									{
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v412);
 										LOWORD(v412) = Uincrement_v1124 + v412;
@@ -9216,6 +9319,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v416 = v408 - 1;
 										if (!v416)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v415);
@@ -9228,6 +9333,8 @@ LABEL_129:
 										v418 = v416 - 1;
 										if (!v418)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v417);
 										LOWORD(v417) = Uincrement_v1124 + v417;
@@ -9238,6 +9345,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v420 = v418 - 1;
 										if (!v420)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v419);
@@ -9250,6 +9359,8 @@ LABEL_129:
 										v422 = v420 - 1;
 										if (!v422)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v421);
 										LOWORD(v421) = Uincrement_v1124 + v421;
@@ -9260,6 +9371,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v424 = v422 - 1;
 										if (!v424)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v423);
@@ -9272,6 +9385,8 @@ LABEL_129:
 										v426 = v424 - 1;
 										if (!v426)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v425);
 										LOWORD(v425) = Uincrement_v1124 + v425;
@@ -9282,6 +9397,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v428 = v426 - 1;
 										if (!v428)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v427);
@@ -9294,6 +9411,8 @@ LABEL_129:
 										v430 = v428 - 1;
 										if (!v430)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v429);
 										LOWORD(v429) = Uincrement_v1124 + v429;
@@ -9304,6 +9423,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v432 = v430 - 1;
 										if (!v432)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v431);
@@ -9316,6 +9437,8 @@ LABEL_129:
 										v434 = v432 - 1;
 										if (!v434)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v433);
 										LOWORD(v433) = Uincrement_v1124 + v433;
@@ -9326,6 +9449,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v436 = v434 - 1;
 										if (!v436)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v435);
@@ -9338,6 +9463,8 @@ LABEL_129:
 										v438 = v436 - 1;
 										if (!v438)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v437);
 										LOWORD(v437) = Uincrement_v1124 + v437;
@@ -9348,6 +9475,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v440 = v438 - 1;
 										if (!v440)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v439);
@@ -9360,6 +9489,8 @@ LABEL_129:
 										v442 = v440 - 1;
 										if (!v442)
 											break;
+										if (v407 > maxTextureIdx)
+											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v441);
 										LOWORD(v441) = Uincrement_v1124 + v441;
@@ -9370,6 +9501,8 @@ LABEL_129:
 										v407 = SumByte1WithByte2(v407, v1135, v180);
 										v444 = v442 - 1;
 										if (!v444)
+											break;
+										if (v407 > maxTextureIdx)
 											break;
 										LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v443);
@@ -9440,6 +9573,8 @@ LABEL_129:
 									BYTE1(v446) = x_BYTE_E126C;
 									while (1)
 									{
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v452);
 										LOWORD(v452) = Uincrement_v1124 + v452;
@@ -9451,6 +9586,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v456 = v448 - 1;
 										if (!v456)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v455);
@@ -9464,6 +9601,8 @@ LABEL_129:
 										v458 = v456 - 1;
 										if (!v458)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v457);
 										LOWORD(v457) = Uincrement_v1124 + v457;
@@ -9475,6 +9614,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v460 = v458 - 1;
 										if (!v460)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v459);
@@ -9488,6 +9629,8 @@ LABEL_129:
 										v462 = v460 - 1;
 										if (!v462)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v461);
 										LOWORD(v461) = Uincrement_v1124 + v461;
@@ -9499,6 +9642,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v464 = v462 - 1;
 										if (!v464)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v463);
@@ -9512,6 +9657,8 @@ LABEL_129:
 										v466 = v464 - 1;
 										if (!v466)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v465);
 										LOWORD(v465) = Uincrement_v1124 + v465;
@@ -9523,6 +9670,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v468 = v466 - 1;
 										if (!v468)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v467);
@@ -9536,6 +9685,8 @@ LABEL_129:
 										v470 = v468 - 1;
 										if (!v470)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v469);
 										LOWORD(v469) = Uincrement_v1124 + v469;
@@ -9547,6 +9698,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v472 = v470 - 1;
 										if (!v472)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v471);
@@ -9560,6 +9713,8 @@ LABEL_129:
 										v474 = v472 - 1;
 										if (!v474)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v473);
 										LOWORD(v473) = Uincrement_v1124 + v473;
@@ -9571,6 +9726,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v476 = v474 - 1;
 										if (!v476)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v475);
@@ -9584,6 +9741,8 @@ LABEL_129:
 										v478 = v476 - 1;
 										if (!v478)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v477);
 										LOWORD(v477) = Uincrement_v1124 + v477;
@@ -9595,6 +9754,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v480 = v478 - 1;
 										if (!v480)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v479);
@@ -9608,6 +9769,8 @@ LABEL_129:
 										v482 = v480 - 1;
 										if (!v482)
 											break;
+										if (v447 > maxTextureIdx)
+											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v481);
 										LOWORD(v481) = Uincrement_v1124 + v481;
@@ -9619,6 +9782,8 @@ LABEL_129:
 										v447 = SumByte1WithByte2(v447, v1135, v180);
 										v484 = v482 - 1;
 										if (!v484)
+											break;
+										if (v447 > maxTextureIdx)
 											break;
 										LOBYTE(v446) = *(x_BYTE*)(v447 + ptrCurrentTexture_v454);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v483);
@@ -9689,6 +9854,8 @@ LABEL_129:
 									ptrCurrentTexture_v494 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v492);
 										LOWORD(v492) = Uincrement_v1124 + v492;
@@ -9703,6 +9870,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v496 = v488 - 1;
 										if (!v496)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v495);
@@ -9719,6 +9888,8 @@ LABEL_129:
 										v498 = v496 - 1;
 										if (!v498)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v497);
 										LOWORD(v497) = Uincrement_v1124 + v497;
@@ -9733,6 +9904,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v500 = v498 - 1;
 										if (!v500)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v499);
@@ -9749,6 +9922,8 @@ LABEL_129:
 										v502 = v500 - 1;
 										if (!v502)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v501);
 										LOWORD(v501) = Uincrement_v1124 + v501;
@@ -9763,6 +9938,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v504 = v502 - 1;
 										if (!v504)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v503);
@@ -9779,6 +9956,8 @@ LABEL_129:
 										v506 = v504 - 1;
 										if (!v506)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v505);
 										LOWORD(v505) = Uincrement_v1124 + v505;
@@ -9793,6 +9972,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v508 = v506 - 1;
 										if (!v508)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v507);
@@ -9809,6 +9990,8 @@ LABEL_129:
 										v510 = v508 - 1;
 										if (!v510)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v509);
 										LOWORD(v509) = Uincrement_v1124 + v509;
@@ -9823,6 +10006,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v512 = v510 - 1;
 										if (!v512)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v511);
@@ -9839,6 +10024,8 @@ LABEL_129:
 										v514 = v512 - 1;
 										if (!v514)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v513);
 										LOWORD(v513) = Uincrement_v1124 + v513;
@@ -9853,6 +10040,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v516 = v514 - 1;
 										if (!v516)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v515);
@@ -9869,6 +10058,8 @@ LABEL_129:
 										v518 = v516 - 1;
 										if (!v518)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v517);
 										LOWORD(v517) = Uincrement_v1124 + v517;
@@ -9883,6 +10074,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v520 = v518 - 1;
 										if (!v520)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v519);
@@ -9899,6 +10092,8 @@ LABEL_129:
 										v522 = v520 - 1;
 										if (!v522)
 											break;
+										if (v487 > maxTextureIdx)
+											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v521);
 										LOWORD(v521) = Uincrement_v1124 + v521;
@@ -9913,6 +10108,8 @@ LABEL_129:
 										v487 = SumByte1WithByte2(v487, v1135, v180);
 										v524 = v522 - 1;
 										if (!v524)
+											break;
+										if (v487 > maxTextureIdx)
 											break;
 										BYTE1(v486) = *(x_BYTE*)(v487 + ptrCurrentTexture_v494);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v523);
@@ -9986,6 +10183,8 @@ LABEL_129:
 									LOBYTE(v526) = x_BYTE_E126C;
 									while (1)
 									{
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v532);
 										LOWORD(v532) = Uincrement_v1124 + v532;
@@ -9996,6 +10195,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v536 = v528 - 1;
 										if (!v536)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v535);
@@ -10008,6 +10209,8 @@ LABEL_129:
 										v538 = v536 - 1;
 										if (!v538)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v537);
 										LOWORD(v537) = Uincrement_v1124 + v537;
@@ -10018,6 +10221,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v540 = v538 - 1;
 										if (!v540)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v539);
@@ -10030,6 +10235,8 @@ LABEL_129:
 										v542 = v540 - 1;
 										if (!v542)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v541);
 										LOWORD(v541) = Uincrement_v1124 + v541;
@@ -10040,6 +10247,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v544 = v542 - 1;
 										if (!v544)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v543);
@@ -10052,6 +10261,8 @@ LABEL_129:
 										v546 = v544 - 1;
 										if (!v546)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v545);
 										LOWORD(v545) = Uincrement_v1124 + v545;
@@ -10062,6 +10273,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v548 = v546 - 1;
 										if (!v548)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v547);
@@ -10074,6 +10287,8 @@ LABEL_129:
 										v550 = v548 - 1;
 										if (!v550)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v549);
 										LOWORD(v549) = Uincrement_v1124 + v549;
@@ -10084,6 +10299,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v552 = v550 - 1;
 										if (!v552)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v551);
@@ -10096,6 +10313,8 @@ LABEL_129:
 										v554 = v552 - 1;
 										if (!v554)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v553);
 										LOWORD(v553) = Uincrement_v1124 + v553;
@@ -10106,6 +10325,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v556 = v554 - 1;
 										if (!v556)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v555);
@@ -10118,6 +10339,8 @@ LABEL_129:
 										v558 = v556 - 1;
 										if (!v558)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v557);
 										LOWORD(v557) = Uincrement_v1124 + v557;
@@ -10128,6 +10351,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v560 = v558 - 1;
 										if (!v560)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v559);
@@ -10140,6 +10365,8 @@ LABEL_129:
 										v562 = v560 - 1;
 										if (!v562)
 											break;
+										if (v527 > maxTextureIdx)
+											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v561);
 										LOWORD(v561) = Uincrement_v1124 + v561;
@@ -10150,6 +10377,8 @@ LABEL_129:
 										v527 = SumByte1WithByte2(v527, v1135, v180);
 										v564 = v562 - 1;
 										if (!v564)
+											break;
+										if (v527 > maxTextureIdx)
 											break;
 										BYTE1(v526) = *(x_BYTE*)(v527 + ptrCurrentTexture_v534);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v563);
@@ -10219,6 +10448,8 @@ LABEL_129:
 									BYTE1(v566) = x_BYTE_E126C;
 									while (1)
 									{
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v572);
 										LOWORD(v572) = Uincrement_v1124 + v572;
@@ -10229,6 +10460,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v576 = v568 - 1;
 										if (!v576)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v575);
@@ -10241,6 +10474,8 @@ LABEL_129:
 										v578 = v576 - 1;
 										if (!v578)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v577);
 										LOWORD(v577) = Uincrement_v1124 + v577;
@@ -10251,6 +10486,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v580 = v578 - 1;
 										if (!v580)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v579);
@@ -10263,6 +10500,8 @@ LABEL_129:
 										v582 = v580 - 1;
 										if (!v582)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v581);
 										LOWORD(v581) = Uincrement_v1124 + v581;
@@ -10273,6 +10512,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v584 = v582 - 1;
 										if (!v584)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v583);
@@ -10285,6 +10526,8 @@ LABEL_129:
 										v586 = v584 - 1;
 										if (!v586)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v585);
 										LOWORD(v585) = Uincrement_v1124 + v585;
@@ -10295,6 +10538,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v588 = v586 - 1;
 										if (!v588)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v587);
@@ -10307,6 +10552,8 @@ LABEL_129:
 										v590 = v588 - 1;
 										if (!v590)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v589);
 										LOWORD(v589) = Uincrement_v1124 + v589;
@@ -10317,6 +10564,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v592 = v590 - 1;
 										if (!v592)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v591);
@@ -10329,6 +10578,8 @@ LABEL_129:
 										v594 = v592 - 1;
 										if (!v594)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v593);
 										LOWORD(v593) = Uincrement_v1124 + v593;
@@ -10339,6 +10590,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v596 = v594 - 1;
 										if (!v596)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v595);
@@ -10351,6 +10604,8 @@ LABEL_129:
 										v598 = v596 - 1;
 										if (!v598)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v597);
 										LOWORD(v597) = Uincrement_v1124 + v597;
@@ -10361,6 +10616,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v600 = v598 - 1;
 										if (!v600)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v599);
@@ -10373,6 +10630,8 @@ LABEL_129:
 										v602 = v600 - 1;
 										if (!v602)
 											break;
+										if (v567 > maxTextureIdx)
+											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v601);
 										LOWORD(v601) = Uincrement_v1124 + v601;
@@ -10383,6 +10642,8 @@ LABEL_129:
 										v567 = SumByte1WithByte2(v567, v1135, v180);
 										v604 = v602 - 1;
 										if (!v604)
+											break;
+										if (v567 > maxTextureIdx)
 											break;
 										LOBYTE(v566) = *(x_BYTE*)(v567 + ptrCurrentTexture_v574);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v603);
@@ -11078,6 +11339,8 @@ LABEL_129:
 									ptrCurrentTexture_v730 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v723 > maxTextureIdx)
+											break;
 										BYTE1(v722) = *(x_BYTE*)(v723 + ptrCurrentTexture_v730);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v728);
 										LOWORD(v728) = Uincrement_v1124 + v728;
@@ -11326,6 +11589,8 @@ LABEL_129:
 									ptrCurrentTexture_v770 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v768);
 										LOWORD(v768) = Uincrement_v1124 + v768;
@@ -11337,6 +11602,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v772 = v764 - 1;
 										if (!v772)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v771);
@@ -11350,6 +11617,8 @@ LABEL_129:
 										v774 = v772 - 1;
 										if (!v774)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v773);
 										LOWORD(v773) = Uincrement_v1124 + v773;
@@ -11361,6 +11630,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v776 = v774 - 1;
 										if (!v776)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v775);
@@ -11374,6 +11645,8 @@ LABEL_129:
 										v778 = v776 - 1;
 										if (!v778)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v777);
 										LOWORD(v777) = Uincrement_v1124 + v777;
@@ -11385,6 +11658,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v780 = v778 - 1;
 										if (!v780)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v779);
@@ -11398,6 +11673,8 @@ LABEL_129:
 										v782 = v780 - 1;
 										if (!v782)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v781);
 										LOWORD(v781) = Uincrement_v1124 + v781;
@@ -11409,6 +11686,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v784 = v782 - 1;
 										if (!v784)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v783);
@@ -11422,6 +11701,8 @@ LABEL_129:
 										v786 = v784 - 1;
 										if (!v786)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v785);
 										LOWORD(v785) = Uincrement_v1124 + v785;
@@ -11433,6 +11714,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v788 = v786 - 1;
 										if (!v788)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v787);
@@ -11446,6 +11729,8 @@ LABEL_129:
 										v790 = v788 - 1;
 										if (!v790)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v789);
 										LOWORD(v789) = Uincrement_v1124 + v789;
@@ -11458,6 +11743,10 @@ LABEL_129:
 										v792 = v790 - 1;
 										if (!v792)
 											break;
+
+										if (v763 > maxTextureIdx)
+											break;
+
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v791);
 										LOWORD(v791) = Uincrement_v1124 + v791;
@@ -11469,6 +11758,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v794 = v792 - 1;
 										if (!v794)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v793);
@@ -11482,6 +11773,8 @@ LABEL_129:
 										v796 = v794 - 1;
 										if (!v796)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v795);
 										LOWORD(v795) = Uincrement_v1124 + v795;
@@ -11494,6 +11787,8 @@ LABEL_129:
 										v798 = v796 - 1;
 										if (!v798)
 											break;
+										if (v763 > maxTextureIdx)
+											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v797);
 										LOWORD(v797) = Uincrement_v1124 + v797;
@@ -11505,6 +11800,8 @@ LABEL_129:
 										v763 = SumByte1WithByte2(v763, v1135, v180);
 										v800 = v798 - 1;
 										if (!v800)
+											break;
+										if (v763 > maxTextureIdx)
 											break;
 										LOBYTE(v762) = *(x_BYTE*)(v763 + ptrCurrentTexture_v770);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v799);
@@ -11578,6 +11875,8 @@ LABEL_129:
 									ptrCurrentTexture_v811 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v809);
 										LOWORD(v809) = Uincrement_v1124 + v809;
@@ -11594,6 +11893,8 @@ LABEL_129:
 										LOBYTE(v813) = BYTE2(v1146) + v180 + v813;
 										v1195 = v1194 - 1;
 										if (!v1195)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v812);
@@ -11612,6 +11913,8 @@ LABEL_129:
 										v1196 = v1195 - 1;
 										if (!v1196)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v814);
 										LOWORD(v814) = Uincrement_v1124 + v814;
@@ -11628,6 +11931,8 @@ LABEL_129:
 										LOBYTE(v817) = BYTE2(v1146) + v180 + v817;
 										v1197 = v1196 - 1;
 										if (!v1197)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v816);
@@ -11646,6 +11951,8 @@ LABEL_129:
 										v1198 = v1197 - 1;
 										if (!v1198)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v818);
 										LOWORD(v818) = Uincrement_v1124 + v818;
@@ -11662,6 +11969,8 @@ LABEL_129:
 										LOBYTE(v821) = BYTE2(v1146) + v180 + v821;
 										v1199 = v1198 - 1;
 										if (!v1199)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v820);
@@ -11680,6 +11989,8 @@ LABEL_129:
 										v1200 = v1199 - 1;
 										if (!v1200)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v822);
 										LOWORD(v822) = Uincrement_v1124 + v822;
@@ -11696,6 +12007,8 @@ LABEL_129:
 										LOBYTE(v825) = BYTE2(v1146) + v180 + v825;
 										v1201 = v1200 - 1;
 										if (!v1201)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v824);
@@ -11714,6 +12027,8 @@ LABEL_129:
 										v1202 = v1201 - 1;
 										if (!v1202)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v826);
 										LOWORD(v826) = Uincrement_v1124 + v826;
@@ -11730,6 +12045,8 @@ LABEL_129:
 										LOBYTE(v829) = BYTE2(v1146) + v180 + v829;
 										v1203 = v1202 - 1;
 										if (!v1203)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v828);
@@ -11748,6 +12065,8 @@ LABEL_129:
 										v1204 = v1203 - 1;
 										if (!v1204)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v830);
 										LOWORD(v830) = Uincrement_v1124 + v830;
@@ -11764,6 +12083,8 @@ LABEL_129:
 										LOBYTE(v833) = BYTE2(v1146) + v180 + v833;
 										v1205 = v1204 - 1;
 										if (!v1205)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v832);
@@ -11782,6 +12103,8 @@ LABEL_129:
 										v1206 = v1205 - 1;
 										if (!v1206)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v834);
 										LOWORD(v834) = Uincrement_v1124 + v834;
@@ -11798,6 +12121,8 @@ LABEL_129:
 										LOBYTE(v837) = BYTE2(v1146) + v180 + v837;
 										v1207 = v1206 - 1;
 										if (!v1207)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v836);
@@ -11816,6 +12141,8 @@ LABEL_129:
 										v1208 = v1207 - 1;
 										if (!v1208)
 											break;
+										if (v803 > maxTextureIdx)
+											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v838);
 										LOWORD(v838) = Uincrement_v1124 + v838;
@@ -11832,6 +12159,8 @@ LABEL_129:
 										LOBYTE(v841) = BYTE2(v1146) + v180 + v841;
 										v1209 = v1208 - 1;
 										if (!v1209)
+											break;
+										if (v803 > maxTextureIdx)
 											break;
 										LOBYTE(v802) = *(x_BYTE*)(v803 + ptrCurrentTexture_v811);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v840);
@@ -11912,6 +12241,8 @@ LABEL_129:
 									ptrCurrentTexture_v852 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v850);
 										LOWORD(v850) = Uincrement_v1124 + v850;
@@ -11928,6 +12259,8 @@ LABEL_129:
 										LOBYTE(v854) = BYTE2(v1146) + v180 + v854;
 										v1211 = v1210 - 1;
 										if (!v1211)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v853);
@@ -11946,6 +12279,8 @@ LABEL_129:
 										v1212 = v1211 - 1;
 										if (!v1212)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v855);
 										LOWORD(v855) = Uincrement_v1124 + v855;
@@ -11962,6 +12297,8 @@ LABEL_129:
 										LOBYTE(v858) = BYTE2(v1146) + v180 + v858;
 										v1213 = v1212 - 1;
 										if (!v1213)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v857);
@@ -11980,6 +12317,8 @@ LABEL_129:
 										v1214 = v1213 - 1;
 										if (!v1214)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v859);
 										LOWORD(v859) = Uincrement_v1124 + v859;
@@ -11996,6 +12335,8 @@ LABEL_129:
 										LOBYTE(v862) = BYTE2(v1146) + v180 + v862;
 										v1215 = v1214 - 1;
 										if (!v1215)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v861);
@@ -12014,6 +12355,8 @@ LABEL_129:
 										v1216 = v1215 - 1;
 										if (!v1216)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v863);
 										LOWORD(v863) = Uincrement_v1124 + v863;
@@ -12030,6 +12373,8 @@ LABEL_129:
 										LOBYTE(v866) = BYTE2(v1146) + v180 + v866;
 										v1217 = v1216 - 1;
 										if (!v1217)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v865);
@@ -12048,6 +12393,8 @@ LABEL_129:
 										v1218 = v1217 - 1;
 										if (!v1218)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v867);
 										LOWORD(v867) = Uincrement_v1124 + v867;
@@ -12064,6 +12411,8 @@ LABEL_129:
 										LOBYTE(v870) = BYTE2(v1146) + v180 + v870;
 										v1219 = v1218 - 1;
 										if (!v1219)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v869);
@@ -12082,6 +12431,8 @@ LABEL_129:
 										v1220 = v1219 - 1;
 										if (!v1220)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v871);
 										LOWORD(v871) = Uincrement_v1124 + v871;
@@ -12098,6 +12449,8 @@ LABEL_129:
 										LOBYTE(v874) = BYTE2(v1146) + v180 + v874;
 										v1221 = v1220 - 1;
 										if (!v1221)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v873);
@@ -12116,6 +12469,8 @@ LABEL_129:
 										v1222 = v1221 - 1;
 										if (!v1222)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v875);
 										LOWORD(v875) = Uincrement_v1124 + v875;
@@ -12132,6 +12487,8 @@ LABEL_129:
 										LOBYTE(v878) = BYTE2(v1146) + v180 + v878;
 										v1223 = v1222 - 1;
 										if (!v1223)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v877);
@@ -12150,6 +12507,8 @@ LABEL_129:
 										v1224 = v1223 - 1;
 										if (!v1224)
 											break;
+										if (v844 > maxTextureIdx)
+											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v879);
 										LOWORD(v879) = Uincrement_v1124 + v879;
@@ -12166,6 +12525,8 @@ LABEL_129:
 										LOBYTE(v882) = BYTE2(v1146) + v180 + v882;
 										v1225 = v1224 - 1;
 										if (!v1225)
+											break;
+										if (v844 > maxTextureIdx)
 											break;
 										LOBYTE(v843) = *(x_BYTE*)(v844 + ptrCurrentTexture_v852);
 										v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v881);
@@ -12242,6 +12603,8 @@ LABEL_129:
 									ptrCurrentTexture_v892 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12256,6 +12619,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v894 = v886 - 1;
 										if (!v894)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12272,6 +12637,8 @@ LABEL_129:
 										v896 = v894 - 1;
 										if (!v896)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12286,6 +12653,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v898 = v896 - 1;
 										if (!v898)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12302,6 +12671,8 @@ LABEL_129:
 										v900 = v898 - 1;
 										if (!v900)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12316,6 +12687,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v902 = v900 - 1;
 										if (!v902)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12332,6 +12705,8 @@ LABEL_129:
 										v904 = v902 - 1;
 										if (!v904)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12346,6 +12721,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v906 = v904 - 1;
 										if (!v906)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12362,6 +12739,8 @@ LABEL_129:
 										v908 = v906 - 1;
 										if (!v908)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12376,6 +12755,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v910 = v908 - 1;
 										if (!v910)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12392,6 +12773,8 @@ LABEL_129:
 										v912 = v910 - 1;
 										if (!v912)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12406,6 +12789,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v914 = v912 - 1;
 										if (!v914)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12422,6 +12807,8 @@ LABEL_129:
 										v916 = v914 - 1;
 										if (!v916)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12436,6 +12823,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v918 = v916 - 1;
 										if (!v918)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12452,6 +12841,8 @@ LABEL_129:
 										v920 = v918 - 1;
 										if (!v920)
 											break;
+										if (v885 > maxTextureIdx)
+											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
 										{
@@ -12466,6 +12857,8 @@ LABEL_129:
 										v885 = SumByte1WithByte2(v885, v1135, v180);
 										v922 = v920 - 1;
 										if (!v922)
+											break;
+										if (v885 > maxTextureIdx)
 											break;
 										BYTE1(v884) = *(x_BYTE*)(v885 + ptrCurrentTexture_v892);
 										if (BYTE1(v884))
@@ -12538,6 +12931,8 @@ LABEL_129:
 									ptrCurrentTexture_v932 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12552,6 +12947,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v934 = v926 - 1;
 										if (!v934)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12568,6 +12965,8 @@ LABEL_129:
 										v936 = v934 - 1;
 										if (!v936)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12582,6 +12981,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v938 = v936 - 1;
 										if (!v938)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12598,6 +12999,8 @@ LABEL_129:
 										v940 = v938 - 1;
 										if (!v940)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12612,6 +13015,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v942 = v940 - 1;
 										if (!v942)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12628,6 +13033,8 @@ LABEL_129:
 										v944 = v942 - 1;
 										if (!v944)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12642,6 +13049,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v946 = v944 - 1;
 										if (!v946)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12658,6 +13067,8 @@ LABEL_129:
 										v948 = v946 - 1;
 										if (!v948)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12672,6 +13083,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v950 = v948 - 1;
 										if (!v950)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12688,6 +13101,8 @@ LABEL_129:
 										v952 = v950 - 1;
 										if (!v952)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12702,6 +13117,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v954 = v952 - 1;
 										if (!v954)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12718,6 +13135,8 @@ LABEL_129:
 										v956 = v954 - 1;
 										if (!v956)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12732,6 +13151,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v958 = v956 - 1;
 										if (!v958)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12748,6 +13169,8 @@ LABEL_129:
 										v960 = v958 - 1;
 										if (!v960)
 											break;
+										if (v925 > maxTextureIdx)
+											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
 										{
@@ -12762,6 +13185,8 @@ LABEL_129:
 										v925 = SumByte1WithByte2(v925, v1135, v180);
 										v962 = v960 - 1;
 										if (!v962)
+											break;
+										if (v925 > maxTextureIdx)
 											break;
 										LOBYTE(v924) = *(x_BYTE*)(v925 + ptrCurrentTexture_v932);
 										if ((x_BYTE)v924)
@@ -12838,6 +13263,8 @@ LABEL_129:
 									ptrCurrentTexture_v973 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -12857,6 +13284,8 @@ LABEL_129:
 										LOBYTE(v975) = BYTE2(v1146) + v180 + v975;
 										v1227 = v1226 - 1;
 										if (!v1227)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -12878,6 +13307,8 @@ LABEL_129:
 										v1228 = v1227 - 1;
 										if (!v1228)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -12897,6 +13328,8 @@ LABEL_129:
 										LOBYTE(v979) = BYTE2(v1146) + v180 + v979;
 										v1229 = v1228 - 1;
 										if (!v1229)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -12918,6 +13351,8 @@ LABEL_129:
 										v1230 = v1229 - 1;
 										if (!v1230)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -12937,6 +13372,8 @@ LABEL_129:
 										LOBYTE(v983) = BYTE2(v1146) + v180 + v983;
 										v1231 = v1230 - 1;
 										if (!v1231)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -12958,6 +13395,8 @@ LABEL_129:
 										v1232 = v1231 - 1;
 										if (!v1232)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -12977,6 +13416,8 @@ LABEL_129:
 										LOBYTE(v987) = BYTE2(v1146) + v180 + v987;
 										v1233 = v1232 - 1;
 										if (!v1233)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -12998,6 +13439,8 @@ LABEL_129:
 										v1234 = v1233 - 1;
 										if (!v1234)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -13017,6 +13460,8 @@ LABEL_129:
 										LOBYTE(v991) = BYTE2(v1146) + v180 + v991;
 										v1235 = v1234 - 1;
 										if (!v1235)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -13038,6 +13483,8 @@ LABEL_129:
 										v1236 = v1235 - 1;
 										if (!v1236)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -13057,6 +13504,8 @@ LABEL_129:
 										LOBYTE(v995) = BYTE2(v1146) + v180 + v995;
 										v1237 = v1236 - 1;
 										if (!v1237)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -13078,6 +13527,8 @@ LABEL_129:
 										v1238 = v1237 - 1;
 										if (!v1238)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -13097,6 +13548,8 @@ LABEL_129:
 										LOBYTE(v999) = BYTE2(v1146) + v180 + v999;
 										v1239 = v1238 - 1;
 										if (!v1239)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -13118,6 +13571,8 @@ LABEL_129:
 										v1240 = v1239 - 1;
 										if (!v1240)
 											break;
+										if (v965 > maxTextureIdx)
+											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
 										{
@@ -13137,6 +13592,8 @@ LABEL_129:
 										LOBYTE(v1003) = BYTE2(v1146) + v180 + v1003;
 										v1241 = v1240 - 1;
 										if (!v1241)
+											break;
+										if (v965 > maxTextureIdx)
 											break;
 										LOBYTE(v964) = *(x_BYTE*)(v965 + ptrCurrentTexture_v973);
 										if ((x_BYTE)v964)
@@ -13220,6 +13677,8 @@ LABEL_129:
 									ptrCurrentTexture_v1014 = x_DWORD_DE55C_ActTexture;
 									while (1)
 									{
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13239,6 +13698,8 @@ LABEL_129:
 										LOBYTE(v1016) = BYTE2(v1146) + v180 + v1016;
 										v1243 = v1242 - 1;
 										if (!v1243)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13260,6 +13721,8 @@ LABEL_129:
 										v1244 = v1243 - 1;
 										if (!v1244)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13279,6 +13742,8 @@ LABEL_129:
 										LOBYTE(v1020) = BYTE2(v1146) + v180 + v1020;
 										v1245 = v1244 - 1;
 										if (!v1245)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13300,6 +13765,8 @@ LABEL_129:
 										v1246 = v1245 - 1;
 										if (!v1246)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13319,6 +13786,8 @@ LABEL_129:
 										LOBYTE(v1024) = BYTE2(v1146) + v180 + v1024;
 										v1247 = v1246 - 1;
 										if (!v1247)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13340,6 +13809,8 @@ LABEL_129:
 										v1248 = v1247 - 1;
 										if (!v1248)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13359,6 +13830,8 @@ LABEL_129:
 										LOBYTE(v1028) = BYTE2(v1146) + v180 + v1028;
 										v1249 = v1248 - 1;
 										if (!v1249)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13380,6 +13853,8 @@ LABEL_129:
 										v1250 = v1249 - 1;
 										if (!v1250)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13399,6 +13874,8 @@ LABEL_129:
 										LOBYTE(v1032) = BYTE2(v1146) + v180 + v1032;
 										v1251 = v1250 - 1;
 										if (!v1251)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13420,6 +13897,8 @@ LABEL_129:
 										v1252 = v1251 - 1;
 										if (!v1252)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13439,6 +13918,8 @@ LABEL_129:
 										LOBYTE(v1036) = BYTE2(v1146) + v180 + v1036;
 										v1253 = v1252 - 1;
 										if (!v1253)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13460,6 +13941,8 @@ LABEL_129:
 										v1254 = v1253 - 1;
 										if (!v1254)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13479,6 +13962,8 @@ LABEL_129:
 										LOBYTE(v1040) = BYTE2(v1146) + v180 + v1040;
 										v1255 = v1254 - 1;
 										if (!v1255)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13500,6 +13985,8 @@ LABEL_129:
 										v1256 = v1255 - 1;
 										if (!v1256)
 											break;
+										if (v1006 > maxTextureIdx)
+											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
 										{
@@ -13519,6 +14006,8 @@ LABEL_129:
 										LOBYTE(v1044) = BYTE2(v1146) + v180 + v1044;
 										v1257 = v1256 - 1;
 										if (!v1257)
+											break;
+										if (v1006 > maxTextureIdx)
 											break;
 										LOBYTE(v1005) = *(x_BYTE*)(v1006 + ptrCurrentTexture_v1014);
 										if ((x_BYTE)v1005)
@@ -13604,6 +14093,8 @@ LABEL_129:
 								ptrCurrentTexture_v1055 = x_DWORD_DE55C_ActTexture;
 								while (1)
 								{
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1053);
 									LOWORD(v1053) = Uincrement_v1124 + v1053;
@@ -13628,6 +14119,8 @@ LABEL_129:
 									LOBYTE(v1058) = BYTE2(v1146) + v180 + v1058;
 									v1259 = v1258 - 1;
 									if (!v1259)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1057);
@@ -13654,6 +14147,8 @@ LABEL_129:
 									v1260 = v1259 - 1;
 									if (!v1260)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1060);
 									LOWORD(v1060) = Uincrement_v1124 + v1060;
@@ -13678,6 +14173,8 @@ LABEL_129:
 									LOBYTE(v1064) = BYTE2(v1146) + v180 + v1064;
 									v1261 = v1260 - 1;
 									if (!v1261)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1063);
@@ -13704,6 +14201,8 @@ LABEL_129:
 									v1262 = v1261 - 1;
 									if (!v1262)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1066);
 									LOWORD(v1066) = Uincrement_v1124 + v1066;
@@ -13728,6 +14227,8 @@ LABEL_129:
 									LOBYTE(v1070) = BYTE2(v1146) + v180 + v1070;
 									v1263 = v1262 - 1;
 									if (!v1263)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1069);
@@ -13754,6 +14255,8 @@ LABEL_129:
 									v1264 = v1263 - 1;
 									if (!v1264)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1072);
 									LOWORD(v1072) = Uincrement_v1124 + v1072;
@@ -13778,6 +14281,8 @@ LABEL_129:
 									LOBYTE(v1076) = BYTE2(v1146) + v180 + v1076;
 									v1265 = v1264 - 1;
 									if (!v1265)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1075);
@@ -13804,6 +14309,8 @@ LABEL_129:
 									v1266 = v1265 - 1;
 									if (!v1266)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1078);
 									LOWORD(v1078) = Uincrement_v1124 + v1078;
@@ -13828,6 +14335,8 @@ LABEL_129:
 									LOBYTE(v1082) = BYTE2(v1146) + v180 + v1082;
 									v1267 = v1266 - 1;
 									if (!v1267)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1081);
@@ -13854,6 +14363,8 @@ LABEL_129:
 									v1268 = v1267 - 1;
 									if (!v1268)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1084);
 									LOWORD(v1084) = Uincrement_v1124 + v1084;
@@ -13878,6 +14389,8 @@ LABEL_129:
 									LOBYTE(v1088) = BYTE2(v1146) + v180 + v1088;
 									v1269 = v1268 - 1;
 									if (!v1269)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1087);
@@ -13904,6 +14417,8 @@ LABEL_129:
 									v1270 = v1269 - 1;
 									if (!v1270)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1090);
 									LOWORD(v1090) = Uincrement_v1124 + v1090;
@@ -13928,6 +14443,8 @@ LABEL_129:
 									LOBYTE(v1094) = BYTE2(v1146) + v180 + v1094;
 									v1271 = v1270 - 1;
 									if (!v1271)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1093);
@@ -13954,6 +14471,8 @@ LABEL_129:
 									v1272 = v1271 - 1;
 									if (!v1272)
 										break;
+									if (v1047 > maxTextureIdx)
+										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1096);
 									LOWORD(v1096) = Uincrement_v1124 + v1096;
@@ -13978,6 +14497,8 @@ LABEL_129:
 									LOBYTE(v1100) = BYTE2(v1146) + v180 + v1100;
 									v1273 = v1272 - 1;
 									if (!v1273)
+										break;
+									if (v1047 > maxTextureIdx)
 										break;
 									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1099);
@@ -14074,22 +14595,7 @@ LABEL_129:
 
 int GameRenderHD::SumByte1WithByte2(int byte1, int byte2, uint8_t v180)
 {
-	//previousv180[m_bufferIdx] = v180;
-	//previousByte1[m_bufferIdx] = byte1;
-	//previousByte2[m_bufferIdx] = byte2;
-	//previousByte1Byte[m_bufferIdx] = BYTE1(byte1);
-	//previousByte2Byte[m_bufferIdx] = BYTE2(byte2);
-
 	BYTE1(byte1) += BYTE2(byte2) + v180;
-
-	//previousResult[m_bufferIdx] = byte1;
-
-	//m_bufferIdx++;
-
-	//if (m_bufferIdx > 95)
-	//{
-	//	m_bufferIdx = 0;
-	//}
 
 	return byte1;
 }
