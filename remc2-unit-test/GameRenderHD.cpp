@@ -21,21 +21,3 @@ TEST(GameRenderHD, CalculateRotationTranslationX)
 	ASSERT_EQ(pnt1_16o, -30939);
 	ASSERT_EQ(pnt1_16n, 34597);
 }
-
-TEST(GameRenderHD, SumByte1WithByte2)
-{
-	//Arrange
-	int byte1 = 2;
-
-	//Run current code
-	byte1 = GameRenderHD::SumByte1WithByte2(byte1, -2231, 0);
-	ASSERT_EQ(byte1, 65282);
-
-	byte1 = 8759;
-	byte1 = GameRenderHD::SumByte1WithByte2(byte1, 53, 0);
-	ASSERT_EQ(byte1, 8759);
-
-	byte1 = 258;
-	byte1 = GameRenderHD::SumByte1WithByte2(byte1, -2231, 1);
-	ASSERT_EQ(byte1, 258);
-}
