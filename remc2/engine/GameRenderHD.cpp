@@ -1686,8 +1686,8 @@ uint16_t GameRenderHD::sub_3FD60(int a2x, uint8_t x_BYTE_E88E0x[], type_event_0x
 			v41x = v3x;
 			if (!(v3x->struct_byte_0xc_12_15.byte[0] & 0x21))
 			{
-				v4 = (signed __int16)(v3x->axis_0x4C_76.x - x_WORD_F2CC4);
-				v5 = (signed __int16)(x_WORD_F2CC2 - v3x->axis_0x4C_76.y);
+				v4 = (int16_t)(v3x->axis_0x4C_76.x - x_WORD_F2CC4);
+				v5 = (int16_t)(x_WORD_F2CC2 - v3x->axis_0x4C_76.y);
 				v42 = -v3x->axis_0x4C_76.z - str_F2C20ar.dword0x20;
 				v6 = (v4 * str_F2C20ar.dword0x0f - v5 * str_F2C20ar.dword0x17) >> 16;
 				v40 = (str_F2C20ar.dword0x17 * v4 + str_F2C20ar.dword0x0f * v5) >> 16;
@@ -2762,7 +2762,7 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __
 	v39 = viewPort.PosY_EA3CC + a3 - 20;
 	if (v11 >= viewPort.PosX_EA3D0)
 	{
-		if ((signed __int16)v12 >= viewPort.PosY_EA3CC && v11 < v31 && (signed __int16)v12 < v29)
+		if ((int16_t)v12 >= viewPort.PosY_EA3CC && v11 < v31 && (int16_t)v12 < v29)
 		{
 			v9x = strlen(v24);
 			v13 = 8 * v9x + 4;
@@ -2775,7 +2775,7 @@ void GameRenderHD::DrawSorcererNameAndHealthBar_2CB30(type_event_0x6E8E* a1x, __
 			{
 				v24[v9x] = 0;
 				v32 = v13 + 2;
-				v26 = (signed __int16)(v13 + 2);
+				v26 = (int16_t)(v13 + 2);
 				v30 = v11;
 				DrawLine_2BC80(v11, v39, v13 + 2, 18, v37);//8
 				//v27 = v33;//30// v16
@@ -3117,8 +3117,8 @@ void GameRenderHD::DrawSprites_3E360(int a2x, type_particle_str** str_DWORD_F66F
 		if (!(v3x->struct_byte_0xc_12_15.byte[0] & 0x21))
 		{
 			v4 = v3x->axis_0x4C_76.y;
-			v96 = (signed __int16)(v3x->axis_0x4C_76.x - x_WORD_F2CC4);
-			v97 = (signed __int16)(x_WORD_F2CC2 - v4);
+			v96 = (int16_t)(v3x->axis_0x4C_76.x - x_WORD_F2CC4);
+			v97 = (int16_t)(x_WORD_F2CC2 - v4);
 			if (shadows_F2CC7)
 			{
 				if (!Str_E9C38_smalltit[a2x].textAtyp_43 && !(v3x->struct_byte_0xc_12_15.word[1] & 0x808))
@@ -4897,13 +4897,13 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 						&& str_F2C20ar.dword0x14x->class_0x3F_63 == 3
 						&& (!str_F2C20ar.dword0x14x->model_0x40_64 || str_F2C20ar.dword0x14x->model_0x40_64 == 1))
 					{
-						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (signed __int16)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
+						DrawSorcererNameAndHealthBar_2CB30(str_F2C20ar.dword0x14x, str_F2C20ar.dword0x04_screenY, (int16_t)str_F2C20ar.dword0x03_screenX, str_F2C20ar.dword0x09_realWidth);
 					}
 					if (x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 						sub_88740(
 							str_F2C20ar.dword0x14x,
-							(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
-							(signed __int16)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
+							(int16_t)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
+							(int16_t)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
 					if (str_F2C20ar.dword0x14x->struct_byte_0xc_12_15.byte[3] & 0x40)
 					{
 						str_F2C20ar.dword0x14x->word_0x2A_42 |= 0x40u;
@@ -4984,8 +4984,8 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 			if (a1 == 1 && x_D41A0_BYTEARRAY_4_struct.showHelp_10)
 				sub_88740(
 					str_F2C20ar.dword0x14x,
-					(signed __int16)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
-					(signed __int16)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
+					(int16_t)(str_F2C20ar.dword0x04_screenY + (str_F2C20ar.dword0x09_realWidth >> 1)),
+					(int16_t)(str_F2C20ar.dword0x03_screenX + (str_F2C20ar.dword0x0c_realHeight >> 1)));
 			//v1 = (int)(x_DWORD_F2C2C * iScreenWidth_DE560 + x_DWORD_F2C30 + x_DWORD_DE558);
 
 			//               screen-Y                                            screen-X
@@ -7948,7 +7948,7 @@ LABEL_129:
 								line1 = startLine;
 								if ((v172 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v173 > 0)
+								if ((int16_t)v173 > 0)
 								{
 									if (v173 > viewPort.Width_DE564)
 										v173 = viewPort.Width_DE564;
@@ -7985,9 +7985,9 @@ LABEL_129:
 								line2 = 0;
 								if ((v31 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v176 > 0)
+								if ((int16_t)v176 > 0)
 								{
-									v178 = v1146 * (uint16_t)-(signed __int16)v31;
+									v178 = v1146 * (uint16_t)-(int16_t)v31;
 									v179 = v178;
 									v31 = v178 >> 8;
 									v180 = __CFADD__(v175[8], v179);
@@ -8149,9 +8149,9 @@ LABEL_129:
 								line3 = 0;
 								if ((v228 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v230 > 0)
+								if ((int16_t)v230 > 0)
 								{
-									v232 = (uint16_t)-(signed __int16)v228;
+									v232 = (uint16_t)-(int16_t)v228;
 									v234 = __ROL4_16__(*((x_DWORD*)v227 + 3) + v1135 * v232);
 									BYTE1(v229) = v234;
 									v233 = *((x_DWORD*)v227 + 2) + Uincrement_v1124 * v232;
@@ -8382,9 +8382,9 @@ LABEL_129:
 								line4 = 0;
 								if ((v284 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v286 > 0)
+								if ((int16_t)v286 > 0)
 								{
-									v288 = (uint16_t)-(signed __int16)v284;
+									v288 = (uint16_t)-(int16_t)v284;
 									v290 = __ROL4_16__(*((x_DWORD*)v283 + 3) + v1135 * v288);
 									BYTE1(v285) = v290;
 									v289 = *((x_DWORD*)v283 + 2) + Uincrement_v1124 * v288;
@@ -8628,9 +8628,9 @@ LABEL_129:
 								line5 = 0;
 								if ((v31 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v340 > 0)
+								if ((int16_t)v340 > 0)
 								{
-									v342 = v1146 * (uint16_t)-(signed __int16)v31;
+									v342 = v1146 * (uint16_t)-(int16_t)v31;
 									v343 = v342;
 									v31 = v342 >> 8;
 									v180 = __CFADD__(v339[8], v343);
@@ -8796,9 +8796,9 @@ LABEL_129:
 								line6 = 0;
 								if ((v375 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v378 > 0)
+								if ((int16_t)v378 > 0)
 								{
-									v380 = (uint16_t)-(signed __int16)v375;
+									v380 = (uint16_t)-(int16_t)v375;
 									v381 = v380;
 									v383 = __ROL4_16__(*((x_DWORD*)v377 + 3) + v1135 * v380);
 									BYTE1(v376) = v383;
@@ -8810,7 +8810,7 @@ LABEL_129:
 									BYTE1(v375) = v384;
 									LOWORD(v384) = *((x_WORD*)v377 + 3);
 									v375 = (uint16_t)v375;
-									if ((signed __int16)v384 > (signed __int16)viewPort.Width_DE564)
+									if ((int16_t)v384 > (int16_t)viewPort.Width_DE564)
 										LOWORD(v384) = viewPort.Width_DE564;
 								LABEL_493:
 									v388 = &ptrViewPortRenderLine_v379[0];
@@ -8877,9 +8877,9 @@ LABEL_129:
 								line7 = 0;
 								if ((v390 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v393 > 0)
+								if ((int16_t)v393 > 0)
 								{
-									v395 = (uint16_t)-(signed __int16)v390;
+									v395 = (uint16_t)-(int16_t)v390;
 									v396 = v395;
 									v398 = __ROL4_16__(*((x_DWORD*)v392 + 3) + v1135 * v395);
 									BYTE1(v391) = v398;
@@ -8891,7 +8891,7 @@ LABEL_129:
 									BYTE1(v390) = v399;
 									LOWORD(v399) = *((x_WORD*)v392 + 3);
 									v390 = (uint16_t)v390;
-									if ((signed __int16)v399 > (signed __int16)viewPort.Width_DE564)
+									if ((int16_t)v399 > (int16_t)viewPort.Width_DE564)
 										LOWORD(v399) = viewPort.Width_DE564;
 								LABEL_522:
 									v402 = v399 & 0xF;
@@ -9188,9 +9188,9 @@ LABEL_129:
 								line8 = 0;
 								if ((v406 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v408 > 0)
+								if ((int16_t)v408 > 0)
 								{
-									v410 = (uint16_t)-(signed __int16)v406;
+									v410 = (uint16_t)-(int16_t)v406;
 									v412 = __ROL4_16__(*((x_DWORD*)v405 + 3) + v1135 * v410);
 									BYTE1(v407) = v412;
 									v411 = *((x_DWORD*)v405 + 2) + Uincrement_v1124 * v410;
@@ -9422,9 +9422,9 @@ LABEL_129:
 								line9 = 0;
 								if ((v446 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v448 > 0)
+								if ((int16_t)v448 > 0)
 								{
-									v450 = (uint16_t)-(signed __int16)v446;
+									v450 = (uint16_t)-(int16_t)v446;
 									v452 = __ROL4_16__(*((x_DWORD*)v445 + 3) + v1135 * v450);
 									BYTE1(v447) = v452;
 									v451 = *((x_DWORD*)v445 + 2) + Uincrement_v1124 * v450;
@@ -9672,9 +9672,9 @@ LABEL_129:
 								line10 = 0;
 								if ((v486 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v488 > 0)
+								if ((int16_t)v488 > 0)
 								{
-									v490 = (uint16_t)-(signed __int16)v486;
+									v490 = (uint16_t)-(int16_t)v486;
 									v492 = __ROL4_16__(*((x_DWORD*)v485 + 3) + v1135 * v490);
 									BYTE1(v487) = v492;
 									v491 = *((x_DWORD*)v485 + 2) + Uincrement_v1124 * v490;
@@ -9968,9 +9968,9 @@ LABEL_129:
 								line11 = 0;
 								if ((v526 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v528 > 0)
+								if ((int16_t)v528 > 0)
 								{
-									v530 = (uint16_t)-(signed __int16)v526;
+									v530 = (uint16_t)-(int16_t)v526;
 									v532 = __ROL4_16__(*((x_DWORD*)v525 + 3) + v1135 * v530);
 									BYTE1(v527) = v532;
 									v531 = *((x_DWORD*)v525 + 2) + Uincrement_v1124 * v530;
@@ -10201,9 +10201,9 @@ LABEL_129:
 								line12 = 0;
 								if ((v566 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v568 > 0)
+								if ((int16_t)v568 > 0)
 								{
-									v570 = (uint16_t)-(signed __int16)v566;
+									v570 = (uint16_t)-(int16_t)v566;
 									v572 = __ROL4_16__(*((x_DWORD*)v565 + 3) + v1135 * v570);
 									BYTE1(v567) = v572;
 									v571 = *((x_DWORD*)v565 + 2) + Uincrement_v1124 * v570;
@@ -10434,7 +10434,7 @@ LABEL_129:
 								line13 = 0;
 								if ((v608 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v609 > 0)
+								if ((int16_t)v609 > 0)
 								{
 									if (v609 > viewPort.Width_DE564)
 										LOWORD(v609) = viewPort.Width_DE564;
@@ -10553,7 +10553,7 @@ LABEL_129:
 								line14 = 0;
 								if ((v629 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v630 > 0)
+								if ((int16_t)v630 > 0)
 								{
 									if (v630 > viewPort.Width_DE564)
 										LOWORD(v630) = viewPort.Width_DE564;
@@ -10671,9 +10671,9 @@ LABEL_129:
 								line15 = 0;
 								if ((v31 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v649 > 0)
+								if ((int16_t)v649 > 0)
 								{
-									v651 = v1146 * (uint16_t)-(signed __int16)v31;
+									v651 = v1146 * (uint16_t)-(int16_t)v31;
 									v652 = v651;
 									v31 = v651 >> 8;
 									v180 = __CFADD__(v647[8], v652);
@@ -10865,9 +10865,9 @@ LABEL_129:
 								line16 = 0;
 								if ((v31 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v686 > 0)
+								if ((int16_t)v686 > 0)
 								{
-									v688 = v1146 * (uint16_t)-(signed __int16)v31;
+									v688 = v1146 * (uint16_t)-(int16_t)v31;
 									v689 = v688;
 									v31 = v688 >> 8;
 									v180 = __CFADD__(v684[8], v689);
@@ -11061,9 +11061,9 @@ LABEL_129:
 								line17 = 0;
 								if ((v722 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v724 > 0)
+								if ((int16_t)v724 > 0)
 								{
-									v726 = (uint16_t)-(signed __int16)v722;
+									v726 = (uint16_t)-(int16_t)v722;
 									v728 = __ROL4_16__(*((x_DWORD*)v721 + 3) + v1135 * v726);
 									BYTE1(v723) = v728;
 									v727 = *((x_DWORD*)v721 + 2) + Uincrement_v1124 * v726;
@@ -11309,9 +11309,9 @@ LABEL_129:
 								line18 = 0;
 								if ((v762 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v764 > 0)
+								if ((int16_t)v764 > 0)
 								{
-									v766 = (uint16_t)-(signed __int16)v762;
+									v766 = (uint16_t)-(int16_t)v762;
 									v768 = __ROL4_16__(*((x_DWORD*)v761 + 3) + v1135 * v766);
 									BYTE1(v763) = v768;
 									v767 = *((x_DWORD*)v761 + 2) + Uincrement_v1124 * v766;
@@ -11558,12 +11558,12 @@ LABEL_129:
 								line19 = 0;
 								if ((v802 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v804 > 0)
+								if ((int16_t)v804 > 0)
 								{
 									if (v804 > viewPort.Width_DE564)
 										v804 = viewPort.Width_DE564;
 									v1194 = v804;
-									v806 = (uint16_t)-(signed __int16)v802;
+									v806 = (uint16_t)-(int16_t)v802;
 									v807 = v806;
 									v809 = __ROL4_16__(*((x_DWORD*)v801 + 3) + v1135 * v806);
 									BYTE1(v803) = v809;
@@ -11892,12 +11892,12 @@ LABEL_129:
 								line20 = 0;
 								if ((v843 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v845 > 0)
+								if ((int16_t)v845 > 0)
 								{
 									if (v845 > viewPort.Width_DE564)
 										v845 = viewPort.Width_DE564;
 									v1210 = v845;
-									v847 = (uint16_t)-(signed __int16)v843;
+									v847 = (uint16_t)-(int16_t)v843;
 									v848 = v847;
 									v850 = __ROL4_16__(*((x_DWORD*)v842 + 3) + v1135 * v847);
 									BYTE1(v844) = v850;
@@ -12225,9 +12225,9 @@ LABEL_129:
 								line21 = 0;
 								if ((v884 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v886 > 0)
+								if ((int16_t)v886 > 0)
 								{
-									v888 = (uint16_t)-(signed __int16)v884;
+									v888 = (uint16_t)-(int16_t)v884;
 									v890 = __ROL4_16__(*((x_DWORD*)v883 + 3) + v1135 * v888);
 									BYTE1(v885) = v890;
 									v889 = *((x_DWORD*)v883 + 2) + Uincrement_v1124 * v888;
@@ -12521,9 +12521,9 @@ LABEL_129:
 								line22 = 0;
 								if ((v924 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v926 > 0)
+								if ((int16_t)v926 > 0)
 								{
-									v928 = (uint16_t)-(signed __int16)v924;
+									v928 = (uint16_t)-(int16_t)v924;
 									v930 = __ROL4_16__(*((x_DWORD*)v923 + 3) + v1135 * v928);
 									BYTE1(v925) = v930;
 									v929 = *((x_DWORD*)v923 + 2) + Uincrement_v1124 * v928;
@@ -12818,12 +12818,12 @@ LABEL_129:
 								line23 = 0;
 								if ((v964 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v966 > 0)
+								if ((int16_t)v966 > 0)
 								{
 									if (v966 > viewPort.Width_DE564)
 										v966 = viewPort.Width_DE564;
 									v1226 = v966;
-									v968 = (uint16_t)-(signed __int16)v964;
+									v968 = (uint16_t)-(int16_t)v964;
 									v969 = v968;
 									v971 = __ROL4_16__(*((x_DWORD*)v963 + 3) + v1135 * v968);
 									BYTE1(v965) = v971;
@@ -13200,12 +13200,12 @@ LABEL_129:
 								line24 = 0;
 								if ((v1005 & 0x8000u) == 0)
 									break;
-								if ((signed __int16)v1007 > 0)
+								if ((int16_t)v1007 > 0)
 								{
 									if (v1007 > viewPort.Width_DE564)
 										v1007 = viewPort.Width_DE564;
 									v1242 = v1007;
-									v1009 = (uint16_t)-(signed __int16)v1005;
+									v1009 = (uint16_t)-(int16_t)v1005;
 									v1010 = v1009;
 									v1012 = __ROL4_16__(*((x_DWORD*)v1004 + 3) + v1135 * v1009);
 									BYTE1(v1006) = v1012;
@@ -13584,12 +13584,12 @@ LABEL_129:
 							line25 = 0;
 							if ((v1046 & 0x8000u) == 0)
 								break;
-							if ((signed __int16)v1048 > 0)
+							if ((int16_t)v1048 > 0)
 							{
 								if (v1048 > viewPort.Width_DE564)
 									v1048 = viewPort.Width_DE564;
 								v1258 = v1048;
-								v1050 = (uint16_t)-(signed __int16)v1046;
+								v1050 = (uint16_t)-(int16_t)v1046;
 								v1051 = v1050;
 								v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3) + v1135 * v1050);
 								BYTE1(v1047) = v1053;
