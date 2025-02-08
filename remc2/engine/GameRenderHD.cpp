@@ -6499,185 +6499,8 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex3;
 		vert_y_middle = vertex1;
 		vert_y_high = vertex2;
-	LABEL_277_DrawTriangle: 
-		// handled cases:
 
-		// vertex3 --- vertex1
-		//       |     |
-		//       vertex2
-		// vert_y_low = vertex3;
-		// vert_y_middle = vertex1;
-		// vert_y_high = vertex2;
-
-		// vertex2 --- vertex3 
-		//       |     |
-		//       vertex1
-		// vert_y_low = vertex2;
-		// vert_y_middle = vertex3;
-		// vert_y_high = vertex1;
-
-		// vertex1 --- vertex2 
-		//       |     |
-		//       vertex3
-		// vert_y_low = vertex1;
-		// vert_y_middle = vertex2;
-		// vert_y_high = vertex3;
-
-		// clipping in Y direction to viewport
-		const int v3Y = vert_y_low->Y;
-		if (v3Y >= 0)
-		{
-			if (v3Y >= viewPort.Height_DE568)
-				return;
-			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v3Y;
-			v3Y_negative = false;
-		}
-		else
-		{
-			v1102 = ViewPortRenderBufferAltStart_DE554;
-			v3Y_negative = true;
-		}
-		v144 = vert_y_high->Y;
-		const bool v5Y_above_viewport = v144 > viewPort.Height_DE568;
-		int dY_HighLow_actual_rows_to_draw = v144 - v3Y;
-		triLn_v1123 = v144 - v3Y;
-		const int slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / (dY_HighLow_actual_rows_to_draw);
-		const int v1110 = ((vert_y_high->X - vert_y_middle->X) << 16) / (dY_HighLow_actual_rows_to_draw);
-		int v165;
-		switch (x_BYTE_E126D)
-		{
-		case 0:
-		case 0xE:
-		case 0xF:
-			v165 = vert_y_low->X << 16;
-			v166 = vert_y_middle->X << 16;
-			if (v3Y_negative)
-			{
-				v167 = -v3Y;
-				dY_HighLow_actual_rows_to_draw += v3Y;
-				v18 = __OFSUB__(triLn_v1123, -v3Y);
-				v16 = triLn_v1123 == -v3Y;
-				v17 = triLn_v1123 + v3Y < 0;
-				triLn_v1123 += v3Y;
-				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
-					return;
-				v165 += slope_HighLowVert * v167;
-				v166 += v167 * v1110;
-				if (v5Y_above_viewport)
-				{
-					triLn_v1123 = viewPort.Height_DE568;
-					dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568;
-				}
-			}
-			else if (v5Y_above_viewport)
-			{
-				triLn_v1123 = viewPort.Height_DE568 - v3Y;
-				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
-			}
-			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v165, &v166, slope_HighLowVert, v1110, &dY_HighLow_actual_rows_to_draw);
-			goto LABEL_DrawRasterLines;
-		case 2:
-		case 3:
-		case 7:
-		case 8:
-		case 9:
-		case 0xA:
-		case 0xB:
-		case 0xC:
-		case 0xD:
-		case 0x12:
-		case 0x13:
-		case 0x16:
-		case 0x17:
-			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
-			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
-			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
-			v1132 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
-			v1143 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
-			v154 = vert_y_low->X << 16;
-			v155 = vert_y_middle->X << 16;
-			v156 = vert_y_low->U;
-			v157 = vert_y_low->V;
-			if (v3Y_negative)
-			{
-				v158 = -v3Y;
-				dY_HighLow_actual_rows_to_draw += v3Y;
-				v18 = __OFSUB__(triLn_v1123, -v3Y);
-				v16 = triLn_v1123 == -v3Y;
-				v17 = triLn_v1123 + v3Y < 0;
-				triLn_v1123 += v3Y;
-				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
-					return;
-				v154 += slope_HighLowVert * v158;
-				v155 += v158 * v1110;
-				v156 += v158 * v1132;
-				v157 += v158 * v1143;
-				if (v5Y_above_viewport)
-				{
-					triLn_v1123 = viewPort.Height_DE568;
-					dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568;
-				}
-			}
-			else if (v5Y_above_viewport)
-			{
-				triLn_v1123 = viewPort.Height_DE568 - v3Y;
-				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
-			}
-			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v154, &v155, &v156, &v157, slope_HighLowVert, v1110, v1132, v1143, &dY_HighLow_actual_rows_to_draw);
-			goto LABEL_DrawRasterLines;
-		case 1:
-		case 4:
-		case 0x10:
-		case 0x11:
-			Logger->error("!!! Unsupported polygon mode !!!");
-		case 5:
-		case 6:
-		case 0x14:
-		case 0x15:
-		case 0x18:
-		case 0x19:
-		case 0x1A:
-			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
-			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
-			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
-			BrightnessIncrement = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
-			v1131 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
-			v1142 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
-			v1153 = (vert_y_high->Brightness - vert_y_low->Brightness) / triLn_v1123;
-			v146 = vert_y_low->X << 16;
-			v147 = vert_y_middle->X << 16;
-			v148 = vert_y_low->U;
-			v149 = vert_y_low->V;
-			v150 = vert_y_low->Brightness;
-			if (v3Y_negative)
-			{
-				v151 = -v3Y;
-				dY_HighLow_actual_rows_to_draw += v3Y;
-				v18 = __OFSUB__(triLn_v1123, -v3Y);
-				v16 = triLn_v1123 == -v3Y;
-				v17 = triLn_v1123 + v3Y < 0;
-				triLn_v1123 += v3Y;
-				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
-					return;
-				v146 += slope_HighLowVert * v151;
-				v147 += v151 * v1110;
-				v148 += v151 * v1131;
-				v149 += v151 * v1142;
-				v150 += v151 * v1153;
-				if (v5Y_above_viewport)
-				{
-					triLn_v1123 = viewPort.Height_DE568;
-					dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568;
-				}
-			}
-			else if (v5Y_above_viewport)
-			{
-				triLn_v1123 = viewPort.Height_DE568 - v3Y;
-				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
-			}
-			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v146, &v147, &v148, &v149, &v150, slope_HighLowVert, v1110, v1131, v1142, v1153, &dY_HighLow_actual_rows_to_draw);
-			goto LABEL_DrawRasterLines;
-		}
+		goto LABEL_277_DrawTriangle;
 	}
 
 	// here y1 > y2, because all the switch cases above leave with a goto
@@ -7062,6 +6885,190 @@ LABEL_129_DrawTriangle:
 		}
 	}
 	return;
+
+
+LABEL_277_DrawTriangle: 
+	// handled cases:
+
+	// vertex3 --- vertex1
+	//       |     |
+	//       vertex2
+	// vert_y_low = vertex3;
+	// vert_y_middle = vertex1;
+	// vert_y_high = vertex2;
+
+	// vertex2 --- vertex3 
+	//       |     |
+	//       vertex1
+	// vert_y_low = vertex2;
+	// vert_y_middle = vertex3;
+	// vert_y_high = vertex1;
+
+	// vertex1 --- vertex2 
+	//       |     |
+	//       vertex3
+	// vert_y_low = vertex1;
+	// vert_y_middle = vertex2;
+	// vert_y_high = vertex3;
+
+ 	{
+		// clipping in Y direction to viewport
+		const int v3Y = vert_y_low->Y;
+		if (v3Y >= 0)
+		{
+			if (v3Y >= viewPort.Height_DE568)
+				return;
+			v1102 = ViewPortRenderBufferAltStart_DE554 + iScreenWidth_DE560 * v3Y;
+			v3Y_negative = false;
+		}
+		else
+		{
+			v1102 = ViewPortRenderBufferAltStart_DE554;
+			v3Y_negative = true;
+		}
+		v144 = vert_y_high->Y;
+		const bool v5Y_above_viewport = v144 > viewPort.Height_DE568;
+		int dY_HighLow_actual_rows_to_draw = v144 - v3Y;
+		triLn_v1123 = v144 - v3Y;
+		const int slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / (dY_HighLow_actual_rows_to_draw);
+		const int v1110 = ((vert_y_high->X - vert_y_middle->X) << 16) / (dY_HighLow_actual_rows_to_draw);
+		int v165;
+		switch (x_BYTE_E126D)
+		{
+		case 0:
+		case 0xE:
+		case 0xF:
+			v165 = vert_y_low->X << 16;
+			v166 = vert_y_middle->X << 16;
+			if (v3Y_negative)
+			{
+				v167 = -v3Y;
+				dY_HighLow_actual_rows_to_draw += v3Y;
+				v18 = __OFSUB__(triLn_v1123, -v3Y);
+				v16 = triLn_v1123 == -v3Y;
+				v17 = triLn_v1123 + v3Y < 0;
+				triLn_v1123 += v3Y;
+				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
+					return;
+				v165 += slope_HighLowVert * v167;
+				v166 += v167 * v1110;
+				if (v5Y_above_viewport)
+				{
+					triLn_v1123 = viewPort.Height_DE568;
+					dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568;
+				}
+			}
+			else if (v5Y_above_viewport)
+			{
+				triLn_v1123 = viewPort.Height_DE568 - v3Y;
+				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
+			}
+			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v165, &v166, slope_HighLowVert, v1110, &dY_HighLow_actual_rows_to_draw);
+			goto LABEL_DrawRasterLines;
+		case 2:
+		case 3:
+		case 7:
+		case 8:
+		case 9:
+		case 0xA:
+		case 0xB:
+		case 0xC:
+		case 0xD:
+		case 0x12:
+		case 0x13:
+		case 0x16:
+		case 0x17:
+			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
+			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
+			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
+			v1132 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
+			v1143 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
+			v154 = vert_y_low->X << 16;
+			v155 = vert_y_middle->X << 16;
+			v156 = vert_y_low->U;
+			v157 = vert_y_low->V;
+			if (v3Y_negative)
+			{
+				v158 = -v3Y;
+				dY_HighLow_actual_rows_to_draw += v3Y;
+				v18 = __OFSUB__(triLn_v1123, -v3Y);
+				v16 = triLn_v1123 == -v3Y;
+				v17 = triLn_v1123 + v3Y < 0;
+				triLn_v1123 += v3Y;
+				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
+					return;
+				v154 += slope_HighLowVert * v158;
+				v155 += v158 * v1110;
+				v156 += v158 * v1132;
+				v157 += v158 * v1143;
+				if (v5Y_above_viewport)
+				{
+					triLn_v1123 = viewPort.Height_DE568;
+					dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568;
+				}
+			}
+			else if (v5Y_above_viewport)
+			{
+				triLn_v1123 = viewPort.Height_DE568 - v3Y;
+				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
+			}
+			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v154, &v155, &v156, &v157, slope_HighLowVert, v1110, v1132, v1143, &dY_HighLow_actual_rows_to_draw);
+			goto LABEL_DrawRasterLines;
+		case 1:
+		case 4:
+		case 0x10:
+		case 0x11:
+			Logger->error("!!! Unsupported polygon mode !!!");
+		case 5:
+		case 6:
+		case 0x14:
+		case 0x15:
+		case 0x18:
+		case 0x19:
+		case 0x1A:
+			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
+			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
+			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
+			BrightnessIncrement = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
+			v1131 = (vert_y_high->U - vert_y_low->U) / triLn_v1123;
+			v1142 = (vert_y_high->V - vert_y_low->V) / triLn_v1123;
+			v1153 = (vert_y_high->Brightness - vert_y_low->Brightness) / triLn_v1123;
+			v146 = vert_y_low->X << 16;
+			v147 = vert_y_middle->X << 16;
+			v148 = vert_y_low->U;
+			v149 = vert_y_low->V;
+			v150 = vert_y_low->Brightness;
+			if (v3Y_negative)
+			{
+				v151 = -v3Y;
+				dY_HighLow_actual_rows_to_draw += v3Y;
+				v18 = __OFSUB__(triLn_v1123, -v3Y);
+				v16 = triLn_v1123 == -v3Y;
+				v17 = triLn_v1123 + v3Y < 0;
+				triLn_v1123 += v3Y;
+				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
+					return;
+				v146 += slope_HighLowVert * v151;
+				v147 += v151 * v1110;
+				v148 += v151 * v1131;
+				v149 += v151 * v1142;
+				v150 += v151 * v1153;
+				if (v5Y_above_viewport)
+				{
+					triLn_v1123 = viewPort.Height_DE568;
+					dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568;
+				}
+			}
+			else if (v5Y_above_viewport)
+			{
+				triLn_v1123 = viewPort.Height_DE568 - v3Y;
+				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - v3Y;
+			}
+			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v146, &v147, &v148, &v149, &v150, slope_HighLowVert, v1110, v1131, v1142, v1153, &dY_HighLow_actual_rows_to_draw);
+			goto LABEL_DrawRasterLines;
+		}
+ 	}
+
 
 LABEL_DrawRasterLines:
 	switch (x_BYTE_E126D)
