@@ -5950,7 +5950,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			//       vertex3
 			return; // face culling
 		}
-		goto LABEL_277_DrawTriangle;
+		goto LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop;
 	}
 
 	if (y1 <= y2)
@@ -6500,7 +6500,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_middle = vertex1;
 		vert_y_high = vertex2;
 
-		goto LABEL_277_DrawTriangle;
+		goto LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop;
 	}
 
 	// here y1 > y2, because all the switch cases above leave with a goto
@@ -6539,7 +6539,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_low = vertex2;
 		vert_y_middle = vertex3;
 		vert_y_high = vertex1;
-		goto LABEL_277_DrawTriangle;
+		goto LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop;
 	}
 	if (y2 < y3)
 	{
@@ -6887,7 +6887,7 @@ LABEL_129_DrawTriangle:
 	return;
 
 
-LABEL_277_DrawTriangle: 
+LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop: 
 	// handled cases:
 
 	// vertex3 --- vertex1
