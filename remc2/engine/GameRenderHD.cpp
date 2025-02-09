@@ -5515,7 +5515,7 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 	uint8_t v18;
 	uint8_t v180;
 	uint32_t v406;
-	uint32_t v407;
+	uint32_t textureIndex_v407;
 	int v408;
 	uint8_t* v409;
 	int v410;
@@ -5529,7 +5529,7 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 	int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
 
 	HIWORD(v406) = 0;
-	HIWORD(v407) = 0;
+	HIWORD(textureIndex_v407) = 0;
 
 	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_7_v406); }
 	while (1)
@@ -5548,11 +5548,11 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 			{
 				v410 = (uint16_t)-(int16_t)v406;
 				v412 = __SWAP_HILOWORD__(next_raster_line->V + Vincrement * v410);
-				BYTE1(v407) = v412;
+				BYTE1(textureIndex_v407) = v412;
 				v411 = next_raster_line->U + Uincrement * v410;
 				LOWORD(v412) = v411;
 				v413 = v411 >> 8;
-				LOBYTE(v407) = BYTE1(v413);
+				LOBYTE(textureIndex_v407) = BYTE1(v413);
 				if (v408 > viewPort.Width_DE564)
 					LOWORD(v408) = viewPort.Width_DE564;
 				v406 = (uint16_t)v413;
@@ -5562,16 +5562,16 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 				BYTE1(v406) = local_x_BYTE_E126C;
 				while (1)
 				{
-					if (v407 > maxPixelIdx)
+					if (textureIndex_v407 > maxPixelIdx)
 						break;
-					LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
+					LOBYTE(v406) = *(x_BYTE*)(textureIndex_v407 + ptrCurrentTexture_v414);
 					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v412);
 					LOWORD(v412) = Uincrement + v412;
-					LOBYTE(v407) = BYTE2(Uincrement) + v180 + v407;
+					LOBYTE(textureIndex_v407) = BYTE2(Uincrement) + v180 + textureIndex_v407;
 					v180 = __CFADD__(v1169, v412);
 					v412 = v1169 + v412;
 					*v409 = x_BYTE_F6EE0_tablesx[v406];
-					v407 = GameRenderHD::SumByte1WithByte2(v407, Vincrement, v180);
+					textureIndex_v407 = GameRenderHD::SumByte1WithByte2(textureIndex_v407, Vincrement, v180);
 					v408 = v408 - 1;
 					if (!v408)
 						break;
@@ -5593,9 +5593,9 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 		goto LABEL_602;
 	v409 += v406;
 	v412 = __SWAP_HILOWORD__(next_raster_line->V);
-	BYTE1(v407) = v412;
+	BYTE1(textureIndex_v407) = v412;
 	LOWORD(v412) = LOWORD(next_raster_line->U);
-	LOBYTE(v407) = BYTE2(next_raster_line->U);
+	LOBYTE(textureIndex_v407) = BYTE2(next_raster_line->U);
 	goto LABEL_583;
 }
 
@@ -5616,7 +5616,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 	uint8_t v18;
 	uint8_t v180;
 	unsigned int v1046;
-	int v1047;
+	int textureIndex_v1047;
 	int v1048;
 	char* v1049;
 	int v1050;
@@ -5632,7 +5632,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 	int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
 
 	HIWORD(v1046) = 0;
-	HIWORD(v1047) = 0;
+	HIWORD(textureIndex_v1047) = 0;
 
 	while (1)
 	{
@@ -5655,11 +5655,11 @@ void DrawPolygonRasterLine_reflections_subB6253(
 				v1050 = (uint16_t)-(int16_t)v1046;
 				v1051 = v1050;
 				v1053 = __SWAP_HILOWORD__(next_raster_line->V + Vincrement * v1050);
-				BYTE1(v1047) = v1053;
+				BYTE1(textureIndex_v1047) = v1053;
 				v1052 = next_raster_line->U + Uincrement * v1050;
 				LOWORD(v1053) = v1052;
 				v1046 = v1052 >> 8;
-				LOBYTE(v1047) = BYTE1(v1046);
+				LOBYTE(textureIndex_v1047) = BYTE1(v1046);
 				v1054 = __SWAP_HILOWORD__(next_raster_line->brightness + BrightnessIncrement * v1051);
 				v1046 = (unsigned __int16)v1046;
 			LABEL_1294:
@@ -5667,13 +5667,13 @@ void DrawPolygonRasterLine_reflections_subB6253(
 				ptrCurrentTexture_v1055 = pTexture;
 				while (1)
 				{
-					if (v1047 > maxPixelIdx)
+					if (textureIndex_v1047 > maxPixelIdx)
 						break;
-					LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
+					LOBYTE(v1046) = *(x_BYTE*)(textureIndex_v1047 + ptrCurrentTexture_v1055);
 					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v1053);
 					LOWORD(v1053) = Uincrement + v1053;
 					BYTE1(v1046) = v1054;
-					LOBYTE(v1047) = BYTE2(Uincrement) + v180 + v1047;
+					LOBYTE(textureIndex_v1047) = BYTE2(Uincrement) + v180 + textureIndex_v1047;
 					if ((unsigned __int8)v1046 >= 0xCu)
 					{
 						v1056 = x_BYTE_F6EE0_tablesx[v1046]; // Fixme: x_BYTE_F6EE0_tablesx should be passed as a parameter
@@ -5686,7 +5686,7 @@ void DrawPolygonRasterLine_reflections_subB6253(
 					}
 					v180 = __CFADD__(VincrementFixedPoint, v1053);
 					v1053 = VincrementFixedPoint + v1053;
-					v1047 = GameRenderHD::SumByte1WithByte2(v1047, Vincrement, v180);
+					textureIndex_v1047 = GameRenderHD::SumByte1WithByte2(textureIndex_v1047, Vincrement, v180);
 					v180 = __CFADD__(v1189, v1054);
 					v1054 = v1189 + v1054;
 					*v1049 = v1056;
@@ -5713,9 +5713,9 @@ void DrawPolygonRasterLine_reflections_subB6253(
 		goto LABEL_1361;
 	v1049 += v1046;
 	v1053 = __SWAP_HILOWORD__(next_raster_line->V);
-	BYTE1(v1047) = v1053;
+	BYTE1(textureIndex_v1047) = v1053;
 	LOWORD(v1053) = LOWORD(next_raster_line->U);
-	LOBYTE(v1047) = BYTE2(next_raster_line->U);
+	LOBYTE(textureIndex_v1047) = BYTE2(next_raster_line->U);
 	v1258 = v1048;
 	v1054 = __SWAP_HILOWORD__(next_raster_line->brightness);
 	goto LABEL_1294;
