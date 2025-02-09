@@ -5411,6 +5411,8 @@ void DrawPolygonRasterLine_subB6253(
 	int16_t v385;
 	uint8_t* currentPixel;
 
+	int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
+
 	HIWORD(textureIndex) = 0;
 
 	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
@@ -5475,6 +5477,8 @@ void DrawPolygonRasterLine_subB6253(
 
 			currentPixel = &v379[0];
 			do {
+				if (textureIndex > maxPixelIdx)
+					break;
 				LOBYTE(paletteMapping) = pTexture[textureIndex];
 
 				v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
@@ -5518,9 +5522,11 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 	unsigned int v411;
 	int v412;
 	unsigned int v413;
-	uint8_t* v414;
+	uint8_t* ptrCurrentTexture_v414;
 
 	Rasterline_t *v1278;
+
+	int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
 
 	HIWORD(v406) = 0;
 	HIWORD(v407) = 0;
@@ -5552,11 +5558,13 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 				v406 = (uint16_t)v413;
 			LABEL_583:
 				v1278 = next_raster_line;
-				v414 = pTexture;
+				ptrCurrentTexture_v414 = pTexture;
 				BYTE1(v406) = local_x_BYTE_E126C;
 				while (1)
 				{
-					LOBYTE(v406) = *(x_BYTE*)(v407 + v414);
+					if (v407 > maxPixelIdx)
+						break;
+					LOBYTE(v406) = *(x_BYTE*)(v407 + ptrCurrentTexture_v414);
 					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v412);
 					LOWORD(v412) = Uincrement + v412;
 					LOBYTE(v407) = BYTE2(Uincrement) + v180 + v407;
@@ -5616,10 +5624,12 @@ void DrawPolygonRasterLine_reflections_subB6253(
 	unsigned int v1052;
 	int v1053;
 	int v1054;
-	uint8_t* v1055;
+	uint8_t* ptrCurrentTexture_v1055;
 	char v1056;
 	int v1258;
 	Rasterline_t *v1291;
+
+	int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
 
 	HIWORD(v1046) = 0;
 	HIWORD(v1047) = 0;
@@ -5654,10 +5664,12 @@ void DrawPolygonRasterLine_reflections_subB6253(
 				v1046 = (unsigned __int16)v1046;
 			LABEL_1294:
 				v1291 = next_raster_line;
-				v1055 = pTexture;
+				ptrCurrentTexture_v1055 = pTexture;
 				while (1)
 				{
-					LOBYTE(v1046) = *(x_BYTE*)(v1047 + v1055);
+					if (v1047 > maxPixelIdx)
+						break;
+					LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
 					v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v1053);
 					LOWORD(v1053) = Uincrement + v1053;
 					BYTE1(v1046) = v1054;
