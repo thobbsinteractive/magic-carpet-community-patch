@@ -31182,8 +31182,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v3[24];
 			BYTE1(a1) = v3[12];
 			BYTE1(v1) = v3[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v3;
 			LOBYTE(v1) = v3[16];
 			BYTE1(a1) = v3[4];
@@ -31203,8 +31203,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v6[24];
 			BYTE1(a1) = v6[12];
 			BYTE1(v1) = v6[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v6;
 			LOBYTE(v1) = v6[16];
 			BYTE1(a1) = v6[4];
@@ -31225,8 +31225,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v10[24];
 			BYTE1(a1) = v10[12];
 			BYTE1(v1) = v10[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v10;
 			LOBYTE(v1) = v10[16];
 			BYTE1(a1) = v10[4];
@@ -31246,8 +31246,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v13[24];
 			BYTE1(a1) = v13[12];
 			BYTE1(v1) = v13[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v13;
 			LOBYTE(v1) = v13[16];
 			BYTE1(a1) = v13[4];
@@ -31268,8 +31268,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v16[24];
 			BYTE1(a1) = v16[12];
 			BYTE1(v1) = v16[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v16;
 			LOBYTE(v1) = v16[16];
 			BYTE1(a1) = v16[4];
@@ -31289,8 +31289,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v19[24];
 			BYTE1(a1) = v19[12];
 			BYTE1(v1) = v19[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v19;
 			LOBYTE(v1) = v19[16];
 			BYTE1(a1) = v19[4];
@@ -31311,8 +31311,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v22[24];
 			BYTE1(a1) = v22[12];
 			BYTE1(v1) = v22[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v22;
 			LOBYTE(v1) = v22[16];
 			BYTE1(a1) = v22[4];
@@ -31332,8 +31332,8 @@ int sub_40D10()//221d10//fix vga
 			LOBYTE(v1) = v25[24];
 			BYTE1(a1) = v25[12];
 			BYTE1(v1) = v25[28];
-			a1 = __ROL4_16__(a1);
-			v1 = __ROL4_16__(v1);
+			a1 = __SWAP_HILOWORD__(a1);
+			v1 = __SWAP_HILOWORD__(v1);
 			LOBYTE(a1) = *v25;
 			LOBYTE(v1) = v25[16];
 			BYTE1(a1) = v25[4];
@@ -32350,12 +32350,18 @@ void sub_47320_in_game_loop(signed int a1)//228320
 			v1++;
 		}
 
+		// force special settings for renderer tests			
 		if (CommandLineParams.DoTestRenderers()) {
 			// force player turn
 			SetMousePositionInMemory_5BDC0(
 				renderer_tests[CommandLineParams.GetSetLevel()].set_mouse_x,
 				renderer_tests[CommandLineParams.GetSetLevel()].set_mouse_y
 			);
+
+			if (renderer_tests[CommandLineParams.GetSetLevel()].set_flatshader) {
+				D41A0_0.m_GameSettings.str_0x2196.flat_0x2199 = 1;
+			}
+
 			// force up key pressed
 			LastPressedKey_1806E4 = 0x48;
 			pressedKeys_180664[x_BYTE_EB39E_keys[0]] = 1;
@@ -40390,7 +40396,7 @@ int sub_main(int argc, char** argv, char**  /*envp*/)//236F70
 		//skip signal(4, 1);//236FB5 - 279DC0
 		//skip signal(6, 1);//236FC1 - 279DC0
 
-		printf("Reading Ini file");
+		printf("Reading Ini file\n");
 		if (!readini()) exit(1);
 
 		spdlog::level::level_enum level = spdlog::level::info;
