@@ -1,5 +1,7 @@
 #include "GameRenderHD.h"
 
+#include <algorithm>
+
 #include "../utilities/RendererTests.h"
 
 GameRenderHD::GameRenderHD(uint8_t* ptrScreenBuffer, uint8_t* pColorPalette, uint8_t renderThreads, bool assignToSpecificCores) : 
@@ -5399,7 +5401,8 @@ void DrawPolygonRasterLine_subB6253(
 	uint8_t v180;
 	int16_t startX;
 	uint16_t paletteMapping;
-	uint32_t textureIndex;
+	int16_t textureIndexU = 0;
+	int16_t textureIndexV = 0;
 	int16_t endX;
 	uint8_t* v379; // pixel position in screen buffer
 	uint16_t v380;
@@ -5411,9 +5414,8 @@ void DrawPolygonRasterLine_subB6253(
 	int16_t v385;
 	uint8_t* currentPixel;
 
-	int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
-
-	HIWORD(textureIndex) = 0;
+	//int maxPixelIdx = (x_BYTE_D41B5_texture_size << 8);
+	const int16_t MAX_TEXTURE_INDEX = x_BYTE_D41B5_texture_size-1;
 
 	if (CommandLineParams.DoTestRenderers()) { renderer_tests_register_hit(RendererTestsHitCheckpoint::HD_BYTE_E126D_case_5_v377); }
 	do
@@ -5440,9 +5442,9 @@ void DrawPolygonRasterLine_subB6253(
 					continue;
 				}
 				v379 += startX;
-				LOBYTE(textureIndex) = BYTE2(current_raster_line->U);
+				textureIndexU = BYTE2(current_raster_line->U);
 				v383 = __SWAP_HILOWORD__(current_raster_line->V);
-				BYTE1(textureIndex) = v383;
+				textureIndexV = (uint8_t)v383;
 				LOWORD(v383) = LOWORD(current_raster_line->U);
 
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness);
@@ -5455,11 +5457,11 @@ void DrawPolygonRasterLine_subB6253(
 				// startX is negative here, but endX is positive -> skip pixels by updating v,u,brightness
 				v380 = -startX;
 				v383 = __SWAP_HILOWORD__(current_raster_line->V + Vincrement * v380);
-				BYTE1(textureIndex) = v383;
+				textureIndexV = (uint8_t)v383;
 				v382 = current_raster_line->U + Uincrement * v380;
 				LOWORD(v383) = v382;
 				startX = v382 >> 8;
-				LOBYTE(textureIndex) = BYTE1(startX);
+				textureIndexU = BYTE2(v382);
 
 				v384tmp = __SWAP_HILOWORD__(current_raster_line->brightness + BrightnessIncrement * v380);
 				BrightnessFractionalPart_v384hi = HIWORD(v384tmp);
@@ -5477,16 +5479,18 @@ void DrawPolygonRasterLine_subB6253(
 
 			currentPixel = &v379[0];
 			do {
-				if (textureIndex > maxPixelIdx)
-					break;
+				textureIndexU = std::clamp(textureIndexU, (int16_t)0, MAX_TEXTURE_INDEX);
+				textureIndexV = std::clamp(textureIndexV, (int16_t)0, MAX_TEXTURE_INDEX);
+
+				uint16_t textureIndex = (uint16_t)(textureIndexV << 8) | textureIndexU;
 				LOBYTE(paletteMapping) = pTexture[textureIndex];
 
 				v180 = __CFADD__((x_WORD)Uincrement, (x_WORD)v383);
 				LOWORD(v383) = Uincrement + v383;
-				LOBYTE(textureIndex) = BYTE2(Uincrement) + v180 + textureIndex;
+				textureIndexU = (int8_t)BYTE2(Uincrement) + textureIndexU + v180;
 				v180 = __CFADD__(fixedpointVincrement, v383);
 				v383 += fixedpointVincrement;
-				textureIndex = GameRenderHD::SumByte1WithByte2(textureIndex, Vincrement, v180);
+				textureIndexV = (int8_t)BYTE2(Vincrement) + textureIndexV + v180;
 
 				v180 = __CFADD__(LOWORD(BrightnessIncrement), BrightnessFractionalPart_v384hi);
 				BrightnessFractionalPart_v384hi += BrightnessIncrement;
