@@ -67,8 +67,15 @@ void renderer_tests_eval_findings() {
 	}
 
 	if (renderer_tests[CommandLineParams.GetSetLevel()].differences > 0) {
-		Logger->error("Differences between HD and Original renderer: {0}", renderer_tests[CommandLineParams.GetSetLevel()].differences);
-		renderer_tests_success = false;
+		Logger->warn("Differences between HD and Original renderer: {0}", renderer_tests[CommandLineParams.GetSetLevel()].differences);
+
+		if (renderer_tests[CommandLineParams.GetSetLevel()].differences > renderer_tests[CommandLineParams.GetSetLevel()].max_frames) {
+			// NOTE: We accept up to 1 pixel difference per frame,
+			//       because the originial renderer accesses illegal texture memory.
+			//       Fixing this yields pixel differences in some corner cases.
+			Logger->error("Too many differences between HD and Original renderer");
+			renderer_tests_success = false;
+		}
 	}
 
 	if (!renderer_tests_success) {

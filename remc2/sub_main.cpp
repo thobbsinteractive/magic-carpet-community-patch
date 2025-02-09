@@ -44407,18 +44407,13 @@ void sub_5B7A0_prepare_textures()//23C7A0
 	//v0 = x_BYTE_D41B5;
 	sub_3B4D0_fill_unk_D4350_256(x_BYTE_D41B5_texture_size);//21C4D0
 	//v1 = 256 % (256 / x_BYTE_D41B5_texture_size);
-  int texture_addresses_index = 0;
+	int texture_addresses_index = 0;
 	for (int ypos = 0; ypos < (signed int)(256 / (256 / x_BYTE_D41B5_texture_size)); ypos++)
 	{
 		for (int xpos = 0; xpos < (256 / x_BYTE_D41B5_texture_size); xpos++)
 		{
-			//v6 = v1 * x_BYTE_D41B5_texture_size + BLOCK32DAT_BEGIN_BUFFER;
-			//v7 = i * x_BYTE_D41B5_texture_size << 8;
-			//v2++;
-			//v4 = v7 + v6;
-	    x_DWORD_DDF50_texture_adresses.at(texture_addresses_index++) = 
-			  (uint8_t*)((ypos * x_BYTE_D41B5_texture_size << 8) + (xpos * x_BYTE_D41B5_texture_size) + BLOCK32DAT_BEGIN_BUFFER);
-			//xpos++;
+	    	x_DWORD_DDF50_texture_adresses.at(texture_addresses_index++) = 
+				(uint8_t*)((ypos * x_BYTE_D41B5_texture_size << 8) + (xpos * x_BYTE_D41B5_texture_size) + BLOCK32DAT_BEGIN_BUFFER);
 		}
 	}
 	sub_5B840_load_Palette_and_help_Palette();//23C840
