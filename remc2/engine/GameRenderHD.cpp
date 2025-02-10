@@ -5330,8 +5330,9 @@ void GameRenderHD::DrawSprite_41BD3(uint32 a1)
 
 
 void DrawPolygonRasterLine_single_color_subB6253(
-	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine, 
-	uint8_t **pv1102, char local_x_BYTE_E126C, int linesToDraw)
+	Rasterline_t *pRasterLines,
+	uint8_t startLine, uint8_t drawEveryNthLine, int linesToDraw, 
+	uint8_t **pv1102, char local_x_BYTE_E126C)
 {
 	Rasterline_t* next_raster_line = pRasterLines;
 
@@ -5386,9 +5387,11 @@ void DrawPolygonRasterLine_single_color_subB6253(
 
 
 void DrawPolygonRasterLine_subB6253(
-	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine, 
-	uint32_t Vincrement, uint32_t BrightnessIncrement, uint8_t **pv1102, int Uincrement,
-	const uint8_t *pTexture, int linesToDraw) 
+	Rasterline_t *pRasterLines,
+	uint8_t startLine, uint8_t drawEveryNthLine, int linesToDraw, 
+	uint8_t **pv1102,
+	uint32_t Vincrement, int Uincrement, uint32_t BrightnessIncrement,
+	const uint8_t *pTexture) 
 {
 	Rasterline_t* next_raster_line = pRasterLines;
 	Rasterline_t* current_raster_line;
@@ -5505,9 +5508,11 @@ void DrawPolygonRasterLine_subB6253(
 
 
 void DrawPolygonRasterLine_flat_shading_subB6253(
-	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine, 
-	uint32_t Vincrement, uint8_t **pv1102, int Uincrement,
-	uint8_t *pTexture, char local_x_BYTE_E126C, int linesToDraw) 
+	Rasterline_t *pRasterLines,
+	uint8_t startLine, uint8_t drawEveryNthLine, int linesToDraw,
+	uint8_t **pv1102,
+	uint32_t Vincrement, int Uincrement,
+	uint8_t *pTexture, char local_x_BYTE_E126C) 
 {
 	// flat shading and reflections enabled
 	Rasterline_t *next_raster_line = pRasterLines;
@@ -5605,10 +5610,12 @@ void DrawPolygonRasterLine_flat_shading_subB6253(
 
 
 void DrawPolygonRasterLine_reflections_subB6253(
-	Rasterline_t *pRasterLines, uint8_t startLine, uint8_t drawEveryNthLine,
+	Rasterline_t *pRasterLines,
+	uint8_t startLine, uint8_t drawEveryNthLine, int linesToDraw,
+	uint8_t **pv1102,
 	uint32_t Vincrement, int Uincrement,
-	uint32_t BrightnessIncrement, uint8_t **pv1102,
-	uint8_t *pTexture, int linesToDraw//, char local_x_BYTE_E126C
+	uint32_t BrightnessIncrement,
+	uint8_t *pTexture 
 	)
 {
 	Rasterline_t *next_raster_line = pRasterLines;
@@ -5926,7 +5933,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	Vincrement = 0;
 	//fix it
 
-	// NOTE: vert_y_high does not mean that it is the vertex with the highest y value.
+	// NOTE: vert_y_high does not neccessarily mean that it is the vertex with the highest y value.
 	//       It means that the raster lines are drawn from vert_y_low to vert_y_high.
 	//       vert_y_middle has a y value >= very_y_low
 	//       The conditions in the code below sort the triangles and re-assign vert_y_xxx.
@@ -7108,34 +7115,37 @@ LABEL_DrawRasterLines:
 	case 0:
 		DrawPolygonRasterLine_single_color_subB6253(
 			&rasterlines_DE56Cx[startLine][0],
-			startLine, drawEveryNthLine,
-			&renderBufferStartOfCurrentLine, x_BYTE_E126C, linesToDraw
+			startLine, drawEveryNthLine, linesToDraw,
+			&renderBufferStartOfCurrentLine,
+			x_BYTE_E126C
 		);
 		return;
 	case 5:
 		DrawPolygonRasterLine_subB6253(
 			&rasterlines_DE56Cx[startLine][0],
-			startLine, drawEveryNthLine,
-			Vincrement, BrightnessIncrement, &renderBufferStartOfCurrentLine, Uincrement,
-			x_DWORD_DE55C_ActTexture, linesToDraw
+			startLine, drawEveryNthLine, linesToDraw,
+			&renderBufferStartOfCurrentLine, 
+			Vincrement, Uincrement, BrightnessIncrement,
+			x_DWORD_DE55C_ActTexture
 		);
 		return;
 	case 7:
 	case 0xB:
 		DrawPolygonRasterLine_flat_shading_subB6253(
 			&rasterlines_DE56Cx[startLine][0],
-			startLine, drawEveryNthLine,
-			Vincrement, &renderBufferStartOfCurrentLine, Uincrement,
-			x_DWORD_DE55C_ActTexture, x_BYTE_E126C, linesToDraw
+			startLine, drawEveryNthLine, linesToDraw,
+			&renderBufferStartOfCurrentLine, 
+			Vincrement, Uincrement,
+			x_DWORD_DE55C_ActTexture, x_BYTE_E126C
 		);
 		return;
 	case 0x1A:
 		DrawPolygonRasterLine_reflections_subB6253(
 			&rasterlines_DE56Cx[startLine][0],
-			startLine, drawEveryNthLine,
-			Vincrement, Uincrement,
-			BrightnessIncrement, &renderBufferStartOfCurrentLine,
-			x_DWORD_DE55C_ActTexture, linesToDraw
+			startLine, drawEveryNthLine, linesToDraw,
+ 			&renderBufferStartOfCurrentLine,
+			Vincrement, Uincrement, BrightnessIncrement,
+			x_DWORD_DE55C_ActTexture
 		);
 		return;
 	}
