@@ -5926,14 +5926,17 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	Vincrement = 0;
 	//fix it
 
+	// NOTE: vert_y_high does not mean that it is the vertex with the highest y value.
+	//       It means that the raster lines are drawn from vert_y_low to vert_y_high.
+	//       vert_y_middle has a y value >= very_y_low
+	//       The conditions in the code below sort the triangles and re-assign vert_y_xxx.
+	//       Triangles whith counter-clock-wise vertices are culled and not drawn.
 	vert_y_low = vertex1;
 	vert_y_middle = vertex2;
 	vert_y_high = vertex3;
 	y1 = vertex1->Y;
 	y2 = vertex2->Y;
 	y3 = vertex3->Y;
-
-	// counter clockwise vertices are culled
 
 	if (y1 == y2)
 	{
