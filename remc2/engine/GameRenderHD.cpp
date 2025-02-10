@@ -6605,6 +6605,7 @@ LABEL_129_DrawTriangle:
 		case 0:
 		case 0xE:
 		case 0xF:
+			// debug shading - single color
 			v110 = vert_y_low->X << 16;
 			v111 = vert_y_low->X << 16;
 			if (vertYlowIsNegative)
@@ -6695,6 +6696,7 @@ LABEL_129_DrawTriangle:
 		case 0x13:
 		case 0x16:
 		case 0x17:
+			// flat shading
 			v84 = v1114 * (signed __int64)(vert_y_middle->X - vert_y_low->X) / v68;
 			v85 = vert_y_low->X - vert_y_high->X;
 			v18 = __OFADD__(v84, v85);
@@ -6797,6 +6799,7 @@ LABEL_129_DrawTriangle:
 		case 0x18:
 		case 0x19:
 		case 0x1A:
+			// normal shading and reflections
 			v69 = v1114 * (int64_t)(vert_y_middle->X - vert_y_low->X) / v68;
 			v70 = vert_y_low->X - vert_y_high->X;
 			v18 = __OFADD__(v69, v70);
@@ -6954,6 +6957,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 		case 0:
 		case 0xE:
 		case 0xF:
+			// debug shading - single color
 			v165 = vert_y_low->X << 16;
 			v166 = vert_y_middle->X << 16;
 			if (v3Y_negative)
@@ -6994,6 +6998,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 		case 0x13:
 		case 0x16:
 		case 0x17:
+			// flat shading
 			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
 			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
 			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
@@ -7042,6 +7047,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 		case 0x18:
 		case 0x19:
 		case 0x1A:
+			// normal shading and reflections
 			dX_v4v3 = vert_y_middle->X - vert_y_low->X;
 			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
 			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
