@@ -6306,7 +6306,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 					// y1 <= y2 < y3
 					goto LABEL_24_DrawTriangle;
 				}
-				// y1 <= y2 > y3
+				// y1 < y3 < y2
 				goto LABEL_129_DrawTriangle;
 			}
 			if (vertex2->X <= vertex3->X) {
@@ -6562,10 +6562,12 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		vert_y_high = vertex1;
 		goto LABEL_24_DrawTriangle;
 	}
-	// y3 < y1 < y2
+
+	// y3 < y2 < y1
 	vert_y_low = vertex3;
 	vert_y_middle = vertex1;
 	vert_y_high = vertex2;
+
 LABEL_129_DrawTriangle:
 	v65 = vert_y_low->Y;
 	v1191 = v65;
