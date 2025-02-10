@@ -5953,7 +5953,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		if (y1 >= y3)
 		{
 			// y3 <= y1 == y2
-
 			if (vertex1->X <= vertex2->X) {
 				//       vertex3
 				//       |     |
@@ -5963,6 +5962,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			vert_y_low = vertex3;
 			vert_y_middle = vertex1;
 			vert_y_high = vertex2;
+			//       vertex3
+			//       |     |
+			// vertex2 --- vertex1 
 			goto LABEL_277_PrepareRasterlineForTriangleWithHorizontalBottom;
 		}
 		if (vertex2->X <= vertex1->X) {
@@ -5971,6 +5973,9 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 			//       vertex3
 			return; // face culling
 		}
+		// vertex1 --- vertex2 
+		//       |     |
+		//       vertex3
 		goto LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop;
 	}
 
@@ -6083,6 +6088,17 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	vert_y_high = vertex2;
 
 LABEL_129_DrawTriangle:
+	// general case where
+	//
+	// vertex_low                          vertex_low
+	//  |       |                          |        |
+	//  |       vertex_high  or  vertex_high        |     
+	//  |       |                          |        |
+	// vertex_middle                       vertex_middle
+	// 
+	// Only the _right_ triangle is clock-wise, the left case will be culled by
+	// making sure that the slope low-middle is greater than the slope low-high.
+
 	{
 		const int v65 = vert_y_low->Y;
 		v1191 = v65;
@@ -6107,6 +6123,8 @@ LABEL_129_DrawTriangle:
 		v1118 = v68;
 		linesToDraw = v68;
 		v1104 = ((vert_y_high->X - vert_y_low->X) << 16) / v1114;
+
+		// only draw triangle with clock-wise vertices by comparing the slopes
 		if (((vert_y_middle->X - vert_y_low->X) << 16) / v68 > v1104)
 		{
 			v1108 = ((vert_y_middle->X - vert_y_low->X) << 16) / v68;
@@ -6421,6 +6439,16 @@ LABEL_129_DrawTriangle:
 
 
 LABEL_24_DrawTriangle:
+	// general case where
+	// 
+	// vertex_low                             vertex_low
+	//  |       |                             |       |
+	//  |       vertex_middle  or  vertex_middle      |     
+	//  |       |                             |       |
+	// vertex_high                           vertex_high
+	// 
+	// Only the _left_ triangle is clock-wise, the right case will be culled by
+	// making sure that the slope low-middle is greater than the slope low-high.
 	{
 		v1190 = vert_y_low->Y;
 		if (vert_y_low->Y >= 0)
@@ -6442,6 +6470,8 @@ LABEL_24_DrawTriangle:
 		const int dY_MiddleLowVert = vert_y_middle->Y - vert_y_low->Y;
 		v1117 = dY_MiddleLowVert;
 		const int slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / dY_HighLowVert;
+
+		// only draw triangle with clock-wise vertices by comparing the slopes
 		if (((vert_y_middle->X - vert_y_low->X) << 16) / dY_MiddleLowVert > slope_HighLowVert)
 		{
 			const int slope_MiddleLowVert = ((vert_y_middle->X - vert_y_low->X) << 16) / dY_MiddleLowVert;
