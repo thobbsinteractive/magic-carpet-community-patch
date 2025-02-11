@@ -5944,6 +5944,17 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	y2 = vertex2->Y;
 	y3 = vertex3->Y;
 
+	int maxx = std::max(vertex1->X, std::max(vertex2->X, vertex3->X));
+	int minx = std::min(vertex1->X, std::min(vertex2->X, vertex3->X));
+	int maxy = std::max(y1, std::max(y2, y3));
+	int miny = std::min(y1, std::min(y2, y3));
+
+	if (maxx - minx > 0x4000 || maxy - miny > 0x4000) {
+		// triangle is too large to be drawn and can cause problems with computations
+		Logger->info("Culling too large triangle");
+		return;
+	}
+
 	if (y1 == y2)
 	{
 		if (y1 == y3) {
