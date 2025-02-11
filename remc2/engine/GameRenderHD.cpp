@@ -5835,11 +5835,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v141; // edi
 	//x_DWORD* v142; // edi
 	int dX_v4v3; // ebx
-	int v146; // eax
-	int v147; // ebx
-	int v148; // ecx
-	int v149; // edx
-	int v150; // esi
 	int v151; // edi
 	//x_DWORD* v152; // edi
 	int v154; // eax
@@ -5874,7 +5869,6 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1128; // [esp+28h] [ebp-60h]
 	int v1129; // [esp+28h] [ebp-60h]
 	int v1130; // [esp+28h] [ebp-60h]
-	int v1131; // [esp+28h] [ebp-60h]
 	int v1132; // [esp+28h] [ebp-60h]
 	int v1134; // [esp+2Ch] [ebp-5Ch]
 	uint32_t Vincrement; // [esp+30h] [ebp-58h]
@@ -5883,13 +5877,11 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1139; // [esp+34h] [ebp-54h]
 	int v1140; // [esp+34h] [ebp-54h]
 	int v1141; // [esp+34h] [ebp-54h]
-	int v1142; // [esp+34h] [ebp-54h]
 	int v1143; // [esp+34h] [ebp-54h]
 	int v1145; // [esp+38h] [ebp-50h]
 	uint32_t BrightnessIncrement = 0xAAAAAAAA; // [esp+3Ch] [ebp-4Ch]
 	int v1147; // [esp+40h] [ebp-48h]
 	int v1151; // [esp+40h] [ebp-48h]
-	int v1153; // [esp+40h] [ebp-48h]
 	int v1157; // [esp+48h] [ebp-40h]
 	int v1158; // [esp+48h] [ebp-40h]
 	int v1160; // [esp+48h] [ebp-40h]
@@ -7120,14 +7112,14 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 			Uincrement = (vert_y_middle->U - vert_y_low->U) / dX_v4v3;
 			Vincrement = (vert_y_middle->V - vert_y_low->V) / dX_v4v3;
 			BrightnessIncrement = (vert_y_middle->Brightness - vert_y_low->Brightness) / dX_v4v3;
-			v1131 = (vert_y_high->U - vert_y_low->U) / linesToDraw;
-			v1142 = (vert_y_high->V - vert_y_low->V) / linesToDraw;
-			v1153 = (vert_y_high->Brightness - vert_y_low->Brightness) / linesToDraw;
-			v146 = vert_y_low->X << 16;
-			v147 = vert_y_middle->X << 16;
-			v148 = vert_y_low->U;
-			v149 = vert_y_low->V;
-			v150 = vert_y_low->Brightness;
+			int v1131 = (vert_y_high->U - vert_y_low->U) / linesToDraw;
+			int v1142 = (vert_y_high->V - vert_y_low->V) / linesToDraw;
+			int v1153 = (vert_y_high->Brightness - vert_y_low->Brightness) / linesToDraw;
+			int v146 = vert_y_low->X << 16;
+			int v147 = vert_y_middle->X << 16;
+			int v148 = vert_y_low->U;
+			int v149 = vert_y_low->V;
+			int v150 = vert_y_low->Brightness;
 			if (vertLowYnegative)
 			{
 				v151 = -vertLowY;
