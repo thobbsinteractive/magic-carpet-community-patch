@@ -6127,6 +6127,11 @@ LABEL_129_DrawTriangle:
 		// only draw triangle with clock-wise vertices by comparing the slopes
 		if (((vert_y_middle->X - vert_y_low->X) << 16) / v68 > v1104)
 		{
+			//           vertex_low
+			//           |        |
+			// vertex_high        |     
+			//           |        |
+			//           vertex_middle
 			v1108 = ((vert_y_middle->X - vert_y_low->X) << 16) / v68;
 			v1112 = ((vert_y_middle->X - vert_y_high->X) << 16) / (vert_y_middle->Y - vert_y_high->Y);
 			v1120 = vert_y_middle->Y - vert_y_high->Y;
@@ -6372,8 +6377,8 @@ LABEL_129_DrawTriangle:
 					{
 						v79 = v1161 - v1114;
 						v1120 -= v79;
-						v80 = v1112 * v79 + v1122;
-						v75 += v79 * v1108 + v1114 * v1108;
+						v80 = v1112 * v79 + v1122;                  // FIXME: overflow here
+						v75 += v79 * v1108 + v1114 * v1108;         // FIXME: overflow here
 						v76 += v79 * v1133 + v1114 * v1127;
 						v77 += v79 * v1144 + v1114 * v1138;
 						v78 += v79 * v1155 + v1114 * v1149;
@@ -6394,8 +6399,8 @@ LABEL_129_DrawTriangle:
 						goto LABEL_DrawRasterLines; // draw raster lines
 					}
 					v1114 += v1191;
-					v74 += v1104 * v1161;
-					v75 += v1161 * v1108;
+					v74 += v1104 * v1161;                  // FIXME: overflow here
+					v75 += v1161 * v1108;                  // FIXME: overflow here
 					v76 += v1161 * v1127;
 					v77 += v1161 * v1138;
 					v78 += v1161 * v1149;
@@ -6474,6 +6479,11 @@ LABEL_24_DrawTriangle:
 		// only draw triangle with clock-wise vertices by comparing the slopes
 		if (((vert_y_middle->X - vert_y_low->X) << 16) / dY_MiddleLowVert > slope_HighLowVert)
 		{
+			// vertex_low
+			//  |       |
+			//  |       vertex_middle
+			//  |       |
+			// vertex_high
 			const int slope_MiddleLowVert = ((vert_y_middle->X - vert_y_low->X) << 16) / dY_MiddleLowVert;
 			v1111 = ((vert_y_high->X - vert_y_middle->X) << 16) / (vert_y_high->Y - vert_y_middle->Y);
 			v1119 = vert_y_high->Y - vert_y_middle->Y;
