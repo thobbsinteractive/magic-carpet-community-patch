@@ -6102,10 +6102,10 @@ LABEL_129_DrawTriangle:
 		const int v68 = v67 - vertLowY;
 		const int v1118 = v68;
 		linesToDraw = v68;
-		const int v1104 = ((vert_y_high->X - vert_y_low->X) << 16) / v1114;
+		const int fp_slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / v1114;
 
 		// only draw triangle with clock-wise vertices by comparing the slopes
-		if (((vert_y_middle->X - vert_y_low->X) << 16) / v68 > v1104)
+		if (((vert_y_middle->X - vert_y_low->X) << 16) / v68 > fp_slope_HighLowVert)
 		{
 			//           vertex_low
 			//           |        |
@@ -6115,7 +6115,7 @@ LABEL_129_DrawTriangle:
 			const int v1108 = ((vert_y_middle->X - vert_y_low->X) << 16) / v68;
 			const int v1112 = ((vert_y_middle->X - vert_y_high->X) << 16) / (vert_y_middle->Y - vert_y_high->Y);
 			int v1120 = vert_y_middle->Y - vert_y_high->Y;
-			const int v1122 = vert_y_high->X << 16;
+			const int fp_vertHighX = vert_y_high->X << 16;
 			switch (x_BYTE_E126D)
 			{
 			case 0:
@@ -6138,7 +6138,7 @@ LABEL_129_DrawTriangle:
 					{
 						v112 = v1164 - v1114;
 						v1120 -= v112;
-						v113 = v1112 * v112 + v1122;
+						v113 = v1112 * v112 + fp_vertHighX;
 						v111 += v112 * v1108 + v1114 * v1108;
 						if (v1301)
 						{
@@ -6150,7 +6150,7 @@ LABEL_129_DrawTriangle:
 						goto LABEL_228_DrawTriangle;
 					}
 					v1114 += vertLowY; // subtract -y from number of lines
-					v110 += v1104 * v1164; // compute start x when entering viewport
+					v110 += fp_slope_HighLowVert * v1164; // compute start x when entering viewport
 					v111 += v1164 * v1108; // compute end x when entering viewport
 					if (v1301)
 					{
@@ -6183,8 +6183,8 @@ LABEL_129_DrawTriangle:
 						v1120 = v116;
 					}
 				}
-				v114 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v110, &v111, v1104, v1108, &v1114);
-				v113 = v1122;
+				v114 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v110, &v111, fp_slope_HighLowVert, v1108, &v1114);
+				v113 = fp_vertHighX;
 			LABEL_228_DrawTriangle:
 				if (v1297)
 				{
@@ -6250,7 +6250,7 @@ LABEL_129_DrawTriangle:
 					{
 						v93 = v1162 - v1114;
 						v1120 -= v93;
-						v94 = v1112 * v93 + v1122;
+						v94 = v1112 * v93 + fp_vertHighX;
 						v90 += v93 * v1108 + v1114 * v1108;
 						v91 += v93 * v1134 + v1114 * v1128;
 						v92 += v93 * v1145 + v1114 * v1139;
@@ -6271,7 +6271,7 @@ LABEL_129_DrawTriangle:
 						goto LABEL_DrawRasterLines;
 					}
 					v1114 += vertLowY;
-					v89 += v1104 * v1162;
+					v89 += fp_slope_HighLowVert * v1162;
 					v90 += v1162 * v1108;
 					v91 += v1162 * v1128;
 					v92 += v1162 * v1139;
@@ -6305,8 +6305,8 @@ LABEL_129_DrawTriangle:
 						v1120 = v97;
 					}
 				}
-				v95 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v89, &v90, &v91, &v92, v1104, v1108, v1128, v1139, &v1114);
-				v94 = v1122;
+				v95 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v89, &v90, &v91, &v92, fp_slope_HighLowVert, v1108, v1128, v1139, &v1114);
+				v94 = fp_vertHighX;
 				goto LABEL_181_DrawTriangle;
 			case 5:
 			case 6:
@@ -6357,7 +6357,7 @@ LABEL_129_DrawTriangle:
 					{
 						v79 = v1161 - v1114;
 						v1120 -= v79;
-						v80 = v1112 * v79 + v1122;                  // FIXME: overflow here
+						v80 = v1112 * v79 + fp_vertHighX;                  // FIXME: overflow here
 						fpRasterEndX += v79 * v1108 + v1114 * v1108;         // FIXME: overflow here
 						rasterU += v79 * v1133 + v1114 * v1127;
 						rasterV += v79 * v1144 + v1114 * v1138;
@@ -6379,7 +6379,7 @@ LABEL_129_DrawTriangle:
 						goto LABEL_DrawRasterLines; // draw raster lines
 					}
 					v1114 += vertLowY;
-					fpRasterStartX += v1104 * v1161;                  // FIXME: overflow here
+					fpRasterStartX += fp_slope_HighLowVert * v1161;                  // FIXME: overflow here
 					fpRasterEndX += v1161 * v1108;                  // FIXME: overflow here
 					rasterU += v1161 * v1127;
 					rasterV += v1161 * v1138;
@@ -6414,8 +6414,8 @@ LABEL_129_DrawTriangle:
 						v1120 = v83;
 					}
 				}
-				v81 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &fpRasterStartX, &fpRasterEndX, &rasterU, &rasterV, &rasterBrighness, v1104, v1108, v1127, v1138, v1149, &v1114);
-				v80 = v1122;
+				v81 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &fpRasterStartX, &fpRasterEndX, &rasterU, &rasterV, &rasterBrighness, fp_slope_HighLowVert, v1108, v1127, v1138, v1149, &v1114);
+				v80 = fp_vertHighX;
 				goto LABEL_156_DrawTriangle;
 			}
 		}
@@ -6454,10 +6454,10 @@ LABEL_24_DrawTriangle:
 		bool vertYMiddle_above_viewport = vert_y_middle->Y > viewPort.Height_DE568;
 		const int dY_MiddleLowVert = vert_y_middle->Y - vert_y_low->Y;
 		v1117 = dY_MiddleLowVert;
-		const int slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / dY_HighLowVert;
+		const int fp_slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / dY_HighLowVert;
 
 		// only draw triangle with clock-wise vertices by comparing the slopes
-		if (((vert_y_middle->X - vert_y_low->X) << 16) / dY_MiddleLowVert > slope_HighLowVert)
+		if (((vert_y_middle->X - vert_y_low->X) << 16) / dY_MiddleLowVert > fp_slope_HighLowVert)
 		{
 			// vertex_low
 			//  |       |
@@ -6506,7 +6506,7 @@ LABEL_24_DrawTriangle:
 					{
 						v1119 -= v1160 - v1117;
 						v60 = v1160 - v1117;
-						v58 += slope_HighLowVert * v60 + v1117 * slope_HighLowVert;
+						v58 += fp_slope_HighLowVert * v60 + v1117 * fp_slope_HighLowVert;
 						v61 = v1111 * v60 + v1121;
 						if (vertYHigh_above_viewport)
 						{
@@ -6517,7 +6517,7 @@ LABEL_24_DrawTriangle:
 						goto LABEL_124_DrawTriangle;
 					}
 					v1117 += v1190;
-					v58 += slope_HighLowVert * v1160;
+					v58 += fp_slope_HighLowVert * v1160;
 					v59 += v1160 * slope_MiddleLowVert;
 					if (vertYHigh_above_viewport)
 					{
@@ -6533,7 +6533,7 @@ LABEL_24_DrawTriangle:
 						}
 					}
 				LABEL_121_DrawTriangle:
-					v62 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v58, &v59, slope_HighLowVert, slope_MiddleLowVert, &v1117);
+					v62 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v58, &v59, fp_slope_HighLowVert, slope_MiddleLowVert, &v1117);
 					v61 = v1121;
 				LABEL_124_DrawTriangle:
 					if (vertYMiddle_above_viewport)
@@ -6541,7 +6541,7 @@ LABEL_24_DrawTriangle:
 					}
 					else
 					{
-						v62 = RasterizePolygon(v62, &v58, &v61, slope_HighLowVert, v1111, &v1119);
+						v62 = RasterizePolygon(v62, &v58, &v61, fp_slope_HighLowVert, v1111, &v1119);
 					}
 					goto LABEL_DrawRasterLines;
 				}
@@ -6600,7 +6600,7 @@ LABEL_24_DrawTriangle:
 					{
 						v1119 -= v1158 - v1117;
 						v41 = v1158 - v1117;
-						v37 += slope_HighLowVert * v41 + v1117 * slope_HighLowVert;
+						v37 += fp_slope_HighLowVert * v41 + v1117 * fp_slope_HighLowVert;
 						v42 = v1111 * v41 + v1121;
 						v39 += v41 * v1126 + v1117 * v1126;
 						v40 += v41 * v1137 + v1117 * v1137;
@@ -6616,12 +6616,12 @@ LABEL_24_DrawTriangle:
 						}
 						else
 						{
-							v43 = RasterizePolygon(v43, &v37, &v42, &v39, &v40, slope_HighLowVert, v1111, v1126, v1137, &v1119);
+							v43 = RasterizePolygon(v43, &v37, &v42, &v39, &v40, fp_slope_HighLowVert, v1111, v1126, v1137, &v1119);
 						}
 						goto LABEL_DrawRasterLines;
 					}
 					v1117 += v1190;
-					v37 += slope_HighLowVert * v1158;
+					v37 += fp_slope_HighLowVert * v1158;
 					v38 += v1158 * slope_MiddleLowVert;
 					v39 += v1158 * v1126;
 					v40 += v1158 * v1137;
@@ -6655,7 +6655,7 @@ LABEL_24_DrawTriangle:
 						v1119 = v45;
 					}
 				}
-				v43 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v37, &v38, &v39, &v40, slope_HighLowVert, slope_MiddleLowVert, v1126, v1137, &v1117);
+				v43 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v37, &v38, &v39, &v40, fp_slope_HighLowVert, slope_MiddleLowVert, v1126, v1137, &v1117);
 				v42 = v1121;
 				goto LABEL_77_DrawTriangle;
 			case 5:
@@ -6701,7 +6701,7 @@ LABEL_24_DrawTriangle:
 					{
 						v1119 -= v1157 - v1117;
 						v26 = v1157 - v1117;
-						v21 += slope_HighLowVert * (int64_t)v26 + (int64_t)v1117 * slope_HighLowVert;
+						v21 += fp_slope_HighLowVert * (int64_t)v26 + (int64_t)v1117 * fp_slope_HighLowVert;
 						v27 = v1111 * (int64_t)v26 + v1121;
 						v23 += (int64_t)v26 * v1125 + v1117 * v1125;
 						v24 += (int64_t)v26 * v1136 + v1117 * v1136;
@@ -6718,12 +6718,12 @@ LABEL_24_DrawTriangle:
 						}
 						else
 						{
-							v28 = RasterizePolygon(v28, &v21, &v27, &v23, &v24, &v25, slope_HighLowVert, v1111, v1125, v1136, v1147, &v1119);
+							v28 = RasterizePolygon(v28, &v21, &v27, &v23, &v24, &v25, fp_slope_HighLowVert, v1111, v1125, v1136, v1147, &v1119);
 						}
 						goto LABEL_DrawRasterLines;
 					}
 					v1117 += v1190;
-					v21 += slope_HighLowVert * v1157;
+					v21 += fp_slope_HighLowVert * v1157;
 					v22 += (int64_t)v1157 * slope_MiddleLowVert;
 					v23 += v1157 * v1125;
 					v24 += v1157 * v1136;
@@ -6758,7 +6758,7 @@ LABEL_24_DrawTriangle:
 						v1119 = v30;
 					}
 				}
-				v28 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v21, &v22, &v23, &v24, &v25, slope_HighLowVert, slope_MiddleLowVert, v1125, v1136, v1147, &v1117);
+				v28 = RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v21, &v22, &v23, &v24, &v25, fp_slope_HighLowVert, slope_MiddleLowVert, v1125, v1136, v1147, &v1117);
 				v27 = v1121;
 				goto LABEL_51_DrawTriangle;
 			}
@@ -6997,7 +6997,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 		int dY_HighLow_actual_rows_to_draw = vertHighY - vertLowY;
 
 		linesToDraw = vertHighY - vertLowY;
-		const int slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / (dY_HighLow_actual_rows_to_draw);
+		const int fp_slope_HighLowVert = ((vert_y_high->X - vert_y_low->X) << 16) / (dY_HighLow_actual_rows_to_draw);
 		const int v1110 = ((vert_y_high->X - vert_y_middle->X) << 16) / (dY_HighLow_actual_rows_to_draw);
 		int v165;
 		switch (x_BYTE_E126D)
@@ -7018,7 +7018,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 				linesToDraw += vertLowY;
 				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
 					return;
-				v165 += slope_HighLowVert * v167;
+				v165 += fp_slope_HighLowVert * v167;
 				v166 += v167 * v1110;
 				if (vertHighYaboveViewport)
 				{
@@ -7031,7 +7031,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 				linesToDraw = viewPort.Height_DE568 - vertLowY;
 				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - vertLowY;
 			}
-			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v165, &v166, slope_HighLowVert, v1110, &dY_HighLow_actual_rows_to_draw);
+			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v165, &v166, fp_slope_HighLowVert, v1110, &dY_HighLow_actual_rows_to_draw);
 			goto LABEL_DrawRasterLines;
 		case 2:
 		case 3:
@@ -7066,7 +7066,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 				linesToDraw += vertLowY;
 				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
 					return;
-				v154 += slope_HighLowVert * v158;
+				v154 += fp_slope_HighLowVert * v158;
 				v155 += v158 * v1110;
 				v156 += v158 * v1132;
 				v157 += v158 * v1143;
@@ -7081,7 +7081,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 				linesToDraw = viewPort.Height_DE568 - vertLowY;
 				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - vertLowY;
 			}
-			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v154, &v155, &v156, &v157, slope_HighLowVert, v1110, v1132, v1143, &dY_HighLow_actual_rows_to_draw);
+			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v154, &v155, &v156, &v157, fp_slope_HighLowVert, v1110, v1132, v1143, &dY_HighLow_actual_rows_to_draw);
 			goto LABEL_DrawRasterLines;
 		case 1:
 		case 4:
@@ -7118,7 +7118,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 				linesToDraw += vertLowY;
 				if ((uint8_t)(v17 ^ v18) | (uint8_t)v16)
 					return;
-				v146 += slope_HighLowVert * v151;
+				v146 += fp_slope_HighLowVert * v151;
 				v147 += v151 * v1110;
 				v148 += v151 * v1131;
 				v149 += v151 * v1142;
@@ -7134,7 +7134,7 @@ LABEL_277_PrepareRasterlineForTriangleWithHorizontalTop:
 				linesToDraw = viewPort.Height_DE568 - vertLowY;
 				dY_HighLow_actual_rows_to_draw = viewPort.Height_DE568 - vertLowY;
 			}
-			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v146, &v147, &v148, &v149, &v150, slope_HighLowVert, v1110, v1131, v1142, v1153, &dY_HighLow_actual_rows_to_draw);
+			RasterizePolygon(&rasterlines_DE56Cx[startLine][0], &v146, &v147, &v148, &v149, &v150, fp_slope_HighLowVert, v1110, v1131, v1142, v1153, &dY_HighLow_actual_rows_to_draw);
 			goto LABEL_DrawRasterLines;
 		}
  	}
