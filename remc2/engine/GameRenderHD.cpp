@@ -6397,7 +6397,7 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 	int v1044; // ecx
 	uint16_t* v1045; // esi
 	unsigned int v1046; // eax
-	int v1047; // ebx
+	int textureIdx_v1047; // ebx
 	int v1048; // ecx
 	char* v1049; // edi
 	int v1050; // eax
@@ -14057,7 +14057,7 @@ LABEL_129:
 						v1182 = v1135 << 16;
 						v1189 = v1146 << 16;
 						HIWORD(v1046) = 0;
-						HIWORD(v1047) = 0;
+						HIWORD(textureIdx_v1047) = 0;
 						break;
 					}
 					while (1)
@@ -14080,11 +14080,11 @@ LABEL_129:
 								v1050 = (uint16_t)-(int16_t)v1046;
 								v1051 = v1050;
 								v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3) + v1135 * v1050);
-								BYTE1(v1047) = v1053;
+								BYTE1(textureIdx_v1047) = v1053;
 								v1052 = *((x_DWORD*)v1045 + 2) + Uincrement_v1124 * v1050;
 								LOWORD(v1053) = v1052;
 								v1046 = v1052 >> 8;
-								LOBYTE(v1047) = BYTE1(v1046);
+								LOBYTE(textureIdx_v1047) = BYTE1(v1046);
 								v1054 = __ROL4_16__(*((x_DWORD*)v1045 + 4) + v1146 * v1051);
 								v1046 = (uint16_t)v1046;
 							LABEL_1294:
@@ -14092,13 +14092,13 @@ LABEL_129:
 								ptrCurrentTexture_v1055 = x_DWORD_DE55C_ActTexture;
 								while (1)
 								{
-									if (v1047 > maxPixelIdx)
+									if (textureIdx_v1047 > maxPixelIdx)
 										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
+									LOBYTE(v1046) = *(x_BYTE*)(textureIdx_v1047 + ptrCurrentTexture_v1055);
 									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1053);
 									LOWORD(v1053) = Uincrement_v1124 + v1053;
 									BYTE1(v1046) = v1054;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
+									LOBYTE(textureIdx_v1047) = BYTE2(Uincrement_v1124) + v180 + textureIdx_v1047;
 									if ((uint8_t)v1046 >= 0xCu)
 									{
 										v1056 = x_BYTE_F6EE0_tablesx[v1046];
@@ -14110,421 +14110,18 @@ LABEL_129:
 										v1056 = x_BYTE_F6EE0_tablesx[16384 + v1046];
 									}
 									v180 = __CFADD__(v1182, v1053);
-									v1057 = v1182 + v1053;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
+									v1053 = v1182 + v1053;
+									BYTE1(textureIdx_v1047) += BYTE2(v1135) + v180;
 									v180 = __CFADD__(v1189, v1054);
-									v1058 = v1189 + v1054;
+									v1054 = v1189 + v1054;
 									*v1049 = v1056;
-									LOBYTE(v1058) = BYTE2(v1146) + v180 + v1058;
-									v1259 = v1258 - 1;
-									if (!v1259)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1057);
-									LOWORD(v1057) = Uincrement_v1124 + v1057;
-									BYTE1(v1046) = v1058;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1059 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[1];
-										v1059 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1057);
-									v1060 = v1182 + v1057;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1058);
-									v1061 = v1189 + v1058;
-									v1049[1] = v1059;
-									LOBYTE(v1061) = BYTE2(v1146) + v180 + v1061;
-									v1260 = v1259 - 1;
-									if (!v1260)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1060);
-									LOWORD(v1060) = Uincrement_v1124 + v1060;
-									BYTE1(v1046) = v1061;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1062 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[2];
-										v1062 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1060);
-									v1063 = v1182 + v1060;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1061);
-									v1064 = v1189 + v1061;
-									v1049[2] = v1062;
-									LOBYTE(v1064) = BYTE2(v1146) + v180 + v1064;
-									v1261 = v1260 - 1;
-									if (!v1261)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1063);
-									LOWORD(v1063) = Uincrement_v1124 + v1063;
-									BYTE1(v1046) = v1064;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1065 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[3];
-										v1065 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1063);
-									v1066 = v1182 + v1063;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1064);
-									v1067 = v1189 + v1064;
-									v1049[3] = v1065;
-									LOBYTE(v1067) = BYTE2(v1146) + v180 + v1067;
-									v1262 = v1261 - 1;
-									if (!v1262)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1066);
-									LOWORD(v1066) = Uincrement_v1124 + v1066;
-									BYTE1(v1046) = v1067;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1068 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[4];
-										v1068 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1066);
-									v1069 = v1182 + v1066;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1067);
-									v1070 = v1189 + v1067;
-									v1049[4] = v1068;
-									LOBYTE(v1070) = BYTE2(v1146) + v180 + v1070;
-									v1263 = v1262 - 1;
-									if (!v1263)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1069);
-									LOWORD(v1069) = Uincrement_v1124 + v1069;
-									BYTE1(v1046) = v1070;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1071 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[5];
-										v1071 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1069);
-									v1072 = v1182 + v1069;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1070);
-									v1073 = v1189 + v1070;
-									v1049[5] = v1071;
-									LOBYTE(v1073) = BYTE2(v1146) + v180 + v1073;
-									v1264 = v1263 - 1;
-									if (!v1264)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1072);
-									LOWORD(v1072) = Uincrement_v1124 + v1072;
-									BYTE1(v1046) = v1073;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1074 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[6];
-										v1074 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1072);
-									v1075 = v1182 + v1072;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1073);
-									v1076 = v1189 + v1073;
-									v1049[6] = v1074;
-									LOBYTE(v1076) = BYTE2(v1146) + v180 + v1076;
-									v1265 = v1264 - 1;
-									if (!v1265)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1075);
-									LOWORD(v1075) = Uincrement_v1124 + v1075;
-									BYTE1(v1046) = v1076;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1077 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[7];
-										v1077 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1075);
-									v1078 = v1182 + v1075;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1076);
-									v1079 = v1189 + v1076;
-									v1049[7] = v1077;
-									LOBYTE(v1079) = BYTE2(v1146) + v180 + v1079;
-									v1266 = v1265 - 1;
-									if (!v1266)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1078);
-									LOWORD(v1078) = Uincrement_v1124 + v1078;
-									BYTE1(v1046) = v1079;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1080 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[8];
-										v1080 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1078);
-									v1081 = v1182 + v1078;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1079);
-									v1082 = v1189 + v1079;
-									v1049[8] = v1080;
-									LOBYTE(v1082) = BYTE2(v1146) + v180 + v1082;
-									v1267 = v1266 - 1;
-									if (!v1267)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1081);
-									LOWORD(v1081) = Uincrement_v1124 + v1081;
-									BYTE1(v1046) = v1082;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1083 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[9];
-										v1083 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1081);
-									v1084 = v1182 + v1081;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1082);
-									v1085 = v1189 + v1082;
-									v1049[9] = v1083;
-									LOBYTE(v1085) = BYTE2(v1146) + v180 + v1085;
-									v1268 = v1267 - 1;
-									if (!v1268)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1084);
-									LOWORD(v1084) = Uincrement_v1124 + v1084;
-									BYTE1(v1046) = v1085;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1086 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[10];
-										v1086 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1084);
-									v1087 = v1182 + v1084;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1085);
-									v1088 = v1189 + v1085;
-									v1049[10] = v1086;
-									LOBYTE(v1088) = BYTE2(v1146) + v180 + v1088;
-									v1269 = v1268 - 1;
-									if (!v1269)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1087);
-									LOWORD(v1087) = Uincrement_v1124 + v1087;
-									BYTE1(v1046) = v1088;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1089 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[11];
-										v1089 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1087);
-									v1090 = v1182 + v1087;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1088);
-									v1091 = v1189 + v1088;
-									v1049[11] = v1089;
-									LOBYTE(v1091) = BYTE2(v1146) + v180 + v1091;
-									v1270 = v1269 - 1;
-									if (!v1270)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1090);
-									LOWORD(v1090) = Uincrement_v1124 + v1090;
-									BYTE1(v1046) = v1091;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1092 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[12];
-										v1092 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1090);
-									v1093 = v1182 + v1090;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1091);
-									v1094 = v1189 + v1091;
-									v1049[12] = v1092;
-									LOBYTE(v1094) = BYTE2(v1146) + v180 + v1094;
-									v1271 = v1270 - 1;
-									if (!v1271)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1093);
-									LOWORD(v1093) = Uincrement_v1124 + v1093;
-									BYTE1(v1046) = v1094;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1095 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[13];
-										v1095 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1093);
-									v1096 = v1182 + v1093;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1094);
-									v1097 = v1189 + v1094;
-									v1049[13] = v1095;
-									LOBYTE(v1097) = BYTE2(v1146) + v180 + v1097;
-									v1272 = v1271 - 1;
-									if (!v1272)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1096);
-									LOWORD(v1096) = Uincrement_v1124 + v1096;
-									BYTE1(v1046) = v1097;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1098 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[14];
-										v1098 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1096);
-									v1099 = v1182 + v1096;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1097);
-									v1100 = v1189 + v1097;
-									v1049[14] = v1098;
-									LOBYTE(v1100) = BYTE2(v1146) + v180 + v1100;
-									v1273 = v1272 - 1;
-									if (!v1273)
-										break;
-									if (v1047 > maxPixelIdx)
-										break;
-									LOBYTE(v1046) = *(x_BYTE*)(v1047 + ptrCurrentTexture_v1055);
-									v180 = __CFADD__((x_WORD)Uincrement_v1124, (x_WORD)v1099);
-									LOWORD(v1099) = Uincrement_v1124 + v1099;
-									BYTE1(v1046) = v1100;
-									LOBYTE(v1047) = BYTE2(Uincrement_v1124) + v180 + v1047;
-									if ((uint8_t)v1046 >= 0xCu)
-									{
-										v1101 = x_BYTE_F6EE0_tablesx[v1046];
-									}
-									else
-									{
-										LOBYTE(v1046) = x_BYTE_F6EE0_tablesx[v1046];
-										BYTE1(v1046) = v1049[15];
-										v1101 = x_BYTE_F6EE0_tablesx[16384 + v1046];
-									}
-									v180 = __CFADD__(v1182, v1099);
-									v1053 = v1182 + v1099;
-									BYTE1(v1047) += BYTE2(v1135) + v180;
-									v180 = __CFADD__(v1189, v1100);
-									v1054 = v1189 + v1100;
-									v1049[15] = v1101;
+									v1049 += 1;
 									LOBYTE(v1054) = BYTE2(v1146) + v180 + v1054;
-									v1258 = v1273 - 1;
+									v1258--;
 									if (!v1258)
 										break;
-									v1049 += 16;
+
+									v1046++;
 								}
 								v1045 = v1291;
 							}
@@ -14542,9 +14139,9 @@ LABEL_129:
 						goto LABEL_1361;
 					v1049 += v1046;
 					v1053 = __ROL4_16__(*((x_DWORD*)v1045 + 3));
-					BYTE1(v1047) = v1053;
+					BYTE1(textureIdx_v1047) = v1053;
 					LOWORD(v1053) = v1045[4];
-					LOBYTE(v1047) = *((x_BYTE*)v1045 + 10);
+					LOBYTE(textureIdx_v1047) = *((x_BYTE*)v1045 + 10);
 					v1258 = v1048;
 					v1054 = __ROL4_16__(*((x_DWORD*)v1045 + 4));
 					goto LABEL_1294;
