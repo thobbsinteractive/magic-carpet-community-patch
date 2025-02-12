@@ -5919,6 +5919,11 @@ void GameRenderHD::DrawTriangleInProjectionSpace_B6253(const ProjectionPolygon* 
 		Logger->trace("Culling too large triangle");
 		return;
 	}
+	else if (maxx < 0 || minx >= viewPort.Width_DE564 || maxy < 0 || miny >= viewPort.Height_DE568) {
+		// triangle is outside of the viewport
+		Logger->trace("Culling triangle outside of viewport");
+		return;
+	}
 
 	if (y1 == y2)
 	{
